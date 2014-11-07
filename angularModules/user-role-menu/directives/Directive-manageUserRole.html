@@ -1,0 +1,114 @@
+<!-- safe code -->
+
+<div class="col-lg-8 col-sm-8 col-xs-12">
+    <div class="widget flat radius-bordered">
+        <div class="widget-header bg-blue">
+
+            <span class="widget-caption">Add Company Roles</span>
+        </div>
+        <div class="widget-body">
+            <div id="horizontal-form">
+                <form   name="addroleform"  ng-submit="AddCompanyRole()" novalidate><!--form to add user role -->
+                 
+                    <div class="row">
+                       
+                        <div class="col-md-6">
+                         <!-- <div class="form-group" >  -->
+                         <span class="input-icon icon-right" ng-class="{ 'has-error' : addroleform.newrole.$invalid && !addroleform.newrole.$pristine }"> <!-- span to add achieve role field validation -->
+                            <input type="text" placeholder="Company Role" class="form-control" ng-model="roleform.newRole" name="newrole" ng-maxlength="20" ng-minlength="4" required> <i class="fa fa-user"></i><!-- input field for add role -->
+                            <i class="form-control-feedback" data-bv-field="newrole" style="display: none;"></i>
+                            <p ng-show="addroleform.newrole.$invalid && !addroleform.newrole.$pristine" class="help-block">Company role is required.</p>  <!-- validation message for role required,long and short role name validation -->
+                            <p ng-show="addroleform.newrole.$error.maxlength" class="help-block">Role name is too long.</p>
+                            <p ng-show="addroleform.newrole.$error.minlength" class="help-block">Role name is too short.</p>
+                        </span>
+                        <!-- <div>  -->
+                        <div class="horizontal-space"></div>
+                   
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <div class="form-group" ng-class="{ 'has-error' : addroleform.desc.$invalid && !addroleform.desc.$pristine }">
+                <span class="input-icon icon-right ">  <!-- div to add achieve role RoleDescription field validation -->
+                    <textarea class="form-control" rows="3" placeholder="" ng-model="roleform.RoleDesc" name="desc" required></textarea><!-- textarea field for add role -->
+                    <i class="glyphicon glyphicon-comment"></i>
+                    <i class="form-control-feedback" data-bv-field="desc" style="display: none;"></i>
+                    <p ng-show="addroleform.desc.$invalid && !addroleform.desc.$pristine" class="help-block">Enter a description of the role you are adding.</p> <!-- validation message for  role description name validation -->
+                </span>
+                </div>
+            </div>
+            <div>
+                <!-- <a class="btn btn-default blue" ng-click="AddCompanyRole()"><i class="fa fa-plus"></i> Add</a> -->
+                <button type="submit" class="btn btn-default blue" ng-disabled="addroleform.$invalid"><i class="fa fa-plus"></i>add</button>  <!-- button to submit the form -->
+                
+               
+            </div>
+            
+        </form>
+    </div>
+</div>
+</div>
+</div>                          
+
+    <div class="col-xs-12 col-md-12">
+        <div class="well with-header with-footer">
+            <div class="header bordered-success">
+                Existing Company Roles
+                <div class="pull-right">
+                <span class="input-icon">
+                    <input type="text" class="form-control input-xs" id="glyphicon-search" placeholder="Search" ng-model="searchRole"> <!-- search box for search user roles -->
+                    <i class="glyphicon glyphicon-search blue"></i>
+                </span>
+                </div>
+            </div>
+
+            <table class="table table-striped table-bordered table-hover">
+
+                <tr >
+                    <td>
+                       <div class="col-lg-4 col-sm-4 col-xs-12" ng-repeat="RollData in roles | filter:searchRole" ng-model="RollData._id.$oid"> <!-- creating divs containg roles and its description -->
+                        <div class="widget">
+                            <div class="widget-header" >
+                                <!-- {{RollData._id.$oid}} -->
+                                <span class="widget-caption" ><i class="typcn typcn-user pull-left" ></i>  
+                                <span ng-hide="editorEnabled">&nbsp {{RollData.roleName}} </span></span> <!-- bind roles to span -->
+                                <span ng-show="editorEnabled" ng-model="rolename" class="pull-center"><input class="form-control" ng-model="RollData.roleName"> <!-- input element which is desabled default -->
+                                <a></a></span>
+                              <!-- {{RollData._id.$oid}} -->
+                                <div class="widget-buttons">
+                                    <a href="" >
+                                        <i class="glyphicon glyphicon-edit" ng-click="editorEnabled=!editorEnabled" ng-hide="editorEnabled"></i>&nbsp <!-- upaon click his edit interface will appear -->
+                                        <i class="glyphicon glyphicon-trash" ng-click="deleteRole(RollData)" ng-hide="editorEnabled"></i> <!-- Upon click this it will delete the role -->
+                                    </a>
+
+                                </div>
+                        </div>
+                        <div class="widget-body">
+                            <span class="widget-caption" > 
+                                <span ng-hide="editorEnabled"> {{RollData.roleDescription}}</span></span> <!-- bind roles descriton to span -->
+                                <span ng-show="editorEnabled" ng-model="desc" class="pull-center"><textarea class="form-control" ng-model="RollData.roleDescription" row="3"></textarea>
+                                <a href="" class="pull-right">
+                                <i class="glyphicon glyphicon-ok" ng-click="editRole(RollData)" ></i><!-- upon click this icon it will update the data -->
+                                <i class="glyphicon glyphicon-remove" ng-click="editorEnabled=!editorEnabled"></i><!-- upon click the data it will close the edit interface  -->
+                                </a>    
+                            </span>
+                            <p>
+                                
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    </table>  
+</div>  
+</div>                         
+
+<script src="assets/js/toastr/toastr.js"></script>
+
+<script src="assets/js/jquery-2.0.3.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+    <!--Beyond Scripts-->
+<script src="assets/js/beyond.min.js"></script>

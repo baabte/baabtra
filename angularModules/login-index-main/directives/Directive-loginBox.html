@@ -1,0 +1,71 @@
+<!--created by:suhail pallimalil-->
+<!--created on :08-10-14-->
+<!--updated on :16-10-14-->
+
+
+ <div class="login-container animated fadeInDown" >
+        <div class="loginbox bg-white">          
+            <div class="loginbox-title">SIGN IN</div>
+            <div class="loginbox-social">
+                <div class="social-title ">Connect with Your Social Accounts</div>
+                <div class="social-buttons">
+                    <a href="www.facebook.com/baabtra" class="button-facebook">
+                        <i class="social-icon fa fa-facebook"></i>
+                    </a>
+                    <a href="#" class="button-twitter">
+                        <i class="social-icon fa fa-twitter"></i>
+                    </a>
+                    <a href="#" class="button-google">
+                        <i class="social-icon fa fa-google-plus"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="loginbox-or">
+                <div class="or-line"></div>
+               
+
+                
+                <div class="or">OR</div>
+            </div>
+            <form name="loginform"  ng-submit="loginClick()" novalidate>
+             <span class="input-icon icon-right" ng-class="{ 'has-error' : loginform.username.$invalid &&!loginform.username.$pristine }">
+            <div class="loginbox-textbox">
+            <input type="email" class="form-control" name="username" placeholder="Email" ng-model="login.userName" required/>
+            </div>
+            <p ng-show="loginform.username.$invalid && !loginform.username.$pristine" class="help-block">Enter a valid mail id .</p>
+            </span>
+
+<span class="input-icon icon-right" ng-class="{ 'has-error' : loginform.pw.$invalid &&!loginform.pw.$pristine }">
+        <div class="loginbox-textbox">
+        <input type="password" class="form-control" name="pw" placeholder="Password" ng-model="login.password" required/>
+        </div>
+<p ng-show="loginform.pw.$invalid && !loginform.pw.$pristine" class="help-block">password is required.</p>
+            </span>
+
+
+
+        <!--     <div class="loginbox-forgot">
+                <a href="#">Forgot Password?</a>
+            </div>
+         -->    <div class="loginbox-submit">
+                <input type="submit" class="btn btn-primary btn-block"  ng-disabled="loginform.$invalid" value="Login">
+
+            </div>
+            </form>
+          <!--   <div class="loginbox-signup">
+                <a href="#">Sign Up With Email</a>
+            </div> -->
+        </div>
+        <div class="logobox"> 
+        </div>
+    
+    </div>
+
+    <!--Basic Scripts
+    <script src="assets/js/jquery-2.0.3.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    Beyond Scripts
+    <script src="assets/js/beyond.min.js"></script>
+
+    DOM Related Scripts-->

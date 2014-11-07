@@ -1,0 +1,97 @@
+<div class="row" data-ng-controller="UserrolemenuctrlCtrl">
+      <div class="widget flat radius-bordered">
+        <div class="widget-header bg-blue">
+          <span class="widget-caption">Add Menu items to each Role</span>
+        </div>
+        <div class="widget-body" >
+          
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+              <div class="col-lg-6 col-sm-12 col-xs-12">
+                 <h5 class="row-title before-blue">Roles</h5>
+              </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+              <div class="widget-buttons pull-right">
+                <span class="input-icon">
+                  <input type="text" class="form-control input-xs" id="glyphicon-search" placeholder="Search Role" ng-model="searchText">
+                  <i class="glyphicon glyphicon-search blue"></i>
+                </span>
+              </div>
+            </div>
+            </div>
+            <div class="col-lg-3 col-sm-4 col-xs-6" ng-repeat="role in roles | filter:searchText">
+              <div class="checkbox">
+                <label>
+                  <input name="form-field-radio" ng-click="getId(role._id.$oid)" class="colored-blue" type="radio">
+                  <span class="text">{{role.roleName}}</span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+          <script type="text/ng-template" id="Render_ExMenus.html">
+    <div style="font-weight:400!important" ui-tree-handle class="tree-node dd-item dd2-item" id="{{node.fkMenuId.$oid}}">
+      <div class="dd-handle dd2-handle">
+      <i class="normal-icon fa {{node.MenuIcon}}"></i>
+      </div> <div class="dd2-content"><a data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
+        {{node.MenuName}}
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.childMenuStructure" ng-class="{hidden: collapsed}" class="dd-list">
+      <li ng-repeat="node in node.childMenuStructure" class="dd-item dd2-item" data-id="13"  ui-tree-node ng-include="'Render_ExMenus.html'">
+      </li>
+    </ol>
+  </script>
+  <script type="text/ng-template" id="Render_AllMenus.html">
+    <div style="font-weight:400!important" ui-tree-handle class="tree-node dd-item dd2-item" id="{{node.fkMenuId.$oid}}">
+      <div class="dd-handle dd2-handle" >
+        <i class="normal-icon fa {{node.MenuIcon}}"></i>
+      </div>
+      <div class="dd2-content"><a data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
+       
+        {{node.MenuName}}
+        
+      </div>
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.childMenuStructure" ng-class="{hidden: collapsed}">
+      <li ng-repeat="node in node.childMenuStructure" ui-tree-node ng-include="'Render_AllMenus.html'">
+      </li>
+    </ol>
+  </script>
+          <div class="row" ng-show="menudetails">
+           <div class="col-lg-12 col-sm-12 col-xs-12">
+            <div class="col-lg-6 col-sm-6 col-xs-12">
+       <h5 class="row-title before-blue">Current Menus</h5>
+        <div ui-tree id="tree1-root" class="dd dd-draghandle bordered" style="overflow: auto;max-height: 215px;width: 101%;">
+          <ol ui-tree-nodes="" ng-model="tree1" class="dd-list">
+            <li ng-repeat="node in tree1" class="dd-item dd2-item" ui-tree-node ng-include="'Render_ExMenus.html'"></li>
+          </ol>
+        </div>
+        <div class="horizontal-space"></div>
+        <div class="pull-right">
+        <button type="submit" ng-click="SaveChange()" class="btn btn-blue">Save Changes</button>
+        
+        </div>
+</div>
+      <div class="col-lg-6 col-sm-6 col-xs-12">
+        <h5 class="row-title before-blue">Menu List</h5>
+        <div ui-tree id="tree2-root" class="dd dd-draghandle bordered" style="overflow: auto;max-height: 215px;width: 101%;">
+          <ol ui-tree-nodes="" ng-model="tree2" class="dd-list">
+            <li ng-repeat="node in tree2" class="dd-item dd2-item" ui-tree-node ng-include="'Render_AllMenus.html'"></li>
+          </ol>
+        </div>
+      </div>  
+
+          </div>
+      </div>
+    </div>
+</div>
+<script src="assets/js/nestable/jquery.nestable.min.js"></script>
+<script src="assets/js/toastr/toastr.js"></script>
+<script type="text/javascript">
+   jQuery(function ($) {
+       $('.dd').nestable();
+       $('.dd-handle a').on('mousedown', function (e) {
+           e.stopPropagation();
+       });
+   });
+</script>
