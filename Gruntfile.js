@@ -66,7 +66,7 @@ module.exports = function (grunt) {
           exclude: []
       }
 
-    },
+    },    
     jshint: {
       main: {
         options: {
@@ -207,6 +207,7 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('grunt-wiredep');
+  grunt.loadNpmTasks('grunt-bower-install');
 
   grunt.registerTask('build',['jshint','clean:before','less','dom_munger','ngtemplates','cssmin','concat','ngmin','uglify','copy','htmlmin','imagemin','clean:after']);
   grunt.registerTask('serve', ['dom_munger:read','jshint', 'wiredep','connect', 'watch']);
