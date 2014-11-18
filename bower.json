@@ -9,24 +9,26 @@
   ],
   "dependencies": {
     "jquery": "~2.0",
-    "underscore": "~1.5",
-    "bootstrap": "~3.1",
-    "angular": "~1.2",
-    "angular-ui-router": "~0.2",
-    "angular-animate": "~1.2",
-    "angular-resource": "~1.2",
-    "angular-sanitize": "~1.3.0",
-    "angular-cookies": "~1.2",
+    "angular": "~1.2.26",
+    "angular-sanitize": "~1.2.26",
+    "angular-animate": "~1.2.26",
+    "angular-cookies": "~1.2.26",
+    "angular-resource": "~1.2.26",
     "angular-touch": "~1.3.0",
-    "angular-mocks": "~1.2",
+    "angular-ui-router": "~0.2.11",  
+    "ngstorage": "~0.3.0",
     "angular-ui-utils": "~0.1",
-    "angular-bootstrap": "~0.10",
-    "moment": "~2.5",
-    "less.js": "~1.6",
-    "font-awesome": "~4.0",
-    "angular-ui-tree": "~2.1.5",
-    "angular-local-storage": "~0.1.3",   
-    "appSpecificStyles": "~1.0",
-    "appSpecificJs": "~1.0"
+    "angular-strap": "~2.1.2",
+    "oclazyload": "~0.3.7",
+    "angular-translate": "~2.2.0",
+    "angular-loading-bar": "~0.6.0",
+
+    "template": "~1.0"
+    
+      
+    
+  },
+  "devDependencies"  : {
+    "angular-mocks": "~1.2"
   }
 }

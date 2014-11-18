@@ -57,14 +57,15 @@ module.exports = function (grunt) {
     },
     wiredep: {
       app: {
-          src: ['login.html'],
-          exclude: []
-      },
-      landing: {
-          src: ['index.html','baabtra-Profile.html','baabtra-Testimonials.html','baabtra-contact.html','offline-Programming-Courses.html','online-Programming-Courses.html'],
-          bowerJson: require("./landing-bower.json"),
+          src: ['index.html'],
           exclude: []
       }
+      // ,
+      // landing: {
+      //     src: ['index.html','baabtra-Profile.html','baabtra-Testimonials.html','baabtra-contact.html','offline-Programming-Courses.html','online-Programming-Courses.html'],
+      //     bowerJson: require("./landing-bower.json"),
+      //     exclude: []
+      // }
 
     },    
     jshint: {
@@ -206,8 +207,7 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-wiredep');
-  grunt.loadNpmTasks('grunt-bower-install');
+  grunt.loadNpmTasks('grunt-wiredep');  
 
   grunt.registerTask('build',['jshint','clean:before','less','dom_munger','ngtemplates','cssmin','concat','ngmin','uglify','copy','htmlmin','imagemin','clean:after']);
   grunt.registerTask('serve', ['dom_munger:read','jshint', 'wiredep','connect', 'watch']);
