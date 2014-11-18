@@ -24,6 +24,7 @@
 <body ng-app="baabtra">
   <div class="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-top':app.settings.asideTop}" ui-view ng-controller="MainCtrl"></div>
 
+<!-- build:js(.) js/script.min.js -->
 <!-- bower:js -->
 <script src="bower_components/jquery/jquery.js"></script>
 <script src="bower_components/angular/angular.js"></script>
@@ -44,12 +45,9 @@
 <script src="bower_components/angular-translate/storage-local.js"></script>
 <script src="bower_components/angular-loading-bar/loading-bar.js"></script>
 <!-- endbower -->
-<!-- endbuild -->
-<!-- build:js(.) js/script.min.js -->
 
 
-
-<!-- App -->
+<!-- Main App JS -->
 
   <script src="app.js"></script>
   <script src="config.js"></script>
@@ -67,8 +65,9 @@
   <script src="angularModules/template/services/ui-load.js"></script>
 
   <script src="angularModules/main.js"></script>
+  
   <!-- Add New Component JS Above -->
-
+<!-- endbuild -->
 
 
 </body>
