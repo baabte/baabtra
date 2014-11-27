@@ -1,0 +1,33 @@
+{
+  "featureName": "",
+  "featureDescription": "",
+  "pricing": {
+    "price": "",
+    "units": "",
+    "minUnits": ""
+  },
+  "billing": {
+    "years": "",
+    "months": "",
+    "days": "",
+    "totalDays": ""
+  },
+  "configDetails": {
+    
+    "field1": {
+      "label": "",
+      "inputType": "",
+      "validations": [],
+      "allowedValues": [],
+      "userConfigurable": "true/false"
+    },
+    "field2": {
+      "label": "",
+      "inputType": "",
+      "validations": [],
+      "allowedValues": [],
+      "userConfigurable": "true/false"
+    }
+    
+  }
+}
