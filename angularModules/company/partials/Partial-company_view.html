@@ -1,0 +1,63 @@
+<div  name="manage" class="col-xl-12 animated flipInX" ui-view>
+  <div class="panel panel-default">
+    <span class="pull-right">
+    <a class="btn btn-lg btn-primary" ng-href="#/home/company/registration">Register a new Company</a> </span> 
+    <div class="panel-heading bg-white">
+          <h3>Registered Companies</h3>
+           
+    </div>
+    <div class="panel-body animated flipInX"><!-- panel body open -->
+      <table class="table table-striped table-bordered table-hover">
+        <tr >
+        <td>
+      <div style="height: 400px;overflow: auto;" ><!-- screen size limit open -->
+        
+        <div class="col-sm-2 " ng-repeat="company in companylist | filter:searchCompany" >
+          
+          <div style="background:url(images/a0.jpg) center center; background-size:cover">
+            <div class="p-sm-1 bg-white-opacity text-center">
+              <a href="" class="w-xs inline">
+              <img src="images/a0.jpg" class="img-circle img-responsive">
+              </a>
+              <div class="m-b m-t-sm h3">
+                <span class="text-black">{{company.companyName}}</span>
+              </div>
+              <a ng-href="#home/company/manage/company-info/{{companyId}}" class="btn btn-sm btn-info m-b p-h" ng-click="manageCompany(company)">Manage</a>
+            </div>
+          </div>
+        
+        
+          <div class="list-group no-radius well" >
+          </br>
+              <a class="text-muted" ng-href="http://{{company.facebook}}" target="_blank">
+                <i class="fa ui-icon fa-facebook"></i>
+              </a>
+              <a class="text-muted" ng-href="http://{{company.twitter}}" target="_blank">
+                <i class="fa ui-icon fa-twitter"></i>
+              </a>
+              <a class="text-muted" ng-href="http://{{company.linkedin}}" target="_blank">
+                <i class="fa ui-icon fa-linkedin"></i>
+              </a>
+              <a class="text-muted" ng-href="http://{{company.gplus}}" target="_blank">
+                <i class="fa ui-icon fa-google-plus"></i>
+              </a>   
+             
+              <div class="pull-right sm "data-html="true" data-placement="top" data-animation="flip-x" data-html="true" title="Contact Info" data-content="Email<br>{{company.eMail}}<br>Phone<br>{{company.Phone}}<br>Mob<br>{{company.Mobile}}" data-trigger="hover"  bs-popover="">
+              <i class="fa fa-info text-xl"></i>
+              </div>
+          </div>
+
+         
+        
+        </div>
+
+      </div><!-- screen size limit  close -->
+      </td>
+      </tr>
+    </table> 
+    <div class="horizontal-space"></div>
+    <span class="pull-right">
+    <button class="btn btn-blue" data-placement="top" data-original-title="More Registered Companies" ng-click="showMore();">show more..</button> </span> 
+    </div> <!-- panel body close -->
+  </div>
+</div>

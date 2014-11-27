@@ -28,4 +28,7 @@ angular.module('baabtra')
     $translateProvider.preferredLanguage('en');
     // Tell the module to store the language in the local storage
     $translateProvider.useLocalStorage();
-  }]);
+  }])
+  .constant('bbConfig',{ //used for storing enviornment variables
+   "BWS": "http://127.0.0.1:8000/",
+ });

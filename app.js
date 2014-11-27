@@ -27,8 +27,12 @@
         'ui.jp',
         'angular-loading-bar',
         'LocalStorageModule',
-        'ui.tree'
-       // 'xtForm'
-      ]);
+        'ui.tree',
+        'xtForm',
+        'xeditable',
+        'angularFileUpload'
+      ]).run(function(editableOptions) {
+  editableOptions.theme = 'bs3';
+});
 
 }());
