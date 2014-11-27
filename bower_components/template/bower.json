@@ -12,7 +12,8 @@
             "dist/font-awesome.min.css",
             "dist/font.css",
             "dist/app.css",
-            "dist/loading-bar.css"
+            "dist/loading-bar.css",
+            "dist/customstyles.css"
             ],
   "authors": "teamBaabtra",
   "license": "MIT",

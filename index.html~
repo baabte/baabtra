@@ -48,7 +48,6 @@
 <script src="bower_components/angular-translate/storage-local.js"></script>
 <script src="bower_components/angular-loading-bar/loading-bar.js"></script>
 <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
-<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
 <!-- endbower -->
 
 
