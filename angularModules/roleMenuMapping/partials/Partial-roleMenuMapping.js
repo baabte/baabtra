@@ -1,12 +1,30 @@
 
 angular.module('baabtra').
-	controller('RoleMenuMappingCtrl',['$scope','RoleMenuMappingSrv','$alert',function ($scope,RoleMenuMappingSrv,$alert) {
+	controller('RoleMenuMappingCtrl',['$scope','RoleMenuMappingSrv','$alert','localStorageService',function ($scope,RoleMenuMappingSrv,$alert,localStorageService) {
 
   //$scope.companyName="baabtra.com";
+  var loginInfo=localStorageService.get('loginInfo');
+  if(loginInfo===null||loginInfo.length===0){
+       $location.path('/'); //setting the location path to login page if local storage contain null value.
+    }
+    if(localStorageService.get('loginInfo').length!==0){ //checking for data in local storage
+      $scope.rm_id=loginInfo.roleMappingId.$oid; //gets the last logged role mapping id from local storage
+      if(loginInfo.roleMappingObj[0].fkCompanyId==""){
+        $scope.companyId='';
+      }
+      else{
+        $scope.companyId=loginInfo.roleMappingObj[0].fkCompanyId.$oid;          
+      }        
+      $scope.roleId=loginInfo.roleMappingObj[0].fkRoleId;
+      if($scope.roleId!=1 && $scope.roleId!=2){ //checking for login role id 
+          $location.path('/home');
+      }
+      console.log($scope.roleId);       
+    }
   $scope.SearchType="Company";
   $scope.placeholderVal="Search Companies";
-  $scope.roleId=1;
-  $scope.rm_id='545aff95437b389ba554d6b7';
+  //$scope.roleId=1;
+  //$scope.rm_id='545aff95437b389ba554d6b7';
   $scope.activeLink=1;
   $scope.CompanySate="";
   var CurNewValue="";
@@ -24,7 +42,7 @@ else if(angular.equals($scope.roleId,2))
 {
   var current_menu_type='role';
   var menu_list_type='user';
-  $scope.companyId='5457526122588a5db73e0b23';//company id
+  //$scope.companyId='5457526122588a5db73e0b23';//company id
   RoleMenuMappingSrv.FnGetRoles($scope,$scope.companyId,"","");
   $scope.SearchType="Roles";
       $scope.modelSearch="";

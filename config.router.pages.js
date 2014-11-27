@@ -51,10 +51,30 @@
                 url: '/blank',
                 templateUrl: 'views/pages/blank.html'
               })
-		.state('login', {
+		          .state('login', {
                 url: '/login',
                 templateUrl: 'angularModules/login/partials/Partial-Login_view.html',
                 controller:'LoginViewCtrl'
+              })
+              .state('company.roleMenuMapping', {
+                url: '/roleMenuMapping',
+                templateUrl: 'angularModules/roleMenuMapping/partials/Partial-roleMenuMapping.html',
+                controller:'RoleMenuMappingCtrl'
+              })
+               .state('company.userMenuMapping', {
+                url: '/userMenuMapping',
+                templateUrl: 'angularModules/company/partials/Partial-userMenuMapping.html',
+                controller: 'UsermenumappingCtrl'
+              })
+                .state('company.JobPosting', {
+                url: '/JobPosting',
+                templateUrl: 'angularModules/company/partials/Partial-JobPosting.html',
+                controller: 'JobpostingCtrl'
+              })
+                .state('company.ViewJobs', {
+                url: '/ViewJobs',
+                templateUrl: 'angularModules/company/partials/Partial-ListJobs.html',
+                controller: 'ListjobsCtrl'
               })
               .state('page.document', {
                 url: '/document',

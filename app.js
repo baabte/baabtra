@@ -27,6 +27,7 @@
         'ui.jp',
         'angular-loading-bar',
         'LocalStorageModule',
+        'ui.tree'
        // 'xtForm'
       ]);
 
