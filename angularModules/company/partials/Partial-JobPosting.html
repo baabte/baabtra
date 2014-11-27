@@ -1,0 +1,58 @@
+<div class="row">
+	<div class="col-sm-12">
+      	<div class="panel b-light">
+
+            <div class="panel-body p-sm bg-light lt">
+            	<div class="col-sm-12">
+      <form name="Job" class="form-validation ng-pristine ng-invalid ng-invalid-required">
+        <div class="panel box-shadow">
+        	<div class="panel-heading bg-primary lt">
+            <span class="font-bold">Register Form</span>
+          </div>
+          <div class="panel-body">                   
+            <div class="form-group m-h-n clearfix">
+              <div class="col-sm-12">
+                 <label>Job Tittle</label>
+                <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" placeholder="Job Tittle" ng-model="Job.Tittle" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Job Description</label>
+              <textarea class="form-control ng-pristine ng-invalid ng-invalid-required" rows="5" placeholder="Job Description" ng-model="Job.Description" required></textarea>
+            </div>
+            <div class="form-group">
+              <label>Qualification</label>
+              <textarea class="form-control ng-pristine ng-invalid ng-invalid-required" rows="4" placeholder="Qualification" ng-model="Job.Qualification" required></textarea>
+            </div>
+            <div class="form-group m-h-n clearfix">
+              <div class="col-sm-6">
+                <label>Salary/annum</label>
+              <div class="row">
+              	<div class="col-sm-6 col-xs-6">
+				<input type="number" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-number ng-invalid-validator" placeholder="min" ng-model="Job.minSalary" ui-validate="'$value>=.1'">
+            </div>
+            <div class="col-sm-6 col-xs-6">
+                <input type="number" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-number ng-invalid-validator" placeholder="max" ng-model="Job.maxSalary" ui-validate="'$value>Job.minSalary' ">
+            </div>
+            </div>
+              </div>
+           <div class="col-sm-6">
+                <label>Location</label>
+                <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" placeholder="Location" ng-model="Job.Location" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Tags</label>
+                <input type="text" class="form-control ng-pristine ng-invalid" placeholder="Use commas to separate tags." ng-model="Job.Tag">
+            </div>
+          </div>
+          <footer class="panel-footer text-right">
+            <button type="button" ng-click="PostJob()" class="btn btn-info" ng-disabled="Job.$invalid" disabled="disabled">Post Job</button>
+          </footer>
+        </div>
+      </form>
+    </div>
+            </div>
+        </div>
+    </div>
+</div>
