@@ -14,19 +14,19 @@
           data-animation="am-slide-top aside-open-backdrop"
           data-container="body"
           >
-          <i class="pull-right ti-arrow-circle-down text-sm m-v-xs m-l-xs"></i>
+          <!--<i class="pull-right ti-arrow-circle-down text-sm m-v-xs m-l-xs"></i>-->
           <i class="glyphicon glyphicon-th-large text-md"></i>
           <img src="images/logo.png" alt="." class="hide">
-          <span class="hidden-folded m-l-xs">{{app.name}}<sup class="text-xs font-thin">1.1</sup></span>
+          <span class="hidden-folded m-l-xs">{{app.name}}<sup class="text-xs font-thin"></sup></span>
         </a>
         <!-- / brand -->
       </div>
       <!-- / navbar header -->
 
       <!-- navbar collapse -->
-      <div class="navbar-collapse hidden-xs" ng-class="{'show animated fadeIn' : app.navbarCollapse}">
+      <div class="navbar-collapse ng-hide hidden-xs" ng-class="{'show animated fadeIn' : app.navbarCollapse}">
         <!-- nav -->
-        <ul class="nav navbar-nav navbar-left">
+        <ul class="nav navbar-nav navbar-left ">
           <li>
             <a ui-sref="app.dashboard" translate="header.navbar.DASHBOARD">
               Dashboard
