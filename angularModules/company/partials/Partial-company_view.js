@@ -2,6 +2,8 @@ angular.module('baabtra').controller('CompanyViewCtrl',['$scope','companyViewSer
 if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
   $location.path('/');
 }  
+ 
+ 
 if($state.params.companyId!=undefined){
   $scope.companyId=$state.params.companyId;
   console.log($scope.companyId);
@@ -84,6 +86,7 @@ $scope.deleteCompanyCallBack=function(result){
   if(result==='success'){
     $scope.notifications('Done',' Successfully Deleted ','success');
     companyViewService.fnRegisteredCompanies($scope);
+     $location.path('/home/company');
   }
   if(result==='error'){
     $scope.notifications('Error!',' Error!! in Deletion','warning');
