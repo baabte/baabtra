@@ -56,6 +56,11 @@
                 templateUrl: 'angularModules/login/partials/Partial-Login_view.html',
                 controller:'LoginViewCtrl'
               })
+              .state('company.manage-user-role', {
+                url: '/manage-user-role',
+                templateUrl: 'angularModules/company/partials/Partial-manage_user_role.html',
+                controller:'ManageUserRoleCtrl'
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'

@@ -12,6 +12,7 @@
     </div>
 
     <form name="signinform" ng-submit="fnCheckLogin()" class="form-validation" role="form" xt-form novalidate>
+      
       <div class="form-group">
         <label class="hide">Email</label>
         <input type="text"  placeholder="Someone@example.com" class="login-form-control" ng-model="loginCredential.userName" ng-pattern="emailPattern" id="email" xt-validate name="email"  msg-pattern='{{emailMsg}}'  class="form-control email" ng-change="fnCheckEmailExists(email)"  required>
@@ -29,6 +30,7 @@
       <button type="submit" class="btn btn-info p-h-md m-v-lg" ng-disabled="signinform.$invalid || progress" >{{btnSignupText}}</button>
       <p class="text-xs"><a ui-sref="forgot-password">Forgot password?</a></p>
       <p class="m-v-lg text-sm">Do not have an account? <a ui-sref="signup">Create an account</a></p>
+      
     </form>
   </div>
 </div>

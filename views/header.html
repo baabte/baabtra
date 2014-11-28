@@ -23,8 +23,8 @@
       </div>
       <!-- / navbar header -->
 
-      <!-- navbar collapse -->
-      <div class="navbar-collapse ng-hide hidden-xs" ng-class="{'show animated fadeIn' : app.navbarCollapse}">
+      <!-- navbar collapse  ng-hide-->
+      <div class="navbar-collapse  hidden-xs" ng-class="{'show animated fadeIn' : app.navbarCollapse}">
         <!-- nav -->
         <ul class="nav navbar-nav navbar-left ">
           <li>
@@ -140,7 +140,6 @@
               <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control input-sm no-bg no-border" placeholder="Search...">              
             </div>
           </div>
-        </form>
         <!-- / search form -->
       </div>
       <!-- / navbar collapse -->
