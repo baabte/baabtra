@@ -1,13 +1,22 @@
-angular.module('baabtra').controller('CompanyViewCtrl',['$scope','companyViewService','$location','$alert','$state',function ($scope,companyViewService,$location,$alert,$state){
-console.log('hai');
-if($state.params.companyId!=undefined)
+angular.module('baabtra').controller('CompanyViewCtrl',['$scope','companyViewService','localStorageService','$location','$alert','$state',function ($scope,companyViewService,localStorageService,$location,$alert,$state){
+if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
+  $location.path('/');
+}  
+if($state.params.companyId!=undefined){
   $scope.companyId=$state.params.companyId;
+  console.log($scope.companyId);
+  $scope.companySelected={};
+  $scope.companySelected._id=$scope.companyId;
+  // console.log($scope.companySelected);
+  companyViewService.fnSelectedCompany($scope);
+}
 //console.log($state);
 //$state.current.name=$state.current.name+'.'+$state.params.companyId;
 	//id of logged users role mapping id 
-     //var loginInfo=localStorageService.get('loginInfo');
-      var loggedusercrmid="546f0a8f3b572dc8a53c2627";
-      console.log(loggedusercrmid);
+     var loginInfo=localStorageService.get('loginInfo');
+      var loggedusercrmid=loginInfo.roleMappingId.$oid;
+      // "546f0a8f3b572dc8a53c2627";
+      // console.log(loggedusercrmid);
       //loginInfo.roleMappingId.$oid;
       // to keep count of companies
       $scope.showTime=0;
@@ -17,7 +26,6 @@ if($state.params.companyId!=undefined)
 
       //to edit a company
       $scope.editCompany=function(company){
-      company._id=company._id.$oid;
       company.loggedusercrmid=loggedusercrmid;
       $scope.result=companyViewService.fnCompanyEdit($scope,company);
 
@@ -25,8 +33,6 @@ if($state.params.companyId!=undefined)
 
       //to delete a company
     $scope.deleteCompany=function(company){
-      
-      company._id=company._id.$oid;
       company.loggedusercrmid=loggedusercrmid;
        companyViewService.fnCompanyDelete($scope,company);
     };
@@ -36,11 +42,11 @@ if($state.params.companyId!=undefined)
       $scope.showTime=$scope.showTime+6;
       companyViewService.fnShowMore($scope,$scope.showTime); 
     };
-    $scope.manageCompany=function(company){
-        $scope.companySelected=company;
-        $scope.companyId=company._id.$oid;
-        $scope.companySelected._id=$scope.companySelected._id.$oid;
-        console.log($scope.companySelected);
+    $scope.manageCompany=function(id){
+        $scope.companySelected={};
+        $scope.companyId=id;
+        $scope.companySelected._id=id;
+         console.log($scope.companySelected);
         companyViewService.fnSelectedCompany($scope);
     };
     
@@ -56,7 +62,8 @@ $scope.fnRegisteredCompaniesCallBack=function(result){
 $scope.fnSelectedCompanyCallBack=function(result){
    if(result==='success'){
     $scope.companyId=$scope.companySelected._id.$oid;
-    console.log($scope.companySelected);
+    $scope.companySelected._id=$scope.companySelected._id.$oid;
+    // console.log($scope.companySelected);
   }
   if(result==='error'){
     $scope.notifications('Error!','Error!! in Loading Selected Company','warning');

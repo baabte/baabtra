@@ -1,35 +1,19 @@
-// angular.module('baabtra').controller('CompanyRegistrationCtrl',['$scope',function($scope){
-	
-	// console.log("hai");
 
-	// $scope.myImage='';
- //    $scope.myCroppedImage='';
- //    $scope.cropType="circle";
-
- //    var handleFileSelect=function(evt) {
- //      var file=evt.currentTarget.files[0];
- //      var reader = new FileReader();
- //      reader.onload = function (evt) {
- //        $scope.$apply(function($scope){
- //          $scope.myImage=evt.target.result;
- //        });
- //      };
- //      reader.readAsDataURL(file);
- //    };
- //    angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
-
-angular.module('baabtra').controller('CompanyRegistrationCtrl',['$scope','companyRegistrationService','$location','$alert', function ($scope,companyRegistrationService,$location,$alert) {
-//    if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
-//   $location.path('/');
-// }  
+angular.module('baabtra').controller('CompanyRegistrationCtrl',['$scope','companyRegistrationService','localStorageService','$location','$alert', function ($scope,companyRegistrationService,localStorageService,$location,$alert) {
+   if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
+  $location.path('/');
+}  
      
         $scope.companyButtonDisable=false;
         $scope.companyLoading=false;
     $scope.companyLoadStyle={'margin-top': '-3%','margin-left': '2%'};
     //value with crmid of current user
-     //var loginInfo={ObjectId:"546f0a8f3b572dc8a53c2627"};
-     //localStorageService.get('loginInfo');
-      var loggedusercrmid="546f0a8f3b572dc8a53c2627";
+    // {ObjectId:"546f0a8f3b572dc8a53c2627"};
+     var loginInfo=localStorageService.get('loginInfo');
+     localStorageService.get('loginInfo');
+      var loggedusercrmid=loginInfo.roleMappingId.$oid;
+
+      // "546f0a8f3b572dc8a53c2627"
       // loginInfo.roleMappingId.$oid;
 
    companyRegistrationService.FnGetSectors($scope);
