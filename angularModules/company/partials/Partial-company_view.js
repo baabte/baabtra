@@ -6,7 +6,7 @@ if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginL
  
 if($state.params.companyId!=undefined){
   $scope.companyId=$state.params.companyId;
-  console.log($scope.companyId);
+  // console.log($scope.companyId);
   $scope.companySelected={};
   $scope.companySelected._id=$scope.companyId;
   // console.log($scope.companySelected);
@@ -48,7 +48,7 @@ if($state.params.companyId!=undefined){
         $scope.companySelected={};
         $scope.companyId=id;
         $scope.companySelected._id=id;
-         console.log($scope.companySelected);
+         // console.log($scope.companySelected);
         companyViewService.fnSelectedCompany($scope);
     };
     
