@@ -1,7 +1,25 @@
-angular.module('baabtra').controller('UsermenumappingCtrl',['$scope','userMenuMappingSrv','$alert',function ($scope,userMenuMappingSrv,$alert){
+angular.module('baabtra').controller('UsermenumappingCtrl',['$scope','userMenuMappingSrv','$alert','localStorageService',function ($scope,userMenuMappingSrv,$alert,localStorageService){
 
-$scope.roleId=1;
-$scope.companyId='';
+  var loginInfo=localStorageService.get('loginInfo');
+  if(loginInfo===null||loginInfo.length===0){
+       $location.path('/'); //setting the location path to login page if local storage contain null value.
+    }
+    if(localStorageService.get('loginInfo').length!==0){ //checking for data in local storage
+      $scope.userRoleMappingId=loginInfo.roleMappingId.$oid; //gets the last logged role mapping id from local storage
+      if(loginInfo.roleMappingObj[0].fkCompanyId==""){
+        $scope.companyId='';
+      }
+      else{
+        $scope.companyId=$scope.companyState=loginInfo.roleMappingObj[0].fkCompanyId.$oid;          
+      }        
+      $scope.roleId=loginInfo.roleMappingObj[0].fkRoleId;
+      if($scope.roleId!=1 && $scope.roleId!=2){ //checking for login role id 
+          $location.path('/home');
+      }      
+    }
+
+//$scope.roleId=1;
+//$scope.companyId='';
 $scope.range=1;
 var CurNewValue="";
 var dragStartStatus=false;
@@ -10,14 +28,14 @@ var MeusStatus=false;
 $scope.comapanyUser=false;
 $scope.placeholderVal="Search Users";
 $scope.SearchType="Company";
-$scope.userRoleMappingId='545aff95437b389ba554d6b7';
+//$scope.userRoleMappingId='545aff95437b389ba554d6b7';
 if(angular.equals($scope.roleId,1))
 {
 	userMenuMappingSrv.FnGetCompanyDetails($scope,'','');
 }
 else if(angular.equals($scope.roleId,2))
 {
-	$scope.companyState='5457526122588a5db73e0b23';//company id
+	$scope.companyState=$scope.companyId;//company id
 	$scope.comapanyUser=true;
 	$scope.SearchType="User";
 	userMenuMappingSrv.FnLoadUsers($scope,$scope.companyState,'','');

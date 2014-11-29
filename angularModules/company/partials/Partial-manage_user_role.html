@@ -7,7 +7,7 @@
 
 
 <br>
-<div class="col-md-10 animated fadeInRight" style="padding:10px;">
+<div class="col-md-10 animated fadeInRight" style="padding:10px">
 	
 	<div class="col-md-6" >
 	 <form name="Form_Adding_form" ng-submit="AddCompanyRole()" class="form-validation" role="form" xt-form novalidate>
@@ -28,23 +28,24 @@
 
 <!-- </div> style="border:solid"box-shadow: 0 5px 10px rgba(0, 0, 0, .2); -->
 
- <!-- class="col-md-12 animated zoomIn bg-light" -->
+ <!-- class="col-md-12 animated zoomIn bg-light"   -->
 <!-- <div class="p-md bg-light font-bold pos-rlt">Public profile</div> -->
-<div class="col-md-12" style="padding:0px 0px 0px 10px">
-<div class="col-md-12" style="height: 280px;overflow: auto;" >
-<div class="col-sm-3" ng-repeat="roleData in roles" style="padding:0px 10px 0px 0px;" >
-  <div class="panel bg-white panel-heading " style="box-shadow: 0 5px 10px rgba(0, 0, 0, .2);">
-    <a href=""><span class="pull-right" data-title="Remove this role!" ng-click="deleteRole(roleData,$index)" bs-tooltip> <i  class="ui-icon ti-trash"  ></i> </span></a>
-    <div class="panel p r-2x b-l-success text-1x font-bold b-l-5x inline clear"  >
-      <a href="" class="Rolelink"> {{roleData.roleName}} </a></div>
-      
-    <div class="clear pull-none-sm" style="overflow: hidden;height:20px;" >
-      <small class="text-dk"><a href="" class="RoleDesc" style="color:#777777">{{roleData.roleDescription}}</a> </small>
-    </div>
-  </div>
-</div>
-</div>
-</div>
+<!-- <div class="col-md-12" style="padding:0px 0px 0px 10px"> -->
+<div class="col-md-12 " style="height: 280px;overflow: auto;padding:30px" >
+	<div class="col-sm-4" ng-repeat="roleData in roles">
+		<div >
+			<a href=""><span class="pull-right" data-title="Remove role!" ng-click="deleteRole(roleData,$index)" bs-tooltip> <i  class="ui-icon ti-trash"  style="padding:10px"></i> </span>
+		</div>
+		<div class="panel bg-white  " style="box-shadow: 0 5px 10px rgba(0, 0, 0, .2);">
+		</a>
+		<div class="panel p r-2x b-l-success text-1x font-bold b-l-5x inline clear">
+  			<a href="" class="Rolelink" editable-text="roleData.roleName" onaftersave="updateUser('roleName',roleData,$data)"  e-required e-placeholder="Enter role"> {{roleData.roleName}} </a>
+  		</div>
+  
+<!-- <div class="clear pull-none-sm" style="overflow: hidden;height:30px;border:solid"> -->
+  		<small class="clear pull-none-sm text-dk p r-1x "><a href="" class="RoleDesc " style="color:#777777;" editable-text="roleData.roleDescription" onaftersave="updateUser('roleDescription',roleData,$data)" e-required e-placeholder="Enter role description">{{roleData.roleDescription}}</a> </small>
 
+	</div>
+</div>
 
 

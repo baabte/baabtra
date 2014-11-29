@@ -19,7 +19,6 @@ angular.module('baabtra').service('manageCompanyRoleService',['$http',function m
 
 	 }; 
     this.RetrieveUserRole=function ($scope){ // sending a parameter only for test
-         // alert($scope.companyId+2);
          $http({
          	url: "http://127.0.0.1:8000/"+'ViewManageCompanyRole/',
            data: JSON.stringify({"companyId":$scope.companyId}), //it will filter roles under a comapany
@@ -29,8 +28,7 @@ angular.module('baabtra').service('manageCompanyRoleService',['$http',function m
            dataType:"json",
        }).
          success(function(data, status, headers, config) {
-         	$scope.fnRertrivecompanyRoleCallBack(data);   
-                 // console.log(data);                         
+         	$scope.fnRertrivecompanyRoleCallBack(data);                     
              }).
          error(function(data, status, headers, config) {
          	
@@ -38,7 +36,7 @@ angular.module('baabtra').service('manageCompanyRoleService',['$http',function m
      };
      this.DeleteCompanyRole=function($scope,RollData)
     {
-         // alert("delete service called");
+  
         $http({
            url: "http://127.0.0.1:8000/"+'DeleteCompanyRole/',
            data: JSON.stringify(RollData), //it will filter roles under a comapany
@@ -49,13 +47,30 @@ angular.module('baabtra').service('manageCompanyRoleService',['$http',function m
            }).
              success(function(data, status, headers, config) {
                  $scope.fnDeleteRoleCallBack(data);   
-                 // alert(data); 
              }).
               error(function(data, status, headers, config) {
 
              }); 
 
     }
-
+    this.UpdateUserRole=function($scope)
+    {
+      
+      var roleData={"_id":$scope.roleData._id.$oid,"role":$scope.role,"data":$scope.data};
+        $http({
+           url: "http://127.0.0.1:8000/"+'UpdateCompanyRole/',
+           data: JSON.stringify(roleData), //it will filter roles under a comapany
+           method: "POST",
+           withCredentials: false,
+           contentType:"application/json",
+           dataType:"json",
+           }).
+             success(function(data, status, headers, config) {
+                  $scope.fnEditUserRoleCallBack(data);
+             }).
+              error(function(data, status, headers, config) {
+                
+             }); 
+    }
 
  }]);

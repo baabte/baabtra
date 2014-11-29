@@ -1,0 +1,64 @@
+
+
+ <div class="col-xl-9 b-l bg-auto " >
+    <div class="p-md bg-light b-b font-bold">Company Info</div>
+    <div role="form" class="p-md ng-pristine ng-valid" >
+      <div class="form-group">
+        <label>Name</label>
+        <br>
+        <span editable-text="companySelected.companyName "class=" font-bold">{{companySelected.companyName||'Company Name' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Alternate Email</label>
+        <br>
+        <span editable-text="companySelected.alternateEmail "class=" font-bold">{{companySelected.alternateEmail||'Alternate Email' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <br>
+        <span editable-text="companySelected.Phone "class=" font-bold">{{companySelected.Phone||'Phone Number'}}</span>
+      </div>
+      <div class="form-group">
+        <label>Mobile</label>
+        <br>
+        <span editable-text="companySelected.Mobile "class=" font-bold">{{companySelected.Mobile|| 'Mobile Number'}}</span>
+      </div>
+      <div class="form-group">
+        <label>Fax</label>
+        <br>
+        <span editable-text="companySelected.Fax "class=" font-bold">{{companySelected.Fax ||'Fax' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Address</label>
+        <br>
+        <span editable-text="companySelected.Address "class=" font-bold">{{companySelected.Address ||'Address'}}</span>
+      </div>
+       <div class="form-group">
+        <label>Zip Code</label>
+        <br>
+        <span editable-text="companySelected.zipCode "class=" font-bold">{{companySelected.zipCode||'Zip Code' }}</span>
+      </div>
+      <div class="form-group">
+        <label>WebSite</label>
+        <br>
+        <span editable-text="companySelected.webSite "class=" font-bold">{{companySelected.webSite ||'Web site'}}</span>
+      </div>
+      <div class="form-group">
+        <label>facebook</label>
+        <br>
+        <span editable-text="companySelected.facebook "class=" font-bold">{{companySelected.facebook||'facebook' }}</span>
+      </div>
+      <div class="form-group">
+        <label>Google+</label>
+        <br>
+        <span editable-text="companySelected.gplus "class=" font-bold">{{companySelected.gplus ||'G+'}}</span>
+      </div>
+      <div class="form-group">
+        <label>twitter</label>
+        <br>
+        <span editable-text="companySelected.twitter "class=" font-bold">{{companySelected.twitter ||'twitter'}}</span>
+      </div>
+      <button ng-click="editCompany(companySelected)" class="btn btn-info m-t">Save Changes</button>
+      <button ng-click="deleteCompany(companySelected)" class="btn btn-info m-t">Delete</button>
+    </div>
+  </div>

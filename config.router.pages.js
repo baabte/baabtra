@@ -26,17 +26,54 @@
                     templateUrl: 'views/partials/aside.nav.pages.html'
                   }
                 }
-              }).state('company', {
-                url: '/company',
+              })
+              .state('home', {
+                url: '/home',
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
                   '': {
                     templateUrl: 'views/layout.html'
-                    
                   },
+                  // This shows off how you could populate *any* view within *any* ancestor state.
+                  // Oopulating the ui-view="aside@"
                   'aside': {
                     templateUrl: 'views/partials/aside.nav.pages.html'
                   }
+                }
+              })
+              .state('home.company', {
+                url: '/company',
+                templateUrl: 'angularModules/company/partials/Partial-company_view.html',
+                controller:'CompanyViewCtrl'
+                
+              })
+
+              .state('home.company.registration', {
+                url: '/registration',
+                views:{
+                  'manage': {
+                templateUrl: 'angularModules/company/partials/Partial-company_registration.html',
+                controller: 'CompanyRegistrationCtrl'
+                            }
+                      }
+              })
+              .state('home.company.manage', {
+                url: '/manage',
+                views: {
+                  // So this one is targeting the unnamed view within the parent state's template.
+                  'manage': {
+                    templateUrl: 'angularModules/company/partials/Partial-company_manage.html'
+                  }
+                 
+                }
+              }) 
+              .state('home.company.manage.info', {
+                url: '/company-info/:companyId',
+                views: {
+                  // So this one is targeting the unnamed view within the parent state's template.
+                  'info': {
+                    templateUrl: 'angularModules/company/partials/Partial-company_manage_info.html'
+                  } 
                 }
               })
               .state('page.profile', {
@@ -50,16 +87,37 @@
               .state('page.blank', {
                 url: '/blank',
                 templateUrl: 'views/pages/blank.html'
+
               })
-		.state('login', {
+		          .state('login', {
                 url: '/login',
                 templateUrl: 'angularModules/login/partials/Partial-Login_view.html',
                 controller:'LoginViewCtrl'
               })
-              .state('company.manage-user-role', {
-                url: '/manage-user-role',
+              .state('home.company.manage.role', {
+                url: '/role',
                 templateUrl: 'angularModules/company/partials/Partial-manage_user_role.html',
                 controller:'ManageUserRoleCtrl'
+              })
+              .state('home.roleMenuMapping', {
+                url: '/roleMenuMapping',
+                templateUrl: 'angularModules/roleMenuMapping/partials/Partial-roleMenuMapping.html',
+                controller:'RoleMenuMappingCtrl'
+              })
+               .state('home.userMenuMapping', {
+                url: '/userMenuMapping',
+                templateUrl: 'angularModules/company/partials/Partial-userMenuMapping.html',
+                controller: 'UsermenumappingCtrl'
+              })
+                .state('home.JobPosting', {
+                url: '/JobPosting',
+                templateUrl: 'angularModules/company/partials/Partial-JobPosting.html',
+                controller: 'JobpostingCtrl'
+              })
+                .state('home.ViewJobs', {
+                url: '/ViewJobs',
+                templateUrl: 'angularModules/company/partials/Partial-ListJobs.html',
+                controller: 'ListjobsCtrl'
               })
               .state('page.document', {
                 url: '/document',
