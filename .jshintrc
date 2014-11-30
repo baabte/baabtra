@@ -11,7 +11,6 @@
     "eqnull": true,
     "browser": true,
     "smarttabs": true,
-    "indent" : false,
     "globals": {
         "jQuery": true,
         "angular": true,

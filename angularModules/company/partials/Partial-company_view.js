@@ -18,9 +18,12 @@ $scope.ShowNoDataFound=false;
 //console.log($state);
 //$state.current.name=$state.current.name+'.'+$state.params.companyId;
 	//id of logged users role mapping id 
+     //var loginInfo=localStorageService.get('loginInfo');
+      var loggedusercrmid="546f0a8f3b572dc8a53c2627";
+
      var loginInfo=localStorageService.get('loginInfo');
       var loggedusercrmid=loginInfo.roleMappingId.$oid;
-      // "546f0a8f3b572dc8a53c2627";
+      // "546f0a8f3b572dc8a53c2627";1
       // console.log(loggedusercrmid);
       //loginInfo.roleMappingId.$oid;
       // to keep count of companies
@@ -79,6 +82,7 @@ $scope.fnSelectedCompanyCallBack=function(result){
    if(result==='success'){
     // $scope.companyId=$scope.companySelected._id.$oid;
     $scope.companySelected._id=$scope.companySelected._id.$oid;
+
     // console.log($scope.companySelected);
   }
   if(result==='error'){

@@ -57,8 +57,6 @@
                             }
                       }
               })
-
-
               .state('home.company.manage', {
                 url: '/manage',
                 views: {
@@ -68,17 +66,14 @@
                   }
                  
                 }
-              })
-               
-
+              }) 
               .state('home.company.manage.info', {
                 url: '/company-info/:companyId',
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
                   'info': {
                     templateUrl: 'angularModules/company/partials/Partial-company_manage_info.html'
-                  }
-                  
+                  } 
                 }
               })
               .state('page.profile', {
@@ -92,11 +87,17 @@
               .state('page.blank', {
                 url: '/blank',
                 templateUrl: 'views/pages/blank.html'
+
               })
 		          .state('login', {
                 url: '/login',
                 templateUrl: 'angularModules/login/partials/Partial-Login_view.html',
                 controller:'LoginViewCtrl'
+              })
+              .state('home.company.manage.role', {
+                url: '/role',
+                templateUrl: 'angularModules/company/partials/Partial-manage_user_role.html',
+                controller:'ManageUserRoleCtrl'
               })
               .state('home.roleMenuMapping', {
                 url: '/roleMenuMapping',

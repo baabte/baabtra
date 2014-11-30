@@ -13,10 +13,8 @@ angular.module('baabtra').service('LoginService',['$http',function LoginService(
       }).success(function(data, status, headers, config) 
       {
         $scope.loginSuccessCallback(data);
-           console.log(data);
       }).error(function(data, status, headers, config) {
           $scope.loginFailureCallback(data);
-                     
          });
 	 }; 
 
