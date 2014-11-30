@@ -4,7 +4,7 @@ if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginL
 }  
  
  
-if($state.params.companyId!=undefined){
+if($state.params.companyId!==undefined){
   $scope.companyId=$state.params.companyId;
   // console.log($scope.companyId);
   $scope.companySelected={};
@@ -12,6 +12,9 @@ if($state.params.companyId!=undefined){
   // console.log($scope.companySelected);
   companyViewService.fnSelectedCompany($scope);
 }
+$scope.placeholderVal="Search Companies";
+$scope.ShowNoDataFound=false;
+
 //console.log($state);
 //$state.current.name=$state.current.name+'.'+$state.params.companyId;
 	//id of logged users role mapping id 
@@ -27,10 +30,21 @@ if($state.params.companyId!=undefined){
      companyViewService.fnRegisteredCompanies($scope);
 
       //to edit a company
-      $scope.editCompany=function(company){
-      company.loggedusercrmid=loggedusercrmid;
-      $scope.result=companyViewService.fnCompanyEdit($scope,company);
+      $scope.editCompany=function(Field,Value){
+      $scope.companyEdited={};
+      $scope.companyEdited.Field=Field;
+      $scope.companyEdited.Value=Value;
+      $scope.companyEdited._id=$scope.companySelected._id;
+      $scope.companyEdited.loggedusercrmid=loggedusercrmid;
+      companyViewService.fnCompanyEdit($scope);
 
+    };
+    //search company
+    $scope.searchCompany=function(key) {
+      $scope.searchWord={};
+      $scope.searchWord.key=key;
+      companyViewService.fnSearchCompany($scope);
+        
     };
 
       //to delete a company
@@ -63,7 +77,7 @@ $scope.fnRegisteredCompaniesCallBack=function(result){
 };
 $scope.fnSelectedCompanyCallBack=function(result){
    if(result==='success'){
-    $scope.companyId=$scope.companySelected._id.$oid;
+    // $scope.companyId=$scope.companySelected._id.$oid;
     $scope.companySelected._id=$scope.companySelected._id.$oid;
     // console.log($scope.companySelected);
   }
@@ -98,6 +112,12 @@ $scope.showMoreCallBack=function(result){
     $scope.notifications('Error!','Error!! in Show More','warning');
   }
 };
+
+ $scope.fnSearchCompanyCallBack=function(){
+  if(result==='error'){
+    $scope.notifications('Error!','Error!! in Searching','warning');
+  }
+ }
 
 
 //notification 

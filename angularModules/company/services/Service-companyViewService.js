@@ -24,7 +24,7 @@ angular.module('baabtra').service('companyViewService',['$http','bbConfig',funct
       return result;
    };
 
-   //fnc to get registered companies default count 6
+   //fnc to get selected companies default count 6
     this.fnSelectedCompany=function($scope){
     
      var result;
@@ -46,6 +46,33 @@ angular.module('baabtra').service('companyViewService',['$http','bbConfig',funct
               error(function(data, status, headers, config) {
                 result='error';
                 $scope.fnSelectedCompanyCallBack(result);
+             });  
+      return result;
+   };
+
+   //fnc to get search companies default count 6
+    this.fnSearchCompany=function($scope){
+    
+     var result;
+      $http({
+           url: bbConfig.BWS+'SearchCompany/',
+           data: JSON.stringify($scope.searchWord.key),
+           method: 'POST',
+           withCredentials: false,
+           contentType:'application/json',
+           dataType:'json',
+           }).
+              success(function(data, status, headers, config) {
+                var objArray=angular.fromJson(JSON.parse(data));
+                        for(var obj=0;obj<objArray.length;obj++)
+                        {
+                          $scope.companylist.push(objArray[obj]);
+                        }
+         
+              }).
+              error(function(data, status, headers, config) {
+                result='error';
+                $scope.fnSearchCompanyCallBack(result);
              });  
       return result;
    };
@@ -109,7 +136,7 @@ angular.module('baabtra').service('companyViewService',['$http','bbConfig',funct
     
       $http({
            url: bbConfig.BWS+'CompanyEdit/',
-           data: JSON.stringify($scope.companySelected),
+           data: JSON.stringify($scope.companyEdited),
            method: 'POST',
            withCredentials: false,
            contentType:'application/json',
