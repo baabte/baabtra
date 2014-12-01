@@ -28,7 +28,8 @@ angular.module('baabtra').controller('HomeCtrl',['$scope','localStorageService',
       }
       else
       {
-        alert("link");
+        console.log(menu.MenuLink);
+        $location.path('home/main/'+menu.MenuLink);
       }
     };
     $scope.goHome = function()

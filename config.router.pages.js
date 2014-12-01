@@ -114,7 +114,7 @@
                 controller:'LoginViewCtrl'
               })
               .state('home.main', {
-                url: '/',
+                url: '/main',
                 templateUrl: 'angularModules/login/partials/Partial-home.html',
                 controller:'HomeCtrl'
               })
@@ -123,10 +123,14 @@
                 templateUrl: 'angularModules/company/partials/Partial-manage_user_role.html',
                 controller:'ManageUserRoleCtrl'
               })
-              .state('home.roleMenuMapping', {
+              .state('home.main.roleMenuMapping', {
                 url: '/roleMenuMapping',
-                templateUrl: 'angularModules/roleMenuMapping/partials/Partial-roleMenuMapping.html',
-                controller:'RoleMenuMappingCtrl'
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/roleMenuMapping/partials/Partial-roleMenuMapping.html',
+                    controller:'RoleMenuMappingCtrl'
+                  }
+              }
               })
                .state('home.userMenuMapping', {
                 url: '/userMenuMapping',

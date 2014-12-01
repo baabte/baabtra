@@ -1,13 +1,13 @@
 <aside  id="aside" class="app-aside {{app.settings.asideColor}} text-lg" ng-include="'views/aside.html'">
 </aside>
 <div class="p-md">
-	<div class="row">
+	<div class="row" name="innercontent" ui-view>
     <div class="col-sm-12 col-md-12 col-lg-12 animated fadeInDown" ng-class="{'fadeInDown':navBar}">
         <a ng-click="loadDetails(menu)" class="text-sm btn btn-lg btn-stroke {{classn[($index+1)%classn.length]}} m-l m-t" ng-repeat="menu in userMenus">
-          <i class="fa fa-apple fa-4x"></i>
+          <i class="fa {{menu.menuIcon}} fa-4x"></i>
           <i class="fa fa-arrow-circle-right pull-right fa-2x text-lt" ng-show='{{menu.childMenuStructure.length}}'></i>
           <span class="block clear text-left m-v-xs">
-          	<b class="text-lg block font-bold">{{menu.MenuName}}</b>Available on the
+          	<b class="text-lg block font-bold">{{menu.MenuName}}</b>{{menu.MenuLink}}
           </span>
         </a>
         </div>
