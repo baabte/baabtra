@@ -81,7 +81,7 @@
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
                   'manage-container': {
-                    templateUrl: 'angularModules/billing/partials/Partial-billing_config.html'
+                    templateUrl: 'angularModules/billing/partials/Partial-user_billing_config.html'
                   } 
                 }
               })
@@ -90,7 +90,7 @@
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
                   'manage-container': {
-                    templateUrl: 'angularModules/feature/partials/Partial-feature_config.html'
+                    templateUrl: 'angularModules/feature/partials/Partial-user_feature_config.html'
                   } 
                 }
               })

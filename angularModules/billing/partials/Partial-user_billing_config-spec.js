@@ -1,4 +1,4 @@
-describe('FeatureConfigCtrl', function() {
+describe('UserBillingConfigCtrl', function() {
 
 	beforeEach(module('baabtra'));
 
@@ -6,7 +6,7 @@ describe('FeatureConfigCtrl', function() {
 
     beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      ctrl = $controller('FeatureConfigCtrl', {$scope: scope});
+      ctrl = $controller('UserBillingConfigCtrl', {$scope: scope});
     }));	
 
 	it('should ...', inject(function() {
