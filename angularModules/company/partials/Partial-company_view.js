@@ -19,7 +19,7 @@ $scope.ShowNoDataFound=false;
 //$state.current.name=$state.current.name+'.'+$state.params.companyId;
 	//id of logged users role mapping id 
      //var loginInfo=localStorageService.get('loginInfo');
-      var loggedusercrmid="546f0a8f3b572dc8a53c2627";
+      // var loggedusercrmid="546f0a8f3b572dc8a53c2627";
 
      var loginInfo=localStorageService.get('loginInfo');
       var loggedusercrmid=loginInfo.roleMappingId.$oid;
@@ -121,7 +121,7 @@ $scope.showMoreCallBack=function(result){
   if(result==='error'){
     $scope.notifications('Error!','Error!! in Searching','warning');
   }
- }
+ };
 
 
 //notification 
