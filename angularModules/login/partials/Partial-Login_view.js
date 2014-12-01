@@ -43,7 +43,7 @@ $scope.emailPattern = (function() {
 	  if($scope.logged.result==='true') {
 		  $rootScope.loginCheck=1;//if login is ok ,changin the variable in rootscope.
 		  localStorageService.set('loginLsCheck',1);//if login is ok ,changin the variable in localstorage.
-		  $location.path('/page/blank');//routing to home after success login by user
+		  $location.path('/home');//routing to home after success login by user
 		  $scope.login_or_not='login Success'; 
 		}
 		else

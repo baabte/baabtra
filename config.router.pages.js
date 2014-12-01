@@ -10,7 +10,7 @@
      */
     angular.module('baabtra')
       .config(
-        [          '$stateProvider', '$urlRouterProvider',
+        ['$stateProvider', '$urlRouterProvider',
           function ( $stateProvider,   $urlRouterProvider ) {
             $stateProvider
               .state('page', {
@@ -26,8 +26,8 @@
                     templateUrl: 'views/partials/aside.nav.pages.html'
                   }
                 }
-              }).state('company', {
-                url: '/company',
+              }).state('home', {
+                url: '/home',
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
                   '': {
@@ -56,22 +56,27 @@
                 templateUrl: 'angularModules/login/partials/Partial-Login_view.html',
                 controller:'LoginViewCtrl'
               })
-              .state('company.roleMenuMapping', {
+              .state('home.main', {
+                url: '/',
+                templateUrl: 'angularModules/login/partials/Partial-home.html',
+                controller:'HomeCtrl'
+              })
+              .state('home.roleMenuMapping', {
                 url: '/roleMenuMapping',
                 templateUrl: 'angularModules/roleMenuMapping/partials/Partial-roleMenuMapping.html',
                 controller:'RoleMenuMappingCtrl'
               })
-               .state('company.userMenuMapping', {
+               .state('home.userMenuMapping', {
                 url: '/userMenuMapping',
                 templateUrl: 'angularModules/company/partials/Partial-userMenuMapping.html',
                 controller: 'UsermenumappingCtrl'
               })
-                .state('company.JobPosting', {
+                .state('home.JobPosting', {
                 url: '/JobPosting',
                 templateUrl: 'angularModules/company/partials/Partial-JobPosting.html',
                 controller: 'JobpostingCtrl'
               })
-                .state('company.ViewJobs', {
+                .state('home.ViewJobs', {
                 url: '/ViewJobs',
                 templateUrl: 'angularModules/company/partials/Partial-ListJobs.html',
                 controller: 'ListjobsCtrl'

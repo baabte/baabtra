@@ -85,16 +85,28 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert',functio
         }).
         success(function(data, status, headers, config) {
           $scope.menus=angular.fromJson(JSON.parse(data));//Converting the result to json object
-          console.log($scope.menus);
+          
           if($scope.menus.length){//Checking, the selected role have existing menus
             $scope.tree1 =$scope.menus[0].menuStructure[0].regionMenuStructure;//Setting exsting menus of selected role to current menu list
-            for (var i = 0; i < $scope.tree1.length; i++) {
-              $scope.tree1[i].fkMenuId=$scope.tree1[i].fkMenuId.$oid;//Converting root menu ObjectId Id to String        
-              if($scope.tree1[i].childMenuStructure.length>0){//Checking root menu having any submenu
-                for (var j = 0; j < $scope.tree1[i].childMenuStructure.length; j++) {
-                  $scope.tree1[i].childMenuStructure[j].fkMenuId=$scope.tree1[i].childMenuStructure[j].fkMenuId.$oid;//Converting sub menu ObjectId to String 
-                }
+            // for (var i = 0; i < $scope.tree1.length; i++) {
+            //   $scope.tree1[i].fkMenuId=$scope.tree1[i].fkMenuId.$oid;//Converting root menu ObjectId Id to String        
+            //   if($scope.tree1[i].childMenuStructure.length>0){//Checking root menu having any submenu
+            //     for (var j = 0; j < $scope.tree1[i].childMenuStructure.length; j++) {
+            //       $scope.tree1[i].childMenuStructure[j].fkMenuId=$scope.tree1[i].childMenuStructure[j].fkMenuId.$oid;//Converting sub menu ObjectId to String 
+            //     }
+            //   }
+            // }
+              changeObjIdOfMenu($scope.tree1,null);
+            function changeObjIdOfMenu(menu,sub){
+              if(sub==null){
+                sub=0;
               }
+              if(menu[sub]==undefined)
+                return 0;
+              menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
+              if(menu[sub].childMenuStructure.length)
+               changeObjIdOfMenu(menu[sub].childMenuStructure,null);
+              changeObjIdOfMenu(menu,++sub);
             }
           }
           else//If no existing role found
@@ -130,13 +142,17 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert',functio
             }
             else{
             $scope.tree2=$scope.allMenus[0].menuStructure[0].regionMenuStructure;//Setting the menus to menulist
-            for (var i = 0; i < $scope.tree2.length; i++) {
-              $scope.tree2[i].fkMenuId=$scope.tree2[i].fkMenuId.$oid;//Converting root menu ObjectId to String
-              if($scope.tree2[i].childMenuStructure.length>0){//Checking root menu having any sub
-                for (var j = 0; j < $scope.tree2[i].childMenuStructure.length; j++) {
-                  $scope.tree2[i].childMenuStructure[j].fkMenuId=$scope.tree2[i].childMenuStructure[j].fkMenuId.$oid;//Converting sub menu ObjectId to String
-                }
+            changeObjIdOfMenu($scope.tree2,null);
+            function changeObjIdOfMenu(menu,sub){
+              if(sub==null){
+                sub=0;
               }
+              if(menu[sub]==undefined)
+                return 0;
+              menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
+              if(menu[sub].childMenuStructure.length)
+               changeObjIdOfMenu(menu[sub].childMenuStructure,null);
+              changeObjIdOfMenu(menu,++sub);
             }
           }
           }
@@ -144,6 +160,7 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert',functio
           {
             $scope.tree2=[];
           }
+          console.log($scope.tree2);
           $scope.menudetails=true;
           //$scope.menudetails=true;
         }).
@@ -154,13 +171,15 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert',functio
       };
       this.FnSaveNewRoleMenu=function ($scope,new_menu)//To Save current menu list
       {
+        alert(role_id);
         $http({
           method: 'post',
           url: 'http://127.0.0.1:8000/SaveNewRoleMenu/',
-          data: {"menus":new_menu,"role_id":role_id,'rm_id':$scope.roleId},
+          data: {"menus":new_menu,"role_id":role_id,'rm_id':$scope.rm_id},
           contentType   : 'application/json; charset=UTF-8',
         }).
         success(function(data, status, headers, config) {
+          //console.log(angular.fromJson(JSON.parse(data)));
           if (data=="Insert")
           {
             $alert({title: 'Success!', type:'success', content: 'Menus Insert Successfuly..',animation:'am-fade',duration:'3', placement: 'top-right', template: 'views/ui/angular-strap/alert.tpl.html', show: true});
