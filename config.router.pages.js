@@ -26,19 +26,75 @@
                     templateUrl: 'views/partials/aside.nav.pages.html'
                   }
                 }
-              }).state('home', {
+              })
+              .state('home', {
                 url: '/home',
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
                   '': {
                     templateUrl: 'views/layout.html'
-                    
                   },
+                  // This shows off how you could populate *any* view within *any* ancestor state.
+                  // Oopulating the ui-view="aside@"
                   'aside': {
                     templateUrl: 'views/partials/aside.nav.pages.html'
                   }
                 }
               })
+              .state('home.company', {
+                url: '/company',
+                templateUrl: 'angularModules/company/partials/Partial-company_view.html',
+                controller:'CompanyViewCtrl'
+                
+              })
+
+              .state('home.company.registration', {
+                url: '/registration',
+                views:{
+                  'manage': {
+                templateUrl: 'angularModules/company/partials/Partial-company_registration.html',
+                controller: 'CompanyRegistrationCtrl'
+                            }
+                      }
+              })
+              .state('home.company.manage', {
+                url: '/manage',
+                views: {
+                  // So this one is targeting the unnamed view within the parent state's template.
+                  'manage': {
+                    templateUrl: 'angularModules/company/partials/Partial-company_manage.html'
+                  }
+                 
+                }
+              }) 
+              .state('home.company.manage.info', {
+                url: '/company-info/:companyId',
+                views: {
+                  // So this one is targeting the unnamed view within the parent state's template.
+                  'manage-container': {
+                    templateUrl: 'angularModules/company/partials/Partial-company_manage_info.html'
+                  } 
+                }
+              })
+              .state('home.company.manage.billing-config', {
+                url: '/company-billing-config/:companyId',
+                views: {
+                  // So this one is targeting the unnamed view within the parent state's template.
+                  'manage-container': {
+                    templateUrl: 'angularModules/billing/partials/Partial-user_billing_config.html'
+                  } 
+                }
+              })
+              .state('home.company.manage.feature-config', {
+                url: '/company-feature-config/:companyId',
+                views: {
+                  // So this one is targeting the unnamed view within the parent state's template.
+                  'manage-container': {
+                    templateUrl: 'angularModules/feature/partials/Partial-user_feature_config.html'
+                  } 
+                }
+              })
+
               .state('page.profile', {
                 url: '/profile',
                 templateUrl: 'views/pages/profile.html'
@@ -50,6 +106,7 @@
               .state('page.blank', {
                 url: '/blank',
                 templateUrl: 'views/pages/blank.html'
+
               })
 		          .state('login', {
                 url: '/login',
@@ -60,6 +117,11 @@
                 url: '/',
                 templateUrl: 'angularModules/login/partials/Partial-home.html',
                 controller:'HomeCtrl'
+              })
+              .state('home.company.manage.role', {
+                url: '/role',
+                templateUrl: 'angularModules/company/partials/Partial-manage_user_role.html',
+                controller:'ManageUserRoleCtrl'
               })
               .state('home.roleMenuMapping', {
                 url: '/roleMenuMapping',

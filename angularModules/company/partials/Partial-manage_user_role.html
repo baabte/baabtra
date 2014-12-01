@@ -1,0 +1,51 @@
+
+
+
+<div class="p-h-md p-v bg-white box-shadow pos-rlt ng-scope">
+  <h3 class="no-margin">Manage Company Roles </h3>
+</div>
+
+
+<br>
+<div class="col-md-10 animated fadeInRight" style="padding:10px">
+	
+	<div class="col-md-6" >
+	 <form name="Form_Adding_form" ng-submit="AddCompanyRole()" class="form-validation" role="form" xt-form novalidate>
+		<input type="text" class="form-control text-sm bg-white	 " placeholder="Enter New Role" xt-validate required ng-minlength="5" name="roleName" ng-model="roleName">
+		<br> 
+		<textarea class="form-control text-sm bg-white" rows="3"  placeholder="Enter Role Description" xt-validate required ng-minlength="7" name="roleDesc" ng-model="RoleDesc"></textarea>
+		<br> 
+		<span class="pull-left " >
+		
+		<button class="btn  btn-stroke btn-danger" type="reset" >&nbsp &nbspcancel&nbsp &nbsp</button>
+		<button class="btn  btn-stroke btn-info " ng-disabled="Form_Adding_form.$invalid || progress" type="submit" >&nbsp &nbsp {{btnRoleAdd}} &nbsp &nbsp</button> &nbsp &nbsp
+		</span>
+	 </form>
+	</div>	
+
+</div>
+
+
+<!-- </div> style="border:solid"box-shadow: 0 5px 10px rgba(0, 0, 0, .2); -->
+
+ <!-- class="col-md-12 animated zoomIn bg-light"   -->
+<!-- <div class="p-md bg-light font-bold pos-rlt">Public profile</div> -->
+<!-- <div class="col-md-12" style="padding:0px 0px 0px 10px"> -->
+<div class="col-md-12 " style="height: 280px;overflow: auto;padding:30px" >
+	<div class="col-sm-4" ng-repeat="roleData in roles">
+		<div >
+			<a href=""><span class="pull-right" data-title="Remove role!" ng-click="deleteRole(roleData,$index)" bs-tooltip> <i  class="ui-icon ti-trash"  style="padding:10px"></i> </span>
+		</div>
+		<div class="panel bg-white  " style="box-shadow: 0 5px 10px rgba(0, 0, 0, .2);">
+		</a>
+		<div class="panel p r-2x b-l-success text-1x font-bold b-l-5x inline clear">
+  			<a href="" class="Rolelink" editable-text="roleData.roleName" onaftersave="updateUser('roleName',roleData,$data)"  e-required e-placeholder="Enter role"> {{roleData.roleName}} </a>
+  		</div>
+  
+<!-- <div class="clear pull-none-sm" style="overflow: hidden;height:30px;border:solid"> -->
+  		<small class="clear pull-none-sm text-dk p r-1x "><a href="" class="RoleDesc " style="color:#777777;" editable-text="roleData.roleDescription" onaftersave="updateUser('roleDescription',roleData,$data)" e-required e-placeholder="Enter role description">{{roleData.roleDescription}}</a> </small>
+
+	</div>
+</div>
+
+

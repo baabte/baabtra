@@ -1,3 +1,4 @@
+//created by midhun sudhakar
 
 angular.module('baabtra').controller('LoginViewCtrl',['$scope','LoginService','$location','localStorageService','$rootScope',function($scope,LoginService,$location,localStorageService,$rootScope){
 
@@ -58,6 +59,7 @@ $scope.emailPattern = (function() {
 	}; 
 
 	$scope.loginFailureCallback=function(data){
+		alert("loginFailureCallback");
 		localStorageService.set('loginLsCheck',2);
       	$scope.login_or_not='The Username or Password is incorrect.';
 	};
