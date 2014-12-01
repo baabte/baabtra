@@ -71,11 +71,30 @@
                 url: '/company-info/:companyId',
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
-                  'info': {
+                  'manage-container': {
                     templateUrl: 'angularModules/company/partials/Partial-company_manage_info.html'
                   } 
                 }
               })
+              .state('home.company.manage.billing-config', {
+                url: '/company-billing-config/:companyId',
+                views: {
+                  // So this one is targeting the unnamed view within the parent state's template.
+                  'manage-container': {
+                    templateUrl: 'angularModules/billing/partials/Partial-billing_config.html'
+                  } 
+                }
+              })
+              .state('home.company.manage.feature-config', {
+                url: '/company-feature-config/:companyId',
+                views: {
+                  // So this one is targeting the unnamed view within the parent state's template.
+                  'manage-container': {
+                    templateUrl: 'angularModules/feature/partials/Partial-feature_config.html'
+                  } 
+                }
+              })
+
               .state('page.profile', {
                 url: '/profile',
                 templateUrl: 'views/pages/profile.html'
