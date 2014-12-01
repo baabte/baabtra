@@ -37,7 +37,7 @@ angular.module('baabtra').controller('HomeCtrl',['$scope','localStorageService',
       $scope.linkPath=[];
        $scope.navBar=false;
       $scope.userMenus=$scope.userMenusOrigin;
-      //$location.path('/home/');
+      $location.path('home/main');
     };
     $scope.goMenu = function(path,index){
       if(!angular.equals($scope.linkPath.length,index+1))
