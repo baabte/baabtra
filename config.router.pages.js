@@ -132,10 +132,15 @@
                   }
               }
               })
-               .state('home.userMenuMapping', {
+               .state('home.main.userMenuMapping', {
                 url: '/userMenuMapping',
-                templateUrl: 'angularModules/company/partials/Partial-userMenuMapping.html',
-                controller: 'UsermenumappingCtrl'
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/company/partials/Partial-userMenuMapping.html',
+                    controller: 'UsermenumappingCtrl'
+                  }
+                }
+                
               })
                 .state('home.JobPosting', {
                 url: '/JobPosting',

@@ -18,8 +18,7 @@ angular.module('baabtra').
       $scope.roleId=loginInfo.roleMappingObj[0].fkRoleId;
       if($scope.roleId!=1 && $scope.roleId!=2){ //checking for login role id 
           $location.path('/home');
-      }
-      console.log($scope.roleId);       
+      }      
     }
   $scope.SearchType="Company";
   $scope.placeholderVal="Search Companies";
