@@ -210,7 +210,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-wiredep');  
 
   grunt.registerTask('build',['jshint','clean:before','less','dom_munger','ngtemplates','cssmin','concat','ngmin','uglify','copy','htmlmin','imagemin','clean:after']);
-  grunt.registerTask('serve', ['dom_munger:read','jshint', 'wiredep','connect', 'watch']);
+  grunt.registerTask('serve', ['dom_munger:read', 'wiredep','connect', 'watch']);
   grunt.registerTask('test',['dom_munger:read','karma:all_tests']);
 
   grunt.event.on('watch', function(action, filepath) {

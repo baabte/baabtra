@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="bower_components/template/dist/font.css" />
   <link rel="stylesheet" href="bower_components/template/dist/app.css" />
   <link rel="stylesheet" href="bower_components/template/dist/loading-bar.css" />
+  <link rel="stylesheet" href="bower_components/template/dist/customstyles.css" />
+  <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css" />
+  <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -26,7 +29,8 @@
 
 <!-- build:js(.) js/script.min.js -->
 <!-- bower:js -->
-<script src="bower_components/jquery/jquery.js"></script>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 <script src="bower_components/angular-animate/angular-animate.js"></script>
@@ -44,6 +48,12 @@
 <script src="bower_components/angular-translate/storage-cookie.js"></script>
 <script src="bower_components/angular-translate/storage-local.js"></script>
 <script src="bower_components/angular-loading-bar/loading-bar.js"></script>
+<script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
+<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/xtform/xtForm.js"></script>
+<script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+<script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
 <!-- endbower -->
 
 
@@ -66,6 +76,29 @@
 
   <script src="angularModules/main.js"></script>
   
+  <script src="angularModules/roleMenuMapping/partials/Partial-roleMenuMapping.js"></script>
+  <script src="angularModules/roleMenuMapping/services/Service-roleMenuMappingSrv.js"></script>
+  <script src="angularModules/company/partials/Partial-JobPosting.js"></script>
+  <script src="angularModules/company/partials/Partial-ListJobs.js"></script>
+  <script src="angularModules/company/services/Service-JobSrv.js"></script>
+  <script src="angularModules/company/partials/Partial-viewJobDetailsModal.js"></script>
+  <script src="angularModules/company/partials/Partial-editJobDetailsModal.js"></script>
+  <script src="angularModules/company/partials/Partial-userMenuMapping.js"></script>
+  <script src="angularModules/company/services/Service-userMenuMappingSrv.js"></script>
+  <script src="angularModules/login/partials/Partial-Login_view.js"></script>
+  <script src="angularModules/login/services/Service-LoginService.js"></script>
+  <script src="angularModules/login/partials/Partial-home.js"></script>
+  <script src="angularModules/login/services/Service-home.js"></script>
+  <script src="angularModules/company/partials/Partial-manage_user_role.js"></script>
+  <script src="angularModules/company/services/Service-manageCompanyRoleService.js"></script>
+  <script src="angularModules/common/directives/Directive-fileuploadDir.js"></script>
+  <script src="angularModules/company/partials/Partial-company_registration.js"></script>
+  <script src="angularModules/company/partials/Partial-company_view.js"></script>
+  <script src="angularModules/company/services/Service-companyRegistrationService.js"></script>
+  <script src="angularModules/company/services/Service-companyViewService.js"></script>
+  <script src="angularModules/login/controllers/Controller-header.js"></script>
+  <script src="angularModules/billing/partials/Partial-user_billing_config.js"></script>
+  <script src="angularModules/feature/partials/Partial-user_feature_config.js"></script>
   <!-- Add New Component JS Above -->
 <!-- endbuild -->
 

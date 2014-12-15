@@ -1,51 +1,20 @@
-<nav ui-nav>
+<nav ui-nav class="">
   <ul class="nav">
-    <li class="nav-header h4 m-v-sm">
-      Pages
-    </li>
-    <li ui-sref-active="active">
-      <a ui-sref="page.profile">
-        <span>Profile</span>
+    <li ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}" ui-sref-active="active">
+      <a ng-click="goHome()">
+       <i class="icon glyphicon glyphicon-list text-lg"></i>
       </a>
     </li>
-    <li ui-sref-active="active">
-      <a ui-sref="page.settings">
-        <span>Settings</span>
+    <li ng-click="goMenu(path,$index)" ng-repeat="path in linkPath" ui-sref-active="active">
+      <a>
+        <i class="fa fa-chevron-right fa-1x" ng-show="$index>0"></i>
+      	<i class="fa fa-apple fa-1x"></i>
+       <i class="text-md">{{path.pathName}}</i>
       </a>
     </li>
-    <li ui-sref-active="active">
-      <a ui-sref="page.blank">
-        <span>Blank</span>
-      </a>
-    </li>
-    <li>
-      <a ui-sref="signin">
-        <span>Sign In</span>
-      </a>
-    </li>
-    <li>
-      <a ui-sref="signup">
-        <span>Sign Up</span>
-      </a>
-    </li>
-    <li>
-      <a ui-sref="forgot-password">
-        <span>Forgot Password</span>
-      </a>
-    </li>
-    <li>
-      <a ui-sref="lockme">
-        <span>Lockme Screen</span>
-      </a>
-    </li>
-    <li>
-      <a ui-sref="404">
-        <span>Error 404</span>
-      </a>
-    </li>
-    <li>
-      <a ui-sref="505">
-        <span>Error 505</span>
+    <li class="animated fadeOut">
+      <a>
+       <i class="ui-icon fa fa-asterisk b-dark-lt b-2x text-dark-lt"></i>
       </a>
     </li>
   </ul>

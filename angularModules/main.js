@@ -28,7 +28,7 @@ angular.module('baabtra')
 
       // config
       $scope.app = {
-        name: 'HeyMetro',
+        name: 'baabtra.com',
         version: '1.0.0',
         // for chart colors
         color: {

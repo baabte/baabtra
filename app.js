@@ -25,7 +25,14 @@
         'oc.lazyLoad',
         'ui.load',
         'ui.jp',
-        'angular-loading-bar'
-      ]);
+        'angular-loading-bar',
+        'LocalStorageModule',
+        'ui.tree',
+        'xtForm',
+        'xeditable',
+        'angularFileUpload'
+      ]).run(function(editableOptions) {
+  editableOptions.theme = 'bs3';
+});
 
 }());
