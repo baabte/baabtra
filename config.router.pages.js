@@ -123,6 +123,16 @@
                 templateUrl: 'angularModules/company/partials/Partial-manage_user_role.html',
                 controller:'ManageUserRoleCtrl'
               })
+              .state('home.feature_config', {
+                url: '/feature_config',
+                templateUrl: 'angularModules/feature/partials/Partial-feature_config.html',
+                controller:'FeatureConfigCtrl'
+              })
+              .state('home.billing_plans', {
+                url: '/billing_plans',
+                templateUrl: 'angularModules/billing/partials/Partial-billing_plans.html',
+                controller:'BillingPlansCtrl'
+              })
               .state('home.roleMenuMapping', {
                 url: '/roleMenuMapping',
                 templateUrl: 'angularModules/roleMenuMapping/partials/Partial-roleMenuMapping.html',

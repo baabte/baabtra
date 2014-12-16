@@ -1,4 +1,4 @@
-angular.module('baabtra').service('LoginService',['$http',function LoginService($http) {
+angular.module('baabtra').service('LoginService',['$http','bbConfig',function LoginService($http,bbConfig) {
 	
 
 
@@ -8,7 +8,7 @@ angular.module('baabtra').service('LoginService',['$http',function LoginService(
       
       $http({//call to the webservice
       method: 'POST',
-      url: "http://127.0.0.1:8000/"+'Login/',
+      url: bbConfig.BWS+'Login/',
       data:$scope.loginCredential, //passing the login credentials          
       }).success(function(data, status, headers, config) 
       {

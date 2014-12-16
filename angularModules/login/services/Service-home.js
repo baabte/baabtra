@@ -1,10 +1,10 @@
-angular.module('baabtra').service('home',['$http',function home($http) {
+angular.module('baabtra').service('home',['$http','bbConfig',function home($http,bbConfig) {
 this.FnGetCompanyDetails=function($scope)
     {
       $http({ //headers: {'Content-Type': 'application/json; charset=utf-8'},
             method: 'post',
-            url: 'http://127.0.0.1:8000/LoadMenus/',
-            data:{'rm_id':$scope.rm_id},
+            url: bbConfig.BWS+'LoadMenus/',
+            data:{'rm_id':$scope.rm_id},  
             contentType:'application/json; charset=UTF-8',
            }).
               success(function(data, status, headers, config) { //success respond from server

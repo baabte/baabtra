@@ -1,7 +1,7 @@
 angular.module('baabtra').controller('ManageUserRoleCtrl',['$scope','manageCompanyRoleService','localStorageService','$location','$alert',function($scope,manageCompanyRoleService,localStorageService,$location,$alert){
 	
   if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
-        $location.path('/signin');//redirecting path into login
+        $location.path('/login');//redirecting path into login
   }
 
 	var loginInfo=localStorageService.get('loginInfo');
@@ -53,11 +53,11 @@ $scope.fnRertrivecompanyRoleCallBack=function(data){ //callback function for han
  $scope.roles=angular.fromJson(JSON.parse(data));
  // console.log($scope.roles);
  if($scope.roles=="error"||$scope.roles=="failed"){
-   alert("Error in loading");
+   // alert("Error in loading");
  } 
  else if($scope.roles.length<1) 
  {
-  alert("you have no roles");
+  // alert("you have no roles");
 }             
 };
 $scope.fnEditUserRoleCallBack=function(data){ //callback function for handle Edit role of the company         
