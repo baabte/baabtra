@@ -10,9 +10,11 @@ this.FnGetCompanyDetails=function($scope)
               success(function(data, status, headers, config) { //success respond from server
                 var result=angular.fromJson(JSON.parse(data));
                 $scope.userMenus=$scope.userMenusOrigin=result[0].menuStructure[0].regionMenuStructure;
+                console.log($scope.userMenus);
                 $scope.menuLength=$scope.userMenus.length;
                 //alert($scope.menuLength);
                 $scope.classn=["btn-info",'btn-success','btn-warning','btn-danger','btn-inverse'];
+                $scope.breadCrumb(result[0].menuStructure[0].regionMenuStructure,null);
                 //$scope.companyDetails=result.data;      //filer the user list from respond data
               }).
               error(function(data, status, headers, config) {

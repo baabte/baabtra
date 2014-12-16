@@ -114,7 +114,7 @@
                 controller:'LoginViewCtrl'
               })
               .state('home.main', {
-                url: '/',
+                url: '/main',
                 templateUrl: 'angularModules/login/partials/Partial-home.html',
                 controller:'HomeCtrl'
               })
@@ -123,6 +123,7 @@
                 templateUrl: 'angularModules/company/partials/Partial-manage_user_role.html',
                 controller:'ManageUserRoleCtrl'
               })
+<<<<<<< HEAD
               .state('home.feature_config', {
                 url: '/feature_config',
                 templateUrl: 'angularModules/feature/partials/Partial-feature_config.html',
@@ -134,14 +135,26 @@
                 controller:'BillingPlansCtrl'
               })
               .state('home.roleMenuMapping', {
+=======
+              .state('home.main.roleMenuMapping', {
+>>>>>>> c205c57bf3642dc4132ec5f82057efeed327ff81
                 url: '/roleMenuMapping',
-                templateUrl: 'angularModules/roleMenuMapping/partials/Partial-roleMenuMapping.html',
-                controller:'RoleMenuMappingCtrl'
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/roleMenuMapping/partials/Partial-roleMenuMapping.html',
+                    controller:'RoleMenuMappingCtrl'
+                  }
+              }
               })
-               .state('home.userMenuMapping', {
+               .state('home.main.userMenuMapping', {
                 url: '/userMenuMapping',
-                templateUrl: 'angularModules/company/partials/Partial-userMenuMapping.html',
-                controller: 'UsermenumappingCtrl'
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/company/partials/Partial-userMenuMapping.html',
+                    controller: 'UsermenumappingCtrl'
+                  }
+                }
+                
               })
                 .state('home.JobPosting', {
                 url: '/JobPosting',
