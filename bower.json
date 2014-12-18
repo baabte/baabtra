@@ -29,7 +29,7 @@
     "angular-xeditable": "~0.1.8",
     "ng-file-upload": "~1.6.12",
     "jsPlumb": "~1.7.2",
-    "angular-ui-router-styles": "~0.0.4"
+    "angular-ui-router-styles": "~0.0.4",
     "angular-schema-form": "~0.7.6"
   },
   "devDependencies": {
