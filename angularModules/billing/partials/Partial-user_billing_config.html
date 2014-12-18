@@ -1,4 +1,137 @@
-<div class="col-md-12">
 
+    <div class="col-xl-10">
+      <div class="panel panel-default ">
+        <div class="panel-heading bg-white font-bold">
+         Plans &amp Features<br>
+        </div>
+        <div class="panel-body">
+          
+            <div class="form-group">
+              <label  class="col-md-1 m-t-sm font-bold" for="definpu">Plans</label>   
+              <div class="col-md-7">
+              <select  class="form-control " data-bv-field="sectors" ng-model="selection.plan" ng-options="plans.planName for plans in planlist"  >
+              <option value="">Select a Plan</option>
+              </select>
+              </div> 
+              <button class="btn w-sm btn-primary" data-placement="top" data-type="danger" data-html="true" data-animation="am-fade-and-scale" bs-tooltip="PlanChangeTT" class="ng-scope" ng-click="fnChangeplan(selection.plan)">Change Plan</button>        
+            </div>
+            
+
+            <!-- user feature list -->
+           
+            <div class="col-md-5 m-t-lg">
+              <div class="font-bold" data-placement="top" data-type="info" data-html="true" data-animation="am-fade-and-scale" bs-tooltip="FeatureConfigTT"> 
+            	User Active Features<hr>
+              </div>
+            	<div class=" list-group  bg-inherit">
+              <div class="animated flipInX">
+        			<div  class="list-group-item " ng-click="fConfig(feature)" ng-repeat="feature in userplan.plan.features">
+          			<span class="pull-right text-muted"><i ng-click="deleteFeature(feature)" class="glyphicon glyphicon-trash"></i></span>
+          			{{feature.featureName}}
+        			</div>
+              </div>
+      			</div>
+
+      		</div>
+
+
+      		<!-- feature list  -->
+       		<div class="col-md-5  m-t-lg">
+            <div class="font-bold"> 
+            		Feature List<hr>
+              </div>
+       				<div class=" list-group  bg-inherit">
+        	       <div class="animated flipInX">
+        				<div  class="list-group-item " ng-repeat="feature in featurelist||searchFeature">
+          				<span class="pull-right text-muted"><i ng-click="addFeature(feature)" class="glyphicon glyphicon-plus-sign"></i></span>
+          				{{feature.featureName}}
+        				</div>
+                </div>
+      				</div>
+      		</div>
+      		
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+<!-- <pre>{{selectedFeature}}</pre>
+ -->
+
+<div ng-show="featureSelected" class="panel panel-default">
+        <div class="panel-heading bg-white" >
+         Configure {{selectedFeature.featureName}}<br>
+        </div>
+        <div class="panel-body">
+
+
+        <div class="col-md-5  m-t-sm font-bold">
+                
+             <div data-placement="top" data-type="info" data-html="true" data-animation="am-fade-and-scale" bs-tooltip="PriceConfigTT" >
+                Pricing<hr>
+           </div>
+              
+                                    <div class="form-group " >
+                                    <label  class="col-sm-3 " for="definpu">Price</label>
+                                    
+                                    <span   editable-text="selectedFeature.pricing.price"class=" font-bold" onaftersave="editPricing(selectedFeature.pricing)" required>: {{selectedFeature.pricing.price||'Price' }}</span>
+                                    </div>
+                                    
+                                    
+                      <div class="form-group " >
+                                    <label class="col-sm-3 " for="definpu">No of Units</label>
+                                    
+                                     <span   editable-text="selectedFeature.pricing.units"class=" font-bold" onaftersave="editPricing(selectedFeature.pricing)" required>: {{selectedFeature.pricing.units||'Units' }}</span>
+
+                                    </div>
+                                    
+            
+
+        </div>
+        <div class="col-md-5  m-t-sm font-bold" >
+          <div data-placement="top" data-type="info" data-html="true" data-animation="am-fade-and-scale" bs-tooltip="BillConfigTT" >
+                Billing<hr>
+           </div>
+              
+
+                <div class="form-group " >
+                              <label class="col-sm-3  " for="definpu">Billing Frequency</label>
+                              
+                              <span href editable-select="sel.freqency" e-ng-options="fre for  fre in bill" onaftersave="editBill($data)">: {{sel.freqency}}</span>
+                             
+                </div>
+                <br>
+                <div ng-show="custombillfield">
+                <div class="form-group " >
+                              <label class="col-sm-2" for="definpu">Years</label>
+                              
+                              <span class="col-sm-2"  editable-text="selectedFeature.billing.years" onaftersave="editCustomBilling()">: {{selectedFeature.billing.years||'Years'}}</span>
+                             
+                </div>
+                <div class="form-group " >
+                              <label class="col-sm-2  " for="definpu">Months</label>
+                              
+                              <span class="col-sm-2"  editable-text="selectedFeature.billing.months"  onaftersave="editCustomBilling()">: {{selectedFeature.billing.months||'Months'}}</span>
+                             
+                </div>
+                <div class="form-group " >
+                              <label class="col-sm-2  " for="definpu">Days</label>
+                              
+                              <span class="col-sm-2" editable-text="selectedFeature.billing.days"  onaftersave="editCustomBilling()">: {{selectedFeature.billing.days||'Days'}}</span>
+                             
+                </div>
+                </div>
+
+               
+
+             </div>                      
+        </div>
 
 </div>
+   
+
+
+   
