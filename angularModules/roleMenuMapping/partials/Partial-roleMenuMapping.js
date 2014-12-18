@@ -1,6 +1,6 @@
 
 angular.module('baabtra').
-	controller('RoleMenuMappingCtrl',['$scope','$modal','$rootScope','RoleMenuMappingSrv','$alert','localStorageService',function ($scope,$modal,$rootScope,RoleMenuMappingSrv,$alert,localStorageService) {
+	controller('RoleMenuMappingCtrl',['$location','$scope','$modal','$rootScope','RoleMenuMappingSrv','$alert','localStorageService',function ($location,$scope,$modal,$rootScope,RoleMenuMappingSrv,$alert,localStorageService) {
 
   //$scope.companyName="baabtra.com";
   var loginInfo=localStorageService.get('loginInfo');
@@ -9,7 +9,7 @@ angular.module('baabtra').
     }
     if(localStorageService.get('loginInfo').length!==0){ //checking for data in local storage
       $scope.rm_id=loginInfo.roleMappingId.$oid; //gets the last logged role mapping id from local storage
-      if(loginInfo.roleMappingObj[0].fkCompanyId==""){
+      if(angular.equals(loginInfo.roleMappingObj[0].fkCompanyId,"")){
         $scope.companyId='';
       }
       else{
@@ -49,17 +49,19 @@ $scope.menuIcon="fa-info";
   var dragStartStatus=false;
   var MeusStatus=false;
   var tree1dragStartStatus=false;
+  var current_menu_type='';
+  var menu_list_type='';
   if(angular.equals($scope.roleId,1))
 {
-  var current_menu_type='role';
-  var menu_list_type='all';
+  current_menu_type='role';
+  menu_list_type='all';
   RoleMenuMappingSrv.FnLoadTopLevelRoles($scope);
   RoleMenuMappingSrv.FnGetCompanyDetails($scope,"","");
 }
 else if(angular.equals($scope.roleId,2))
 {
-  var current_menu_type='role';
-  var menu_list_type='user';
+  current_menu_type='role';
+  menu_list_type='user';
   //$scope.companyId='5457526122588a5db73e0b23';//company id
   RoleMenuMappingSrv.FnGetRoles($scope,$scope.companyId,"","");
   $scope.SearchType="Roles";
@@ -168,7 +170,7 @@ else if(angular.equals($scope.roleId,2))
         if (destNodesScope.$nodeScope==null) {
           dragStartStatus=true;
         }
-        else if(destNodesScope.$nodeScope.$modelValue.MenuLink == undefined)
+        else if(angular.equals(destNodesScope.$nodeScope.$modelValue.MenuLink,undefined))
         {
           dragStartStatus=true;
         }
@@ -242,14 +244,14 @@ else if(angular.equals($scope.roleId,2))
               if(sub==null){
                 sub=0;
               }
-              if(menu[sub]==undefined)
-                return 0;
-              if(menu[sub].MenuLink !=undefined)
+              if(angular.equals(menu[sub],undefined))
+                {return 0;}
+              if(!angular.equals(menu[sub].MenuLink ,undefined))
               {
                 $scope.tree2.push(menu[sub]);
               }
               if(menu[sub].childMenuStructure.length)
-               addMenu(menu[sub].childMenuStructure,null);
+               {addMenu(menu[sub].childMenuStructure,null);}
               addMenu(menu,++sub);
             }      
     };
@@ -260,14 +262,14 @@ else if(angular.equals($scope.roleId,2))
     $scope.moveRight = function(nodeVal)
     {
         console.log(nodeVal);
-    }
+    };
     $scope.fnActionExists = function(thisAction,actions){      
       for (var action_count = 0; action_count < actions.length; action_count++){
         if(actions[action_count]!=null)
-        if (actions[action_count].actionName == thisAction) { 
-          return true;
-         }
-      };}
+        {if (actions[action_count].actionName == thisAction) { 
+                  return true;
+                 }}
+      }};
       $scope.checkAction = function($menuItem,thisAction,index)
       {
         console.log($menuItem.actionStatus[index]);

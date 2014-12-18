@@ -59,7 +59,7 @@ $scope.emailPattern = (function() {
 	}; 
 
 	$scope.loginFailureCallback=function(data){
-		alert("loginFailureCallback");
+		//alert("loginFailureCallback");
 		localStorageService.set('loginLsCheck',2);
       	$scope.login_or_not='The Username or Password is incorrect.';
 	};

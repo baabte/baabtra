@@ -5,7 +5,7 @@ angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state
     }
     if(localStorageService.get('loginInfo').length!==0){ //checking for data in local storage
       $scope.rm_id=loginInfo.roleMappingId.$oid; //gets the last logged role mapping id from local storage
-      if(loginInfo.roleMappingObj[0].fkCompanyId==""){
+      if(angular.equals(loginInfo.roleMappingObj[0].fkCompanyId,"")){
         $scope.companyId='';
       }
       else{
@@ -20,7 +20,7 @@ angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state
     $scope.$watch('userMenusOrigin',function()
    {
       $scope.navBar=true;
-      if ($rootScope.userMenusOrigin!=undefined) {
+      if (!angular.equals($rootScope.userMenusOrigin,undefined)) {
         getMenuByLink($rootScope.userMenusOrigin,null,null,$state.current.url.split("/")[1]);
         if (!$rootScope.menuExist && $state.current.url.split("/")[1]!="main" ) {
                 if (!Object.keys($state.params).length) {
@@ -35,12 +35,12 @@ angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state
               $localStorage.linkPath=[];
                   $scope.linkPath=$localStorage.linkPath;
             }
-    };
+    }
   });
-    if ($localStorage.linkPath !=undefined) {
+    if (!angular.equals($localStorage.linkPath,undefined)) {
       $scope.linkPath=$localStorage.linkPath;
       $scope.navBar=false;
-    };
+    }
     
     $rootScope.$on('$stateChangeStart', 
         function(event, toState, toParams, fromState, fromParams){
@@ -64,23 +64,23 @@ angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state
                   // $scope.linkPath=[];
                   //$scope.linkPath=$localStorage.linkPath;
                 }
-      })
+      });
     
     function getMenuByLink(menu,sub,obj,link){
       $rootScope.menuExist=false;
               if(sub==null){
                 sub=0;
               }
-              if(menu[sub]!=undefined){
+              if(!angular.equals(menu[sub],undefined)){
                   getMenuByLink(menu,sub+1,obj,link);
                   if(menu[sub].childMenuStructure.length)
                   {
                     if(obj==null)
-                        obj=[];
-                    if(menu[sub].fkMenuId !=undefined)
-                      obj.push({pathName:menu[sub].MenuName,menu_id:menu[sub].fkMenuId.$oid});
+                        {obj=[];}
+                    if(!angular.equals(menu[sub].fkMenuId,undefined))
+                      {obj.push({pathName:menu[sub].MenuName,menu_id:menu[sub].fkMenuId.$oid});}
                     else
-                      obj.push({pathName:menu[sub].MenuName});
+                      {obj.push({pathName:menu[sub].MenuName});}
                     getMenuByLink(menu[sub].childMenuStructure,null,obj,link);
                   }
                   else{
@@ -88,11 +88,11 @@ angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state
                     for (var i = 0; i < menu[sub].actions.length; i++) {
                       //console.log("test");
                       //console.log(menu[sub].actions[i]);
-                    };
+                    }
                     if(menu[sub].MenuLink==link)
                     {
                       if(obj==null)
-                        obj=[];
+                        {obj=[];}
                       obj.push({pathName:menu[sub].MenuName,menu_link:menu[sub].MenuLink});
                       $localStorage.linkPath=obj;
                       $scope.linkPath=$localStorage.linkPath;
@@ -102,20 +102,20 @@ angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state
 
                   }
               }
-            };
+            }
 
     $scope.loadDetails = function(menu){
-      if($localStorage.linkPath== undefined)
+      if(angular.equals($localStorage.linkPath, undefined))
       {
         $localStorage.linkPath=[];
         $scope.linkPath=$localStorage.linkPath;
       }
       if(menu.childMenuStructure.length>0)
       {
-        if(menu.fkMenuId !=undefined)
-                       $localStorage.linkPath.push({pathName:menu.MenuName,menu_link:menu.MenuLink})
+        if(!angular.equals(menu.fkMenuId,undefined))
+                       {$localStorage.linkPath.push({pathName:menu.MenuName,menu_link:menu.MenuLink});}
                     else
-                       $localStorage.linkPath.push({pathName:menu.MenuName});
+                       {$localStorage.linkPath.push({pathName:menu.MenuName});}
         $scope.navBar=true;
         $scope.userMenus=menu.childMenuStructure;
         $scope.linkPath=$localStorage.linkPath;
@@ -123,10 +123,10 @@ angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state
       else{
         //$location.path("home/main/"+menu.M)
         $scope.navBar=true;
-        if(menu.fkMenuId !=undefined)
-           $localStorage.linkPath.push({pathName:menu.MenuName,menu_link:menu.MenuLink});
+        if(!angular.equals(menu.fkMenuId,undefined))
+           {$localStorage.linkPath.push({pathName:menu.MenuName,menu_link:menu.MenuLink});}
         else
-           $localStorage.linkPath.push({pathName:menu.MenuName});
+           {$localStorage.linkPath.push({pathName:menu.MenuName});}
          $scope.linkPath=$localStorage.linkPath;
         $state.go('home.main.'+menu.MenuLink);
       }
@@ -141,7 +141,7 @@ angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state
     };
     $scope.goMenu = function(path,index){
       console.log(path);
-      if (path.menu_link!=undefined) {
+      if (!angular.equals(path.menu_link,undefined)) {
         $state.go('home.main.'+path.menu_link);
       }
       else
@@ -152,18 +152,18 @@ angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state
         for (var j = 1; j < trim_val; j++) {
           $scope.linkPath.pop();
           $localStorage.linkPath=$scope.linkPath;
-        };
+        }
         $state.go('home.main');
       }
         var flag=0;
         var count=0;
         getMenu($scope.userMenusOrigin,null);
-            function getMenu(menu,sub){
+            var getMenu=function(menu,sub){
               if(sub==null){
                 sub=0;
               }
-              if(menu[sub]==undefined)
-                return 0;
+              if(angular.equals(menu[sub],undefined))
+                {return 0;}
               if(angular.equals(menu[sub].MenuName,path.pathName))
               {
                 $scope.userMenus=menu[sub].childMenuStructure;
@@ -171,10 +171,10 @@ angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state
               }
               if (!flag) {
               if(menu[sub].childMenuStructure.length)
-               getMenu(menu[sub].childMenuStructure,null);
+               {getMenu(menu[sub].childMenuStructure,null);}
               getMenu(menu,++sub);
               }
-            }
+            };
           }
     };
 }]);

@@ -1,6 +1,6 @@
 {
     "curly": true,
-    "eqeqeq": true,
+    "eqeqeq": false,
     "immed": true,
     "latedef": false,
     "newcap": false,
@@ -11,6 +11,7 @@
     "eqnull": true,
     "browser": true,
     "smarttabs": true,
+    "-W099": true, //for suppressing mixed spaces and tabs
     "globals": {
         "jQuery": true,
         "angular": true,
