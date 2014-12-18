@@ -75,7 +75,7 @@ position:relative;
   color: #777;
 }
 #feature_list_div{
-  height: 380px;overflow: auto;
+  height: 420px;overflow: auto;
 
 }
 /*  styles for scroll bars */
@@ -95,7 +95,7 @@ position:relative;
 #current_plan{
   background-color: #F5F5F5;
   padding: 5px;
-  height:100px;
+  min-height:100px;
 }
 .popover-title{
   color: #424242;

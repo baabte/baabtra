@@ -81,7 +81,8 @@
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
                   'manage-container': {
-                    templateUrl: 'angularModules/billing/partials/Partial-user_billing_config.html'
+                    templateUrl: 'angularModules/billing/partials/Partial-user_billing_config.html',
+                    controller:'UserBillingConfigCtrl'
                   } 
                 }
               })
@@ -90,7 +91,8 @@
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
                   'manage-container': {
-                    templateUrl: 'angularModules/feature/partials/Partial-user_feature_config.html'
+                    templateUrl: 'angularModules/feature/partials/Partial-user_feature_config.html',
+                    controller:'UserFeatureConfigCtrl'
                   } 
                 }
               })
@@ -167,9 +169,7 @@
                     templateUrl: 'angularModules/Branches/partials/Partial-Branches.html',
                     controller:'BranchesCtrl'
                    }                  
-                  },
-                data: { css: 'bower_components/angular-ui-tree/demo/css/demp-horizontal.css'}
-              
+                  }
               })
                .state('home.main.userMenuMapping', {
                 url: '/userMenuMapping',

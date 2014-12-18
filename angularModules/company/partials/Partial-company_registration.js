@@ -10,7 +10,7 @@ angular.module('baabtra').controller('CompanyRegistrationCtrl',['$scope','compan
     //value with crmid of current user
     // {ObjectId:"546f0a8f3b572dc8a53c2627"};
      var loginInfo=localStorageService.get('loginInfo');
-     localStorageService.get('loginInfo');
+     // localStorageService.get('loginInfo');
       var loggedusercrmid=loginInfo.roleMappingId.$oid;
 
       // "546f0a8f3b572dc8a53c2627"
