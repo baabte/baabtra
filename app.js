@@ -30,7 +30,8 @@
         'ui.tree',
         'xtForm',
         'xeditable',
-        'angularFileUpload'
+        'angularFileUpload',
+        'schemaForm'
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';
 });
