@@ -102,9 +102,9 @@ $scope.$watch('branches',function (newValue,oldValue){
     if(index==null){
       index=0;
     }
-    if (branch.children !=null) {
+    if (!angular.equals(branch.children,null)) {
     if(branch.children.indexOf($scope.branches[index]._id)!=-1){
-      if (branch.childrenObj==undefined){
+      if (angular.equals(branch.childrenObj,undefined)){
         branch.childrenObj=[];
       };
       if($scope.branches[index].activeFlag){

@@ -51,9 +51,9 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConf
               if(sub==null){
                 sub=0;
               }
-              if(menu[sub]==undefined)
+              if(angular.equals(menu[sub],undefined))
                 return 0;
-              if(menu[sub].fkMenuId !=undefined)
+              if(!angular.equals(menu[sub].fkMenuId,undefined))
                 menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
               if(menu[sub].childMenuStructure.length)
                changeObjIdOfMenu(menu[sub].childMenuStructure,null);
@@ -90,9 +90,9 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConf
               if(sub==null){
                 sub=0;
               }
-              if(menu[sub]==undefined)
+              if(angular.equals(menu[sub],undefined))
                 return 0;
-              if(menu[sub].fkMenuId !=undefined)
+              if(!angular.equals(menu[sub].fkMenuId,undefined))
                 menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
               if(menu[sub].childMenuStructure.length)
                changeObjIdOfMenu(menu[sub].childMenuStructure,null);
