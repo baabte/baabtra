@@ -3,81 +3,31 @@
   "planName": "",
   "features": {
     "feature1": {
+      "featureId": "",
       "featureName": "",
-      "featureDescription": "",
       "pricing": {
         "price": "",
-        "units": "",
-        "minUnits": ""
+        "units": ""
       },
       "billing": {
         "years": "",
         "months": "",
         "days": "",
         "totalDays": ""
-      },
-      "configDetails": {
-        "field1": {
-          "label": "",
-          "inputType": "",
-          "validations": [],
-          "allowedValues": [],
-          "atrributes": {
-            "attr1": "",
-            "attr2": ""
-          },
-          "userConfigurable": "true/false"
-        },
-        "field2": {
-          "label": "",
-          "inputType": "",
-          "validations": [],
-          "allowedValues": [],
-          "atrributes": {
-            "attr1": "",
-            "attr2": ""
-          },
-          "userConfigurable": "true/false"
-        }
       }
     },
     "feature2": {
+      "featureId": "",
       "featureName": "",
-      "featureDescription": "",
       "pricing": {
         "price": "",
-        "units": "",
-        "minUnits": ""
+        "units": ""
       },
       "billing": {
         "years": "",
         "months": "",
         "days": "",
         "totalDays": ""
-      },
-      "configDetails": {
-        "field1": {
-          "label": "",
-          "inputType": "",
-          "validations": [],
-          "allowedValues": [],
-          "atrributes": {
-            "attr1": "",
-            "attr2": ""
-          },
-          "userConfigurable": "true/false"
-        },
-        "field2": {
-          "label": "",
-          "inputType": "",
-          "validations": [],
-          "allowedValues": [],
-          "atrributes": {
-            "attr1": "",
-            "attr2": ""
-          },
-          "userConfigurable": "true/false"
-        }
       }
     }
   }

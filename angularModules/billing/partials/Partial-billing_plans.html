@@ -1,0 +1,43 @@
+
+<div class="p-h-md p-v bg-white box-shadow pos-rlt ng-scope">
+	<h3 class="no-margin">Billing plans</h3>
+</div>
+<div class="col-sm-12">
+	<div class="panel-heading bg-white">
+				<strong>add new plans</strong>
+	</div>
+	<div class="col-sm-12 bg-white panel-body">
+		<div class="form-group">
+				<div class="col-sm-4">
+						<div class="form-group">
+						<input type="text" class="form-control " ng-model="planName" placeholder="plan name">
+						</div>
+						<div class="list-group" id="feature_list_div">
+					          <a href="" class="list-group-item b-l-primary" data-animation="am-fade-and-scale" data-type="success" bs-tooltip="tooltip" ng-repeat="feature in features" ng-click="addfeature($index)">
+					          <span class="pull-right text-primary "><i class="glyphicon glyphicon fa fa-plus"></i></span>
+					          <label class="block font-bold"> {{feature.featureName}}</label>
+					        </a>
+
+     	</div>
+      <button class="btn w-xs btn-primary" ng-click="addPlan()">add plan</button>
+				</div>			
+    <div class="col-sm-8 " ng-show="current_plan"  >
+        <div  id="current_plan" class="callout-info">
+        <h4 >{{planName}}</h4>
+        <span ng-repeat="feature in features_to_billing_plan" class="btn  btn-primary m-xs"  >{{feature.featureName}} &nbsp
+        <i class="ti-settings" data-content="feature" data-template="views/ui/angular-strap/edit_tooltip.html" data-animation="am-flip-x"  bs-popover="" ng-click="filterBillingPlan(feature)"></i>&nbsp
+        <i class="glyphicon glyphicon-remove-sign" ng-click="removeFromFeaturelist(feature,$index)"></i>
+        </span>
+        
+        </div>
+    </div>	
+		</div>
+
+	</div>
+</div>
+
+
+<!-- <button type="button" class="btn btn-lg btn-danger ng-scope" title="Title" data-content="Hello Popover<br />This is a multiline message!" data-template="views/ui/angular-strap/popover.tpl.html" data-animation="am-flip-x" bs-popover="">Custom Popover
+      <br>
+      <small>(using data-template)</small>
+    </button> -->

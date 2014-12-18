@@ -1,9 +1,9 @@
-angular.module('baabtra').service('manageCompanyRoleService',['$http',function manageCompanyRoleService($http) {
+angular.module('baabtra').service('manageCompanyRoleService',['$http','bbConfig',function manageCompanyRoleService($http,bbConfig) {
 
 	 this.addUserRole=function ($scope){ // functon that call web service to add a comapny role
 	 	var roles={"roleName":$scope.roleName,"RoleDesc":$scope.RoleDesc,"companyId":$scope.companyId,"crmId":$scope.crmId,"urmId":$scope.urmId};
 	 	$http({
-	 		url: "http://127.0.0.1:8000/"+'ManageCompanyRole/',
+	 		url: bbConfig.BWS+'ManageCompanyRole/',
 	 		data: JSON.stringify({"roles":roles}),
 	 		method: "POST",
 	 		withCredentials: false,
@@ -20,7 +20,7 @@ angular.module('baabtra').service('manageCompanyRoleService',['$http',function m
 	 }; 
     this.RetrieveUserRole=function ($scope){ // sending a parameter only for test
          $http({
-         	url: "http://127.0.0.1:8000/"+'ViewManageCompanyRole/',
+         	url: bbConfig.BWS+'ViewManageCompanyRole/',
            data: JSON.stringify({"companyId":$scope.companyId}), //it will filter roles under a comapany
            method: "POST",
            withCredentials: false,
@@ -38,7 +38,7 @@ angular.module('baabtra').service('manageCompanyRoleService',['$http',function m
     {
   
         $http({
-           url: "http://127.0.0.1:8000/"+'DeleteCompanyRole/',
+           url: bbConfig.BWS+'DeleteCompanyRole/',
            data: JSON.stringify(RollData), //it will filter roles under a comapany
            method: "POST",
            withCredentials: false,
@@ -58,7 +58,7 @@ angular.module('baabtra').service('manageCompanyRoleService',['$http',function m
       
       var roleData={"_id":$scope.roleData._id.$oid,"role":$scope.role,"data":$scope.data};
         $http({
-           url: "http://127.0.0.1:8000/"+'UpdateCompanyRole/',
+           url: bbConfig.BWS+'UpdateCompanyRole/',
            data: JSON.stringify(roleData), //it will filter roles under a comapany
            method: "POST",
            withCredentials: false,

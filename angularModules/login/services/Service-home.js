@@ -20,5 +20,4 @@ this.FnLoadMenus=function($scope)
               error(function(data, status, headers, config) {
              });
     };
-
 }]);

@@ -1,4 +1,4 @@
-describe('fileuploadDir', function() {
+describe('addAttrDir', function() {
 
   beforeEach(module('baabtra'));
 
