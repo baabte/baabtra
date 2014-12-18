@@ -1,5 +1,5 @@
 angular.module('baabtra').service('userBillingConfigService',['$http','bbConfig',function userBillingConfigService($http,bbConfig) {
-
+//to get user plan details 
 	this.FnGetUserPlan=function($scope){
     
     var result;
@@ -24,7 +24,7 @@ angular.module('baabtra').service('userBillingConfigService',['$http','bbConfig'
       return result;
 
    };
-
+//to fetch plans 
    this.FnGetPlan=function($scope){
     var result;
       $http({
@@ -49,7 +49,7 @@ angular.module('baabtra').service('userBillingConfigService',['$http','bbConfig'
 
    };
 
-
+//to change user plan 
    this.FnChangeUserPlan=function($scope){
     var result;
       $http({
@@ -74,6 +74,7 @@ angular.module('baabtra').service('userBillingConfigService',['$http','bbConfig'
 
    };
 
+//to get features excluding features in user plan 
    this.FnGetFeature=function($scope){
     var result;
       $http({
@@ -99,6 +100,7 @@ angular.module('baabtra').service('userBillingConfigService',['$http','bbConfig'
 
    };
 
+//to add new feature to user plan
    this.FnAddFeature=function($scope){
     var result;
       $http({
@@ -122,7 +124,7 @@ angular.module('baabtra').service('userBillingConfigService',['$http','bbConfig'
    };
 
 
-
+//to delete feature from user plan 
 this.FnDeleteFeature=function($scope){
     var result;
       $http({
@@ -146,7 +148,7 @@ this.FnDeleteFeature=function($scope){
    };
 
 
-
+//to edit pricing of a feature 
    this.FnEditPricing=function($scope){
     var result;
       $http({
@@ -169,6 +171,7 @@ this.FnDeleteFeature=function($scope){
 
    };
 
+// to edit billing of feature 
    this.FnEditBilling=function($scope){
     var result;
       $http({
