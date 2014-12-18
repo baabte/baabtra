@@ -143,6 +143,35 @@
                   }
               }
               })
+              .state('home.main.manageCompany', {
+                url: '/manageCompany',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/company/partials/Partial-manageCompany.html',
+                    controller:'ManagecompanyCtrl'
+                  }
+              }
+              })
+              .state('home.main.manageCompany.company', {
+                url: '/cmp_id={companyId}',
+                views:{
+                  'companycontent':{
+                    templateUrl: 'angularModules/company/partials/Partial-companyHome.html',
+                    controller:'CompanyhomeCtrl'
+                  }
+              }
+              })
+              .state('home.main.Branches', {
+                url: '/Branches',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Branches/partials/Partial-Branches.html',
+                    controller:'BranchesCtrl'
+                   }                  
+                  },
+                data: { css: 'bower_components/angular-ui-tree/demo/css/demp-horizontal.css'}
+              
+              })
                .state('home.main.userMenuMapping', {
                 url: '/userMenuMapping',
                 views:{
@@ -153,6 +182,18 @@
                 }
                 
               })
+
+              .state('home.main.addMenu', {
+                url: '/addMenu',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/company/partials/Partial-addMenu.html',
+                    controller: 'AddmenuCtrl'
+                  }
+                }
+                
+              })
+
                 .state('home.JobPosting', {
                 url: '/JobPosting',
                 templateUrl: 'angularModules/company/partials/Partial-JobPosting.html',
@@ -191,6 +232,9 @@
                 url: '/505',
                 templateUrl: 'views/pages/505.html'
               });
+
+
+
           }
         ]
       );

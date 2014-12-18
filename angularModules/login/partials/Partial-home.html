@@ -7,8 +7,9 @@
           <a  ng-click="loadDetails(menu)" class="animated fadeInDown text-sm btn btn-lg btn-stroke {{classn[($index+1)%classn.length]}} m-l m-t" >
           <i class="fa {{menu.menuIcon}} fa-4x"></i>
           <span class="block clear text-left m-v-xs">
-            <b class="text-lg block font-bold">{{menu.MenuName}}</b><i class="arrow {{classn[($index+1)%classn.length]}} right pull-bottom" ng-show='{{menu.childMenuStructure.length}}'></i>
+            <b class="text-lg block font-bold">{{menu.MenuName}}</b>
           </span>
+          <i class="fa text-lg pull-right right" ng-class="{'fa-arrow-circle-right':menu.childMenuStructure.length}"></i>
         </a>
         </span>
       </div>

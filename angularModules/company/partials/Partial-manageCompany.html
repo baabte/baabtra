@@ -1,0 +1,21 @@
+<div class="p-md ng-scope">
+<div class="row">
+	<div class="col-sm-12" name="companycontent" ui-view>
+        
+        <div class="col-sm-4" ng-repeat="company in companyDetails">
+      <div class="panel b-light">
+        <div ng-click="manageComapny(company)" class="panel-body p-sm" style="cursor: pointer;">
+          <div class="pull-left text-center m-r-xs">
+            <img src="images/CompanyLogs/company.png" class="w-xs pull-left">
+          </div>
+          <div class="clear">
+            <div class="text-xl font-bold">{{company.companyName}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+	</div>
+</div>
+<div class="row" >
+</div>
+</div>
