@@ -56,7 +56,7 @@ border-bottom: 1px solid #1263e9;
  border-bottom: 1px solid #777777;
 }
 #feature_list_div{
-  height: 380px;overflow: auto;
+  height: 420px;overflow: auto;
 
 }
 /*  styles for scroll bars */
@@ -76,7 +76,7 @@ border-bottom: 1px solid #1263e9;
 #current_plan{
   background-color: #F5F5F5;
   padding: 5px;
-  height:100px;
+  min-height:100px;
 }
 .popover-title{
   color: #424242;
