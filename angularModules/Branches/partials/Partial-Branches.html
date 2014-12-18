@@ -1,0 +1,22 @@
+     <script type="text/ng-template" id="nodes_renderer.html">
+          <div ui-tree-handle class="tree-node tree-node-content list-group-item" id="{{node._id}}">{{node.$root}}
+            {{node._id}}&nbsp; &nbsp;
+            <a href="" class="icon-grey pull-right m-l-xs" data-nodrag ng-click="removeBranch(this)"><i class="fa fa-trash" ></i></a>
+            <a href="" class="icon-grey pull-right m-h-xs" data-nodrag ng-click="editBranch(this)"><i class="fa fa-edit" ></i></a>
+            
+            <a href="" class="icon-grey pull-right m-r-xs" data-nodrag ng-click="newSubItem(this)"><i class="fa fa-plus" ></i></a>
+          </div>
+          <ol ui-tree-nodes="" ng-model="node.childrenObj" style="padding-left:0px;" ng-class="{hidden: collapsed}" data-horizontal="">
+            <li ng-repeat="node in node.childrenObj track by $index" class="text-center" ui-tree-node ng-include="'nodes_renderer.html'">
+            </li>
+          </ol>
+        </script>
+
+         <div class="row text-center">
+        <div ui-tree="tree1NodesOptions" id="tree-root" >
+          <ol ui-tree-nodes="" ng-model="branchTree"  data-horizontal="">
+            <li ng-repeat="node in branchTree track by $index" class="text-center list-group list-group-gap" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+          </ol>
+        </div>
+        </div>
+      

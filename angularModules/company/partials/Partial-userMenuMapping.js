@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('UsermenumappingCtrl',['$scope','userMenuMappingSrv','$alert','localStorageService',function ($scope,userMenuMappingSrv,$alert,localStorageService){
+angular.module('baabtra').controller('UsermenumappingCtrl',['$scope','$rootScope','userMenuMappingSrv','$alert','localStorageService',function ($scope,$rootScope,userMenuMappingSrv,$alert,localStorageService){
 
   var loginInfo=localStorageService.get('loginInfo');
   if(loginInfo===null||loginInfo.length===0){
@@ -17,6 +17,13 @@ angular.module('baabtra').controller('UsermenumappingCtrl',['$scope','userMenuMa
           $location.path('/home');
       }      
     }
+     // $rootScope.$watch('userMenusOrigin',function()
+     //  {
+     //    if($rootScope.userMenusOrigin)
+     //    {
+     //      $rootScope.breadCrumb($rootScope.userMenusOrigin);
+     //    }
+     //  });
 
 //$scope.roleId=1;
 //$scope.companyId='';

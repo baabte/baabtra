@@ -7,6 +7,11 @@
     border: 1px solid #dae2ea;
     color: #7c9eb2;
     padding: 10px 5px;
+
+    /*Custom css added by Anoop*/
+    margin:15px;
+    margin-top: 50px;
+    /*End. Custom css added by Anoop*/
 }
 
 .angular-ui-tree-handle:hover {

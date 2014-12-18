@@ -4,8 +4,10 @@ angular.module('baabtra').controller('UserBillingConfigCtrl',['$scope','userBill
   $location.path('/');
 }  
 
+
+
 	$scope.companyId=$state.params.companyId;
-	console.log($scope.companyId);
+	// console.log($scope.companyId);
     userBillingConfigService.FnGetUserPlan($scope);
     userBillingConfigService.FnGetPlan($scope);
     userBillingConfigService.FnGetFeature($scope);
@@ -25,7 +27,7 @@ $scope.fnChangeplan=function(plan){
 	 // console.log($scope.userplan);
    $scope.userplan={};
    $scope.userplan.companyId=$scope.companyId;
-   plan.planId=plan._id
+   plan.planId=plan._id;
    delete plan._id;
 	 $scope.userplan.plan=plan;
    $scope.userplan.plan.planId=$scope.userplan.plan.planId.$oid;
@@ -35,7 +37,7 @@ $scope.fnChangeplan=function(plan){
         $scope.userplan.plan.features[i].featureId=$scope.userplan.plan.features[i].featureId.$oid;
         i++;
       }
-      console.log($scope.userplan);
+      // console.log($scope.userplan);
 	 userBillingConfigService.FnChangeUserPlan($scope);
 	}
 
@@ -44,19 +46,19 @@ $scope.fnChangeplan=function(plan){
 $scope.fConfig = function(feature){
 $scope.featureSelected=true;
 $scope.selectedFeature=feature;
-console.log(feature);
+// console.log(feature);
 if((feature.billing.years===1)&&(feature.billing.months===0)&&(feature.billing.days===0))
 {
-  console.log("yearly");
+  // console.log("yearly");
      i=0;
 }
 else if((feature.billing.years===0)&&(feature.billing.months===1)&&(feature.billing.days===0))
 {
-  console.log("monthly");
+  // console.log("monthly");
       i=1;
 }
 else{
-  console.log("custom");
+  // console.log("custom");
      i=2;
   }
 
@@ -82,7 +84,7 @@ else if($scope.sel.freqency!=='custom'){
 
  $scope.addFeature = function( feature ) {
   var index = $scope.featurelist.indexOf( feature );
-  console.log(feature);
+  // console.log(feature);
   $scope.userplan.plan.features.push( feature );
   if ( index >= 0 ) {
       $scope.featurelist.splice( index, 1 );
@@ -97,16 +99,16 @@ else if($scope.sel.freqency!=='custom'){
         $scope.AddFeature.feature.featureId=feature._id.$oid;
          delete $scope.AddFeature.feature._id;
       }
-      console.log($scope.AddFeature.feature);
+      // console.log($scope.AddFeature.feature);
       // $scope.AddFeature.feature.featureId=feature._id.$oid;
       // delete $scope.AddFeature.feature._id;
-      userBillingConfigService.FnAddFeature($scope)
+      userBillingConfigService.FnAddFeature($scope);
 };
 
 
  $scope.deleteFeature = function( feature ) {
   var index = $scope.userplan.plan.features.indexOf( feature );
-  console.log(feature);
+  // console.log(feature);
   $scope.featurelist.push( feature );
   if ( index >= 0 ) {
       $scope.userplan.plan.features.splice( index, 1 );
@@ -118,8 +120,8 @@ else if($scope.sel.freqency!=='custom'){
       }
       else if (feature.featureId===undefined) {
         $scope.DeleteFeature.featureId=feature._id.$oid;
-      };
-      console.log($scope.DeleteFeature);
+      }
+      // console.log($scope.DeleteFeature);
       // $scope.DeleteFeature.featureId=feature._id.$oid;
        userBillingConfigService.FnDeleteFeature($scope);
 
@@ -130,13 +132,13 @@ $scope.editPricing = function(Pricing) {
   $scope.editPrice.companyId=$scope.companyId;
   $scope.editPrice.featureId=$scope.selectedFeature.featureId.$oid;
   $scope.editPrice.pricing=Pricing;
-  console.log($scope.editPrice);
+  // console.log($scope.editPrice);
   userBillingConfigService.FnEditPricing($scope);
 
 };
 
 $scope.editBill = function(Billing) {
-  console.log(Billing);
+  // console.log(Billing);
     $scope.editBilling={};
     $scope.editBilling.billing={};
     $scope.editBilling.companyId=$scope.companyId;
@@ -163,7 +165,7 @@ $scope.editBill = function(Billing) {
   else if(Billing==='custom'){
     $scope.custombillfield=true;
   }
-  console.log($scope.editBilling);
+  // console.log($scope.editBilling);
 };
 
 $scope.editCustomBilling = function() {
@@ -176,7 +178,7 @@ $scope.editBilling={};
     $scope.editBilling.billing.days=$scope.selectedFeature.billing.days;
     $scope.editBilling.billing.totalDays=parseInt(($scope.selectedFeature.billing.years*365))+parseInt(($scope.selectedFeature.billing.months*30))+parseInt(($scope.selectedFeature.billing.days));
     userBillingConfigService.FnEditBilling($scope);
-}
+};
  
 
 //call backs

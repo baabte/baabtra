@@ -31,6 +31,7 @@
         'xtForm',
         'xeditable',
         'angularFileUpload',
+        'uiRouterStyles',
         'schemaForm'
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';

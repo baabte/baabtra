@@ -1,7 +1,7 @@
 angular.module('baabtra').service('JobSrv',['$http','$alert','$modal',function JobSrv($http,$alert,$modal) {
 	this.saveJob=function($scope){
     $http({
-           url: 'http://127.0.0.1:8000/postCompanyJobs/',
+           url: bbConfig.BWS+'postCompanyJobs/',
            method: "POST",
            data:$scope.jobDetails,
            withCredentials: false,
@@ -21,7 +21,7 @@ angular.module('baabtra').service('JobSrv',['$http','$alert','$modal',function J
 
      $http({
           method: 'post',
-          url: 'http://127.0.0.1:8000/getCompanyJobs/',
+          url: bbConfig.BWS+'getCompanyJobs/',
           data: {"cmp_id":cmp_id,"search_key":search_key,"search_range":search_range},
           contentType   : 'application/json; charset=UTF-8',
         }).
@@ -42,7 +42,7 @@ angular.module('baabtra').service('JobSrv',['$http','$alert','$modal',function J
     this.updateJobDetails=function(jobDetails,jobId){
 
       $http({
-           url: 'http://127.0.0.1:8000/UpdateJobDetails/',
+           url: bbConfig.BWS+'UpdateJobDetails/',
            method: "POST",
            data:{"jobId":jobId,"jobDetails":jobDetails},
            withCredentials: false,
@@ -62,7 +62,7 @@ angular.module('baabtra').service('JobSrv',['$http','$alert','$modal',function J
     this.hideJobDetails=function(jobId,jobStaus){
 
       $http({
-           url: 'http://127.0.0.1:8000/HideJobDetails/',
+           url: bbConfig.BWS+'HideJobDetails/',
            method: "POST",
            data:{"jobId":jobId,"jobStaus":jobStaus},
            withCredentials: false,
