@@ -1,10 +1,10 @@
-angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert',function RoleMenuMappingSrv($http,$alert) {
+angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConfig',function RoleMenuMappingSrv($http,$alert,bbConfig) {
   var role_id="";
 	this.FnGetCompanyDetails=function($scope,range,cmp_name)//To Load The Existing Company Details
       {
         $http({
           method: 'post',
-          url: 'http://127.0.0.1:8000/FnGetCompanyDetailsJi/',
+          url: bbConfig.BWS+'FnGetCompanyDetailsJi/',
           data:{"range":range,"cmp_name":cmp_name},
           contentType:'application/json; charset=UTF-8',
         }).
@@ -33,7 +33,7 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert',functio
       {
         $http({
           method: 'post',
-          url: 'http://127.0.0.1:8000/FnLoadTopLevelRoles/',
+          url: bbConfig.BWS+'FnLoadTopLevelRoles/',
           //data:{"range":range,"cmp_name":cmp_name},
           contentType:'application/json; charset=UTF-8',
         }).
@@ -50,7 +50,7 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert',functio
       {//$scope.indicator=true;
         $http({
           method: 'post',
-          url: 'http://127.0.0.1:8000/GetAllRoles/',
+          url: bbConfig.BWS+'GetAllRoles/',
           data: {"rm_id":$scope.roleId,"cmp_id":cmp_id,"range":range,"roleVal":roleVal},
           contentType   : 'application/json; charset=UTF-8',
         }).
@@ -79,7 +79,7 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert',functio
         role_id=id;//To Get existing selected role
         $http({
           method: 'post',
-          url:  'http://127.0.0.1:8000/GetRoleMenus/',
+          url:  bbConfig.BWS+'GetRoleMenus/',
           data: {'fkRoleId':id,'type':type},
           contentType   : 'application/json; charset=UTF-8',
         }).
@@ -103,7 +103,10 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert',functio
               }
               if(menu[sub]==undefined)
                 return 0;
-              menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
+              if(menu[sub].fkMenuId !=undefined)
+              {
+                menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
+              }
               if(menu[sub].childMenuStructure.length)
                changeObjIdOfMenu(menu[sub].childMenuStructure,null);
               changeObjIdOfMenu(menu,++sub);
@@ -113,6 +116,7 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert',functio
           {
             $scope.tree1=[];
           }
+          console.log($scope.tree1);
         }).
         error(function(data, status, headers, config) {
           // called asynchronously if an error occurs
@@ -121,24 +125,24 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert',functio
       };
           this.FnGetAllMenus=function ($scope,type)//To Load All menus of loded user
 
-      { 
+      {  
         $http({
           method: 'post',
-          url: 'http://127.0.0.1:8000/GetAllMenus/',
+          url: bbConfig.BWS+'GetAllMenus/',
           data: {'rm_id':$scope.rm_id,'type':type},
           contentType   : 'application/json; charset=UTF-8',
         }).
         success(function(data, status, headers, config) {
           $scope.allMenus=angular.fromJson(JSON.parse(data));//Converting the result to json object
-
-          if ($scope.allMenus.length>0){//Checking the result
+                    if ($scope.allMenus.length>0){//Checking the result
             if (type=="all") {
                         for (var i = 0; i < $scope.allMenus.length; i++) {
             $scope.allMenus[i].fkMenuId=$scope.allMenus[i]._id.$oid;
+            $scope.allMenus[i].actionMaster=$scope.allMenus[i].actions;
             delete $scope.allMenus[i]._id;
             $scope.allMenus[i].childMenuStructure=[];
               };
-          $scope.tree2=$scope.allMenus;
+              $scope.tree2=$scope.allMenus;
             }
             else{
             $scope.tree2=$scope.allMenus[0].menuStructure[0].regionMenuStructure;//Setting the menus to menulist
@@ -149,12 +153,56 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert',functio
               }
               if(menu[sub]==undefined)
                 return 0;
-              menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
+              if(menu[sub].fkMenuId !=undefined){
+                menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
+                menu[sub].actionMaster=menu[sub].actions;
+              }
               if(menu[sub].childMenuStructure.length)
                changeObjIdOfMenu(menu[sub].childMenuStructure,null);
               changeObjIdOfMenu(menu,++sub);
             }
           }
+          checkNodeMenus($scope.tree1,null);
+          function checkNodeMenus(menu,sub){
+              if(sub==null){
+                sub=0;
+              }
+              if(menu[sub]==undefined)
+                return 0;
+              if(menu[sub].MenuLink !=undefined)
+              {
+                removeDuplicateMenus($scope.tree2,null,menu[sub]);
+                //console.log(menu[sub].MenuName);
+
+              }
+              if(menu[sub].childMenuStructure.length)
+               checkNodeMenus(menu[sub].childMenuStructure,null);
+              checkNodeMenus(menu,++sub);
+            }
+
+          function removeDuplicateMenus(menu,sub,Child){
+              if(sub==null){
+                sub=0;
+              }
+              if(menu[sub]==undefined)
+                return 0;
+              if(menu[sub].MenuLink !=undefined)
+              {
+
+                //console.log(Child);
+                  //console.log(Child.MenuName+":In:"+menu[sub].MenuName);
+                  if(Child.fkMenuId==menu[sub].fkMenuId){
+
+                     Child.actionMaster=menu[sub].actions;
+                     menu.splice(sub,1);
+                     return 0;
+                }
+                
+              }
+              if(menu[sub].childMenuStructure.length)
+               removeDuplicateMenus(menu[sub].childMenuStructure,null,Child);
+              removeDuplicateMenus(menu,++sub,Child);
+            }  
           }
           else
           {
@@ -171,10 +219,9 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert',functio
       };
       this.FnSaveNewRoleMenu=function ($scope,new_menu)//To Save current menu list
       {
-        alert(role_id);
         $http({
           method: 'post',
-          url: 'http://127.0.0.1:8000/SaveNewRoleMenu/',
+          url: bbConfig.BWS+'SaveNewRoleMenu/',
           data: {"menus":new_menu,"role_id":role_id,'rm_id':$scope.rm_id},
           contentType   : 'application/json; charset=UTF-8',
         }).

@@ -55,3 +55,22 @@ border-bottom: 1px solid #1263e9;
 .RoleDesc:hover {
  border-bottom: 1px solid #777777;
 }
+.posAbsolute: {
+position:relative; 
+}
+
+ #diagramContainer {
+            padding: 20px;
+            width:80%; height: 400px;
+            border: 1px solid gray;
+        }
+        
+        .item {
+            height:80px; width: 80px;
+            border: 1px solid blue;
+            float: left;
+        }
+.icon-grey
+{
+  color: #777;
+}

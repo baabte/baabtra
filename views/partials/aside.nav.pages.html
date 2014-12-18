@@ -1,13 +1,13 @@
 <nav ui-nav class="">
   <ul class="nav">
-    <li ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}" ui-sref-active="active">
+    <li ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}" ui-sref-active="active" >
       <a ng-click="goHome()">
        <i class="icon glyphicon glyphicon-list text-lg"></i>
       </a>
     </li>
     <li ng-click="goMenu(path,$index)" ng-repeat="path in linkPath" ui-sref-active="active">
       <a>
-        <i class="fa fa-chevron-right fa-1x" ng-show="$index>0"></i>
+        <i class="fa fa-chevron-right" style="font-size: 8px;position: relative;top: -3px;"></i>
       	<i class="fa fa-apple fa-1x"></i>
        <i class="text-md">{{path.pathName}}</i>
       </a>

@@ -1,11 +1,11 @@
-angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert', function userMenuMappingSrv($http,$alert) {
+angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConfig', function userMenuMappingSrv($http,$alert,bbConfig) {
     var thisService=this;
     // To load the existing company users.
     this.FnGetCompanyDetails=function($scope,range,prefix)
     {
       $http({ //headers: {'Content-Type': 'application/json; charset=utf-8'},
             method: 'post',
-            url: 'http://127.0.0.1:8000/FnGetCompanyDetails/',
+            url: bbConfig.BWS+'FnGetCompanyDetails/',
             data: JSON.stringify({'roleId':$scope.roleId,'companyId':$scope.companyId,'range':range,'prefix':prefix}),
             contentType:'application/json; charset=UTF-8',
            }).
@@ -29,7 +29,7 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert', functi
         //function to load the current users menu items
     this.FnLoadExMenuItems4AUMMapping=function ($scope,fkUserRoleMappingId,fkRoleId,companyId){
     $http({
-           url: 'http://127.0.0.1:8000/LoadExMenuItems4AUMMapping/',
+           url: bbConfig.BWS+'LoadExMenuItems4AUMMapping/',
            data: JSON.stringify({'fkUserRoleMappingId':fkUserRoleMappingId,'companyId':companyId,'roleId':fkRoleId}),
            method: 'POST',
            withCredentials: false,
@@ -40,16 +40,24 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert', functi
                 var result=angular.fromJson(JSON.parse(data)); //response from server
 	                if (result!=='') {
                     $scope.ExMenus = result.data;
+
 	                   $scope.CurrentFkUserRoleMappingId=result.urmId.$oid;
+
 	                $scope.menuRegionId=$scope.ExMenus[0].menuStructure[0].fkmenuRegionId.$oid;
 	                $scope.tree1 = $scope.ExMenus[0].menuStructure[0].regionMenuStructure;
-	                for (var i = 0; i < $scope.tree1.length; i++) {
-              $scope.tree1[i].fkMenuId=$scope.tree1[i].fkMenuId.$oid;//Converting root menu ObjectId Id to String        
-              if($scope.tree1[i].childMenuStructure.length>0){//Checking root menu having any submenu
-                for (var j = 0; j < $scope.tree1[i].childMenuStructure.length; j++) {
-                  $scope.tree1[i].childMenuStructure[j].fkMenuId=$scope.tree1[i].childMenuStructure[j].fkMenuId.$oid;//Converting sub menu ObjectId to String 
-                }
+                  console.log($scope.tree1);
+	                 changeObjIdOfMenu($scope.tree1,null);
+            function changeObjIdOfMenu(menu,sub){
+              if(sub==null){
+                sub=0;
               }
+              if(menu[sub]==undefined)
+                return 0;
+              if(menu[sub].fkMenuId !=undefined)
+                menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
+              if(menu[sub].childMenuStructure.length)
+               changeObjIdOfMenu(menu[sub].childMenuStructure,null);
+              changeObjIdOfMenu(menu,++sub);
             }
 	           $scope.menudetails=true;
           }
@@ -65,7 +73,7 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert', functi
      //function to load the current users menu items
     this.FnLoadMenuItems4AUMMapping=function ($scope,fkRoleId){
     $http({
-           url: 'http://127.0.0.1:8000/LoadMenuItems4AUMMapping/',
+           url: bbConfig.BWS+'LoadMenuItems4AUMMapping/',
            data: JSON.stringify({'fkRoleId': fkRoleId}),
            method: 'POST',
            withCredentials: false,
@@ -77,13 +85,18 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert', functi
                    $scope.menuList = angular.fromJson(JSON.parse(data)); //response from server
                    if($scope.menuList!==''){
                   $scope.tree2 = $scope.menuList.menuStructure[0].regionMenuStructure; //Assigning the object value into a variable to load All menus
-                  for (var i = 0; i < $scope.tree2.length; i++) {
-              $scope.tree2[i].fkMenuId=$scope.tree2[i].fkMenuId.$oid;//Converting root menu ObjectId to String
-              if($scope.tree2[i].childMenuStructure.length>0){//Checking root menu having any sub
-                for (var j = 0; j < $scope.tree2[i].childMenuStructure.length; j++) {
-                  $scope.tree2[i].childMenuStructure[j].fkMenuId=$scope.tree2[i].childMenuStructure[j].fkMenuId.$oid;//Converting sub menu ObjectId to String
-                }
+                  changeObjIdOfMenu($scope.tree2,null);
+            function changeObjIdOfMenu(menu,sub){
+              if(sub==null){
+                sub=0;
               }
+              if(menu[sub]==undefined)
+                return 0;
+              if(menu[sub].fkMenuId !=undefined)
+                menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
+              if(menu[sub].childMenuStructure.length)
+               changeObjIdOfMenu(menu[sub].childMenuStructure,null);
+              changeObjIdOfMenu(menu,++sub);
             }
                   $scope.menuRegionId=$scope.menuList.menuStructure[0].fkmenuRegionId.$oid;
                   }
@@ -101,7 +114,7 @@ this.FnSaveUserMenu=function ($scope){ //function to save the user menus.
     $scope.stlSaveUMLoading={'margin-top': '-24%','margin-left': '90%'};
    
     $http({
-           url: 'http://127.0.0.1:8000/InsertUserMenu/',
+           url: bbConfig.BWS+'InsertUserMenu/',
            data: {'fkUrmId': $scope.userRoleMappingId,'fkUserRoleMappingId': $scope.CurrentFkUserRoleMappingId,'fkMenuRegionId':$scope.menuRegionId,'menus':$scope.tree1},
            method: 'POST',
            withCredentials: false,
@@ -130,7 +143,7 @@ this.FnSaveUserMenu=function ($scope){ //function to save the user menus.
 
         this.FnLoadUsers=function ($scope,companyId,range,search_key){    
     $http({
-           url: 'http://127.0.0.1:8000/LoadUsers/',
+           url: bbConfig.BWS+'LoadUsers/',
            data: JSON.stringify({'companyId': companyId,'prefix': search_key,'range':range}),
            method: 'POST',
            withCredentials: false,

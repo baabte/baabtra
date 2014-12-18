@@ -37,11 +37,12 @@
 	     							<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" ng-repeat="company in companyDetails">
 	      								<div class="box bg-light" style="cursor: pointer;" ng-click="getMenus(company._id.$oid)">
 	                  						<div class="box-col w-xs text-center dk">
-	                  							<img src="images/a0.jpg" class="w-xs b-l b-4x m-r pull-left b-info" ng-class="{'b-success':companyState==company._id.$oid}">
+	                  							<img src="images/a0.jpg" class="w-xs m-r pull-left">
 	                  						</div>
-		                  					<div class="box-col p">
-		                  						<a href="">{{company.companyName}}</a>
-		                    					<div>Company User</div>
+		                  					<div class="box-col p b-b b-4x b-light" ng-class="{'b-success am-fade':companyState==company._id.$oid}">
+		                  						<a href="">{{company.companyName}}</a><br>
+		                    					<div class="pull-left ">Company User</div>
+                                  <i class="fa pull-right text-xl text-success b-4x" ng-class="{'fa-check-circle am-flip-x':companyState==company._id.$oid}"></i>
 		                  					</div>
 	                					</div>
 	            					</div>
@@ -53,11 +54,12 @@
       								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" ng-repeat="company in companyDetails">
 	      								<div class="box bg-light" style="cursor: pointer;" ng-click="getUsers(company._id.$oid)">
 	                  						<div class="box-col w-xs text-center dk">
-	                  							<img src="images/a0.jpg" class="w-xs b-l b-4x m-r pull-left b-info" ng-class="{'b-success':companyState==company._id.$oid}">
+	                  							<img src="images/a0.jpg" class="w-xs m-r pull-left" >
 	                  						</div>
-		                  					<div class="box-col p">
-		                  						<a href="">{{company.companyName}}</a>
-		                    					<div>Company</div>
+		                  					<div class="box-col p b-b b-4x b-light" ng-class="{'b-success am-fade':companyState==company._id.$oid}">
+		                  						<a href="">{{company.companyName}}</a><br>
+		                    					<div class="pull-left">Company</div>
+                                  <i class="fa  pull-right text-xl text-success b-4x b-info" ng-class="{'fa-check-circle am-fade':companyState==company._id.$oid}"></i>
 		                  					</div>
 	                					</div>
 	            					</div>
@@ -67,11 +69,12 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-sm"  ng-repeat="user in UserList">
                           <div class="box bg-light" style="cursor: pointer;" ng-click="getUserMenu(user.value.fkUserRoleMappingId.$oid,user.value.fkRoleId)">
                                   <div class="box-col w-xs text-center dk">
-                                    <img src="images/a0.jpg" class="w-xs b-l b-4x m-r pull-left b-info" ng-class="{'b-success':UserState==user.value.fkUserRoleMappingId.$oid}">
+                                    <img src="images/a0.jpg" class="w-xs m-r pull-left" >
                                   </div>
-                                  <div class="box-col p">
-                                    <a>{{user.value.name}}</a>
-                                    <div></div>
+                                  <div class="box-col p b-b b-4x b-light" ng-class="{'b-success am-fade':UserState==user.value.fkUserRoleMappingId.$oid}">
+                                    <a>{{user.value.name}}</a><br>
+                                    <div class="pull-left">User</div>
+                                    <i class="fa  pull-right text-xl text-success b-4x b-info" ng-class="{'fa-check-circle am-fade':UserState==user.value.fkUserRoleMappingId.$oid}"></i>
                                   </div>
                               </div>
                           </div>
@@ -119,7 +122,8 @@
         <div class="col-sm-6">
       <div class="box">
         <div class="p p-v-sm">
-          <h4 class="no-margin font-bold">Current Menus</h4>
+          <h4 class="no-margin font-bold pull-left">Current Menus</h4>
+          <a class="m-h-xs pull-right" ng-click="createGroupModal()">Create A Menu Group</a>
         </div>
         <div class="box-row">
           <div class="box-cell scrollable hover">
@@ -148,7 +152,7 @@
           <div class="box-cell scrollable hover">
            <div class="col-lg-12 col-sm-12 col-xs-12 box-inner">
                                         <h4 class="no-margin m-b font-bold"></h4>
-                                        <div id="tree2-root" ui-tree="tree2NodesOptions" class="dd dd-draghandle bordered" data-max-depth="2">
+                                        <div id="tree2-root" ui-tree="tree2NodesOptions" class="dd dd-draghandle bordered">
                                             <ol  ui-tree-nodes ng-model="tree2" class="dd-list">
                                                 <li ng-repeat="node in tree2" class="dd-item dd2-item list-group list-group-gap" ui-tree-node ng-include="'Render_AllMenus.html'"></li>
                                             </ol>
