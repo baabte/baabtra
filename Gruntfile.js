@@ -107,7 +107,13 @@ module.exports = function (grunt) {
       main: {
         files: [
           {src: ['img/**'], dest: 'dist/'},
-          {src: ['bower_components/font-awesome/fonts/**'], dest: 'dist/',filter:'isFile',expand:true}
+          {src: ['images/**'], dest: 'dist/'},
+          {src: ['bower_components/font-awesome/fonts/**'], dest: 'dist/fonts/',filter:'isFile',expand:true,flatten: true},
+          {src: ['bower_components/bootstrap/fonts/**'], dest: 'dist/fonts/',filter:'isFile',expand:true,flatten: true},
+          {src: ['bower_components/template/fonts/**'], dest: 'dist/fonts/ptsans/',filter:'isFile',expand:true,flatten: true}
+          //{src: ['vendor/**'], dest: 'dist/',filter:'isFile',expand:true}
+
+
           //{src: ['bower_components/angular-ui-utils/ui-utils-ieshiv.min.js'], dest: 'dist/'},
           //{src: ['bower_components/select2/*.png','bower_components/select2/*.gif'], dest:'dist/css/',flatten:true,expand:true},
           //{src: ['bower_components/angular-mocks/angular-mocks.js'], dest: 'dist/'}
@@ -128,8 +134,8 @@ module.exports = function (grunt) {
         options: {
           remove: ['script[data-remove!="false"]','link[data-remove!="false"]'],
           append: [
-            {selector:'body',html:'<script src="app.full.min.js"></script>'},
-            {selector:'head',html:'<link rel="stylesheet" href="app.full.min.css">'}
+            {selector:'body',html:'<script src="js/app.full.min.js"></script>'},
+            {selector:'head',html:'<link rel="stylesheet" href="css/app.full.min.css">'}
           ]
         },
         src:'index.html',
@@ -139,7 +145,7 @@ module.exports = function (grunt) {
     cssmin: {
       main: {
         src:['temp/app.css','<%= dom_munger.data.appcss %>'],
-        dest:'dist/app.full.min.css'
+        dest:'dist/css/app.full.min.css'
       }
     },
     concat: {
@@ -152,13 +158,25 @@ module.exports = function (grunt) {
       main: {
         src:'temp/app.full.js',
         dest: 'temp/app.full.js'
+      },
+      vendorjs: {
+        expand:true,
+        src: ['vendor/**/*.js'],
+        dest: 'temp/'
       }
     },
     uglify: {
       main: {
         src: 'temp/app.full.js',
-        dest:'dist/app.full.min.js'
-      }
+        dest:'dist/js/app.full.min.js'
+      },
+      vendorjs: {
+        files: grunt.file.expandMapping(['temp/vendor/**/*.js'], 'dist/', {
+            rename: function(destBase, destPath) {
+                return (destBase+destPath).replace('/temp','');
+            }
+        })
+    }
     },
     htmlmin: {
       main: {
@@ -209,7 +227,7 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-wiredep');  
 
-  grunt.registerTask('build',['jshint','clean:before','less','dom_munger','ngtemplates','cssmin','concat','ngmin','uglify','copy','htmlmin','imagemin','clean:after']);
+  grunt.registerTask('build',['jshint','clean:before','less','dom_munger','ngtemplates','cssmin','concat','ngmin:main','uglify:main','copy','htmlmin','ngmin:vendorjs','uglify:vendorjs', 'imagemin','clean:after']);
   grunt.registerTask('serve', ['dom_munger:read', 'wiredep','connect', 'watch']);
   grunt.registerTask('test',['dom_munger:read','karma:all_tests']);
 

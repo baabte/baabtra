@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('UsermenumappingCtrl',['$scope','$rootScope','userMenuMappingSrv','$alert','localStorageService',function ($scope,$rootScope,userMenuMappingSrv,$alert,localStorageService){
+angular.module('baabtra').controller('UsermenumappingCtrl',['$location','$scope','$rootScope','userMenuMappingSrv','$alert','localStorageService',function ($location,$scope,$rootScope,userMenuMappingSrv,$alert,localStorageService){
 
   var loginInfo=localStorageService.get('loginInfo');
   if(loginInfo===null||loginInfo.length===0){
@@ -6,7 +6,7 @@ angular.module('baabtra').controller('UsermenumappingCtrl',['$scope','$rootScope
     }
     if(localStorageService.get('loginInfo').length!==0){ //checking for data in local storage
       $scope.userRoleMappingId=loginInfo.roleMappingId.$oid; //gets the last logged role mapping id from local storage
-      if(loginInfo.roleMappingObj[0].fkCompanyId==""){
+      if(angular.equals(loginInfo.roleMappingObj[0].fkCompanyId,"")){
         $scope.companyId='';
       }
       else{
