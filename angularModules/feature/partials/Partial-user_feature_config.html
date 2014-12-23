@@ -10,6 +10,14 @@
          <div class="font-bold" > 
            Features<hr>
          </div>
+         <div class=" list-group  bg-inherit">
+              <div class="animated flipInX">
+        			<div  class="list-group-item " ng-click="selected = !selected; fConfig(feature)" ng-repeat="feature in featurelist">
+          			<a class="pull-right text-muted"><i ng-show="!selected" class=" fa fa-check-circle "></i><i ng-show="selected" ng- class=" fa fa-check-circle text-primary"></i></a>
+          			{{feature.featureName}}
+        			</div>
+              </div>
+      			</div>
         
 
       	</div>
