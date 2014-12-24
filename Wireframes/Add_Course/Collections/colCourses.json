@@ -54,6 +54,11 @@
   },
   "Technologies": [],
   "Tags": [],
+  "Domains" :[],
+  "Delivery":{
+	"online": "true",
+	"offline": "false"
+   },
   "extraDetails": {
     "Field1": {
       "Label": "",
