@@ -1,4 +1,4 @@
-describe('CourseCtrl', function() {
+describe('AddcourseCtrl', function() {
 
 	beforeEach(module('baabtra'));
 
@@ -6,7 +6,7 @@ describe('CourseCtrl', function() {
 
     beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      ctrl = $controller('CourseCtrl', {$scope: scope});
+      ctrl = $controller('AddcourseCtrl', {$scope: scope});
     }));	
 
 	it('should ...', inject(function() {

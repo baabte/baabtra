@@ -4,4 +4,4 @@ $scope.course=[{day:'day1'},
 			   {day:'day2'},
 			   {day:'day3'}]
 
-});
+}]);

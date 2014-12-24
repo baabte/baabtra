@@ -1,7 +1,11 @@
+/*
+Created By:Jihin
+Created On:12/11/2014
+*/
+
 angular.module('baabtra').service('home',['$http','$state','$rootScope','bbConfig',function home($http,$state,$rootScope,bbConfig) {
-this.FnLoadMenus=function($scope)
-    {
-      $http({ //headers: {'Content-Type': 'application/json; charset=utf-8'},
+this.FnLoadMenus=function($scope){//for load menu for logged user
+      $http({ 
             method: 'post',
             url: bbConfig.BWS+'LoadMenus/',
             data:{'rm_id':$scope.rm_id},
@@ -9,13 +13,7 @@ this.FnLoadMenus=function($scope)
            }).
               success(function(data, status, headers, config) { //success respond from server
                 var result=angular.fromJson(JSON.parse(data));
-                $scope.userMenus=$rootScope.userMenusOrigin=result[0].menuStructure[0].regionMenuStructure;
-                $scope.menuLength=$scope.userMenus.length;
-                //$scope.getMenuByLink($rootScope.userMenusOrigin,null,null,$state.current.url.split("/")[1]);
-                //alert($scope.menuLength);
-                $scope.classn=["btn-info",'btn-success','btn-warning','btn-danger','btn-inverse'];
-                //$scope.breadCrumb(result[0].menuStructure[0].regionMenuStructure);
-                //$scope.companyDetails=result.data;      //filer the user list from respond data
+                $scope.userMenus=$scope.userMenusOrigin=result[0].menuStructure[0].regionMenuStructure;
               }).
               error(function(data, status, headers, config) {
              });

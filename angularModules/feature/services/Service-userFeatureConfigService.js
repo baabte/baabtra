@@ -13,7 +13,7 @@ angular.module('baabtra').service('userFeatureConfigService',['$http','bbConfig'
            }).
               success(function(data, status, headers, config) {
              
-                $scope.userplan=angular.fromJson(JSON.parse(data));
+                $scope.featurelist=angular.fromJson(JSON.parse(data));
                 result='success';
                
               }).

@@ -12,9 +12,15 @@ $scope.companyId=$state.params.companyId;
 $scope.featuresConfig={}; 
 $scope.featuresConfig.roleId=loginInfo.roleMappingObj[0].fkRoleId;
 $scope.featuresConfig.companyId=$scope.companyId;
-      console.log($scope.featuresConfig);
 
 
+$scope.fConfig = function(feature){
+console.log(feature);
+
+
+};
+
+userFeatureConfigService.FnGetFeatures($scope);
  $scope.schema = {
     type: "object",
     properties: {

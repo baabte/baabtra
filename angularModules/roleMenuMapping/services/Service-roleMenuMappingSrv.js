@@ -97,20 +97,7 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
             //   }
             // }
               changeObjIdOfMenu($scope.tree1,null);
-            function changeObjIdOfMenu(menu,sub){
-              if(sub==null){
-                sub=0;
-              }
-              if(menu[sub]==undefined)
-                return 0;
-              if(menu[sub].fkMenuId !=undefined)
-              {
-                menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
-              }
-              if(menu[sub].childMenuStructure.length)
-               changeObjIdOfMenu(menu[sub].childMenuStructure,null);
-              changeObjIdOfMenu(menu,++sub);
-            }
+          
           }
           else//If no existing role found
           {
@@ -123,6 +110,38 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
           // or server returns response with an error status.
         }); 
       };
+
+        var changeObjIdOfMenu=function(menu,sub){
+              if(sub==null){
+                sub=0;
+              }
+              if(angular.equals(menu[sub],undefined)){return 0;}
+                
+              if(!angular.equals(menu[sub].fkMenuId,undefined))
+              {
+                menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
+              }
+              if(menu[sub].childMenuStructure.length){
+               changeObjIdOfMenu(menu[sub].childMenuStructure,null);
+              }
+              changeObjIdOfMenu(menu,++sub);
+            };
+
+            // function changeObjIdOfMenu(menu,sub){
+            //   if(sub==null){
+            //     sub=0;
+            //   }
+            //   if(angular.equals(menu[sub],undefined))
+            //     return 0;
+            //   if(!angular.equals(menu[sub].fkMenuId,undefined)){
+            //     menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
+            //     menu[sub].actionMaster=menu[sub].actions;
+            //   }
+            //   if(menu[sub].childMenuStructure.length)
+            //    changeObjIdOfMenu(menu[sub].childMenuStructure,null);
+            //   changeObjIdOfMenu(menu,++sub);
+            // }
+
           this.FnGetAllMenus=function ($scope,type)//To Load All menus of loded user
 
       {  
@@ -141,52 +160,22 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
             $scope.allMenus[i].actionMaster=$scope.allMenus[i].actions;
             delete $scope.allMenus[i]._id;
             $scope.allMenus[i].childMenuStructure=[];
-              };
+              }
               $scope.tree2=$scope.allMenus;
             }
             else{
             $scope.tree2=$scope.allMenus[0].menuStructure[0].regionMenuStructure;//Setting the menus to menulist
             changeObjIdOfMenu($scope.tree2,null);
-            function changeObjIdOfMenu(menu,sub){
-              if(sub==null){
-                sub=0;
-              }
-              if(menu[sub]==undefined)
-                return 0;
-              if(menu[sub].fkMenuId !=undefined){
-                menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
-                menu[sub].actionMaster=menu[sub].actions;
-              }
-              if(menu[sub].childMenuStructure.length)
-               changeObjIdOfMenu(menu[sub].childMenuStructure,null);
-              changeObjIdOfMenu(menu,++sub);
-            }
+            
           }
-          checkNodeMenus($scope.tree1,null);
-          function checkNodeMenus(menu,sub){
+          
+          var removeDuplicateMenus=function(menu,sub,Child){
               if(sub==null){
                 sub=0;
               }
-              if(menu[sub]==undefined)
-                return 0;
-              if(menu[sub].MenuLink !=undefined)
-              {
-                removeDuplicateMenus($scope.tree2,null,menu[sub]);
-                //console.log(menu[sub].MenuName);
-
-              }
-              if(menu[sub].childMenuStructure.length)
-               checkNodeMenus(menu[sub].childMenuStructure,null);
-              checkNodeMenus(menu,++sub);
-            }
-
-          function removeDuplicateMenus(menu,sub,Child){
-              if(sub==null){
-                sub=0;
-              }
-              if(menu[sub]==undefined)
-                return 0;
-              if(menu[sub].MenuLink !=undefined)
+              if(angular.equals(menu[sub],undefined))
+                {return 0;}
+              if(!angular.equals(menu[sub].MenuLink ,undefined))
               {
 
                 //console.log(Child);
@@ -200,9 +189,28 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
                 
               }
               if(menu[sub].childMenuStructure.length)
-               removeDuplicateMenus(menu[sub].childMenuStructure,null,Child);
+               {removeDuplicateMenus(menu[sub].childMenuStructure,null,Child);}
               removeDuplicateMenus(menu,++sub,Child);
-            }  
+            }; 
+           var checkNodeMenus=function(menu,sub){
+              if(sub==null){
+                sub=0;
+              }
+              if(angular.equals(menu[sub],undefined))
+                {return 0;}
+              if(!angular.equals(menu[sub].MenuLink,undefined))
+              {
+                removeDuplicateMenus($scope.tree2,null,menu[sub]);
+                //console.log(menu[sub].MenuName);
+
+              }
+              if(menu[sub].childMenuStructure.length)
+               {checkNodeMenus(menu[sub].childMenuStructure,null);}
+              checkNodeMenus(menu,++sub);
+            };
+            
+            checkNodeMenus($scope.tree1,null);
+          
           }
           else
           {

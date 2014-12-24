@@ -4,7 +4,7 @@ if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginL
 }  
  
  
-if($state.params.companyId!==undefined){
+if(!angular.equals($state.params.companyId,undefined)){
   $scope.companyId=$state.params.companyId;
   // console.log($scope.companyId);
   $scope.companySelected={};

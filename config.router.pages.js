@@ -203,6 +203,34 @@
                 }
                 
               })
+              .state('home.main.addCourse', {
+                url: '/addCourse',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-addCourse.html',
+                    controller: 'AddcourseCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.addCourse.step2', {
+                url: '/step2',
+                views:{
+                  'addCourse-container':{
+                    templateUrl: 'angularModules/course/partials/addCourseStep2.html'
+                  }
+                }
+                
+              })
+              .state('home.main.addCourse.step3', {
+                url: '/step3',
+                views:{
+                  'addCourse-container':{
+                    templateUrl: 'angularModules/course/partials/addCourseStep3.html'
+                  }
+                }
+                
+              })
 
                 .state('home.JobPosting', {
                 url: '/JobPosting',

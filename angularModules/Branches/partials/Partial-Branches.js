@@ -107,9 +107,9 @@ $scope.$watch('branches',function (newValue,oldValue){
     if(index==null){
       index=0;
     }
-    if (branch.children !=null) {
+    if (!angular.equals(branch.children,null)) {
     if(branch.children.indexOf($scope.branches[index]._id)!=-1){
-      if (branch.childrenObj==undefined){
+      if (angular.equals(branch.childrenObj,undefined)){
         branch.childrenObj=[];
       };
       if($scope.branches[index].activeFlag){
@@ -175,7 +175,7 @@ $scope.addSubBranch = function(branchDetails){
   branchSrv.fnInsertBranch($scope,"5457526122588a5db73e0b23",$scope.branches,$scope.rm_id);
    }
 
-$scope.undoBranch = function(){
+$scope.undo = function(){
   lastDeletedBranch.activeFlag=1;
   angular.forEach($scope.branches,function(branch){
     if (lastDeletedBranch._id==branch._id) {
