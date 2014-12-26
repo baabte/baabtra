@@ -135,7 +135,6 @@
                 templateUrl: 'angularModules/billing/partials/Partial-billing_plans.html',
                 controller:'BillingPlansCtrl'
               })
-              // .state('home.roleMenuMapping', {
               .state('home.main.roleMenuMapping', {
                 url: '/roleMenuMapping',
                 views:{
@@ -170,9 +169,7 @@
                     templateUrl: 'angularModules/Branches/partials/Partial-Branches.html',
                     controller:'BranchesCtrl'
                    }                  
-                  },
-                data: { css: 'bower_components/angular-ui-tree/demo/css/demp-horizontal.css'}
-              
+                  }
               })
                .state('home.main.userMenuMapping', {
                 url: '/userMenuMapping',
@@ -180,6 +177,17 @@
                   'innercontent':{
                     templateUrl: 'angularModules/company/partials/Partial-userMenuMapping.html',
                     controller: 'UsermenumappingCtrl'
+                  }
+                }
+                
+              })
+
+               .state('home.main.course', {
+                url: '/course',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-course.html',
+                    controller: 'CourseCtrl'
                   }
                 }
                 
@@ -210,6 +218,15 @@
                 views:{
                   'addCourse-container':{
                     templateUrl: 'angularModules/course/partials/addCourseStep2.html'
+                  }
+                }
+                
+              })
+              .state('home.main.addCourse.step3', {
+                url: '/step3',
+                views:{
+                  'addCourse-container':{
+                    templateUrl: 'angularModules/course/partials/addCourseStep3.html'
                   }
                 }
                 

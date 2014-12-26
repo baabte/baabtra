@@ -1,16 +1,24 @@
+<!--Created By:Jihin
+Created On:12/11/2014 -->
+
 <aside  id="aside" class="app-aside {{app.settings.asideColor}} text-lg" ng-include="'views/aside.html'">
 </aside>
-<div class="p-md">
+<div class="p-md bg-light">
 	<div class="row" name="innercontent" ui-view>
     <div class="col-sm-12 col-md-12 col-lg-12">
-        <span  ng-repeat="menu in userMenus">
-          <a  ng-click="loadDetails(menu)" class="animated fadeInDown text-sm btn btn-lg btn-stroke {{classn[($index+1)%classn.length]}} m-l m-t" >
-          <i class="fa {{menu.menuIcon}} fa-4x"></i>
-          <span class="block clear text-left m-v-xs">
-            <b class="text-lg block font-bold">{{menu.MenuName}}</b>
+      <span  ng-repeat="menu in userMenus" class="hidden-xs">
+      <div ng-click="loadDetails(menu)" class="animated fadeInDown m-md text-sm btn b btn-lg bg-light lt m-r m-b">
+          <i class="fa {{menu.menuIcon}} fa-3x pull-left" ></i>
+          <span class="block clear text-left m-v-xs"><b class="text-lg block font-bold">{{menu.MenuName}}</b>
           </span>
-          <i class="fa text-lg pull-right right" ng-class="{'fa-arrow-circle-right':menu.childMenuStructure.length}"></i>
-        </a>
+        </div>
+        </span>
+        <span  ng-repeat="menu in userMenus" class="visible-xs col-xs-12" style="cursor: pointer;">
+      <div ng-click="loadDetails(menu)" class="animated fadeInDown p-xs text-sm b bg-light lt">
+          <i class="fa {{menu.menuIcon}} fa-2x pull-left " style="margin-top: 2px;"></i>
+          <span class="block clear text-left m-v-xs"><b class="text-lg block font-bold">{{menu.MenuName}}</b>
+          </span>
+        </div>
         </span>
       </div>
 	</div>

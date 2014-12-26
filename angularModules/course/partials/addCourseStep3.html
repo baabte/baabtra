@@ -1,0 +1,42 @@
+<div class="row">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+          <div class="bg-white m-h my-panel-heading b-b-2x">
+          	<i class="fa fa-money text-1x inline"></i>
+            <span class="text-1x font-bold">Fee Settings</span>
+          </div>
+          <div class="panel-body">
+          	<label class="ui-checks m-l"><input type="radio" ng-click="PaymentOpt=false" name="fee_type" value="Free"><i></i>Free</label>
+          	<label class="ui-checks m-l"><input type="radio" name="fee_type" ng-click="PaymentOpt=true" value="Paid"><i></i>Paid</label>
+          </div>
+          <div >
+          <div class="bg-white m-h my-panel-heading b-b-2x" ng-class="{'ng-hide':!PaymentOpt,'animated fadeInDown':PaymentOpt}">
+          	<i class="fa fa-tag text-1x inline"></i>
+          	<span class="text-1x font-bold">Payment Options</span>
+          </div>
+          <div class="panel-body form-horizontal" ng-class="{'ng-hide':!PaymentOpt,'animated fadeInDown':PaymentOpt}">
+          <div class="col-sm-12">
+            <div class="col-sm-2 form-group form-group-sm">
+          		<input class="form-control" type="text" id="formGroupInputSmall" placeholder="Total Amount" autocomplete="off">
+        		</div>
+        		<div class="col-sm-1">
+        			<button type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedItem" data-html="1" placeholder="Currency" ng-change="test()" ng-options="value.id as value.name for (key, value) in selects" bs-select=""></button>
+        		</div>
+          </div>
+          <div class="col-sm-12">
+            <label class="ui-checks m-l"><input type="radio" ng-click="PaymentOpt=false" name="fee_type" value="Free"><i></i>Free</label>
+            <label class="ui-checks m-l"><input type="radio" name="fee_type" ng-click="PaymentOpt=true" value="Paid"><i></i>Paid</label>
+          </div>
+	      </div>
+	  </div>
+	      <div ng-show="PaymentCkp">
+	      	<div class="bg-white m-h my-panel-heading b-b-2x">
+	      		<i class="fa fa-flag text-1x inline"></i>
+	      		<span class="text-1x font-bold">Payment Checkpoints</span>
+	      	</div>
+	      	<div class="panel-body">
+	      	</div>
+	      </div>
+	  </div>
+	</div>
+</div>
