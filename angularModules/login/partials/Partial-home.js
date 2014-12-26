@@ -17,26 +17,26 @@ angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state
       }
     }
     home.FnLoadMenus($scope);
-    $scope.$watch('userMenusOrigin',function()
-   {
-      $scope.navBar=true;
-      if (!angular.equals($rootScope.userMenusOrigin,undefined)) {
-        getMenuByLink($rootScope.userMenusOrigin,null,null,$state.current.url.split("/")[1]);
-        if (!$rootScope.menuExist && $state.current.url.split("/")[1]!="main" ) {
-                if (!Object.keys($state.params).length) {
-                  $localStorage.linkPath=[];
-                  $scope.linkPath=$localStorage.linkPath;
-                  $state.go('home.main');
-              }
-            }
-            else if($state.current.url.split("/")[1]=="main")
-            {
-              $scope.navBar=false;
-              $localStorage.linkPath=[];
-                  $scope.linkPath=$localStorage.linkPath;
-            }
-    }
-  });
+  //   $scope.$watch('userMenusOrigin',function()
+  //  {
+  //     $scope.navBar=true;
+  //     if (!angular.equals($rootScope.userMenusOrigin,undefined)) {
+  //       getMenuByLink($rootScope.userMenusOrigin,null,null,$state.current.url.split("/")[1]);
+  //       if (!$rootScope.menuExist && $state.current.url.split("/")[1]!="main" ) {
+  //               if (!Object.keys($state.params).length) {
+  //                 $localStorage.linkPath=[];
+  //                 $scope.linkPath=$localStorage.linkPath;
+  //                 $state.go('home.main');
+  //             }
+  //           }
+  //           else if($state.current.url.split("/")[1]=="main")
+  //           {
+  //             $scope.navBar=false;
+  //             $localStorage.linkPath=[];
+  //                 $scope.linkPath=$localStorage.linkPath;
+  //           }
+  //   }
+  // });
     if (!angular.equals($localStorage.linkPath,undefined)) {
       $scope.linkPath=$localStorage.linkPath;
       $scope.navBar=false;

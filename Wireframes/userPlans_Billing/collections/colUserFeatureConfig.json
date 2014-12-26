@@ -1,13 +1,15 @@
 {
   "userId": "",
-  "featureConfigs": {
-    "feature1": {
+  "featureConfigs": [
+     {
+      "featureId":"",
       "field1": "",
       "field2": ""
     },
-    "feature2": {
+     {
+      "featureId":"",
       "field1": "",
       "field2": ""
     }
-  }
+  ]
 }

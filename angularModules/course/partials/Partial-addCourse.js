@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('AddcourseCtrl',function($scope){
+angular.module('baabtra').controller('AddcourseCtrl',['$scope','addCourseService',function ($scope){
 
 
-});
+}]);
