@@ -16,7 +16,6 @@ angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state
           $state.go('home.main');
       }
     }
-
     
 home.FnLoadMenus($scope);//Load Menus for logged user
 

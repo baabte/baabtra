@@ -194,4 +194,9 @@ $scope.courseDetails=[{group:["1"]},
 					  {}];
 					  
 $scope.totalCourseDuration=259200; // course duration in minutes
+$scope.selects=[{id: "1",name: "<i class=\"fa  fa-inr\"></i>"},
+				{id: "2",name: "<i class=\"fa fa-dollar\"></i>"},
+				{id: "3",name: "SR"}];
+$scope.selectedItem= "1";
+
 }]);

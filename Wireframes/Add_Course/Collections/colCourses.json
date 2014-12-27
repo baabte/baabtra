@@ -14,8 +14,8 @@
   },
   "exitPoints": {
     "arcadeMode": "true",
-    "exitPointList": {
-      "exitPoint1": {
+    "exitPointList": [
+      {
         "timeLinePoint": "",
         "exitCriteria": {
           "criteria1": {
@@ -28,7 +28,7 @@
           }
         }
       }
-    }
+    ]
   },
   "Fees": {
     "free": "false",
