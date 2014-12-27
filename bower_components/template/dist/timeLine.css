@@ -1,0 +1,48 @@
+.tl-start{
+
+	margin-top: -7px;
+	margin-right: 5px;
+
+}
+.tl-end{
+
+	margin-top: -14px;
+	margin-left: 7px;
+	display:inline-block;
+
+}
+
+.tl-point{
+  	background: #dddddd;	
+	max-height: 4px;
+	display: inline-block;
+	border-right:1px solid #999999;
+	/*float: left;*/
+	/*margin-left: 2px;*/
+}
+.tl-point:last-sibling{ border-right:none; }
+/*.tl-container span:last-of-type{
+	float: right;																																																																								
+}*/
+/*.tl-point:nth-child(odd) {
+    background: blue;
+}
+.tl-point:nth-child(even) {
+    background: red;							 
+}*/
+.tl-container
+{
+    overflow-x:auto;
+    overflow-y:hidden;
+    padding:20px;
+    padding-top: 40px;
+    width:100%;
+    white-space:nowrap;
+}
+
+.hide-elem{
+	height: 0px !important;
+	overflow: hidden;
+}
+
+

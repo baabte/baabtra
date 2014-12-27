@@ -6,8 +6,8 @@
             <span class="text-1x font-bold">Fee Settings</span>
           </div>
           <div class="panel-body">
-          	<label class="ui-checks m-l"><input type="radio" ng-click="PaymentOpt=false" name="fee_type" value="Free"><i></i>Free</label>
-          	<label class="ui-checks m-l"><input type="radio" name="fee_type" ng-click="PaymentOpt=true" value="Paid"><i></i>Paid</label>
+          	<label class="ui-checks m-l"><input type="radio" ng-click="PaymentOpt=false" name="fee_type" value="free"><i></i>Free</label>
+          	<label class="ui-checks m-l"><input type="radio" name="fee_type" ng-click="PaymentOpt=true" value="paid"><i></i>Paid</label>
           </div>
           <div >
           <div class="bg-white m-h my-panel-heading b-b-2x" ng-class="{'ng-hide':!PaymentOpt,'animated fadeInDown':PaymentOpt}">
@@ -20,22 +20,27 @@
           		<input class="form-control" type="text" id="formGroupInputSmall" placeholder="Total Amount" autocomplete="off">
         		</div>
         		<div class="col-sm-1">
-        			<button type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedItem" data-html="1" placeholder="Currency" ng-change="test()" ng-options="value.id as value.name for (key, value) in selects" bs-select=""></button>
+        			<button type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedFee" data-html="1" placeholder="Currency" ng-change="test()" ng-options="value.id as value.name for (key, value) in fee" bs-select=""></button>
         		</div>
           </div>
           <div class="col-sm-12">
-            <label class="ui-checks m-l"><input type="radio" ng-click="PaymentOpt=false" name="fee_type" value="Free"><i></i>Free</label>
-            <label class="ui-checks m-l"><input type="radio" name="fee_type" ng-click="PaymentOpt=true" value="Paid"><i></i>Paid</label>
+            <div class="col-sm-2 form-group">
+              <div class="radio"><label class="ui-checks"><input ng-click="oneTime=true;Installments=false;" type="radio" name="a" value="option1"><i></i>Onetime</label>
+                <button type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedPaymentType" data-html="1" placeholder="Currency" ng-change="test()" ng-options="value.id as value.name for (key, value) in paymentTypes" bs-select=""></button>
+              </div>
+              <div class="radio"><label class="ui-checks"><input ng-click="Installments=true;oneTime=false;" type="radio" name="a" value="option1"><i></i>Installments</label>
+              </div>
+            </div>
           </div>
-	      </div>
 	  </div>
-	      <div ng-show="PaymentCkp">
+	      <div ng-class="{'hide-elem':!(Installments||(oneTime&&selectedPaymentType==2)),'animated fadeInDown':(Installments||(oneTime&&selectedPaymentType==2))}">
 	      	<div class="bg-white m-h my-panel-heading b-b-2x">
 	      		<i class="fa fa-flag text-1x inline"></i>
 	      		<span class="text-1x font-bold">Payment Checkpoints</span>
 	      	</div>
-	      	<div class="panel-body">
-	      	</div>
+	      	<div class="panel-body form-horizontal" >
+            <course-timeline></course-timeline>            
+          </div>
 	      </div>
 	  </div>
 	</div>
