@@ -6,8 +6,8 @@ angular.module('baabtra').directive('courseTimeline', function() {
 		templateUrl: 'angularModules/courseTimeline/directives/Directive-courseTimeline.html',
 		link: function(scope, element, attrs, fn) {
 
-			console.log(element);
-			
+			//console.log(element);
+
 			//set a duration in minutes (initially) *Note: totalCourseDuration will come from the database and it will be in days
 			scope.duration=scope.totalCourseDuration/1440; 
 
@@ -32,16 +32,16 @@ angular.module('baabtra').directive('courseTimeline', function() {
 				name = name.replace('s','');
 				scope.selectedDurType=name;
 				scope.duration=scope.totalCourseDuration*scope.durationIn[scope.selectedDuration-1].mFactor;
-				scope.setMinWidth();
+				scope.setMinWidth(10);
 				scope.tlPointList=[];
 				scope.buildTlPointList(1);
 			};
 
 			//function to set the min width of each timeline unit while the selected data in the dropdown changes
-			scope.setMinWidth=function() {
+			scope.setMinWidth=function(minWidthofTlPnt) {
 				scope.tlContainerWidth = element.parent().innerWidth();
 				scope.tlPointMinWidth = (scope.tlContainerWidth-130)/scope.duration;
-				scope.tlPointMinWidth = (scope.tlPointMinWidth<5)?5:scope.tlPointMinWidth;
+				scope.tlPointMinWidth = (scope.tlPointMinWidth<minWidthofTlPnt)?minWidthofTlPnt:scope.tlPointMinWidth;
 
 			};
 
@@ -56,16 +56,33 @@ angular.module('baabtra').directive('courseTimeline', function() {
 				{
 					scope.tlPointList.push(i);
 				}
+				if(i-1==scope.duration){
+					scope.toBeLoaded=false;
+				}
+				else{
+					scope.toBeLoaded=true;
+				}
 
 			};
 			
+			scope.toBeLoaded=true;
 			//setting the min width of each repeating timeline unit
 			scope.changeDuration();
-			
 
 			// scroll event of the container
+			var delay = 200;
+			var timeout = null;
 			 element[0].querySelector('.tl-container').onscroll=function(e) {
-              console.log(e);
+              clearTimeout(timeout);
+			    timeout = setTimeout(function(){
+			    	//current position of end point of timeline
+			    	var endPointPos=element[0].querySelector('.end-of-tl																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			').getBoundingClientRect().left;
+			        if(endPointPos<scope.tlContainerWidth){
+			        	scope.buildTlPointList(scope.tlPointList.length+1);
+			        	scope.$digest();
+			        }
+			        
+			    },delay);
             };
 				
 				
