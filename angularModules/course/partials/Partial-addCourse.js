@@ -1,9 +1,9 @@
-angular.module('baabtra').controller('AddcourseCtrl',['$scope','$select',function ($scope,$select){
+angular.module('baabtra').controller('AddcourseCtrl',['$scope','$select','$state',function ($scope,$select,$state){
 $scope.fee=[{id: "1",name: "<i class=\"fa  fa-inr\"></i>"},
 			{id: "2",name: "<i class=\"fa fa-dollar\"></i>"},
 			{id: "3",name: "SR"}];
 $scope.selectedFee= "1";
-
+$scope.currentState=$state.current.name; // for setting call back function - lijin
 
 $scope.paymentTypes=[{id: "1",name: "Before The Course"},
 					 {id: "2",name: "During The Course"},
@@ -11,7 +11,7 @@ $scope.paymentTypes=[{id: "1",name: "Before The Course"},
 $scope.selectedPaymentType="1";
 
 $scope.selectedDuration="1";
-					
+
 $scope.courseDetails=[]; // for supressing errors lijin have commented this and you can uncomment below and
 						 // remove this line. There is no use of this variable.
 
