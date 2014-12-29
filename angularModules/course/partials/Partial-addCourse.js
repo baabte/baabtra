@@ -204,14 +204,16 @@ angular.module('baabtra').controller('AddcourseCtrl',['$scope','$select','$state
     				{id: "3",name: "SR"}];
     $scope.selectedItem= "1";
 
-
+// variable to store courseDuration
     $scope.courseDuration={};
     $scope.courseDuration.days=0;
     $scope.courseDuration.months=0;
     $scope.courseDuration.years=0;
 
-
+//variable to save total dutation in minutes
 $scope.totalCourseDuration=0;
+
+//watch funtion to analyse change in courseDuration object
     $scope.$watch('courseDuration', function(newVal, oldVal){
         
         if(($scope.courseDuration.days!==0)||($scope.courseDuration.months!==0)||($scope.courseDuration.years!==0)){		
