@@ -3,7 +3,7 @@ $scope.fee=[{id: "1",name: "<i class=\"fa  fa-inr\"></i>"},
 			{id: "2",name: "<i class=\"fa fa-dollar\"></i>"},
 			{id: "3",name: "SR"}];
 $scope.selectedFee= "1";
-$scope.currentState=$state.current.name; // for setting call back function - lijin
+
 
 $scope.paymentTypes=[{id: "1",name: "Before The Course"},
 					 {id: "2",name: "During The Course"},
@@ -197,9 +197,20 @@ $scope.courseDetails=[]; // for supressing errors lijin have commented this and 
 // 					  {}];
 					  
 $scope.totalCourseDuration=259200; // course duration in minutes
+
 $scope.selects=[{id: "1",name: "<i class=\"fa  fa-inr\"></i>"},
 				{id: "2",name: "<i class=\"fa fa-dollar\"></i>"},
 				{id: "3",name: "SR"}];
 $scope.selectedItem= "1";
+
+$scope.callbackFunctions=[];
+$scope.callbackFunctions['step3']=function(arg){
+console.log('step3:'+arg);
+};
+$scope.callbackFunctions['step2']=function(arg){
+console.log('step2:'+arg);
+};
+
+
 
 }]);
