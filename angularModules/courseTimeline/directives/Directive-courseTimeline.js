@@ -54,7 +54,9 @@ angular.module('baabtra').directive('courseTimeline',['$state', function($state)
 			scope.tlPointList=[];
 			scope.buildTlPointList = function(start){
 				scope.tlPointCount = Math.floor(scope.tlContainerWidth/scope.tlPointMinWidth);
-				for (var i=start; i<start+scope.tlPointCount&&i<=scope.duration;i++){
+				
+				for (i=start; i<start+scope.tlPointCount&&i<=scope.duration;i++)
+				{
 					scope.tlPointList.push(i);
 				}
 				if(i-1==scope.duration){
@@ -106,8 +108,8 @@ angular.module('baabtra').directive('courseTimeline',['$state', function($state)
             	//scope.tlPopOver[scope.currentState].callback(tlpoint/scope.durationIn[scope.selectedDuration-1].mFactor);
             };
 
-            scope.$watch('totalCourseDuration',function(){ // for executing when the value of total duration is changed
-            	scope.changeDuration();
+             scope.$watch('totalCourseDuration',function(){ // for executing when the value of total duration is changed
+           	scope.changeDuration();
             });
 
             

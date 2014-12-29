@@ -14,7 +14,7 @@ angular.module('baabtra').service('LoginService',['$http','bbConfig',function Lo
       {
         $scope.loginSuccessCallback(data);
       }).error(function(data, status, headers, config) {
-          $scope.loginFailureCallback(data);
+          
          });
 	 }; 
 

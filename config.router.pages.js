@@ -41,14 +41,18 @@
                   }
                 }
               })
-              .state('home.company', {
+              .state('home.main.company', {
                 url: '/company',
+                views:{
+                  'innercontent':{
                 templateUrl: 'angularModules/company/partials/Partial-company_view.html',
                 controller:'CompanyViewCtrl'
+                                  }
+                      }
                 
               })
 
-              .state('home.company.registration', {
+              .state('home.main.company.registration', {
                 url: '/registration',
                 views:{
                   'manage': {
@@ -57,7 +61,7 @@
                             }
                       }
               })
-              .state('home.company.manage', {
+              .state('home.main.company.manage', {
                 url: '/manage',
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
@@ -67,7 +71,7 @@
                  
                 }
               }) 
-              .state('home.company.manage.info', {
+              .state('home.main.company.manage.info', {
                 url: '/company-info/:companyId',
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
@@ -76,7 +80,7 @@
                   } 
                 }
               })
-              .state('home.company.manage.billing-config', {
+              .state('home.main.company.manage.billing-config', {
                 url: '/company-billing-config/:companyId',
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
@@ -86,7 +90,7 @@
                   } 
                 }
               })
-              .state('home.company.manage.feature-config', {
+              .state('home.main.company.manage.feature-config', {
                 url: '/company-feature-config/:companyId',
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
@@ -209,6 +213,15 @@
                   'innercontent':{
                     templateUrl: 'angularModules/course/partials/Partial-addCourse.html',
                     controller: 'AddcourseCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.addCourse.step1', {
+                url: '/step1',
+                views:{
+                  'addCourse-container':{
+                    templateUrl: 'angularModules/course/partials/addCourseStep1.html'
                   }
                 }
                 

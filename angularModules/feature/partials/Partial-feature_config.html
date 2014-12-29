@@ -46,7 +46,7 @@
 					<label class="col-sm-3 control-label">Billing</label>
 					<div class="col-sm-9">
 						<select class="form-control " ng-model="billing" ng-change="BillingPlan()" xt-validate required  name="billing">
-						<option value="" selected="">select one billing plan</option>
+						<option value="" selected="">Select one billing plan</option>
 						<option value="yearly">yearly</option>
 						<option value="monthly">monthly</option>
 						<option value="custom" >custom</option>
@@ -92,7 +92,7 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label">label</label>
 					<div class="col-sm-9">
-						<input type="text" class="form-control " ng-model="label"
+						<input type="text" class="form-control " ng-model="labels"
 						 name="label" xt-validate required ng-minlength="5" >
 					</div>
 				</div> 
@@ -110,7 +110,7 @@
 					<div class="col-sm-8 " >
 						<div class="col-sm-6 " style="padding-left:0">
 							<input type="text" class="form-control " data-ng-model="item.avail_validations" placeholder="validation" ng-enter="fun_validations(item)" list="validation_list" name="validations" xt-validate required>
-							<span ng-repeat="validation in validations" class="btn  btn-primary m-xs"><label class="m-h-sm">{{validation}}</label><i class="fa fa-times" ng-click="remove_validation($index)"></i></span>
+							<span ng-repeat="validation in validations" class="btn  btn-primary " style="border:solid"><label class="m-h-sm">{{validation}}</label><i class="fa fa-times" ng-click="remove_validation($index)"></i></span>
 							<!--  -->
 							<datalist id="validation_list" >
     						<option  data-ng-repeat="validation in avail_validations" value="{{validation}}" >
@@ -149,8 +149,8 @@
 					</label>
 					</tr>
 					<tr ng-repeat="objAttrib in atrributes">
-						<th ng-repeat="(atrributeN,atrributeV) in objAttrib" class="m-t">{{atrributeN}}</th>
-						<th ng-repeat="(atrributeN,atrributeV) in objAttrib" class="m-t">{{atrributeV}}</td>
+						<th ng-repeat="(atrributeN,atrributeV) in objAttrib" >{{atrributeN}}</th>
+						<th ng-repeat="(atrributeN,atrributeV) in objAttrib" >{{atrributeV}}</td>
        					<th style="padding-left:0"><i href class="ui-icon glyphicon glyphicon-remove" ng-click="removeAttr($index)" bs-tooltip="RemoveAttrTooltip"></i></th>
 					</tr>
 					</thead>
@@ -169,8 +169,10 @@
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label"></label>
+
 					<div class="col-sm-9">
-						<button type="button" class="btn btn-stroke btn-info" ng-click="addField()" ng-disabled="feature_form.label.$invalid || feature_form.typeOfInput.$invalid ||feature_form.validations.$invalid ||feature_form.attributename.$invalid||feature_form.attributevalue.$invalid">add field</button>
+						<button type="button" class="btn btn-stroke btn-info" ng-click="addField()" ng-disabled="feature_form.label.$invalid||feature_form.typeOfInput.$invalid ||feature_form.validations.$invalid ||feature_form.attributename.$invalid||feature_form.attributevalue.$invalid||attribut_length">add field</button>
+					
 					</div>
 				</div> 
 				<div class="form-group">
@@ -189,7 +191,7 @@
 									</tr>
 								</thead>
 								<tbody>
-								<tr ng-repeat="field  in fields" st-select-row="row" class="ng-scope ng-isolate-scope">
+								<tr  ng-repeat="field  in fields" st-select-row="row" class="ng-scope ng-isolate-scope">
 									<td >{{field.label}}</td>
 									<td >{{field.InputType}}</td>
 									<td ><span ng-repeat="validation in validations" class=" m-xs"><label >{{validation}}</label></span></td>
@@ -202,7 +204,7 @@
 
 			</div>
 			<footer class="panel-footer text-right">
-				<button type="button" class="btn btn-info" ng-disabled="feature_form.$invalid || progress" ng-click="createFeature()">Create Features</button>
+				<button type="button" class="btn btn-info" ng-disabled="feature_form.featureName.$invalid||feature_form.featureDescription.$invalid ||feature_form.price.$invalid || feature_form.units.$invalid || feature_form.minUnits.$invalid || feature_form.billing.$invalid||field_length||progress" ng-click="createFeature()">Create Features</button>
 				<!-- ng-click="createFeature()" -->
 			</footer>
 		</div>

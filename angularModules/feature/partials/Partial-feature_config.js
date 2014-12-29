@@ -1,5 +1,5 @@
-angular.module('baabtra').controller('FeatureConfigCtrl',['$scope','featureConfig','localStorageService','$location','$alert',function($scope,featureConfig,localStorageService,$location,$alert){
-if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
+angular.module('baabtra').controller('FeatureConfigCtrl',['$scope','featureConfig','localStorageService','$location','$alert','$rootScope',function($scope,featureConfig,localStorageService,$location,$alert,$rootScope){
+if ($rootScope.loggedIn===false) {
         $location.path('/login');//redirecting path into login
   }
 
@@ -17,6 +17,8 @@ if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginL
   featureConfig.loadInputTypes($scope);
   $scope.customBilling=false;
   $scope.validations=[];
+  $scope.field_length=true;
+  $scope.attribut_length=true;
 
    $scope.avail_validations = [ "phone number" , "email" , "age" , "year" , "number","price","text","true/false" ];
  
@@ -26,6 +28,10 @@ if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginL
   	pricing={"price":$scope.price,"units":$scope.units,"minUnits":$scope.minUnits};
   	newFeature["pricing"]=pricing;
   	 if($scope.billing=="custom"){
+	 		 var year=365*$scope.years;
+		   var month=31*$scope.months;
+		   var days=$scope.days;
+		  	billings={"years":$scope.years,"months":$scope.months,"days":$scope.days,"totaldays":year+month+days};
 	 		  var year=365*$scope.years;
 		  	var month=31*$scope.months;
 		  	var days=$scope.days;
@@ -36,20 +42,35 @@ if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginL
  			newFeature["billing"]=$scope.billings;
  		}
  		  newFeature.configDetails=$scope.fields;
-  		console.log(newFeature);
-  		featureConfig.addNewFeature(newFeature);
+  		featureConfig.addNewFeature($scope,newFeature);
   };
   $scope.addField=function(){
   	if(typeof $scope.allowedvalue === 'undefined'){
   		$scope.allowedvalue=false;
   	}
   	var field={};
-  	field={"label":$scope.label,"InputType":$scope.typeOfInput.inputtypes,"allowedvalue":$scope.allowedvalue,"userConfigurable":$scope.userConfigurable};
+  	field={"label":$scope.labels,"InputType":$scope.typeOfInput.inputtypes,"allowedvalue":$scope.allowedvalue,"userConfigurable":$scope.userConfigurable};
   	field.atrributes=$scope.atrributes;
     field.validations=$scope.validations;
   	$scope.fields.push(field);
-  	// console.log($scope.fields);
-    };
+
+    $scope.labels="";
+    $scope.typeOfInput.inputtypes="";
+    $scope.allowedvalue="";
+    $scope.allowedvalue="";
+    $scope.userConfigurable="";
+    $scope.field_length=false;
+    $scope.labels="";
+    $scope.feature_form.label.$setPristine();
+    $scope.feature_form.typeOfInput.$setPristine();
+    $scope.feature_form.validations.$setPristine();
+    $scope.feature_form.attributename.$setPristine();
+    $scope.feature_form.attributevalue.$setPristine();
+    $scope.atrributes=[];
+    $scope.validations=[];
+    $scope.feature_form.validations.$setPristine();
+
+      };
 
  $scope.BillingPlan=function(){
  	
@@ -74,7 +95,12 @@ if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginL
   atrribute[$scope.attributename]=$scope.attributevalue;
   if(!angular.equals($scope.attributename,undefined)&&!angular.equals($scope.attributevalue,undefined)&&!angular.equals($scope.attributename,"")&&!angular.equals($scope.attributevalue,"")){
     $scope.atrributes.push(atrribute);
+    // $scope.feature_form.attributename.$setPristine();
+    // $scope.feature_form.attributevalue.$setPristine();
+    $scope.attributename=" ";
+    $scope.attributevalue=" ";
   }
+  $scope.attribut_length=false;
  };
  $scope.fun_validations=function(item){
      if(!item){
@@ -82,6 +108,9 @@ if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginL
     }
     else{
       
+      if(item.avail_validations!=undefined&&item.avail_validations!=""){
+          $scope.validations.push(item.avail_validations);        
+         } 
       if(!angular.equals(item.avail_validations,undefined)&&!angular.equals(item.avail_validations,"")){
           $scope.validations.push(item.avail_validations);
           $scope.item.avail_validations="";
@@ -102,4 +131,30 @@ $scope.remove_validation=function(index){
   $scope.loadInputTypescallback=function(data){
   	 $scope.InputTypes=angular.fromJson(JSON.parse(data));
   };
+
+//CALL BACK FUNCTIONS
+$scope.fnCreateFeatureCallBack=function(data){ //call back function retrieve  plans 
+  $scope.feature_call_back=angular.fromJson(JSON.parse(data));
+ if($scope.feature_call_back=="success")
+  {
+   $scope.notifications("success","Feature successfully created","success");
+    $scope.featureName="";
+    $scope.featureDescription="";
+    $scope.price="";
+    $scope.units="";
+    $scope.minUnits="";
+    $scope.feature_form.$setPristine();
+   }
+   else if ($scope.feature_call_back=="error"||$scope.feature_call_back=="failed") 
+     {$scope.notifications("Error","Ploblem in creating new feature","danger");};  
+};
+
+//notification 
+$scope.notifications=function(title,message,type){
+     // Notify(message, 'top-right', '2000', type, symbol, true); \
+     $alert({title: title, content: message , placement: 'top-right',duration:3, type: type});// calling notification message function
+    };
+
+
+
 }]);

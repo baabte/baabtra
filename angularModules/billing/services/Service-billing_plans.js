@@ -13,7 +13,7 @@ angular.module('baabtra').service('billingPlans',function($http,bbConfig) {
                    $scope.fnloadFeaturesBack(data);
                }).
 	 	error(function(data, status, headers, config) {
-	 		console.log(data);
+
 	 	});  
 	 };
 
@@ -27,12 +27,12 @@ angular.module('baabtra').service('billingPlans',function($http,bbConfig) {
 	 		dataType:"json",
 	 	}).
 	 	success(function(data, status, headers, config) {
-                   $scope.fnaddNewBillingPlanBack(data);
+                   $scope.fnaddNewPlanCallBack(data);
                }).
 	 	error(function(data, status, headers, config) {
-	 		// console.log(data);
+
 	 	});  
-        // console.log(angular.toJson($scope.newPlan));
+
 	 };
 
 	 this.retriveCurrentPlans=function ($scope){ // functon that call web service to load a feature
@@ -48,9 +48,29 @@ angular.module('baabtra').service('billingPlans',function($http,bbConfig) {
                    $scope.fnretrieveCurrentPlans(data);
                }).
 	 	error(function(data, status, headers, config) {
-	 		// console.log(data);
+
 	 	});  
-        // console.log(angular.toJson($scope.newPlan));
+ 
+	 };
+
+	 this.delete_plans=function ($scope){ // functon that call web service to load a feature
+	 	console.log($scope.data_to_delete);
+	 	$http({
+	 		url: bbConfig.BWS+'delete_plans/',
+	 		data: angular.toJson({"plan_to_delete":$scope.data_to_delete}),
+	 		method: "POST",
+	 		withCredentials: false,
+	 		contentType:"application/json",
+	 		dataType:"json",
+	 	}).
+	 	success(function(data, status, headers, config) {
+                   $scope.fndeletePlanCallBack(data);
+
+               }).
+	 	error(function(data, status, headers, config) {
+	 		console.log(data);
+	 	});  
+ 
 	 };
 	 
 });
