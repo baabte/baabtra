@@ -57,6 +57,7 @@ angular.module('baabtra').directive('courseTimeline',['$state', function($state)
 				for (i=start; i<start+scope.tlPointCount&&i<=scope.duration;i++){
 					scope.tlPointList.push(i);
 				}
+				console.log(scope.tlPointList);
 				if(i-1==scope.duration){
 					scope.toBeLoaded=false;
 				}

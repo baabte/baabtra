@@ -20,14 +20,14 @@
           		<input class="form-control" type="text" id="formGroupInputSmall" placeholder="Total Amount" autocomplete="off">
         		</div>
         		<div class="col-sm-1">
-        			<button type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedFee" data-html="1" placeholder="Currency" ng-change="test()" ng-options="value.id as value.name for (key, value) in fee" bs-select=""></button>
+        			<button type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedFee" data-html="1" placeholder="Currency" ng-options="value.id as value.name for (key, value) in fee" bs-select=""></button>
         		</div>
           </div>
           <div class="col-sm-12">
-            <div class="col-sm-2 form-group">
-              <div class="radio"><label class="ui-checks"><input ng-click="oneTime=true;Installments=false;" type="radio" name="a" value="option1"><i></i>Onetime</label>
-                <button type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedPaymentType" data-html="1" placeholder="Currency" ng-change="test()" ng-options="value.id as value.name for (key, value) in paymentTypes" bs-select=""></button>
+            <div class="col-sm-6 form-group">
+              <div class="radio pull-left m-r"><label class="ui-checks"><input ng-click="oneTime=true;Installments=false;" type="radio" name="a" value="option1"><i></i>Onetime</label>
               </div>
+              <button type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedPaymentType" data-html="1" placeholder="Currency" ng-options="value.id as value.name for (key, value) in paymentTypes" bs-select=""></button>
               <div class="radio"><label class="ui-checks"><input ng-click="Installments=true;oneTime=false;" type="radio" name="a" value="option1"><i></i>Installments</label>
               </div>
             </div>

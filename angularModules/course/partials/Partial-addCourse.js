@@ -198,6 +198,7 @@ $scope.courseDetails=[]; // for supressing errors lijin have commented this and 
 					  
 $scope.totalCourseDuration=259200; // course duration in minutes
 
+
 $scope.callbackFunctions=[];
 $scope.callbackFunctions['step3']=function(arg){
 console.log('step3:'+arg);
