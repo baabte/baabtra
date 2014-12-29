@@ -196,6 +196,7 @@ angular.module('baabtra').controller('AddcourseCtrl',['$scope','$select','$state
     // 					  {},
     // 					  {}];
 					  
+
     // $scope.totalCourseDuration=259200; // course duration in minutes
 
     $scope.selects=[{id: "1",name: "<i class=\"fa  fa-inr\"></i>"},
