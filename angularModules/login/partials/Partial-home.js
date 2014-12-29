@@ -64,8 +64,8 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
       var trim_val=$localStorage.linkPath.length-index-1;
       for (var link_index = 0; link_index < trim_val; link_index++) {
         $localStorage.linkPath.pop();
-      };
-      if (menu.actions != undefined) {
+      }
+      if (angular.equals(menu.actions,undefined)) {
         $state.go(menu.actions[0].stateName);//go to the curresponding state when click a link
       }
       else {

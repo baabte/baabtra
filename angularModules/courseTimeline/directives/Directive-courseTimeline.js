@@ -57,7 +57,6 @@ angular.module('baabtra').directive('courseTimeline',['$state', function($state)
 				for (i=start; i<start+scope.tlPointCount&&i<=scope.duration;i++){
 					scope.tlPointList.push(i);
 				}
-				console.log(scope.tlPointList);
 				if(i-1==scope.duration){
 					scope.toBeLoaded=false;
 				}
@@ -81,10 +80,8 @@ angular.module('baabtra').directive('courseTimeline',['$state', function($state)
 			    	var endPointPos=element[0].querySelector('.end-of-tl																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			').getBoundingClientRect().left;
 			        if(endPointPos<scope.tlContainerWidth){
 			        	scope.buildTlPointList(scope.tlPointList.length+1);
-			        	scope.$digest();
-			        	
+			        	scope.$digest();	
 			        }
-			        
 			    },delay);
             };
 
