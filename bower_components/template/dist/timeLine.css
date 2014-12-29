@@ -1,0 +1,62 @@
+.tl-start{
+
+	margin-top: -20pxpx;
+	margin-right: 5px;
+
+}
+.tl-end{
+
+	margin-top: -20pxpx;
+	margin-left: 7px;
+	display:inline-block;
+
+}
+
+.tl-point{
+  	/*background: #dddddd;	*/
+	max-height: 1px;
+	display: inline-block;
+	/*border-bottom:1px solid #999999;*/
+	/*float: left;*/
+	/*margin-left: 2px;*/
+	padding-bottom:7px;
+	padding-left: 0px;
+}
+.tl-point:hover{
+	border-color: blue;
+}
+/*.tl-point:after{
+	content:'*';
+	float: left;																							
+	
+    }*/
+.tl-container div:nth-last-of-type(1){ border-right:none; }
+/*.tl-container span:last-of-type{
+	float: right;																																																																								
+}*/
+/*.tl-point:nth-child(odd) {
+    background: blue;
+}
+.tl-point:nth-child(even) {
+    background: red;							 
+}*/
+.tl-container
+{
+    overflow-x:auto;
+    overflow-y:hidden;
+    padding:20px;
+    padding-top: 40px;
+    width:100%;
+    white-space:nowrap;
+}
+
+.hide-elem{
+	height: 0px !important;
+	overflow: hidden;
+}
+
+.end-of-tl{
+	display: inline-block;
+}
+
+
