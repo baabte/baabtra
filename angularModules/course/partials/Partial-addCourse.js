@@ -68,13 +68,15 @@ $scope.totalCourseDuration=0;
     }, true);
 
 
-    $scope.callbackFunctions=[];
-    $scope.callbackFunctions['step3']=function(arg){
-    console.log('step3:'+arg);
-    };
-    $scope.callbackFunctions['step2']=function(arg){
-    console.log('step2:'+arg);
-    };
+	$scope.tlPopOver=[];
+	$scope.tlPopOver['step3']=[{name:'Add Payment',callback:function(arg){
+	console.log('Add Payment:'+arg);
+	}},{name:'Add step3',callback:function(arg){
+	console.log('Add Payment:'+arg);
+	}}];
+	$scope.tlPopOver['step2']={name:'Add Exitpoint',callback:function(arg){
+	console.log('Add Exitpoint:'+arg);
+	}};
 
 
 
