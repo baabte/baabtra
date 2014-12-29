@@ -198,13 +198,15 @@ $scope.courseDetails=[]; // for supressing errors lijin have commented this and 
 					  
 $scope.totalCourseDuration=259200; // course duration in minutes
 
-$scope.callbackFunctions=[];
-$scope.callbackFunctions['step3']=function(arg){
-console.log('step3:'+arg);
-};
-$scope.callbackFunctions['step2']=function(arg){
-console.log('step2:'+arg);
-};
+$scope.tlPopOver=[];
+$scope.tlPopOver['step3']=[{name:'Add Payment',callback:function(arg){
+console.log('Add Payment:'+arg);
+}},{name:'Add step3',callback:function(arg){
+console.log('Add step3:'+arg);
+}}];
+$scope.tlPopOver['step2']=[{name:'Add Exitpoint',callback:function(arg){
+console.log('Add Exitpoint:'+arg);
+}}];
 
 
 
