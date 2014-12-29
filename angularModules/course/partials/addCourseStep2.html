@@ -1,64 +1,97 @@
 
 <div class="col-xl-12">
 	<div class="panel b-light">
-      <div class="panel-body">
-          
-      <div class="col-xl-10 m-t-sm">
-      	<div class="font-bold">
-       <i class="glyphicon glyphicon-time"></i> Duration &amp Start<hr>
-       </div>
-       		<div class="panel-body">
-       			<div class="col-md-5 panel">
-                              <div class="panel-heading b-b b-light">
-                                    Duration
-                              </div>
-                              <div class="panel-body">
-                                <div class="col-sm-10">
-                                  <div class="form-group form-group-lg">
-                                    <label class="col-sm-5 m-t-sm control-label">Days</label>
-                                    <div class="col-sm-5 m-t-sm">
-                                      <select class="form-control">
+    <div class="panel-body">
+        <div class="col-xl-10 m-t-sm">
+          <div class="font-bold">
+              <i class="glyphicon glyphicon-time"></i> Duration &amp Start<hr>
+          </div>
+          <div class="panel-body">
+            <div class="col-md-5 panel">
+              <div class="panel-heading b-b b-light">
+                Duration
+              </div>
+              <div class="panel-body">
+                <div class="col-md-12">
+                  <div class="form-group form-group-lg">
 
-                                      </select>
-                                    </div>
-                                  </div>
+                      <label class="col-md-4 m-t-sm control-label">Days</label>
+                      <div class="col-md-8 m-t-sm ">  
 
-                                  <div class="form-group form-group-lg">
-                                    <label class="col-sm-5 m-t-sm control-label">Months</label>
-                                    <div class="col-sm-5 m-t-sm">
-                                      <select class="form-control">
+                      <div class="col-sm-8 mt-xs">
+                          <input type="text" ng-model="courseDuration.days"class="form-control" id="definput" placeholder="Days" name="Days" >
+                      </div>
+                     
 
-                                      </select>
-                                    </div>
-                                  </div>
 
-                                  <div class="form-group form-group-lg">
-                                    <label class="col-sm-5 m-t-sm control-label">Years</label>
-                                    <div class="col-sm-5 m-t-sm">
-                                      <select class="form-control">
+                      <div class="col-sm-1 mt-xs">        
+                          <button class="btn btn-icon fa fa-minus" ng-click="courseDuration.days=courseDuration.days==0?0:(courseDuration.days)*1-1"></button>
 
-                                      </select>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                        </div>
-      	   		
-       			
-      	    </div>     	
+                      </div>    
+                      <div class="col-sm-1 mt-xs">
+                          <button class="btn btn-icon fa fa-plus" ng-click="courseDuration.days=(courseDuration.days)*1+1"></button>                          
+                      </div>
+                    
+                                 
+                      </div>
+                  </div>
+
+                  <div class="form-group form-group-lg">
+                      <label class="col-md-4 m-t-sm control-label">Months</label>
+                      <div class="col-md-8 m-t-sm ">  
+                      <div class="col-sm-8 mt-xs">
+                          <input type="text" ng-model="courseDuration.months"class="form-control" id="definput"  placeholder="Months" name="Months" >
+                      </div>  
+
+                      <div class="col-sm-1 mt-xs">        
+                          <button class="btn btn-icon fa fa-minus" ng-click="courseDuration.months=courseDuration.months==0?0:(courseDuration.months)*1-1"></button>
+
+                      </div>    
+                      <div class="col-sm-1 mt-xs">
+                          <button class="btn btn-icon fa fa-plus" ng-click="courseDuration.months=(courseDuration.months)*1+1"></button>                          
+                      </div>
+
+                      
+
+                      </div>                      
+                  </div>
+
+                  <div class="form-group form-group-lg">
+                      <label class="col-md-4 m-t-sm control-label">Years</label>
+                      <div class="col-md-8 m-t-sm ">  
+                      <div class="col-sm-8 mt-xs">
+                          <input type="text" ng-model="courseDuration.years"class="form-control" id="definput"  placeholder="Years" name="Years" >                         
+                      </div>  
+
+
+                      <div class="col-sm-1 mt-xs">        
+                          <button class="btn btn-icon fa fa-minus" ng-click="courseDuration.years=courseDuration.years==0?0:(courseDuration.years)*1-1"></button>
+
+                      </div>    
+                      <div class="col-sm-1 mt-xs">
+                          <button class="btn btn-icon fa fa-plus" ng-click="courseDuration.years=(courseDuration.years)*1+1"></button>                          
+                      </div>
+
+
+                      </div>                                          
+                  </div>
+
+                      {{courseDuration.days}}                       
+
+              </div>
+            </div>
+          </div>
+        </div>     	
       </div>
 
-      <div class="col-xl-10 m-t-sm">
-      	<div class="font-bold">
-       <i class="glyphicon  glyphicon-log-out"></i> Exit Point<hr>
-       </div>
-       <div class="panel-body">sdkjfkj</div>     	
-      </div>
-
-
-      </div>
-      
-   	</div>
-
-
+              <div class="col-xl-10 m-t-sm">
+              	 <div class="font-bold">
+                    <i class="glyphicon  glyphicon-log-out"></i> Exit Point<hr>
+                </div>
+                <div class="panel-body">
+                  sdkjfkj
+                </div>     	
+              </div>
+    </div>
+  </div>
 </div>

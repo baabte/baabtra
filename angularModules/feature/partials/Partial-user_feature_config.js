@@ -18,6 +18,7 @@ $scope.companyId=$state.params.companyId;
 //variables used for looping and getting lenght of array
 var i;
 var flen;
+$scope.status={};
 $scope.Config={}; 
 $scope.Config.roleId=loginInfo.roleMappingObj[0].fkRoleId;
 $scope.Config.companyId=$scope.companyId;
