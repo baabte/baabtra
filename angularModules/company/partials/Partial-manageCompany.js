@@ -6,7 +6,7 @@ angular.module('baabtra').controller('ManagecompanyCtrl',['$scope','$localStorag
     }
     if(localStorageService.get('loginInfo').length!==0){ //checking for data in local storage
       $scope.rm_id=loginInfo.roleMappingId.$oid; //gets the last logged role mapping id from local storage
-      if(loginInfo.roleMappingObj[0].fkCompanyId==""){
+      if(angular.equals(loginInfo.roleMappingObj[0].fkCompanyId,"")){
         $scope.companyId='';
       }
       else{
@@ -29,5 +29,5 @@ angular.module('baabtra').controller('ManagecompanyCtrl',['$scope','$localStorag
  $scope.manageComapny = function(comapny)
  {
   $state.go('home.main.manageCompany.company',{'companyId':comapny._id.$oid});
-}
+};
 }]);

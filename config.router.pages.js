@@ -41,14 +41,18 @@
                   }
                 }
               })
-              .state('home.company', {
+              .state('home.main.company', {
                 url: '/company',
+                views:{
+                  'innercontent':{
                 templateUrl: 'angularModules/company/partials/Partial-company_view.html',
                 controller:'CompanyViewCtrl'
+                                  }
+                      }
                 
               })
 
-              .state('home.company.registration', {
+              .state('home.main.company.registration', {
                 url: '/registration',
                 views:{
                   'manage': {
@@ -57,7 +61,7 @@
                             }
                       }
               })
-              .state('home.company.manage', {
+              .state('home.main.company.manage', {
                 url: '/manage',
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
@@ -67,7 +71,7 @@
                  
                 }
               }) 
-              .state('home.company.manage.info', {
+              .state('home.main.company.manage.info', {
                 url: '/company-info/:companyId',
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
@@ -76,7 +80,7 @@
                   } 
                 }
               })
-              .state('home.company.manage.billing-config', {
+              .state('home.main.company.manage.billing-config', {
                 url: '/company-billing-config/:companyId',
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
@@ -86,7 +90,7 @@
                   } 
                 }
               })
-              .state('home.company.manage.feature-config', {
+              .state('home.main.company.manage.feature-config', {
                 url: '/company-feature-config/:companyId',
                 views: {
                   // So this one is targeting the unnamed view within the parent state's template.
@@ -135,7 +139,6 @@
                 templateUrl: 'angularModules/billing/partials/Partial-billing_plans.html',
                 controller:'BillingPlansCtrl'
               })
-              // .state('home.roleMenuMapping', {
               .state('home.main.roleMenuMapping', {
                 url: '/roleMenuMapping',
                 views:{
@@ -170,9 +173,7 @@
                     templateUrl: 'angularModules/Branches/partials/Partial-Branches.html',
                     controller:'BranchesCtrl'
                    }                  
-                  },
-                data: { css: 'bower_components/angular-ui-tree/demo/css/demp-horizontal.css'}
-              
+                  }
               })
                .state('home.main.userMenuMapping', {
                 url: '/userMenuMapping',
@@ -180,6 +181,17 @@
                   'innercontent':{
                     templateUrl: 'angularModules/company/partials/Partial-userMenuMapping.html',
                     controller: 'UsermenumappingCtrl'
+                  }
+                }
+                
+              })
+
+               .state('home.main.course', {
+                url: '/course',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-course.html',
+                    controller: 'CourseCtrl'
                   }
                 }
                 
@@ -219,6 +231,15 @@
                 views:{
                   'addCourse-container':{
                     templateUrl: 'angularModules/course/partials/addCourseStep2.html'
+                  }
+                }
+                
+              })
+              .state('home.main.addCourse.step3', {
+                url: '/step3',
+                views:{
+                  'addCourse-container':{
+                    templateUrl: 'angularModules/course/partials/addCourseStep3.html'
                   }
                 }
                 

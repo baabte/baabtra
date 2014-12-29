@@ -45,9 +45,9 @@ $scope.fnAddNewRollCallBack=function(data){ //callback function for handle Add n
       manageCompanyRoleService.RetrieveUserRole($scope);
     	$scope.notifications("Success","new role added","success");}
   else if (data=="error"||data=="failed") 
-    {$scope.notifications('Warning!',"Failed to Create role","warning");}; 
+    {$scope.notifications('Warning!',"Failed to Create role","warning");} 
      $scope.btnRoleAdd='add';          
-}
+};
 
 $scope.fnRertrivecompanyRoleCallBack=function(data){ //callback function for handle Edit role of the company         
  $scope.roles=angular.fromJson(JSON.parse(data));
@@ -66,7 +66,7 @@ $scope.fnEditUserRoleCallBack=function(data){ //callback function for handle Edi
   {
    $scope.notifications("success","Updated","success");}
    else if (data=="error"||data=="failed") 
-     {$scope.notifications("Failed to Create role","warning");};           
+     {$scope.notifications("Failed to Create role","warning");}           
  };
 $scope.fnDeleteRoleCallBack=function(data){ //callback function for handle Edit role of the company         
  data=angular.fromJson(JSON.parse(data));
@@ -74,8 +74,8 @@ $scope.fnDeleteRoleCallBack=function(data){ //callback function for handle Edit 
  {
   $scope.roles.splice($scope.arrayindex_for_delete, 1);}
   else if (data=="error"||data=="failed") 
-   {$scope.notifications("Failed to Create role","warning");};                        
-}
+   {$scope.notifications("Failed to Create role","warning");}                        
+};
 
 //notification 
 $scope.notifications=function(title,message,type){

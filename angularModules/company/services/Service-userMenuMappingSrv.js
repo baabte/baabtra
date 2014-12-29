@@ -47,18 +47,18 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConf
 	                $scope.tree1 = $scope.ExMenus[0].menuStructure[0].regionMenuStructure;
                   console.log($scope.tree1);
 	                 changeObjIdOfMenu($scope.tree1,null);
-            function changeObjIdOfMenu(menu,sub){
+            var changeObjIdOfMenu=function(menu,sub){
               if(sub==null){
                 sub=0;
               }
               if(angular.equals(menu[sub],undefined))
-                return 0;
+                {return 0;}
               if(!angular.equals(menu[sub].fkMenuId,undefined))
-                menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
+                {menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;}
               if(menu[sub].childMenuStructure.length)
-               changeObjIdOfMenu(menu[sub].childMenuStructure,null);
+               {changeObjIdOfMenu(menu[sub].childMenuStructure,null);}
               changeObjIdOfMenu(menu,++sub);
-            }
+            };
 	           $scope.menudetails=true;
           }
               thisService.FnLoadMenuItems4AUMMapping($scope,$scope.roleId);
@@ -86,18 +86,18 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConf
                    if($scope.menuList!==''){
                   $scope.tree2 = $scope.menuList.menuStructure[0].regionMenuStructure; //Assigning the object value into a variable to load All menus
                   changeObjIdOfMenu($scope.tree2,null);
-            function changeObjIdOfMenu(menu,sub){
+            var changeObjIdOfMenu=function(menu,sub){
               if(sub==null){
                 sub=0;
               }
               if(angular.equals(menu[sub],undefined))
-                return 0;
+                {return 0;}
               if(!angular.equals(menu[sub].fkMenuId,undefined))
-                menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
+                {menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;}
               if(menu[sub].childMenuStructure.length)
-               changeObjIdOfMenu(menu[sub].childMenuStructure,null);
+               {changeObjIdOfMenu(menu[sub].childMenuStructure,null);}
               changeObjIdOfMenu(menu,++sub);
-            }
+            };
                   $scope.menuRegionId=$scope.menuList.menuStructure[0].fkmenuRegionId.$oid;
                   }
                   else{

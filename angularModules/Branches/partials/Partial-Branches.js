@@ -1,5 +1,8 @@
-angular.module('baabtra').controller('BranchesCtrl',['$scope','$alert','$timeout','localStorageService','$aside','branchSrv',function ($scope,$alert,$timeout,localStorageService,$aside,branchSrv){
+angular.module('baabtra').controller('BranchesCtrl',['$scope','$state','$alert','$timeout','localStorageService','$aside','branchSrv',function ($scope,$state,$alert,$timeout,localStorageService,$aside,branchSrv){
 
+if( !angular.element('link#branchCss').length){
+    angular.element('head').append('<link id="branchCss" href="bower_components/angular-ui-tree/demo/css/demo-horizontal.css" rel="stylesheet">');
+}
 
 $scope.branchTree=[];
 $scope.branch="";
@@ -55,6 +58,7 @@ $scope.drawLines = function(bTree){
    
 };
 
+console.log($state);
 
 $scope.tree1NodesOptions = { 
       dropped:function(event) {
@@ -87,7 +91,8 @@ $scope.$watch('branches',function (newValue,oldValue){
     if(index==null){
       index=0;
     }
-    if (branchTree[index].children !=undefined) {
+    if (!angular.equals(branchTree[index].children,undefined)) {
+
       if (branchTree[index].children.length>0) {
         buildChildren(branchTree[index]);
         if (branchTree.length-1 > index) {      
@@ -170,7 +175,7 @@ $scope.addSubBranch = function(branchDetails){
   branchSrv.fnInsertBranch($scope,"5457526122588a5db73e0b23",$scope.branches,$scope.rm_id);
    }
 
-$scope.undoBranch = function(){
+$scope.undo = function(){
   lastDeletedBranch.activeFlag=1;
   angular.forEach($scope.branches,function(branch){
     if (lastDeletedBranch._id==branch._id) {

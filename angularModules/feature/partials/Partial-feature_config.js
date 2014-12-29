@@ -4,10 +4,10 @@ if ($rootScope.loggedIn===false) {
   }
 
 
-  newFeature={};
+  var newFeature={};
   $scope.billings={};
   $scope.fields=[];
-  pricing={};
+  var pricing={};
   $scope.atrributes=[];
   $scope.yearNumbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
   $scope.monthNumbers = [0,1,2,3,4,5,6,7,8,9,10,11];
@@ -32,6 +32,10 @@ if ($rootScope.loggedIn===false) {
 		   var month=31*$scope.months;
 		   var days=$scope.days;
 		  	billings={"years":$scope.years,"months":$scope.months,"days":$scope.days,"totaldays":year+month+days};
+	 		  var year=365*$scope.years;
+		  	var month=31*$scope.months;
+		  	var days=$scope.days;
+		  	var billings={"years":$scope.years,"months":$scope.months,"days":$scope.days,"totaldays":year+month+days};
 	 		  newFeature["billing"]=billings;
  		}
  		else{
@@ -89,7 +93,7 @@ if ($rootScope.loggedIn===false) {
  $scope.createDivForAddAttr=function(){
   var atrribute={};
   atrribute[$scope.attributename]=$scope.attributevalue;
-  if($scope.attributename!=undefined&&$scope.attributevalue!=undefined&&$scope.attributename!=""&&$scope.attributevalue!=""){
+  if(!angular.equals($scope.attributename,undefined)&&!angular.equals($scope.attributevalue,undefined)&&!angular.equals($scope.attributename,"")&&!angular.equals($scope.attributevalue,"")){
     $scope.atrributes.push(atrribute);
     // $scope.feature_form.attributename.$setPristine();
     // $scope.feature_form.attributevalue.$setPristine();
@@ -107,6 +111,11 @@ if ($rootScope.loggedIn===false) {
       if(item.avail_validations!=undefined&&item.avail_validations!=""){
           $scope.validations.push(item.avail_validations);        
          } 
+      if(!angular.equals(item.avail_validations,undefined)&&!angular.equals(item.avail_validations,"")){
+          $scope.validations.push(item.avail_validations);
+          $scope.item.avail_validations="";
+          // console.log($scope.validations);
+        } 
     }
   };
 

@@ -33,3 +33,15 @@ angular.module('baabtra')
    "BWS": "http://127.0.0.1:8000/",//local
    // "BWS": "http://server.mb-test.in/",//server-test
  });
+
+  /*===   filter for generating an array of a range  ===*/
+//   .filter('range', function() {
+//   return function(input, total) {
+//     total = parseInt(total);
+//     for (var i=1; i<=total; i++)
+//       input.push(i);
+//     return input;
+//   };
+// })
+;
+

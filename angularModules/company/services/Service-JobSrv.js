@@ -1,4 +1,4 @@
-angular.module('baabtra').service('JobSrv',['$http','$alert','$modal',function JobSrv($http,$alert,$modal) {
+angular.module('baabtra').service('JobSrv',['bbConfig','$http','$alert','$modal',function JobSrv(bbConfig,$http,$alert,$modal) {
 	this.saveJob=function($scope){
     $http({
            url: bbConfig.BWS+'postCompanyJobs/',

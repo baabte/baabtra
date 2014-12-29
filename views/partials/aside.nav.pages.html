@@ -5,11 +5,11 @@
        <i class="icon glyphicon glyphicon-list text-lg"></i>
       </a>
     </li>
-    <li ng-click="goMenu(path,$index)" ng-repeat="path in linkPath" ui-sref-active="active">
+    <li ng-click="goMenu(path,$index)" ng-repeat="path in linkPath track by $index" ui-sref-active="active">
       <a>
         <i class="fa fa-chevron-right" style="font-size: 8px;position: relative;top: -3px;"></i>
-      	<i class="fa fa-apple fa-1x"></i>
-       <i class="text-md">{{path.pathName}}</i>
+      	<i class="fa {{path.menuIcon}} fa-1x"></i>
+       <i class="text-md">{{path.MenuName}}</i>
       </a>
     </li>
     <li class="animated fadeOut">

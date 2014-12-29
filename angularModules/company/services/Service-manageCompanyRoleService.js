@@ -52,7 +52,7 @@ angular.module('baabtra').service('manageCompanyRoleService',['$http','bbConfig'
 
              }); 
 
-    }
+    };
     this.UpdateUserRole=function($scope)
     {
       
@@ -71,6 +71,6 @@ angular.module('baabtra').service('manageCompanyRoleService',['$http','bbConfig'
               error(function(data, status, headers, config) {
                 
              }); 
-    }
+    };
 
  }]);
