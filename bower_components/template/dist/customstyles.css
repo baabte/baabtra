@@ -100,3 +100,25 @@ position:relative;
 .popover-title{
   color: #424242;
 }
+#login_error_msg{
+  height: 100%;
+  color: #820a27;
+  background-color: #fbdbe3;
+  border-color: #f8c5d1;
+  padding: 0px;
+  border-radius: 5px;
+  min-height: 50px;
+
+}
+.ms_content{
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  /*border: solid;*/
+  position: relative;
+  margin: 10px;
+
+}
+.content_span{
+  margin: 5px;
+}

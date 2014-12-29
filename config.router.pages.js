@@ -205,6 +205,15 @@
                 }
                 
               })
+              .state('home.main.addCourse.step1', {
+                url: '/step1',
+                views:{
+                  'addCourse-container':{
+                    templateUrl: 'angularModules/course/partials/addCourseStep1.html'
+                  }
+                }
+                
+              })
               .state('home.main.addCourse.step2', {
                 url: '/step2',
                 views:{

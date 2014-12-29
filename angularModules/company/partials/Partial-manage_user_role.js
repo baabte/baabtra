@@ -1,5 +1,5 @@
 angular.module('baabtra').controller('ManageUserRoleCtrl',['$scope','manageCompanyRoleService','localStorageService','$location','$alert',function($scope,manageCompanyRoleService,localStorageService,$location,$alert){
-	
+
   if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
         $location.path('/login');//redirecting path into login
   }
