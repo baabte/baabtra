@@ -4,10 +4,10 @@ if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginL
   }
 
 
-  newFeature={};
+  var newFeature={};
   $scope.billings={};
   $scope.fields=[];
-  pricing={};
+  var pricing={};
   $scope.atrributes=[];
   $scope.yearNumbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
   $scope.monthNumbers = [0,1,2,3,4,5,6,7,8,9,10,11];
@@ -26,10 +26,10 @@ if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginL
   	pricing={"price":$scope.price,"units":$scope.units,"minUnits":$scope.minUnits};
   	newFeature["pricing"]=pricing;
   	 if($scope.billing=="custom"){
-	 		  year=365*$scope.years;
-		  	month=31*$scope.months;
-		  	days=$scope.days;
-		  	billings={"years":$scope.years,"months":$scope.months,"days":$scope.days,"totaldays":year+month+days};
+	 		  var year=365*$scope.years;
+		  	var month=31*$scope.months;
+		  	var days=$scope.days;
+		  	var billings={"years":$scope.years,"months":$scope.months,"days":$scope.days,"totaldays":year+month+days};
 	 		  newFeature["billing"]=billings;
  		}
  		else{
@@ -72,7 +72,7 @@ if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginL
  $scope.createDivForAddAttr=function(){
   var atrribute={};
   atrribute[$scope.attributename]=$scope.attributevalue;
-  if($scope.attributename!=undefined&&$scope.attributevalue!=undefined&&$scope.attributename!=""&&$scope.attributevalue!=""){
+  if(!angular.equals($scope.attributename,undefined)&&!angular.equals($scope.attributevalue,undefined)&&!angular.equals($scope.attributename,"")&&!angular.equals($scope.attributevalue,"")){
     $scope.atrributes.push(atrribute);
   }
  };
@@ -82,7 +82,7 @@ if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginL
     }
     else{
       
-      if(item.avail_validations!=undefined&&item.avail_validations!=""){
+      if(!angular.equals(item.avail_validations,undefined)&&!angular.equals(item.avail_validations,"")){
           $scope.validations.push(item.avail_validations);
           $scope.item.avail_validations="";
           // console.log($scope.validations);
@@ -101,5 +101,5 @@ $scope.remove_validation=function(index){
 //call back functions
   $scope.loadInputTypescallback=function(data){
   	 $scope.InputTypes=angular.fromJson(JSON.parse(data));
-  }
+  };
 }]);
