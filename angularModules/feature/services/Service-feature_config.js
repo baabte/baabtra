@@ -3,7 +3,7 @@ angular.module('baabtra').service('featureConfig',['$http','bbConfig',function($
 	this.loadInputTypes=function ($scope){ // functon that call web service to add a comapny role
 	 	$http({
 	 		url: bbConfig.BWS+'loadInputTypes/',
-	 		data: JSON.stringify({"name":"midhun"}),
+	 		data: JSON.stringify({"name":"nothing"}),
 	 		method: "POST",
 	 		withCredentials: false,
 	 		contentType:"application/json",
@@ -16,8 +16,8 @@ angular.module('baabtra').service('featureConfig',['$http','bbConfig',function($
 	 		console.log(data);
 	 	});  
 	 };
-	 this.addNewFeature=function (newFeature){ // functon that call web service to add a comapny role
-	 	console.log(newFeature);
+	 this.addNewFeature=function ($scope,newFeature){ // functon that call web service to add a comapny role
+	 	
 	 	// delete newFeature[$$hashKey];
 	 	$http({
 	 		url: bbConfig.BWS+'newFeatureCreation/',
@@ -28,11 +28,11 @@ angular.module('baabtra').service('featureConfig',['$http','bbConfig',function($
 	 		dataType:"json",
 	 	}).
 	 	success(function(data, status, headers, config) {
-                   // $scope.loadInputTypescallback(data);
-                   console.log(data);
+                   $scope.fnCreateFeatureCallBack(data);
+
                }).
 	 	error(function(data, status, headers, config) {
-	 		// console.log(data);
+
 	 	});  
 	 };
 }]);

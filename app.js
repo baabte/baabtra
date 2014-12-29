@@ -32,7 +32,8 @@
         'xeditable',
         'angularFileUpload',
         'uiRouterStyles',
-        'schemaForm'
+        'schemaForm',
+        'ui.select'
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';
 });
