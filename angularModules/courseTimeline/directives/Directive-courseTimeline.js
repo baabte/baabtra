@@ -89,7 +89,7 @@ angular.module('baabtra').directive('courseTimeline',['$state', function($state)
             };
 
             scope.callbackOfTlPointClick=function(tlpoint){
-            	scope.callbackFunctions[scope.currentState](tlpoint);
+            	scope.callbackFunctions[scope.currentState](tlpoint/scope.durationIn[scope.selectedDuration-1].mFactor);
             }
 
              scope.$watch('totalCourseDuration',function(){ // for executing when the value of total duration is changed

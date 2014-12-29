@@ -117,7 +117,7 @@ $scope.showMoreCallBack=function(result){
   }
 };
 
- $scope.fnSearchCompanyCallBack=function(){
+ $scope.fnSearchCompanyCallBack=function(result){
   if(result==='error'){
     $scope.notifications('Error!','Error!! in Searching','warning');
   }
