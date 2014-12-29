@@ -3,8 +3,8 @@
   "plan": {
     "planId": "",
     "planName": "",
-    "features": {
-      "feature1": {
+    "features": [
+     {
         "featureId": "",
         "featureName": "",
         "pricing": {
@@ -18,7 +18,7 @@
           "totalDays": ""
         }
       },
-      "feature2": {
+       {
         "featureId": "",
         "featureName": "",
         "pricing": {
@@ -32,7 +32,7 @@
           "totalDays": ""
         }
       }
-    },
+    ],
     "totalAmount": "",
     "discount": "",
     "payableAmount": "",

@@ -100,3 +100,32 @@ position:relative;
 .popover-title{
   color: #424242;
 }
+.my-panel-heading{/*added by jihin on 23/12/2014*/
+  padding: 10px 15px;
+  color: #333;
+  border-bottom: 1px solid #333;
+}
+.tl-instance{/*added by jihin on 23/12/2014*/
+  border-radius: 25px;
+width: 50px;
+padding: 0px 14px;
+font-size: 35px;
+background-color: #acc8f0;.
+color: #fff;
+font-weight: bold;
+text-shadow: 0 1px 0 rgba(0,0,0,0.2);
+
+}
+.tl-active{/*added by jihin on 23/12/2014*/
+  background-color: #4F79B3;
+  color: #acc8f0;
+}
+.tl-input-xs{
+  height: 30px;
+padding: 5px 10px;
+font-size: 12px;
+line-height: 1.5;
+border-radius: 3px;
+}
+
+

@@ -1,69 +1,76 @@
 <div class="p-h-md">
   <div class="row">
       <div class="panel panel-default">
+        <div class="panel-heading bg-white">
+            <h4 class="modal-title text-primary">Add Your Menu</h4>
+        </div>
         <div class="panel-body">
           <form name="menuDetails" role="form"  class="form-validation ng-pristine ng-invalid ng-invalid-required">
           	  <div class="form-group m-h-n clearfix">
-              <div class="col-sm-6">
-                <h4 class="no-margin m-b">Menu Name</h4>
+              <div class="col-sm-6 col-md-6 col-lg-6">
+                <h4 class="no-margin m-t m-b">Menu Name</h4>
                 <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" placeholder="Menu Name" ng-model="menu.MenuName" required>
               </div>
-           <div class="col-sm-6">
-                <h4 class="no-margin m-b">Menu Link</h4>
+           <div class="col-sm-6 col-md-6 col-lg-6">
+                <h4 class="no-margin m-t m-b">Menu Link</h4>
                 <input type="text" class="form-control" placeholder="Menu Link" ng-model="menu.MenuLink">
              </div>
-             <div class="col-sm-6 m-t">
-                <h4 class="no-margin m-b">Actions</h4>
+             <div class="col-sm-6">
+                <h4 class="no-margin m-t m-b">Actions</h4>
                 <div class="m-h-n">
-                <div class="col-sm-6">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 m-b">
                 <input type="text" class="form-control" placeholder="Aaction Name" ng-model="menu.actionName">
               </div>
-              <div class="col-sm-5">
-                <input type="text" class="form-control" placeholder="State Name" ng-model="menu.stateName">
+              <div class="col-lg-5 col-md-10 col-sm-10 col-xs-10 m-b">
+                <input type="text" class="form-control pull-left" placeholder="State Name" ng-model="menu.stateName">
               </div>
-              <div class="col-sm-1" style="margin-top: 3px;margin-left: -18px;cursor: pointer;" ng-click="addActtion()">
-                   <i class="fa fa-plus-circle fa-2x pull-left"></i>
-              </div>  
+              <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2  m-b" style="cursor: pointer;">
+                  <i ng-click="addActtion()" class="fa fa-plus-circle fa-2x"></i>
+              </div> 
               </div>
-
               </div>
-                    <div class="col-lg-6 m-t">
-            <h4 class="no-margin m-b-md m-r">Menu Icon</h4>
-            <i class="ui-icon fa {{menu.menuIcon}} ui-iconnfo text-lg"></i>
-            <a ng-click="GetIcon()" class="">Change Icon</a>
-          </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 m-t">
+                <h4 class="no-margin m-b-md m-r">Menu Icon</h4>
+                <i class="ui-icon fa fa-user {{menu.menuIcon}} ui-iconnfo text-lg"></i>
+                <a ng-click="GetIcon()" class="">Change Icon</a>
+              </div>
             </div>
             <div class="m-h-n  m-t clearfix">
             <div class="col-sm-6">
               <ul class="nav nav-sm nav-pills m-b" ui-nav="">
-                <li class="active m-r-xs" ng-repeat="action in menu.actions">
+                <li class="active m-r-xs bg-light lt" ng-repeat="action in menu.actions">
                   <a ng-click="editAction(action,$index)">{{action.actionName}}<button type="button" class="close" style="margin-top: -2px;margin-left: 2px;" ng-click="removeAction($index)">×</button></a>
                 </li>
               </ul>
             </div>
           </div>
-            <div class="m-h-n  m-t clearfix">
-
-                    <div class="col-lg-12">
-          <button ng-click="AddMenu()" class="btn btn-info pull-right btn-sm p-h font-bold" ng-disabled="menuDetails.$invalid">{{opt_type}}</button>
-        </div>
+        <div class="m-h-n  m-t clearfix">
+          <div class="col-sm-6">
+             <a ng-click="loadMenu()" class="">Edit Existing Menus</a>
           </div>
+          <div class="col-sm-6">
+            <button ng-click="UpdateMenu()" ng-show="updateMenu" class="btn btn-info pull-right btn-sm p-h font-bold" ng-disabled="menuDetails.$invalid">Update</button>
+            <button ng-click="AddMenu()" ng-show="addMenu" class="btn btn-info pull-right btn-sm p-h font-bold" ng-disabled="menuDetails.$invalid">Add</button>
+          </div>
+        </div>
 
       </form>
       </div>
       </div>
       </div>
       </div>
-      <div class="p-h-md">
+      <div class="p-h-md am-fade" ng-show="existingMenus">
       <div class="row">
-      <div class="panel panel-default">
-          <a ng-mouseover="Over=true"  ng-mouseleave="Over=false" ng-repeat="menu in allMenus" class="m-md text-sm btn btn-lg bg-light m-r">
-          <i class="fa {{menu.menuIcon}} fa-3x pull-left"></i>
+      <div class="panel panel-default animated fadeInDown">
+        <div class="panel-body">
+          <div ng-mouseover="Over=true"  ng-mouseleave="Over=false" ng-repeat="menu in allMenus" class="m-md text-sm btn b btn-lg bg-light lt m-r">
+          <i class="fa {{menu.menuIcon}} fa-3x pull-left" ></i>
           <span class="block clear text-left m-v-xs"><b class="text-lg block font-bold">{{menu.MenuName}}</b>
           </span>
-          <i ng-click="editMenu(menu)" class="fa pull-right fa-1x text-lt" style="cursor: pointer;" ng-class="{'fa-pencil':Over}"></i>
-        </a>
-      <div class="panel-body">
+          <i ng-click="removeMenu(menu)" class="fa pull-right text-lt" ng-class="{'fa-trash':Over}" style="cursor: pointer;"></i>
+          <i ng-click="editMenu(menu)" class="fa m-r-xs pull-right text-lt" style="cursor: pointer;" ng-class="{'fa-edit':Over}"></i>
+        </div>
+      
       </div>
       </div>
       </div>

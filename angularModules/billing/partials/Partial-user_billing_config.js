@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('UserBillingConfigCtrl',['$scope','userBillingConfigService','localStorageService','$location','$alert','$state', function ($scope,userBillingConfigService,localStorageService,$location,$alert,$state){
+angular.module('baabtra').controller('UserBillingConfigCtrl',['$scope','userBillingConfigService','userFeatureConfigService','localStorageService','$location','$alert','$state','$modal','schemaForm', function ($scope,userBillingConfigService,userFeatureConfigService,localStorageService,$location,$alert,$state,$modal,schemaForm){
 
  if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
   $location.path('/');
@@ -12,17 +12,18 @@ angular.module('baabtra').controller('UserBillingConfigCtrl',['$scope','userBill
     userBillingConfigService.FnGetPlan($scope);
     userBillingConfigService.FnGetFeature($scope);
 
-// console.log($scope.PFlist);
-$scope.featureSelected=false;
+//to hide the custom billing field 
 $scope.custombillfield=false;
+//tool tip messages 
 $scope.PlanChangeTT="Warning changing plan will lead loss of current plan";
-$scope.FeatureConfigTT="Click on feature to configure!";
 $scope.PriceConfigTT="Click to edit Price";
 $scope.BillConfigTT="Click to edit Billing";
+//variables for iteration 
 var i;
 
+//funtion to change the user plan to some pre defined plan
 $scope.fnChangeplan=function(plan){
-	
+	// console.log(plan);
 	 if(plan.features.length>0){
 	 // console.log($scope.userplan);
    $scope.userplan={};
@@ -43,8 +44,13 @@ $scope.fnChangeplan=function(plan){
 
 };
 
+//to configure the feature billing details
 $scope.fConfig = function(feature){
-$scope.featureSelected=true;
+  $modal({ scope: $scope,
+              template: 'angularModules/billing/partials/billing_setting_page.html',
+              placement:'center',
+              show: true});
+ // $scope.featureSelected=true;
 $scope.selectedFeature=feature;
 // console.log(feature);
 if((feature.billing.years===1)&&(feature.billing.months===0)&&(feature.billing.days===0))
@@ -81,31 +87,115 @@ else if($scope.sel.freqency!=='custom'){
 
 };
 
+//function to add a feature to user plan will update the clnuserbilling
+//runs along with funtion featureValueConfig
+ $scope.addFeature = function(feature ) {
+  var feature1=JSON.parse(JSON.stringify(feature));
+// console.log("feature1");
+// console.log(feature1);
 
- $scope.addFeature = function( feature ) {
-  var index = $scope.featurelist.indexOf( feature );
-  // console.log(feature);
-  $scope.userplan.plan.features.push( feature );
+  var index = $scope.featurelist.indexOf( feature1 );
+   // console.log("feature @addfeature");
+   // console.log(feature1);
+   // feature1=[];
+
+  $scope.userplan.plan.features.push( feature1 );
   if ( index >= 0 ) {
       $scope.featurelist.splice( index, 1 );
       }
        $scope.AddFeature={};
        $scope.AddFeature.companyId=$scope.companyId;
-       $scope.AddFeature.feature=feature;
-      if (feature._id===undefined) {
-        $scope.AddFeature.feature.featureId=feature.featureId.$oid;
-      }
-      else if (feature.featureId===undefined) {
-        $scope.AddFeature.feature.featureId=feature._id.$oid;
-         delete $scope.AddFeature.feature._id;
-      }
+       $scope.AddFeature.feature=feature1;
+       delete $scope.AddFeature.feature.configDetails;
+       if (feature1._id===undefined) {
+        $scope.AddFeature.feature.featureId=feature1.featureId;
+       }
+       else if (feature1.featureId===undefined) {
+         $scope.AddFeature.feature.featureId=feature1._id.$oid;
+          delete $scope.AddFeature.feature._id;
+       }
       // console.log($scope.AddFeature.feature);
       // $scope.AddFeature.feature.featureId=feature._id.$oid;
       // delete $scope.AddFeature.feature._id;
-      userBillingConfigService.FnAddFeature($scope);
+      // console.log("addfeature");
+      // console.log($scope.AddFeature);
+      // console.log("featureconfig from addfeature")
+      // console.log($scope.FeatureConfig);
+
+      // userBillingConfigService.FnAddFeature($scope);
+};
+//function to add a feature to user plan will update the clnuserfeatureconfig
+//runs along with funtion addfeature
+$scope.featureValueConfig = function(feature){
+   // console.log("feature @val config");
+   // console.log(feature);
+  $modal({ scope: $scope,
+              template: 'angularModules/billing/partials/feature_values_config_page.html',
+              placement:'center',
+              show: true});
+  // console.log(feature); 
+  $scope.featuremodel = {};
+  $scope.FeatureConfig=feature;
+  // console.log("FeatureConfig");
+  // console.log($scope.FeatureConfig)
+  if (feature._id===undefined) {
+        $scope.FeatureConfig.featureId=feature.featureId.$oid;
+      }
+      else if (feature.featureId===undefined) {
+        $scope.FeatureConfig.featureId=feature._id.$oid;
+         delete $scope.FeatureConfig._id;
+      }
+  // console.log("FeatureConfig after");
+  // console.log($scope.FeatureConfig)
+  $scope.schema={type: "object"};
+  $scope.schema.properties={};
+  $scope.schema.required=[];
+  $scope.form=[];
+  var flen=$scope.FeatureConfig.configDetails.length;
+  var i=0;
+  while(i<flen){
+    if(angular.equals($scope.FeatureConfig.configDetails[i].inputType,'select')){
+    $scope.schema.properties[$scope.FeatureConfig.configDetails[i].label]={type:"string",enum:$scope.FeatureConfig.configDetails[i].allowedValues};
+
+  }
+  else{
+  $scope.schema.properties[$scope.FeatureConfig.configDetails[i].label]={type:"string"};
+  }
+  $scope.schema.required.push($scope.FeatureConfig.configDetails[i].label);
+
+  $scope.form.push({key:$scope.FeatureConfig.configDetails[i].label,type:$scope.FeatureConfig.configDetails[i].inputType});
+  i++;
+  }
+
+  $scope.form.push({
+    "type": "submit",
+    "style": "btn-info",
+    "title": "Save Config"
+  });
 };
 
+//funtion to save the newly added feature attributes to the user feature config 
+$scope.saveFeature = function(){
+  // console.log($scope.featuremodel);
+  $scope.configValues={};
+  $scope.configValues.fConfig=$scope.featuremodel;
 
+  $scope.configValues.fConfig.featureId=$scope.FeatureConfig.featureId;
+  $scope.configValues.companyId=$scope.companyId;
+
+  // console.log($scope.configValues);
+  // console.log("temp")      
+  // console.log($scope.temp);
+  // console.log("temp")
+  // console.log($scope.featurelist.indexOf( $scope.temp ))
+  
+  userFeatureConfigService.FnSaveFeaturesConfig($scope);
+  userBillingConfigService.FnAddFeature($scope);
+
+
+};
+
+// to delete a feature from user plan
  $scope.deleteFeature = function( feature ) {
   var index = $scope.userplan.plan.features.indexOf( feature );
   // console.log(feature);
@@ -115,18 +205,22 @@ else if($scope.sel.freqency!=='custom'){
       }
        $scope.DeleteFeature={};
        $scope.DeleteFeature.companyId=$scope.companyId;
-      if (feature._id===undefined) {
+       if (feature._id===undefined) {
         $scope.DeleteFeature.featureId=feature.featureId.$oid;
       }
       else if (feature.featureId===undefined) {
         $scope.DeleteFeature.featureId=feature._id.$oid;
+         delete $scope.DeleteFeature._id;
       }
-      // console.log($scope.DeleteFeature);
+       // $scope.DeleteFeature.featureId=feature._id.$oid;
+       // console.log("DeleteFeature");
+       // console.log($scope.DeleteFeature);
       // $scope.DeleteFeature.featureId=feature._id.$oid;
        userBillingConfigService.FnDeleteFeature($scope);
 
 };
 
+//to edit pricing of a user feature 
 $scope.editPricing = function(Pricing) {
   $scope.editPrice={};
   $scope.editPrice.companyId=$scope.companyId;
@@ -136,7 +230,7 @@ $scope.editPricing = function(Pricing) {
   userBillingConfigService.FnEditPricing($scope);
 
 };
-
+//edit billing of a user feature
 $scope.editBill = function(Billing) {
   // console.log(Billing);
     $scope.editBilling={};
@@ -167,7 +261,7 @@ $scope.editBill = function(Billing) {
   }
   // console.log($scope.editBilling);
 };
-
+//to edit custom billing
 $scope.editCustomBilling = function() {
 $scope.editBilling={};
     $scope.editBilling.billing={};
@@ -273,6 +367,20 @@ if(result==='success'){
         
       }
 
+   if(result==='error'){
+        $scope.notifications('opps!','Error in connecting to server','danger');
+       
+      }
+
+};
+
+$scope.fnSaveFeaturesConfigCallBack=function(result){
+  if(result==='success'){
+        //console.log($scope.temp);
+        //$scope.addFeature($scope);
+        $scope.notifications('Done!','Feature configured successfully','info');
+       
+      }
    if(result==='error'){
         $scope.notifications('opps!','Error in connecting to server','danger');
        
