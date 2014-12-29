@@ -25,7 +25,7 @@
 
 
                       <div class="col-sm-1 mt-xs">        
-                          <button class="btn btn-icon fa fa-minus" ng-click="courseDuration.days=courseDuration.days==0?0:(courseDuration.days)*1-1"></button>
+                          <button class="btn btn-icon fa fa-minus" ng-click="courseDuration.days=courseDuration.days==0?0:(courseDuration.days)*1-1;"></button>
 
                       </div>    
                       <div class="col-sm-1 mt-xs">
@@ -89,7 +89,12 @@
                     <i class="glyphicon  glyphicon-log-out"></i> Exit Point<hr>
                 </div>
                 <div class="panel-body">
-                  sdkjfkj
+
+
+                  <div class="panel-body form-horizontal" >
+                    <course-timeline></course-timeline>            
+                  </div>
+
                 </div>     	
               </div>
     </div>

@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('courseTimeline', function() {
+angular.module('baabtra').directive('courseTimeline',['$state', function($state) {
 	return {
 		restrict: 'E', // to use as an element . Use 'A' to use as an attribute
 		replace: true,
@@ -7,6 +7,8 @@ angular.module('baabtra').directive('courseTimeline', function() {
 		link: function(scope, element, attrs, fn) {
 
 			//console.log(element);
+			scope.currentState=$state.current.name.split('.'); // for setting call back function - lijin)
+			scope.currentState=scope.currentState[scope.currentState.length-1];
 
 			//set a duration in minutes (initially) *Note: totalCourseDuration will come from the database and it will be in days
 			scope.duration=scope.totalCourseDuration/1440; 
@@ -32,7 +34,7 @@ angular.module('baabtra').directive('courseTimeline', function() {
 				name = name.replace('s','');
 				scope.selectedDurType=name;
 				scope.duration=scope.totalCourseDuration*scope.durationIn[scope.selectedDuration-1].mFactor;
-				scope.setMinWidth(10);
+				scope.setMinWidth(15);
 				scope.tlPointList=[];
 				scope.buildTlPointList(1);
 			};
@@ -80,13 +82,18 @@ angular.module('baabtra').directive('courseTimeline', function() {
 			        if(endPointPos<scope.tlContainerWidth){
 			        	scope.buildTlPointList(scope.tlPointList.length+1);
 			        	scope.$digest();
+			        	
 			        }
 			        
 			    },delay);
             };
-				
-				
+
+            scope.callbackOfTlPointClick=function(tlpoint){
+            	scope.callbackFunctions[scope.currentState](tlpoint);
+            }
+
+            
 
 		}
 	};
-});
+}]);
