@@ -24,6 +24,7 @@
 }
 .tl-point:hover{
 	border-color: blue;
+	color: black;
 }
 /*.tl-point:after{
 	content:'*';

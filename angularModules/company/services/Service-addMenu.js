@@ -24,7 +24,6 @@ this.addMenuDetails=function($scope){
 
 
   this.updateMenuDetails=function($scope){
-    console.log($scope.userRoleMappingId);
   $http({
     method: 'post',
     url: bbConfig.BWS+'UpdateMenus/',

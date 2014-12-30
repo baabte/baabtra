@@ -1,23 +1,22 @@
 angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state','$scope','$localStorage','localStorageService','home','$location','$dropdown',function ($browser,$rootScope,$state,$scope,$localStorage,localStorageService,home,$location,$dropdown){
-  var loginInfo=localStorageService.get('loginInfo');
-  if(loginInfo===null||loginInfo.length===0){
-    $location.path('/'); //setting the location path to login page if local storage contain null value.
+
+
+if($rootScope.userinfo){
+    $scope.rm_id=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
+    home.FnLoadMenus($scope);//Load Menus for logged user
     }
-  if(localStorageService.get('loginInfo').length!==0){ //checking for data in local storage
-      $scope.rm_id=loginInfo.roleMappingId.$oid; //gets the last logged role mapping id from local storage
-      if(angular.equals(loginInfo.roleMappingObj[0].fkCompanyId,"")){
-        $scope.companyId='';
-      }
-      else{
-        $scope.companyId=loginInfo.roleMappingObj[0].fkCompanyId.$oid;          
-      }        
-      $scope.roleId=loginInfo.roleMappingObj[0].fkRoleId;
-      if($scope.roleId!=1 && $scope.roleId!=2){ //checking for login role id
-          $state.go('home.main');
-      }
+$rootScope.$watch('userinfo',function(){
+  if($rootScope.userinfo){
+    console.log($rootScope.userinfo);
+    $scope.rm_id=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
+    home.FnLoadMenus($scope);//Load Menus for logged user
     }
-    
-home.FnLoadMenus($scope);//Load Menus for logged user
+  
+});
+
+
+
+//home.FnLoadMenus($scope);
 
 $scope.$watch('userMenusOrigin',function(){
   if (!angular.equals($scope.userMenusOrigin,undefined)) {
@@ -28,12 +27,17 @@ $scope.$watch('userMenusOrigin',function(){
      }
   }
 });
+
 $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
+   
+  if($rootScope.userinfo)
+   { 
     $rootScope.menuExist=false;
-    getMenuByLink($scope.userMenusOrigin,null,null,toState.name);
-    if (!$rootScope.menuExist && !angular.equals(toState.name,'home.main')) {
-      event.preventDefault();
-    }
+       getMenuByLink($scope.userMenusOrigin,null,null,toState.name);
+       if (!$rootScope.menuExist && !angular.equals(toState.name,'home.main')) {
+         event.preventDefault();
+       }
+     }
 });
 
     $scope.loadDetails =function(menu){
@@ -64,8 +68,8 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
       var trim_val=$localStorage.linkPath.length-index-1;
       for (var link_index = 0; link_index < trim_val; link_index++) {
         $localStorage.linkPath.pop();
-      };
-      if (menu.actions != undefined) {
+      }
+      if (angular.equals(menu.actions,undefined)) {
         $state.go(menu.actions[0].stateName);//go to the curresponding state when click a link
       }
       else {
