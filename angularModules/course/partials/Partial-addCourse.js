@@ -22,15 +22,18 @@ addCourseService.loadTechnologies($scope);
 			
 $scope.totalCourseDuration=259200; // course duration in minutes
 
-$scope.tlPopOver=[];
-$scope.tlPopOver['step3']=[{name:'Add Payment',callback:function(arg){
-console.log('Add Payment:'+arg);
-}},{name:'Add step3',callback:function(arg){
-console.log('Add step3:'+arg);
-}}];
-$scope.tlPopOver['step2']=[{name:'Add Exitpoint',callback:function(arg){
-console.log('Add Exitpoint:'+arg);
-}}];
+
+//don't edit this area - em working on this now - lijin
+/*--*/$scope.tlPopOver=[];
+/*--*/$scope.tlPopOver['step3']=[{name:'Add Payment',callback:function(arg){
+/*--*/console.log('Add Payment:'+arg);
+/*--*/}},{name:'Add step3',callback:function(arg){
+/*--*/console.log('Add step3:'+arg);
+/*--*/}}];
+/*--*/$scope.tlPopOver['step2']=[{name:'Add Exitpoint',callback:function(arg){
+/*--*/console.log('Add Exitpoint:'+arg);
+/*--*/}}];
+//-----------end-----------------------
 
     // $scope.totalCourseDuration=259200; // course duration in minutes
 
