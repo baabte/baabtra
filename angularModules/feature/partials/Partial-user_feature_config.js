@@ -1,14 +1,17 @@
 angular.module('baabtra').controller('UserFeatureConfigCtrl',['$scope','userFeatureConfigService','localStorageService','$location','$alert','$state','schemaForm',function ($scope,userFeatureConfigService,localStorageService,$location,$alert,$state,schemaForm){
 
-	 if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
-  $location.path('/');
-}
+// 	 if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
+//   $location.path('/');
+// }
+// $scope.rm_id=$rootScope.userinfo.LogUserData.lastLoggedRoleMapping.$oid;//to be changed
+
+ var loggedusercrmid=$rootScope.userinfo.LogUserData.lastLoggedRoleMapping.$oid;//to be changed
 
 
-//to get the crmid of the user 							
- var loginInfo=localStorageService.get('loginInfo');
-     // localStorageService.get('loginInfo');
-var loggedusercrmid=loginInfo.roleMappingId.$oid;
+// //to get the crmid of the user 							
+//  var loginInfo=localStorageService.get('loginInfo');
+//      // localStorageService.get('loginInfo');
+// var loggedusercrmid=loginInfo.roleMappingId.$oid;
 
 //to save the company id from the url
 $scope.companyId=$state.params.companyId;
@@ -38,7 +41,7 @@ $scope.fConfig = function(feature){
 	$scope.schema={type: "object"};
 	$scope.schema.properties={};
 	$scope.schema.required=[];
-	$scope.form=[];
+	$scope.featureForm=[];
     flen=$scope.FeatureConfig.configDetails.length;
     i=0;
 	while(i<flen){
@@ -52,11 +55,11 @@ $scope.fConfig = function(feature){
 	}
 	$scope.schema.required.push($scope.FeatureConfig.configDetails[i].label);
 
- 	$scope.form.push({key:$scope.FeatureConfig.configDetails[i].label,type:$scope.FeatureConfig.configDetails[i].inputType});
+ 	$scope.featureForm.push({key:$scope.FeatureConfig.configDetails[i].label,type:$scope.FeatureConfig.configDetails[i].inputType});
  	i++;
 	}
 
-	$scope.form.push({
+	$scope.featureForm.push({
     "type": "submit",
     "style": "btn-info",
     "title": "Save Config"

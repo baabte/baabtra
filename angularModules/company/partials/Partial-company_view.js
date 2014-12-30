@@ -1,7 +1,7 @@
 angular.module('baabtra').controller('CompanyViewCtrl',['$scope','companyViewService','localStorageService','$location','$alert','$state',function ($scope,companyViewService,localStorageService,$location,$alert,$state){
-if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
-  $location.path('/');
-}  
+// if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
+//   $location.path('/');
+// }  
  
  
 if(!angular.equals($state.params.companyId,undefined)){

@@ -38,6 +38,7 @@ $scope.emailPattern = (function() {
 
 	$scope.loginSuccessCallback=function(data){
 		$scope.logData=angular.fromJson(JSON.parse(data));
+		console.log($scope.logData);
 		if($scope.logData.result==='true') {
 	   	  var logdata=$scope.logData.ActiveUserDataId.$oid.concat($scope.logData.userLoginId);
 	  	  localStorageService.add('logDatas',logdata);
