@@ -45,8 +45,8 @@ console.log('Add Exitpoint:'+arg);
     $scope.courseDuration.months=0;
     $scope.courseDuration.years=0;
 
-//variable to save total dutation in minutes
-$scope.totalCourseDuration=0;
+// //variable to save total dutation in minutes
+// $scope.totalCourseDuration=0;
 
 //watch funtion to analyse change in courseDuration object
     $scope.$watch('courseDuration', function(newVal, oldVal){

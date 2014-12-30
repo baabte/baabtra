@@ -103,7 +103,6 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
           {
             $scope.tree1=[];
           }
-          console.log($scope.tree1);
         }).
         error(function(data, status, headers, config) {
           // called asynchronously if an error occurs
@@ -126,21 +125,6 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
               }
               changeObjIdOfMenu(menu,++sub);
             };
-
-            // function changeObjIdOfMenu(menu,sub){
-            //   if(sub==null){
-            //     sub=0;
-            //   }
-            //   if(angular.equals(menu[sub],undefined))
-            //     return 0;
-            //   if(!angular.equals(menu[sub].fkMenuId,undefined)){
-            //     menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
-            //     menu[sub].actionMaster=menu[sub].actions;
-            //   }
-            //   if(menu[sub].childMenuStructure.length)
-            //    changeObjIdOfMenu(menu[sub].childMenuStructure,null);
-            //   changeObjIdOfMenu(menu,++sub);
-            // }
 
           this.FnGetAllMenus=function ($scope,type)//To Load All menus of loded user
 
@@ -177,9 +161,6 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
                 {return 0;}
               if(!angular.equals(menu[sub].MenuLink ,undefined))
               {
-
-                //console.log(Child);
-                  //console.log(Child.MenuName+":In:"+menu[sub].MenuName);
                   if(Child.fkMenuId==menu[sub].fkMenuId){
 
                      Child.actionMaster=menu[sub].actions;
@@ -201,8 +182,6 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
               if(!angular.equals(menu[sub].MenuLink,undefined))
               {
                 removeDuplicateMenus($scope.tree2,null,menu[sub]);
-                //console.log(menu[sub].MenuName);
-
               }
               if(menu[sub].childMenuStructure.length)
                {checkNodeMenus(menu[sub].childMenuStructure,null);}
@@ -216,7 +195,6 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
           {
             $scope.tree2=[];
           }
-          console.log($scope.tree2);
           $scope.menudetails=true;
           //$scope.menudetails=true;
         }).
@@ -234,7 +212,6 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
           contentType   : 'application/json; charset=UTF-8',
         }).
         success(function(data, status, headers, config) {
-          //console.log(angular.fromJson(JSON.parse(data)));
           if (data=="Insert")
           {
             $alert({title: 'Success!', type:'success', content: 'Menus Insert Successfuly..',animation:'am-fade',duration:'3', placement: 'top-right', template: 'views/ui/angular-strap/alert.tpl.html', show: true});

@@ -1,14 +1,13 @@
 angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state','$scope','$localStorage','localStorageService','home','$location','$dropdown',function ($browser,$rootScope,$state,$scope,$localStorage,localStorageService,home,$location,$dropdown){
 
 
-if($rootScope.userinfo){
-    $scope.rm_id=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
-    home.FnLoadMenus($scope);//Load Menus for logged user
-    }
+// if($rootScope.userinfo){
+//     $scope.rm_id=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
+//     home.FnLoadMenus($scope);//Load Menus for logged user
+//     }
 $rootScope.$watch('userinfo',function(){
   if($rootScope.userinfo){
-    console.log($rootScope.userinfo);
-    $scope.rm_id=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
+    $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     home.FnLoadMenus($scope);//Load Menus for logged user
     }
   
