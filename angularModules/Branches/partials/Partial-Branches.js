@@ -58,13 +58,8 @@ $scope.drawLines = function(bTree){
    
 };
 
-console.log($state);
-
 $scope.tree1NodesOptions = { 
       dropped:function(event) {
-        console.log(event);
-        console.log(event.source.nodeScope.$modelValue.parent);
-        console.log(event.dest.nodesScope.$parent.$modelValue._id);
         if (!angular.equals(event.source.nodeScope.$modelValue.parent,event.dest.nodesScope.$parent.$modelValue._id)) {
         event.source.nodesScope.$parent.$modelValue.children.splice(event.source.index,1);
         if (!event.source.nodesScope.$parent.$modelValue.children.length) {
@@ -80,7 +75,6 @@ $scope.tree1NodesOptions = {
 
 $scope.$watch('branches',function (newValue,oldValue){
   if (angular.equals($scope.branches,undefined)) {
-    console.log(jsPlumb);
     jsPlumb.detachEveryConnection();
     buildBranchTree(findRoots($scope.branches,null),null); 
     $scope.drawLines($scope.branchTree);
@@ -138,7 +132,7 @@ function findRoots(branch,index){
     }
     if (branch[index].children == null) {
       branch[index].childrenObj=[];
-    };
+    }
     if (branch.length-1 > index) {
     findRoots(branch,++index);
     }
@@ -162,8 +156,8 @@ $scope.addSubBranch = function(branchDetails){
         branch.children=[];
       }
       branch.children.push(branchDetails.name);
-    };
-  })
+    }
+  });
   $scope.branches.push({ _id:branchDetails.name,
                            location:branchDetails.location,
                            email:branchDetails.email,
@@ -173,23 +167,23 @@ $scope.addSubBranch = function(branchDetails){
                            activeFlag:1});
   branchSrv.fnInsertBranch($scope,"5457526122588a5db73e0b23",$scope.branches,$scope.rm_id);
    };
-
+var lastDeletedBranch={};
 $scope.undo = function(){
   lastDeletedBranch.activeFlag=1;
   angular.forEach($scope.branches,function(branch){
     if (lastDeletedBranch._id==branch._id) {
           branch.activeFlag=1;
-        };
-  })
+        }
+  });
   branchSrv.fnInsertBranch($scope,"5457526122588a5db73e0b23",$scope.branches,$scope.rm_id);
 };
    $scope.removeBranch = function(node){
     node.$nodeScope.$modelValue.activeFlag=0;
     lastDeletedBranch=node.$nodeScope.$modelValue;
     branchSrv.fnInsertBranch($scope,"5457526122588a5db73e0b23",$scope.branches,$scope.rm_id);
-    $alert({scope: $scope,title: '',container:'body',keyboard:true,animation:'am-fade-and-slide-top',template:'views/ui/angular-strap/alert.tpl.html',title:'Undo',content:'The branch has been deleted', placement: 'top', type: 'warning'});
-}
-
+    $alert({scope: $scope,container:'body',keyboard:true,animation:'am-fade-and-slide-top',template:'views/ui/angular-strap/alert.tpl.html',title:'Undo',content:'The branch has been deleted', placement: 'top', type: 'warning'});
+};
+var lastEditBranch="";
 $scope.editBranch = function(branch){
   lastEditBranch=branch;
   $scope.message="Update Details Of ";
@@ -217,7 +211,7 @@ $scope.updateSubBranch = function(branch){
       }
     });
     lastEditBranch.$nodeScope.$modelValue._id=$scope.branch.name;
-  };
+  }
   lastEditBranch.$nodeScope.$modelValue.email=$scope.branch.email;
   lastEditBranch.$nodeScope.$modelValue.location=$scope.branch.location;
   lastEditBranch.$nodeScope.$modelValue.phone=$scope.branch.phone;

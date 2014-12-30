@@ -23,7 +23,7 @@ angular.module('baabtra').controller('ListjobsCtrl',['$scope','JobSrv','$modal',
 $scope.activeLink=1;
 var CurNewValue="";
 
-JobSrv.listJobs($scope,cmp_id,"","");
+JobSrv.listJobs($scope,$scope.companyId,"","");
 
 $scope.$watch('modelSearch', function (newValue, oldValue) {//function which watces the change in text box and used  for searching companies and roles
       if(!angular.equals(newValue,undefined)){
