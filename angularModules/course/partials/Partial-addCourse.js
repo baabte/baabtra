@@ -14,23 +14,24 @@ addCourseService.loadTechnologies($scope);
     					 {id: "3",name: "After The Course"}];
     $scope.selectedPaymentType="1";
 
-    $scope.selectedDuration="1";
-
     $scope.courseDetails=[]; // for supressing errors lijin have commented this and you can uncomment below and
     						 // remove this line. There is no use of this variable.
 
 			
 $scope.totalCourseDuration=259200; // course duration in minutes
 
-$scope.tlPopOver=[];
-$scope.tlPopOver['step3']=[{name:'Add Payment',callback:function(arg){
-console.log('Add Payment:'+arg);
-}},{name:'Add step3',callback:function(arg){
-console.log('Add step3:'+arg);
-}}];
-$scope.tlPopOver['step2']=[{name:'Add Exitpoint',callback:function(arg){
-console.log('Add Exitpoint:'+arg);
-}}];
+
+//don't edit this area - em working on this now - lijin
+/*--*/$scope.tlPopOver=[];
+/*--*/$scope.tlPopOver['step3']=[{name:'Add Payment',callback:function(arg){
+/*--*/console.log('Add Payment:'+arg);
+/*--*/}},{name:'Add step3',callback:function(arg){
+/*--*/console.log('Add step3:'+arg);
+/*--*/}}];
+/*--*/$scope.tlPopOver['step2']=[{name:'Add Exitpoint',callback:function(arg){
+/*--*/console.log('Add Exitpoint:'+arg);
+/*--*/}}];
+//-----------end-----------------------
 
     // $scope.totalCourseDuration=259200; // course duration in minutes
 
@@ -69,14 +70,14 @@ console.log('Add Exitpoint:'+arg);
 
 
 	$scope.tlPopOver=[];
-	$scope.tlPopOver['step3']=[{name:'Add Payment',callback:function(arg){
+	$scope.tlPopOver['step3']=[['Add Payment',function(arg,arg2){
 	console.log('Add Payment:'+arg);
-	}},{name:'Add step3',callback:function(arg){
-	console.log('Add Payment:'+arg);
-	}}];
-	$scope.tlPopOver['step2']={name:'Add Exitpoint',callback:function(arg){
-	console.log('Add Exitpoint:'+arg);
-	}};
+	}],null,['Add step3',function(arg){
+	console.log(arg.$parent.tlpoint);
+	}]];
+	$scope.tlPopOver['step2']=[['Add Exit point',function(arg){
+    console.log(arg);
+    }]];
 
 
 

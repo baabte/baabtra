@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('header',['$scope','$rootScope','$location','localStorageService','header','commonService', function($scope,$rootScope,$location,localStorageService,header,commonService) {
+angular.module('baabtra').controller('header',['$scope','$rootScope','$state','localStorageService','header','commonService', function($scope,$rootScope,$state,localStorageService,header,commonService) {
 		
 		if($rootScope.userinfo){
 			$scope.loggedUserInfo=$rootScope.userinfo.ActiveUserData;
@@ -13,7 +13,6 @@ angular.module('baabtra').controller('header',['$scope','$rootScope','$location'
 
 		//LOGOUT FUNTION
 		$scope.logout=function(){//function fired when clicked on logout .
-			
 			$scope.userinfo=localStorageService.get('logDatas');
 			header.logout($scope);
 			};
@@ -21,8 +20,11 @@ angular.module('baabtra').controller('header',['$scope','$rootScope','$location'
 		$scope.fnCallbackLogout=function(){
    				localStorageService.set('logDatas','{}');//resetting the userinfo before logout 
    				$rootScope.loggedIn=false;
-				$location.path('/login');//redirecting path into login
-			};
+   				$rootScope.userinfo=undefined;
+				$state.go('login');//redirecting path into login
+
+			}
+				
    			
 
 }]);

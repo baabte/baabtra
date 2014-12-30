@@ -30,8 +30,13 @@ angular.module('baabtra')
     $translateProvider.useLocalStorage();
   }])
   .constant('bbConfig',{ //used for storing enviornment variables
+<<<<<<< HEAD
    "BWS": "http://127.0.0.1:8000/",//local
    //"BWS": "http://server.mb-test.in/",//server-test
+=======
+   //"BWS": "http://127.0.0.1:8000/",//local
+    "BWS": "http://server.mb-test.in/",//server-test
+>>>>>>> fcc9d32173b64c8098fb781b0a641a94b5d7781e
  });
 
 
