@@ -1,6 +1,6 @@
 //created by midhun sudhakar
 
-angular.module('baabtra').controller('LoginViewCtrl',['$scope','LoginService','$location','localStorageService','$rootScope',function($scope,LoginService,$location,localStorageService,$rootScope){
+angular.module('baabtra').controller('LoginViewCtrl',['$scope','$state','LoginService','$location','localStorageService','$rootScope',function($scope,$state,LoginService,$location,localStorageService,$rootScope){
 
 $scope.login_frequency=0;
 $scope.loginCredential={};
@@ -41,9 +41,9 @@ $scope.emailPattern = (function() {
 		if($scope.logData.result==='true') {
 	   	  var logdata=$scope.logData.ActiveUserDataId.$oid.concat($scope.logData.userLoginId);
 	  	  localStorageService.add('logDatas',logdata);
-	  	  $rootScope.userinfo=$scope.logData;//if login is ok put it in the login info variable.
-	  	  $rootScope.loggedIn=true;//if login is ok ,changin the variable in rootscope.
-		  $location.path('/home');//routing to home after success login by user
+	  	  //commented by lijin $rootScope.userinfo=$scope.logData;//if login is ok put it in the login info variable.
+	  	  //commented by lijin $rootScope.loggedIn=true;//if login is ok ,changin the variable in rootscope.
+		  $state.go('home.main');//routing to home after success login by user
 		  $scope.login_or_not='login Success'; 
 		}
 		else

@@ -30,23 +30,8 @@ angular.module('baabtra')
     $translateProvider.useLocalStorage();
   }])
   .constant('bbConfig',{ //used for storing enviornment variables
-   "BWS": "http://127.0.0.1:8000/",//local
-<<<<<<< HEAD
-   //"BWS": "http://server.mb-test.in/",//server-test
- })
-=======
-   // "BWS": "http://server.mb-test.in/",//server-test
+   //"BWS": "http://127.0.0.1:8000/",//local
+   "BWS": "http://server.mb-test.in/",//server-test
  });
 
->>>>>>> 55b87842bf12fbff7847d94985a2a9da89a3c13d
-  /*===   filter for generating an array of a range  ===*/
-//   .filter('range', function() {
-//   return function(input, total) {
-//     total = parseInt(total);
-//     for (var i=1; i<=total; i++)
-//       input.push(i);
-//     return input;
-//   };
-// })
-;
 
