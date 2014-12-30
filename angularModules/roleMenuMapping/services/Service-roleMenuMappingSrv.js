@@ -39,6 +39,7 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
         }).
         success(function(data, status, headers, config) {//success respond from server
           $scope.topLevelRoles=angular.fromJson(JSON.parse(data));//Converting the result to json object
+          console.log()
           }).
           error(function(data, status, headers, config) {
             // called asynchronously if an error occurs

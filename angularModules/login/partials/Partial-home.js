@@ -1,20 +1,7 @@
 angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state','$scope','$localStorage','localStorageService','home','$dropdown','commonService',function ($browser,$rootScope,$state,$scope,$localStorage,localStorageService,home,$dropdown,commonService){
 
-// alert("home");
-// $rootScope.$watch('loggedIn',function(){
-
-// });
-
-<<<<<<< HEAD
-// if($rootScope.userinfo){
-//     $scope.rm_id=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
-//     home.FnLoadMenus($scope);//Load Menus for logged user
-//     }
 $rootScope.$watch('userinfo',function(){
   if($rootScope.userinfo){
-=======
-if($rootScope.userinfo){
->>>>>>> fcc9d32173b64c8098fb781b0a641a94b5d7781e
     $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     home.FnLoadMenus($scope);//Load Menus for logged user
 }
@@ -28,6 +15,7 @@ if($rootScope.loggedIn==false){
   $state.go('login');
 }
 
+});
 
 $scope.$watch('userMenusOrigin',function(){
   if (!angular.equals($scope.userMenusOrigin,undefined)) {
