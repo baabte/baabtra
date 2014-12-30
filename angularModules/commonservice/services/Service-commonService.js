@@ -1,6 +1,8 @@
 angular.module('baabtra').service('commonService',['$http','bbConfig',"$rootScope",'localStorageService','$location',function commonService($http,bbConfig,$rootScope,localStorageService,$location) {
 //this service is for maintain the userstate 
-	if(!$rootScope.userinfo){ //whenever the user refresh the page it will check the credential variable 
+	
+	// this.GetLoginCredentials=function ($scope){ // functon that call web service to add a comapny role
+		if(!$rootScope.userinfo){ //whenever the user refresh the page it will check the credential variable 
 		if(localStorageService.get('logDatas')){ // then it will chack the local storage for neccessary datas
 		   	  $http({//call to the webservice to load current user's data
 		      method: 'POST',
@@ -15,6 +17,7 @@ angular.module('baabtra').service('commonService',['$http','bbConfig',"$rootScop
 						}
 			       else{  //if the user is active in the active log then reload the user state
 			       		 $rootScope.userinfo=angular.fromJson(JSON.parse(data));
+			       		 // console.log($rootscope.userinfo);
 			       		 $rootScope.loggedIn=true;
 			       }		              	
 		      }).error(function(data, status, headers, config) {	
@@ -25,7 +28,10 @@ angular.module('baabtra').service('commonService',['$http','bbConfig',"$rootScop
 			localStorageService.set('logDatas','{}');//resetting the userinfo before logout 
 			$location.path('/login');//redirecting path into login
 		}
-	}
+	} 	
+ // }; 
+ this.GetLoginCredentials=function ($scope){ 
+ 	};
 	
 }]);
 
