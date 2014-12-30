@@ -6,14 +6,13 @@ angular.module('baabtra').service('commonService',['$http','bbConfig',"$rootScop
 		      method: 'POST',
 		      url: bbConfig.BWS+'loadlogUserdata/',
 		      data: JSON.stringify({"UserDataObjId":localStorageService.get('logDatas')}), //passing the login credentials          
-		      }).success(function(data, status, headers, config) 
-		      {
+		      }).
+		      success(function(data, status, headers, config) {
        			        if(angular.fromJson(JSON.parse(data))=="error"||angular.fromJson(JSON.parse(data))=="failed"){ //if the user data not present it active user log it will push to logout
        			       		localStorageService.set('logDatas','{}');//resetting the userinfo before logout 
 							$rootScope.loggedIn=false;
 							$location.path('/login');//redirecting path into login
-
-			       }
+						}
 			       else{  //if the user is active in the active log then reload the user state
 			       		 $rootScope.userinfo=angular.fromJson(JSON.parse(data));
 			       		 $rootScope.loggedIn=true;
