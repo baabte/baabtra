@@ -26,7 +26,7 @@
   <!-- endbuild -->
 
 </head>
-<body ng-app="baabtra">
+<body ng-app="baabtra" ng-hide="hide_when_root_empty">
   <div class="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-top':app.settings.asideTop}" ui-view ng-controller="MainCtrl"></div>
 
 <!-- build:js(.) js/script.min.js -->
