@@ -48,11 +48,11 @@ $scope.drawLines = function(bTree){
                             ["Arrow" , { width:12, length:12, location:0.67 }]
                         ]
                     }, $scope.common); 
-            };
+            }
           });
-          if (node.childrenObj!=undefined) {
+          if (!angular.equals(node.childrenObj,undefined)) {
                   $scope.drawLines(node.childrenObj);
-          }; 	
+          } 	
     });
 },100);
    
@@ -69,22 +69,22 @@ $scope.tree1NodesOptions = {
         event.source.nodesScope.$parent.$modelValue.children.splice(event.source.index,1);
         if (!event.source.nodesScope.$parent.$modelValue.children.length) {
           event.source.nodesScope.$parent.$modelValue.children=null;
-        };
+        }
         event.source.nodeScope.$modelValue.parent = event.dest.nodesScope.$parent.$modelValue._id;
         event.dest.nodesScope.$parent.$modelValue.children.push(event.source.nodeScope.$modelValue._id);
 
         branchSrv.fnInsertBranch($scope,"5457526122588a5db73e0b23",$scope.branches,$scope.rm_id);
-        };
+        }
       }
-  }
+  };
 
 $scope.$watch('branches',function (newValue,oldValue){
-  if ($scope.branches != undefined) {
+  if (angular.equals($scope.branches,undefined)) {
     console.log(jsPlumb);
     jsPlumb.detachEveryConnection();
     buildBranchTree(findRoots($scope.branches,null),null); 
     $scope.drawLines($scope.branchTree);
-  };
+  }
   });
 
   function buildBranchTree(branchTree,index){
@@ -97,10 +97,10 @@ $scope.$watch('branches',function (newValue,oldValue){
         buildChildren(branchTree[index]);
         if (branchTree.length-1 > index) {      
         buildBranchTree(branchTree,++index);
-      };
-    };
-    };
-  };
+      }
+    }
+    }
+  }
 
 
   function findChildren(branch,index){
@@ -111,15 +111,15 @@ $scope.$watch('branches',function (newValue,oldValue){
     if(branch.children.indexOf($scope.branches[index]._id)!=-1){
       if (angular.equals(branch.childrenObj,undefined)){
         branch.childrenObj=[];
-      };
+      }
       if($scope.branches[index].activeFlag){
       branch.childrenObj.push($scope.branches[index]);
     }
       buildChildren($scope.branches[index]);
     }
-    };
+    }
     if (index < $scope.branches.length-1) {   
-      findChildren(branch,++index)
+      findChildren(branch,++index);
     }
   }
 
@@ -127,8 +127,7 @@ $scope.$watch('branches',function (newValue,oldValue){
   function buildChildren(branch)
   {
     findChildren(branch,null);
-    
-  };
+  }
 
 function findRoots(branch,index){
     if(index==null){
@@ -141,7 +140,7 @@ function findRoots(branch,index){
       branch[index].childrenObj=[];
     };
     if (branch.length-1 > index) {
-    findRoots(branch,++index)
+    findRoots(branch,++index);
     }
     return $scope.branchTree;
     }
@@ -161,10 +160,10 @@ $scope.addSubBranch = function(branchDetails){
     if (branch._id == nodeData._id) {
       if (branch.children == null) {
         branch.children=[];
-      };
+      }
       branch.children.push(branchDetails.name);
     };
-  });
+  })
   $scope.branches.push({ _id:branchDetails.name,
                            location:branchDetails.location,
                            email:branchDetails.email,
@@ -173,7 +172,7 @@ $scope.addSubBranch = function(branchDetails){
                            parent: nodeData._id,
                            activeFlag:1});
   branchSrv.fnInsertBranch($scope,"5457526122588a5db73e0b23",$scope.branches,$scope.rm_id);
-   }
+   };
 
 $scope.undo = function(){
   lastDeletedBranch.activeFlag=1;
@@ -181,7 +180,7 @@ $scope.undo = function(){
     if (lastDeletedBranch._id==branch._id) {
           branch.activeFlag=1;
         };
-  });
+  })
   branchSrv.fnInsertBranch($scope,"5457526122588a5db73e0b23",$scope.branches,$scope.rm_id);
 };
    $scope.removeBranch = function(node){
@@ -189,7 +188,7 @@ $scope.undo = function(){
     lastDeletedBranch=node.$nodeScope.$modelValue;
     branchSrv.fnInsertBranch($scope,"5457526122588a5db73e0b23",$scope.branches,$scope.rm_id);
     $alert({scope: $scope,title: '',container:'body',keyboard:true,animation:'am-fade-and-slide-top',template:'views/ui/angular-strap/alert.tpl.html',title:'Undo',content:'The branch has been deleted', placement: 'top', type: 'warning'});
-};
+}
 
 $scope.editBranch = function(branch){
   lastEditBranch=branch;
@@ -213,9 +212,9 @@ $scope.updateSubBranch = function(branch){
         for (var i = 0; i < branch.children.length; i++) {
             if (angular.equals(lastEditBranch.$nodeScope.$modelValue._id,branch.children[i])) {
               branch.children[i]=$scope.branch.name;
-            };
-        };
-      };
+            }
+        }
+      }
     });
     lastEditBranch.$nodeScope.$modelValue._id=$scope.branch.name;
   };

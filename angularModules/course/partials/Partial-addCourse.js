@@ -19,187 +19,18 @@ addCourseService.loadTechnologies($scope);
     $scope.courseDetails=[]; // for supressing errors lijin have commented this and you can uncomment below and
     						 // remove this line. There is no use of this variable.
 
-    // $scope.courseDetails=[{group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {},
-    // 					  {group:["1"]},
-    // 					  {group:["1"]},		
-    // 					  {},
-    // 					  {},
-    // 					  {}];
-					  
+			
+$scope.totalCourseDuration=259200; // course duration in minutes
+
+$scope.tlPopOver=[];
+$scope.tlPopOver['step3']=[{name:'Add Payment',callback:function(arg){
+console.log('Add Payment:'+arg);
+}},{name:'Add step3',callback:function(arg){
+console.log('Add step3:'+arg);
+}}];
+$scope.tlPopOver['step2']=[{name:'Add Exitpoint',callback:function(arg){
+console.log('Add Exitpoint:'+arg);
+}}];
 
     // $scope.totalCourseDuration=259200; // course duration in minutes
 
@@ -237,13 +68,15 @@ $scope.totalCourseDuration=0;
     }, true);
 
 
-    $scope.callbackFunctions=[];
-    $scope.callbackFunctions['step3']=function(arg){
-    console.log('step3:'+arg);
-    };
-    $scope.callbackFunctions['step2']=function(arg){
-    console.log('step2:'+arg);
-    };
+	$scope.tlPopOver=[];
+	$scope.tlPopOver['step3']=[{name:'Add Payment',callback:function(arg){
+	console.log('Add Payment:'+arg);
+	}},{name:'Add step3',callback:function(arg){
+	console.log('Add Payment:'+arg);
+	}}];
+	$scope.tlPopOver['step2']={name:'Add Exitpoint',callback:function(arg){
+	console.log('Add Exitpoint:'+arg);
+	}};
 
 
 

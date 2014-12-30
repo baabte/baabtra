@@ -54,6 +54,7 @@ angular.module('baabtra').directive('courseTimeline',['$state', function($state)
 			scope.tlPointList=[];
 			scope.buildTlPointList = function(start){
 				scope.tlPointCount = Math.floor(scope.tlContainerWidth/scope.tlPointMinWidth);
+				
 				for (i=start; i<start+scope.tlPointCount&&i<=scope.duration;i++)
 				{
 					scope.tlPointList.push(i);
@@ -81,16 +82,29 @@ angular.module('baabtra').directive('courseTimeline',['$state', function($state)
 			    	var endPointPos=element[0].querySelector('.end-of-tl																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			').getBoundingClientRect().left;
 			        if(endPointPos<scope.tlContainerWidth){
 			        	scope.buildTlPointList(scope.tlPointList.length+1);
-			        	scope.$digest();
-			        	
+			        	scope.$digest();	
 			        }
-			        
 			    },delay);
             };
 
+
+
+            scope.contextMenuClick=function(index,tlpoint){
+            	scope.tlPopOver[scope.currentState][index].callback(tlpoint);
+            };
             scope.callbackOfTlPointClick=function(tlpoint){
-            	scope.callbackFunctions[scope.currentState](tlpoint/scope.durationIn[scope.selectedDuration-1].mFactor);
-            }
+
+            	var popoverContent=scope.tlPopOver[scope.currentState];
+            	var content='';
+
+            	for (var i = 0; i < popoverContent.length; i++) {
+            		content=content+'<span ng-click="contextMenuClick('+i+',tlpoint);">'+popoverContent[i].name+'</span><br>';
+            	}
+            	
+            	scope.popoverObject={ "content":content, "saved": true };
+
+            	//scope.tlPopOver[scope.currentState].callback(tlpoint/scope.durationIn[scope.selectedDuration-1].mFactor);
+            };
 
              scope.$watch('totalCourseDuration',function(){ // for executing when the value of total duration is changed
            	scope.changeDuration();

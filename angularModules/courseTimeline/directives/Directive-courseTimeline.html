@@ -21,7 +21,7 @@
 			<span class="badge bg-success pos-rlt pull-left tl-start"><b class="arrow right b-success pull-in"></b>S</span>
 			                
 			<!-- REPEAT -->
-								<div ng-click="callbackOfTlPointClick(tlpoint)" class="tl-point b-b " style="cursor: pointer; width:{{tlPointMinWidth}}px;" data-placement="top" data-title="{{selectedDurType}} {{$index+1}}" data-type="success" data-html="true" data-animation="am-fade-and-scale" bs-tooltip ng-repeat="tlpoint in tlPointList">*</div>
+								<div bs-popover="popoverObject" ng-click="callbackOfTlPointClick(tlpoint)" class="tl-point b-b " style="cursor: pointer; width:{{tlPointMinWidth}}px;" data-placement="top" data-title="{{selectedDurType}} {{$index+1}}" data-type="success" data-html="true" data-animation="am-fade-and-scale" bs-tooltip ng-repeat="tlpoint in tlPointList">*</div>
 
 
 			<!-- END -->
