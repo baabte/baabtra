@@ -22,8 +22,7 @@ angular.module('baabtra').controller('header',['$scope','$rootScope','$location'
    				localStorageService.set('logDatas','{}');//resetting the userinfo before logout 
    				$rootScope.loggedIn=false;
 				$location.path('/login');//redirecting path into login
-
-			}
+			};
    			
 
 }]);
