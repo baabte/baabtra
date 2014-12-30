@@ -1,4 +1,4 @@
-<div>
+<div ng-class="{'hide-elem':totalCourseDuration==0}">
 <!-- Duration dropdown -->
 <div class="row-fluid">
 	<div class="col-sm-12">
@@ -7,7 +7,7 @@
         <div class="col-sm-3 form-group form-group-sm">
         	<label>Duration :</label>
         	{{duration}}
-        	<button type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedDuration" data-html="1" placeholder="Currency" ng-change="changeDuration()" ng-options="value.id as value.name for (key, value) in durationIn" bs-select=""></button></div>
+        	<button type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedDuration" data-html="1"  ng-change="changeDuration()" ng-options="value.id as value.name for (key, value) in durationIn" bs-select=""></button></div>
 
 	</div>
 </div>
@@ -21,7 +21,7 @@
 			<span class="badge bg-success pos-rlt pull-left tl-start"><b class="arrow right b-success pull-in"></b>S</span>
 			                
 			<!-- REPEAT -->
-								<div bs-popover="popoverObject" ng-click="callbackOfTlPointClick(tlpoint)" class="tl-point b-b " style="cursor: pointer; width:{{tlPointMinWidth}}px;" data-placement="top" data-title="{{selectedDurType}} {{$index+1}}" data-type="success" data-html="true" data-animation="am-fade-and-scale" bs-tooltip ng-repeat="tlpoint in tlPointList">*</div>
+								<div context-menu="popoverObject" ng-click="callbackOfTlPointClick(tlpoint)" class="tl-point b-b " style="cursor: pointer; width:{{tlPointMinWidth}}px;" data-placement="top" data-title="{{selectedDurType}} {{$index+1}}" data-type="success" data-html="true" data-animation="am-fade-and-scale" bs-tooltip ng-repeat="tlpoint in tlPointList">*</div>
 
 
 			<!-- END -->

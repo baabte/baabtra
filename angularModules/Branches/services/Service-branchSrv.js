@@ -3,9 +3,9 @@ angular.module('baabtra').service('branchSrv',['$http','bbConfig',function branc
 	this.fnInsertBranch=function($scope,cmp_id,branches,rm_id){
 		 angular.forEach($scope.branches,function(branch)
   {
-    if (branch.childrenObj != undefined) {
+    if (!angular.equals(branch.childrenObj,undefined)) {
       delete branch.childrenObj;
-    };
+    }
   });
         $http({
           method: 'post',
@@ -36,7 +36,7 @@ angular.module('baabtra').service('branchSrv',['$http','bbConfig',function branc
         }).
         success(function(data, status, headers, config) {//success respond from server
         	var result=angular.fromJson(JSON.parse(data));
-        	if (result !="") {
+        	if (!angular.equals(result,"")) {
             $scope.branchTree=[];
             $scope.branches=[];
 

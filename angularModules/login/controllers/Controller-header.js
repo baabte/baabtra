@@ -24,6 +24,7 @@ angular.module('baabtra').controller('header',['$scope','$rootScope','$state','l
 				$state.go('login');//redirecting path into login
 
 			}
+				
    			
 
 }]);

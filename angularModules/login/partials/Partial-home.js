@@ -44,7 +44,7 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
 
     $scope.loadDetails =function(menu){
       $scope.navBar=true;
-      if ($localStorage.linkPath == undefined) {
+      if (angular.equals($localStorage.linkPath,undefined)) {
         $localStorage.linkPath=[];
       }
       $localStorage.linkPath.push(menu);

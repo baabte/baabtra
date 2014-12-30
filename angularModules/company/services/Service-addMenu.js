@@ -71,7 +71,7 @@ this.addMenuDetails=function($scope){
       contentType   : 'application/json; charset=UTF-8',
     }).
     success(function(data, status, headers, config) {
-      $alert({scope: $scope,title: '',
+      $alert({scope: $scope,
               container:'body',
               keyboard:true,
               animation:'am-fade-and-slide-top',
