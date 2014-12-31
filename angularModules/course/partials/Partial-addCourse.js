@@ -18,7 +18,7 @@ addCourseService.loadTechnologies($scope);
     						 // remove this line. There is no use of this variable.
 
 			
-$scope.totalCourseDuration=259200; // course duration in minutes
+$scope.totalCourseDuration=0; // course duration in minutes
 
 
 //don't edit this area - em working on this now - lijin
@@ -46,8 +46,8 @@ $scope.totalCourseDuration=259200; // course duration in minutes
     $scope.courseDuration.months=0;
     $scope.courseDuration.years=0;
 
-//variable to save total dutation in minutes
-$scope.totalCourseDuration=0;
+// //variable to save total dutation in minutes
+// $scope.totalCourseDuration=0;
 
 //watch funtion to analyse change in courseDuration object
     $scope.$watch('courseDuration', function(newVal, oldVal){
