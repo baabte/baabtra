@@ -23,11 +23,11 @@ this.addMenuDetails=function($scope){
   };
 
 
-  this.updateMenuDetails=function($scope){
+  this.updateMenuDetails=function($scope,menu){
   $http({
     method: 'post',
     url: bbConfig.BWS+'UpdateMenus/',
-    data:{'menu':$scope.menu,'rm_id':$scope.userRoleMappingId},
+    data:{'menu':menu,'rm_id':$scope.userRoleMappingId},
     contentType:'application/json; charset=UTF-8',
     }).
     success(function(data, status, headers, config) { //success respond from server

@@ -151,11 +151,17 @@ border-radius: 3px;
 }
 /*shadow */
 .shadow{
-  box-shadow: 5px 5px 10px #cccccc!important;
-  -webkit-box-shadow: 5px 5px 10px #cccccc!important;
-  -moz-box-shadow: 5px 5px 10px #cccccc!important;
-  -ms-box-shadow: 5px 5px 10px #cccccc!important;
-  -o-box-shadow: 5px 5px 10px #cccccc!important;
-  -khtml-box-shadow: 5px 5px 10px #cccccc!important;
+  box-shadow: 0px 5px 10px #222222!important;
+  -webkit-box-shadow: 0px 5px 10px #222222!important;
+  -moz-box-shadow: 0px 5px 10px #222222!important;
+  -ms-box-shadow: 0px 5px 10px #222222!important;
+  -o-box-shadow: 0px 5px 10px #222222!important;
+  -khtml-box-shadow: 0px 5px 10px #222222!important;
+}
+
+/*Body BG*/
+body{
+  background:url(../images/Mainbg/promo2.png) no-repeat;
+  background-size: cover;
 }
 
