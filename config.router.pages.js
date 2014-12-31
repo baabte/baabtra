@@ -124,7 +124,7 @@
                 templateUrl: 'angularModules/login/partials/Partial-home.html',
                 controller:'HomeCtrl'
               })
-              .state('home.company.manage.role', {
+              .state('home.main.company.manage.role', {
                 url: '/role',
                 templateUrl: 'angularModules/company/partials/Partial-manage_user_role.html',
                 controller:'ManageUserRoleCtrl'

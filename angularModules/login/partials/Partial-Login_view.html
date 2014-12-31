@@ -32,7 +32,9 @@
       </div>
       <button type="submit" class="btn btn-info " style="margin:0px"  ng-disabled="signinform.$invalid || progress" >{{btnSignupText}}</button>
       <p class="text-xs"><a ui-sref="forgot-password">Forgot password?</a></p>
-      <div  class="login-form-control" id="login_error_msg" ng-show="Error_msg"><div class="ms_content" ><span class="content_span">{{login_error}}</span></div></div>
+      <div  class="login-form-control" id="login_error_msg" ng-show="Error_msg">
+      <div class="ms_content" ><span class="content_span">{{login_error}}</span></div>
+      </div>
       <p class="m-v-lg text-sm">Do not have an account? <a ui-sref="signup">Create an account</a></p>
       </div>
     </form>

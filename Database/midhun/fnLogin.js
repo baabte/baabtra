@@ -20,7 +20,7 @@ db.system.js.save(
 					    user._id=ReturnData.ActiveUserDataId;
 					    user.userLoginId=login_data[0]._id;
 					    user.roleMappingId=login_data[0].lastLoggedRoleMapping;
-					    user.roleMappingObj=role_id;
+					    user.roleMappingObj=role_id[0];
 		                            ReturnData.ActiveUserData=user;
 					    ReturnData.result="true";
 		                            ReturnData.userLoginId=login_data[0]._id.valueOf();
