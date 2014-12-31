@@ -1,5 +1,5 @@
-      <!-- navbar header -->
-      <div class="navbar-header" ng-class="{'box-shadow-inset dk':app.settings.headerShadow}" >
+      <!-- navbar header ng-class="{'box-shadow-inset dk':app.settings.headerShadow}"  -->
+      <div class="navbar-header bg-light">
         <button class="pull-right visible-xs" ng-click="app.navbarCollapse = !app.navbarCollapse">
           <i class="ti-settings"></i>
         </button>
@@ -15,16 +15,17 @@
           data-container="body"
           >
           <!--<i class="pull-right ti-arrow-circle-down text-sm m-v-xs m-l-xs"></i>-->
-          <i class="glyphicon glyphicon-th-large text-md"></i>
-          <img src="images/logo.png" alt="." class="hide">
-          <span class="hidden-folded m-l-xs">{{app.name}}<sup class="text-xs font-thin"></sup></span>
+          <!-- <i class="glyphicon glyphicon-th-large text-md"></i> -->
+          <img src="images/Logo.png" style="max-height: 46px !important;margin-top: -10px !important;">
+          <span class="hidden-folded m-l-xs hide">{{app.name}}<sup class="text-xs font-thin"></sup></span>
         </a>
         <!-- / brand -->
       </div>
       <!-- / navbar header -->
 
-      <!-- navbar collapse  ng-hide-->
-      <div class="navbar-collapse  hidden-xs" ng-class="{'show animated fadeIn' : app.navbarCollapse}">
+      <!-- navbar collapse   ng-hide-->
+      <!-- ng-class="{'show animated fadeIn' : app.navbarCollapse} add this to enable dynamic color change -->
+      <div class="navbar-collapse bg-light hidden-xs b-b p-v-xs shadow" style="padding-top: 0px !important;">
         <!-- nav -->
 <!--         <ul class="nav navbar-nav navbar-left ">
           <li>
@@ -51,8 +52,8 @@
         <!-- / nav -->
 
         <!-- nabar right -->
-        <ul class="nav navbar-nav navbar-right m-r-n">
-<!--           <li>
+        <ul class="nav navbar-nav navbar-right m-r-n ">
+          <!-- <li>
             <script type="text/ng-template" id="settings">
               <div tabindex="-1" class="p dropdown-menu bg-white bg-inherit no-b-t no-margin w-sm" role="menu">                
                 <p class="clearfix">
@@ -104,13 +105,13 @@
             <a href ui-fullscreen><i class="glyphicon glyphicon-resize-vertical"></i></a>
           </li> -->
           <li>            
-            <a href class="clear no-padding-h" bs-dropdown="dropdown" data-animation="am-collapse" data-template="user">
+            <a href class="clear no-padding-h" style="color: #444;" bs-dropdown="dropdown" data-animation="am-collapse" data-template="user">
               <img src="images/a0.jpg" alt="..." class="navbar-img pull-right">
               <span class="hidden-sm m-l">{{loggedUserInfo.username}}</span>
               <b class="caret m-h-xs hidden-sm"></b>
             </a>
             <script type="text/ng-template" id="user">
-              <ul class="dropdown-menu pull-right no-b-t">
+              <ul class="dropdown-menu pull-right no-b-t" style="top: 48px!important">
                 <li>
                   <a ui-sref="page.profile">Profile</a>
                 </li>

@@ -149,5 +149,13 @@ font-size: 12px;
 line-height: 1.5;
 border-radius: 3px;
 }
-
+/*shadow */
+.shadow{
+  box-shadow: 5px 5px 10px #cccccc!important;
+  -webkit-box-shadow: 5px 5px 10px #cccccc!important;
+  -moz-box-shadow: 5px 5px 10px #cccccc!important;
+  -ms-box-shadow: 5px 5px 10px #cccccc!important;
+  -o-box-shadow: 5px 5px 10px #cccccc!important;
+  -khtml-box-shadow: 5px 5px 10px #cccccc!important;
+}
 
