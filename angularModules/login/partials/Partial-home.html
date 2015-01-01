@@ -9,14 +9,16 @@ Created On:12/11/2014 -->
       <span  ng-repeat="menu in userMenus" class="hidden-xs">
       <div ng-click="loadDetails(menu)" class="animated fadeInDown m-md text-sm btn text-dark b btn-lg bg-light lt m-r m-b">
           <i class="fa {{menu.menuIcon}} fa-2x pull-left" ></i>
-          <span class="block clear text-left m-v-xs"><span class="text-lg block">{{menu.MenuName}}</span>
+          <span class="block clear text-left m-v-xs"><span class="text-lg block  pull-left">{{menu.MenuName}}</span>
+            <i class="fa fa-caret-right m-t-lg pull-right" style="position: absolute;right: 5px;top: 12px;" ng-show="{{menu.childMenuStructure.length}}"></i>
           </span>
         </div>
         </span>
         <span  ng-repeat="menu in userMenus" class="visible-xs col-xs-12" style="cursor: pointer;">
       <div ng-click="loadDetails(menu)" class="animated fadeInDown p-xs text-sm b bg-light lt">
           <i class="fa {{menu.menuIcon}} fa-2x pull-left col-sm-1 col-xs-2" style="margin-top: 2px;"></i>
-          <span class="block clear text-left m-v-xs"><span class="text-lg block">{{menu.MenuName}}</span>
+          <span class="block clear text-left m-v-xs"><span class="text-lg block pull-left">{{menu.MenuName}}</span>
+          <i class="fa fa-caret-right m-t-xs pull-right" ng-show="{{menu.childMenuStructure.length}}"></i>
           </span>
         </div>
         </span>

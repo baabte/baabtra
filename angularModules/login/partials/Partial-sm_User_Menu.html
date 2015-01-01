@@ -10,26 +10,26 @@
             <a class="list-group-item p-h-md">
               <img src="images/a1.jpg" class="pull-left w-thumb m-r b-b b-b-2x b-success">
               <div class="clear">
-                <span class="font-bold block">Jonathan Doe</span>
-                <span class="clear text-ellipsis text-xs">"Hey, What's up"</span>
+                <span class="font-bold block">{{loggedUserInfo.username}}</span>
+                <span class="clear text-ellipsis text-xs">{{loggedUserInfo.username}}</span>
               </div>
             </a>
             <!-- <div class="p-h-md p-v-xs m-t">Work</div> -->
             <a class="list-group-item p-md">
-                <i class="glyphicon glyphicon-user text-xs m-r-xs"></i>
-                <span>Profile</span>
+                <i class="glyphicon glyphicon-user text-sm m-r-xs"></i>
+                <span class="text-sm">Profile</span>
             </a>
             <a class="list-group-item p-md" >
-                <i class="fa fa-gears text-xs m-r-xs"></i>
-                <span >Settings</span>
+                <i class="fa fa-gears text-sm m-r-xs"></i>
+                <span class="text-sm">Settings</span>
             </a>
             <a class="list-group-item p-md">
-                <i class="fa fa-lock text-xs m-r-xs"></i>
-                <span>Lock me</span>
+                <i class="fa fa-lock text-sm m-r-xs"></i>
+                <span class="text-sm">Lock me</span>
             </a>
             <a class="list-group-item p-md" ng-click="logout()">
-                <i class="glyphicon glyphicon-log-out text-xs m-r-xs"></i>
-                <span>LogOut</span>
+                <i class="glyphicon glyphicon-log-out text-sm m-r-xs"></i>
+                <span class="text-sm">LogOut</span>
             </a>
           </div>
         </div>

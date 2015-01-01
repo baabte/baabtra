@@ -111,9 +111,7 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConf
           };
 
 this.FnSaveUserMenu=function ($scope){ //function to save the user menus.
-    $scope.stlSaveUMLoading={'margin-top': '-24%','margin-left': '90%'};
-   
-    $http({
+        $http({
            url: bbConfig.BWS+'InsertUserMenu/',
            data: {'fkUrmId': $scope.userRoleMappingId,'fkUserRoleMappingId': $scope.CurrentFkUserRoleMappingId,'fkMenuRegionId':$scope.menuRegionId,'menus':$scope.tree1},
            method: 'POST',

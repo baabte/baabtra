@@ -24,12 +24,6 @@ angular.module('baabtra').controller('header',['$scope','$rootScope','$state','l
 				$state.go('login');//redirecting path into login
 
 			}
-
-			$scope.aside = {
-  "title": "Title",
-  "content": '<li ng-click="logout()"><a>Logout</a></li>',
-  "html":true
-};
 				
    			
 

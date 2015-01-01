@@ -1,24 +1,44 @@
-<div class="col-md-12">
-<div></div>
-
- <div class="col-md-12">
-	<!--<div>
-		<span class="tl-instance tl-active">1</span>
-		<span class="tl-instance">2</span>
-		<span class="tl-instance">3</span>
-		<span class="tl-instance">4</span>
-	</div>-->
-<div name="addCourse-container" class="app-content" role="main" ui-view></div>
-
-<!-- <div class="row">
-	<div class="col-sm-12">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<label>Single select:&nbsp;</label>
-	            <button type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedPaymentType" data-html="1" placeholder="Currency" ng-change="test()" ng-options="value.id as value.name for (key, value) in paymentTypes" bs-select=""></button>
-			</div>
-		</div>
+<!-- Steps -->
+<div class="col-sm-12 m-h-n">
+	<div class="col-sm-3">
+		<span class="tl-instance tl-active w hidden-xs">
+			<i class="fa fa-bullhorn text-2x"></i>
+			<span>General Info</span>
+		</span>
+		<span class="tl-instance tl-active visible-xs">
+			<span>Info</span>
+		</span>
 	</div>
-</div> -->
+	<div class="col-sm-3">
+		<span class="tl-instance w hidden-xs">
+			<i class="fa fa-clock-o text-2x"></i>
+			<span>Duration Settings</span>	
+		</span>
+		<span class="tl-instance visible-xs">
+			<span>Duration</span>
+		</span>
+	</div>
+	<div class="col-sm-3">
+		<span class="tl-instance w hidden-xs">
+			<i class="fa fa-money text-2x"></i>	
+			<span>Fee Settings</span>
+		</span>
+		<span class="tl-instance visible-xs">
+			<span>Fee</span>
+		</span>
+	</div>
+	<div class="col-sm-3">
+		<span class="tl-instance w hidden-xs">
+			<i class="fa fa-puzzle-piece text-2x"></i>
+			<span>Design Course</span>	
+		</span>
+		<span class="tl-instance visible-xs">
+			<span>Course</span>
+		</span>
+	</div>
 </div>
+
+<!-- Steps .End -->
+	
+<div name="addCourse-container" class="app-content" role="main" ui-view></div>
  

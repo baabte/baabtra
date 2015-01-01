@@ -10,7 +10,7 @@ if($rootScope.loggedIn==false){
  $state.go('login');
 }
 
-    $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+    $scope.userRoleMappingId=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
 
 
