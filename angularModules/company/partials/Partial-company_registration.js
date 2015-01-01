@@ -1,20 +1,36 @@
 
-angular.module('baabtra').controller('CompanyRegistrationCtrl',['$scope','companyRegistrationService','localStorageService','$location','$alert', function ($scope,companyRegistrationService,localStorageService,$location,$alert) {
-   if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
-  $location.path('/');
-}  
-     
+angular.module('baabtra').controller('CompanyRegistrationCtrl',['$scope','companyRegistrationService','localStorageService','$location','$alert','$rootScope', function ($scope,companyRegistrationService,localStorageService,$location,$alert,$rootScope) {
+//    if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
+//   $location.path('/');
+// }  
+        var loggedusercrmid;
         $scope.companyButtonDisable=false;
         $scope.companyLoading=false;
     $scope.companyLoadStyle={'margin-top': '-3%','margin-left': '2%'};
     //value with crmid of current user
     // {ObjectId:"546f0a8f3b572dc8a53c2627"};
-     var loginInfo=localStorageService.get('loginInfo');
+     // var loginInfo=localStorageService.get('loginInfo');
      // localStorageService.get('loginInfo');
-      var loggedusercrmid=loginInfo.roleMappingId.$oid;
+      // var loggedusercrmid=loginInfo.roleMappingId.$oid;
+ 
+ // var loggedusercrmid=$rootScope.userinfo.LogUserData.lastLoggedRoleMapping.$oid;//to be changed
+      
 
-      // "546f0a8f3b572dc8a53c2627"
-      // loginInfo.roleMappingId.$oid;
+
+if($rootScope.userinfo){
+    loggedusercrmid=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
+    // console.log(loggedusercrmid);
+
+    }
+$rootScope.$watch('userinfo',function(){
+  if($rootScope.userinfo){
+    loggedusercrmid=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
+
+    }
+  
+});
+
+
 
    companyRegistrationService.FnGetSectors($scope);
    companyRegistrationService.FnGetCountryStateDistrict($scope);
@@ -140,6 +156,8 @@ $scope.fnGetCompanyRegisterDetailsCallBack=function(result){
         $scope.notifications('Success','Company Registered Successfuly','success');
         $scope.companyButtonDisable=false;
         $scope.companyLoading=false;
+        // companyregistrationform..$setPristine();
+            
         //$scope.companyregistrationform.reset();
       }
     if(result==='error'){
