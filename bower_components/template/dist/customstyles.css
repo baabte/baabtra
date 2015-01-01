@@ -149,5 +149,19 @@ font-size: 12px;
 line-height: 1.5;
 border-radius: 3px;
 }
+/*shadow */
+.shadow{
+  box-shadow: 0px 5px 10px #222222!important;
+  -webkit-box-shadow: 0px 5px 10px #222222!important;
+  -moz-box-shadow: 0px 5px 10px #222222!important;
+  -ms-box-shadow: 0px 5px 10px #222222!important;
+  -o-box-shadow: 0px 5px 10px #222222!important;
+  -khtml-box-shadow: 0px 5px 10px #222222!important;
+}
 
+/*Body BG*/
+body{
+  background:url(../images/Mainbg/promo2.png) no-repeat;
+  background-size: cover;
+}
 

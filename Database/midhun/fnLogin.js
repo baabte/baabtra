@@ -20,13 +20,13 @@ db.system.js.save(
 					    user._id=ReturnData.ActiveUserDataId;
 					    user.userLoginId=login_data[0]._id;
 					    user.roleMappingId=login_data[0].lastLoggedRoleMapping;
-					    user.roleMappingObj=role_id;
-		                            ReturnData.roleId=role_id[0].fkRoleId;
+					    user.roleMappingObj=role_id[0];
+		                            ReturnData.ActiveUserData=user;
 					    ReturnData.result="true";
 		                            ReturnData.userLoginId=login_data[0]._id.valueOf();
 					    db.clnActiveUserData.insert(user);
 		                            LogUserData=db.clnUserLogin.find({"_id":ObjectId(ReturnData.userLoginId)}).limit(1).toArray();
-		                            ReturnData.LogUserData=LogUserData[0];
+		                            ReturnData.ActiveUserData.username=LogUserData[0].userName;
 					    return ReturnData;
 			}
 

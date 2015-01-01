@@ -2,7 +2,6 @@ angular.module('baabtra').service('addCourseService',['$http',function addCourse
 
 	
 	this.loadTechnologies=function ($scope){ // functon that call web service to add a comapny role
-	 	//alert("hlous");
 	 	// $http({
 	 	// 	url: bbConfig.BWS+'ManageCompanyRole/',
 	 	// 	// data: JSON.stringify({"roles":roles}),

@@ -2,6 +2,7 @@ angular.module('baabtra').controller('BillingPlansCtrl',['$scope','billingPlans'
 if ($rootScope.loggedIn===false) {//||$rootScope.loggedIn===undefined
         $location.path('/login');//redirecting path into login
   }
+  
   console.log($rootScope.userinfo );
 	// var loginInfo=localStorageService.get('loginInfo');
 	// $scope.userLoginId=loginInfo.userLoginId.$oid;
@@ -29,7 +30,7 @@ $scope.toggleCustom = function(index) { //function for plan list toggle
 $scope.calculate_plan_prize = function(plan) { //function for plan list toggle
 										 var plan_prize=0;
 												for(count=0;count<plan.features.length;count++){
-																									plan_prize=plan_prize+plan.features[count].pricing.units*plan.features[count].pricing.price;
+																	plan_prize=plan_prize+plan.features[count].pricing.units*plan.features[count].pricing.price;
 												}
             return plan_prize;
            

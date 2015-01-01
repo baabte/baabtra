@@ -1,22 +1,21 @@
-angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state','$scope','$localStorage','localStorageService','home','$location','$dropdown',function ($browser,$rootScope,$state,$scope,$localStorage,localStorageService,home,$location,$dropdown){
+angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state','$scope','$localStorage','localStorageService','home','$dropdown','commonService',function ($browser,$rootScope,$state,$scope,$localStorage,localStorageService,home,$dropdown,commonService){
 
-
-if($rootScope.userinfo){
-    $scope.rm_id=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
-    home.FnLoadMenus($scope);//Load Menus for logged user
-    }
 $rootScope.$watch('userinfo',function(){
   if($rootScope.userinfo){
-    console.log($rootScope.userinfo);
-    $scope.rm_id=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
+    $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     home.FnLoadMenus($scope);//Load Menus for logged user
-    }
-  
+}
+else{
+    $rootScope.hide_when_root_empty=true;
+    commonService.GetUserCredentials($scope);
+    $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+    home.FnLoadMenus($scope);
+}
+if($rootScope.loggedIn==false){
+  $state.go('login');
+}
+
 });
-
-
-
-//home.FnLoadMenus($scope);
 
 // $scope.$watch('userMenusOrigin',function(){
 //   if (!angular.equals($scope.userMenusOrigin,undefined)) {
@@ -42,7 +41,7 @@ $rootScope.$watch('userinfo',function(){
 
     $scope.loadDetails =function(menu){
       $scope.navBar=true;
-      if ($localStorage.linkPath == undefined) {
+      if (angular.equals($localStorage.linkPath,undefined)) {
         $localStorage.linkPath=[];
       }
       $localStorage.linkPath.push(menu);

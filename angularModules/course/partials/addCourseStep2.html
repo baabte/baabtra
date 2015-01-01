@@ -103,19 +103,15 @@
         </div>     	
       </div>
 
-              <div class="col-xl-10 m-t-sm">
-              	 <div class="font-bold">
-                    <i class="glyphicon  glyphicon-log-out"></i> Exit Point<hr>
-                </div>
-                <div class="panel-body">
-
-
-                  <div class="panel-body form-horizontal" >
-                    <course-timeline></course-timeline>            
-                  </div>
-
-                </div>     	
-              </div>
+              
+              <div ng-class="{'hide-elem':totalCourseDuration==0}">
+            <i class="glyphicon  glyphicon-log-out"></i>
+            <span class="text-1x font-bold">Exit Point</span>
+          </div>
+          <div class="panel-body form-horizontal" >
+            <course-timeline></course-timeline>            
+          </div>
+        </div>
     </div>
   </div>
 </div>

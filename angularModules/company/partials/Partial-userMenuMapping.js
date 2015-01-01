@@ -1,32 +1,19 @@
-angular.module('baabtra').controller('UsermenumappingCtrl',['$location','$scope','$rootScope','userMenuMappingSrv','$alert','localStorageService',function ($location,$scope,$rootScope,userMenuMappingSrv,$alert,localStorageService){
+angular.module('baabtra').controller('UsermenumappingCtrl',['$location','commonService','$scope','$rootScope','userMenuMappingSrv','$alert','localStorageService',function ($location,commonService,$scope,$rootScope,userMenuMappingSrv,$alert,localStorageService){
 
-  var loginInfo=localStorageService.get('loginInfo');
-  if(loginInfo===null||loginInfo.length===0){
-       $location.path('/'); //setting the location path to login page if local storage contain null value.
-    }
-    if(localStorageService.get('loginInfo').length!==0){ //checking for data in local storage
-      $scope.userRoleMappingId=loginInfo.roleMappingId.$oid; //gets the last logged role mapping id from local storage
-      if(angular.equals(loginInfo.roleMappingObj[0].fkCompanyId,"")){
-        $scope.companyId='';
-      }
-      else{
-        $scope.companyId=$scope.companyState=loginInfo.roleMappingObj[0].fkCompanyId.$oid;          
-      }        
-      $scope.roleId=loginInfo.roleMappingObj[0].fkRoleId;
-      if($scope.roleId!=1 && $scope.roleId!=2){ //checking for login role id 
-          $location.path('/home');
-      }      
-    }
-     // $rootScope.$watch('userMenusOrigin',function()
-     //  {
-     //    if($rootScope.userMenusOrigin)
-     //    {
-     //      $rootScope.breadCrumb($rootScope.userMenusOrigin);
-     //    }
-     //  });
 
-//$scope.roleId=1;
-//$scope.companyId='';
+if(!$rootScope.userinfo){
+   commonService.GetUserCredentials($scope);
+   $rootScope.hide_when_root_empty=false;
+}
+
+if($rootScope.loggedIn==false){
+ $state.go('login');
+}
+
+    $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+    $scope.roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
+
+
 $scope.range=1;
 var CurNewValue="";
 var dragStartStatus=false;
@@ -38,6 +25,7 @@ $scope.SearchType="Company";
 //$scope.userRoleMappingId='545aff95437b389ba554d6b7';
 if(angular.equals($scope.roleId,1))
 {
+  $scope.companyId="";
 	userMenuMappingSrv.FnGetCompanyDetails($scope,'','');
 }
 else if(angular.equals($scope.roleId,2))
@@ -104,6 +92,7 @@ else if(angular.equals($scope.roleId,2))
 		}
 	};
 	$scope.getMenus = function(cmp_id){
+   $scope.menudetails=false;
 		$scope.companyState=cmp_id;
 		userMenuMappingSrv.FnLoadExMenuItems4AUMMapping($scope,'',2,cmp_id);
 	};

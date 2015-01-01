@@ -2,27 +2,21 @@
 Created By  : Jihin
 Created Date:20/11/2014 
 */
-angular.module('baabtra').controller('JobpostingCtrl',['$scope','JobSrv','$alert',function ($scope,JobSrv,$alert){
+angular.module('baabtra').controller('JobpostingCtrl',['$scope','commonService','JobSrv','$alert',function ($scope,commonService,JobSrv,$alert){
 
 
 
-  var loginInfo=localStorageService.get('loginInfo');
-  if(loginInfo===null||loginInfo.length===0){
-       $location.path('/'); //setting the location path to login page if local storage contain null value.
-    }
-    if(localStorageService.get('loginInfo').length!==0){ //checking for data in local storage
-      $scope.userRoleMappingId=loginInfo.roleMappingId.$oid; //gets the last logged role mapping id from local storage
-      if(loginInfo.roleMappingObj[0].fkCompanyId==""){
-        $scope.companyId='';
-      }
-      else{
-        $scope.companyId=$scope.companyState=loginInfo.roleMappingObj[0].fkCompanyId.$oid;          
-      }        
-      $scope.roleId=loginInfo.roleMappingObj[0].fkRoleId;
-      if($scope.roleId!=1 && $scope.roleId!=2){ //checking for login role id 
-          $location.path('/home');
-      }      
-    }
+    if(!$rootScope.userinfo){
+   commonService.GetUserCredentials($scope);
+   $rootScope.hide_when_root_empty=false;
+}
+
+if($rootScope.loggedIn==false){
+ $state.go('login');
+}
+
+    $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+    $scope.roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
 
 
 

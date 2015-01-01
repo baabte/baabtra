@@ -20,16 +20,21 @@ angular.module('baabtra').directive('courseTimeline',['$state', function($state)
 			//setting a duration type initially 
 			scope.selectedDurType='Day';
 
-			//duration dropdown data
-			scope.durationIn=[{id: "1",name:"Days",mFactor:(1/1440)},
-					 {id: "2",name: "Months",mFactor:(1/43200)},
-					 {id: "3",name: "Hours",mFactor:1/60},
-					 {id: "4",name: "Minutes",mFactor:1}]; //mFactor is multiplication factor
+
+			
+			// scope.durationIn=[{id: "1",name:"Days",mFactor:(1/1440),show:(totalCourseDuration>1440)},
+			// 		 {id: "2",name: "Months",mFactor:(1/43200),show:(totalCourseDuration>43200)},
+			// 		 {id: "3",name: "Hours",mFactor:1/60,show:(totalCourseDuration>60)},
+			// 		 {id: "4",name: "Minutes",mFactor:1,show:(totalCourseDuration>1)}]; //mFactor is multiplication factor
 
 			
 
 			//function to change the appearance of the timeline whilst the change in the dropdownlist		 
+			scope.durationIn=[];
 			scope.changeDuration=function(){
+				if(scope.durationIn.length<1){
+					return 0;
+				}
 				var name=scope.durationIn[scope.selectedDuration-1].name;
 				name = name.replace('s','');
 				scope.selectedDurType=name;
@@ -54,8 +59,8 @@ angular.module('baabtra').directive('courseTimeline',['$state', function($state)
 			scope.tlPointList=[];
 			scope.buildTlPointList = function(start){
 				scope.tlPointCount = Math.floor(scope.tlContainerWidth/scope.tlPointMinWidth);
-				
-				for (i=start; i<start+scope.tlPointCount&&i<=scope.duration;i++)
+
+				for (var i=start; i<start+scope.tlPointCount&&i<=scope.duration;i++)
 				{
 					scope.tlPointList.push(i);
 				}
@@ -79,7 +84,8 @@ angular.module('baabtra').directive('courseTimeline',['$state', function($state)
               clearTimeout(timeout);
 			    timeout = setTimeout(function(){
 			    	//current position of end point of timeline
-			    	var endPointPos=element[0].querySelector('.end-of-tl																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			').getBoundingClientRect().left;
+			    	var endPointPos=element[0].querySelector('.end-of-tl').getBoundingClientRect().left;
+			    	// console.log(endPointPos+':'+scope.tlContainerWidth);
 			        if(endPointPos<scope.tlContainerWidth){
 			        	scope.buildTlPointList(scope.tlPointList.length+1);
 			        	scope.$digest();	
@@ -87,29 +93,34 @@ angular.module('baabtra').directive('courseTimeline',['$state', function($state)
 			    },delay);
             };
 
-
-
-            scope.contextMenuClick=function(index,tlpoint){
-            	scope.tlPopOver[scope.currentState][index].callback(tlpoint);
-            };
-            scope.callbackOfTlPointClick=function(tlpoint){
-
-            	var popoverContent=scope.tlPopOver[scope.currentState];
-            	var content='';
-
-            	for (var i = 0; i < popoverContent.length; i++) {
-            		content=content+'<span ng-click="contextMenuClick('+i+',tlpoint);">'+popoverContent[i].name+'</span><br>';
-            	}
-            	
-            	scope.popoverObject={ "content":content, "saved": true };
-
-            	//scope.tlPopOver[scope.currentState].callback(tlpoint/scope.durationIn[scope.selectedDuration-1].mFactor);
-            };
-
              scope.$watch('totalCourseDuration',function(){ // for executing when the value of total duration is changed
-           	scope.changeDuration();
-            });
+           	
+           	if(!angular.equals(scope.totalCourseDuration,0))
+           		{
+           			
+           		           	//duration dropdown data
+           		           	scope.durationIn=[];
+           		           	var temp=[{id: "1",name:"Days",mFactor:(1/1440),show:(scope.totalCourseDuration>=1440)},
+           							 {id: "2",name: "Months",mFactor:(1/43200),show:(scope.totalCourseDuration>=43200)},
+           							 {id: "3",name: "Hours",mFactor:1/60,show:(scope.totalCourseDuration>=60)},
+           							 {id: "4",name: "Minutes",mFactor:1,show:(scope.totalCourseDuration>=1)}]; //mFactor is multiplication factor
+           							
 
+           							 angular.forEach(temp,function(obj){
+           							 	if(obj.show){
+           							 		scope.durationIn.push(obj);
+           							 	}
+           							 });
+           							 //default duration type
+									scope.selectedDuration=scope.durationIn[0].id;
+									scope.changeDuration();
+           		}
+           		        });
+
+
+             scope.popoverObject=scope.tlPopOver[scope.currentState]; //popover object
+
+			
             
 
 		}
