@@ -196,6 +196,17 @@
                 }
                 
               })
+               .state('home.main.course.addCourseElement', {
+                url: '/courseElement',
+                views:{
+                  'course-container':{
+                    templateUrl: 'angularModules/course/partials/Partial-addCourseElement.html',
+                    controller: 'AddcourseelementCtrl'
+                  }
+                }
+                
+              })
+
 
               .state('home.main.addMenu', {
                 url: '/addMenu',

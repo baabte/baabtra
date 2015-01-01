@@ -18,27 +18,27 @@ $rootScope.$watch('userinfo',function(){
 
 //home.FnLoadMenus($scope);
 
-$scope.$watch('userMenusOrigin',function(){
-  if (!angular.equals($scope.userMenusOrigin,undefined)) {
-    $rootScope.menuExist=false;
-    getMenuByLink($scope.userMenusOrigin,null,null,$state.current.name);
-     if(!$rootScope.menuExist){
-      $state.go('home.main');
-     }
-  }
-});
+// $scope.$watch('userMenusOrigin',function(){
+//   if (!angular.equals($scope.userMenusOrigin,undefined)) {
+//     $rootScope.menuExist=false;
+//     getMenuByLink($scope.userMenusOrigin,null,null,$state.current.name);
+//      if(!$rootScope.menuExist){
+//       $state.go('home.main');
+//      }
+//   }
+// });
 
-$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
+// $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
    
-  if($rootScope.userinfo)
-   { 
-    $rootScope.menuExist=false;
-       getMenuByLink($scope.userMenusOrigin,null,null,toState.name);
-       if (!$rootScope.menuExist && !angular.equals(toState.name,'home.main')) {
-         event.preventDefault();
-       }
-     }
-});
+//   if($rootScope.userinfo)
+//    { 
+//     $rootScope.menuExist=false;
+//        getMenuByLink($scope.userMenusOrigin,null,null,toState.name);
+//        if (!$rootScope.menuExist && !angular.equals(toState.name,'home.main')) {
+//          event.preventDefault();
+//        }
+//      }
+// });
 
     $scope.loadDetails =function(menu){
       $scope.navBar=true;

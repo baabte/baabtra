@@ -1,8 +1,27 @@
-angular.module('baabtra').controller('CompanyViewCtrl',['$scope','companyViewService','localStorageService','$location','$alert','$state',function ($scope,companyViewService,localStorageService,$location,$alert,$state){
+angular.module('baabtra').controller('CompanyViewCtrl',['$scope','companyViewService','localStorageService','$location','$alert','$state','$rootScope',function ($scope,companyViewService,localStorageService,$location,$alert,$state,$rootScope){
 // if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
 //   $location.path('/');
 // }  
  
+ var loggedusercrmid=0;
+
+
+ if($rootScope.userinfo){
+    loggedusercrmid=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
+   //Load Menus for logged user
+    // console.log(loggedusercrmid);
+
+    }
+$rootScope.$watch('userinfo',function(){
+  if($rootScope.userinfo){
+    // console.log($rootScope.userinfo);
+    loggedusercrmid=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
+    //Load Menus for logged user
+// console.log(loggedusercrmid);
+
+    }
+  
+});
  
 if(!angular.equals($state.params.companyId,undefined)){
   $scope.companyId=$state.params.companyId;
@@ -12,8 +31,16 @@ if(!angular.equals($state.params.companyId,undefined)){
   // console.log($scope.companySelected);
   companyViewService.fnSelectedCompany($scope);
 }
+
 $scope.placeholderVal="Search Companies";
 $scope.ShowNoDataFound=false;
+
+
+
+
+
+
+
 
 //console.log($state);
 //$state.current.name=$state.current.name+'.'+$state.params.companyId;
@@ -21,8 +48,8 @@ $scope.ShowNoDataFound=false;
      //var loginInfo=localStorageService.get('loginInfo');
       // var loggedusercrmid="546f0a8f3b572dc8a53c2627";
 
-     var loginInfo=localStorageService.get('loginInfo');
-      var loggedusercrmid=loginInfo.roleMappingId.$oid;
+     // var loginInfo=localStorageService.get('loginInfo');
+      // var loggedusercrmid=loginInfo.roleMappingId.$oid;
       // "546f0a8f3b572dc8a53c2627";1
       // console.log(loggedusercrmid);
       //loginInfo.roleMappingId.$oid;

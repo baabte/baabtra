@@ -33,7 +33,8 @@
         'angularFileUpload',
         'uiRouterStyles',
         'schemaForm',
-        'ui.select'
+        'ui.select',
+        'fg'
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';
 });

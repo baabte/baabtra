@@ -5,13 +5,23 @@ angular.module('baabtra').controller('UserFeatureConfigCtrl',['$scope','userFeat
 // }
 // $scope.rm_id=$rootScope.userinfo.LogUserData.lastLoggedRoleMapping.$oid;//to be changed
 
- var loggedusercrmid=$rootScope.userinfo.LogUserData.lastLoggedRoleMapping.$oid;//to be changed
+ var loggedusercrmid;
+// //to get the rmid of the user 	
+if($rootScope.userinfo){
+    loggedusercrmid=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
+    // console.log(loggedusercrmid);
+
+    }
+$rootScope.$watch('userinfo',function(){
+  if($rootScope.userinfo){
+    loggedusercrmid=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
+
+    }
+  
+});
 
 
-// //to get the crmid of the user 							
-//  var loginInfo=localStorageService.get('loginInfo');
-//      // localStorageService.get('loginInfo');
-// var loggedusercrmid=loginInfo.roleMappingId.$oid;
+						
 
 //to save the company id from the url
 $scope.companyId=$state.params.companyId;
@@ -25,6 +35,8 @@ $scope.status={};
 $scope.Config={}; 
 $scope.Config.roleId=loginInfo.roleMappingObj[0].fkRoleId;
 $scope.Config.companyId=$scope.companyId;
+$scope.Config.loggedusercrmid=loggedusercrmid;
+
 //service call to get the feature config and values
 userFeatureConfigService.FnGetFeaturesConfigForm($scope);
 userFeatureConfigService.FnGetFeaturesConfigValues($scope);
@@ -87,6 +99,7 @@ $scope.saveFeature = function(){
 	$scope.configValues.fConfig=$scope.featuremodel;
 	$scope.configValues.fConfig.featureId=$scope.FeatureConfig._id.$oid;
 	$scope.configValues.companyId=$scope.companyId;
+	$scope.configValues.loggedusercrmid=loggedusercrmid;
 
 	// console.log($scope.configValues);
 	userFeatureConfigService.FnSaveFeaturesConfig($scope);
