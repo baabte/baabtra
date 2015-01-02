@@ -4,8 +4,8 @@
   "Icon": "",
   "menuDisplayName": "",
   "companyId": "",
-  "courseElementTemplate": {
-    "field1": {
+  "courseElementTemplate": [
+     {
       "label": "",
       "inputType": "",
       "validations": [],
@@ -16,7 +16,7 @@
       },
       "userConfigurable": "true/false"
     },
-    "field2": {
+    {
       "label": "",
       "inputType": "",
       "validations": [],
@@ -27,5 +27,5 @@
       },
       "userConfigurable": "true/false"
     }
-  }
+  ]
 }

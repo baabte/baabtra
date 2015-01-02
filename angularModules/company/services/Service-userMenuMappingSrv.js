@@ -45,8 +45,7 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConf
 
 	                $scope.menuRegionId=$scope.ExMenus[0].menuStructure[0].fkmenuRegionId.$oid;
 	                $scope.tree1 = $scope.ExMenus[0].menuStructure[0].regionMenuStructure;
-                  console.log($scope.tree1);
-	                 changeObjIdOfMenu($scope.tree1,null);
+	                 
             var changeObjIdOfMenu=function(menu,sub){
               if(sub==null){
                 sub=0;
@@ -59,6 +58,7 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConf
                {changeObjIdOfMenu(menu[sub].childMenuStructure,null);}
               changeObjIdOfMenu(menu,++sub);
             };
+            changeObjIdOfMenu($scope.tree1,null);
 	           $scope.menudetails=true;
           }
               thisService.FnLoadMenuItems4AUMMapping($scope,$scope.roleId);
@@ -85,7 +85,6 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConf
                    $scope.menuList = angular.fromJson(JSON.parse(data)); //response from server
                    if($scope.menuList!==''){
                   $scope.tree2 = $scope.menuList.menuStructure[0].regionMenuStructure; //Assigning the object value into a variable to load All menus
-                  changeObjIdOfMenu($scope.tree2,null);
             var changeObjIdOfMenu=function(menu,sub){
               if(sub==null){
                 sub=0;
@@ -98,6 +97,7 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConf
                {changeObjIdOfMenu(menu[sub].childMenuStructure,null);}
               changeObjIdOfMenu(menu,++sub);
             };
+            changeObjIdOfMenu($scope.tree2,null);
                   $scope.menuRegionId=$scope.menuList.menuStructure[0].fkmenuRegionId.$oid;
                   }
                   else{
@@ -111,9 +111,7 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConf
           };
 
 this.FnSaveUserMenu=function ($scope){ //function to save the user menus.
-    $scope.stlSaveUMLoading={'margin-top': '-24%','margin-left': '90%'};
-   
-    $http({
+        $http({
            url: bbConfig.BWS+'InsertUserMenu/',
            data: {'fkUrmId': $scope.userRoleMappingId,'fkUserRoleMappingId': $scope.CurrentFkUserRoleMappingId,'fkMenuRegionId':$scope.menuRegionId,'menus':$scope.tree1},
            method: 'POST',

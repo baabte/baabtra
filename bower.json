@@ -32,6 +32,7 @@
     "angular-ui-router-styles": "~0.0.4",
     "angular-schema-form": "~0.7.6",
     "angular-ui-select": "~0.9.5",
+    "angular-form-gen": "~0.0.2",
     "contextMenu":"0.0.0"
   },
   "devDependencies": {
