@@ -2,8 +2,10 @@
 
 angular.module('baabtra').controller('LoginViewCtrl',['$scope','$state','LoginService','$location','localStorageService','$rootScope','commonService',function($scope,$state,LoginService,$location,localStorageService,$rootScope,commonService){
 
-if(localStorageService.get('logDatas').length){
+if(localStorageService.get('logDatas')){
+	if(localStorageService.get('logDatas').length){
 	$state.go('home.main');
+}
 }
 
 $scope.login_frequency=0;
@@ -11,7 +13,6 @@ $scope.loginCredential={};
 $scope.btnSignupText='Sign in'; 
 $scope.emailMsg='Not a valid email';          //error message for invalid email validation
 $scope.emailRMsg='This is required field';    //error message for required field validator
-$scope.emailEMsg='This Email Already exists'; //error message for email already exists validation  
 $scope.existingEmail='';                       //setting the existsing email id to a scope variable 
 $scope.Error_msg=false;  
 
@@ -58,7 +59,7 @@ $scope.emailPattern = (function() {
 	      $scope.loginCredential={};
 	      $scope.signinform.$setPristine();
 	      $scope.Error_msg=true; 
-	      $scope.login_error="password mis-match";   
+	      $scope.login_error="incorrect Username or Password";   
 	      $scope.login_frequency++;  
 	    }
 	}; 
@@ -94,7 +95,9 @@ $scope.emailPattern = (function() {
 
 
 $scope.Show_hide_val_msg=function(){
+
 	if($scope.login_frequency>0){
+		$scope.error_class='login-form-control';
 		$scope.Error_msg=false; 
 	}
 };
