@@ -127,21 +127,35 @@ position:relative;
   color: #333;
   border-bottom: 1px solid #333;
 }
-.tl-instance{/*added by jihin on 23/12/2014*/
-  border-radius: 25px;
-width: 50px;
-padding: 0px 14px;
-font-size: 35px;
-background-color: #acc8f0;.
-color: #fff;
-font-weight: bold;
-text-shadow: 0 1px 0 rgba(0,0,0,0.2);
 
+/*steps*/
+.tl-instance{/*added by jihin on 23/12/2014*/
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -khtml-border-radius: 3px;
+
+padding:10px;
+background-color: #FAFAFA;
+color: #D8D8D8;
+/*text-shadow: 0 1px 0 rgba(0,0,0,0.2);*/
+float:left;
+margin:10px;
+}
+
+.tl-instance span {
+  float:right;
+  font-size: 20px; 
 }
 .tl-active{/*added by jihin on 23/12/2014*/
-  background-color: #4F79B3;
-  color: #acc8f0;
+  background-color: #31B404;
+  color: #fff;
 }
+
+/*steps .End*/
+
 .tl-input-xs{
   height: 30px;
 padding: 5px 10px;
@@ -149,5 +163,19 @@ font-size: 12px;
 line-height: 1.5;
 border-radius: 3px;
 }
+/*shadow */
+.shadow{
+  box-shadow: 0px 5px 10px #222222!important;
+  -webkit-box-shadow: 0px 5px 10px #222222!important;
+  -moz-box-shadow: 0px 5px 10px #222222!important;
+  -ms-box-shadow: 0px 5px 10px #222222!important;
+  -o-box-shadow: 0px 5px 10px #222222!important;
+  -khtml-box-shadow: 0px 5px 10px #222222!important;
+}
 
+/*Body BG*/
+body{
+  background:url(../images/Mainbg/promo2.png) no-repeat;
+  background-size: cover;
+}
 

@@ -124,7 +124,7 @@
                 templateUrl: 'angularModules/login/partials/Partial-home.html',
                 controller:'HomeCtrl'
               })
-              .state('home.company.manage.role', {
+              .state('home.main.company.manage.role', {
                 url: '/role',
                 templateUrl: 'angularModules/company/partials/Partial-manage_user_role.html',
                 controller:'ManageUserRoleCtrl'
@@ -196,6 +196,17 @@
                 }
                 
               })
+               .state('home.main.course.addCourseElement', {
+                url: '/courseElement',
+                views:{
+                  'course-container':{
+                    templateUrl: 'angularModules/course/partials/Partial-addCourseElement.html',
+                    controller: 'AddcourseelementCtrl'
+                  }
+                }
+                
+              })
+
 
               .state('home.main.addMenu', {
                 url: '/addMenu',

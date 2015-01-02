@@ -42,7 +42,7 @@ angular.module('baabtra')
           dark:    '#202a3a'
         },
         settings: {
-          headerColor: 'bg-primary',
+          headerColor: 'bg-light',
           headerFixed: true,
           headerShadow: true,
           asideColor: 'bg-dark lt',
@@ -97,9 +97,11 @@ angular.module('baabtra')
       if ( angular.isDefined($localStorage.appSettings) ) {
         $scope.app.settings = $localStorage.appSettings;
       } else {
-        $localStorage.appSettings = $scope.app.settings;
+        //$localStorage.appSettings = $scope.app.settings; commented by lijin for disabling automatic colour settings
       }
-      $scope.$watch('app.settings', function(){ $localStorage.appSettings = $scope.app.settings; }, true);
+      $scope.$watch('app.settings', function(){ 
+        //$localStorage.appSettings = $scope.app.settings; commented by lijin for disabling automatic colour settings
+         }, true);
 
       // angular translate
       $scope.langs = {en:'English', zh_CN:'中文'};

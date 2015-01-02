@@ -84,7 +84,8 @@ if($rootScope.loggedIn==false){
   };
 
   $scope.UpdateMenu = function(){//for update details of existing menus
-      addMenu.updateMenuDetails($scope);
+    console.log($scope.menu);
+      addMenu.updateMenuDetails($scope,$scope.menu);
   };
 
 }]);

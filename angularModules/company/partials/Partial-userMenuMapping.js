@@ -1,7 +1,7 @@
 angular.module('baabtra').controller('UsermenumappingCtrl',['$location','commonService','$scope','$rootScope','userMenuMappingSrv','$alert','localStorageService',function ($location,commonService,$scope,$rootScope,userMenuMappingSrv,$alert,localStorageService){
 
 
-    if(!$rootScope.userinfo){
+if(!$rootScope.userinfo){
    commonService.GetUserCredentials($scope);
    $rootScope.hide_when_root_empty=false;
 }
@@ -10,7 +10,7 @@ if($rootScope.loggedIn==false){
  $state.go('login');
 }
 
-    $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+    $scope.userRoleMappingId=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
 
 
@@ -25,6 +25,7 @@ $scope.SearchType="Company";
 //$scope.userRoleMappingId='545aff95437b389ba554d6b7';
 if(angular.equals($scope.roleId,1))
 {
+  $scope.companyId="";
 	userMenuMappingSrv.FnGetCompanyDetails($scope,'','');
 }
 else if(angular.equals($scope.roleId,2))
@@ -91,6 +92,7 @@ else if(angular.equals($scope.roleId,2))
 		}
 	};
 	$scope.getMenus = function(cmp_id){
+   $scope.menudetails=false;
 		$scope.companyState=cmp_id;
 		userMenuMappingSrv.FnLoadExMenuItems4AUMMapping($scope,'',2,cmp_id);
 	};

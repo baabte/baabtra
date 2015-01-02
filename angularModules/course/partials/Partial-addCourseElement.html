@@ -1,0 +1,119 @@
+<div class="col-md-12">
+
+	<div class="panel b-light">
+        <div class="panel-heading m-b b-light">
+          <strong>Course Elements</strong>
+        </div>
+        <div class="panel-body">
+
+
+
+
+
+<form name="course_element_form" class="form-validation" enctype= "multipart/form-data"  xt-form novalidate>
+            <div class="col-md-7 form-group">
+			       <div class="col-md-7 form-group">
+              <label  class="font-bold pull" for="definpu" >Course Element Name</label>   
+
+              <input type="text" ng-model="courseElement.Name"class="form-control" id="definput" xt-validate required placeholder="Enter Course Element Name" name="Name" >
+             
+            </div>	
+           
+            <div class="col-md-7 form-group">
+              <label  class="font-bold" for="definpu">Display Name of Course Element</label>   
+
+              <input type="text" ng-model="courseElement.menuDisplayName"class="form-control" xt-validate required id="definput" placeholder="Enter Display Name" name="Name" >
+             
+            </div>		
+            <div class="col-md-7 form-group">
+             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 m-t">
+                <h4 class="no-margin m-b-md m-r">Menu Icon</h4>
+                <i class="ui-icon fa fa-user {{courseElement.menuIcon}} ui-iconnfo text-lg"></i>
+                <a ng-click="GetIcon()" class="">Change Icon</a>
+              </div>
+             
+            </div>	
+
+             <div class="col-md-7   form-group">
+              <div class="font-bold m-t-lg" > 
+                Exit Criteria<hr>
+            </div>   
+            <select  class="form-control " data-bv-field="sectors" ng-model="sel.exitCriteria" ng-options="exitPoint.Name for exitPoint in exitcriterialist"  >
+              <option value="">Select a Exit Criteria</option>
+              </select>
+              
+             <!-- <pre> {{sel.exitCriteria.exitCriteriaConfig}}</pre> -->
+
+
+            </div>  
+             <div class="col-md-7   form-group">
+             <form  novalidate class="form">
+              <div fg-form
+                fg-form-data="courseElement.exitCriteria.config"
+                fg-schema="sel.exitCriteria.exitCriteriaConfig">
+              </div>
+             </form>
+           </div>
+
+      </div>
+
+         
+      <div class="col-md-3 font-bold form-group">
+             <a ng-show="EditCourseElementText" ng-click="updateCourseElementsFetch(course_element_form)" >
+            Edit Exsisting Course Element
+            </a>
+            <a ng-show="AddCourseElementText" ng-click="AddCourseElementsText()" >
+            Add New Course Element 
+            </a>
+
+      </div>  
+
+       
+        {{courseElement.exitCriteria.config}}
+
+
+
+          
+ 
+ <div class="col-md-12 form-group">
+             
+             <button ng-show="courseElementSavebtn" class="btn btn-info pull-right" ng-click="saveCourseElement(course_element_form)" ng-disabled="course_element_form.$invalid||courseElement.schema.fields[0]==undefined||(sel.exitCriteria.exitCriteriaConfig!=undefined&&courseElement.exitCriteria.config==undefined)">Save Course Element</button>
+
+             <button ng-show="courseElementUpdatebtn" class="btn btn-info pull-right" ng-click="updateCourseElement(course_element_form)" ng-disabled="course_element_form.$invalid||courseElement.schema.fields[0]==undefined||(sel.exitCriteria.exitCriteriaConfig!=undefined&&courseElement.exitCriteria.config==undefined)">Update Course Element</button>
+
+</div>
+
+
+  
+
+
+
+
+</form>
+
+
+
+
+
+
+      
+<form class="form-horizontal">
+  <div fg-edit fg-schema="courseElement.schema"></div>
+</form>
+
+
+
+
+<!-- {{courseElement.schema}}
+ -->
+
+        </div>
+      </div>
+
+
+
+
+
+
+
+</div>

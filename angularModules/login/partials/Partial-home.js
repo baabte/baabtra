@@ -28,9 +28,8 @@ $scope.$watch('userMenusOrigin',function(){
 });
 
 $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
-   
   if($rootScope.userinfo)
-   { 
+   {
     $rootScope.menuExist=false;
        getMenuByLink($scope.userMenusOrigin,null,null,toState.name);
        if (!$rootScope.menuExist && !angular.equals(toState.name,'home.main')) {
@@ -63,12 +62,11 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
     };
 
     $scope.goMenu = function(menu,index){//for go to a particular menu when click the menu path
-      console.log(menu);
       var trim_val=$localStorage.linkPath.length-index-1;
       for (var link_index = 0; link_index < trim_val; link_index++) {
         $localStorage.linkPath.pop();
       }
-      if (angular.equals(menu.actions,undefined)) {
+      if (!angular.equals(menu.actions,undefined)) {
         $state.go(menu.actions[0].stateName);//go to the curresponding state when click a link
       }
       else {
@@ -77,42 +75,12 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
       }
     };
 
-    // function getMenuByLink(menu,sub,path_obj,state){
-    //   if (sub==null) {
-    //     sub=0;
-    //   }
-    //   if (angular.equals(menu[sub],undefined)) {
-    //     return 0;
-    //   }
-    //   console.log(menu[sub]);
-    //   if(angular.equals(path_obj,null)){
-    //       path_obj=[];
-    //     }
-    //   if (menu[sub].childMenuStructure.length) {
-    //     path_obj.push(menu[sub]);
-    //     getMenuByLink(menu[sub].childMenuStructure,null,path_obj,state);
-    //   }
-    //   else{
-    //     if (angular.equals(menu[sub].actions[0].stateName,state)) {
-    //       path_obj.push(menu[sub]);
-    //       $scope.navBar=true;
-    //       $localStorage.linkPath=path_obj;
-    //       $scope.linkPath=$localStorage.linkPath;
-    //       $rootScope.menuExist=true;
-    //     }
-    //   }
-    //   getMenuByLink(menu,++sub,path_obj,state);
-    // }
-
 
   function getMenuByLink(menu,sub,path_obj,state){
-    //$rootScope.menuExist=false;
-
     if (sub==null) {
       sub=0;
     }
     if(!angular.equals(menu[sub],undefined)){
-     
       getMenuByLink(menu,sub+1,path_obj,state);
       if(menu[sub].childMenuStructure.length){
         if(path_obj==null){
@@ -122,7 +90,7 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
             path_obj.push(menu[sub]);
           }
           else{
-            path_obj.push(menu[sub]);
+              path_obj.push(menu[sub]);
           }
           getMenuByLink(menu[sub].childMenuStructure,null,path_obj,state);
         }
