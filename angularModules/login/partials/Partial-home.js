@@ -110,4 +110,15 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
         }
       }
     }
+
+    // setting a watch for enabling the perfect scrol on exceeding the length of breadcrumb 
+    $scope.$watch('linkPath',function(){
+      var containerWidth=$('.breadCrumb').width();
+      var bcWidth=1;
+      $('.nav-container-scroll li').each(function(){
+        bcWidth+=$(this).width();
+      });
+      $scope.showScrollbarBreadcrumb=bcWidth>containerWidth;
+    });
+
 }]);

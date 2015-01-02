@@ -2,8 +2,11 @@
 
 angular.module('baabtra').controller('LoginViewCtrl',['$scope','$state','LoginService','$location','localStorageService','$rootScope','commonService',function($scope,$state,LoginService,$location,localStorageService,$rootScope,commonService){
 
-if(localStorageService.get('logDatas').length){
+if(localStorageService.get('logDatas'))
+{
+	if(localStorageService.get('logDatas').length){
 	$state.go('home.main');
+}
 }
 
 $scope.login_frequency=0;

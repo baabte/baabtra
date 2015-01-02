@@ -1,5 +1,5 @@
-<nav ui-nav class="">
-  <ul class="nav">
+<div ui-nav ng-class="{'ng-hide':!navBar}" class="breadCrumb">
+  <ul suppress-scroll-y="true" ng-class="{'hideScrollBar':!showScrollbarBreadcrumb}" class="perfect-scrollbar nav nav-container-scroll">
     <li ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}" ui-sref-active="active" >
       <a ng-click="goHome()">
        <i class="icon glyphicon glyphicon-list text-lg"></i>
@@ -7,10 +7,12 @@
     </li>
     <li  ng-click="goMenu(path,$index)" ng-repeat="path in linkPath track by $index" ui-sref-active="active">
       <a class="animated fadeInDown">
-        <i class="fa fa-chevron-right" style="font-size: 8px;position: relative;top: -3px;"></i>
+        <i class="fa fa-chevron-right" style="font-size: 8px;position: relative;top: -3px; left:-10px;"></i>
       	<i class="fa {{path.menuIcon}} fa-1x"></i>
        <i class="text-md">{{path.MenuName}}</i>
       </a>
     </li>
   </ul>
-</nav>
+  </ul>
+
+</div>
