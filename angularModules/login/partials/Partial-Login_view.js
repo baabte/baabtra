@@ -47,6 +47,7 @@ $scope.emailPattern = (function() {
 	   	  var logdata=$scope.logData.ActiveUserDataId.$oid.concat($scope.logData.userLoginId);
 	  	  localStorageService.add('logDatas',logdata);
 	  	  $rootScope.userinfo=$scope.logData;//if login is ok put it in the login info variable.
+	  	  console.log($rootScope.userinfo);
 	  	  $rootScope.loggedIn=true;//if login is ok ,changin the variable in rootscope.
 		  $state.go('home.main');//routing to home after success login by user
 		  $scope.login_or_not='login Success'; 

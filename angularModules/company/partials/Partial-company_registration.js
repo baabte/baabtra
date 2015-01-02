@@ -1,34 +1,29 @@
 
-angular.module('baabtra').controller('CompanyRegistrationCtrl',['$scope','companyRegistrationService','localStorageService','$location','$alert','$rootScope', function ($scope,companyRegistrationService,localStorageService,$location,$alert,$rootScope) {
-//    if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
-//   $location.path('/');
-// }  
-        var loggedusercrmid;
+angular.module('baabtra').controller('CompanyRegistrationCtrl',['$scope','commonService','companyRegistrationService','localStorageService','$location','$alert','$rootScope', function ($scope,commonService,companyRegistrationService,localStorageService,$location,$alert,$rootScope) {
+   
+        
+
+if(!$rootScope.userinfo){
+   commonService.GetUserCredentials($scope);
+   $rootScope.hide_when_root_empty=false;
+}
+
+if($rootScope.loggedIn===false){
+ $state.go('login');
+}
+
+
+// console.log($rootScope.userinfo.ActiveUserData.roleMappingId.$oid);
+
+ var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+
+
+
         $scope.companyButtonDisable=false;
         $scope.companyLoading=false;
     $scope.companyLoadStyle={'margin-top': '-3%','margin-left': '2%'};
-    //value with crmid of current user
-    // {ObjectId:"546f0a8f3b572dc8a53c2627"};
-     // var loginInfo=localStorageService.get('loginInfo');
-     // localStorageService.get('loginInfo');
-      // var loggedusercrmid=loginInfo.roleMappingId.$oid;
- 
- // var loggedusercrmid=$rootScope.userinfo.LogUserData.lastLoggedRoleMapping.$oid;//to be changed
-      
+    
 
-
-if($rootScope.userinfo){
-    loggedusercrmid=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
-    // console.log(loggedusercrmid);
-
-    }
-$rootScope.$watch('userinfo',function(){
-  if($rootScope.userinfo){
-    loggedusercrmid=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
-
-    }
-  
-});
 
 
 

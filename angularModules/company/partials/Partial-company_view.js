@@ -1,34 +1,28 @@
-angular.module('baabtra').controller('CompanyViewCtrl',['$scope','companyViewService','localStorageService','$location','$alert','$state','$rootScope',function ($scope,companyViewService,localStorageService,$location,$alert,$state,$rootScope){
+angular.module('baabtra').controller('CompanyViewCtrl',['$scope','commonService','companyViewService','localStorageService','$location','$alert','$state','$rootScope',function ($scope,commonService,companyViewService,localStorageService,$location,$alert,$state,$rootScope){
 // if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
 //   $location.path('/');
 // }  
  
- var loggedusercrmid=0;
+ if(!$rootScope.userinfo){
+   commonService.GetUserCredentials($scope);
+   $rootScope.hide_when_root_empty=false;
+}
+
+if($rootScope.loggedIn===false){
+ $state.go('login');
+}
 
 
- if($rootScope.userinfo){
-    loggedusercrmid=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
-   //Load Menus for logged user
-    // console.log(loggedusercrmid);
+// console.log($rootScope.userinfo.ActiveUserData);
 
-    }
-$rootScope.$watch('userinfo',function(){
-  if($rootScope.userinfo){
-    // console.log($rootScope.userinfo);
-    loggedusercrmid=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
-    //Load Menus for logged user
-// console.log(loggedusercrmid);
+ var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 
-    }
-  
-});
+
  
 if(!angular.equals($state.params.companyId,undefined)){
   $scope.companyId=$state.params.companyId;
-  // console.log($scope.companyId);
   $scope.companySelected={};
   $scope.companySelected._id=$scope.companyId;
-  // console.log($scope.companySelected);
   companyViewService.fnSelectedCompany($scope);
 }
 
@@ -42,18 +36,7 @@ $scope.ShowNoDataFound=false;
 
 
 
-//console.log($state);
-//$state.current.name=$state.current.name+'.'+$state.params.companyId;
-	//id of logged users role mapping id 
-     //var loginInfo=localStorageService.get('loginInfo');
-      // var loggedusercrmid="546f0a8f3b572dc8a53c2627";
 
-     // var loginInfo=localStorageService.get('loginInfo');
-      // var loggedusercrmid=loginInfo.roleMappingId.$oid;
-      // "546f0a8f3b572dc8a53c2627";1
-      // console.log(loggedusercrmid);
-      //loginInfo.roleMappingId.$oid;
-      // to keep count of companies
       $scope.showTime=0;
      
       //to load registerd companies
