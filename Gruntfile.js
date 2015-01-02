@@ -110,7 +110,8 @@ module.exports = function (grunt) {
           {src: ['images/**'], dest: 'dist/'},
           {src: ['bower_components/font-awesome/fonts/**'], dest: 'dist/fonts/',filter:'isFile',expand:true,flatten: true},
           {src: ['bower_components/bootstrap/fonts/**'], dest: 'dist/fonts/',filter:'isFile',expand:true,flatten: true},
-          {src: ['bower_components/template/fonts/**'], dest: 'dist/fonts/ptsans/',filter:'isFile',expand:true,flatten: true}
+          {src: ['bower_components/template/fonts/**'], dest: 'dist/fonts/',expand:true,flatten: true},
+          {src: ['bower_components/template/images/**'], dest: 'dist/images/',expand:true,flatten: true}
           //{src: ['vendor/**'], dest: 'dist/',filter:'isFile',expand:true}
 
 
