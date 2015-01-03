@@ -35,7 +35,8 @@
         'schemaForm',
         'ui.select',
         'fg',
-        'ui.bootstrap.contextMenu'
+        'ui.bootstrap.contextMenu',
+        'ngFacebook'
 
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';

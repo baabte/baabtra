@@ -6,7 +6,7 @@
   Connect with Your Social Accounts</div>
   <br>
   
-  <div >&nbsp &nbsp<img src="images/facebook.png" class="logo-prop" >&nbsp <img src="images/twitter.png" class="logo-prop">&nbsp <img src="images/google+.png" class="logo-prop">
+  <div >&nbsp &nbsp<span ng-click="facebook_login()"><img src="images/facebook.png" class="logo-prop" ng-enabled="isLoggedIn" ></span>&nbsp <img src="images/twitter.png" class="logo-prop">&nbsp <img src="images/google+.png" class="logo-prop">
   <div>
     <br>
     <div class="m-b text-sm" >
@@ -27,7 +27,7 @@
       </div>      
       <div class="checkbox" >        
         <label class="ui-checks">
-          <input type="checkbox"><i></i> Keep me signed in
+          <input type="checkbox"><i></i> Keep me signed in 
         </label>
       </div>
       <button type="submit" class="btn btn-info " style="margin:0px"  ng-disabled="signinform.$invalid || progress" >{{btnSignupText}}</button>
