@@ -19,6 +19,8 @@ if($rootScope.loggedIn==false){
 
 $scope.$watch('userMenusOrigin',function(){
   if (!angular.equals($scope.userMenusOrigin,undefined)) {
+    $localStorage.linkPath=[];
+      $scope.linkPath=$localStorage.linkPath;
     $rootScope.menuExist=false;
     getMenuByLink($scope.userMenusOrigin,null,null,$state.current.name);
      if(!$rootScope.menuExist){

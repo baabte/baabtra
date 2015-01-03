@@ -1,7 +1,7 @@
 <!--Created By:Jihin
 Created On:12/11/2014 -->
 
-<aside  id="aside" class="app-aside {{app.settings.asideColor}} text-lg" ng-include="'views/aside.html'">
+<aside ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}"  id="aside" class="app-aside {{app.settings.asideColor}} text-lg fixedBc" ng-include="'views/aside.html'">
 </aside>
 <div class="p-md" >
 	<div class="row" name="innercontent" ui-view>

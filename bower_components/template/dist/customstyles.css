@@ -150,7 +150,7 @@ margin:10px;
   font-size: 20px; 
 }
 .tl-active{/*added by jihin on 23/12/2014*/
-  background-color: #31B404;
+  background-color: #04B45F;
   color: #fff;
 }
 
@@ -174,8 +174,26 @@ border-radius: 3px;
 }
 
 /*Body BG*/
-body{
-  background:url(../images/Mainbg/promo2.png) no-repeat;
+html{
+  background:url(../images/Mainbg/promo2.png) no-repeat center center fixed;
+  
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -khtml-background-size: cover;
+  -ms-background-size: cover;
   background-size: cover;
 }
 
+/*Fixed Bread crumb*/
+.fixedBc{
+  position: fixed!important;
+top: 45px;
+height: 66px;
+}
+/*padding for the main content to adjust the height of the fixed elements at the top and bottom*/
+.app-content
+{
+  padding-top: 55px;
+  padding-bottom: 60px;
+}

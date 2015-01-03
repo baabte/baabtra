@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('AddcourseCtrl',['$scope','addCourseService',function($scope,addCourseService){
+angular.module('baabtra').controller('AddcourseCtrl',['$scope','$state','addCourseService',function($scope,$state,addCourseService){
 
 $scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
 $scope.technologies={};//object to store selected technologies
@@ -78,7 +78,11 @@ $scope.totalCourseDuration=0; // course duration in minutes
 	$scope.tlPopOver['step2']=[['Add Exit point',function(arg){
     console.log(arg);
     }]];
-
-
+$scope.currentState=$state.current.name;
+console.log($state.current.name);
+$scope.nextPart = function(state){
+    $scope.currentState=state;
+    $state.go(state);
+};
 
 }]);

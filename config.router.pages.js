@@ -206,6 +206,16 @@
                 }
                 
               })
+               .state('home.main.addCourseDomain', {
+                url: '/addCourseDomain',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-addCourseDomain.html',
+                    controller: 'AddcoursedomainCtrl'
+                  }
+                }
+                
+              })
 
 
               .state('home.main.addMenu', {

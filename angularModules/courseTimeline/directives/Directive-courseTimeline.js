@@ -92,6 +92,15 @@ angular.module('baabtra').directive('courseTimeline',['$state', function($state)
 			        }
 			    },delay);
             };
+            // rebuild the scrollbar
+  			 scope.$broadcast('rebuild:me');
+  scope.$on('scrollbar.show', function(){
+      console.log('Scrollbar show');
+    });
+    scope.$on('scrollbar.hide', function(){
+      console.log('Scrollbar hide');
+      scope.flag=true;
+    });
 
              scope.$watch('totalCourseDuration',function(){ // for executing when the value of total duration is changed
            	
