@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('AddcourseCtrl',['$scope','$state','addCourseService',function($scope,$state,addCourseService){
+angular.module('baabtra').controller('AddcourseCtrl',['$scope','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv',function($scope,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv){
 
 $scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
 $scope.technologies={};//object to store selected technologies
@@ -84,5 +84,101 @@ $scope.nextPart = function(state){
     $scope.currentState=state;
     $state.go(state);
 };
+
+$scope.onSelectionChanged = function(items) {
+    $scope.selectedDomains =[];
+    if (items) {
+      for (var i = 0; i < items.length; i++) {
+        $scope.selectedDomains.push(items[i].name);
+      }
+    }
+    console.log($scope.selectedDomains);
+  };
+commonSrv.FnLoadGlobalValues($scope,"");
+
+addCourseDomainSrv.FnLoadDomain($scope);
+
+  $scope.data1 = [];
+  $scope.data2 = angular.copy($scope.data1);
+
+$scope.$watch('branches', function(newVal, oldVal){
+    if (!angular.equals($scope.branches,undefined)) {
+        $scope.data1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.branches,null),null);
+        $scope.data2 = angular.copy($scope.data1);
+        convertObjectName($scope.data2, null);
+    }
+});
+
+// *********************** STEP 1 ****************************************
+
+var convertObjectName=function(menu,sub){
+              if(sub==null){
+                sub=0;
+              }
+              if(angular.equals(menu[sub],undefined)){
+                return 0;
+              }
+                
+              if(!angular.equals(menu[sub].childrenObj,undefined)){
+                menu[sub].name=menu[sub]._id;
+                menu[sub].id=menu[sub]._id;
+                menu[sub].$$hashKey=menu[sub]._id+sub;
+                delete menu[sub]._id;
+                delete menu[sub].createdDate;
+                delete menu[sub].parent;
+                delete menu[sub].crmId;
+                delete menu[sub].updatedDate;
+                delete menu[sub].urmId;
+                delete menu[sub].activeFlag;
+                if(!angular.equals(menu[sub].children,null)){
+                menu[sub].children=menu[sub].childrenObj;
+                }
+                else{
+                  menu[sub].children=[];
+                }
+              }
+              if(menu[sub].childrenObj.length){
+               convertObjectName(menu[sub].childrenObj,null);
+              }
+              convertObjectName(menu,++sub);
+            };
+
+$scope.loadTechnologies = function(Query){
+    return $scope.globalValues[0].values.approved;
+};
+$scope.loadTags =function(Query){
+    return $scope.globalValues[1].values.approved;
+};
+
+$scope.completeStep1 = function(course){//created for build step1 object
+/* Building courseDetails Start */
+console.log($scope.selectedItem2);
+    var Technologies = [];
+    var Tags = [];
+    angular.forEach(course.technologiesToBeSaved, function(technology)
+    {
+        Technologies.push(technology.text);
+    });
+    angular.forEach(course.tagsToBeSaved, function(tag)
+    {
+        Tags.push(tag.text);
+    });
+    $rootScope.courseDetails = { Name:course.courseName,
+                             Image:"",
+                             Description:course.courseDescription,
+                             Benefits:course.courseBenefits,
+                             Technologies:Technologies,
+                             Tags:Tags,
+                             Domains:$scope.selectedDomains};
+    console.log($rootScope.courseDetails);
+    if (!angular.equals($rootScope.courseDetails.Name,undefined)) {
+      $scope.currentState="home.main.addCourse.step2";
+      $state.go('home.main.addCourse.step2');
+    };
+/* Building courseDetails Start */
+
+};
+
+// *********************** STEP 1 .End ***********************************
 
 }]);

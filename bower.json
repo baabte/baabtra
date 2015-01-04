@@ -33,8 +33,10 @@
     "angular-schema-form": "~0.7.6",
     "angular-ui-select": "~0.9.5",
     "angular-form-gen": "~0.0.2",
-    "contextMenu":"0.0.0",
-    "ng-scrollbar": "~0.0.7"
+    "angular-perfect-scrollbar": "~0.0.3",
+    "ng-tags-input": "~2.1.1",
+    "ngquill": "~1.0.3",
+    "ngHierarchicalSelector":"~1.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.2"

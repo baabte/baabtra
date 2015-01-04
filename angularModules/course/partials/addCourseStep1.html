@@ -1,47 +1,103 @@
-<div class="row">
-  <div class="col-xs-12">
-    <div class="panel panel-default">
-          <div class="bg-white m-h my-panel-heading b-b-2x">
-            <i class="fa fa-bullhorn text-1x inline"></i>                                                       
-            <span class="text-1x font-bold">General info</span>
-          </div>
-          <div class="panel-body">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Name of the course">
-          </div>
-          <div class="form-group">
-              <textarea class="form-control" rows="3" placeholder="Description of the course"></textarea>
-              
-          </div>
-          <div class="form-group" >
-              <ui-select multiple ng-model="technologies.values" theme="bootstrap" >
-              <ui-select-match placeholder="Select technologies">{{$item}}</ui-select-match >
-              <ui-select-choices repeat="color in availableColors | filter:$select.search" >
-              {{color}}
-              </ui-select-choices>
-          </ui-select>
-          </div>
-          <div class="form-group">
-              <textarea class="form-control" rows="3" placeholder="Benefits of the course"></textarea>
-          </div>
-          <div class="form-group" >
-              <ui-select multiple ng-model="technologies.values" theme="bootstrap" ng-disabled="disabled">
-              <ui-select-match placeholder="Select colors">{{$item}}</ui-select-match >
-              <ui-select-choices repeat="color in availableColors | filter:$select.search" >
-              {{color}}
-              </ui-select-choices>
-          </ui-select>
-          
-          </div>
-          
-          
-           <div class="form-group">
-             <footer class="text-right">
-            <button type="button" ng-click="nextPart('home.main.addCourse.step2')" class="btn btn-default pull-right">Next</button>
-          </footer>   
-          </div>
-          
-          </div>
+<!-- Outer Panel  -->
+<form name="generalInfo" class="form-validation ng-pristine ng-invalid ng-invalid-required">
+<div class="panel panel-default m-t p-md">
+  
+  <!-- Top Header row -->
+  <div class="row">
+  
+      <!-- Heading -->
+      <div class="bg-white m-h my-panel-heading b-b-2x">
+            <i class="glyphicon glyphicon-bullhorn text-1x inline"></i>
+            <span class="text-1x font-bold">General Info</span>
+      </div>
+      <!-- Heading .end -->
+  
+  </div>
+  <!-- Top header row .End -->
+
+  <!-- body row -->
+  <div class="row">
+
+    <!-- Left Half -->
+    <div class="col-xs-12 col-md-6">
+
+      <div class="panel-body">
+
+        <!-- course name -->
+        <div class="form-group">
+              <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="course.courseName" required placeholder="Name of the course">
+        </div>
+
+        <!-- course Description -->
+        <div class="form-group">
+            <small class="text-muted">A short description of the Course(Optional, recommended)</small>
+            <ng-quill-editor ng-model="course.courseDescription"  toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" error-class="input-error"></ng-quill-editor>
+        </div>
+
+        <!-- Course Benefits -->
+        <div class="form-group">
+            <small class="text-muted">Benefits of the Course(Optional, recommended)</small>
+            <ng-quill-editor ng-model="course.courseBenefits" toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" error-class="input-error"></ng-quill-editor>  
+        </div>
+
+        <!-- Course Image -->
+
+      </div>
+
     </div>
+    <!-- Left Half .End -->
+
+    <!-- Right half -->
+    <div class="col-xs-12 col-md-6 m-t">
+
+      <!-- Course domains -->
+      <hierarchical-selector ng-model="course.domain" data="data2" multi-select="true" on-selection-changed="selectedItem2 = onSelectionChanged(items)"></hierarchical-selector>
+
+      <!-- Technologies -->
+      <div class="form-group m-t-lg" >
+        <em class="text-muted">*Technologies help your course to be shown when people search courses under specific technologies</em>
+                  <tags-input class="bootstrap"
+                        ng-model="course.technologiesToBeSaved"
+                        placeholder="Technologies covered (Optional, Recommended)"
+                        replace-spaces-with-dashes="false" 
+                        min-length="1">
+                        <auto-complete source="loadTechnologies($query) | filter:$query"
+                             min-length="0"
+                             debounce-delay="0"                             
+                        max-results="15"></auto-complete>
+                </tags-input>
+      </div>
+
+      <!-- Tags -->
+      <div class="form-group" >
+              <tags-input class="bootstrap"
+                        ng-model="course.tagsToBeSaved"
+                        placeholder="Tags (Optional, Recommended)"
+                        replace-spaces-with-dashes="false" 
+                        min-length="1">
+                        <auto-complete source="loadTags($query) | filter:$query"
+                             min-length="0"
+                             debounce-delay="0"                             
+                        max-results="15"></auto-complete>
+                </tags-input>
+      </div>
+          
+
+    </div>
+    <!-- Right half .End -->
+  </div>
+  <!-- body row .End -->
+
+<!-- Footer row   -->
+<div class="row">
+  <div class="col-xs-12 m">
+    <footer class="text-right">
+     <button type="submit" class="btn btn-info" ng-disabled="generalInfo.$invalid" disabled="disabled" ng-click="completeStep1(course);" >Next</button>
+    </footer>   
   </div>
 </div>
+<!-- footer row .End -->
+
+</div>
+</form>
+<!-- outer panel .End

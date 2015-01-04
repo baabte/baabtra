@@ -30,6 +30,31 @@ angular.module('baabtra').service('addCourseElementService',['$http','bbConfig',
 
    };
 
+   this.FnGetCourseElements=function($scope){
+    
+    var result;
+      $http({
+           url: bbConfig.BWS+'GetCourseElements/',
+           method: 'POST',
+           withCredentials: false,
+           contentType:'application/json',
+           dataType:'json',
+           }).
+              success(function(data, status, headers, config) {
+             
+              $scope.courseElementlist=angular.fromJson(JSON.parse(data));
+                result='success';
+               
+               
+              }).
+              error(function(data, status, headers, config) {
+                result='error';
+                $scope.fnGetCourseElementsCallBack(result);
+             });  
+      return result;
+
+   };
+
 	this.FnSaveCourseElementForm=function($scope){
     
     var result;
@@ -50,6 +75,31 @@ angular.module('baabtra').service('addCourseElementService',['$http','bbConfig',
               error(function(data, status, headers, config) {
                 result='error';
                 $scope.fnSaveCourseElementFormCallBack(result);
+             });  
+      return result;
+
+   };
+
+   this.FnDeleteCourseElement=function($scope){
+    
+    var result;
+      $http({
+           url: bbConfig.BWS+'DeleteCourseElement/',
+           data: angular.toJson($scope.courseElementDelete),
+           method: 'POST',
+           withCredentials: false,
+           contentType:'application/json',
+           dataType:'json',
+           }).
+              success(function(data, status, headers, config) {
+             
+                result='success';
+                $scope.fnDeleteCourseElementCallBack(result);                
+               
+              }).
+              error(function(data, status, headers, config) {
+                result='error';
+                $scope.fnDeleteCourseElementCallBack(result);
              });  
       return result;
 

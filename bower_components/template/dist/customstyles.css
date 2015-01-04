@@ -112,7 +112,7 @@ position:relative;
 }
 .ms_content{
   font-weight: 500;
-  font-size: 18px;
+  font-size: 15px;
   text-align: center;
   /*border: solid;*/
   position: relative;
@@ -197,3 +197,52 @@ height: 66px;
   padding-top: 55px;
   padding-bottom: 60px;
 }
+
+/* style for scrollable element */
+.customScrollbar{
+  white-space: pre-line;
+  overflow-y:hidden;
+  overflow-x: hidden;
+  position: relative; 
+}
+
+.nav-container-scroll{
+    padding:10px;
+    width:100%;
+    white-space:nowrap;  
+}
+
+/*styles for the inside elements in the breadcrumb*/
+
+.breadCrumb li{
+  display:inline-block !important;
+  padding: 15px;
+}
+
+.breadCrumb li:hover{
+  background: #1D283B;
+}
+
+.hideScrollBar{
+  padding-bottom: 0px !important;
+}
+
+.hideScrollBar .ps-scrollbar-x-rail {
+  display: none;
+}
+.hideScrollBar .ps-scrollbar-x-rail:hover {
+  display: none !important;
+}
+
+.hideScrollBar .ps-scrollbar-x{
+  display: none;
+}
+
+/*Border for the quill text editor*/
+.advanced-wrapper{
+  border:1px solid #bdbdbd;
+}
+.ql-toolbar-container{
+  border-bottom:1px solid #bdbdbd;
+}
+/*.End Border for the quill text editor*/

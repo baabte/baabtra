@@ -35,9 +35,10 @@
         'schemaForm',
         'ui.select',
         'fg',
-        'ngScrollbar'
-        // ,
-        // 'ui.bootstrap.contextMenu'
+        'perfect_scrollbar',
+        'ngTagsInput',
+        'ngQuill',
+        'hierarchical-selector'
 
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';

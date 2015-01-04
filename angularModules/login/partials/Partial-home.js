@@ -8,8 +8,9 @@ $rootScope.$watch('userinfo',function(){
 else{
     $rootScope.hide_when_root_empty=true;
     commonService.GetUserCredentials($scope);
-    $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
-    home.FnLoadMenus($scope);
+    if($rootScope.userinfo){$scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+    home.FnLoadMenus($scope);}
+    
 }
 if($rootScope.loggedIn==false){
   $state.go('login');
@@ -112,4 +113,15 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
         }
       }
     }
+
+    // setting a watch for enabling the perfect scrol on exceeding the length of breadcrumb 
+    $scope.$watch('linkPath',function(){
+      var containerWidth=$('.breadCrumb').width();
+      var bcWidth=1;
+      $('.nav-container-scroll li').each(function(){
+        bcWidth+=$(this).width();
+      });
+      $scope.showScrollbarBreadcrumb=bcWidth>containerWidth;
+    });
+
 }]);

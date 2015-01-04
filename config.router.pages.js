@@ -185,21 +185,10 @@
                 }
                 
               })
-
-               .state('home.main.course', {
-                url: '/course',
-                views:{
-                  'innercontent':{
-                    templateUrl: 'angularModules/course/partials/Partial-course.html',
-                    controller: 'CourseCtrl'
-                  }
-                }
-                
-              })
-               .state('home.main.course.addCourseElement', {
+               .state('home.main.addCourseElement', {
                 url: '/courseElement',
                 views:{
-                  'course-container':{
+                  'innercontent':{
                     templateUrl: 'angularModules/course/partials/Partial-addCourseElement.html',
                     controller: 'AddcourseelementCtrl'
                   }
@@ -216,7 +205,6 @@
                 }
                 
               })
-
 
               .state('home.main.addMenu', {
                 url: '/addMenu',

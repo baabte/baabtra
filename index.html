@@ -23,7 +23,10 @@
   <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
   <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
   <link rel="stylesheet" href="bower_components/angular-form-gen/dist/angular-form-gen.css" />
-  <link rel="stylesheet" href="bower_components/ng-scrollbar/dist/ng-scrollbar.css" />
+  <link rel="stylesheet" href="bower_components/perfect-scrollbar/min/perfect-scrollbar.min.css" />
+  <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" />
+  <link rel="stylesheet" href="bower_components/quill/dist/quill.snow.css" />
+  <link rel="stylesheet" href="bower_components/ngHierarchicalSelector/dist/ng-hierarchical-selector.0.2.0.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -71,8 +74,13 @@
 <script src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
 <script src="bower_components/angular-ui-select/dist/select.js"></script>
 <script src="bower_components/angular-form-gen/dist/angular-form-gen.js"></script>
-<script src="bower_components/contextMenu/contextMenu.js"></script>
-<script src="bower_components/ng-scrollbar/dist/ng-scrollbar.js"></script>
+<script src="bower_components/perfect-scrollbar/min/perfect-scrollbar.min.js"></script>
+<script src="bower_components/perfect-scrollbar/min/perfect-scrollbar.with-mousewheel.min.js"></script>
+<script src="bower_components/angular-perfect-scrollbar/src/angular-perfect-scrollbar.js"></script>
+<script src="bower_components/ng-tags-input/ng-tags-input.js"></script>
+<script src="bower_components/quill/dist/quill.min.js"></script>
+<script src="bower_components/ngquill/src/ng-quill.min.js"></script>
+<script src="bower_components/ngHierarchicalSelector/dist/ng-hierarchical-selector.0.2.0.js"></script>
 <!-- endbower -->
 
 
@@ -135,19 +143,20 @@
 <script src="angularModules/feature/directives/Directive-autoComplete.js"></script>
 <script src="angularModules/billing/partials/Partial-billing_plans.js"></script>
 <script src="angularModules/billing/services/Service-billing_plans.js"></script>
-<script src="angularModules/course/partials/Partial-course.js"></script>
 <script src="angularModules/common/directives/Directive-fileuploadDir.js"></script>
 <script src="angularModules/course/partials/Partial-addCourse.js"></script>
 <script src="angularModules/course/services/Service-addCourseService.js"></script>
 <script src="angularModules/login/services/Service-header.js"></script>
 <script src="angularModules/commonservice/services/Service-commonService.js"></script>
 <script src="angularModules/courseTimeline/directives/Directive-courseTimeline.js"></script>
+<script src="angularModules/login/controllers/Controller-forgot-password.js"></script>
+<script src="angularModules/login/services/Service-forgotPassword.js"></script>
 <script src="angularModules/course/partials/Partial-addCourseElement.js"></script>
 <script src="angularModules/course/services/Service-addCourseElementService.js"></script>
-
-  <script src="angularModules/course/partials/Partial-addCourseDomain.js"></script>
-  <script src="angularModules/course/services/Service-addCourseDomainSrv.js"></script>
-  <script src="angularModules/common/services/Service-manageTreeStructureSrv.js"></script>
+<script src="angularModules/course/partials/Partial-addCourseDomain.js"></script>
+<script src="angularModules/course/services/Service-addCourseDomainSrv.js"></script>
+<script src="angularModules/common/services/Service-manageTreeStructureSrv.js"></script>
+  <script src="angularModules/common/services/Service-commonSrv.js"></script>
   <!-- Add New Component JS Above -->
 <!-- endbuild -->
 </div>
