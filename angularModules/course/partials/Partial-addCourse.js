@@ -1,4 +1,7 @@
-angular.module('baabtra').controller('AddcourseCtrl',['$scope','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv',function($scope,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv){
+angular.module('baabtra').controller('AddcourseCtrl',['$scope','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','RoleMenuMappingSrv',function($scope,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,RoleMenuMappingSrv){
+
+
+$scope.roleId=1;
 
 $scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
 $scope.technologies={};//object to store selected technologies
@@ -85,31 +88,71 @@ $scope.nextPart = function(state){
     $state.go(state);
 };
 
-$scope.onSelectionChanged = function(items) {
+$scope.onDomainSelectionChanged = function(items) {
     $scope.selectedDomains =[];
     if (items) {
       for (var i = 0; i < items.length; i++) {
         $scope.selectedDomains.push(items[i].name);
       }
     }
-    console.log($scope.selectedDomains);
+    
   };
+
+$scope.onBranchSelectionChanged = function(items) {
+    $scope.selectedBranches=[];
+    if (items) {
+      for (var i = 0; i < items.length; i++) {
+        $scope.selectedBranches.push(items[i].name);
+      }
+    }
+  };
+
 commonSrv.FnLoadGlobalValues($scope,"");
 
 addCourseDomainSrv.FnLoadDomain($scope);
 
-  $scope.data1 = [];
-  $scope.data2 = angular.copy($scope.data1);
+branchSrv.fnLoadBranch($scope,'5457526122588a5db73e0b23');
+
+RoleMenuMappingSrv.FnGetRoles($scope,'54978cc57525614f6e3e710b',"","");
+
+
+
+  $scope.domains = [];
+  $scope.branchDetails =[];
+  $scope.rolesDetails = [];
+
+$scope.$watch('domainDetails', function(newVal, oldVal){
+    if (!angular.equals($scope.domainDetails,undefined)) {
+        $scope.data1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);
+        $scope.domains = angular.copy($scope.data1);
+        convertObjectName($scope.domains, null);
+    }
+});
 
 $scope.$watch('branches', function(newVal, oldVal){
     if (!angular.equals($scope.branches,undefined)) {
         $scope.data1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.branches,null),null);
-        $scope.data2 = angular.copy($scope.data1);
-        convertObjectName($scope.data2, null);
+        $scope.branchDetails = angular.copy($scope.data1);
+        convertObjectName($scope.branchDetails, null);
     }
 });
 
+
+$scope.$watch('roles', function(newVal, oldVal){
+    if (!angular.equals($scope.roles,undefined)) {
+      angular.forEach($scope.roles,function(role){
+        role.name=role.roleName;
+      });
+      console.log($scope.roles);
+      $scope.rolesDetails = angular.copy($scope.roles);
+    }
+});
+
+
 // *********************** STEP 1 ****************************************
+$scope.course={};
+$scope.course.online=true;
+$scope.course.offline=true;
 
 var convertObjectName=function(menu,sub){
               if(sub==null){
@@ -152,7 +195,7 @@ $scope.loadTags =function(Query){
 
 $scope.completeStep1 = function(course){//created for build step1 object
 /* Building courseDetails Start */
-console.log($scope.selectedItem2);
+console.log(course);
     var Technologies = [];
     var Tags = [];
     angular.forEach(course.technologiesToBeSaved, function(technology)

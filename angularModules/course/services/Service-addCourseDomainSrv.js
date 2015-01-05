@@ -14,7 +14,7 @@ angular.module('baabtra').service('addCourseDomainSrv',['$http','bbConfig',funct
           contentType:'application/json; charset=UTF-8',
         }).
         success(function(data, status, headers, config) {//success respond from server
-          $scope.branches=angular.fromJson(JSON.parse(data));//Converting the result to json object
+          $scope.domainDetails=angular.fromJson(JSON.parse(data));//Converting the result to json object
           }).
           error(function(data, status, headers, config) {
             // called asynchronously if an error occurs
@@ -31,7 +31,7 @@ angular.module('baabtra').service('addCourseDomainSrv',['$http','bbConfig',funct
           contentType:'application/json; charset=UTF-8',
         }).
         success(function(data, status, headers, config) {//success respond from server
-        		$scope.branches=angular.fromJson(JSON.parse(data));//Converting the result to json object
+        		$scope.domainDetails=angular.fromJson(JSON.parse(data));//Converting the result to json object
           }).
           error(function(data, status, headers, config) {
             // called asynchronously if an error occurs

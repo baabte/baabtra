@@ -82,7 +82,7 @@ addCourseElementService.FnGetExitCriteria($scope);
 
 
 $scope.courseElementConfig	= function(courseElementEdit){
-	console.log(courseElementEdit);
+	// console.log(courseElementEdit);
 	$scope.courseElement.Name=courseElementEdit.Name;
 	$scope.courseElement.menuIcon=courseElementEdit.Icon;
 	$scope.courseElement.menuDisplayName=courseElementEdit.menuDisplayName;
@@ -102,7 +102,7 @@ $scope.courseElementConfig	= function(courseElementEdit){
 };
 
 $scope.deleteCourseElement = function(courseElementDelete){
-	console.log(courseElementDelete);
+	// console.log(courseElementDelete);
 	$scope.courseElementDelete={};
 	$scope.courseElementDelete._id=courseElementDelete._id.$oid;
 	$scope.courseElementDelete.loggedusercrmid=loggedusercrmid;

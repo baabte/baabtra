@@ -203,6 +203,15 @@
                     controller: 'AddcoursedomainCtrl'
                   }
                 }
+              })
+                .state('home.main.addExitCriteria', {
+                url: '/exitCriteria',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-addExitCriteria.html',
+                    controller: 'AddexitcriteriaCtrl'
+                  }
+                }
                 
               })
 

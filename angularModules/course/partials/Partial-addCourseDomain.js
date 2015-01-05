@@ -15,9 +15,9 @@ var domainStatus = "";
 
 addCourseDomainSrv.FnLoadDomain($scope);
 
-$scope.$watch('branches',function (newValue,oldValue){
-  if (!angular.equals($scope.branches,undefined)) {
-    $scope.tree1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.branches,null),null);
+$scope.$watch('domainDetails',function (newValue,oldValue){
+  if (!angular.equals($scope.domainDetails,undefined)) {
+    $scope.tree1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);
   }
 });
 
@@ -82,15 +82,15 @@ $scope.AddDomain = function(domain){
     // domainStatus.$nodeScope.$modelValue.childrenObj.push({"_id" : domain.name,"children" : null,"parent" : domainStatus.$nodeScope.$modelValue._id});
     // $scope.branches.push({"_id" : domain.name,"children" : null,"parent":domainStatus.$nodeScope.$modelValue._id,createdDate:Date(),updatedDate:Date(),crmId:$scope.rm_id,urmId:$scope.rm_id,activeFlag:1});
     $scope.tree1=[];
-    $scope.tree1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.branches,null),null);
+    $scope.tree1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);
     // console.log($scope.tree1);
     addCourseDomainSrv.FnInsertDomain($scope,domain,parent,"");
   }
   else{
-    $scope.branches.push({"_id" : domain.name,"children" : null,"parent" : null,createdDate:Date(),updatedDate:Date(),crmId:$scope.rm_id,urmId:$scope.rm_id,activeFlag:1});
+    $scope.domainDetails.push({"_id" : domain.name,"children" : null,"parent" : null,createdDate:Date(),updatedDate:Date(),crmId:$scope.rm_id,urmId:$scope.rm_id,activeFlag:1});
     var domain=[{"_id" : domain.name,"children" : null,"parent" : null,createdDate:Date(),updatedDate:Date(),crmId:$scope.rm_id,urmId:$scope.rm_id,activeFlag:1}];
     $scope.tree1=[];
-  $scope.tree1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.branches,null),null);
+  $scope.tree1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);
   addCourseDomainSrv.FnInsertDomain($scope ,domain, "", "");
   }
 };

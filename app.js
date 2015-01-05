@@ -35,6 +35,7 @@
         'schemaForm',
         'ui.select',
         'fg',
+        'ui.bootstrap.contextMenu',
         'perfect_scrollbar',
         'ngTagsInput',
         'ngQuill',

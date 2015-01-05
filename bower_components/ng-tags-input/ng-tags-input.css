@@ -44,8 +44,10 @@ tags-input .tags .tag-item {
   padding: 0 5px;
   display: inline-block;
   float: left;
-  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
-  height: 26px;
+  font-size: 14px;
+  height: 24px;
+ /*font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  padding-top: 3px;
   line-height: 25px;
   border: 1px solid #acacac;
   border-radius: 3px;

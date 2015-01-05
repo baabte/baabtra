@@ -217,6 +217,8 @@ height: 66px;
 .breadCrumb li{
   display:inline-block !important;
   padding: 15px;
+  margin-top: -10px;
+  margin-left: -10px;
 }
 
 .breadCrumb li:hover{
@@ -246,3 +248,20 @@ height: 66px;
   border-bottom:1px solid #bdbdbd;
 }
 /*.End Border for the quill text editor*/
+
+.no-border{
+  border: none!important;
+}
+
+.no-shadow{
+  -webkit-box-shadow:none!important;
+  -moz-box-shadow:none!important;
+  -o-box-shadow:none!important;
+  -khtml-box-shadow:none!important;
+  -ms-box-shadow:none!important;
+  box-shadow:none!important;
+}
+
+em{
+  color:#FA8258!important;
+}
