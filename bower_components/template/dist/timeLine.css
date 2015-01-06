@@ -13,18 +13,25 @@
 }
 
 .tl-point{
-  	/*background: #dddddd;	*/
+  /*background: #dddddd;
 	max-height: 1px;
 	display: inline-block;
-	/*border-bottom:1px solid #999999;*/
-	/*float: left;*/
-	/*margin-left: 2px;*/
+	border-bottom:1px solid #999999;
+	float: left;
+	margin-left: 2px;
 	padding-bottom:7px;
-	padding-left: 0px;
+	padding-left: 0px;*/
+	font-size: 10px;
 }
 .tl-point:hover{
 	border-color: blue;
 	color: black;
+
+}
+.tl-line{
+	height:1px;
+	position: relative;
+	top: -8px;
 }
 /*.tl-point:after{
 	content:'*';
@@ -48,6 +55,12 @@
     padding-top: 40px;
     width:100%;
     white-space:nowrap;
+        -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .hide-elem{
@@ -59,4 +72,92 @@
 	display: inline-block;
 }
 
+/*waves*/
+@-webkit-keyframes gogoloader {
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(2);
+    -moz-transform: scale(2);
+    -ms-transform: scale(2);
+    -o-transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes gogoloader {
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(2);
+    -moz-transform: scale(2);
+    -ms-transform: scale(2);
+    -o-transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@-ms-keyframes gogoloader {
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(2);
+    -moz-transform: scale(2);
+    -ms-transform: scale(2);
+    -o-transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@-o-keyframes gogoloader {
+  0% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(2);
+    -moz-transform: scale(2);
+    -ms-transform: scale(2);
+    -o-transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.tl-ripple {
+  z-index: 1;
+  -webkit-animation: gogoloader 1s infinite 0.01s;
+  -moz-animation: gogoloader 1s infinite 0.01s;
+  -ms-animation: gogoloader 1s infinite 0.01s;
+  -o-animation: gogoloader 1s infinite 0.01s;
+}
 

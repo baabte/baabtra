@@ -30,10 +30,10 @@
 
         <div class="form-group" >
         <label class="checkbox-inline">
-          <input type="checkbox" ng-model="course.online" value="course.online" checked>Online
+          <input type="checkbox" ng-model="course.Delivery.online" value="course.Delivery.online" checked>Online
         </label>
         <label class="checkbox-inline">
-          <input type="checkbox" ng-model="course.offline" value="course.offline" checked>Offline
+          <input type="checkbox" ng-model="course.Delivery.offline" value="course.Delivery.offline" checked>Offline
         </label>
         <em class="text-muted">&nbsp;(Please specifiy  the mode of delivery of the course)</em>
       </div>
@@ -113,7 +113,7 @@
           <input type="radio" name="Accessibility" ng-click="specificAccessibility=true" id="inlineRadio1" value="option1"> Private
         </label>
         <em class="text-muted">&nbsp;(Please specify who all in the selected branches has access to the course)</em>
-        <hierarchical-selector ng-if="specificAccessibility" ng-model="course.branchDetails" data="rolesDetails" multi-select="true" class="am-fade" on-selection-changed="selectedItem2 = onBranchSelectionChanged(items)"></hierarchical-selector>
+        <hierarchical-selector ng-if="specificAccessibility" ng-model="course.branchDetails" data="rolesDetails" multi-select="true" class="am-fade" on-selection-changed="selectedItem2 = onRoleSelectionChanged(items)"></hierarchical-selector>
 
       </div>
 

@@ -11,6 +11,7 @@ tags-input .host {
   margin-top: 5px;
   margin-bottom: 5px;
   height: 100%;
+  border: 1px solid #dedede!important;
 }
 tags-input .host:active {
   outline: none;
@@ -24,8 +25,8 @@ tags-input .tags {
   word-wrap: break-word;
   cursor: text;
   background-color: white;
-  border: 1px solid darkgray;
-  box-shadow: 1px 1px 1px 0 lightgray inset;
+  /*border: 1px solid #bdbdbd!important;
+  box-shadow: 1px 1px 1px 0 lightgray inset;*/
   height: 100%;
 }
 tags-input .tags.focused {

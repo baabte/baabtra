@@ -1,4 +1,4 @@
-<div ng-class="{'hide-elem':totalCourseDuration==0}">
+<div ng-class="{'hide-elem':totalDuration==0}">
 <!-- Duration dropdown -->
 <div class="row-fluid">
 	<div class="col-sm-12">
@@ -7,8 +7,7 @@
         <div class="col-sm-3 form-group form-group-sm">
         	<label>Duration :</label>
         	{{duration}}
-        	<button type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedDuration" data-html="1"  ng-change="changeDuration()" ng-options="value.id as value.name for (key, value) in durationIn" bs-select=""></button></div>
-
+        	<button ng-if="ddlBindObject!=undefined" type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedDuration" data-html="1"  ng-change="changeDuration(this.selectedDuration)" ng-options="value.id as value.name for (key, value) in durationIn" bs-select=""></button></div>
 	</div>
 </div>
 <!-- Duration dropdown .End-->
@@ -22,8 +21,12 @@
 			{{flag}}
 			<span class="badge bg-success pos-rlt pull-left tl-start"><b class="arrow right b-success pull-in"></b>S</span>
 			                
-			<!-- REPEAT -->
-								<div context-menu="popoverObject" ng-click="callbackOfTlPointClick(tlpoint)" class="tl-point b-b " style="cursor: pointer; width:{{tlPointMinWidth}}px;" data-placement="top" data-title="{{selectedDurType}} {{$index+1}}" data-type="success" data-html="true" data-animation="am-fade-and-scale" bs-tooltip ng-repeat="tlpoint in tlPointList">*</div>
+			<!-- REPEAT -->		<span style="padding-left:{{tlPointMinWidth}}px;"class="b-b tl-line" ></span>
+								<div style="display:inline-block;" ng-repeat="tlpoint in tlPointList">
+								<i  context-menu="popoverObject" ng-click="callbackOfTlPointClick(tlpoint)" class="fa fa-circle-o text-inverse tl-point" ng-class="{'fa-dot-circle-o tl-ripple':mouseOverTl}" ng-mouseover="mouseOverTl=true" ng-mouseleave="mouseOverTl=false" style="cursor: pointer;font-weight: bolder;" data-placement="top" data-title="{{selectedDurType}} {{$index+1}}" data-type="success" data-html="true" data-animation="am-fade-and-scale" bs-tooltip></i>
+								<span style="padding-left:{{tlPointMinWidth}}px;left:-3.6px;z-index: -1;" class="b-b tl-line" ></span>
+								</div>
+
 
 
 			<!-- END -->

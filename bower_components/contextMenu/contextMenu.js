@@ -3,7 +3,11 @@ angular.module('ui.bootstrap.contextMenu', [])
 .directive('contextMenu', ['$parse',function ($parse) {
     var renderContextMenu = function ($scope, event, options) {
         if (!$) { var $ = angular.element; }
-        $(event.currentTarget).addClass('context');
+        if(options.length<1){
+            return 0;
+        }
+
+        $(event.currentTarget).parent().parent().parent().parent().addClass('context');
         var $contextMenu = $('<div>');
         $contextMenu.addClass('dropdown clearfix');
         var $ul = $('<ul>');
@@ -13,25 +17,29 @@ angular.module('ui.bootstrap.contextMenu', [])
             display: 'block',
             position: 'absolute',
             left: (event.pageX-75) + 'px',
-            // top: event.pageY + 'px'
-            top: '0px'
+            top: (event.pageY/2.1)-130+'px'
         });
         angular.forEach(options, function (item, i) {
+             var $headerA = $('<a>');
+             $headerA.text($scope.ddlBindObject[$scope.selectedDuration-1].name.replace('s','')+" "+$scope.$parent.tlpoint);
+             $headerA.addClass('font-bold m-h-xs p-l b-b b-b-dark text-success  b-b-2x col-xs-11');
+
+             $ul.append($headerA);
             var $li = $('<li>');
             if (item === null) {
                 $li.addClass('divider');
             } else {
                 $a = $('<a>');
                 $a.attr({ tabindex: '-1', href: '#' });
-                $a.text(typeof item[0] == 'string' ? item[0] : item[0].call($scope,$scope.$parent.tlpoint/$scope.durationIn[$scope.selectedDuration-1].mFactor));
+                $a.text(typeof item[0] == 'string' ? item[0] : item[0].call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor));
                 $li.append($a);
                 $li.on('click', function ($event) {
                     $event.preventDefault();
                     clickedChiled=true;
                     $scope.$apply(function () {
-                        $(event.currentTarget).removeClass('context');
+                        $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
                         $contextMenu.remove();
-                        item[1].call($scope,$scope.$parent.tlpoint/$scope.durationIn[$scope.selectedDuration-1].mFactor);
+                        item[1].call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
                     });
                 });
             }
@@ -51,15 +59,14 @@ angular.module('ui.bootstrap.contextMenu', [])
             left: 0,
             zIndex: 9999
         });
-        //$(document).find('body')
-        $(event.currentTarget).append($contextMenu);
+        $(event.currentTarget).parent().parent().parent().parent().append($contextMenu);
         $contextMenu.on("mousedown", function (e) {
             if ($(e.target).hasClass('dropdown')) {
-                $(event.currentTarget).removeClass('context');
+                $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
                 $contextMenu.remove();
             }
         }).on('contextMenu', function (event) {
-            $(event.currentTarget).removeClass('context');
+            $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
             event.preventDefault();
             $contextMenu.remove();
         });
@@ -67,7 +74,6 @@ angular.module('ui.bootstrap.contextMenu', [])
     var clickedChiled=false;
     return {scope:true,link:function ($scope, element, attrs) {
             element.on('click', function (event) {
-    
                     event.preventDefault();
     
                 setTimeout(function(){

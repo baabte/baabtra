@@ -265,3 +265,64 @@ height: 66px;
 em{
   color:#FA8258!important;
 }
+
+
+.btn-inbox-blue{
+color: #4285f4 !important;
+}
+.btn-inbox-blue:hover{
+background-color: #4285f4 !important;
+color: white !important;
+}
+
+.btn-inbox-green{
+color: #558b2f !important;
+}
+.btn-inbox-green:hover{
+background-color: #558b2f !important;
+color: white !important;
+}
+
+.btn-inbox-orange{
+color: #f4511e !important;
+}
+.btn-inbox-orange:hover{
+background-color: #f4511e !important;
+color: white !important;
+}
+
+.btn-inbox-bluee{
+color: #00acc1 !important;
+}
+.btn-inbox-bluee:hover{
+background-color: #00acc1 !important;
+color: white !important;
+}
+
+.btn-baabtra-blue{
+color: #045067 !important;
+}
+.btn-baabtra-blue:hover{
+background-color: #045067 !important;
+color: white !important;
+}
+
+.btn-inbox-red{
+color: #db4437 !important;
+}
+.btn-inbox-red:hover{
+background-color: #db4437 !important;
+color: white !important;
+}
+
+.btn-inbox-inverse{
+color: #9c27b0 !important;
+}
+.btn-inbox-inverse:hover{
+background-color: #9c27b0 !important;
+color: white !important;
+}
+
+.bg-baabtra{
+  background: #045067!important;
+}

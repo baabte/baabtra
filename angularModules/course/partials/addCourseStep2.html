@@ -68,17 +68,17 @@
 
 
   <!-- Timeline Container-->
-  <div class="row animated fadeInDown" ng-if="totalCourseDuration>0">
+  <div class="row" ng-if="totalCourseDuration>0">
     <div class="col-xs-12">
       <!-- Panel Heading -->
-      <div class="bg-white m-h my-panel-heading b-b-2x">
+      <div class="bg-white m-h my-panel-heading b-b-2x animated fadeInDown">
             <i class="fa fa-flag text-1x inline"></i>
             <span class="text-1x font-bold">Exit Points</span>                        
           </div>
       <!-- Panel Heading .end -->
       
       <!-- Help text -->
-      <div class="col-xs-12 m-b">
+      <div class="col-xs-12 m-b animated fadeInDown">
       <small class="text-muted">
             The time line below represents the total duration of the course. You can click on any point in the timeline and add an exit point. An exit point means an intermediate point of time during the
 course when the student can exit from the course so that he/she would have completed a certain stand-alone no. of modules. (Exit points can also be added while adding course materials)
@@ -87,12 +87,13 @@ course when the student can exit from the course so that he/she would have compl
     <!-- Help text End -->
 
       <!-- Timeline -->
-      <div class="panel-body form-horizontal" >
-            <course-timeline></course-timeline>            
+      <div class="panel-body form-horizontal animated fadeInDown" >
+            <course-timeline total-duration="totalCourseDuration" ddl-bind-object="ddlBindObject" callback-functions="tlPopOver">
+          </course-timeline>            
       </div>
       <!-- Timeline .end -->
 
-    </div>
+    </di{{tlPopOver}}v>
   </div>
     <!-- Footer row   -->
 <div class="row">
