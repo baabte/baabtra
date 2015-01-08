@@ -36,7 +36,10 @@
         'ui.select',
         'fg',
         'ui.bootstrap.contextMenu',
-        'perfect_scrollbar'
+        'perfect_scrollbar',
+        'ngTagsInput',
+        'ngQuill',
+        'hierarchical-selector'
 
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';

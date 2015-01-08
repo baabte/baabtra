@@ -17,9 +17,15 @@ if($rootScope.loggedIn==false){
 }
 
 });
+$scope.genRandomNumbers=function(){
+  return Math.floor(Math.random()*10,1);
+};
+$scope.colorArray=['btn-danger','btn-inbox-bluee','btn-success','btn-inbox-blue','btn-inbox-orange','btn-info','btn-warning','btn-inbox-green','btn-baabtra-blue','btn-inbox-inverse','btn-inbox-red']
 
 $scope.$watch('userMenusOrigin',function(){
   if (!angular.equals($scope.userMenusOrigin,undefined)) {
+    $localStorage.linkPath=[];
+      $scope.linkPath=$localStorage.linkPath;
     $rootScope.menuExist=false;
     getMenuByLink($scope.userMenusOrigin,null,null,$state.current.name);
      if(!$rootScope.menuExist){

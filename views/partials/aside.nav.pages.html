@@ -1,7 +1,8 @@
+
 <div ui-nav ng-class="{'ng-hide':!navBar}" class="breadCrumb">
   <ul suppress-scroll-y="true" ng-class="{'hideScrollBar':!showScrollbarBreadcrumb}" class="perfect-scrollbar nav nav-container-scroll">
-    <li ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}" ui-sref-active="active" >
-      <a ng-click="goHome()">
+    <li ng-click="goHome()" ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}" ui-sref-active="active" >
+      <a>
        <i class="icon glyphicon glyphicon-list text-lg"></i>
       </a>
     </li>

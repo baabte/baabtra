@@ -12,11 +12,19 @@
           </ol>
         </script>
 
-         <div class="row text-center">
-        <div ui-tree="tree1NodesOptions" id="tree-root" >
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel panel-default">
+        <div class="panel-heading bg-white">
+          <h4 class="modal-title text-primary">Branches</h4>
+        </div>
+        <div class="panel-body text-center">
+        <div ng-show="branches.length" ui-tree="tree1NodesOptions" style="margin-top:-50px;" id="tree-root" >
           <ol ui-tree-nodes="" ng-model="branchTree"  data-horizontal="">
             <li ng-repeat="node in branchTree track by $index" class="text-center list-group list-group-gap" ui-tree-node ng-include="'nodes_renderer.html'"></li>
           </ol>
         </div>
         </div>
+        </div>
+                </div>
       

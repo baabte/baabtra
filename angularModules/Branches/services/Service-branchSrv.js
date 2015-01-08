@@ -19,7 +19,6 @@ angular.module('baabtra').service('branchSrv',['$http','bbConfig',function branc
               $scope.branchTree=[];
               $scope.branches=[];
         	   $scope.branches=result[0].branches;
-             console.log($scope.branches);
           }).
           error(function(data, status, headers, config) {
             // called asynchronously if an error occurs
@@ -41,7 +40,6 @@ angular.module('baabtra').service('branchSrv',['$http','bbConfig',function branc
             $scope.branches=[];
 
         		$scope.branches=result[0].branches;
-            console.log($scope.branches);
         	}
         	else{
         		$scope.branches=[{ '_id': "Baabtra.com", 'parent': null , 'children': null }];

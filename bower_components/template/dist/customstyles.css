@@ -150,7 +150,7 @@ margin:10px;
   font-size: 20px; 
 }
 .tl-active{/*added by jihin on 23/12/2014*/
-  background-color: #31B404;
+  background-color: #04B45F;
   color: #fff;
 }
 
@@ -174,11 +174,29 @@ border-radius: 3px;
 }
 
 /*Body BG*/
-body{
-  background:url(../images/Mainbg/promo2.png) no-repeat;
+html{
+  background:url(../images/Mainbg/promo2.png) no-repeat center center fixed;
+  
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -khtml-background-size: cover;
+  -ms-background-size: cover;
   background-size: cover;
 }
 
+/*Fixed Bread crumb*/
+.fixedBc{
+  position: fixed!important;
+top: 45px;
+height: 66px;
+}
+/*padding for the main content to adjust the height of the fixed elements at the top and bottom*/
+.app-content
+{
+  padding-top: 55px;
+  padding-bottom: 60px;
+}
 
 /* style for scrollable element */
 .customScrollbar{
@@ -199,6 +217,8 @@ body{
 .breadCrumb li{
   display:inline-block !important;
   padding: 15px;
+  margin-top: -10px;
+  margin-left: -10px;
 }
 
 .breadCrumb li:hover{
@@ -219,6 +239,7 @@ body{
 .hideScrollBar .ps-scrollbar-x{
   display: none;
 }
+
 
 /* BASIC STYLINGS
 ============================================================================= */
@@ -292,6 +313,7 @@ pre                             { margin-bottom:20px; }
   from  { -webkit-transform:translateX(200%); }
   to    { -webkit-transform: translateX(0); }
 }
+
 /* Style for text editor content container*/
 #content-container{
   border-color: #e3e5e7;
@@ -299,4 +321,92 @@ pre                             { margin-bottom:20px; }
 }
 .toolbar{
   border-bottom: 1px solid #e3e5e7;
+}
+
+
+/*Border for the quill text editor*/
+.advanced-wrapper{
+  border:1px solid #bdbdbd;
+}
+.ql-toolbar-container{
+  border-bottom:1px solid #bdbdbd;
+}
+/*.End Border for the quill text editor*/
+
+.no-border{
+  border: none!important;
+}
+
+.no-shadow{
+  -webkit-box-shadow:none!important;
+  -moz-box-shadow:none!important;
+  -o-box-shadow:none!important;
+  -khtml-box-shadow:none!important;
+  -ms-box-shadow:none!important;
+  box-shadow:none!important;
+}
+
+em{
+  color:#FA8258!important;
+}
+
+
+.btn-inbox-blue{
+color: #4285f4 !important;
+}
+.btn-inbox-blue:hover{
+background-color: #4285f4 !important;
+color: white !important;
+}
+
+.btn-inbox-green{
+color: #558b2f !important;
+}
+.btn-inbox-green:hover{
+background-color: #558b2f !important;
+color: white !important;
+}
+
+.btn-inbox-orange{
+color: #f4511e !important;
+}
+.btn-inbox-orange:hover{
+background-color: #f4511e !important;
+color: white !important;
+}
+
+.btn-inbox-bluee{
+color: #00acc1 !important;
+}
+.btn-inbox-bluee:hover{
+background-color: #00acc1 !important;
+color: white !important;
+}
+
+.btn-baabtra-blue{
+color: #045067 !important;
+}
+.btn-baabtra-blue:hover{
+background-color: #045067 !important;
+color: white !important;
+}
+
+.btn-inbox-red{
+color: #db4437 !important;
+}
+.btn-inbox-red:hover{
+background-color: #db4437 !important;
+color: white !important;
+}
+
+.btn-inbox-inverse{
+color: #9c27b0 !important;
+}
+.btn-inbox-inverse:hover{
+background-color: #9c27b0 !important;
+color: white !important;
+}
+
+.bg-baabtra{
+  background: #045067!important;
 }

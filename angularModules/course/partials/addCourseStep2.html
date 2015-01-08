@@ -1,116 +1,108 @@
-<div class="row">
-<div class="col-xs-12">
-	<div class="panel b-light">
-    <div class="panel-body">
-        <div class="col-xl-10 m-t-sm">
-          <div class="font-bold">
-              <i class="glyphicon glyphicon-time"></i> Duration &amp Start<hr>
-          </div>
-          <div class="panel-body">
-            <div class="col-md-5 panel">
-              <div class="panel-heading b-b b-light">
-                Duration
+<!--Outer Panel -->
+<div class="panel panel-default m-t p-md">
+
+  <!-- Duration Settings -->
+  <div class="row">
+    <div class="col-xs-12">
+
+      <!-- Heading -->
+      <div class="bg-white my-panel-heading b-b-2x">
+            <i class="glyphicon glyphicon-time text-1x inline"></i>
+            <span class="text-1x font-bold">Duration &amp; Start</span>
+      </div>
+      <!-- Heading .end -->
+
+      <!-- Panel Body -->
+      <div class="panel-body">
+            <div class="col-xs-6">
+              <div class="form-group form-group-lg">
+                <label class="col-md-4 m-t-sm control-label">Days</label>
+                <div class="col-md-8 m-t-sm ">
+                  <div class="input-group">
+                    <input type="text" ng-model="courseDuration.days"class="form-control" id="definput" placeholder="Days" name="Days" >
+                    <span class="input-group-btn">
+                      <button class="btn btn-default " ng-click="courseDuration.days=courseDuration.days==0?0:(courseDuration.days)*1-1;"><i class="fa fa-minus"></i></button>
+                    </span>
+                    <span class="input-group-btn">
+                      <button class="btn btn-default " ng-click="courseDuration.days=(courseDuration.days)*1+1"><i class="fa fa-plus"></i></button>
+                    </span>
+                  </div>             
+                </div>
               </div>
-              <div class="panel-body">
-                <div class="col-md-12">
-                  <div class="form-group form-group-lg">
-
-                      <label class="col-md-4 m-t-sm control-label">Days</label>
-
-                      <div class="col-md-8 m-t-sm ">
-
-
-
-                        <div class="input-group">
-                          <input type="text" ng-model="courseDuration.days"class="form-control" id="definput" placeholder="Days" name="Days" >
-                              <span class="input-group-btn">
-                                  <button class="btn btn-default " ng-click="courseDuration.days=courseDuration.days==0?0:(courseDuration.days)*1-1;"><i class="fa fa-minus"></i></button>
-                              </span>
-                              <span class="input-group-btn">
-                                  <button class="btn btn-default " ng-click="courseDuration.days=(courseDuration.days)*1+1"><i class="fa fa-plus"></i></button>
-                              </span>
-                        </div>
-
-
-
-
-
-
-
-                   
-                                 
-                      </div>
+              <div class="form-group form-group-lg">
+                <label class="col-md-4 m-t-sm control-label">Months</label>
+                <div class="col-md-8 m-t-sm ">
+                  <div class="input-group">
+                    <input type="text" ng-model="courseDuration.months"class="form-control" id="definput"  placeholder="Months" name="Months" >
+                    <span class="input-group-btn">
+                      <button class="btn btn-default  " ng-click="courseDuration.months=courseDuration.months==0?0:(courseDuration.months)*1-1"><i class="fa fa-minus"></i></button>
+                    </span>
+                    <span class="input-group-btn">
+                      <button class="btn btn-default " ng-click="courseDuration.months=(courseDuration.months)*1+1"><i class="fa fa-plus"></i></button>
+                    </span>
                   </div>
-
-                  <div class="form-group form-group-lg">
-                      <label class="col-md-4 m-t-sm control-label">Months</label>
-                      <div class="col-md-8 m-t-sm ">  
-
-
-
-
-                        <div class="input-group">
-                           <input type="text" ng-model="courseDuration.months"class="form-control" id="definput"  placeholder="Months" name="Months" >
-                              <span class="input-group-btn">
-                                  <button class="btn btn-default  " ng-click="courseDuration.months=courseDuration.months==0?0:(courseDuration.months)*1-1"><i class="fa fa-minus"></i></button>
-                              </span>
-                              <span class="input-group-btn">
-                                  <button class="btn btn-default " ng-click="courseDuration.months=(courseDuration.months)*1+1"><i class="fa fa-plus"></i></button>
-                              </span>
-                        </div>
-
-
-
-
-
-
-                    
-
-                      </div>                      
+                </div>
+              </div>
+              <div class="form-group form-group-lg">
+                <label class="col-md-4 m-t-sm control-label">Years</label>
+                <div class="col-md-8 m-t-sm ">
+                  <div class="input-group">
+                    <input type="text" ng-model="courseDuration.years"class="form-control" id="definput"  placeholder="Years" name="Years" >
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" ng-click="courseDuration.years=courseDuration.years==0?0:(courseDuration.years)*1-1"><i class="fa fa-minus"></i></button>
+                    </span>
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" ng-click="courseDuration.years=(courseDuration.years)*1+1"><i class="fa fa-plus"></i></button>
+                    </span>
                   </div>
-
-                  <div class="form-group form-group-lg">
-                      <label class="col-md-4 m-t-sm control-label">Years</label>
-                      <div class="col-md-8 m-t-sm ">  
-
-
-
-
-
-
-                          <div class="input-group">
-                          <input type="text" ng-model="courseDuration.years"class="form-control" id="definput"  placeholder="Years" name="Years" >  
-                              <span class="input-group-btn">
-                                  <button class="btn btn-default" ng-click="courseDuration.years=courseDuration.years==0?0:(courseDuration.years)*1-1"><i class="fa fa-minus"></i></button>
-                              </span>
-                              <span class="input-group-btn">
-                                 <button class="btn btn-default" ng-click="courseDuration.years=(courseDuration.years)*1+1"><i class="fa fa-plus"></i></button>
-                              </span>
-                        </div>
-
-
-
-
-                      </div>                                          
-                  </div>
-
-                     
+                </div>
               </div>
             </div>
           </div>
-        </div>     	
-      </div>
+      <!-- Panel body .end -->
 
-              
-              <div ng-class="{'hide-elem':totalCourseDuration==0}">
-            <i class="glyphicon  glyphicon-log-out"></i>
-            <span class="text-1x font-bold">Exit Point</span>
-          </div>
-          <div class="panel-body form-horizontal" >
-            <course-timeline></course-timeline>            
-          </div>
-        </div>
+    
+
     </div>
   </div>
+
+
+  <!-- Timeline Container-->
+  <div class="row" ng-if="totalCourseDuration>0">
+    <div class="col-xs-12">
+      <!-- Panel Heading -->
+      <div class="bg-white m-h my-panel-heading b-b-2x animated fadeInDown">
+            <i class="fa fa-flag text-1x inline"></i>
+            <span class="text-1x font-bold">Exit Points</span>                        
+          </div>
+      <!-- Panel Heading .end -->
+      
+      <!-- Help text -->
+      <div class="col-xs-12 m-b animated fadeInDown">
+      <small class="text-muted">
+            The time line below represents the total duration of the course. You can click on any point in the timeline and add an exit point. An exit point means an intermediate point of time during the
+course when the student can exit from the course so that he/she would have completed a certain stand-alone no. of modules. (Exit points can also be added while adding course materials)
+      </small>
+    </div>
+    <!-- Help text End -->
+
+      <!-- Timeline -->
+      <div class="panel-body form-horizontal animated fadeInDown" >
+            <course-timeline total-duration="totalCourseDuration" ddl-bind-object="ddlBindObject" callback-functions="tlPopOver">
+          </course-timeline>            
+      </div>
+      <!-- Timeline .end -->
+
+    </di{{tlPopOver}}v>
+  </div>
+    <!-- Footer row   -->
+<div class="row">
+  <div class="col-xs-12 m">
+    <footer class="text-right">
+     <button type="submit" class="btn btn-info" ng-disabled="generalInfo.$invalid" disabled="disabled" ng-click="completeStep1(course);" >Next</button>
+    </footer>   
+  </div>
 </div>
+<!-- footer row .End -->
 </div>
+<!-- Panel .End
