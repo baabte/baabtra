@@ -1,0 +1,39 @@
+<div class="col-sm-12 ">
+    <div class="font-bold" > 
+      Office Admin<hr>
+  </div>
+
+  <div class=" form-group m-h-n clearfix">
+  	
+    <div class="form-group p-xs">
+            <input type="text" class="form-control ng-pristine ng-valid" ng-model="formData.DOJ" data-date-format="dd-MM-yyyy"  data-max-date="" name="DOJ" placeholder="Date of Joining" bs-datepicker="" autocomplete="off" xt-validate required>
+            
+  </div>
+
+  	<div class="form-group p-xs">
+            <input type="text" class="form-control"   placeholder="Branch" name="branch" ng-model="formData.branch " xt-validate required>
+  </div>
+  
+  <div class="form-group p-xs">
+            <input type="text" class="form-control"   placeholder="Course" name="course" ng-model="formData.course" xt-validate required>
+  </div>
+
+  <div class="form-group p-xs">
+            <input type="text" class="form-control"   placeholder="Comment" name="comment" ng-model="formData.comment" xt-validate >
+
+</div>
+  
+  
+
+</div>
+
+
+
+              
+
+<div class="text-center">
+    <span class="glyphicon glyphicon-heart"></span>
+    <h3>Its Great You did it!</h3>
+    
+    <button type="submit" class="btn btn-danger" ng-disabled="userRegistrationForm.$invalid">Submit</button>
+</div>

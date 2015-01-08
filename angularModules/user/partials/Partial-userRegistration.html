@@ -1,0 +1,30 @@
+<div class="row">
+<div class="col-sm-10 col-sm-offset-1">
+
+  <div class="panel panel-default">
+  
+      <div class="text-center panel-heading bg-white">
+          <h2>Complete your profile</h2>
+          
+          <!-- the links to our nested states using relative paths -->
+          <!-- add the active class if the state matches our ui-sref -->
+          <div id="status-buttons" class="text-center">
+              <a ui-sref-active="active" ui-sref="home.main.userRegistration.step1"><span>1</span> Basic</a>
+              <a ui-sref-active="active" ui-sref="home.main.userRegistration.step2"><span>2</span> Contact</a>
+              <a ui-sref-active="active" ui-sref="home.main.userRegistration.step3"><span>3</span> Social</a>
+              <a ui-sref-active="active" ui-sref="home.main.userRegistration.step4"><span>4</span> Office</a>
+          </div>
+         
+      </div>
+      <div class="panel-body">
+      <!-- use ng-submit to catch the form submission and use our Angular function -->
+      <form id="signup-form" name="userRegistrationForm" ng-submit="fnUserRegister(userRegistrationForm)"  class="form-validation" role="form" xt-form editable-form novalidate>
+          <!-- our nested state views will be injected here -->
+          <div name="userRegistration-container" class="app-content" role="main" ui-view></div>
+         
+      </form>
+  	</div>	
+  </div>
+
+</div>
+</div>
