@@ -14,6 +14,7 @@ $scope.currentState=$state.current.name;
 branchSrv.fnLoadBranch($scope,'548bd227f94452e79f1a3867');
 $scope.tableData={};
 $scope.formData={};
+$scope.newUser=false;
 // $scope.formData.branchDetails={};
 // console.log($scope.formData);
 
@@ -93,25 +94,52 @@ $scope.existingEmail='';
 // console.log($scope.formData);
 $scope.fnUserRegister =function (argument) {
 
-  console.log($scope.selection);
-  delete $scope.selection.country.States;
-  delete $scope.selection.state.Districts;
+  // // console.log($scope.selection);
+  // delete $scope.selection.country.States;
+  // delete $scope.selection.state.Districts;
 
-  console.log($scope.selection);
+  // // console.log($scope.selection);
+  
+
   // $scope.formData.contactInfo.country={};
   // $scope.formData.contactInfo.state={};
   // $scope.formData.contactInfo.district={};
+  // $scope.formData.contactInfo.country=$scope.selection.country;
+  // $scope.formData.contactInfo.state=$scope.selection.state;
+  // $scope.formData.contactInfo.district=$scope.selection.district;
 
-  // $scope.formData.contactInfo.country.fkcountryId=selection.country._id.$oid;
-  // $scope.formData.contactInfo.state.fkstateId=selection.state.sId.$oid;
-  // $scope.formData.contactInfo.district.fkdistrictId=selection.district.dId.$oid;
 
+  // $scope.formData.contactInfo.country.fkcountryId=$scope.formData.contactInfo.country._id.$oid;
+  // delete $scope.formData.contactInfo.country._id;
+  // $scope.formData.contactInfo.state.fkstateId=$scope.formData.contactInfo.state.sId.$oid;
+  // delete $scope.formData.contactInfo.state.sId;
+  // $scope.formData.contactInfo.district.fkdistrictId=$scope.formData.contactInfo.district.dId.$oid;
+  // delete $scope.formData.contactInfo.district.dId;
+
+  delete $scope.formData.branchDetails.children;
+  delete $scope.formData.branchDetails.childrenObj;
+  delete $scope.formData.branchDetails._hsmeta;
+
+
+  $scope.formData.professionalExperience={};
+  $scope.formData.professionalExperience=$scope.proExperienceCollection;
+
+  if (angular.equals($scope.formData.professionalExperience.length,0)) {
+      $scope.formData.professionalExperience="Fresher"
+
+  };  
 
 	 console.log($scope.formData);
-   console.log($scope.proExperienceCollection);
+   
+///////
 
-  console.log(argument);
-	// body...
+   // console.log($scope.proExperienceCollection);
+
+  
+
+  $scope.userregisterData={};
+
+
 };
 
 $scope.proExperienceCollection = [];
@@ -141,7 +169,6 @@ value.toDate = $filter('date')(value.toDate,'dd-MM-yyyy');
 
     var index = $scope.proExperienceCollection.indexOf( row );
 
-  // $scope.userplan.plan.features.push( feature1 );
   if ( index >= 0 ) {
       $scope.proExperienceCollection.splice( index, 1 );
       }
@@ -153,7 +180,7 @@ value.toDate = $filter('date')(value.toDate,'dd-MM-yyyy');
 
 //function for user name validation
 $scope.userVal = function (e){
-     var userNameId=$scope.formData.personalInfo;
+     var userNameId=$scope.formData.userInfo;
      // console.log(userNameId);
     companyRegistrationService.fnUserNameValid($scope,userNameId);
 };
@@ -215,10 +242,14 @@ $scope.fnGetCountryStateDistrictCallBack=function(result){
  $scope.fnUserCheckCallBack=function(result){
     
      if(result.userCheck===1){   //if the email id already registered
-       $scope.existingEmail=$scope.formData.personalInfo.eMail; //setting the existing email id to scope variable for validation.
-       $scope.notifications('Error!','UserName already in Use!','danger');
+       $scope.existingEmail=$scope.formData.userInfo.eMail; //setting the existing email id to scope variable for validation.
+       $scope.newUser=false;
+        console.log($scope.userRegistrationForm);
+       // console.log($scope.userRegistrationForm.password.$valid);
+       $scope.notifications('!','Already a user!','info');
       }
       if(result.userCheck===0){ //if not matching existing registered email
+        $scope.newUser=true;
       
      }
   };
