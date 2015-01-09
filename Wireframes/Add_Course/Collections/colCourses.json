@@ -13,10 +13,9 @@
     "endsOn": ""
   },
   "exitPoints": {
-    "arcadeMode": "true",
     "exitPointList": [
-      {
-        "timeLinePoint": "",
+      "<timeinmins>":{
+	"arcadeMode": "true",
         "exitCriteria": {
           "criteria1": {
             "courseElementId": {

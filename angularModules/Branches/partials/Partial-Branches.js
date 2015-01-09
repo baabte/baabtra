@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('BranchesCtrl',['$scope','commonService','$state','$alert','$timeout','localStorageService','$aside','branchSrv',function ($scope,commonService,$state,$alert,$timeout,localStorageService,$aside,branchSrv){
+angular.module('baabtra').controller('BranchesCtrl',['$scope','$rootScope','commonService','$state','$alert','$timeout','localStorageService','$aside','branchSrv','manageTreeStructureSrv',function ($scope,$rootScope,commonService,$state,$alert,$timeout,localStorageService,$aside,branchSrv,manageTreeStructureSrv){
 
 if( !angular.element('link#branchCss').length){
     angular.element('head').append('<link id="branchCss" href="bower_components/angular-ui-tree/demo/css/demo-horizontal.css" rel="stylesheet">');
@@ -69,71 +69,15 @@ $scope.tree1NodesOptions = {
   };
 
 $scope.$watch('branches',function (newValue,oldValue){
-  if (angular.equals($scope.branches,undefined)) {
+  if (!angular.equals($scope.branches,undefined)) {
     jsPlumb.detachEveryConnection();
-    buildBranchTree(findRoots($scope.branches,null),null); 
+    //buildBranchTree(findRoots($scope.branches,null),null);
+    $scope.branchTree=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.branches,null),null);
     $scope.drawLines($scope.branchTree);
   }
   });
-
-  function buildBranchTree(branchTree,index){
-    if(index==null){
-      index=0;
-    }
-    if (!angular.equals(branchTree[index].children,undefined)) {
-
-      if (branchTree[index].children.length>0) {
-        buildChildren(branchTree[index]);
-        if (branchTree.length-1 > index) {      
-        buildBranchTree(branchTree,++index);
-      }
-    }
-    }
-  }
-
-
-  function findChildren(branch,index){
-    if(index==null){
-      index=0;
-    }
-    if (!angular.equals(branch.children,null)) {
-    if(branch.children.indexOf($scope.branches[index]._id)!=-1){
-      if (angular.equals(branch.childrenObj,undefined)){
-        branch.childrenObj=[];
-      }
-      if($scope.branches[index].activeFlag){
-      branch.childrenObj.push($scope.branches[index]);
-    }
-      buildChildren($scope.branches[index]);
-    }
-    }
-    if (index < $scope.branches.length-1) {   
-      findChildren(branch,++index);
-    }
-  }
-
-
-  function buildChildren(branch)
-  {
-    findChildren(branch,null);
-  }
-
-function findRoots(branch,index){
-    if(index==null){
-      index=0;
-    }
-    if (branch[index].parent ==null){
-      $scope.branchTree.push(branch[index]);
-    }
-    if (branch[index].children == null) {
-      branch[index].childrenObj=[];
-    }
-    if (branch.length-1 > index) {
-    findRoots(branch,++index);
-    }
-    return $scope.branchTree;
-    }
 var nodeData="";
+
 $scope.newSubItem = function(scope) {
     $scope.updateBranch=false;
   $scope.addBranch=true;
@@ -176,7 +120,7 @@ $scope.undo = function(){
     node.$nodeScope.$modelValue.activeFlag=0;
     lastDeletedBranch=node.$nodeScope.$modelValue;
     branchSrv.fnInsertBranch($scope,"5457526122588a5db73e0b23",$scope.branches,$scope.rm_id);
-    $alert({scope: $scope,container:'body',keyboard:true,animation:'am-fade-and-slide-top',template:'views/ui/angular-strap/alert.tpl.html',title:'Undo',content:'The branch has been deleted', placement: 'top', type: 'warning'});
+    $alert({scope: $scope,container:'body',keyboard:true,animation:'am-fade-and-slide-top',template:'views/ui/angular-strap/alert.tpl.html',title:'Undo',content:'The branch has been deleted', placement: 'top-right', type: 'warning'});
 };
 var lastEditBranch="";
 $scope.editBranch = function(branch){

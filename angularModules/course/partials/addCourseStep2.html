@@ -1,116 +1,130 @@
-<div class="row">
-<div class="col-xs-12">
-	<div class="panel b-light">
-    <div class="panel-body">
-        <div class="col-xl-10 m-t-sm">
-          <div class="font-bold">
-              <i class="glyphicon glyphicon-time"></i> Duration &amp Start<hr>
-          </div>
-          <div class="panel-body">
-            <div class="col-md-5 panel">
-              <div class="panel-heading b-b b-light">
-                Duration
-              </div>
-              <div class="panel-body">
-                <div class="col-md-12">
-                  <div class="form-group form-group-lg">
+<!-- Outer Panel  -->
+<form name="generalInfo" class="form-validation ng-pristine ng-invalid ng-invalid-required">
+<div class="panel panel-default m-t p-md p-v-xs">
+  
 
-                      <label class="col-md-4 m-t-sm control-label">Days</label>
+  <!-- body row -->
+  <div class="row">
 
-                      <div class="col-md-8 m-t-sm ">
-
-
-
-                        <div class="input-group">
-                          <input type="text" ng-model="courseDuration.days"class="form-control" id="definput" placeholder="Days" name="Days" >
-                              <span class="input-group-btn">
-                                  <button class="btn btn-default " ng-click="courseDuration.days=courseDuration.days==0?0:(courseDuration.days)*1-1;"><i class="fa fa-minus"></i></button>
-                              </span>
-                              <span class="input-group-btn">
-                                  <button class="btn btn-default " ng-click="courseDuration.days=(courseDuration.days)*1+1"><i class="fa fa-plus"></i></button>
-                              </span>
-                        </div>
-
-
-
-
-
-
-
-                   
-                                 
-                      </div>
-                  </div>
-
-                  <div class="form-group form-group-lg">
-                      <label class="col-md-4 m-t-sm control-label">Months</label>
-                      <div class="col-md-8 m-t-sm ">  
-
-
-
-
-                        <div class="input-group">
-                           <input type="text" ng-model="courseDuration.months"class="form-control" id="definput"  placeholder="Months" name="Months" >
-                              <span class="input-group-btn">
-                                  <button class="btn btn-default  " ng-click="courseDuration.months=courseDuration.months==0?0:(courseDuration.months)*1-1"><i class="fa fa-minus"></i></button>
-                              </span>
-                              <span class="input-group-btn">
-                                  <button class="btn btn-default " ng-click="courseDuration.months=(courseDuration.months)*1+1"><i class="fa fa-plus"></i></button>
-                              </span>
-                        </div>
-
-
-
-
-
-
-                    
-
-                      </div>                      
-                  </div>
-
-                  <div class="form-group form-group-lg">
-                      <label class="col-md-4 m-t-sm control-label">Years</label>
-                      <div class="col-md-8 m-t-sm ">  
-
-
-
-
-
-
-                          <div class="input-group">
-                          <input type="text" ng-model="courseDuration.years"class="form-control" id="definput"  placeholder="Years" name="Years" >  
-                              <span class="input-group-btn">
-                                  <button class="btn btn-default" ng-click="courseDuration.years=courseDuration.years==0?0:(courseDuration.years)*1-1"><i class="fa fa-minus"></i></button>
-                              </span>
-                              <span class="input-group-btn">
-                                 <button class="btn btn-default" ng-click="courseDuration.years=(courseDuration.years)*1+1"><i class="fa fa-plus"></i></button>
-                              </span>
-                        </div>
-
-
-
-
-                      </div>                                          
-                  </div>
-
-                     
-              </div>
-            </div>
-          </div>
-        </div>     	
+    <!-- Left Half -->
+    <div class="col-xs-12 col-sm-6 no-padding">
+            <!-- Heading -->
+      <div class="p-sm bg-inbox-inverse  b-r b-white  b-r-3x">
+            <i class="fa fa-clock-o  text-1x inline"></i>
+            <span class="text-1x font-bold">Duration</span>
       </div>
-
-              
-              <div ng-class="{'hide-elem':totalCourseDuration==0}">
-            <i class="glyphicon  glyphicon-log-out"></i>
-            <span class="text-1x font-bold">Exit Point</span>
-          </div>
-          <div class="panel-body form-horizontal" >
-            <course-timeline></course-timeline>            
+      <!-- Heading .end -->
+            <!-- Panel Body -->
+      <div class="panel-body">
+        <div class="row row-sm">
+          <div class="col-xs-12 col-md-12 col-lg-6">
+                <label class="col-xs-4 control-label">Days</label>
+                <div class="col-xs-8">
+                  <div class="input-group">
+                    <input type="text" ng-model="courseDuration.days"class="form-control" id="definput" placeholder="Days" name="Days" >
+                    <span class="input-group-btn">
+                      <button class="btn btn-default " ng-click="courseDuration.days=courseDuration.days==0?0:(courseDuration.days)*1-1;"><i class="fa fa-minus"></i></button>
+                    </span>
+                    <span class="input-group-btn">
+                      <button class="btn btn-default " ng-click="courseDuration.days=(courseDuration.days)*1+1"><i class="fa fa-plus"></i></button>
+                    </span>
+                  </div>             
+                </div>
+                <label class="col-xs-4 m-t-sm control-label">Months</label>
+                <div class="col-xs-8 m-t-sm ">
+                  <div class="input-group">
+                    <input type="text" ng-model="courseDuration.months"class="form-control" id="definput"  placeholder="Months" name="Months" >
+                    <span class="input-group-btn">
+                      <button class="btn btn-default  " ng-click="courseDuration.months=courseDuration.months==0?0:(courseDuration.months)*1-1"><i class="fa fa-minus"></i></button>
+                    </span>
+                    <span class="input-group-btn">
+                      <button class="btn btn-default " ng-click="courseDuration.months=(courseDuration.months)*1+1"><i class="fa fa-plus"></i></button>
+                    </span>
+                  </div>
+                </div>
+                <label class="col-xs-4 m-t-sm control-label">Years</label>
+                <div class="col-xs-8 m-t-sm ">
+                  <div class="input-group">
+                    <input type="text" ng-model="courseDuration.years"class="form-control" id="definput"  placeholder="Years" name="Years" >
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" ng-click="courseDuration.years=courseDuration.years==0?0:(courseDuration.years)*1-1"><i class="fa fa-minus"></i></button>
+                    </span>
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" ng-click="courseDuration.years=(courseDuration.years)*1+1"><i class="fa fa-plus"></i></button>
+                    </span>
+                  </div>
+                </div>
+                <em class="text-muted">Please specify the duration of the Course.</em>
           </div>
         </div>
+      </div>
+      <!-- Panel body .end -->
     </div>
+    <!-- Left Half .End -->
+
+    <!-- Right half -->
+    <div class="col-xs-12 col-sm-6  no-padding">
+             <!-- Heading -->
+      <div class="p-sm bg-inbox-orange b-l b-white  b-l-3x">
+            <i class="fa fa-money text-1x inline"></i>
+            <span class="text-1x font-bold">Fee</span>
+      </div>
+      <!-- Heading .end -->
+      <div class="panel-body">
+        <div class="row row-sm">
+          <div class="col-xs-12">
+            <label class="ui-checks "><input type="radio" ng-click="PaymentOpt=false" name="fee_type" value="free"><i></i>Free</label>
+            <label class="ui-checks m-l"><input type="radio" name="fee_type" ng-click="PaymentOpt=true" value="paid"><i></i>Paid</label>
+            <em class="text-muted">( Please specify the type of the Course. )</em>
+          </div>
+          </div>
+        <div class="row m-t row-sm" ng-show="PaymentOpt">
+            <div class="col-xs-6 col-md-3 animated fadeInDown">
+              <input class="form-control" type="text" id="formGroupInputSmall" placeholder="Total Amount" autocomplete="off">
+            </div>
+            <div class="col-xs-3 animated fadeInDown">
+              <button type="button" class="btn btn-default ng-pristine ng-valid" ng-model="selectedFee" data-html="1" placeholder="Currency" ng-options="value.id as value.name for (key, value) in fee" bs-select=""></button>
+            </div>
+            <em class="text-muted animated fadeInDown">Please specify the total fee</em>
+          </div>
+
+          <!-- Payment Type row -->
+          <div class="row m-t row-sm" ng-show="PaymentOpt">
+             <div class="col-xs-6 col-md-3 animated fadeInDown">
+                <div class="radio"><label class="ui-checks"><input ng-click="oneTime=true;Installments=false;" type="radio" name="a" value="option1"><i></i>Onetime</label>
+              </div>
+              <div class="radio"><label class="ui-checks"><input ng-click="Installments=true;oneTime=false;" type="radio" name="a" value="option1"><i></i>Installments</label>
+              </div>
+              </div>
+              <div class="col-xs-6 col-md-3 animated fadeInDown">
+                <button type="button" class="btn btn-default ng-pristine ng-valid" ng-model="selectedPaymentType" data-html="1" placeholder="Currency" ng-options="value.id as value.name for (key, value) in paymentTypes" bs-select=""></button>
+              </div>
+              <em class="text-muted animated fadeInDown">Please specify the payment type.</em>
+          </div>
+          </div>
+     </div>
+    <!-- Right half .End -->
+  </div>
+  <!-- body row .End -->
+
+          <div class="row">
+
+            <div class="col-xs-12 am-fade">
+              <course-timeline total-duration="totalCourseDuration" ddl-bind-object="ddlBindObject" callback-functions="tlPopOver" sync-data="courseDetails" tl-elements="[['exitPoints','exitPointList']]">
+          </course-timeline>
+            </div>
+          </div>
+
+<!-- Footer row   -->
+<div class="row">
+  <div class="col-xs-12 m-b">
+    <footer class="text-right">
+     <button type="submit" class="btn btn-info" ng-disabled="generalInfo.$invalid" disabled="disabled" ng-click="completeStep1(course);" >Next</button>
+    </footer>   
   </div>
 </div>
+<!-- footer row .End -->
+
 </div>
+</form>
+<!-- outer panel .End

@@ -19,16 +19,20 @@
   <link rel="stylesheet" href="bower_components/template/dist/loading-bar.css" />
   <link rel="stylesheet" href="bower_components/template/dist/customstyles.css" />
   <link rel="stylesheet" href="bower_components/template/dist/timeLine.css" />
+  <link rel="stylesheet" href="bower_components/template/dist/colors.css" />
   <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css" />
   <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
   <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
   <link rel="stylesheet" href="bower_components/angular-form-gen/dist/angular-form-gen.css" />
   <link rel="stylesheet" href="bower_components/perfect-scrollbar/min/perfect-scrollbar.min.css" />
+  <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" />
+  <link rel="stylesheet" href="bower_components/quill/dist/quill.snow.css" />
+  <link rel="stylesheet" href="bower_components/ngHierarchicalSelector/dist/ng-hierarchical-selector.0.2.0.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
 </head>
-<body ng-app="baabtra" >
+<body ng-app="baabtra">
 
 <div class="container text-center" style="height:85%;" ng-show="hide_when_root_empty">
    <i class="fa fa-th-large fa-spin text-4x row-centered" style="margin-top:25%;"></i>
@@ -78,6 +82,10 @@
 <script src="bower_components/angular-perfect-scrollbar/src/angular-perfect-scrollbar.js"></script>
 <script src="bower_components/angular-google-plus/dist/angular-google-plus.js"></script>
 <script src="bower_components/ngLinkedIn/ngLinkedIn.js"></script>
+<script src="bower_components/ng-tags-input/ng-tags-input.js"></script>
+<script src="bower_components/quill/dist/quill.min.js"></script>
+<script src="bower_components/ngquill/src/ng-quill.min.js"></script>
+<script src="bower_components/ngHierarchicalSelector/dist/ng-hierarchical-selector.0.2.0.js"></script>
 <!-- endbower -->
 
 
@@ -152,6 +160,15 @@
 <script src="angularModules/course/services/Service-addCourseElementService.js"></script>
 <script src="angularModules/common/directives/Directive-customScrollbar.js"></script>
 
+<script src="angularModules/course/partials/Partial-addCourseDomain.js"></script>
+<script src="angularModules/course/services/Service-addCourseDomainSrv.js"></script>
+<script src="angularModules/common/services/Service-manageTreeStructureSrv.js"></script>
+  <script src="angularModules/common/services/Service-commonSrv.js"></script>
+  <script src="angularModules/course/partials/Partial-addExitCriteria.js"></script>
+  <script src="angularModules/course/services/Service-addExitCriteriaService.js"></script>
+  <script src="angularModules/common/services/Service-fileReader.js"></script>
+  <script src="angularModules/user/partials/Partial-userRegistration.js"></script>
+  <script src="angularModules/user/services/Service-userRegistrationService.js"></script>
   <!-- Add New Component JS Above -->
 <!-- endbuild -->
 </div>

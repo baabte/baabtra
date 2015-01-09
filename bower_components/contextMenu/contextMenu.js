@@ -3,7 +3,12 @@ angular.module('ui.bootstrap.contextMenu', [])
 .directive('contextMenu', ['$parse',function ($parse) {
     var renderContextMenu = function ($scope, event, options) {
         if (!$) { var $ = angular.element; }
-        $(event.currentTarget).addClass('context');
+        if(options.length<1){
+            return 0;
+        }
+        
+        console.log(options.step2.courseElementlist);
+        $(event.currentTarget).parent().parent().parent().parent().addClass('context');
         var $contextMenu = $('<div>');
         $contextMenu.addClass('dropdown clearfix');
         var $ul = $('<ul>');
@@ -13,27 +18,39 @@ angular.module('ui.bootstrap.contextMenu', [])
             display: 'block',
             position: 'absolute',
             left: (event.pageX-75) + 'px',
-            // top: event.pageY + 'px'
-            top: '0px'
+            top: (event.pageY/2.1)-130+'px'
         });
-        angular.forEach(options, function (item, i) {
+        var $headerA = $('<span>');
+             $headerA.text($scope.ddlBindObject[$scope.selectedDuration-1].name.replace('s','')+" "+$scope.$parent.tlpoint);
+             $headerA.addClass('font-bold bg-cadetblue p-xs col-xs-12');
+             $ul.append($headerA);
+        angular.forEach(options.step2.courseElementlist, function (item, i) {
             var $li = $('<li>');
-            if (item === null) {
+            if (angular.equals(item, null)) {
                 $li.addClass('divider');
-            } else {
-                $a = $('<a>');
+            }
+            else{
+                var $a = $('<a>');
+                $a.addClass('context-menu-icon');
                 $a.attr({ tabindex: '-1', href: '#' });
-                $a.text(typeof item[0] == 'string' ? item[0] : item[0].call($scope,$scope.$parent.tlpoint/$scope.durationIn[$scope.selectedDuration-1].mFactor));
-                $li.append($a);
+                var $i = $('<i>');
+                $i.addClass('fa text-lt text-lg pull-left m-r-xs '+item.Icon);
+                $a.append($i);
+                var $span = $('<span>');
+                $span.text(item.menuDisplayName);
+                $span.addClass('font-normal m-l');
+                $a.append($span);
                 $li.on('click', function ($event) {
                     $event.preventDefault();
                     clickedChiled=true;
                     $scope.$apply(function () {
-                        $(event.currentTarget).removeClass('context');
+                        $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
                         $contextMenu.remove();
-                        item[1].call($scope,$scope.$parent.tlpoint/$scope.durationIn[$scope.selectedDuration-1].mFactor);
+                        console.log(item);
+                        //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
                     });
                 });
+                $li.append($a)
             }
             $ul.append($li);
         });
@@ -51,15 +68,14 @@ angular.module('ui.bootstrap.contextMenu', [])
             left: 0,
             zIndex: 9999
         });
-        //$(document).find('body')
-        $(event.currentTarget).append($contextMenu);
+        $(event.currentTarget).parent().parent().parent().parent().append($contextMenu);
         $contextMenu.on("mousedown", function (e) {
             if ($(e.target).hasClass('dropdown')) {
-                $(event.currentTarget).removeClass('context');
+                $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
                 $contextMenu.remove();
             }
         }).on('contextMenu', function (event) {
-            $(event.currentTarget).removeClass('context');
+            $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
             event.preventDefault();
             $contextMenu.remove();
         });
@@ -67,15 +83,14 @@ angular.module('ui.bootstrap.contextMenu', [])
     var clickedChiled=false;
     return {scope:true,link:function ($scope, element, attrs) {
             element.on('click', function (event) {
-    
-                    event.preventDefault();
+                 event.preventDefault();
     
                 setTimeout(function(){
                     if(!clickedChiled)
                     {
                                     $scope.$apply(function () {
-                                    var options = $scope.$eval(attrs.contextMenu);
-                                    if (options instanceof Array) {
+                                    var options = $scope.callbackFunctions;
+                                    if (options instanceof Object) {
                                         renderContextMenu($scope, event, options);
                                     } else {
                                         throw '"' + attrs.contextMenu + '" not an array';
@@ -84,8 +99,6 @@ angular.module('ui.bootstrap.contextMenu', [])
                     }
                     clickedChiled=false;
                 },100);
-                
             });
         }};
 }]);
-

@@ -195,6 +195,25 @@
                 }
                 
               })
+               .state('home.main.addCourseDomain', {
+                url: '/addCourseDomain',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-addCourseDomain.html',
+                    controller: 'AddcoursedomainCtrl'
+                  }
+                }
+              })
+                .state('home.main.addExitCriteria', {
+                url: '/exitCriteria',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-addExitCriteria.html',
+                    controller: 'AddexitcriteriaCtrl'
+                  }
+                }
+                
+              })
 
               .state('home.main.addMenu', {
                 url: '/addMenu',
@@ -243,6 +262,76 @@
                 }
                 
               })
+              .state('home.main.userRegistration', {
+                url: '/userRegistration',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/user/partials/Partial-userRegistration.html',
+                     controller: 'UserregistrationCtrl'
+
+                  }
+                }
+                
+              })
+              .state('home.main.userRegistration.step1', {
+                url: '/step1',
+                views:{
+                  'userRegistration-container':{
+             
+                    templateUrl: 'angularModules/user/partials/step1_UserInfo.html'
+                     // controller: 'UserregistrationCtrl'
+
+                  }
+                }
+                
+              })
+              .state('home.main.userRegistration.step2', {
+                url: '/step2',
+                views:{
+                  'userRegistration-container':{
+             
+                    templateUrl: 'angularModules/user/partials/step2_UserInfo.html'
+                     // controller: 'UserregistrationCtrl'
+
+                  }
+                }
+                
+              })
+               .state('home.main.userRegistration.step3', {
+                url: '/step3',
+                views:{
+                  'userRegistration-container':{
+             
+                    templateUrl: 'angularModules/user/partials/step3_SocialProfile.html'
+                     // controller: 'UserregistrationCtrl'
+
+                  }
+                }
+                
+              })
+               .state('home.main.userRegistration.step4', {
+                url: '/step4',
+                views:{
+                  'userRegistration-container':{
+             
+                    templateUrl: 'angularModules/user/partials/step4_OfficeAdmin.html'
+                     // controller: 'UserregistrationCtrl'
+
+                  }
+                }
+                
+              })
+                         
+
+              .state('userRegistration', {
+                url: '/userRegistration',
+                
+                    templateUrl: 'angularModules/user/partials/Partial-userRegistration.html',
+                     controller: 'UserregistrationCtrl'
+
+              })
+
+
 
                 .state('home.JobPosting', {
                 url: '/JobPosting',
