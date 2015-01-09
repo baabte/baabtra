@@ -143,7 +143,7 @@ $scope.fnDeleteExitCriteriaCallBack = function(result){
 
 	if(result==='success'){
         $scope.notifications('Done!',' Exit Criteria Deleted ','info');
-		addExitCriteriaService.FnGetExitCriterias($scope);
+		addCourseElementService.FnGetExitCriteria($scope);
  
       }
    if(result==='error'){
