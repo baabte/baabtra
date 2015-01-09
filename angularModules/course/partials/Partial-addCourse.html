@@ -1,38 +1,29 @@
 <!-- Steps -->
-<div class="col-sm-12 text-center">
-	<div class="col-sm-3" style="cursor: pointer;" ng-click="nextPart('home.main.addCourse.step1')">
-		<span class="tl-instance w-lg hidden-xs pull-left" ng-class="{'tl-active':currentState=='home.main.addCourse.step1'}">
-			<i class="fa fa-bullhorn text-2x"></i>
+<div class="col-xs-12 container text-center">
+	<div class="col-xs-4" style="cursor: pointer;" ng-click="nextPart('home.main.addCourse.step1')">
+		<span class="tl-instance hidden-xs w-lg p-md " ng-class="{'bg-chocolate':currentState=='home.main.addCourse.step1'}">
+			<i class="fa fa-bullhorn text-2x "></i>
 			<span>General Info</span>
 		</span>
-		<span class="tl-instance visible-xs" ng-class="{'tl-active':currentState=='home.main.addCourse.step1'}">
+		<span class="tl-instance w-xs p-md visible-xs" ng-class="{'bg-chocolate':currentState=='home.main.addCourse.step1'}">
 			<i class="fa fa-bullhorn text-2x"></i>
 		</span>
 	</div>
-	<div class="col-sm-3" style="cursor: pointer;" ng-click="nextPart('home.main.addCourse.step2')">
-		<span class="tl-instance w-lg hidden-xs pull-left" ng-class="{'tl-active':currentState=='home.main.addCourse.step2'}">
-			<i class="fa fa-clock-o text-2x"></i>
+	<div class="col-xs-4" style="cursor: pointer;" ng-click="nextPart('home.main.addCourse.step2')">
+		<span class="tl-instance  hidden-xs w-lg p-md " ng-class="{'bg-baabtra-green':currentState=='home.main.addCourse.step2'}">
+			<i class="fa fa-clock-o text-2x "></i>
 			<span>Duration & Fee Settings</span>	
 		</span>
-		<span class="tl-instance visible-xs" ng-class="{'tl-active':currentState=='home.main.addCourse.step2'}">
+		<span class="tl-instance w-xs p-md visible-xs" ng-class="{'bg-baabtra-green':currentState=='home.main.addCourse.step2'}">
 			<i class="fa fa-clock-o text-2x"></i>
 		</span>
 	</div>
-<!-- 	<div class="col-sm-3" style="cursor: pointer;" ng-click="nextPart('home.main.addCourse.step3')">
-		<span class="tl-instance w hidden-xs" ng-class="{'tl-active':currentState=='home.main.addCourse.step3'}">
-			<i class="fa fa-money text-2x"></i>	
-			<span>Fee Settings</span>
-		</span>
-		<span class="tl-instance visible-xs" ng-class="{'tl-active':currentState=='home.main.addCourse.step3'}">
-			<i class="fa fa-money text-2x"></i>	
-		</span>
-	</div> -->
-	<div class="col-sm-3" style="cursor: pointer;" ng-click="nextPart('home.main.addCourse.step3')">
-		<span class="tl-instance w-lg hidden-xs pull-left" ng-class="{'tl-active':currentState=='home.main.addCourse.step3'}">
-			<i class="fa fa-puzzle-piece text-2x"></i>
+	<div class="col-xs-4" style="cursor: pointer;" ng-click="nextPart('home.main.addCourse.step3')">
+		<span class="tl-instance  hidden-xs w-lg p-md " ng-class="{'bg-gold-dark':currentState=='home.main.addCourse.step3'}">
+			<i class="fa fa-puzzle-piece text-2x "></i>
 			<span>Design Course</span>	
 		</span>
-		<span class="tl-instance visible-xs" ng-class="{'tl-active':currentState=='home.main.addCourse.step4'}">
+		<span class="tl-instance w-xs p-md visible-xs" ng-class="{'bg-gold-dark':currentState=='home.main.addCourse.step3'}">
 			<i class="fa fa-puzzle-piece text-2x"></i>
 		</span>
 	</div>

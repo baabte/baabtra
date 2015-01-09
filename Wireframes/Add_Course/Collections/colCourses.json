@@ -101,7 +101,8 @@
     }
   },
   "courseTimeline": {
-    "Elem1": {
+    <timeInMins>:{
+     "Elem1": {
       "id": "",
       "Name": "",
       "startDate": "",
@@ -110,5 +111,6 @@
       "Reviewer": "",
       "details": {}
     }
+  }
   }
 }
