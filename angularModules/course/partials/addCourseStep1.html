@@ -122,7 +122,7 @@
 
       <!-- course image -->
        <div class="form-group col-sm-6 no-padding" >
-        <input f-max-size="500" type="file" id="exampleInputFile" ng-file-select="onFileSelect($files,imageSrc)" ng-file-select ng-model="courseImg" ng-file-change="fileSelected($files, $event)" ng-multiple="false" accept="image/*" resetOnClick="true" data-placement="top" data-html="true" data-container="body"  bs-tooltip="errTooltip">
+        <input f-max-size="100" type="file" id="exampleInputFile" ng-file-select="onFileSelect($files,imageSrc)" ng-file-select ng-model="courseImg" ng-file-change="fileSelected($files, $event)" ng-multiple="false" accept="image/*" resetOnClick="true" data-placement="top" data-html="true" data-container="body"  bs-tooltip="errTooltip">
         <em ng-hide="imageSrc">Please select an image to represent the course</em>
         <img class="img-responsive img-thumbnail m-xs" ng-src="{{imageSrc}}" />
         
@@ -138,7 +138,7 @@
 <div class="row">
   <div class="col-xs-12 m-b">
     <footer class="text-right">
-     <button type="submit" class="btn btn-info" ng-disabled="generalInfo.$invalid" disabled="disabled" ng-click="completeStep1(course);" >Next</button>
+     <button type="submit" class="btn btn-info" ng-disabled="acGenInfo.$invalid || !valid" disabled="disabled" ng-click="completeStep1(course);" >Next</button>
     </footer>   
   </div>
 </div>

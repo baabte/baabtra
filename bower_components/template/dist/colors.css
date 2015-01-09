@@ -73,6 +73,7 @@ color: white !important;
 
 .bg-baabtra{
   background: #045067!important;
+  color:#fff!important;
 }
 
 .bg-cadetblue {
@@ -104,6 +105,31 @@ color: white !important;
 	color: #fff !important;
 }
 
+.b-inverse-lite{
+	border: 2px solid #FD95EC;
+}
+
+.text-inverse{
+	color: #9c27b0!important;
+}
+
+
+.bg-baabtra-green{
+  background-color: #04B45F;
+  color: #fff;
+}
+
+
+.text-baabtra-green{
+  color: #04B45F!important;
+}
+
+.bg-hover-green-line:hover{
+	border-left: 4px solid  #04B45F!important;
+}
+.bg-hover-green-line{
+	border-left: 4px solid  #fff!important;
+}
 /*em colors*/
 em{
   color:#FA8258!important;

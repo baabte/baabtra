@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('courseTimeline',['$state', function($state) {
+angular.module('baabtra').directive('courseTimeline',['$state','$rootScope', function($state,$rootScope) {
 	return {
 		restrict: 'E', // to use as an element . Use 'A' to use as an attribute
 		replace: true,
@@ -13,6 +13,11 @@ angular.module('baabtra').directive('courseTimeline',['$state', function($state)
 		link: function(scope, element, attrs, fn) {
 			//setting selected duration type as first object
 			scope.selectedDuration="1";
+
+			//These are kept in rootscope as these are to be availble throughout the application
+			$rootScope.valid=true;
+			$rootScope.errTooltip = "Please choose an image to be shown for the course";
+
 
 			//saving current state for loading callback functions accordingly - lijin
 			scope.currentState=$state.current.name.split('.');
