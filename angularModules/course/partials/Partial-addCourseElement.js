@@ -56,6 +56,8 @@ addCourseElementService.FnGetExitCriteria($scope);
 		delete $scope.courseElement.menuIcon;
 		$scope.courseElement.courseElementData.menuDisplayName=$scope.courseElement.menuDisplayName;
 		delete $scope.courseElement.menuDisplayName;
+		$scope.courseElement.courseElementData.courseElementModel=$scope.courseElement.courseElementModel;
+		delete $scope.courseElement.courseElementModel;
 		$scope.courseElement.courseElementData.courseElementTemplate=$scope.courseElement.schema;
 		delete $scope.courseElement.schema;
 		$scope.courseElement.courseElementData.exitCriteria={};
@@ -86,6 +88,7 @@ $scope.courseElementConfig	= function(courseElementEdit){
 	$scope.courseElement.Name=courseElementEdit.Name;
 	$scope.courseElement.menuIcon=courseElementEdit.Icon;
 	$scope.courseElement.menuDisplayName=courseElementEdit.menuDisplayName;
+	$scope.courseElement.courseElementModel=courseElementEdit.courseElementModel;	
 	$scope.courseElement.schema=courseElementEdit.courseElementTemplate;
 	$scope.courseElement._id=courseElementEdit._id.$oid;
 	// console.log(courseElementEdit.exitCriteria);
@@ -96,7 +99,8 @@ $scope.courseElementConfig	= function(courseElementEdit){
    $scope.exitCriteria.exitCriteriaConfig=courseElementEdit.exitCriteria[key].criteriaForm;
    $scope.courseElement.exitCriteria.config=courseElementEdit.exitCriteria[key].criteriaValue;
    $scope.exitCriteria.Name=key;
-  });}
+  });
+	}
 // console.log($scope.exitCriteria);
 
 };

@@ -6,20 +6,22 @@
   <div class=" form-group m-h-n clearfix">
   	
     <div class="form-group p-xs">
-            <input type="text" class="form-control ng-pristine ng-valid" ng-model="formData.DOJ" data-date-format="dd-MM-yyyy"  data-max-date="" name="DOJ" placeholder="Date of Joining" bs-datepicker="" autocomplete="off" xt-validate required>
+            <input type="text" class="form-control ng-pristine ng-valid" ng-model="formData.officeAdmin.doj" data-date-format="dd-MM-yyyy"  data-max-date="" name="doj" placeholder="Date of Joining" bs-datepicker="" autocomplete="off" xt-validate required>
             
   </div>
 
   	<div class="form-group p-xs">
-            <input type="text" class="form-control"   placeholder="Branch" name="branch" ng-model="formData.branch " xt-validate required>
+            <!-- <input type="text" class="form-control"   placeholder="Branch" name="branch" ng-model="formData.branch " xt-validate required> -->
+              <label for="b"ranch class="control-label"><small>Select Branch</small></label>        
+            <hierarchical-selector  ng-model="formData.officeAdmin.branchDetails" data="branchDetails" multi-select="false" class="am-fade" on-selection-changed="formData.branchDetails = items[0]"></hierarchical-selector>
   </div>
-  
+  {{formData.branchDetails}}
   <div class="form-group p-xs">
-            <input type="text" class="form-control"   placeholder="Course" name="course" ng-model="formData.course" xt-validate required>
+            <input type="text" class="form-control"   placeholder="Course" name="course" ng-model="formData.officeAdmin.course" xt-validate required>
   </div>
 
   <div class="form-group p-xs">
-            <input type="text" class="form-control"   placeholder="Comment" name="comment" ng-model="formData.comment" xt-validate >
+            <input type="text" class="form-control"   placeholder="Comment" name="comment" ng-model="formData.officeAdmin.comment" xt-validate >
 
 </div>
   

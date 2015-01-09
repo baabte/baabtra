@@ -3,17 +3,11 @@
     <div class="font-bold" > 
       Contact Info<hr>
   </div>
-    <div class="form-group" ng-class="{'has-error': datepickerForm.date2.$invalid}">
-        <!-- <label class="control-label">Date of Birth</label> -->
-        
-        <input type="text" class="form-control ng-pristine ng-valid" ng-model="formData.dob" placement="bottom-right" data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true" data-min-date="02/10/86" data-max-date="today" placeholder="Enter your Birthday (dd-mm-yyyy)" name="date2" bs-datepicker="" autocomplete="off" xt-validate required> 
-        <!-- {{formData.dob}} -->
- </div>
-
+    
 
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate msg-pattern="Please enter valid phone number" placeholder="Contact No" ng-pattern="NumberPattern" name="phone" ng-model="formData.phone" xt-validate required>
+   <input type="text" class="form-control" xt-validate msg-pattern="Please enter valid phone number" placeholder="Contact No" ng-pattern="NumberPattern" name="phone" ng-model="formData.contactInfo.phone" xt-validate required>
 </div>
 
                         <div class="form-group m-h-n clearfix">
@@ -40,12 +34,12 @@
                   
                         <div class="col-sm-6">
                         	<!-- <label for="zipCode" class="control-label">ZipCode*</label> -->
-                            <input type="text" ng-model="formData.zipCode" class="form-control" id="definput" xt-validate msg-pattern="Please enter valid zipcode" placeholder="Zip Code" name="zipCode" ng-pattern="NumberPattern" required>
+                            <input type="text" ng-model="formData.contactInfo.zipCode" class="form-control" id="definput" xt-validate msg-pattern="Please enter valid zipcode" placeholder="Zip Code" name="zipCode" ng-pattern="NumberPattern" required>
                         </div>
                     </div>
                     <div class="form-group">    
                         <!-- <label for="Address" class="control-label">Address*</label> -->
-                        <textarea class="form-control" name="Address" ng-model="formData.Address"  rows="5" placeholder="Address" required></textarea>
+                        <textarea class="form-control" name="Address" ng-model="formData.contactInfo.Address"  rows="5" placeholder="Address" required></textarea>
                     </div> 
 </div>
 <div class="col-sm-6">
@@ -54,23 +48,23 @@
   </div>
   <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="Qualification" name="qualification" ng-model="formData.qualification" xt-validate required>
+   <input type="text" class="form-control" xt-validate  placeholder="Qualification" name="qualification" ng-model="formData.academicDetails.qualification" xt-validate required>
 </div>
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="Specialization" name="specialization" ng-model="formData.specialization" xt-validate required>
+   <input type="text" class="form-control" xt-validate  placeholder="Specialization" name="specialization" ng-model="formData.academicDetails.specialization" xt-validate required>
 </div>
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="University" name="university" ng-model="formData.university" xt-validate required>
+   <input type="text" class="form-control" xt-validate  placeholder="University" name="university" ng-model="formData.academicDetails.university" xt-validate required>
 </div>
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="Pass out" name="passOut" ng-model="formData.passOut" xt-validate required>
+   <input type="text" class="form-control" xt-validate  placeholder="Pass out" name="passOut" ng-model="formData.academicDetails.passOut" maxlength='4' xt-validate required>
 </div>
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="Percentage" name="percentage" ng-model="formData.percentage" xt-validate required>
+   <input type="text" class="form-control" xt-validate  placeholder="Percentage" name="percentage" ng-model="formData.academicDetails.percentage" xt-validate required>
 </div>
 
 </div>
