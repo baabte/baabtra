@@ -1,33 +1,84 @@
 db.system.js.save(
-	{
-		_id:"fnLogin",
-		value:function(data)
-		{
-		   
+ 	{
+ 		_id:"fnLogin",
+ 		value:function(data)
+ 		{			
 			ReturnData={};
-			user_valid_or_not=db.clnUserLogin.find(data).limit(1).count();
-			if(user_valid_or_not==0)
-			{
-				ReturnData.result="false";
-				return ReturnData;
+			if(data.from_where=="direct"){
+				user_valid_or_not=db.clnUserLogin.find(data.loginCredential).limit(1).count();
+				if(user_valid_or_not==0)
+				{
+					ReturnData.result="false";
+					return ReturnData;
+                                        
+				}
+				else
+				{
+			                return GetAuthUserData(data.loginCredential);
+				}
 			}
-			else
-			{
-		                login_data=db.clnUserLogin.find(data,{"_id":1,"roleMappings":1,"lastLoggedRoleMapping":1}).limit(1).toArray();
-		                role_id=db.clnUserRoleMapping.find({"_id":login_data[0].lastLoggedRoleMapping}).toArray();
-				ReturnData.ActiveUserDataId=new ObjectId();
-		       			    var user={};
-					    user._id=ReturnData.ActiveUserDataId;
-					    user.userLoginId=login_data[0]._id;
-					    user.roleMappingId=login_data[0].lastLoggedRoleMapping;
-					    user.roleMappingObj=role_id[0];
-		                            ReturnData.ActiveUserData=user;
-					    ReturnData.result="true";
-		                            ReturnData.userLoginId=login_data[0]._id.valueOf();
-					    db.clnActiveUserData.insert(user);
-		                            LogUserData=db.clnUserLogin.find({"_id":ObjectId(ReturnData.userLoginId)}).limit(1).toArray();
-		                            ReturnData.ActiveUserData.username=LogUserData[0].userName;
-					    return ReturnData;
+			else if(data.from_where=="facebook"){
+				//user_id_exists_or_not=db.clnUserLogin.find({ socialProfiles: { $elemMatch:data.loginCredential} }).limit(1).count();
+                                user_id_exists_or_not=db.clnUserLogin.find({$and:[{ socialProfiles: { $elemMatch:data.loginCredential} },{socialProfiles:{$elemMatch:{"mediaName":"facebook"}}}]}).limit(1).count();
+				if(user_id_exists_or_not==0)
+				{
+					id=db.clnUserLogin.find({"userName":data.socialData.email},{_id:1}).map(function(item){ return item._id; });
+                                        if(id[0]){
+                                            db.clnUserLogin.update({_id:id[0]},{ $push: { socialProfiles: data.socialData } });
+                                            return GetAuthUserDataThroughlinkedIn(data.loginCredential);
+                                         }
+                                        else{
+                                                db.clnUserLogin.save({"userName":data.socialData.email,	"roleMappings" : [
+                                            ObjectId("5451e0636de0557a2e1a3221")
+                                        ],
+                                        "lastLoggedRoleMapping" : ObjectId("5451e0636de0557a2e1a3221"),
+                                        "createdDate" : Date(),
+                                        "updatedDate" : Date(),
+                                        "crmId" : "",
+                                        "urmId" : "",
+                                        "activeFlag" : 1 ,
+                                        "socialProfiles":[data.socialData]});
+                                        return GetAuthUserDataThroughFacebook(data.loginCredential);
+                                         }
+					
+				}
+				else
+				{
+			                return GetAuthUserDataThroughFacebook(data.loginCredential);
+				}
+			}
+			else if(data.from_where=="linkedIn"){
+				 user_id_exists_or_not=db.clnUserLogin.find({$and:[{ socialProfiles: { $elemMatch:data.loginCredential} },{socialProfiles:{$elemMatch:{"mediaName":"linkedIn"}}}]}).limit(1).count();
+				 if(user_id_exists_or_not==0)
+				 {
+				 	id=db.clnUserLogin.find({"userName":data.socialData.emailAddress},{_id:1}).map(function(item){ return item._id; });
+                           
+                                        if(id[0]){
+                                            
+                                            db.clnUserLogin.update({_id:id[0]},{ $push: { socialProfiles: data.socialData } });
+                                            return GetAuthUserDataThroughlinkedIn(data.loginCredential);
+                                        }
+                                        else{ 
+                                           db.clnUserLogin.save({"userName":data.socialData.emailAddress,	"roleMappings" : [
+                                            ObjectId("5451e0636de0557a2e1a3221")
+                                         ],
+                                         "lastLoggedRoleMapping" : ObjectId("5451e0636de0557a2e1a3221"),
+                                         "createdDate" : Date(),
+                                         "updatedDate" : Date(),
+                                         "crmId" : "",
+                                         "urmId" : "",
+                                         "activeFlag" : 1 ,
+                                         "socialProfiles":[data.socialData]});
+                                         return GetAuthUserDataThroughlinkedIn(data.loginCredential); 
+                                           
+                                         }
+                                        
+	 }
+				 else
+				 {
+			                 return GetAuthUserDataThroughlinkedIn(data.loginCredential);
+				 }
+				
 			}
 
-	}});
+ 	}});

@@ -36,6 +36,10 @@
         'ui.select',
         'fg',
         'ui.bootstrap.contextMenu',
+        'ngFacebook',
+        'perfect_scrollbar',
+        'googleplus',
+        'ngLinkedIn',
         'perfect_scrollbar',
         'ngTagsInput',
         'ngQuill',
@@ -47,18 +51,29 @@
       .directive("ngFileSelect",['fileReader',function(fileReader){  //directive for file onload preview
 
  return {
-   //scope:true,
-   link: function($scope,el,attr,ctrls){
+   scope:true,
+   link: function($scope,el,attr,ctrls){   
+
+
+
      //console.log(ctrls);
      el.bind("change", function(e){
+     $scope.valid=true;
+     $scope.errTooltip = "Please choose an image to be shown for the course";
+
+      console.log($scope.$parent);
+
        $scope.file = (e.srcElement || e.target).files[0];
-       $scope.valid = true;
+       $scope.$parent.valid = true;
        $scope.validateFile();
 
-       if ($scope.valid) {
+       if ($scope.$parent.valid) {
           $scope.getFile();
+          $scope.errTooltip = "Please choose an image to be shown for the course";  
+              el.removeClass('bg-danger lt');     
        }
-       else{          
+       else{   
+
        }       
      });
 
@@ -69,7 +84,7 @@
       if (($scope.file.size) > parseInt(attr.fMaxSize)*1024) {         
              
               $scope.errTooltip = 'This exceeds the maximum file size limit of ' + attr.fMaxSize + 'Kb';
-              $scope.valid = false;
+              $scope.$parent.valid = false;   
               el.addClass('bg-danger lt');              
        }
 
@@ -79,8 +94,7 @@
       
        fileReader.readAsDataUrl($scope.file, $scope)
                      .then(function(result) {                     
-                         $scope.$parent.imageSrc = result;
-               console.log($scope.$parent.imageSrc);         
+                         $scope.$parent.imageSrc = result;       
         });
      };
    }
@@ -88,22 +102,7 @@
  };
  
  
-}])
-// Directive for validating file upload
-      .directive('checkFileSize',function(){        
-    return{
-        scope:true,
-        link: function(scope, elem, attr, ctrl) {
-            $(elem).bind('change', function() {
-            
-            console.log('before:' + scope.acGenInfo.courseImg.$invalid);
-              //checking the filesize              
-            
-          });
-
-        }
-    }
-});
+}]);
 
 
 }());

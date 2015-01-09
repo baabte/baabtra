@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('UserregistrationCtrl',['$scope','$filter','$rootScope','$state','commonService','userRegistrationService','companyRegistrationService','$alert',function($scope,$filter,$rootScope,$state,commonService,userRegistrationService,companyRegistrationService,$alert){
+angular.module('baabtra').controller('UserregistrationCtrl',['$scope','$filter','$rootScope','$state','commonService','userRegistrationService','companyRegistrationService','$alert','branchSrv','manageTreeStructureSrv',function($scope,$filter,$rootScope,$state,commonService,userRegistrationService,companyRegistrationService,$alert,branchSrv,manageTreeStructureSrv){
 
 
 	if(!$rootScope.userinfo){
@@ -11,11 +11,73 @@ if($rootScope.loggedIn===false){
 }
 $scope.currentState=$state.current.name;
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+branchSrv.fnLoadBranch($scope,'548bd227f94452e79f1a3867');
 $scope.tableData={};
 $scope.formData={};
-console.log($scope.formData);
+// $scope.formData.branchDetails={};
+// console.log($scope.formData);
+
+$scope.branchDetails =[];
+
+$scope.$watch('branches', function(newVal, oldVal){
+    if (!angular.equals($scope.branches,undefined)) {
+        $scope.data1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.branches,null),null);
+        $scope.branchDetails = angular.copy($scope.data1);
+        convertObjectName($scope.branchDetails, null);
+        // console.log($scope.branchDetails);
+        $scope.branchDetails=$scope.branchDetails[0].children;
+    }
+});
+
+var convertObjectName=function(menu,sub){
+              if(sub==null){
+                sub=0;
+              }
+              if(angular.equals(menu[sub],undefined)){
+                return 0;
+              }
+                
+              if(!angular.equals(menu[sub].childrenObj,undefined)){
+                menu[sub].name=menu[sub]._id;
+                menu[sub].id=menu[sub]._id;
+                menu[sub].$$hashKey=menu[sub]._id+sub;
+                delete menu[sub]._id;
+                delete menu[sub].createdDate;
+                delete menu[sub].parent;
+                delete menu[sub].crmId;
+                delete menu[sub].updatedDate;
+                delete menu[sub].urmId;
+                delete menu[sub].activeFlag;
+                if(!angular.equals(menu[sub].children,null)){
+                menu[sub].children=menu[sub].childrenObj;
+                }
+                else{
+                  menu[sub].children=[];
+                }
+              }
+              if(menu[sub].childrenObj.length){
+               convertObjectName(menu[sub].childrenObj,null);
+              }
+              convertObjectName(menu,++sub);
+            };
 
 
+$scope.onBranchSelectionChanged = function(items) {
+    
+    if (items) {
+      
+      $scope.formData.branchDetails=items;
+      // delete $scope.formData.branchDetails.children;
+      // delete $scope.formData.branchDetails.childrenObj;
+      // delete $scope.formData.branchDetails._hsmeta;
+
+      console.log($scope.formData.branchDetails);
+      console.log(items);
+
+      return $scope.formData.branchDetails;
+
+    }
+  };
 
 // $scope.professionalFilled=false;
 $scope.emailMsg='Not a valid email';          //error message for invalid email validation
@@ -27,16 +89,28 @@ $scope.existingEmail='';
 // $scope.animation="fadeInLeft";
 
 
-$scope.formData.DO=Date();
+
 // console.log($scope.formData);
-
-console.log($scope.formData.DOJ);
-
-console.log($scope);
-
-console.log($scope.formData);
 $scope.fnUserRegister =function (argument) {
-	console.log(argument);
+
+  console.log($scope.selection);
+  delete $scope.selection.country.States;
+  delete $scope.selection.state.Districts;
+
+  console.log($scope.selection);
+  // $scope.formData.contactInfo.country={};
+  // $scope.formData.contactInfo.state={};
+  // $scope.formData.contactInfo.district={};
+
+  // $scope.formData.contactInfo.country.fkcountryId=selection.country._id.$oid;
+  // $scope.formData.contactInfo.state.fkstateId=selection.state.sId.$oid;
+  // $scope.formData.contactInfo.district.fkdistrictId=selection.district.dId.$oid;
+
+
+	 console.log($scope.formData);
+   console.log($scope.proExperienceCollection);
+
+  console.log(argument);
 	// body...
 };
 
@@ -59,7 +133,7 @@ value.toDate = $filter('date')(value.toDate,'dd-MM-yyyy');
    
    $scope.tableData={};
   
-  console.log($scope.proExperienceCollection);
+  // console.log($scope.proExperienceCollection);
 
   };
 
@@ -79,7 +153,7 @@ value.toDate = $filter('date')(value.toDate,'dd-MM-yyyy');
 
 //function for user name validation
 $scope.userVal = function (e){
-     var userNameId=$scope.formData;
+     var userNameId=$scope.formData.personalInfo;
      // console.log(userNameId);
     companyRegistrationService.fnUserNameValid($scope,userNameId);
 };
@@ -141,7 +215,7 @@ $scope.fnGetCountryStateDistrictCallBack=function(result){
  $scope.fnUserCheckCallBack=function(result){
     
      if(result.userCheck===1){   //if the email id already registered
-       $scope.existingEmail=$scope.formData.eMail; //setting the existing email id to scope variable for validation.
+       $scope.existingEmail=$scope.formData.personalInfo.eMail; //setting the existing email id to scope variable for validation.
        $scope.notifications('Error!','UserName already in Use!','danger');
       }
       if(result.userCheck===0){ //if not matching existing registered email

@@ -56,10 +56,12 @@ addCourseElementService.FnGetExitCriteria($scope);
 		delete $scope.courseElement.menuIcon;
 		$scope.courseElement.courseElementData.menuDisplayName=$scope.courseElement.menuDisplayName;
 		delete $scope.courseElement.menuDisplayName;
+		$scope.courseElement.courseElementData.courseElementModel=$scope.courseElement.courseElementModel;
+		delete $scope.courseElement.courseElementModel;
 		$scope.courseElement.courseElementData.courseElementTemplate=$scope.courseElement.schema;
 		delete $scope.courseElement.schema;
 		$scope.courseElement.courseElementData.exitCriteria={};
-		if($scope.exitCriteria!==undefined){
+		if($scope.exitCriteria.length){
 		$scope.courseElement.courseElementData.exitCriteria[$scope.exitCriteria.Name]={};	
 		$scope.courseElement.courseElementData.exitCriteria[$scope.exitCriteria.Name].criteriaValue=$scope.courseElement.exitCriteria.config;
 		$scope.courseElement.courseElementData.exitCriteria[$scope.exitCriteria.Name].criteriaForm=$scope.exitCriteria.exitCriteriaConfig;
@@ -86,17 +88,19 @@ $scope.courseElementConfig	= function(courseElementEdit){
 	$scope.courseElement.Name=courseElementEdit.Name;
 	$scope.courseElement.menuIcon=courseElementEdit.Icon;
 	$scope.courseElement.menuDisplayName=courseElementEdit.menuDisplayName;
+	$scope.courseElement.courseElementModel=courseElementEdit.courseElementModel;	
 	$scope.courseElement.schema=courseElementEdit.courseElementTemplate;
 	$scope.courseElement._id=courseElementEdit._id.$oid;
 	// console.log(courseElementEdit.exitCriteria);
 
 	// $scope.exitCriteria.exitCriteriaConfig=courseElementEdit
-	if($scope.exitCriteria!==undefined){
+	if($scope.exitCriteria.length){
 	$.each(courseElementEdit.exitCriteria, function(key,val) {
    $scope.exitCriteria.exitCriteriaConfig=courseElementEdit.exitCriteria[key].criteriaForm;
    $scope.courseElement.exitCriteria.config=courseElementEdit.exitCriteria[key].criteriaValue;
    $scope.exitCriteria.Name=key;
-  });}
+  });
+	}
 // console.log($scope.exitCriteria);
 
 };
