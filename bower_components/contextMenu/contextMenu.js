@@ -6,7 +6,8 @@ angular.module('ui.bootstrap.contextMenu', [])
         if(options.length<1){
             return 0;
         }
-
+        
+        console.log(options.step2.courseElementlist);
         $(event.currentTarget).parent().parent().parent().parent().addClass('context');
         var $contextMenu = $('<div>');
         $contextMenu.addClass('dropdown clearfix');
@@ -19,29 +20,37 @@ angular.module('ui.bootstrap.contextMenu', [])
             left: (event.pageX-75) + 'px',
             top: (event.pageY/2.1)-130+'px'
         });
-        angular.forEach(options, function (item, i) {
-             var $headerA = $('<a>');
+        var $headerA = $('<span>');
              $headerA.text($scope.ddlBindObject[$scope.selectedDuration-1].name.replace('s','')+" "+$scope.$parent.tlpoint);
-             $headerA.addClass('font-bold m-h-xs p-l b-b b-b-dark text-success  b-b-2x col-xs-11');
-
+             $headerA.addClass('font-bold bg-cadetblue p-xs col-xs-12');
              $ul.append($headerA);
+        angular.forEach(options.step2.courseElementlist, function (item, i) {
             var $li = $('<li>');
-            if (item === null) {
+            if (angular.equals(item, null)) {
                 $li.addClass('divider');
-            } else {
-                $a = $('<a>');
+            }
+            else{
+                var $a = $('<a>');
+                $a.addClass('context-menu-icon');
                 $a.attr({ tabindex: '-1', href: '#' });
-                $a.text(typeof item[0] == 'string' ? item[0] : item[0].call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor));
-                $li.append($a);
+                var $i = $('<i>');
+                $i.addClass('fa text-lt text-lg pull-left m-r-xs '+item.Icon);
+                $a.append($i);
+                var $span = $('<span>');
+                $span.text(item.menuDisplayName);
+                $span.addClass('font-normal m-l');
+                $a.append($span);
                 $li.on('click', function ($event) {
                     $event.preventDefault();
                     clickedChiled=true;
                     $scope.$apply(function () {
                         $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
                         $contextMenu.remove();
-                        item[1].call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
+                        console.log(item);
+                        //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
                     });
                 });
+                $li.append($a)
             }
             $ul.append($li);
         });
@@ -74,14 +83,14 @@ angular.module('ui.bootstrap.contextMenu', [])
     var clickedChiled=false;
     return {scope:true,link:function ($scope, element, attrs) {
             element.on('click', function (event) {
-                    event.preventDefault();
+                 event.preventDefault();
     
                 setTimeout(function(){
                     if(!clickedChiled)
                     {
                                     $scope.$apply(function () {
-                                    var options = $scope.$eval(attrs.contextMenu);
-                                    if (options instanceof Array) {
+                                    var options = $scope.callbackFunctions;
+                                    if (options instanceof Object) {
                                         renderContextMenu($scope, event, options);
                                     } else {
                                         throw '"' + attrs.contextMenu + '" not an array';
@@ -90,7 +99,6 @@ angular.module('ui.bootstrap.contextMenu', [])
                     }
                     clickedChiled=false;
                 },100);
-                
             });
         }};
 }]);

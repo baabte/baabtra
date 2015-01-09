@@ -30,13 +30,14 @@ angular.module('baabtra').service('addCourseElementService',['$http','bbConfig',
 
    };
 
-   this.FnGetCourseElements=function($scope){
+   this.FnGetCourseElements=function($scope,courseElementNameVal){
     
     var result;
       $http({
            url: bbConfig.BWS+'GetCourseElements/',
            method: 'POST',
            withCredentials: false,
+           data:{courseElementName:courseElementNameVal},
            contentType:'application/json',
            dataType:'json',
            }).
@@ -44,7 +45,6 @@ angular.module('baabtra').service('addCourseElementService',['$http','bbConfig',
              
               $scope.courseElementlist=angular.fromJson(JSON.parse(data));
                 result='success';
-               
                
               }).
               error(function(data, status, headers, config) {

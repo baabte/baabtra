@@ -13,10 +13,9 @@
     "endsOn": ""
   },
   "exitPoints": {
-    "arcadeMode": "true",
-    "exitPointList": {
-      "exitPoint1": {
-        "timeLinePoint": "",
+    "exitPointList": [
+      "<timeinmins>":{
+	"arcadeMode": "true",
         "exitCriteria": {
           "criteria1": {
             "courseElementId": {
@@ -28,7 +27,7 @@
           }
         }
       }
-    }
+    ]
   },
   "Fees": {
     "free": "false",
@@ -56,8 +55,8 @@
   "Tags": [],
   "Domains" :[],
   "Delivery":{
-	"online": true,
-	"offline": false
+	"online": "true",
+	"offline": "false"
    },
   "extraDetails": {
     "Field1": {

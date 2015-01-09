@@ -5,7 +5,9 @@ angular.module('baabtra').directive('courseTimeline',['$state', function($state)
 		scope: {
 		totalDuration:"=totalDuration",
 		ddlBindObject:"=ddlBindObject",
-		callbackFunctions:"=callbackFunctions"
+		callbackFunctions:"=callbackFunctions",
+		syncData:"=syncData",
+		tlElements:"=tlElements"
 		},
 		templateUrl: 'angularModules/courseTimeline/directives/Directive-courseTimeline.html',
 		link: function(scope, element, attrs, fn) {
