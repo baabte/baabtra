@@ -1,0 +1,111 @@
+.bg-seagreen{
+	background-color: #0f9d58;
+	color: #fff;
+}
+
+.btn-inbox-blue{
+color: #4285f4 !important;
+}
+.btn-inbox-blue:hover{
+background-color: #4285f4 !important;
+color: white !important;
+}
+
+.btn-inbox-green{
+color: #558b2f !important;
+}
+.btn-inbox-green:hover{
+background-color: #558b2f !important;
+color: white !important;
+}
+
+.btn-inbox-orange{
+color: #f4511e !important;
+}
+
+.bg-inbox-orange{
+background-color: #f4511e;
+color: #fff !important;
+}
+
+.btn-inbox-orange:hover{
+background-color: #f4511e !important;
+color: white !important;
+}
+
+.btn-inbox-bluee{
+color: #00acc1 !important;
+}
+.btn-inbox-bluee:hover{
+background-color: #00acc1 !important;
+color: white !important;
+}
+
+.btn-baabtra-blue{
+color: #045067 !important;
+}
+.btn-baabtra-blue:hover{
+background-color: #045067 !important;
+color: white !important;
+}
+
+.btn-inbox-red{
+color: #db4437 !important;
+}
+.btn-inbox-red:hover{
+background-color: #db4437 !important;
+color: white !important;
+}
+
+.btn-inbox-inverse{
+color: #9c27b0 !important;
+}
+
+.bg-inbox-inverse{
+background-color: #9c27b0;
+color: #fff !important;
+}
+
+.btn-inbox-inverse:hover{
+background-color: #9c27b0 !important;
+color: white !important;
+}
+
+.bg-baabtra{
+  background: #045067!important;
+}
+
+.bg-cadetblue {
+  background-color: #4db6ac;
+  color: #fff;
+}
+
+
+
+
+.bg-chocolate{
+	background-color: #db4437;
+	color: #fff !important;
+}
+
+.bg-gold{
+	background-color: #fdd835;
+	color: #fff !important;
+}
+
+
+.bg-gold-dark{
+	background-color: #eca403;
+	color: #fff !important;
+}
+
+.bg-goldenrod{
+	background-color: #fbc02d;
+	color: #fff !important;
+}
+
+/*em colors*/
+em{
+  color:#FA8258!important;
+}
+

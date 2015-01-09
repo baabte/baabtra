@@ -1,8 +1,8 @@
-angular.module('baabtra').controller('AddcourseCtrl',['$scope','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','RoleMenuMappingSrv',function($scope,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,RoleMenuMappingSrv){
+angular.module('baabtra').controller('AddcourseCtrl',['$scope','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','RoleMenuMappingSrv','addCourseElementService',function($scope,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,RoleMenuMappingSrv,addCourseElementService){
 
 
 $scope.roleId=1;
-
+$scope.errTooltip = "Please choose an image to be shown for the course";
 $scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
 $scope.technologies={};//object to store selected technologies
 $scope.technologies.values = [];//object to store selected technologies
@@ -17,8 +17,11 @@ addCourseService.loadTechnologies($scope);
     					 {id: "3",name: "After The Course"}];
     $scope.selectedPaymentType="1";
 
-    $scope.courseDetails=[]; // for supressing errors lijin have commented this and you can uncomment below and
-    						 // remove this line. There is no use of this variable.
+    $rootScope.courseDetails={}; // for supressing errors lijin have commented this and you can uncomment below and
+    $scope.ExitPoints={
+      "arcadeMode": "true",
+      "exitPointList":{}}; // initializing exit point obj
+
 
 			
 $scope.totalCourseDuration=0; // course duration in minutes
@@ -66,12 +69,13 @@ $scope.$watch('totalCourseDuration',function(){
     }, true);
 
 
-	$scope.tlPopOver={};
-	$scope.tlPopOver.step3=[['Add Payment',function(arg){
-	}],null,['Add step3',function(arg){
-	}]];
-	$scope.tlPopOver.step2=[['Add Exit point',function(arg){
-    }]];
+	$scope.tlPopOver={};//obj for bulding context menu of timeline point
+	$scope.tlPopOver.step3=[['Add Payment',function(arg){}], null, ['Add step3',function(arg){}]];
+  $scope.tlPopOver.step2 = {};
+  addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Exit point");//calling course element function
+
+  
+
 $scope.currentState=$state.current.name;
 console.log($state.current.name);
 $scope.nextPart = function(state){
@@ -114,7 +118,6 @@ addCourseDomainSrv.FnLoadDomain($scope);
 branchSrv.fnLoadBranch($scope,'5457526122588a5db73e0b23');
 
 RoleMenuMappingSrv.FnGetRoles($scope,'54978cc57525614f6e3e710b',"","");
-
 
 // Global Declaration Of variables
 
@@ -220,7 +223,9 @@ $scope.completeStep1 = function(course){//created for build step1 object
                              Tags:Tags,
                              Domains:$scope.selectedDomains,
                              Delivery: $scope.course.Delivery,
-                             Availability:{"Branches":$scope.selectedBranches,"Roles":$scope.selectedRole}};
+                             Availability:{"Branches":$scope.selectedBranches,"Roles":$scope.selectedRole},
+                             exitPoints:$scope.ExitPoints
+                           };
     if (!angular.equals($rootScope.courseDetails.Name,undefined)) {
       $scope.currentState="home.main.addCourse.step2";
       $state.go('home.main.addCourse.step2');

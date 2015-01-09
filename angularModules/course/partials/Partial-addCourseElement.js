@@ -121,7 +121,7 @@ $scope.updateCourseElementsFetch = function(course_element_form){
 
 	course_element_form.$setPristine();
 	$scope.courseElement={};
-	addCourseElementService.FnGetCourseElements($scope);
+	addCourseElementService.FnGetCourseElements($scope,"");
 		
 };
 

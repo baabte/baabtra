@@ -1,12 +1,12 @@
 <!-- Outer Panel  -->
-<form name="generalInfo" class="form-validation ng-pristine ng-invalid ng-invalid-required">
-<div class="panel panel-default m-t p-md">
+<form profile="showAll" nv-file-drop xt-form name="acGenInfo" no-validate class="form-validation ng-pristine ng-invalid ng-invalid-required" role="form">
+<div class="panel panel-default m-t p-md p-v-xs">
   
   <!-- Top Header row -->
   <div class="row">
   
       <!-- Heading -->
-      <div class="bg-white m-h my-panel-heading b-b-2x">
+      <div class="bg-white p-sm bg-chocolate">
             <i class="glyphicon glyphicon-bullhorn text-1x inline"></i>
             <span class="text-1x font-bold">General Info</span>
       </div>
@@ -25,7 +25,8 @@
 
         <!-- course name -->
         <div class="form-group">
-              <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="course.courseName" required placeholder="Name of the course">
+              <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="course.courseName" name="courseName" xt-validate required placeholder="Name of the course">
+     
         </div>
 
         <div class="form-group" >
@@ -59,7 +60,7 @@
     <!-- Left Half .End -->
 
     <!-- Right half -->
-    <div class="col-xs-12 col-sm-6 m-t">
+    <div class="col-xs-12 col-sm-6 m-t panel">
 
       <!-- Course domains -->
       <hierarchical-selector  ng-model="course.domain" data="domains" multi-select="true" on-selection-changed="selectedItem2 = onDomainSelectionChanged(items)"></hierarchical-selector>
@@ -119,6 +120,14 @@
 
       <!-- Availability -->
 
+      <!-- course image -->
+       <div class="form-group col-sm-6 no-padding" >
+        <input f-max-size="500" type="file" id="exampleInputFile" ng-file-select="onFileSelect($files,imageSrc)" ng-file-select ng-model="courseImg" ng-file-change="fileSelected($files, $event)" ng-multiple="false" accept="image/*" resetOnClick="true" data-placement="top" data-html="true" data-container="body"  bs-tooltip="errTooltip">
+        <em ng-hide="imageSrc">Please select an image to represent the course</em>
+        <img class="img-responsive img-thumbnail m-xs" ng-src="{{imageSrc}}" />
+        
+      </div>
+
     </div>
     <!-- Right half .End -->
   </div>
@@ -127,7 +136,7 @@
 
 <!-- Footer row   -->
 <div class="row">
-  <div class="col-xs-12 m">
+  <div class="col-xs-12 m-b">
     <footer class="text-right">
      <button type="submit" class="btn btn-info" ng-disabled="generalInfo.$invalid" disabled="disabled" ng-click="completeStep1(course);" >Next</button>
     </footer>   

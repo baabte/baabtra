@@ -1,13 +1,13 @@
 .tl-start{
 
-	margin-top: -20pxpx;
+	margin-top:   2px;
 	margin-right: 5px;
 
 }
 .tl-end{
 
-	margin-top: -20pxpx;
-	margin-left: 7px;
+	margin-top: 0px;
+	margin-left: 0px;
 	display:inline-block;
 
 }
@@ -25,7 +25,8 @@
 }
 .tl-point:hover{
 	border-color: blue;
-	color: black;
+  overflow: visible;
+	/*color: black;*/
 
 }
 .tl-line{
@@ -159,5 +160,9 @@
   -moz-animation: gogoloader 1s infinite 0.01s;
   -ms-animation: gogoloader 1s infinite 0.01s;
   -o-animation: gogoloader 1s infinite 0.01s;
+}
+
+.context-menu-icon{
+  margin-left: -10px;
 }
 
