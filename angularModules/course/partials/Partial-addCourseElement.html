@@ -38,19 +38,19 @@
               <div class="font-bold m-t-lg" > 
                 Exit Criteria<hr>
             </div>   
-            <select  class="form-control " data-bv-field="sectors" ng-model="sel.exitCriteria" ng-options="exitPoint.Name for exitPoint in exitcriterialist"  >
+            <select  class="form-control " data-bv-field="sectors" ng-model="exitCriteria" ng-options="exitPoint.Name for exitPoint in exitcriterialist"  >
               <option value="">Select a Exit Criteria</option>
               </select>
               
-             <!-- <pre> {{sel.exitCriteria.exitCriteriaConfig}}</pre> -->
-
+             <!-- <pre> {{courseElement.exitCriteria.config;}}</pre>
+             <pre> {{exitCriteria.exitCriteriaConfig}}</pre>  -->
 
             </div>  
              <div class="col-md-7   form-group">
              <form  novalidate class="form">
               <div fg-form
                 fg-form-data="courseElement.exitCriteria.config"
-                fg-schema="sel.exitCriteria.exitCriteriaConfig">
+                fg-schema="exitCriteria.exitCriteriaConfig">
               </div>
              </form>
            </div>
@@ -58,19 +58,36 @@
       </div>
 
          
-      <div class="col-md-3 font-bold form-group">
+      <div class="col-md-4 font-bold form-group">
              <a ng-show="EditCourseElementText" ng-click="updateCourseElementsFetch(course_element_form)" >
             Edit Exsisting Course Element
             </a>
-            <a ng-show="AddCourseElementText" ng-click="AddCourseElementsText()" >
+            <a ng-show="AddCourseElementText" ng-click="AddCourseElementsText(course_element_form)" >
             Add New Course Element 
             </a>
 
+            <div ng-show="AddCourseElementText" class=" m-t-lg">
+              <div class="font-bold" > 
+                <!-- data-placement="top" data-type="info" data-html="true" data-animation="am-fade-and-scale" bs-tooltip="FeatureConfigTT" -->
+              Course Elements<hr>
+              </div>
+              <div class=" list-group  bg-inherit">
+              <div class="animated flipInX">
+              <div  class="list-group-item" ng-repeat="courseElementSel in courseElementlist" >
+                <!-- ng-repeat="courseElementSel in courseElementlist" -->
+                <span class="pull-right text-muted"><i ng-click="courseElementConfig(courseElementSel)" class=" fa fa-edit"></i> <i ng-click="deleteCourseElement(courseElementSel)" class="glyphicon glyphicon-trash"></i></span>
+                {{courseElementSel.Name}}
+              </div>
+              </div>
+            </div>
+
+          </div>
+
       </div>  
 
-       
-        {{courseElement.exitCriteria.config}}
 
+       
+        
 
 
           
@@ -79,7 +96,7 @@
              
              <button ng-show="courseElementSavebtn" class="btn btn-info pull-right" ng-click="saveCourseElement(course_element_form)" ng-disabled="course_element_form.$invalid||courseElement.schema.fields[0]==undefined||(sel.exitCriteria.exitCriteriaConfig!=undefined&&courseElement.exitCriteria.config==undefined)">Save Course Element</button>
 
-             <button ng-show="courseElementUpdatebtn" class="btn btn-info pull-right" ng-click="updateCourseElement(course_element_form)" ng-disabled="course_element_form.$invalid||courseElement.schema.fields[0]==undefined||(sel.exitCriteria.exitCriteriaConfig!=undefined&&courseElement.exitCriteria.config==undefined)">Update Course Element</button>
+             <button ng-show="courseElementUpdatebtn" class="btn btn-info pull-right" ng-click="saveCourseElement(course_element_form)" ng-disabled="course_element_form.$invalid||courseElement.schema.fields[0]==undefined||(sel.exitCriteria.exitCriteriaConfig!=undefined&&courseElement.exitCriteria.config==undefined)">Update Course Element</button>
 
 </div>
 

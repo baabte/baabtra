@@ -52,9 +52,18 @@ angular.module('baabtra')
        firstScriptElement.parentNode.insertBefore(facebookJS, firstScriptElement);
    }())
   })
+  .config(['GooglePlusProvider', function(GooglePlusProvider) {
+     GooglePlusProvider.init({
+        clientId: '786999352920-ljt333v6ovntc07buapllu52ni90tnqs.apps.googleusercontent.com',
+        apiKey: 'AIzaSyCkYB9ICwEhO6gCUQLm5LUe75lj7he1bxo'
+     })
+  }])
+  .config(['$linkedInProvider',function($linkedInProvider) {
+   $linkedInProvider.set('appKey', '78jnfwsxzeqtdl').set('scope', "r_fullprofile r_network r_emailaddress").set('authorize', true);
+  }])
   .constant('bbConfig',{ //used for storing enviornment variables
-   // "BWS": "http://127.0.0.1:8000/",//local
-   "BWS": "http://server.mb-test.in/",//server-test
+   "BWS": "http://127.0.0.1:8000/",//local
+   // "BWS": "http://server.mb-test.in/",//server-test
 
  });
 

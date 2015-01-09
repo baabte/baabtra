@@ -1,8 +1,19 @@
-angular.module('baabtra').controller('UserBillingConfigCtrl',['$scope','userBillingConfigService','userFeatureConfigService','localStorageService','$location','$alert','$state','$modal','schemaForm', function ($scope,userBillingConfigService,userFeatureConfigService,localStorageService,$location,$alert,$state,$modal,schemaForm){
+angular.module('baabtra').controller('UserBillingConfigCtrl',['$scope','commonService','userBillingConfigService','userFeatureConfigService','$location','$alert','$state','$modal','schemaForm', function ($scope,commonService,userBillingConfigService,userFeatureConfigService,$location,$alert,$state,$modal,schemaForm){
 
- if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
-  $location.path('/');
-}  
+
+if(!$rootScope.userinfo){
+   commonService.GetUserCredentials($scope);
+   $rootScope.hide_when_root_empty=false;
+}
+
+if($rootScope.loggedIn==false){
+ $state.go('login');
+}
+
+
+console.log($rootScope.userinfo.ActiveUserData.roleMappingId.$oid);
+
+ var loggedusercrmid=loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 
 
 

@@ -1,27 +1,20 @@
-angular.module('baabtra').controller('UserFeatureConfigCtrl',['$scope','userFeatureConfigService','localStorageService','$location','$alert','$state','schemaForm',function ($scope,userFeatureConfigService,localStorageService,$location,$alert,$state,schemaForm){
-
-// 	 if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
-//   $location.path('/');
-// }
-// $scope.rm_id=$rootScope.userinfo.LogUserData.lastLoggedRoleMapping.$oid;//to be changed
-
- var loggedusercrmid;
-// //to get the rmid of the user 	
-if($rootScope.userinfo){
-    loggedusercrmid=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
-    // console.log(loggedusercrmid);
-
-    }
-$rootScope.$watch('userinfo',function(){
-  if($rootScope.userinfo){
-    loggedusercrmid=$rootScope.userinfo.lastLoggedRoleMapping.$oid;
-
-    }
-  
-});
+angular.module('baabtra').controller('UserFeatureConfigCtrl',['$scope','commonService','$rootScope','userFeatureConfigService','$location','$alert','$state','schemaForm',function ($scope,commonService,$rootScope,userFeatureConfigService,$location,$alert,$state,schemaForm){
 
 
-						
+if(!$rootScope.userinfo){
+   commonService.GetUserCredentials($scope);
+   $rootScope.hide_when_root_empty=false;
+}
+
+if($rootScope.loggedIn===false){
+ $state.go('login');
+}
+
+
+console.log($rootScope.userinfo.ActiveUserData.roleMappingId.$oid);
+
+ var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+				
 
 //to save the company id from the url
 $scope.companyId=$state.params.companyId;
@@ -33,7 +26,7 @@ var i;
 var flen;
 $scope.status={};
 $scope.Config={}; 
-$scope.Config.roleId=loginInfo.roleMappingObj[0].fkRoleId;
+$scope.Config.roleId==$rootScope.userinfo.ActiveUserData.roleMappingObj[0].fkRoleId;
 $scope.Config.companyId=$scope.companyId;
 $scope.Config.loggedusercrmid=loggedusercrmid;
 
@@ -80,11 +73,9 @@ $scope.fConfig = function(feature){
 	flen=$scope.featureValues.featureConfigs.length;
     i=0;
 	while(i<flen){
-		// console.log(feature._id.$oid)
-		// console.log($scope.featureValues.featureConfigs[i].featureId.$oid)
 		if (angular.equals(feature._id.$oid,$scope.featureValues.featureConfigs[i].featureId.$oid)) {
 			$scope.featuremodel=$scope.featureValues.featureConfigs[i];
-
+		
 		}
 		// $scope.featuremodel=
 		i++;

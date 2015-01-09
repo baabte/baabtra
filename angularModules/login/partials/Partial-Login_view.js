@@ -1,6 +1,6 @@
 //created by midhun sudhakar
 
-angular.module('baabtra').controller('LoginViewCtrl',['$scope','$state','LoginService','localStorageService','$rootScope','commonService','$facebook',function($scope,$state,LoginService,localStorageService,$rootScope,commonService,$facebook){
+angular.module('baabtra').controller('LoginViewCtrl',['$scope','$state','LoginService','localStorageService','$rootScope','commonService','$facebook','$modal', 'GooglePlus','$linkedIn',function($scope,$state,LoginService,localStorageService,$rootScope,commonService,$facebook,$modal,GooglePlus,$linkedIn){
 
 
 if(localStorageService.get('logDatas')){
@@ -29,9 +29,13 @@ $scope.facebook_login=function(){
 function refresh() {
     $facebook.api("/me").then( 
       function(response) {
-
-        $scope.facebook_login_data=response;
-        console.log($scope.facebook_login_data);
+         $scope.loginCredential={};
+         $scope.signinform.$setPristine();
+         $scope.loginCredential.id=response.id;
+         $scope.socialData=response;
+         $scope.socialData.mediaName="facebook";
+         $scope.from_where="facebook";
+         LoginService.fnloginService($scope);
       },
       function(err) {
         $scope.welcomeMsg = "Please log in";
@@ -40,14 +44,85 @@ function refresh() {
       });
   }
 
+// $scope.googleplus_login=function(){
+// 	 GooglePlus.login().then(function (authResult) {
+//             // console.log(authResult);
+//              GooglePlus.getUser().then(function (user) {
+//               console.log(user);
+//         }, function (err) {
+//             console.log(err);
+//         });
+        
+//          });
+
+//     };
+ $scope.linkedIn_login= function() {
+ 	;
+      $linkedIn.authorize().then(function(arg){
+      	$linkedIn.isAuthorized().then(function(status){
+      		if(status==true){
+      			$scope.getLinkedInData();
+      		}
+      	});
+      });
+      //$scope.linkedInLoginStatus=$linkedIn.authorize();
+      //console.log($scope.linkedInLoginStatus);
+      //$scope.getLinkedInData();
+  };
+$scope.getLinkedInData= function(){
+	$linkedIn.profile("~",["id","firstName","lastName","pictureUrl","publicProfileUrl","email-address","location","headline","phoneNumbers"],{scope:"r_fullprofile+r_emailaddress"}).then( 
+      function(response) {
+      	response=response.values[0];
+      	$scope.loginCredential={};
+      	$scope.signinform.$setPristine();
+      	$scope.loginCredential.id=response.id;
+      	$scope.socialData=response;
+      	$scope.socialData.mediaName="linkedIn";
+      	$scope.from_where="linkedIn";
+      	LoginService.fnloginService($scope);
+      });
+};
+
+// $scope.fake=function(){
+// 	var obj={
+//             "email" : "midhusudhakaran@gmail.com",
+//             "first_name" : "Midhun",
+//             "gender" : "male",
+//             "id" : "613953995381591",
+//             "last_name" : "Sudhakar",
+//             "link" : "https://www.facebook.com/app_scoped_user_id/613953995381591/",
+//             "locale" : "en_US",
+//             "name" : "Midhun Sudhakar",
+//             "timezone" : 5.5,
+//             "updated_time" : "2014-11-04T07:38:50+0000",
+//             "verified" : true
+//         };
+//          $scope.socialData=obj; 
+//          $scope.loginCredential={};
+//          $scope.signinform.$setPristine();
+//          $scope.loginCredential.FBemail=obj.FBemail;
+//          $scope.loginCredential.id=obj.id;
+//          $scope.from_where="facebook";
+//          LoginService.fnloginService($scope);
+
+// }
 // {email: "midhusudhakaran@gmail.com"first_name: "Midhun"gender: "male"id: "613953995381591"last_name: "Sudhakar"link: "https://www.facebook.com/app_scoped_user_id/613953995381591/"locale: "en_US"name: "Midhun Sudhakar"timezone: 5.5updated_time: "2014-11-04T07:38:50+0000"verified: true}
 
+
+// $modal({ scope: $scope,
+//               template: 'angularModules/login/partials/Partial-addSocialInfo.html',
+//               placement:'center',
+//               show: true});	
+
+
+	
    
 ///////////////
 
 $scope.fnCheckLogin=function(){//FnCheckLogin() is the functoin which is to be fired when user clickg the login button .
   $scope.progress=true;
   $scope.btnSignupText='Inprogress...'; //While login to show the inprogress status as value of button. 
+  $scope.from_where="direct";
   LoginService.fnloginService($scope);
 }; 
 
@@ -63,27 +138,42 @@ $scope.emailPattern = (function() {
 
  
 
-	$scope.loginSuccessCallback=function(data){
+$scope.loginSuccessCallback=function(data){
 		$scope.logData=angular.fromJson(JSON.parse(data));
-		if($scope.logData.result==='true') {
-	   	  var logdata=$scope.logData.ActiveUserDataId.$oid.concat($scope.logData.userLoginId);
-	  	  localStorageService.add('logDatas',logdata);
-	  	  $rootScope.userinfo=$scope.logData;//if login is ok put it in the login info variable.
-	  	  $rootScope.loggedIn=true;//if login is ok ,changin the variable in rootscope.
-		  $state.go('home.main');//routing to home after success login by user
-		  $scope.login_or_not='login Success'; 
-		}
-		else
-	    {
-	      $scope.progress=false; //setting button enable
-	      $scope.btnSignupText='Sign in'; //re setting the value of nutton to signup
-	      $scope.loginCredential={};
-	      $scope.signinform.$setPristine();
-	      $scope.Error_msg=true; 
-	      $scope.login_error="incorrect Username or Password";   
-	      $scope.login_frequency++;  
+		if($scope.logData.add_fb){
+			if($scope.logData.add_fb=="facebook"){
+				$scope.socialSiteName="facebook";
+			$modal({ scope: $scope,
+              template: 'angularModules/login/partials/Partial-addSocialInfo.html',
+              placement:'center',
+              show: true});	
+			}
+
+		}else{
+
+
+				if($scope.logData.result==='true') {
+			   	  var logdata=$scope.logData.ActiveUserDataId.$oid.concat($scope.logData.userLoginId);
+			  	  localStorageService.add('logDatas',logdata);
+			  	  $rootScope.userinfo=$scope.logData;//if login is ok put it in the login info variable.
+			  	  $rootScope.loggedIn=true;//if login is ok ,changin the variable in rootscope.
+				  $state.go('home.main');//routing to home after success login by user
+				  $scope.login_or_not='login Success'; 
+				}
+				else
+			    {
+			      $scope.progress=false; //setting button enable
+			      $scope.btnSignupText='Sign in'; //re setting the value of nutton to signup
+			      $scope.loginCredential={};
+			      $scope.signinform.$setPristine();
+			      $scope.Error_msg=true; 
+			      $scope.login_error="incorrect Username or Password";   
+			      $scope.login_frequency++;  
+			    }
 	    }
 	}; 
+
+
 
 $scope.Show_hide_val_msg=function(){
 
@@ -93,5 +183,13 @@ $scope.Show_hide_val_msg=function(){
 	}
 };
 
+
+
+
+
+// linkein:78jnfwsxzeqtdl
+
 	
 }]);
+
+

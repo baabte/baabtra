@@ -36,7 +36,10 @@
         'ui.select',
         'fg',
         'ui.bootstrap.contextMenu',
-        'ngFacebook'
+        'ngFacebook',
+        'perfect_scrollbar',
+        'googleplus',
+        'ngLinkedIn'
 
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';
