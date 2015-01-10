@@ -58,8 +58,6 @@
 
      //console.log(ctrls);
      el.bind("change", function(e){
-     $scope.valid=true;
-     $scope.errTooltip = "Please choose an image to be shown for the course";
 
       console.log($scope.$parent);
 

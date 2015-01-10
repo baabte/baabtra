@@ -7,12 +7,18 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope', fun
 		ddlBindObject:"=ddlBindObject",
 		callbackFunctions:"=callbackFunctions",
 		syncData:"=syncData",
-		tlElements:"=tlElements"
+		tlElements:"=tlElements",
+		courseId:"=courseId",
+		errTooltip:"=errTooltip",
+		valid:"=valid"
 		},
 		templateUrl: 'angularModules/courseTimeline/directives/Directive-courseTimeline.html',
 		link: function(scope, element, attrs, fn) {
 			//setting selected duration type as first object
 			scope.selectedDuration="1";
+
+			scope.formData=new Object();//used to save datas from timeline
+
 
 			//These are kept in rootscope as these are to be availble throughout the application
 			$rootScope.valid=true;

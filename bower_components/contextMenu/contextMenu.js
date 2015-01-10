@@ -1,16 +1,16 @@
 angular.module('ui.bootstrap.contextMenu', [])
 
-.directive('contextMenu', ['$parse','$state','$aside','$templateCache',function ($parse,$state,$aside,$templateCache) {
+.directive('contextMenu', ['$parse','$state','$aside','$templateCache','addCourseService',function ($parse,$state,$aside,$templateCache,addCourseService) {
     var renderContextMenu = function ($scope, event, options) {
         if (!$) { var $ = angular.element; }
         if(options.length<1){
             return 0;
         }
-        console.log($scope.$parent.syncData);
+        // taking current state for loading context menu
         var state=$state.current.name.split('.');
         state=state[state.length-1];
         
-        console.log(options[state].courseElementlist);
+        //adding a class to the container of context menu
         $(event.currentTarget).parent().parent().parent().parent().addClass('context');
         var $contextMenu = $('<div>');
         $contextMenu.addClass('dropdown clearfix');
@@ -24,10 +24,12 @@ angular.module('ui.bootstrap.contextMenu', [])
             left: (event.pageX-75) + 'px',
             top: (event.pageY/2.1)-130+'px'
         });
+        //creating a header for context menu
         var $headerA = $('<span>');
              $headerA.text($scope.ddlBindObject[$scope.selectedDuration-1].name.replace('s','')+" "+$scope.$parent.tlpoint);
              $headerA.addClass('font-bold '+options[state].colorClass+' p-xs col-xs-12');
              $ul.append($headerA);
+            //creating context menu elements
         angular.forEach(options[state].courseElementlist, function (item, i) {
             var $li = $('<li>');
             if (angular.equals(item, null)) {
@@ -46,11 +48,16 @@ angular.module('ui.bootstrap.contextMenu', [])
                 $a.append($span);
                 $li.on('click', function ($event) {
                     $event.preventDefault();
+                    $scope.$parent.formData[$scope.instance]=new Object();//used to save datas from timeline
+                    $scope.$parent.formData[$scope.instance][item.Name]=new Object();
+                    //console.log($scope.$parent.formData);
                     clickedChiled=true;
                     $scope.$apply(function () {
                         $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
                         $contextMenu.remove();
-                        console.log($scope);
+                        $scope.item=item;
+                        //taking template for form builder to take required inputs of 
+                        //selected context menu
                         $scope.itemTemplate=item.courseElementTemplate;
                         $templateCache.put('course-element-popup.html','<div style="padding: 0px;" class="aside col-xs-6 m-h-n b-l" role="dialog">'
     +'<div class="box">'
@@ -62,9 +69,9 @@ angular.module('ui.bootstrap.contextMenu', [])
     +'<div class="box-row">'
       +'<div class="box-cell m-t">'
         +'<div class="box-inner col-xs-12">'
-          +'<form novalidate xt-form class="form" name="courseElement">'
-           +'<div fg-form fg-form-data="myFormData" form-data = "formData" fg-schema="itemTemplate"> </div>{{courseElement.$invalid}} : valid: {{$scope}} :TOOLTIP  : {{$scope.errTooltip}}'
-           +'<button type="submit" ng-click="" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !valid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
+          +'<form novalidate xt-form class="form" name="courseElement">{{valid}}:{{errTooltip}}'
+           +'<div fg-form fg-form-data="myFormData" form-data="$parent.formData.'+$scope.instance+'.'+item.Name+'" fg-schema="itemTemplate"> </div>'
+           +'<button type="submit" ng-click="saveMyFormData()" style="color:#fff!important;" ng-disabled = "courseElement.$invalid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
           +'</form>'
 +'</div></div></div></div></div>');
  $aside({scope: $scope, template:'course-element-popup.html', html:true});
@@ -103,6 +110,24 @@ angular.module('ui.bootstrap.contextMenu', [])
     };
     var clickedChiled=false;
     return {scope:true,link:function ($scope, element, attrs) {
+        $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor;
+        
+
+
+        //function for triggering when save button in aside 
+        $scope.saveMyFormData = function () {
+            //var courseId = '54b0d0cc8031c352fbf03e74';//For testing 
+            
+            var courseObj={};
+            courseObj.courseTimeline={};
+            courseObj.key=$scope.instance+'.'+$scope.item.Name;
+            courseObj.Name=$scope.item.Name;
+            courseObj[courseObj.key]=$scope.$parent.formData[$scope.instance][$scope.item.Name];
+            console.log($scope.$parent.courseId);
+
+           addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);
+
+        }
             element.on('click', function (event) {
                  event.preventDefault();
     

@@ -1343,7 +1343,9 @@ fg.directive('fgForm', ["fgFormCompileFn", function(fgFormCompileFn) {
     restrict: 'AE',
     require: ['^?form', 'fgForm', '^fgSchema'],
     controller: 'fgFormController',
-    scope: {formData:"="},
+    scope: {formData:"=",
+    errTooltip:"=errTooltip",
+    valid:"=valid"},
     compile: fgFormCompileFn
   };
 }]).factory('fgFormLinkFn', function() {
