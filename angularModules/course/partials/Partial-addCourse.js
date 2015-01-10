@@ -2,6 +2,9 @@ angular.module('baabtra').controller('AddcourseCtrl',['$scope','$rootScope','$ht
 
 $scope.roleId=1;
 
+     $scope.valid=true;
+     $scope.errTooltip = "Please choose an image to be shown for the course";
+
 $scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
 $scope.technologies={};//object to store selected technologies
 $scope.technologies.values = [];//object to store selected technologies
@@ -69,7 +72,7 @@ $scope.$watch('totalCourseDuration',function(){
 	$scope.tlPopOver={};//obj for bulding context menu of timeline point
 	$scope.tlPopOver.step3={colorClass:'bg-gold-dark'};
   $scope.tlPopOver.step2 = {colorClass:'bg-baabtra-green'};
-  addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Payment checkpoint");//calling course element function
+  addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Payment_checkpoint");//calling course element function
   addCourseElementService.FnGetCourseElements($scope.tlPopOver.step3,"");//calling course element function
 
   
@@ -227,7 +230,7 @@ $scope.completeStep1 = function(course){//created for build step1 object
 console.log($rootScope.courseDetails);
 
     if (!angular.equals($rootScope.courseDetails.Name,undefined)) {
-      addCourseService.saveCourseObject($rootScope);
+      addCourseService.saveCourseObject($scope, $rootScope.courseDetails, "", "");
       $scope.currentState="home.main.addCourse.step2";
       $state.go('home.main.addCourse.step2');
     };

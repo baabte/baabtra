@@ -49,12 +49,13 @@ angular.module('ui.bootstrap.contextMenu', [])
                 $li.on('click', function ($event) {
                     $event.preventDefault();
                     $scope.$parent.formData[$scope.instance]=new Object();//used to save datas from timeline
-                    $scope.$parent.formData[$scope.instance][item.courseElementTemplate.fields[0].name]=new Object();
+                    $scope.$parent.formData[$scope.instance][item.Name]=new Object();
                     //console.log($scope.$parent.formData);
                     clickedChiled=true;
                     $scope.$apply(function () {
                         $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
                         $contextMenu.remove();
+                        $scope.item=item;
                         //taking template for form builder to take required inputs of 
                         //selected context menu
                         $scope.itemTemplate=item.courseElementTemplate;
@@ -68,8 +69,8 @@ angular.module('ui.bootstrap.contextMenu', [])
     +'<div class="box-row">'
       +'<div class="box-cell m-t">'
         +'<div class="box-inner col-xs-12">'
-          +'<form novalidate xt-form class="form" name="courseElement">'
-           +'<div fg-form fg-form-data="myFormData" form-data="$parent.formData.'+$scope.instance+'.'+item.courseElementTemplate.fields[0].name+'" fg-schema="itemTemplate"> </div>'
+          +'<form novalidate xt-form class="form" name="courseElement">{{valid}}:{{errTooltip}}'
+           +'<div fg-form fg-form-data="myFormData" form-data="$parent.formData.'+$scope.instance+'.'+item.Name+'" fg-schema="itemTemplate"> </div>'
            +'<button type="submit" ng-click="saveMyFormData()" style="color:#fff!important;" ng-disabled = "courseElement.$invalid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
           +'</form>'
 +'</div></div></div></div></div>');
@@ -115,14 +116,16 @@ angular.module('ui.bootstrap.contextMenu', [])
 
         //function for triggering when save button in aside 
         $scope.saveMyFormData = function () {
-            var courseId = '54afe3c38031c352fbf03e61';//For testing 
+            //var courseId = '54b0d0cc8031c352fbf03e74';//For testing 
             
             var courseObj={};
-            courseObj=$scope.$parent.formData;
+            courseObj.courseTimeline={};
+            courseObj.key=$scope.instance+'.'+$scope.item.Name;
+            courseObj.Name=$scope.item.Name;
+            courseObj[courseObj.key]=$scope.$parent.formData[$scope.instance][$scope.item.Name];
+            console.log($scope.$parent.courseId);
 
-            console.log(courseObj);
-
-           // addCourseService.saveCourseObject()
+           addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);
 
         }
             element.on('click', function (event) {
