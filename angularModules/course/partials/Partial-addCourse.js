@@ -1,13 +1,10 @@
 angular.module('baabtra').controller('AddcourseCtrl',['$scope','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','RoleMenuMappingSrv','addCourseElementService',function($scope,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,RoleMenuMappingSrv,addCourseElementService){
 
-$scope.formData = {};
 $scope.roleId=1;
-
 
 $scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
 $scope.technologies={};//object to store selected technologies
 $scope.technologies.values = [];//object to store selected technologies
-addCourseService.loadTechnologies($scope);
 
     $scope.fee=[{id: "1",name: "<i class=\"fa  fa-inr\"></i>"},
     			{id: "2",name: "<i class=\"fa fa-dollar\"></i>"},
@@ -72,7 +69,7 @@ $scope.$watch('totalCourseDuration',function(){
 	$scope.tlPopOver={};//obj for bulding context menu of timeline point
 	$scope.tlPopOver.step3={colorClass:'bg-gold-dark'};
   $scope.tlPopOver.step2 = {colorClass:'bg-baabtra-green'};
-  addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Exit point");//calling course element function
+  addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Payment checkpoint");//calling course element function
   addCourseElementService.FnGetCourseElements($scope.tlPopOver.step3,"");//calling course element function
 
   
@@ -225,15 +222,20 @@ $scope.completeStep1 = function(course){//created for build step1 object
                              Domains:$scope.selectedDomains,
                              Delivery: $scope.course.Delivery,
                              Availability:{"Branches":$scope.selectedBranches,"Roles":$scope.selectedRole},
-                             exitPoints:$scope.ExitPoints
+                             courseTimeline:{}
                            };
+console.log($rootScope.courseDetails);
+
     if (!angular.equals($rootScope.courseDetails.Name,undefined)) {
+      addCourseService.saveCourseObject($rootScope);
       $scope.currentState="home.main.addCourse.step2";
       $state.go('home.main.addCourse.step2');
     };
 /* Building courseDetails Start */
 
 };
+
+
 
 // *********************** STEP 1 .End ***********************************
 

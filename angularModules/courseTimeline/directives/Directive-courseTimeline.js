@@ -14,6 +14,9 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope', fun
 			//setting selected duration type as first object
 			scope.selectedDuration="1";
 
+			scope.formData=new Object();//used to save datas from timeline
+
+
 			//These are kept in rootscope as these are to be availble throughout the application
 			$rootScope.valid=true;
 			$rootScope.errTooltip = "Please choose an image to be shown for the course";
