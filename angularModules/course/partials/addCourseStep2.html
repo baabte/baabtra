@@ -113,7 +113,7 @@
               <em class="text-muted text-baabtra-green">
               The time line below represents the total duration of the course. You can click on any point in the timeline and add an exit point. An exit point means an intermediate point of time during the course when the student can exit from the course so that he/she would have completed a certain stand-alone no. of modules. (Exit points can also be added while adding course materials)
               </em>
-              <course-timeline class="p-v" total-duration="totalCourseDuration" ddl-bind-object="ddlBindObject" callback-functions="tlPopOver" sync-data="courseDetails" tl-elements="[['exitPoints','exitPointList']]">
+              <course-timeline class="p-v" total-duration="totalCourseDuration" ddl-bind-object="ddlBindObject" callback-functions="tlPopOver" sync-data="courseDetails" tl-elements="[['exitPoints','exitPointList']]" err-tooltip = "errTooltip" valid = "valid">
           </course-timeline>
             </div>
           </div>
