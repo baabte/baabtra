@@ -177,7 +177,7 @@ $scope.fnSaveCourseElementFormCallBack = function(result){
 
 	if(result==='success'){
         $scope.notifications('Done!','Created Course Element Successfully ','info');
-       addCourseElementService.FnGetCourseElements($scope);
+       addCourseElementService.FnGetCourseElements($scope,"");
       }
    if(result==='error'){
         $scope.notifications('opps!','Error in connecting to server','danger');
@@ -193,7 +193,7 @@ $scope.fnDeleteCourseElementCallBack = function(result){
 
 	if(result==='success'){
         $scope.notifications('Done!',' Course Element Deleted ','info');
-		addCourseElementService.FnGetCourseElements($scope);
+		addCourseElementService.FnGetCourseElements($scope,"");
  
       }
    if(result==='error'){

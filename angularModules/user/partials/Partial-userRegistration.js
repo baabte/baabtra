@@ -12,9 +12,9 @@ if($rootScope.loggedIn===false){
 $scope.currentState=$state.current.name;
 // console.log($rootScope.userinfo);
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
- var companyId="548bd227f94452e79f1a3867";
+ var companyId="5457526122588a5db73e0b23";
  // $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-branchSrv.fnLoadBranch($scope,'548bd227f94452e79f1a3867');
+branchSrv.fnLoadBranch($scope,'5457526122588a5db73e0b23');
 $scope.tableData={};
 $scope.formData={};
 $scope.newUser=false;
