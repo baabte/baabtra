@@ -1,4 +1,5 @@
 <div class="alert" tabindex="-1" ng-class="[type ? 'alert-' + type : null]">
   <button type="button" class="close" >&times;</button>
-  <span ng-bind-html="content" class="font-bold"></span>&nbsp;<a href=""><strong ng-bind="title" ng-click="undo();$hide()"></strong></a>
+	<a href=""><strong ng-bind="title" ng-click="undo();$hide()"></strong></a>&nbsp;
+  <span ng-bind-html="content" class="font-bold"></span>
 </div>
