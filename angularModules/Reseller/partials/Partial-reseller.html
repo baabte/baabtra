@@ -1,15 +1,45 @@
 <div class="row">
 	<div class="col-xs-12">
-		<div class="panel panel-default">
+		<div class="panel">
 			<!-- panel heading -->
-	        <div class="panel-heading bg-white">
-	          <h4 class="modal-title text-primary">Add A Reseller</h4>
+	        <div class="panel-heading bg-inbox-blue">
+	          <h4 class="modal-title">Add A Reseller</h4>
 	        </div>
 	        <!-- panel body -->
-	        <div class="panel-body">
-	        	<!-- body content -->
-	        	
-	        </div>
+	        <form role="form" name="resellerInfo" class="ng-pristine ng-valid">
+		        <div class="panel-body">
+		        	<!-- body content -->
+		        	<!-- left half -->
+		        	<div class="col-xs-6">
+		        		<!-- email address -->
+		        		<div class="form-group">
+		        			<input type="email" class="form-control" ng-model="reseller.Email" placeholder="Email address">
+		        		</div>
+
+		        		<!-- contact Person -->
+		        		<div class="form-group">
+		        			<input type="text" class="form-control" ng-model="reseller.contactPerson" placeholder="Contact Person">
+		        		</div>
+
+		        		<!-- contact number -->
+		        		<div class="form-group">
+		        			<input type="text" class="form-control" ng-model="reseller.contactNumber" placeholder="Contact Number">
+		        		</div>
+		        	</div>
+
+		        	<!-- right half -->
+		        	<div class="col-xs-6">
+		        		<!-- Address -->
+		        		<div class="form-group">
+		        			<textarea class="form-control" rows="6" placeholder="Address"></textarea>
+		        		</div>
+		        	</div>
+		        </div>
+
+		        <footer class="panel-footer text-right">
+	            	<button type="button" class="btn bg-inbox-blue">Add Reseller</button>
+	          	</footer>
+          	</form>
 	    </div>
 	</div>
 </div>

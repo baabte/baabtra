@@ -18,7 +18,6 @@ if($rootScope.loggedIn==false){
     $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
     var companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-    console.log($rootScope.userinfo.ActiveUserData.username);
     branchSrv.fnLoadBranch($scope,$rootScope,companyId);
         //$scope.companyId="5457526122588a5db73e0b23";
 
@@ -64,7 +63,7 @@ $scope.tree1NodesOptions = {
         event.source.nodeScope.$modelValue.parent = event.dest.nodesScope.$parent.$modelValue._id;
         event.dest.nodesScope.$parent.$modelValue.children.push(event.source.nodeScope.$modelValue._id);
 
-        branchSrv.fnInsertBranch($scope,"5457526122588a5db73e0b23",$scope.branches,$scope.rm_id);
+        branchSrv.fnInsertBranch($scope,companyId,$scope.branches,$scope.rm_id);
         }
       }
   };
@@ -105,7 +104,7 @@ $scope.addSubBranch = function(branchDetails){
                            children: null,
                            parent: nodeData._id,
                            activeFlag:1});
-  branchSrv.fnInsertBranch($scope,"5457526122588a5db73e0b23",$scope.branches,$scope.rm_id);
+  branchSrv.fnInsertBranch($scope,companyId,$scope.branches,$scope.rm_id);
    };
 var lastDeletedBranch={};
 $scope.undo = function(){
@@ -115,12 +114,12 @@ $scope.undo = function(){
           branch.activeFlag=1;
         }
   });
-  branchSrv.fnInsertBranch($scope,"5457526122588a5db73e0b23",$scope.branches,$scope.rm_id);
+  branchSrv.fnInsertBranch($scope,companyId,$scope.branches,$scope.rm_id);
 };
    $scope.removeBranch = function(node){
     node.$nodeScope.$modelValue.activeFlag=0;
     lastDeletedBranch=node.$nodeScope.$modelValue;
-    branchSrv.fnInsertBranch($scope,"5457526122588a5db73e0b23",$scope.branches,$scope.rm_id);
+    branchSrv.fnInsertBranch($scope,companyId,$scope.branches,$scope.rm_id);
     $alert({scope: $scope,container:'body',keyboard:true,animation:'am-fade-and-slide-top',template:'views/ui/angular-strap/alert.tpl.html',title:'Undo',content:'The branch has been deleted', placement: 'top-right', type: 'warning'});
 };
 var lastEditBranch="";
@@ -155,6 +154,6 @@ $scope.updateSubBranch = function(branch){
   lastEditBranch.$nodeScope.$modelValue.email=$scope.branch.email;
   lastEditBranch.$nodeScope.$modelValue.location=$scope.branch.location;
   lastEditBranch.$nodeScope.$modelValue.phone=$scope.branch.phone;
-  branchSrv.fnInsertBranch($scope,"5457526122588a5db73e0b23",$scope.branches,$scope.rm_id);
+  branchSrv.fnInsertBranch($scope,companyId,$scope.branches,$scope.rm_id);
 };
 }]);
