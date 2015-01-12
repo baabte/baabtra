@@ -7,39 +7,38 @@
 
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate msg-pattern="Please enter valid phone number" placeholder="Contact No" ng-pattern="NumberPattern" name="phone" ng-model="formData.contactInfo.phone" xt-validate required>
+   <input type="text" class="form-control" xt-validate msg-pattern="Please enter valid phone number" placeholder="Contact No" ng-pattern="NumberPattern" name="phone" ng-model="formData.contactInfo.phone" xt-validate required indicate-val = "required">
 </div>
 
-                        <div class="form-group m-h-n clearfix">
-                        	<div class="col-sm-6">
+                        <div class="form-group m-h-n clearfix">                       	
                         	<!-- <label for="country" class="control-label">Country*</label> -->
-                            <select  class="form-control" xt-validate name="country" data-bv-field="country" ng-model="selection.country" ng-options="countries.countryName for countries in CSDlist" required>
+                            <select  class="form-control" xt-validate name="country" data-bv-field="country" ng-model="selection.country" ng-options="countries.countryName for countries in CSDlist" required indicate-val="required">
                             <option value="">Select a Country</option>
                             </select>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="form-group m-h-n clearfix">
                          	<!-- <label for="state" class="control-label">State*</label> -->
-                            <select  class="form-control" xt-validate name="state" data-bv-field="state" ng-model="selection.state" ng-options="state.stateName for state in selection.country.States" required>
+                            <select  class="form-control" xt-validate name="state" data-bv-field="state" ng-model="selection.state" ng-options="state.stateName for state in selection.country.States" required indicate-val="required">
                             <option value="">Select a State</option>
                             </select>
                         </div>
-               			</div>
+               			
                         <div class="form-group m-h-n clearfix">
-                        	<div class="col-sm-6">
+                        	
                         	<!-- <label for="district" class="control-label">District*</label> -->
-                            <select  class="form-control" name="district" data-bv-field="district" ng-model="selection.district" xt-validate ng-options="districts.districtName for districts in selection.state.Districts" required>
+                            <select  class="form-control" name="district" data-bv-field="district" ng-model="selection.district" xt-validate ng-options="districts.districtName for districts in selection.state.Districts" required indicate-val="required">
                             <option value="">Select a District</option>
                             </select>
                         </div>
                   
-                        <div class="col-sm-6">
+                        <div class="form-group">
                         	<!-- <label for="zipCode" class="control-label">ZipCode*</label> -->
-                            <input type="text" ng-model="formData.contactInfo.zipCode" class="form-control" id="definput" xt-validate msg-pattern="Please enter valid zipcode" placeholder="Zip Code" name="zipCode" ng-pattern="NumberPattern" required>
+                            <input type="text" ng-model="formData.contactInfo.zipCode" class="form-control" id="definput" xt-validate msg-pattern="Please enter valid zipcode" placeholder="Zip Code" name="zipCode" ng-pattern="NumberPattern">
                         </div>
-                    </div>
-                    <div class="form-group">    
+                   
+                    <div class="form-group m-h-n clearfix">    
                         <!-- <label for="Address" class="control-label">Address*</label> -->
-                        <textarea class="form-control" name="Address" ng-model="formData.contactInfo.Address"  rows="5" placeholder="Address" required></textarea>
+                        <textarea class="form-control" name="Address" ng-model="formData.contactInfo.Address"  rows="5" placeholder="Address" required indicate-val="required"></textarea>
                     </div> 
 </div>
 <div class="col-sm-6">
@@ -48,23 +47,23 @@
   </div>
   <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="Qualification" name="qualification" ng-model="formData.academicDetails.qualification" xt-validate required>
+   <input type="text" class="form-control" xt-validate  placeholder="Qualification" name="qualification" ng-model="formData.academicDetails.qualification" xt-validate required indicate-val="required">
 </div>
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="Specialization" name="specialization" ng-model="formData.academicDetails.specialization" xt-validate required>
+   <input type="text" class="form-control" xt-validate  placeholder="Specialization" name="specialization" ng-model="formData.academicDetails.specialization" xt-validate required indicate-val="required">
 </div>
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="University" name="university" ng-model="formData.academicDetails.university" xt-validate required>
+   <input type="text" class="form-control" xt-validate  placeholder="University" name="university" ng-model="formData.academicDetails.university" xt-validate required indicate-val="required">
 </div>
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="Pass out" name="passOut" ng-model="formData.academicDetails.passOut" maxlength='4' xt-validate required>
+   <input type="text" class="form-control" xt-validate  placeholder="Pass out" name="passOut" ng-model="formData.academicDetails.passOut" maxlength='4' xt-validate required indicate-val="required">
 </div>
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="Percentage" name="percentage" ng-model="formData.academicDetails.percentage" xt-validate required>
+   <input type="text" class="form-control" xt-validate  placeholder="Percentage" name="percentage" ng-model="formData.academicDetails.percentage" xt-validate required indicate-val="required">
 </div>
 
 </div>

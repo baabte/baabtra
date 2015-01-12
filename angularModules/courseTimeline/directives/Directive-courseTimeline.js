@@ -8,9 +8,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope', fun
 		callbackFunctions:"=callbackFunctions",
 		syncData:"=syncData",
 		tlElements:"=tlElements",
-		courseId:"=courseId",
-		errTooltip:"=errTooltip",
-		valid:"=valid"
+		courseId:"=courseId"
 		},
 		templateUrl: 'angularModules/courseTimeline/directives/Directive-courseTimeline.html',
 		link: function(scope, element, attrs, fn) {
