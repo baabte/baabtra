@@ -136,17 +136,15 @@ position:relative;
   -o-border-radius: 3px;
   -moz-border-radius: 3px;
   -khtml-border-radius: 3px;
-
-padding:10px;
 background-color: #FAFAFA;
 color: #D8D8D8;
 /*text-shadow: 0 1px 0 rgba(0,0,0,0.2);*/
-float:left;
+/*float:left;*/
 margin:10px;
 }
 
 .tl-instance span {
-  float:right;
+  /*float:right;*/
   font-size: 20px; 
 }
 .tl-active{/*added by jihin on 23/12/2014*/

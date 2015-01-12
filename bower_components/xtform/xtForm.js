@@ -297,7 +297,7 @@
                     var ngModel = ctrls[0],
                         xtFormCtrl = ctrls[1],
                         errors = angular.copy(xtFormErrors);
-                        console.log(ngModel);
+                        // console.log(ngModel);
 
                     if (ngModel.$name === undefined) {
                         throw new Error('element must have a "name" attribute to use xtValidate');

@@ -61,7 +61,7 @@ addCourseElementService.FnGetExitCriteria($scope);
 		$scope.courseElement.courseElementData.courseElementTemplate=$scope.courseElement.schema;
 		delete $scope.courseElement.schema;
 		$scope.courseElement.courseElementData.exitCriteria={};
-		if($scope.exitCriteria!==undefined){
+		if($scope.exitCriteria.length){
 		$scope.courseElement.courseElementData.exitCriteria[$scope.exitCriteria.Name]={};	
 		$scope.courseElement.courseElementData.exitCriteria[$scope.exitCriteria.Name].criteriaValue=$scope.courseElement.exitCriteria.config;
 		$scope.courseElement.courseElementData.exitCriteria[$scope.exitCriteria.Name].criteriaForm=$scope.exitCriteria.exitCriteriaConfig;
@@ -94,7 +94,7 @@ $scope.courseElementConfig	= function(courseElementEdit){
 	// console.log(courseElementEdit.exitCriteria);
 
 	// $scope.exitCriteria.exitCriteriaConfig=courseElementEdit
-	if($scope.exitCriteria!==undefined){
+	if($scope.exitCriteria.length){
 	$.each(courseElementEdit.exitCriteria, function(key,val) {
    $scope.exitCriteria.exitCriteriaConfig=courseElementEdit.exitCriteria[key].criteriaForm;
    $scope.courseElement.exitCriteria.config=courseElementEdit.exitCriteria[key].criteriaValue;
@@ -177,7 +177,7 @@ $scope.fnSaveCourseElementFormCallBack = function(result){
 
 	if(result==='success'){
         $scope.notifications('Done!','Created Course Element Successfully ','info');
-       
+       addCourseElementService.FnGetCourseElements($scope,"");
       }
    if(result==='error'){
         $scope.notifications('opps!','Error in connecting to server','danger');
@@ -193,7 +193,7 @@ $scope.fnDeleteCourseElementCallBack = function(result){
 
 	if(result==='success'){
         $scope.notifications('Done!',' Course Element Deleted ','info');
-		addCourseElementService.FnGetCourseElements($scope);
+		addCourseElementService.FnGetCourseElements($scope,"");
  
       }
    if(result==='error'){

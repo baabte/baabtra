@@ -1,4 +1,4 @@
-<div class="panel panel-default m-t p-md p-v-xs bg-goldenrod">
+<div class="panel panel-default m-t p-md p-v-xs">
   
   <!-- Top Header row -->
   <div class="row">
@@ -17,6 +17,11 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="panel-body">
+
+            <div class="col-xs-12 am-fade">
+              <course-timeline total-duration="totalCourseDuration" ddl-bind-object="ddlBindObject" callback-functions="tlPopOver" sync-data="courseDetails" tl-elements="[['exitPoints','exitPointList']]" err-tooltip = "errTooltip" valid = "valid">
+          </course-timeline>
+            </div>
       </div>
     </div>
   </div>
