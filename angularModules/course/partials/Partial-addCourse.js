@@ -1,10 +1,7 @@
 angular.module('baabtra').controller('AddcourseCtrl',['$scope','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','RoleMenuMappingSrv','addCourseElementService',function($scope,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,RoleMenuMappingSrv,addCourseElementService){
 
 $scope.roleId=1;
-
-     $scope.valid=true;
-     $scope.errTooltip = "Please choose an image to be shown for the course";
-
+     
 $scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
 $scope.technologies={};//object to store selected technologies
 $scope.technologies.values = [];//object to store selected technologies

@@ -48,7 +48,7 @@
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';
 })
-      .directive("ngFileSelect",['fileReader',function(fileReader){  //directive for file onload preview
+      .directive("ngFileSelect",['fileReader','$rootScope',function(fileReader, $rootScope){  //directive for file onload preview
 
  return {
    scope:true,
@@ -62,12 +62,12 @@
       console.log($scope.$parent);
 
        $scope.file = (e.srcElement || e.target).files[0];
-       $scope.$parent.valid = true;
+       $rootScope.valid = true;
        $scope.validateFile();
 
-       if ($scope.$parent.valid) {
+       if ($rootScope.valid) {
           $scope.getFile();
-          $scope.errTooltip = "Please choose an image to be shown for the course";  
+          $rootScope.errTooltip = "Please choose an image to be shown for the course";  
               el.removeClass('bg-danger lt');     
        }
        else{   
@@ -81,8 +81,8 @@
 // file size
       if (($scope.file.size) > parseInt(attr.fMaxSize)*1024) {         
              
-              $scope.errTooltip = 'This exceeds the maximum file size limit of ' + attr.fMaxSize + 'Kb';
-              $scope.$parent.valid = false;   
+              $rootScope.errTooltip = 'This exceeds the maximum file size limit of ' + attr.fMaxSize + 'Kb';
+              $rootScope.valid = false;   
               el.addClass('bg-danger lt');              
        }
 

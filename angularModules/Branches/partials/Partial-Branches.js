@@ -17,8 +17,9 @@ if($rootScope.loggedIn==false){
 
     $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
-    
-    branchSrv.fnLoadBranch($scope,"5457526122588a5db73e0b23");
+    var companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+    console.log($rootScope.userinfo.ActiveUserData.username);
+    branchSrv.fnLoadBranch($scope,$rootScope,companyId);
         //$scope.companyId="5457526122588a5db73e0b23";
 
 $scope.common = {

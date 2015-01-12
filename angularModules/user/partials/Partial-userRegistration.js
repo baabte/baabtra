@@ -14,7 +14,7 @@ $scope.currentState=$state.current.name;
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
  var companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;//"5457526122588a5db73e0b23";
  // $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-branchSrv.fnLoadBranch($scope,companyId);
+branchSrv.fnLoadBranch($scope, $rootScope, companyId);
 $scope.tableData={};
 $scope.formData={};
 $scope.newUser=false;

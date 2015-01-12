@@ -26,7 +26,7 @@ angular.module('baabtra').service('branchSrv',['$http','bbConfig',function branc
           });
       };
 
-      this.fnLoadBranch=function($scope,cmp_id){
+      this.fnLoadBranch=function($scope, $rootScope ,cmp_id){
         $http({
           method: 'post',
           url: bbConfig.BWS+'LoadBranches/',
@@ -35,14 +35,13 @@ angular.module('baabtra').service('branchSrv',['$http','bbConfig',function branc
         }).
         success(function(data, status, headers, config) {//success respond from server
         	var result=angular.fromJson(JSON.parse(data));
-        	if (!angular.equals(result,"")) {
+        	if (result.length) {
             $scope.branchTree=[];
             $scope.branches=[];
-
         		$scope.branches=result[0].branches;
         	}
         	else{
-        		$scope.branches=[{ '_id': "Baabtra.com", 'parent': null , 'children': null }];
+        		$scope.branches=[{ '_id': $rootScope.userinfo.ActiveUserData.username, 'parent': null , 'children': null }];
         	}
           }).
           error(function(data, status, headers, config) {
