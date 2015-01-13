@@ -252,10 +252,10 @@ pre                             { margin-bottom:20px; }
 
 /* numbered buttons */
 #status-buttons                 {  }
-#status-buttons a               { color:#FFF; display:inline-block; font-size:12px; margin-right:10px; text-align:center; text-transform:uppercase; }
+#status-buttons a               { color:#FFF; display:inline-block; font-size:14px; margin-right:10px; text-align:center; text-transform:uppercase; font-weight:bold; }
 #status-buttons a:hover         { text-decoration:none; }
-#status-buttons span            { background:#080808; display:block; height:30px; margin:0 auto 10px; padding-top:5px; width:30px; 
-    border-radius:50%; }
+#status-buttons span            { background:#080808; display:block; height:30px; margin:0 auto 10px; padding-top:3px; width:30px; 
+    border-radius:50%; border:3px solid #dedede; }
 
 /* active buttons */
 #status-buttons a.active span   { background:#00BC8C; }
@@ -350,4 +350,8 @@ pre                             { margin-bottom:20px; }
 
 .bg-baabtra{
   background: #045067!important;
-}/* starts by midhun*/
+}
+.im-checkout{
+  margin: auto!important;
+}
+/* starts by midhun*/

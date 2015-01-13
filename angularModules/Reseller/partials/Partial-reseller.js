@@ -1,4 +1,5 @@
-angular.module('baabtra').controller('ResellerCtrl',['$scope', 'commonService', '$rootScope', 'userRegistrationService',function($scope, commonService, $rootScope, userRegistrationService){
+angular.module('baabtra').controller('ResellerCtrl',['$scope', 'commonService', '$rootScope', 'resellerSrv',function($scope, commonService, $rootScope, resellerSrv){
+	
 	if(!$rootScope.userinfo){
 		commonService.GetUserCredentials($scope);
 		$rootScope.hide_when_root_empty = false;
@@ -10,6 +11,15 @@ angular.module('baabtra').controller('ResellerCtrl',['$scope', 'commonService', 
 	$scope.roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
 	$scope.companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 	$scope.existingEmail = ""
-	userRegistrationService.FnFetchUserDetails($scope);
+
+	// //function for user name validation
+	// $scope.LoadExistingUserData = function (userEmail){// For load existing user data
+	// 	commonSrv.FnLoadExistingUserData($scope,userEmail);// calling service fo load exiting user data
+	// };
+
+	$scope.insertResellerDetails = function(resellerDetails){// For Insert Reseller Details
+		console.log(resellerDetails);
+		resellerSrv.fnRegisterReseller($scope, resellerDetails);
+	}
 
 }]);

@@ -6,38 +6,48 @@
 	          <h4 class="modal-title">Add A Reseller</h4>
 	        </div>
 	        <!-- panel body -->
-	        <form role="form" name="resellerInfo" class="ng-pristine ng-valid">
+	        <form role="form" name="resellerInfo" xt-form no-validate class="ng-pristine ng-valid">
 		        <div class="panel-body">
 		        	<!-- body content -->
 		        	<!-- left half -->
 		        	<div class="col-xs-6">
-		        		<!-- email address -->
-		        		<div class="form-group">
-		        			<input type="email" class="form-control" ng-model="reseller.Email" placeholder="Email address">
-		        		</div>
-
-		        		<!-- contact Person -->
-		        		<div class="form-group">
-		        			<input type="text" class="form-control" ng-model="reseller.contactPerson" placeholder="Contact Person">
-		        		</div>
-
-		        		<!-- contact number -->
-		        		<div class="form-group">
-		        			<input type="text" class="form-control" ng-model="reseller.contactNumber" placeholder="Contact Number">
-		        		</div>
+		        		<div class="form-group m-h-n clearfix">
+		        			<!-- Email -->
+              				<div class="col-sm-6">
+                				<input type="email" xt-validate required name="eMail" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-pattern" ng-model="reseller.eMail"  placeholder="Email address" ng-blur="LoadExistingUserData(reseller.eMail)">
+              				</div>
+              				<!-- Password -->
+              				<div class="col-sm-6">
+                				<input type="password" xt-validate required name="password" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-pattern" ng-model="reseller.password" placeholder="Password">
+              				</div>
+            			</div>
+            			<div class="form-group">
+            				<!-- contact person -->
+            				 <input type="text" xt-validate required name="contactPerson" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-pattern" ng-model="reseller.contactPerson" placeholder="Contact Person">
+            			</div>
+            			<div class="form-group m-h-n clearfix">
+              				<div class="col-sm-6">
+                				<!-- contact number -->
+			        			<input type="text" xt-validate required name="contactNumber" ng-pattern="/^(\+\d{1,3}[- ]?)?\d{10}$/" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-pattern" ng-model="reseller.contactNumber" placeholder="Contact Number">
+              				</div>
+              				<div class="col-sm-6">
+                				<!-- commission in percentage -->
+			        			<input type="number" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-minlength" xt-validate required name="commission"placeholder="Percentage of commission" ui-validate=" '$value <= 100' " ng-model="reseller.commission" required>
+              				</div>
+            			</div>
 		        	</div>
 
 		        	<!-- right half -->
 		        	<div class="col-xs-6">
 		        		<!-- Address -->
 		        		<div class="form-group">
-		        			<textarea class="form-control" rows="6" placeholder="Address"></textarea>
+		        			<textarea class="form-control" ng-model="reseller.address" rows="6" placeholder="Address"></textarea>
 		        		</div>
 		        	</div>
 		        </div>
 
 		        <footer class="panel-footer text-right">
-	            	<button type="button" class="btn bg-inbox-blue">Add Reseller</button>
+	            	<button type="button" class="btn bg-inbox-blue" ng-disabled="resellerInfo.$invalid" ng-click="insertResellerDetails(reseller)">Add Reseller</button>
 	          	</footer>
           	</form>
 	    </div>

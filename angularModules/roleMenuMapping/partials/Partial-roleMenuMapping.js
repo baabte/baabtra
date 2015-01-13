@@ -160,27 +160,6 @@ else if(angular.equals($scope.roleId,2))
         {
           dragStartStatus=true;
         }
-        // if(destNodesScope.$nodeScope.$modelValue.MenuLink !="" || destNodesScope.$nodeScope.$modelValue.MenuLink != undefined)
-        //   {
-        //     dragStartStatus=true;
-        //   }    
-        // if (dragStartStatus) {
-        //   if(!angular.equals(sourceNodeScope.$parentNodeScope,destNodesScope.$parentNodeScope) && !tree1dragStartStatus){
-        //     $scope.checkNewMenu(sourceNodeScope.$modelValue.fkMenuId);
-        //     if (sourceNodeScope.$modelValue.childMenuStructure.length>0)
-        //     {
-
-        //         var newSubMenu=sourceNodeScope.$modelValue.childMenuStructure;
-        //         for (var i = 0; i < newSubMenu.length; i++) {
-        //            $scope.checkNewMenu(newSubMenu[i].fkMenuId);
-        //         }
-        //     }
-        //     if (!MeusStatus) {
-        //       $alert({title: 'Not Allowed!', type:'warning' ,content: 'This Menu Already Exists',animation:'am-fade',duration:'3', placement: 'top-right', template: 'views/ui/angular-strap/alert.tpl.html', show: true});
-        //     }
-        //     dragStartStatus=false;
-        //   }
-        // }
         return dragStartStatus; 
       },
     };

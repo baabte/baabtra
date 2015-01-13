@@ -333,6 +333,15 @@
                 }
                 
               })
+
+               .state('home.main.userRegistration.step5', {
+                url: '/step5',
+                views:{
+                  'userRegistration-container':{
+                    templateUrl: 'angularModules/user/partials/step5_payment.html'
+                  }
+                }
+              })
                          
 
               .state('userRegistration', {
