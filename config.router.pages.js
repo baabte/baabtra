@@ -185,6 +185,18 @@
                 }
                 
               })
+
+               .state('home.main.registerReseller', {
+                url: '/registerReseller',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Reseller/partials/Partial-reseller.html',
+                    controller: 'ResellerCtrl'
+                  }
+                }
+                
+              })
+
                .state('home.main.addCourseElement', {
                 url: '/courseElement',
                 views:{
@@ -320,6 +332,15 @@
                   }
                 }
                 
+              })
+
+               .state('home.main.userRegistration.step5', {
+                url: '/step5',
+                views:{
+                  'userRegistration-container':{
+                    templateUrl: 'angularModules/user/partials/step5_payment.html'
+                  }
+                }
               })
                          
 

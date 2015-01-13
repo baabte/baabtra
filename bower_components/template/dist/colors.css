@@ -6,6 +6,11 @@
 .btn-inbox-blue{
 color: #4285f4 !important;
 }
+
+.bg-inbox-blue{
+background-color: #4285f4 !important;
+color: #fff!important;
+}
 .btn-inbox-blue:hover{
 background-color: #4285f4 !important;
 color: white !important;

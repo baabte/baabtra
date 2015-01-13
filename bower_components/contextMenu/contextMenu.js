@@ -1,6 +1,6 @@
 angular.module('ui.bootstrap.contextMenu', [])
 
-.directive('contextMenu', ['$parse','$state','$aside','$templateCache','addCourseService',function ($parse,$state,$aside,$templateCache,addCourseService) {
+.directive('contextMenu', ['$parse','$state','$aside','$templateCache','addCourseService','$rootScope',function ($parse,$state,$aside,$templateCache,addCourseService,$rootScope) {
     var renderContextMenu = function ($scope, event, options) {
         if (!$) { var $ = angular.element; }
         if(options.length<1){
@@ -71,7 +71,7 @@ angular.module('ui.bootstrap.contextMenu', [])
         +'<div class="box-inner col-xs-12">'
           +'<form novalidate xt-form class="form" name="courseElement">{{valid}}:{{errTooltip}}'
            +'<div fg-form fg-form-data="myFormData" form-data="$parent.formData.'+$scope.instance+'.'+item.Name+'" fg-schema="itemTemplate"> </div>'
-           +'<button type="submit" ng-click="saveMyFormData()" style="color:#fff!important;" ng-disabled = "courseElement.$invalid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
+           +'<button type="submit" ng-click="saveMyFormData()" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
           +'</form>'
 +'</div></div></div></div></div>');
  $aside({scope: $scope, template:'course-element-popup.html', html:true});

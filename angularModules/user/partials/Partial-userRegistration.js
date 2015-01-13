@@ -9,12 +9,21 @@ angular.module('baabtra').controller('UserregistrationCtrl',['$scope','$filter',
 if($rootScope.loggedIn===false){
  $state.go('login');
 }
-$scope.currentState=$state.current.name;
+
+
+
+$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
+  if($rootScope.userinfo)
+   {
+    $scope.currentState=toState.name;
+  }
+});
+
 // console.log($rootScope.userinfo);
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
- var companyId="5457526122588a5db73e0b23";
+ var companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;//"5457526122588a5db73e0b23";
  // $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-branchSrv.fnLoadBranch($scope,'5457526122588a5db73e0b23');
+branchSrv.fnLoadBranch($scope, $rootScope, companyId);
 $scope.tableData={};
 $scope.formData={};
 $scope.newUser=false;
@@ -112,9 +121,9 @@ $scope.fnUserRegister =function (argument) {
   $scope.formData.professionalExperience=$scope.proExperienceCollection;
 
   if (angular.equals($scope.formData.professionalExperience.length,0)) {
-      $scope.formData.professionalExperience="Fresher"
+      $scope.formData.professionalExperience="Fresher";
 
-  };  
+  }
 
 	 // console.log($scope.formData);
   
@@ -229,13 +238,11 @@ $scope.fnGetCountryStateDistrictCallBack=function(result){
      if(result.userCheck===1){   //if the email id already registered
        $scope.existingEmail=$scope.formData.userInfo.eMail; //setting the existing email id to scope 
        $scope.newUser=false;
-       userRegistrationService.FnFetchUserDetails($scope);
-       
+       userRegistrationService.FnFetchUserDetails($scope);       
        $scope.notifications('!','Already a user!','info');
       }
       if(result.userCheck===0){ //if not matching existing registered email
-        $scope.newUser=true;
-      
+        $scope.newUser=true;      
      }
   };
 
@@ -243,11 +250,8 @@ $scope.fnGetCountryStateDistrictCallBack=function(result){
 $scope.fnRegisterUserCallBack = function(result){
 
   if(result==='success'){
-        $scope.notifications('Done!','Created Course Element Successfully ','info');
-          $scope.formData={};
-          $scope.selection={};
-          $scope.proExperienceCollection={};
-         $scope.userRegistrationForm.$setPristine();
+        $scope.notifications('Yaay..!','Registered Successfully','success');
+        $state.go('home.main.userRegistration.step5');
       }
    if(result==='error'){
         $scope.notifications('opps!','Error in connecting to server','danger');
@@ -260,7 +264,7 @@ $scope.fnRegisterUserCallBack = function(result){
 $scope.fnFetchUserDetailsCallBack=function(result){
     
      if(result==='success'){   //if the email id already registered
-      console.log($scope.userDetails)
+      console.log($scope.userDetails);
        $scope.formData=$scope.userDetails;
        console.log($scope.formData);
        $scope.selection.country=$scope.userDetails.contactInfo.country;
