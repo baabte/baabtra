@@ -129,6 +129,9 @@ console.log($scope.userRegister);
 
   userRegistrationService.FnRegisterUser($scope);
 
+
+
+
 };
 
 $scope.proExperienceCollection = [];
@@ -241,7 +244,10 @@ $scope.fnRegisterUserCallBack = function(result){
 
   if(result==='success'){
         $scope.notifications('Done!','Created Course Element Successfully ','info');
-
+          $scope.formData={};
+          $scope.selection={};
+          $scope.proExperienceCollection={};
+         $scope.userRegistrationForm.$setPristine();
       }
    if(result==='error'){
         $scope.notifications('opps!','Error in connecting to server','danger');
