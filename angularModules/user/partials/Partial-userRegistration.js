@@ -9,7 +9,16 @@ angular.module('baabtra').controller('UserregistrationCtrl',['$scope','$filter',
 if($rootScope.loggedIn===false){
  $state.go('login');
 }
-$scope.currentState=$state.current.name;
+
+
+
+$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
+  if($rootScope.userinfo)
+   {
+    $scope.currentState=toState.name;
+  }
+});
+
 // console.log($rootScope.userinfo);
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
  var companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;//"5457526122588a5db73e0b23";
@@ -240,8 +249,8 @@ $scope.fnGetCountryStateDistrictCallBack=function(result){
 $scope.fnRegisterUserCallBack = function(result){
 
   if(result==='success'){
-        $scope.notifications('Done!','Created Course Element Successfully ','info');
-
+        $scope.notifications('Yaay..!','Registered Successfully','success');
+        $state.go('home.main.userRegistration.step5');
       }
    if(result==='error'){
         $scope.notifications('opps!','Error in connecting to server','danger');

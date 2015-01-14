@@ -15,4 +15,21 @@ this.FnLoadGlobalValues=function($scope,key)
             // or server returns response with an error status. 
           });
       };
+
+      // this.FnLoadExistingResellerUserData=function($scope, userEmail)
+      // {
+      //   $http({
+      //     method: 'post',
+      //     url: bbConfig.BWS+'LoadExistingUserData/',
+      //     data:{"userEmail":userEmail},
+      //     contentType:'application/json; charset=UTF-8',
+      //   }).
+      //   success(function(data, status, headers, config) {//success respond from server
+      //       //$scope.globalValues=angular.fromJson(JSON.parse(data));//Converting the result to json object
+      //     }).
+      //     error(function(data, status, headers, config) {
+      //       // called asynchronously if an error occurs
+      //       // or server returns response with an error status. 
+      //     });
+      // };
 }]);
