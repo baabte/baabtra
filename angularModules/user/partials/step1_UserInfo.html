@@ -94,11 +94,11 @@
 </div>
 <div class="form-group ">
     <!-- <label for="website" class="control-label">E‐mail</label> -->
-    <input type="text" ng-pattern="emailPattern" placeholder="Guardian E-mail" xt-validate emails class="form-control" name="guardianEmail" ng-model="formData.guardianDetails.guardianEmail"  indicate-val="email">
+    <input type="text" ng-pattern="emailPattern" placeholder="Guardian E-mail" xt-validate emails class="form-control" name="guardianEmail" ng-model="formData.guardianDetails.guardianEmail"  indicate-val="email" validate-one-in-many validation-group ="emailphone">
 </div>
 <div class="form-group ">
     <!-- <label for="website" class="control-label">Mobile Number</label> -->
-    <input type="text" custom="" ng-pattern="NumberPattern" placeholder="Guardian Mobile Number" xt-validate required class="form-control" name="guardianMobile" ng-model="formData.guardianDetails.guardianMoblie" indicate-val="phone">
+    <input type="text" custom="" ng-pattern="NumberPattern" placeholder="Guardian Mobile Number" xt-validate required class="form-control" name="guardianMobile" ng-model="formData.guardianDetails.guardianMoblie" indicate-val="phone" validate-one-in-many validation-group ="emailphone">
 </div>
 <!-- <div class="form-group ">
     <label for="website" class="control-label">Location</label>

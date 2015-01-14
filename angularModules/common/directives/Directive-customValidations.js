@@ -96,6 +96,10 @@ angular.module('baabtra')
 
 						icon.addClass(scope.symbolCollection[attrs.indicateVal]);
 						add=true;
+
+						if(attrs.required){
+							icon.addClass('text-danger');
+						}
 						
 
 						
@@ -105,6 +109,21 @@ angular.module('baabtra')
 						
 
 			
+			
+		} 
+	  
+	}
+
+})
+
+//to set atleast one required field in a group of fields
+.directive('validateOneInMany', function() {
+	return {
+		restrict: 'A',
+
+		link: function(scope, elem, attrs, fn) {	
+										
+			console.log(scope.$parent)			
 			
 		} 
 	  
