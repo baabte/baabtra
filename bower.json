@@ -34,14 +34,13 @@
     "angular-ui-select": "~0.9.5",
     "angular-form-gen": "~0.0.2",
     "ng-facebook": "~0.1.4",
-    "contextMenu":"0.0.0",
     "angular-perfect-scrollbar": "~0.0.3",
     "angular-google-plus": "~0.1.2",
     "ngLinkedIn": "~0.1.4",
-    "angular-perfect-scrollbar": "~0.0.3",
     "ng-tags-input": "~2.1.1",
-    "contextMenu":"~0.0.0",
+    "angular-spectrum-colorpicker": "1.2.0",
     "ngquill": "~1.0.3",
+    "contextMenu":"~0.0.0",
     "ngHierarchicalSelector":"~1.0"
   },
   "devDependencies": {

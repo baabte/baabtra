@@ -89,14 +89,6 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
           
           if($scope.menus.length){//Checking, the selected role have existing menus
             $scope.tree1 =$scope.menus[0].menuStructure[0].regionMenuStructure;//Setting exsting menus of selected role to current menu list
-            // for (var i = 0; i < $scope.tree1.length; i++) {
-            //   $scope.tree1[i].fkMenuId=$scope.tree1[i].fkMenuId.$oid;//Converting root menu ObjectId Id to String        
-            //   if($scope.tree1[i].childMenuStructure.length>0){//Checking root menu having any submenu
-            //     for (var j = 0; j < $scope.tree1[i].childMenuStructure.length; j++) {
-            //       $scope.tree1[i].childMenuStructure[j].fkMenuId=$scope.tree1[i].childMenuStructure[j].fkMenuId.$oid;//Converting sub menu ObjectId to String 
-            //     }
-            //   }
-            // }
               changeObjIdOfMenu($scope.tree1,null);
           
           }
