@@ -180,13 +180,23 @@ $scope.removeProExperience = function(row){
 
 
 
-//watch funtion to analyse change in courseDuration object
-    $scope.$watch('formData.userInfo.eMail', function(){
+// //watch funtion to analyse change in courseDuration object
+//     $scope.$watch('formData', function(){
         
-        if($scope.formData.userInfo){
-      console.log($scope.formData.userInfo);
-                    }
-    }, true);
+//         if(angular.equals($scope.formData.userInfo,undefined)){
+//           console.log($scope.formData.userInfo);
+
+//         $scope.formData.personalInfo={};
+//         $scope.formData.guardianDetails={};
+//         $scope.formData.contactInfo={};
+//         $scope.formData.academicDetails={};
+//         $scope.formData.socialProfiles={};
+//         $scope.formData.officeAdmin={};
+//         $scope.proExperienceCollection={};
+     
+                    
+//                     }
+//     }, true);
 
 
 
@@ -197,8 +207,21 @@ $scope.removeProExperience = function(row){
 //function for user name validation
 $scope.userVal = function (e){
      var userNameId=$scope.formData.userInfo;
-     // console.log(userNameId);
+     console.log(userNameId.eMail);
+     if(angular.equals(userNameId.eMail,undefined)){
+      console.log(userNameId);
+        $scope.formData.personalInfo={};
+        $scope.formData.guardianDetails={};
+        $scope.formData.contactInfo={};
+        $scope.formData.academicDetails={};
+        $scope.formData.socialProfiles={};
+        $scope.formData.officeAdmin={};
+        $scope.proExperienceCollection={};
+
+     }
+    else{
     companyRegistrationService.fnUserNameValid($scope,userNameId);
+  }
 };
 
  	  
