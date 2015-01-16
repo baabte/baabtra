@@ -1,9 +1,7 @@
-
-
-
-
 angular.module('baabtra').service('userRegistrationService',['$http','$upload','bbConfig',function userRegistrationService($http,$upload,bbConfig) {
 
+
+//service function to register a user 
 this.FnRegisterUser=function($scope){
     var result;
       $http({
@@ -28,6 +26,8 @@ this.FnRegisterUser=function($scope){
       return result;
    };
 
+
+   //service function to fetch all details of an exsisting user 
    this.FnFetchUserDetails=function($scope){
     var result;
       $http({
@@ -53,5 +53,5 @@ this.FnRegisterUser=function($scope){
    };
 
 
-	
+	//end of service 
 }]);

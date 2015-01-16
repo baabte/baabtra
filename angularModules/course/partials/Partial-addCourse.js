@@ -6,14 +6,14 @@ $scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbr
 $scope.technologies={};//object to store selected technologies
 $scope.technologies.values = [];//object to store selected technologies
 
-    $scope.fee=[{id: "1",name: "<i class=\"fa  fa-inr\"></i>"},
+    $scope.feeIn=[{id: "1",name: "<i class=\"fa  fa-inr\"></i>"},
     			{id: "2",name: "<i class=\"fa fa-dollar\"></i>"},
     			{id: "3",name: "SR"}];
-    $scope.selectedFee= "1";
+    $scope.selectedFee= {id: "1",name: "<i class=\"fa  fa-inr\"></i>"};
     $scope.paymentTypes=[{id: "1",name: "Before The Course"},
     					 {id: "2",name: "During The Course"},
     					 {id: "3",name: "After The Course"}];
-    $scope.selectedPaymentType="1";
+    $scope.selectedPaymentType={id: "1",name: "Before The Course"};
 
     $rootScope.courseDetails={}; // for supressing errors lijin have commented this and you can uncomment below and
     $scope.ExitPoints={

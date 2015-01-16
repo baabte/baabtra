@@ -5,20 +5,20 @@
   
       <div>
         <div class="col-sm-2 form-group p-xs">
-            <input type="text" class="form-control" xt-validate  placeholder="Company" name="company" ng-model="tableData.company" xt-validate >
+            <input type="text" class="form-control" xt-validate  placeholder="Company" name="company" ng-pattern="AlfaPattern" msg-pattern="Enter a Valid Company Name" ng-model="tableData.company" xt-validate >
         </div>
         <!-- {{tableData.company}} -->
         <div class="col-sm-2 form-group p-xs">
-            <input type="text" class="form-control" xt-validate  placeholder="Designation" name="designation" ng-model="tableData.designation" xt-validate >
+            <input type="text" class="form-control" xt-validate  placeholder="Designation" name="designation" ng-pattern="AlfaPattern" msg-pattern="Enter a Valid Designation" ng-model="tableData.designation" xt-validate >
         </div>
         <!-- {{tableData.designation}} -->
         <div class="col-sm-2 form-group p-xs ">
-          <input type="text" class="form-control ng-pristine ng-valid" ng-model="tableData.fromDate" data-date-format="dd-MM-yyyy"  data-max-date="" placeholder="From" bs-datepicker="" autocomplete="off">
+          <input type="text" class="form-control ng-pristine ng-valid" ng-model="tableData.fromDate" name="fromDate" data-date-format="dd-MM-yyyy"  data-max-date="" placeholder="From"xt-validate  msg-pattern="Enter a Valid Joining date" bs-datepicker="" autocomplete="off">
         </div>
         <!-- {{tableData.fromDate}} -->
         <div class="col-sm-2 form-group p-xs">
 
-          <input type="text" class="form-control ng-pristine ng-valid" ng-model="tableData.toDate" data-date-format="dd-MM-yyyy" data-min-date="" placeholder="To" bs-datepicker="">
+          <input type="text" class="form-control ng-pristine ng-valid" ng-model="tableData.toDate" name="toDate" msg-pattern="Enter a Valid Date" data-date-format="dd-MM-yyyy" data-min-date="" xt-validate placeholder="To" bs-datepicker="">
           <!-- {{tableData.untilDate}} -->
         
 

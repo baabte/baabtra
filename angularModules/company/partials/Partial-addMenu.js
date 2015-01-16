@@ -45,6 +45,7 @@ if($rootScope.loggedIn==false){
 		addMenu.addMenuDetails($scope);//calling service for insert menu
 	};
 	$scope.editMenu = function(menu){
+    angular.element("#menuName").focus();
     $scope.addMenu=false;
     $scope.updateMenu=true;
     /*Start: load exiting menu details*/

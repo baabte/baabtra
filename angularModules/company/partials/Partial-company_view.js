@@ -16,6 +16,14 @@ if($rootScope.loggedIn===false){
 // console.log($rootScope.userinfo.ActiveUserData);
 
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+ $scope.superadminView=true;
+ // console.log($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid)
+ if(!angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,1)){
+  console.log($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid)
+  $scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+  $state.params.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+  $scope.superadminView=false;
+ }
 
 
  
@@ -24,14 +32,11 @@ if(!angular.equals($state.params.companyId,undefined)){
   $scope.companySelected={};
   $scope.companySelected._id=$scope.companyId;
   companyViewService.fnSelectedCompany($scope);
+
 }
 
 $scope.placeholderVal="Search Companies";
 $scope.ShowNoDataFound=false;
-
-
-
-
 
 
 

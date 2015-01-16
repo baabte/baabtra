@@ -350,4 +350,13 @@ pre                             { margin-bottom:20px; }
 
 .bg-baabtra{
   background: #045067!important;
-}/* starts by midhun*/
+}
+
+.baab-loader{
+  text-shadow: rgb(17, 21, 36) 3px 1px 2px;
+}
+
+
+.im-checkout{
+  margin: auto!important;
+}

@@ -10,8 +10,6 @@ if($rootScope.loggedIn===false){
  $state.go('login');
 }
 
-
-
 $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
   if($rootScope.userinfo)
    {
@@ -19,17 +17,19 @@ $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fr
   }
 });
 
-// console.log($rootScope.userinfo);
+//getting user crmid and data
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
  var companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;//"5457526122588a5db73e0b23";
  // $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 branchSrv.fnLoadBranch($scope, $rootScope, companyId);
 $scope.tableData={};
 $scope.formData={};
+$scope.selection={};
 $scope.newUser=false;
-// $scope.formData.branchDetails={};
-// console.log($scope.formData);
 
+
+
+//code for branch select 
 $scope.branchDetails =[];
 
 $scope.$watch('branches', function(newVal, oldVal){
@@ -81,30 +81,27 @@ $scope.emailMsg='Not a valid email';          //error message for invalid email 
 $scope.emailEMsg='This Email Already exists'; //error message for email already exists validation 
 $scope.existingEmail='';
 
-    companyRegistrationService.FnGetCountryStateDistrict($scope);
 
-// $scope.animation="fadeInLeft";
+//service to fetch all state district from database 
+companyRegistrationService.FnGetCountryStateDistrict($scope);
 
 
 
-// console.log($scope.formData);
+
+
+//function for user registration 
 $scope.fnUserRegister =function (argument) {
+  //starting to build object to save data in database 
 
-  // console.log($scope.selection);
-  delete $scope.selection.country.States;
-  delete $scope.selection.state.Districts;
+  delete $scope.selection.country.States;//removing state list from country object
+  delete $scope.selection.state.Districts;//removing district list from state object
 
-  // console.log($scope.selection);
-  
-
-  $scope.formData.contactInfo.country={};
-  $scope.formData.contactInfo.state={};
-  $scope.formData.contactInfo.district={};
+  $scope.formData.contactInfo.country={}; //obj for country details
+  $scope.formData.contactInfo.state={}; //obj for state details
+  $scope.formData.contactInfo.district={};// obj for district details
   $scope.formData.contactInfo.country=$scope.selection.country;
   $scope.formData.contactInfo.state=$scope.selection.state;
   $scope.formData.contactInfo.district=$scope.selection.district;
-
-
   $scope.formData.contactInfo.country.fkcountryId=$scope.formData.contactInfo.country._id.$oid;
   delete $scope.formData.contactInfo.country._id;
   $scope.formData.contactInfo.state.fkstateId=$scope.formData.contactInfo.state.sId.$oid;
@@ -112,22 +109,25 @@ $scope.fnUserRegister =function (argument) {
   $scope.formData.contactInfo.district.fkdistrictId=$scope.formData.contactInfo.district.dId.$oid;
   delete $scope.formData.contactInfo.district.dId;
 
+
+
+  //removing children node details from selected branch if any
   delete $scope.formData.officeAdmin.branchDetails.children;
   delete $scope.formData.officeAdmin.branchDetails.childrenObj;
   // delete $scope.formData.officeAdmin.branchDetails._hsmeta;
 
-
+  //object to save professional experience 
   $scope.formData.professionalExperience={};
   $scope.formData.professionalExperience=$scope.proExperienceCollection;
-
+  //if no experience data entered considered as a fresher 
   if (angular.equals($scope.formData.professionalExperience.length,0)) {
-      $scope.formData.professionalExperience="Fresher"
+      $scope.formData.professionalExperience="Fresher";
 
-  };  
+  }
 
 	 // console.log($scope.formData);
   
-
+  //building object to pass to service 
   $scope.userRegister={};
   $scope.userRegister.userRegisterData=$scope.formData;
   $scope.userRegister.loggedusercrmid=loggedusercrmid;
@@ -135,35 +135,39 @@ $scope.fnUserRegister =function (argument) {
 
 console.log($scope.userRegister);
   
-
+  //service call for user registration
   userRegistrationService.FnRegisterUser($scope);
+
 
 };
 
+//array to save professional experiece details of user 
 $scope.proExperienceCollection = [];
 
-  $scope.addFormField = function(value) {
 
+//funtion to add field of user professional experiece details to proExperienceCollection array
+$scope.addFormField = function(value){
+
+    //fetch date from details to normal fromat 
     Date.prototype.formatMMDDYYYY = function(){
     return (this.getMonth() + 1) + 
     "/" +  this.getDate() +
     "/" +  this.getFullYear();
-};
+    };
 
-value.fromDate = $filter('date')(value.fromDate,'dd-MM-yyyy');
-value.toDate = $filter('date')(value.toDate,'dd-MM-yyyy');
+    //date to normal format 
+    value.fromDate = $filter('date')(value.fromDate,'dd-MM-yyyy');
+    value.toDate = $filter('date')(value.toDate,'dd-MM-yyyy');
 
-// console.log(day);
+    //pushing data to table 
     $scope.proExperienceCollection.push(value);
    
-   
+    //clearing data from the field to accept new data
    $scope.tableData={};
-  
-  // console.log($scope.proExperienceCollection);
+};
 
-  };
-
-  $scope.removeProExperience = function(row){
+//function to remove experience from the 
+$scope.removeProExperience = function(row){
 
     var index = $scope.proExperienceCollection.indexOf( row );
 
@@ -171,36 +175,72 @@ value.toDate = $filter('date')(value.toDate,'dd-MM-yyyy');
       $scope.proExperienceCollection.splice( index, 1 );
       }
 
-  };
+};
 
-  
 
+
+
+// //watch funtion to analyse change in courseDuration object
+//     $scope.$watch('formData', function(){
+        
+//         if(angular.equals($scope.formData.userInfo,undefined)){
+//           console.log($scope.formData.userInfo);
+
+//         $scope.formData.personalInfo={};
+//         $scope.formData.guardianDetails={};
+//         $scope.formData.contactInfo={};
+//         $scope.formData.academicDetails={};
+//         $scope.formData.socialProfiles={};
+//         $scope.formData.officeAdmin={};
+//         $scope.proExperienceCollection={};
+     
+                    
+//                     }
+//     }, true);
+
+
+
+///////////////////////////////////////////////////////////////////////////////////  
+
+///validations// 
 
 //function for user name validation
 $scope.userVal = function (e){
      var userNameId=$scope.formData.userInfo;
-     // console.log(userNameId);
+     console.log(userNameId.eMail);
+     if(angular.equals(userNameId.eMail,undefined)){
+      console.log(userNameId);
+        $scope.formData.personalInfo={};
+        $scope.formData.guardianDetails={};
+        $scope.formData.contactInfo={};
+        $scope.formData.academicDetails={};
+        $scope.formData.socialProfiles={};
+        $scope.formData.officeAdmin={};
+        $scope.proExperienceCollection={};
+
+     }
+    else{
     companyRegistrationService.fnUserNameValid($scope,userNameId);
+  }
 };
 
- 	  $scope.formData = {};
-    $scope.selection={};
+ 	  
    
 
-    //funtion to check url pattern
-    $scope.urlPattern = (function() {
-    $scope.regexpUrl =/(http(s)?:\\)?([\w-]+\.)+[\w-]+[.com|.in|.org]+(\[\?%&=]*)?/;
+//funtion to check url pattern
+$scope.urlPattern = (function() {
+  $scope.regexpUrl =/(http(s)?:\\)?([\w-]+\.)+[\w-]+[.com|.in|.org]+(\[\?%&=]*)?/;
 		return {
 			test: function(value) {
 			if( $scope.requireUrl === false ) {return true;}
 			else {return $scope.regexpUrl.test(value);}
 		}
-    };
-    })();
+  };
+})();
     
-	//function to check number pattern
-	$scope.NumberPattern = (function() {
-    $scope.regexpNum =/^[0-9]+$/;
+//function to check number pattern
+$scope.NumberPattern = (function() {
+  $scope.regexpNum =/^[0-9]+$/;
     return {
         test: function(value) {
             if( $scope.requireNum === false ){ 
@@ -209,9 +249,22 @@ $scope.userVal = function (e){
               return $scope.regexpNum.test(value);}
         }
     };
-	})();
+})();
 
+//function to check number pattern
+$scope.AlfaPattern = (function() {
+  $scope.regexpAlfa =/^[a-zA-Z]+$/;
+    return {
+        test: function(value) {
+            if( $scope.regexpAlfa === false ){ 
+              return true;}
+            else {
+              return $scope.regexpAlfa.test(value);}
+        }
+    };
+})();
 
+//funtion to check email pattern
 	$scope.emailPattern = (function() {
     $scope.regexpEmail =/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     return {
@@ -223,6 +276,13 @@ $scope.userVal = function (e){
 
 })();
 
+
+
+/////////////////////////////////////////////////////////////////////////////////
+
+///call back funtions 
+
+//callback fnc for country stata district fetch
 $scope.fnGetCountryStateDistrictCallBack=function(result){
    if(result==='error'){
         $scope.notifications('opps!','Error in connecting to server','danger');
@@ -230,18 +290,25 @@ $scope.fnGetCountryStateDistrictCallBack=function(result){
 
 };
 
- $scope.fnUserCheckCallBack=function(result){
+//call back for user check validation
+$scope.fnUserCheckCallBack=function(result){
     
      if(result.userCheck===1){   //if the email id already registered
        $scope.existingEmail=$scope.formData.userInfo.eMail; //setting the existing email id to scope 
        $scope.newUser=false;
-       userRegistrationService.FnFetchUserDetails($scope);
-       
-       $scope.notifications('!','Already a user!','info');
+       userRegistrationService.FnFetchUserDetails($scope);//if exsisting user fetching all data related from database call
+       $scope.notifications('!','Already a user!','info');//notification for 
       }
       if(result.userCheck===0){ //if not matching existing registered email
         $scope.newUser=true;
-      
+        $scope.formData.personalInfo={};
+        $scope.formData.guardianDetails={};
+        $scope.formData.contactInfo={};
+        $scope.formData.academicDetails={};
+        $scope.formData.socialProfiles={};
+        $scope.formData.officeAdmin={};
+        $scope.proExperienceCollection={};
+
      }
   };
 
@@ -263,9 +330,9 @@ $scope.fnRegisterUserCallBack = function(result){
 $scope.fnFetchUserDetailsCallBack=function(result){
     
      if(result==='success'){   //if the email id already registered
-      console.log($scope.userDetails)
+      // console.log($scope.userDetails);
        $scope.formData=$scope.userDetails;
-       console.log($scope.formData);
+       // console.log($scope.formData);
        $scope.selection.country=$scope.userDetails.contactInfo.country;
        $scope.selection.state=$scope.userDetails.contactInfo.state;
        $scope.selection.district=$scope.userDetails.contactInfo.district;

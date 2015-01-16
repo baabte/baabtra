@@ -9,7 +9,7 @@
           	  <div class="form-group m-h-n clearfix">
               <div class="col-sm-6 col-md-6 col-lg-6">
                 <h4 class="no-margin m-t m-b">Menu Name</h4>
-                <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" placeholder="Menu Name" ng-model="menu.MenuName" required>
+                <input id="menuName" type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" placeholder="Menu Name" ng-model="menu.MenuName" required>
               </div>
            <div class="col-sm-6 col-md-6 col-lg-6">
                 <h4 class="no-margin m-t m-b">Menu Link</h4>
@@ -63,12 +63,15 @@
       <div class="row">
       <div class="panel panel-default animated fadeInDown">
         <div class="panel-body">
-          <div ng-mouseover="Over=true"  ng-mouseleave="Over=false" ng-repeat="menu in allMenus" class="m-md text-sm btn b btn-lg bg-light lt m-r">
+          <div ng-mouseover="Over=true" ng-mouseleave="Over=false" ng-repeat="menu in allMenus" class="m-md text-sm btn b btn-lg bg-light lt m-r">
+          <div ng-click="editMenu(menu)">
           <i class="fa {{menu.menuIcon}} fa-3x pull-left" ></i>
           <span class="block clear text-left m-v-xs"><b class="text-lg block font-bold">{{menu.MenuName}}</b>
-          </span>
+          </span></div>
+          <div>
           <i ng-click="removeMenu(menu)" class="fa pull-right text-lt" ng-class="{'fa-trash':Over}" style="cursor: pointer;"></i>
-          <i ng-click="editMenu(menu)" class="fa m-r-xs pull-right text-lt" style="cursor: pointer;" ng-class="{'fa-edit':Over}"></i>
+          <i class="fa m-r-xs pull-right text-lt" style="cursor: pointer;" ng-class="{'fa-edit':Over}"></i>
+          </div>
         </div>
       
       </div>
