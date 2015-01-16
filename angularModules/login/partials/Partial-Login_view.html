@@ -1,73 +1,50 @@
 
 
-<div class="container  w-lg p-v-md bg-white">  
+<div class="container  w-lg p-v-md bg-white " >  
 
-<div class="animated fadeInDown" >
-<div class="w-lg p-v-md " >  
-  <div class="center-block w-xl w-auto-xs m-b-lg" >
-  <div class="social-title pull-center" >&nbsp &nbsp  
-  Connect with Your Social Accounts</div>
-  <br>
-  
-  <div >&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <span ng-href="" ng-click="facebook_login()"><img src="images/facebook.png" class="logo-prop" ng-enabled="isLoggedIn" ></span>&nbsp <span ng-click="linkedIn_login()"> <img src="images/linkedin.png" class="logo-prop"></span>
-  </div>
-  <div>
- 
-    <br>
-    <div class="m-b text-sm" >
-      Sign in with your {{app.name}} Account
-    </div>
+ <div class="animated fadeInDown " >
+  <div class="w-lg p-v-md " >  
+   <div class="center-block w-xl w-auto-xs m-b-lg" >
+    <div class="social-title pull-center" >&nbsp &nbsp  
+     Connect with Your Social Accounts</div>
+     <br>
 
-    <form name="signinform" ng-submit="fnCheckLogin()" class="form-validation" role="form" xt-form novalidate >
-      
-      <div class="form-group" >
+     <div >&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <span ng-href="" ng-click="facebook_login()"><img src="images/facebook.png" class="logo-prop" ng-enabled="isLoggedIn" ></span>&nbsp <span ng-click="linkedIn_login()"> <img src="images/linkedin.png" class="logo-prop"></span>
+     </div>
+     <div>
+
+      <br>
+      <div class="m-b text-sm" >
+       Sign in with your {{app.name}} Account
+      </div>
+
+      <form name="signinform" ng-submit="fnCheckLogin()" class="form-validation" role="form" xt-form novalidate >
+
+       <div class="form-group" >
         <label class="hide">Email</label>
         <input type="text"  placeholder="Someone@example.com" class="login-form-control" ng-model="loginCredential.userName" ng-pattern="emailPattern" id="email" xt-validate name="email"  msg-pattern='{{emailMsg}}'  class="form-control email" ng-focus="Show_hide_val_msg()"  required>
-     
-      </div>
-      <div class="form-group " >
+
+       </div>
+       <div class="form-group " >
         <label class="hide" >Password</label>
         <input type="password" placeholder="Password" name="password" class="login-form-control " ng-model="loginCredential.password" xt-validate required ng-minlength="5">
-      </div>      
-      <div class="checkbox" >        
+       </div>      
+       <div class="checkbox" >        
         <label class="ui-checks">
-          <input type="checkbox"><i></i> Keep me signed in 
+         <input type="checkbox"><i></i> Keep me signed in 
         </label>
+       </div>
+       <button type="submit" class="btn btn-info " style="margin:0px"  ng-disabled="signinform.$invalid || progress" >{{btnSignupText}}</button>
+       <p class="text-xs"><a ui-sref="forgot-password">Forgot password?</a></p>
+       <div  ng-class="Error_msg ? 'login-form-control' : ''" id="login_error_msg" ng-show="Error_msg">
+        <div class="ms_content" ><span class="content_span">{{login_error}}</span></div>
+       </div>
       </div>
-      <button type="submit" class="btn btn-info " style="margin:0px"  ng-disabled="signinform.$invalid || progress" >{{btnSignupText}}</button>
-      <p class="text-xs"><a ui-sref="forgot-password">Forgot password?</a></p>
-      <div  ng-class="Error_msg ? 'login-form-control' : ''" id="login_error_msg" ng-show="Error_msg">
-      <div class="ms_content" ><span class="content_span">{{login_error}}</span></div>
-      </div>
-      </div>
-    </form>
-  </div>
-  </div>
-</div>
-</div>
-<!-- <div class="app-footer" ng-include="'views/footer.html'"></div>	 -->
-
-
-<!-- ////////////////////////////////////////////////////////////////////////// -->
-
-
-
-
-
-
-<!-- <div class="container bg-white">
-    <div class="row row-centered" style="border:solid">
-      <div class="col-xs-5 col-centered"><div class="item"><div class="large-6 columns large-text-right small-text-center">
-        <a class="j-linkedin-connect button button-social button-li radius">
-          <i class="fa fa-linkedin"></i>
-          <span class="separator"></span>
-          <span>Login with LinkedIn</span>
-        </a>
-      </div></div></div>
-      <div class="col-xs-5 col-centered"><div class="item"></div></div>
-       <div class="col-xs-3 col-centered"><div class="item"><div class="content"></div></div></div>
-       <div class="col-xs-3 col-centered"><div class="item"><div class="content"></div></div></div>
-       <div class="col-xs-3 col-centered"><div class="item"><div class="content"></div></div></div>
+     </form>
     </div>
+   </div>
+  </div>
+ </div>
+ <!-- <div class="app-footer" ng-include="'views/footer.html'"></div>	 -->
 </div>
- -->
+
