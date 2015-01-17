@@ -57,9 +57,7 @@
 
 
      //console.log(ctrls);
-     el.bind("change", function(e){
-
-      console.log($scope.$parent);
+     el.bind("change", function(e){     
 
        $scope.file = (e.srcElement || e.target).files[0];
        $rootScope.valid = true;

@@ -86,14 +86,14 @@
 
  <div class="form-group ">
     <!-- <label for="website" class="control-label">Guardian Name</label> -->
-    <input type="text" placeholder="Guardian Name" xt-validate required class="form-control" name="guardianName" ng-model="formData.guardianDetails.guardianName" indicate-val="required">
+    <input type="text" placeholder="Guardian Name" xt-validate required class="form-control" name="guardianName" ng-model="formData.guardianDetails.guardianName" indicate-val="required" validate-one-in-many validation-group ="email" >
 </div>
 <!-- <div class="form-group ">
-    <input type="text" placeholder="Relation" class="form-control" name="relation" ng-model="formData.guardianDetails.relation">
+    <input type="text" placeholder="Relation" class="form-control" name="relation" ng-model="formData.guardianDetails.relation" xt-validate required indicate-val="required" validate-one-in-many validation-group ="email">
 </div> -->
 <div class="form-group ">
     <!-- <label for="website" class="control-label">E‐mail</label> -->
-    <input type="text" ng-pattern="emailPattern" placeholder="Guardian E-mail" xt-validate emails class="form-control" name="guardianEmail" ng-model="formData.guardianDetails.guardianEmail"  indicate-val="email" validate-one-in-many validation-group ="emailphone">
+    <input type="text" ng-pattern="emailPattern" placeholder="Guardian E-mail" xt-validate required emails class="form-control" name="guardianEmail" ng-model="formData.guardianDetails.guardianEmail"  indicate-val="email" validate-one-in-many validation-group ="emailphone">
 </div>
 <div class="form-group ">
     <!-- <label for="website" class="control-label">Mobile Number</label> -->
