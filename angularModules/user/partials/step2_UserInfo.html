@@ -7,7 +7,7 @@
 
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate msg-pattern="Please enter valid phone number" placeholder="Contact No" ng-pattern="NumberPattern" name="phone" ng-model="formData.contactInfo.phone" xt-validate required indicate-val = "required">
+   <input type="text" class="form-control" xt-validate msg-pattern="Please enter valid phone number" placeholder="Contact No" ng-minlength="10" ng-pattern="NumberPattern" name="phone" ng-model="formData.contactInfo.phone" xt-validate required indicate-val = "required">
 </div>
 
                         <div class="form-group m-h-n clearfix">                       	
@@ -47,23 +47,23 @@
   </div>
   <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="Qualification" name="qualification" ng-model="formData.academicDetails.qualification" xt-validate required indicate-val="required">
+   <input type="text" class="form-control" xt-validate  placeholder="Qualification" name="qualification" ng-pattern="AlfaPattern" msg-pattern="Enter a Valid Qualification" ng-model="formData.academicDetails.qualification" xt-validate required indicate-val="required">
 </div>
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="Specialization" name="specialization" ng-model="formData.academicDetails.specialization" xt-validate required indicate-val="required">
+   <input type="text" class="form-control" xt-validate  placeholder="Specialization" name="specialization" ng-pattern="AlfaPattern" msg-pattern="Enter a Valid Specialization" ng-model="formData.academicDetails.specialization" xt-validate required indicate-val="required">
 </div>
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="University" name="university" ng-model="formData.academicDetails.university" xt-validate required indicate-val="required">
+   <input type="text" class="form-control" xt-validate ng-pattern="AlfaPattern" msg-pattern="Enter a Valid University"  placeholder="University" name="university" ng-model="formData.academicDetails.university" xt-validate required indicate-val="required">
 </div>
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="Pass out" name="passOut" ng-model="formData.academicDetails.passOut" maxlength='4' xt-validate required indicate-val="required">
+   <input type="text" class="form-control" xt-validate  placeholder="Pass out" name="passOut" ng-model="formData.academicDetails.passOut" ng-pattern="NumberPattern" msg-pattern="Enter a Valid passOut Year" maxlength='4' xt-validate required indicate-val="required">
 </div>
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="Percentage" name="percentage" ng-model="formData.academicDetails.percentage" xt-validate required indicate-val="required">
+   <input type="text" class="form-control" xt-validate  placeholder="Percentage" name="percentage" ng-pattern="NumberPattern" msg-pattern="Enter a Valid Percentage" maxlength='3' ng-model="formData.academicDetails.percentage" xt-validate required indicate-val="required">
 </div>
 
 </div>

@@ -48,8 +48,9 @@ angular.module('ui.bootstrap.contextMenu', [])
                 $a.append($span);
                 $li.on('click', function ($event) {
                     $event.preventDefault();
+                    $scope.randomKey=Math.floor(Math.random()*1000,1000);
                     $scope.$parent.formData[$scope.instance]=new Object();//used to save datas from timeline
-                    $scope.$parent.formData[$scope.instance][item.Name]=new Object();
+                    $scope.$parent.formData[$scope.randomKey]=new Object();
                     //console.log($scope.$parent.formData);
                     clickedChiled=true;
                     $scope.$apply(function () {
@@ -69,8 +70,8 @@ angular.module('ui.bootstrap.contextMenu', [])
     +'<div class="box-row">'
       +'<div class="box-cell m-t">'
         +'<div class="box-inner col-xs-12">'
-          +'<form novalidate xt-form class="form" name="courseElement">{{valid}}:{{errTooltip}}'
-           +'<div fg-form fg-form-data="myFormData" form-data="$parent.formData.'+$scope.instance+'.'+item.Name+'" fg-schema="itemTemplate"> </div>'
+          +'<form novalidate xt-form class="form" name="courseElement">'
+           +'<div fg-form fg-form-data="myFormData" form-data="$parent.formData.'+$scope.randomKey+'" fg-schema="itemTemplate"> </div>'
            +'<button type="submit" ng-click="saveMyFormData()" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
           +'</form>'
 +'</div></div></div></div></div>');
@@ -121,10 +122,18 @@ angular.module('ui.bootstrap.contextMenu', [])
             var courseObj={};
             courseObj.courseTimeline={};
             courseObj.key=$scope.instance+'.'+$scope.item.Name;
-            courseObj.Name=$scope.item.Name;
-            courseObj[courseObj.key]=$scope.$parent.formData[$scope.instance][$scope.item.Name];
-            console.log($scope.$parent.courseId);
-
+            $scope.$parent.formData[$scope.randomKey].Name=$scope.item.Name;
+            $scope.$parent.formData[$scope.randomKey].Icon=$scope.item.Icon;
+            courseObj[courseObj.key]=$scope.$parent.formData[$scope.randomKey];
+            
+            
+                if(!$scope.syncData.courseTimeline[$scope.instance]){
+                                $scope.syncData.courseTimeline[$scope.instance]={};
+                }
+                if(!$scope.syncData.courseTimeline[$scope.instance][$scope.item.Name]){
+                    $scope.syncData.courseTimeline[$scope.instance][$scope.item.Name]=[];
+                }
+                $scope.syncData.courseTimeline[$scope.instance][$scope.item.Name].push($scope.$parent.formData[$scope.randomKey]);
            addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);
 
         }

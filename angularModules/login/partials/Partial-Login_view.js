@@ -83,41 +83,7 @@ $scope.getLinkedInData= function(){
       });
 };
 
-// $scope.fake=function(){
-// 	var obj={
-//             "email" : "midhusudhakaran@gmail.com",
-//             "first_name" : "Midhun",
-//             "gender" : "male",
-//             "id" : "613953995381591",
-//             "last_name" : "Sudhakar",
-//             "link" : "https://www.facebook.com/app_scoped_user_id/613953995381591/",
-//             "locale" : "en_US",
-//             "name" : "Midhun Sudhakar",
-//             "timezone" : 5.5,
-//             "updated_time" : "2014-11-04T07:38:50+0000",
-//             "verified" : true
-//         };
-//          $scope.socialData=obj; 
-//          $scope.loginCredential={};
-//          $scope.signinform.$setPristine();
-//          $scope.loginCredential.FBemail=obj.FBemail;
-//          $scope.loginCredential.id=obj.id;
-//          $scope.from_where="facebook";
-//          LoginService.fnloginService($scope);
 
-// }
-// {email: "midhusudhakaran@gmail.com"first_name: "Midhun"gender: "male"id: "613953995381591"last_name: "Sudhakar"link: "https://www.facebook.com/app_scoped_user_id/613953995381591/"locale: "en_US"name: "Midhun Sudhakar"timezone: 5.5updated_time: "2014-11-04T07:38:50+0000"verified: true}
-
-
-// $modal({ scope: $scope,
-//               template: 'angularModules/login/partials/Partial-addSocialInfo.html',
-//               placement:'center',
-//               show: true});	
-
-
-	
-   
-///////////////
 
 $scope.fnCheckLogin=function(){//FnCheckLogin() is the functoin which is to be fired when user clickg the login button .
   $scope.progress=true;

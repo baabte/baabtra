@@ -12,11 +12,11 @@
 <div ng-show="newUser">
 <div class="form-group" >
         <!-- <label for="definpu">Password*</label> -->
-        <input type="password" ng-model="formData.userInfo.password" class="form-control" id="definput" msg-required="Enter your Password" placeholder="Password"name="password" indicate-val="required" >
+        <input type="password" ng-model="formData.userInfo.password" class="form-control" id="definput" msg-required="Enter your Password" placeholder="Password"name="password" minlength="" indicate-val="required" >
 </div>
 <div class="form-group">
         <!-- <label for="definpu">Confirm Password*</label> -->
-        <input type="password" ng-model="cpassword" class="form-control" id="definput" placeholder="Confirm Password"name="cpassword"  ui-validate=" '$value==formData.userInfo.password' " msg-validator="password missmatch" ui-validate-watch=" 'formData.userInfo.password' " indicate-val="required">
+        <input type="password" ng-model="cpassword" class="form-control" id="definput" placeholder="Confirm Password"name="cpassword"  ui-validate=" '$value==formData.userInfo.password' " msg-validator="password missmatch" ui-validate-watch=" 'formData.userInfo.password' " minlength="" indicate-val="required">
 </div>
 </div>
 
@@ -38,11 +38,11 @@
  </div>
  <div class="form-group ">
     <!-- <label for="website" class="control-label">First Name</label> -->
-    <input type="text" placeholder="First Name" xt-validate required class="form-control" name="firstName" ng-model="formData.personalInfo.firstName" indicate-val="required">
+    <input type="text"  ng-pattern="AlfaPattern" msg-pattern="Invalid First Name "placeholder="First Name" xt-validate required class="form-control" name="firstName" ng-model="formData.personalInfo.firstName" indicate-val="required">
 </div>
 <div class="form-group ">
     <!-- <label for="website" class="control-label">Last Name</label> -->
-    <input type="text" placeholder="Last Name" class="form-control" name="lastName" ng-model="formData.personalInfo.lastName">
+    <input type="text" placeholder="Last Name" ng-pattern="AlfaPattern" msg-pattern="Invalid Last Name" xt-validate class="form-control" name="lastName" ng-model="formData.personalInfo.lastName">
 </div>
 
 
@@ -84,20 +84,27 @@
       Guardian Details<hr>
   </div>
 
- <div class="form-group ">
-    <!-- <label for="website" class="control-label">Guardian Name</label> -->
-    <input type="text" placeholder="Guardian Name" xt-validate required class="form-control" name="guardianName" ng-model="formData.guardianDetails.guardianName" indicate-val="required" validate-one-in-many validation-group ="email" >
+
+<div class="form-group">
+   <!-- <label for="phone" class="control-label">Phone</label> -->
+   <input type="text" class="form-control" xt-validate  placeholder="Guardian Name" name="guardianName" ng-pattern="AlfaPattern" msg-pattern="Enter a Valid Name" ng-model="formData.guardianDetails.guardianName" xt-validate required indicate-val="required">
+
 </div>
 <!-- <div class="form-group ">
     <input type="text" placeholder="Relation" class="form-control" name="relation" ng-model="formData.guardianDetails.relation" xt-validate required indicate-val="required" validate-one-in-many validation-group ="email">
 </div> -->
 <div class="form-group ">
     <!-- <label for="website" class="control-label">E‐mail</label> -->
-    <input type="text" ng-pattern="emailPattern" placeholder="Guardian E-mail" xt-validate required emails class="form-control" name="guardianEmail" ng-model="formData.guardianDetails.guardianEmail"  indicate-val="email" validate-one-in-many validation-group ="emailphone">
+
+    <input type="text" ng-pattern="emailPattern"  placeholder="Guardian E-mail" xt-validate emails class="form-control" name="guardianEmail" ng-model="formData.guardianDetails.guardianEmail"  indicate-val="email">
+
 </div>
+
 <div class="form-group ">
     <!-- <label for="website" class="control-label">Mobile Number</label> -->
-    <input type="text" custom="" ng-pattern="NumberPattern" placeholder="Guardian Mobile Number" xt-validate required class="form-control" name="guardianMobile" ng-model="formData.guardianDetails.guardianMoblie" indicate-val="phone" validate-one-in-many validation-group ="emailphone">
+
+    <input type="text" custom="" ng-pattern="NumberPattern" placeholder="Guardian Mobile Number" msg-pattern="Please enter valid Mobile number" xt-validate required class="form-control" name="guardianMobile" ng-model="formData.guardianDetails.guardianMoblie" ng-minlength="10" indicate-val="phone">
+
 </div>
 <!-- <div class="form-group ">
     <label for="website" class="control-label">Location</label>

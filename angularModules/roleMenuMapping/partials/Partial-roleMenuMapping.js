@@ -89,21 +89,29 @@ else if(angular.equals($scope.roleId,2))
         RoleMenuMappingSrv.FnGetRoleMenus($scope,id,current_menu_type);//function to call the service function to load the existing menu items
         RoleMenuMappingSrv.FnGetAllMenus($scope,menu_list_type);
     };
+    var searchInProgress;
     $scope.$watch('modelSearch', function (newValue, oldValue) {//function which watces the change in text box and used  for searching companies and roles
-      if(!angular.equals(newValue,undefined)){
-        //$scope.activeLink=1;
-        CurNewValue=newValue;
-        if($scope.SearchType==="Company"){//Search by Company
-          $scope.CompanySate=-1;
-          //$scope.rolesBox=false;
-          RoleMenuMappingSrv.FnGetCompanyDetails($scope,"",newValue);
-        }
-        else if ($scope.SearchType==="Roles"){//Search by Roles
-          $scope.menudetails=false;
-          $scope.RoleState=-1;
-          RoleMenuMappingSrv.FnGetRoles($scope,$scope.companyId,"",newValue);
-        }
-      }
+      
+      clearTimeout(searchInProgress);
+      searchInProgress=setTimeout(function ()
+        {
+          console.log("calling...");
+            if(!angular.equals(newValue,undefined)){
+                  CurNewValue=newValue;
+                  if($scope.SearchType==="Company"){//Search by Company
+                    $scope.CompanySate=-1;
+                    RoleMenuMappingSrv.FnGetCompanyDetails($scope,"",newValue);
+                  }
+                  else if ($scope.SearchType==="Roles"){//Search by Roles
+                    $scope.menudetails=false;
+                    $scope.RoleState=-1;
+                    RoleMenuMappingSrv.FnGetRoles($scope,$scope.companyId,"",newValue);
+                  }
+                }
+          }
+        ,400);
+          
+
     });
         /*---Starting Pagenation for loading companies and roles---*/
     $scope.next_one = function() {//To get Next page
@@ -224,32 +232,29 @@ else if(angular.equals($scope.roleId,2))
     {
         $scope.tree1.push(thisv.$nodeScope.$modelValue);
     };
-    $scope.moveRight = function(nodeVal)
-    {
+    $scope.moveRight = function(nodeVal){
         console.log(nodeVal);
     };
-    $scope.fnActionExists = function(thisAction,actions){      
-      for (var action_count = 0; action_count < actions.length; action_count++){
-        if(actions[action_count]!=null)
-        {if (actions[action_count].actionName == thisAction) { 
-                  return true;
-                 }}
-      }};
-      $scope.checkAction = function($menuItem,thisAction,index)
-      {
-        console.log($menuItem.actionStatus[index]);
 
-        if($menuItem.actionStatus[index])
-        {
-           $menuItem.actions.push(thisAction.action);
-         }
-        else
-        {
-          var  currIndex= $menuItem.actions.indexOf(thisAction.action);
-          $menuItem.actions.splice(currIndex,1);
-        }
-        console.log(index);
-      };
+    $scope.fnActionExists = function(thisAction, actions){     
+      for (var action_count = 0; action_count < actions.length; action_count++){
+        if(actions[action_count]!=null){
+          if (actions[action_count].actionName == thisAction){ 
+                  return true;
+                }
+              }
+            }
+          };
+
+          $scope.checkAction = function($menuItem, thisAction, index){
+            if($menuItem.actionStatus[index]){
+              $menuItem.actions.push(thisAction.action);
+            }
+            else {
+              var  currIndex= $menuItem.actions.indexOf(thisAction.action);
+              $menuItem.actions.splice(currIndex,1);
+            }
+          };
       
     
 }]);

@@ -82,3 +82,7 @@ db.system.js.save(
 			}
 
  	}});
+
+
+db.clnUserLogin.ensureIndex({"socialProfiles.mediaName" : 1})
+db.clnUserLogin.ensureIndex({"socialProfiles.id" : 1})

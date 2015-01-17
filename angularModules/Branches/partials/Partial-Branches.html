@@ -1,8 +1,8 @@
      <script type="text/ng-template" id="nodes_renderer.html">
           <div ui-tree-handle class="tree-node tree-node-content list-group-item" id="{{node._id}}">{{node.$root}}
             {{node._id}}&nbsp; &nbsp;
-            <a href="" class="icon-grey pull-right m-l-xs" data-nodrag ng-click="removeBranch(this)"><i class="fa fa-trash" ></i></a>
-            <a href="" class="icon-grey pull-right m-h-xs" data-nodrag ng-click="editBranch(this)"><i class="fa fa-edit" ></i></a>
+            <a href="" class="icon-grey pull-right m-l-xs" ng-if="node.parent" data-nodrag ng-click="removeBranch(this)"><i class="fa fa-trash" ></i></a>
+            <a href="" class="icon-grey pull-right m-h-xs" ng-if="node.parent" data-nodrag ng-click="editBranch(this)"><i class="fa fa-edit" ></i></a>
             
             <a href="" class="icon-grey pull-right m-r-xs" data-nodrag ng-click="newSubItem(this)"><i class="fa fa-plus" ></i></a>
           </div>

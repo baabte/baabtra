@@ -4,8 +4,8 @@ db.system.js.save(
 		value:function(RoleId,role,data)
 		{
 			var set={};
-			CompanyId=ObjectId(RoleId);
+			RoleId=ObjectId(RoleId);
 			set[role]=data;
 			set.updatedDate=Date();
-			db.ClnRoleMaster.update({'_id':CompanyId},{'$set':set}); 
+			db.clnRoleMaster.update({'_id':RoleId},{'$set':set}); 
 	}});
