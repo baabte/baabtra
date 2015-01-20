@@ -146,7 +146,7 @@
                     </div>
                     <div class="form-group" >
                     <label for="definpu">Password*</label>
-                    <input type="password" ng-model="company.password" class="form-control" id="definput" placeholder="Password"name="password" ng-change="checkPassword()" xt-validate required>
+                    <input type="password" ng-model="company.password" class="form-control" id="definput" placeholder="Password"name="password" ng-change="checkPassword()" ng-minlength="5" xt-validate required>
                     </div>
                     <div class="form-group">
                     <label for="definpu">Confirm Password*</label>
