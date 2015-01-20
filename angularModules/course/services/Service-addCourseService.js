@@ -38,4 +38,22 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig',functio
 	 	});  
 
 	 };
+
+	 this.fnCourseFileUpload = function ($scope){ // functon that call web service to add a comapny role
+	 	$http({
+	 		url: bbConfig.BWS+'CourseFileUpload/',
+	 		data: {"courseId":courseId, "courseElement":courseElement},
+	 		method: "POST",
+	 		withCredentials: false,
+	 		contentType:"application/json",
+	 		dataType:"json",
+	 	}).
+	 	success(function(data, status, headers, config) {
+	 			var result=angular.fromJson(JSON.parse(data));
+               }).
+	 	error(function(data, status, headers, config) {
+	 		
+	 	});  
+
+	 };
 }]);

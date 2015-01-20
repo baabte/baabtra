@@ -16,10 +16,7 @@ $scope.technologies.values = [];//object to store selected technologies
     $scope.selectedPaymentType={id: "1",name: "Before The Course"};
 
     $rootScope.courseDetails={}; // for supressing errors lijin have commented this and you can uncomment below and
-    $scope.ExitPoints={
-      "exitPointList":{}}; // initializing exit point obj
-
-
+    $scope.ExitPoints={"exitPointList":{}}; // initializing exit point obj
 			
 $scope.totalCourseDuration=0; // course duration in minutes
 
@@ -68,8 +65,15 @@ $scope.$watch('totalCourseDuration',function(){
 
 	$scope.tlPopOver={};//obj for bulding context menu of timeline point
 	$scope.tlPopOver.step3={colorClass:'bg-gold-dark'};
-  $scope.tlPopOver.step2 = {colorClass:'bg-baabtra-green'};
-  addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Payment_checkpoint");//calling course element function
+  $scope.attachContextMenu = function (change){
+        if($scope.totalCourseDuration && change) {
+        $scope.tlPopOver.step2 = {colorClass:'bg-baabtra-green'};
+        addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Payment_checkpoint");//calling course element function
+      }
+      else{
+         $scope.tlPopOver={};
+      }
+  }
   addCourseElementService.FnGetCourseElements($scope.tlPopOver.step3,"");//calling course element function
 
   
