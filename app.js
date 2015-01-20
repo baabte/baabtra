@@ -43,7 +43,8 @@
         'perfect_scrollbar',
         'ngTagsInput',
         'ngQuill',
-        'hierarchical-selector'
+        'hierarchical-selector',
+        'angularSpectrumColorpicker'
 
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';

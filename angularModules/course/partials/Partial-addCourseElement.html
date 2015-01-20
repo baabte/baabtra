@@ -5,11 +5,6 @@
           <strong>Course Elements</strong>
         </div>
         <div class="panel-body">
-
-
-
-
-
 <form name="course_element_form" class="form-validation" enctype= "multipart/form-data"  xt-form novalidate>
             <div class="col-md-7 form-group">
 			       <div class="col-md-7 form-group">
@@ -26,18 +21,18 @@
              
             </div>
             <div class="col-md-7 form-group">
-              <label  class="font-bold" for="definpu">Course Element Model</label>   
-
-              <input type="text" ng-model="courseElement.courseElementModel"class="form-control" xt-validate required id="definput" placeholder="Enter Course Element Model" name="courseElementModel" >
-             
-            </div>		
-            <div class="col-md-7 form-group">
-             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 m-t">
-                <h4 class="no-margin m-b-md m-r">Menu Icon</h4>
-                <i class="ui-icon fa fa-user {{courseElement.menuIcon}} ui-iconnfo text-lg"></i>
-                <a ng-click="GetIcon()" class="">Change Icon</a>
+             <div class="col-xs-3 m-t ">
+                <h4 class="no-margin m-b-md m-r">Icon</h4>
+                <i class="iconCustomBg ui-icon fa {{courseElement.menuIcon}} b-white text-lg b-2x bg-info" style="Background-color: {{courseElement.iconBackground}}!important; color: {{courseElement.iconColor}}!important;border-radius: 12px;"></i>
+                <p></p>
+                <a ng-click="GetIcon()" class="m-v-xs">Change Icon</a>
               </div>
-             
+              <div class="col-xs-3 m-t">
+                <h4 class="no-margin m-b-md m-r">Colour</h4>
+             <spectrum-colorpicker ng-model="courseElement.iconColor" options="{showPalette:true}"></spectrum-colorpicker></div> 
+             <div class="col-xs-3 m-t">
+                <h4 class="no-margin m-b-md m-r">Background</h4>
+             <spectrum-colorpicker ng-model="courseElement.iconBackground" options="{showPalette:true}"></spectrum-colorpicker></div>   
             </div>	
 
              <div class="col-md-7   form-group">

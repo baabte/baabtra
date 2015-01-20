@@ -71,7 +71,7 @@ this.fnUserNameValid=function($scope,userNameId){
              
             
                 result=angular.fromJson(JSON.parse(data));
-                console.log(result);
+                // console.log(result);
                 $scope.fnUserCheckCallBack(result);
                 
               }).

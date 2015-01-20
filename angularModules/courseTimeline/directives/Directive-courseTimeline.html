@@ -26,15 +26,17 @@
 								<i  context-menu="popoverObject" ng-click="callbackOfTlPointClick(tlpoint)" class="fa fa-circle-o text-inverse tl-point" ng-class="{'fa-dot-circle-o tl-ripple':mouseOverTl}" style="cursor: pointer;font-weight: bolder;position: relative;z-index: 1;" data-placement="top" data-type="success" data-html="true" data-animation="am-fade-and-scale" bs-tooltip></i>
 								<span style="padding-left:{{tlPointMinWidth}}px;left:-3.6px;z-index: 0;" class="b-b tl-line" ></span>
 								<div ng-show="mouseOverTl" style="margin-top: -50px;margin-left:-{{tlPointMinWidth}}px" class="tooltip in ng-scope top am-fade-and-scale tooltip-success"><!-- <div class="tooltip-arrow"></div> --><div class="tooltip-inner ng-binding" >{{selectedDurType}} {{$index+1}}</div></div>
-								<div ng-repeat="element in tlElements">
-									<ul ng-if="syncData[element[0]][element[1]][tlpoint/ddlBindObject[selectedDuration-1].mFactor]" class="timeline">
-								    <li class="tl-item">
-								      <div class="tl-wrap b-info" style="margin-left: 3px!important;">
-								      	<span class="tl-date text-muted">7:30 am</span>
-								      </div>
-								    </li>
-								</ul>
-								</div >
+								<div ng-repeat="elementname in tlElements" style="margin-left:1px solid #444444;">
+								 <ul ng-repeat="elements in syncData[elementname][tlpoint/ddlBindObject[selectedDuration-1].mFactor]" class="timeline" ng-class="{'timeline-center': center}">
+									    <li class="tl-item">
+									      <div class="tl-v-point">
+									      </div>
+									    </li>
+									    <li ng-repeat="element in elements" class="tl-header" style="float:left !important;width:0px !important;margin-left: -13px !important;margin-bottom: 15px;!important">
+									      <i class="iconCustomBg ui-icon fa {{element.Icon}} b-white b-2x text-lg bg-info" style="Background-color: {{element.iconBackground}}!important; color: {{element.iconColor}}!important;border-radius: 12px;"></i>
+									    </li>
+								  </ul>
+								</div>
 								</div>
 
 

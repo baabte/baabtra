@@ -14,7 +14,7 @@
 		        		<div class="form-group m-h-n clearfix">
 		        			<!-- Email -->
               				<div class="col-sm-6">
-                				<input type="email" xt-validate required name="eMail" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-pattern" ng-model="reseller.eMail"  placeholder="Email address" ng-blur="LoadExistingUserData(reseller.eMail)">
+                				<input type="email" xt-validate required name="eMail" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-pattern" ng-model="reseller.eMail" autocomplete="off"  placeholder="Email address" ng-blur="LoadExistingUserData(reseller.eMail)">
               				</div>
               				<!-- Password -->
               				<div class="col-sm-6">
@@ -40,7 +40,7 @@
 		        	<!-- right half -->
 		        	<div class="col-xs-6">
 		        		<!-- Address -->
-		        		<div class="form-group">
+		        		<div  class="form-group">
 		        			<textarea class="form-control" ng-model="reseller.address" rows="6" placeholder="Address"></textarea>
 		        		</div>
 		        	</div>

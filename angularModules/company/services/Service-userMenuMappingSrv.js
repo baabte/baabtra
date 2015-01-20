@@ -84,6 +84,7 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConf
            
                    $scope.menuList = angular.fromJson(JSON.parse(data)); //response from server
                    if($scope.menuList!==''){
+
                   $scope.tree2 = $scope.menuList.menuStructure[0].regionMenuStructure; //Assigning the object value into a variable to load All menus
             var changeObjIdOfMenu=function(menu,sub){
               if(sub==null){
@@ -91,8 +92,12 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConf
               }
               if(angular.equals(menu[sub],undefined))
                 {return 0;}
-              if(!angular.equals(menu[sub].fkMenuId,undefined))
-                {menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;}
+              if(!angular.equals(menu[sub].fkMenuId,undefined)){
+                  menu[sub].fkMenuId=menu[sub].fkMenuId.$oid;
+                  menu[sub].actionMaster=menu[sub].actions;
+                  delete menu[sub]._id;
+                  menu[sub].childMenuStructure = [];
+                }
               if(menu[sub].childMenuStructure.length)
                {changeObjIdOfMenu(menu[sub].childMenuStructure,null);}
               changeObjIdOfMenu(menu,++sub);

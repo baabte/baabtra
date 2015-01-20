@@ -13,7 +13,7 @@
   	<div class="form-group p-xs">
             <!-- <input type="text" class="form-control"   placeholder="Branch" name="branch" ng-model="formData.branch " xt-validate required> -->
               <label for="b"ranch class="control-label"><small>Select Branch</small></label>        
-            <hierarchical-selector  ng-model="formData.officeAdmin.branchDetails" data="branchDetails" multi-select="false" class="am-fade" on-selection-changed="formData.officeAdmin.branchDetails = items[0]"></hierarchical-selector>
+            <hierarchical-selector  ng-model="formData.officeAdmin.branchDetails" data="branchDetails" multi-select="false" class="am-fade" on-selection-changed="formData.officeAdmin.branchDetails = items[0]" name="branchDetails" xt-validate required></hierarchical-selector>
   </div>
   <!-- {{formData.branchDetails}} -->
 <!--   <div class="form-group p-xs">

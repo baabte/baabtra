@@ -1,4 +1,4 @@
-angular.module('baabtra').service('commonService',['$http','bbConfig',"$state",'localStorageService','$rootScope','$q',function commonService($http,bbConfig,$state,localStorageService,$rootScope,$q) {
+angular.module('baabtra').service('commonService',['$http','bbConfig','$state','localStorageService','$rootScope','$q',function commonService($http,bbConfig,$state,localStorageService,$rootScope,$q) {
 //this service is for maintain the userstate 
 
 
@@ -77,11 +77,10 @@ this.GetUserCredentials=function($scope)
 								$rootScope.hide_when_root_empty=false;
 							}
 			       			else{  //if the user is active in the active log then reload the user state
-					 	
-			       				console.log("hai");
 					       		 $rootScope.userinfo=angular.fromJson(JSON.parse(request.responseText));
 		  						 $rootScope.hide_when_root_empty=false;
 		  						 $rootScope.loggedIn=true;
+		  						 console.log($rootScope.userinfo);
 			       			}		  
 						}
 			}

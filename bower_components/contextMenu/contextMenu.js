@@ -48,8 +48,9 @@ angular.module('ui.bootstrap.contextMenu', [])
                 $a.append($span);
                 $li.on('click', function ($event) {
                     $event.preventDefault();
+                    $scope.randomKey=Math.floor(Math.random()*1000,1000);
                     $scope.$parent.formData[$scope.instance]=new Object();//used to save datas from timeline
-                    $scope.$parent.formData[$scope.instance][item.Name]=new Object();
+                    $scope.$parent.formData[$scope.randomKey]=new Object();
                     //console.log($scope.$parent.formData);
                     clickedChiled=true;
                     $scope.$apply(function () {
@@ -69,10 +70,12 @@ angular.module('ui.bootstrap.contextMenu', [])
     +'<div class="box-row">'
       +'<div class="box-cell m-t">'
         +'<div class="box-inner col-xs-12">'
-          +'<form novalidate xt-form class="form" name="courseElement">{{valid}}:{{errTooltip}}'
-           +'<div fg-form fg-form-data="myFormData" form-data="$parent.formData.'+$scope.instance+'.'+item.Name+'" fg-schema="itemTemplate"> </div>'
+          +'<form novalidate xt-form class="form" name="courseElement" enctype="multipart/form-data">'
+           +'<div fg-form fg-form-data="myFormData" form-data="$parent.formData.'+$scope.randomKey+'" fg-schema="itemTemplate"> </div>'
            +'<button type="submit" ng-click="saveMyFormData()" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
+           +'<button type="submit" ng-click="createPreviewElement()" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-left btn '+options[state].colorClass+'">Preview</button>'
           +'</form>'
+          +'<course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('s','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview>'
 +'</div></div></div></div></div>');
  $aside({scope: $scope, template:'course-element-popup.html', html:true});
                         //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
@@ -111,21 +114,84 @@ angular.module('ui.bootstrap.contextMenu', [])
     var clickedChiled=false;
     return {scope:true,link:function ($scope, element, attrs) {
         $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor;
-        
+        $scope.coursePreviewObj={};
+                
 
+        $scope.createPreviewElement=function () {
+               angular.forEach($scope.itemTemplate.fields,function(item){ // looping through item template
+                    
+                    if(!angular.equals(item.customlist,undefined)) //checking if it is having a custom attrib or not
+                    {
+                        var loopCounter=0; // a counter for all loops comes inside custom list of properties
+                        var maxLoopValue=item.customlist.length;
+                        var weHaveGotPreviewKey=false;
+                        angular.forEach(item.customlist,function(customProperty){
+                            loopCounter++;
+                            // here we build object to store into db and to push into timeline
+                            if(angular.equals(customProperty.value,'previewkey')){ // checking is there have a value for previewkey
+                                weHaveGotPreviewKey=true;
+                                $scope.coursePreviewObj[item.name]={}; 
+                                $scope.coursePreviewObj[item.name].value=$scope.$parent.formData[$scope.randomKey][item.name];
+                                $scope.coursePreviewObj[item.name].type=customProperty.text;
+                            }
+                            else{
 
+                                if((loopCounter==maxLoopValue)&&!weHaveGotPreviewKey){ // when count meets length of custom list and still
+                                    
+            
+                                    console.log("yes");                                                   // we didnt got the preview key attribute
+                                    $scope.coursePreviewObj[item.name]=$scope.$parent.formData[$scope.randomKey][item.name];
+                                }
+                            }
+                        });
+                        
+                    }
+                    else{
+                        $scope.coursePreviewObj[item.name]=$scope.$parent.formData[$scope.randomKey][item.name];
+                    }
+                });
+            
+                    $scope.coursePreviewObj.Name=$scope.item.Name;
+                    $scope.coursePreviewObj.Icon=$scope.item.Icon;
+                    $scope.coursePreviewObj.iconBackground=$scope.item.iconBackground;
+                    $scope.coursePreviewObj.iconColor=$scope.item.iconColor;
+        };
         //function for triggering when save button in aside 
         $scope.saveMyFormData = function () {
-            //var courseId = '54b0d0cc8031c352fbf03e74';//For testing 
             
-            var courseObj={};
-            courseObj.courseTimeline={};
-            courseObj.key=$scope.instance+'.'+$scope.item.Name;
-            courseObj.Name=$scope.item.Name;
-            courseObj[courseObj.key]=$scope.$parent.formData[$scope.instance][$scope.item.Name];
-            console.log($scope.$parent.courseId);
 
-           addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);
+            $scope.createPreviewElement(); // building the needed object
+
+            $scope.coursePreviewObj.Name=$scope.item.Name;
+            $scope.coursePreviewObj.Icon=$scope.item.Icon;
+            $scope.coursePreviewObj.iconBackground=$scope.item.iconBackground;
+            $scope.coursePreviewObj.iconColor=$scope.item.iconColor;
+            var courseObj={};
+            
+            if(!$scope.syncData.courseTimeline){
+                        $scope.syncData.courseTimeline={};
+            }
+
+            courseObj.key=$scope.instance+'.'+$scope.item.Name;
+            courseObj[courseObj.key]=$scope.coursePreviewObj;
+
+            // $scope.$parent.formData[$scope.randomKey].Name=$scope.item.Name;
+            // $scope.$parent.formData[$scope.randomKey].Icon=$scope.item.Icon;
+            // $scope.$parent.formData[$scope.randomKey].iconBackground=$scope.item.iconBackground;
+            // $scope.$parent.formData[$scope.randomKey].iconColor=$scope.item.iconColor;
+            // courseObj[courseObj.key]=$scope.$parent.formData[$scope.randomKey];
+            
+                if(!$scope.syncData.courseTimeline[$scope.instance]){
+                                $scope.syncData.courseTimeline[$scope.instance]={};
+                }
+                if(!$scope.syncData.courseTimeline[$scope.instance][$scope.item.Name]){
+                    $scope.syncData.courseTimeline[$scope.instance][$scope.item.Name]=[];
+                }
+
+
+              $scope.syncData.courseTimeline[$scope.instance][$scope.item.Name].push($scope.coursePreviewObj);
+                //$scope.syncData.courseTimeline[$scope.instance][$scope.item.Name].push($scope.$parent.formData[$scope.randomKey]);
+           //addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);
 
         }
             element.on('click', function (event) {
