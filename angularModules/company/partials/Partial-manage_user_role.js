@@ -1,16 +1,22 @@
-angular.module('baabtra').controller('ManageUserRoleCtrl',['$scope','manageCompanyRoleService','localStorageService','$location','$alert',function($scope,manageCompanyRoleService,localStorageService,$location,$alert){
+angular.module('baabtra').controller('ManageUserRoleCtrl',['$scope','manageCompanyRoleService','localStorageService','$state','$alert','$rootScope','commonService',function($scope,manageCompanyRoleService,localStorageService,$state,$alert,$rootScope,commonService){
 
-  if (localStorageService.get('loginLsCheck')===2||localStorageService.get('loginLsCheck')===null) {
-        $location.path('/login');//redirecting path into login
+if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
+      $rootScope.hide_when_root_empty=true;
+      commonService.GetUserCredentials($scope);
+}
+
+
+ if($rootScope.userinfo. ActiveUserData.roleMappingObj.fkRoleId==2){
+         $scope.companyId=$rootScope.userinfo.ActiveUserData.userLoginId;
   }
-
-	var loginInfo=localStorageService.get('loginInfo');
-	$scope.companyId=loginInfo.userLoginId.$oid;
-	var roleMappingObj=loginInfo.roleMappingObj;
-	$scope.crmId=roleMappingObj[0].crmId;
-    	$scope.urmId=roleMappingObj[0].urmId;
+if($rootScope.loggedIn==false){
+  $state.go('login');
+}
+$scope.crmId=$rootScope.userinfo.ActiveUserData.roleMappingObj.crmId;
+$scope.urmId=$rootScope.userinfo.ActiveUserData.roleMappingObj.urmId;
+	
 	$scope.btnRoleAdd='add';
-	manageCompanyRoleService.RetrieveUserRole($scope);
+  manageCompanyRoleService.RetrieveUserRole($scope);
 
 
 $scope.AddCompanyRole=function(){
@@ -24,7 +30,7 @@ $scope.AddCompanyRole=function(){
        RollData._id=RollData._id.$oid;
        manageCompanyRoleService.DeleteCompanyRole($scope,RollData); // calling service function
     };
-  $scope.updateUser=function(role,roleData,data) //it wil edit roles from database
+  $scope.updateUserRole=function(role,roleData,data) //it wil edit roles from database
     {
       
        $scope.roleData=roleData;

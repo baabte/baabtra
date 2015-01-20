@@ -177,4 +177,11 @@ border-width: 0 0 0 2px;
 
 .iconCustomBg.ui-icon.bg-info:after {
 background-color:inherit!important;
+cursor: pointer;
+}
+
+.tl-baabtra-header{
+  float:left!important;
+  margin-left: -79px!important;
+  margin-bottom: 15px;!important;
 }
