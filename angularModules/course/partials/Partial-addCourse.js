@@ -10,9 +10,7 @@ $scope.technologies.values = [];//object to store selected technologies
     			{id: "2",name: "<i class=\"fa fa-dollar\"></i>"},
     			{id: "3",name: "SR"}];
     $scope.selectedFee= {id: "1",name: "<i class=\"fa  fa-inr\"></i>"};
-    $scope.paymentTypes=[{id: "1",name: "Before The Course"},
-    					 {id: "2",name: "During The Course"},
-    					 {id: "3",name: "After The Course"}];
+
     $scope.selectedPaymentType={id: "1",name: "Before The Course"};
 
     $rootScope.courseDetails={}; // for supressing errors lijin have commented this and you can uncomment below and
@@ -65,17 +63,6 @@ $scope.$watch('totalCourseDuration',function(){
 
 	$scope.tlPopOver={};//obj for bulding context menu of timeline point
 	$scope.tlPopOver.step3={colorClass:'bg-gold-dark'};
-
-  $scope.attachContextMenu = function (change){
-    if($scope.totalCourseDuration && change) {
-      $scope.tlPopOver.step2 = {colorClass:'bg-baabtra-green'};
-      addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Payment_checkpoint");//calling course element function
-    }
-    else {
-      $scope.tlPopOver={};
-    }
-  }
-  
   addCourseElementService.FnGetCourseElements($scope.tlPopOver.step3,"");//calling course element function
 
   
@@ -244,5 +231,37 @@ console.log($rootScope.courseDetails);
 
 
 // *********************** STEP 1 .End ***********************************
+// *********************** STEP 2 ***********************************
+
+// variable initaialisations
+$scope.course.free=true;
+$scope.course.installments = false;
+// Payment types
+$scope.paymentType = {};
+$scope.paymentType.selected = {id: "1",name: "Before The Course"};
+$scope.paymentTypes=[{id: "1",name: "Before The Course"},
+                     {id: "2",name: "During The Course"},
+                     {id: "3",name: "After The Course"}];
+
+
+// adding and deleing the contextmenus the context menu
+$scope.$watch(function(){return $scope.course.installments + $scope.paymentType.selected.id}, function(){
+
+    if($scope.course.installments==='1' || angular.equals($scope.paymentType.selected.id,'2')){
+        $scope.tlPopOver.step2 = {colorClass:'bg-baabtra-green'};
+        addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Payment_checkpoint");//calling course element function
+    }    
+    else{
+        $("#tlContextMenu").remove();
+        $scope.tlPopOver.step2={};        
+    }
+
+});
+ 
+
+
+
+
+// *********************** STEP 2 .End ***********************************
 
 }]);

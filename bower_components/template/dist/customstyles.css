@@ -360,3 +360,34 @@ pre                             { margin-bottom:20px; }
 .im-checkout{
   margin: auto!important;
 }
+
+/*the reverse spinning class*/
+.fa-spin-reverse {
+  display: inline-block;
+  -moz-animation: spin-reverse 2s infinite linear;
+  -o-animation: spin-reverse 2s infinite linear;
+  -webkit-animation: spin-reverse 2s infinite linear;
+  animation: spin-reverse 2s infinite linear;
+}
+
+@-moz-keyframes spin-reverse {
+  0% { -moz-transform: rotate(0deg); }
+  100% { -moz-transform: rotate(-359deg); }
+}
+@-webkit-keyframes spin-reverse {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(-359deg); }
+}
+@-o-keyframes spin-reverse {
+  0% { -o-transform: rotate(0deg); }
+  100% { -o-transform: rotate(-359deg); }
+}
+@-ms-keyframes spin-reverse {
+  0% { -ms-transform: rotate(0deg); }
+  100% { -ms-transform: rotate(-359deg); }
+}
+@keyframes spin-reverse {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-359deg); }
+}
+/*.End the reverse spinning class*/
