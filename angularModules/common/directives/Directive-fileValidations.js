@@ -9,20 +9,8 @@ angular.module('baabtra')
 
 
 //      //console.log(ctrls);
-//      el.bind("change", function(e){     
-
-//        $scope.file = (e.srcElement || e.target).files[0];
-//        $rootScope.valid = true;
-//        $scope.validateFile();
-
-//        if ($rootScope.valid) {
-//           $scope.getFile();
-//           $rootScope.errTooltip = "Please choose an image to be shown for the course";  
-//               el.removeClass('bg-danger lt');     
-//        }
-//        else{   
-
-//        }       
+//      el.bind("change", function(e){      
+//           $scope.getFile();          
 //      });
 
 //      $scope.getFile = function () {
@@ -34,8 +22,7 @@ angular.module('baabtra')
 //      };
 //    }
    
-//  };
- 
+//  }; 
  
 // }])
 
@@ -46,38 +33,69 @@ angular.module('baabtra')
 		require: ["^?form",'ngModel'],
 		link: function(scope, elem, attrs, ctrls) {
 
+console.log(JSON.stringify(ctrls[1]));
+			
+			// if there is no $error object in the control, define an error object to push our custom validation error
+			if (angular.equals(ctrls[1].$error, undefined)){
+				ctrls[1].$error = {};
+			}
+
+			//pushing our custom validity error into the $error object of the control, this decided the validity and invalidity of the control in accordance with the custom validations
+			ctrls[1].$error.fMaxSize =  false;			
+
 		// binding the change function to the control
 		elem.bind("change", function(e){ 
 
+				//getting the file object of the control into a scope variable
+		       scope.file = (e.srcElement || e.target).files[0];
 
-		       scope.file = (e.srcElement || e.target).files[0];		      
-		       if(scope.validateFile()) {
-		       	scope.getFile();
-		       	scope.title = '';
-		       	elem.removeClass('bg-danger lt');
+		       // checking the validity of the control (f-max-size)		      
+		       if(scope.validateFileSIze()) {
+		      
+			       	// if the control is valid setting the validity of the control to true
+			        ctrls[1].$setValidity("fMaxSize", true);
+
+			        // displaying the file
+			       	scope.getFile();
+
+			       	//setting the tolltip to null if the file is valid
+			       	scope.title = '';
+
+			       	//removing the red danger class
+			       	elem.removeClass('bg-danger lt');
+
 		       }
 
 		             
 		});
 
 				// To validate the file attributes
-			     scope.validateFile = function () {     
+			     scope.validateFileSIze = function () {     
 
-						// file size
+						// file size checking
 					      if ((scope.file.size) > parseInt(attrs.fMaxSize)*1024) { 
 
-					      	console.log(ctrls[1]);
-					  
-					      	  ctrls[1].$invalid = true;	      	  
+					     	  // if the file size has a size more than the defined f-max-size attribute, setting the property in the $error object of the control to false. This will in turn set the form invalid		  			
+					      	  ctrls[1].$setValidity("fMaxSize", false);  	  
 					      	  
+					      	  //setting the corresponding title(tooltiop)
 					      	  scope.title = 'This exceeds the maximum file size limit of ' + attrs.fMaxSize + 'Kb';
-					      	 
+					      	  
+					      	  // adding a danger class to the control
 					          elem.addClass('bg-danger lt'); 
-					          scope.$parent.imageSrc = '';
 
+					          //clearing the loaded image
+					          if (!angular.equals(scope.$parent.imageSrc, undefined)) {
+					          		scope.$parent.imageSrc = '';
+					          }
+					          $(elem).parent().find('img').attr('src', '');
+					         
+					          // returning the flse status back
 					          return false;             
 					       }
 					       else{
+
+					       	  //else return true status
 					       	  return true;
 					       }       
 

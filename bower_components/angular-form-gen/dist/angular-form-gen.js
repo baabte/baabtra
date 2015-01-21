@@ -856,7 +856,14 @@ fg.factory('fgUtils', ["$templateCache", "$window", "fgConfig", function ($templ
           var templateData = $templateCache.get(renderInfo.templateUrl);        
           var beforeCustom = templateData.split(">");
           for(var i=0;i<field.customlist.length;i++){
-            beforeCustom[0]=beforeCustom[0] + ' ' + field.customlist[i].value + '="' + field.customlist[i].text + '"';
+            if(!angular.equals(field.customlist[i].text, undefined)){
+
+                beforeCustom[0]=beforeCustom[0] + ' ' + field.customlist[i].value + '="' + field.customlist[i].text + '"';
+              }
+              else{
+                beforeCustom[0]=beforeCustom[0] + ' ' + field.customlist[i].value + ' ';
+
+              }
           }
 
 
@@ -869,7 +876,7 @@ fg.factory('fgUtils', ["$templateCache", "$window", "fgConfig", function ($templ
 
         // }
          
-          templateData= beforeCustom.join('>');
+          templateData= beforeCustom.join('>');          
           $templateCache.put(renderInfo.templateUrl, templateData);
         } 
         //.End Added by Akshath/Anoop to prerender custom attributes

@@ -2,17 +2,22 @@ angular.module('ui.bootstrap.contextMenu', [])
 
 .directive('contextMenu', ['$parse','$state','$aside','$templateCache','addCourseService','$rootScope','bbConfig',function ($parse,$state,$aside,$templateCache,addCourseService,$rootScope,bbConfig) {
     var renderContextMenu = function ($scope, event, options) {
-        if (!$) { var $ = angular.element; }
-        if(options.length<1){
-            return 0;
-        }
         // taking current state for loading context menu
         var state=$state.current.name.split('.');
         state=state[state.length-1];
+
+        if (!$) { var $ = angular.element; }
+
+         // if contextmenucontents are not present don't render the menu
+        if(options.length<1 || angular.equals(options[state].courseElementlist, undefined)){
+            return 0;
+        }
+       
+        
         
         //adding a class to the container of context menu
         $(event.currentTarget).parent().parent().parent().parent().addClass('context');
-        var $contextMenu = $('<div>');
+        var $contextMenu = $('<div id="tlContextMenu">');
         $contextMenu.addClass('dropdown clearfix');
         $contextMenu.css({height:'0px !important'});
         var $ul = $('<ul>');
