@@ -342,6 +342,16 @@
                   }
                 }
               })
+
+               .state('home.main.formCustomizer', {
+                url: '/formCustomizer',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/form/partials/Partial-formCustomizer.html',
+                     controller: 'FormcustomizerCtrl'
+                  }
+                }
+              })
                          
 
               .state('userRegistration', {

@@ -10,17 +10,21 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 		link: function(scope, element, attrs, fn) {
 
 			scope.$watch('previewData', function(){
-				console.log(scope.previewData);
+				console.log(JSON.stringify(scope.previewData));
 				$(element).find('#elementContent').html('');
 				if(!angular.equals(scope.previewData,undefined)){
-					for (var key in scope.previewData) {//looping through each values in the object
-						if(scope.previewData[key] instanceof Object){
-						 		var elementToBeCreated=$('<'+scope.previewData[key].type+'>');
-						 		elementToBeCreated.attr('data',scope.previewData[key].value);
-						 		$(element).find('#elementContent').append(elementToBeCreated);
-						 		$compile(elementToBeCreated)(scope);
-						}
-					}
+					angular.forEach(scope.previewData.elements, function(data){//looping through each type of course elements at this point in the object
+						//angular.forEach(previewData.elements, function(data){//looping through each values in the element object
+							if(data instanceof Object){
+								console.log(data);
+							 		var elementToBeCreated=$('<'+data.type+'>');
+							 		elementToBeCreated.attr('data',data.value);
+							 		$(element).find('#elementContent').append(elementToBeCreated);
+							 		$compile(elementToBeCreated)(scope);
+							}
+						//});
+					}); 
+						
 				}
 			},true);
 		}

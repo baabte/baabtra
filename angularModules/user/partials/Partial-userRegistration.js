@@ -93,28 +93,34 @@ companyRegistrationService.FnGetCountryStateDistrict($scope);
 $scope.fnUserRegister =function (argument) {
   //starting to build object to save data in database 
 
-  delete $scope.selection.country.States;//removing state list from country object
-  delete $scope.selection.state.Districts;//removing district list from state object
-
   $scope.formData.contactInfo.country={}; //obj for country details
   $scope.formData.contactInfo.state={}; //obj for state details
   $scope.formData.contactInfo.district={};// obj for district details
   $scope.formData.contactInfo.country=$scope.selection.country;
   $scope.formData.contactInfo.state=$scope.selection.state;
   $scope.formData.contactInfo.district=$scope.selection.district;
-  $scope.formData.contactInfo.country.fkcountryId=$scope.formData.contactInfo.country._id.$oid;
+
   delete $scope.formData.contactInfo.country._id;
-  $scope.formData.contactInfo.state.fkstateId=$scope.formData.contactInfo.state.sId.$oid;
   delete $scope.formData.contactInfo.state.sId;
-  $scope.formData.contactInfo.district.fkdistrictId=$scope.formData.contactInfo.district.dId.$oid;
   delete $scope.formData.contactInfo.district.dId;
 
+  $scope.formData.contactInfo.country.fkcountryId=$scope.formData.contactInfo.country._id.$oid;
+  $scope.formData.contactInfo.state.fkstateId=$scope.formData.contactInfo.state.sId.$oid;
+  $scope.formData.contactInfo.district.fkdistrictId=$scope.formData.contactInfo.district.dId.$oid;
 
+   if (angular.equals($scope.formData._id,undefined)) {
 
-  //removing children node details from selected branch if any
+  delete $scope.selection.country.States;//removing state list from country object
+  delete $scope.selection.state.Districts;//removing district list from state object
+ 
+   //removing children node details from selected branch if any
   delete $scope.formData.officeAdmin.branchDetails.children;
   delete $scope.formData.officeAdmin.branchDetails.childrenObj;
   // delete $scope.formData.officeAdmin.branchDetails._hsmeta;
+
+  }
+
+ 
 
   //object to save professional experience 
   $scope.formData.professionalExperience={};
@@ -133,9 +139,8 @@ $scope.fnUserRegister =function (argument) {
   $scope.userRegister.loggedusercrmid=loggedusercrmid;
   $scope.userRegister.companyId=companyId;
 
-console.log($scope.userRegister);
-  
   //service call for user registration
+  console.log($scope.userRegister);
   userRegistrationService.FnRegisterUser($scope);
 
 
@@ -147,7 +152,7 @@ $scope.proExperienceCollection = [];
 
 //funtion to add field of user professional experiece details to proExperienceCollection array
 $scope.addFormField = function(value){
-
+    console.log(value);
     //fetch date from details to normal fromat 
     Date.prototype.formatMMDDYYYY = function(){
     return (this.getMonth() + 1) + 
@@ -180,23 +185,7 @@ $scope.removeProExperience = function(row){
 
 
 
-// //watch funtion to analyse change in courseDuration object
-//     $scope.$watch('formData', function(){
-        
-//         if(angular.equals($scope.formData.userInfo,undefined)){
-//           console.log($scope.formData.userInfo);
 
-//         $scope.formData.personalInfo={};
-//         $scope.formData.guardianDetails={};
-//         $scope.formData.contactInfo={};
-//         $scope.formData.academicDetails={};
-//         $scope.formData.socialProfiles={};
-//         $scope.formData.officeAdmin={};
-//         $scope.proExperienceCollection={};
-     
-                    
-//                     }
-//     }, true);
 
 
 
@@ -210,13 +199,16 @@ $scope.userVal = function (e){
      console.log(userNameId.eMail);
      if(angular.equals(userNameId.eMail,undefined)){
       console.log(userNameId);
+        delete $scope.formData._id;
         $scope.formData.personalInfo={};
         $scope.formData.guardianDetails={};
         $scope.formData.contactInfo={};
         $scope.formData.academicDetails={};
         $scope.formData.socialProfiles={};
         $scope.formData.officeAdmin={};
-        $scope.proExperienceCollection={};
+        $scope.proExperienceCollection=[];
+       
+
 
      }
     else{
@@ -301,13 +293,16 @@ $scope.fnUserCheckCallBack=function(result){
       }
       if(result.userCheck===0){ //if not matching existing registered email
         $scope.newUser=true;
+        delete $scope.formData._id;
         $scope.formData.personalInfo={};
         $scope.formData.guardianDetails={};
         $scope.formData.contactInfo={};
         $scope.formData.academicDetails={};
         $scope.formData.socialProfiles={};
         $scope.formData.officeAdmin={};
-        $scope.proExperienceCollection={};
+        $scope.proExperienceCollection=[];
+       
+
 
      }
   };
@@ -331,13 +326,17 @@ $scope.fnFetchUserDetailsCallBack=function(result){
     
      if(result==='success'){   //if the email id already registered
       // console.log($scope.userDetails);
-       $scope.formData=$scope.userDetails;
+       $scope.formData=$scope.userDetails.profile;
+       $scope.formData._id=$scope.userDetails._id.$oid;
+
        // console.log($scope.formData);
-       $scope.selection.country=$scope.userDetails.contactInfo.country;
-       $scope.selection.state=$scope.userDetails.contactInfo.state;
-       $scope.selection.district=$scope.userDetails.contactInfo.district;
-       $scope.proExperienceCollection=$scope.userDetails.professionalExperience;
-       $scope.formData.officeAdmin.branchDetails=$scope.userDetails.officeAdmin.branchDetails;
+       $scope.selection.country=$scope.userDetails.profile.contactInfo.country;
+       $scope.selection.state=$scope.userDetails.profile.contactInfo.state;
+       $scope.selection.district=$scope.userDetails.profile.contactInfo.district;
+       $scope.proExperienceCollection=$scope.userDetails.profile.professionalExperience;
+       $scope.formData.officeAdmin.branchDetails=$scope.userDetails.profile.officeAdmin.branchDetails;
+
+       // console.log($scope.formData);
       }
       if(result==='error'){ //if not matching existing registered email
         $scope.notifications('opps!','Error in connecting to server','danger');
