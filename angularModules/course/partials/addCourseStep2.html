@@ -95,9 +95,9 @@
           <!-- Payment Type row -->
           <div class="row m-t row-sm" ng-show="PaymentOpt">
              <div class="col-xs-6 col-md-3 animated fadeInDown">
-                <div class="radio"><label class="ui-checks"><input ng-click="oneTime=true;Installments=false;" type="radio" name="a" value="option1"><i></i>Onetime</label>
+                <div class="radio"><label class="ui-checks"><input ng-click="oneTime=true;Installments=false;" type="radio" name="a" ng-model="Onetime" value="option1"><i></i>Onetime</label>
               </div>
-              <div class="radio"><label class="ui-checks"><input ng-click="Installments=true;oneTime=false;" type="radio" name="a" value="option1"><i></i>Installments</label>
+              <div class="radio"><label class="ui-checks"><input ng-change="attachContextMenu(true)" ng-click="Installments=true;oneTime=false;" type="radio" ng-model="Installment" name="a" value="option1"><i></i>Installments</label>
               </div>
               </div>
               <div class="col-xs-6 col-md-4 am-fade" ng-show="oneTime">

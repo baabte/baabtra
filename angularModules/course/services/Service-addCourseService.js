@@ -39,11 +39,11 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 
 	 };
 
-	 this.fnCourseFileUpload = function (fileToBeUpload){ // functon that call web service to add a comapny role
+	 this.fnCourseFileUpload = function (fileToBeUpload, pathToBeSave){ // functon that call web service to add a comapny role
 	 	var promise=$upload.upload({
            url: bbConfig.BWS+'CourseFileUpload/',
            file: fileToBeUpload,
-           data: {},
+           data: {'pathToBeSave':pathToBeSave},
            method: 'POST',
            withCredentials: false,
            contentType:'application/json',

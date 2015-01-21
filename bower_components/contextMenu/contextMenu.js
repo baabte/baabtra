@@ -149,7 +149,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                                 if(angular.equals(customProperty.text,"doc-viewer")){ // if it is a file, it should be stored in server to show preview through
                                                                                       // google doc preview
                                     $scope.weHaveGotAfile=true;
-                                    var promise=addCourseService.fnCourseFileUpload(temp[item.name].value); // uploading file to the server
+                                    var promise=addCourseService.fnCourseFileUpload(temp[item.name].value, path); // uploading file to the server
                                     promise.then(function(data){ // call back function for the fileupload
                                           temp[item.name].value='http://docs.google.com/gview?url='+bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','')+'&embedded=true';
                                           $scope.ItsTimeToSaveDataToDB=true;

@@ -65,15 +65,17 @@ $scope.$watch('totalCourseDuration',function(){
 
 	$scope.tlPopOver={};//obj for bulding context menu of timeline point
 	$scope.tlPopOver.step3={colorClass:'bg-gold-dark'};
+
   $scope.attachContextMenu = function (change){
-        if($scope.totalCourseDuration && change) {
-        $scope.tlPopOver.step2 = {colorClass:'bg-baabtra-green'};
-        addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Payment_checkpoint");//calling course element function
-      }
-      else{
-         $scope.tlPopOver={};
-      }
+    if($scope.totalCourseDuration && change) {
+      $scope.tlPopOver.step2 = {colorClass:'bg-baabtra-green'};
+      addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Payment_checkpoint");//calling course element function
+    }
+    else {
+      $scope.tlPopOver={};
+    }
   }
+  
   addCourseElementService.FnGetCourseElements($scope.tlPopOver.step3,"");//calling course element function
 
   
