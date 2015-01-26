@@ -12,7 +12,6 @@ angular.module('baabtra').service('LoginService',['$http','bbConfig',function Lo
       data:angular.toJson({"loginData":data_to_send}), //passing the login credentials          
       }).success(function(data, status, headers, config) 
       {
-        console.log(data);
         $scope.loginSuccessCallback(data);
       }).error(function(data, status, headers, config) {
           

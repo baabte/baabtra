@@ -58,18 +58,37 @@ angular.module('baabtra').service('commonService',['$http','bbConfig','$state','
 // };
 
 
+// if(localStorageService.get('logDatas')){
+// 	if(localStorageService.get('logDatas').length){
+// 		alert("hai");
+// 	// 	$http({
+// 	// 	 		url: bbConfig.BWS+'loadInputTypes/',
+// 	// 	 		data: JSON.stringify({"name":"nothing"}),
+// 	// 	 		method: "POST",
+// 	// 	 		withCredentials: false,
+// 	// 	 		contentType:"application/json",
+// 	// 	 		dataType:"json",
+// 	// 	 	}).
+// 	// 	 	success(function(data, status, headers, config) {
+// 	//                    $scope.loadInputTypescallback(data);
+// 	//                }).
+// 	// 	 	error(function(data, status, headers, config) {
+// 	// 	 		console.log(data);
+// 	// 	 	});  
+// 	 }
+// }
+
+
 
 this.GetUserCredentials=function($scope)
 	 {
-	// alert("common");
-	 
 		if(!$rootScope.userinfo){ //whenever the user refresh the page it will check the credential variable 
 			if(localStorageService.get('logDatas')){ // then it will chack the local storage for neccessary datas
 				   	 var request = new XMLHttpRequest();
 					 request.open('POST', bbConfig.BWS+'loadlogUserdata/', false);  // `false` makes the request synchronous
 					 request.send(JSON.stringify({"UserDataObjId":localStorageService.get('logDatas')}));
-
 					 if (request.status === 200) {
+	
 		  					if(angular.fromJson(JSON.parse(request.responseText))=="error"||angular.fromJson(JSON.parse(request.responseText))=="failed"){ //if the user data not present it active user log it will push to logout
 	       			       		localStorageService.set('logDatas','{}');//resetting the userinfo before logout 
 								$rootScope.loggedIn=false;
@@ -80,11 +99,11 @@ this.GetUserCredentials=function($scope)
 					       		 $rootScope.userinfo=angular.fromJson(JSON.parse(request.responseText));
 		  						 $rootScope.hide_when_root_empty=false;
 		  						 $rootScope.loggedIn=true;
-		  						 console.log($rootScope.userinfo);
 			       			}		  
 						}
 			}
 			else{
+				// console.log("common1");
 				localStorageService.set('logDatas','{}');//resetting the userinfo before logout 
 				$rootScope.hide_when_root_empty=false;
 				$rootScope.loggedIn=true;

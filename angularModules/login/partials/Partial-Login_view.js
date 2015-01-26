@@ -149,13 +149,6 @@ $scope.Show_hide_val_msg=function(){
 	}
 };
 
-
-
-
-
-// linkein:78jnfwsxzeqtdl
-
-	
 }]);
 
 
