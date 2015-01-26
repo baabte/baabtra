@@ -263,8 +263,15 @@ fg.config(["fgConfigProvider", "FgField", function (fgConfigProvider, FgField) {
       }),
       new FgField('span',{
         displayName: "Span"
-      })
-      ]             /*end updated by akshath for adding custom attributes*/
+      })],
+      'Course element fields': [
+      new FgField('youtubevideo',{ // added by lijin for course elements
+        displayName: "Youtube URL"
+      }),new FgField('title',{ // added by jihin for course elements
+        displayName: "Title"
+      }),new FgField('coursefileUpload',{ // added by jihin for course elements
+        displayName: "File"
+      })]               /*end updated by akshath for adding custom attributes*/
   };
 
 
@@ -347,15 +354,51 @@ angular.module('fg').run(['$templateCache', function($templateCache){
   $templateCache.put('angular-form-gen/edit/palette/categories/categories.ng.html', '<legend ng-click=\"paletteCategoriesMenuOpen = !paletteCategoriesMenuOpen\" ng-class=\"{ \'open\': paletteCategoriesMenuOpen }\">Palette <span class=\"fg-legend-extra fg-edit-palette-categories visible-xs-inline visible-md-inline visible-lg-inline\">- {{ categoryName || \'All field types\' }}</span> <i class=\"caret\"></i><ul class=\"dropdown-menu\"><li ng-repeat=\"(name, category) in categories\" ng-class=\"{ \'active\': categoryName === name }\"><a ng-click=\"setCategory(name, category)\">{{ name }}</a></li><li class=\"divider\"></li><li ng-class=\"{ \'active\': !category }\"><a ng-click=\"setCategory(null)\">All field types</a></li></ul></legend>');
   $templateCache.put('angular-form-gen/edit/canvas/field/properties/properties.ng.html', '<div class=\"fg-field-properties\"><div novalidate=\"\" ng-form=\"fieldPropertiesForm\"><div fg-tabs=\"property.tabs\"><div ng-include=\"renderInfo.propertiesTemplateUrl\"></div><div fg-tabs-pane=\"Debug\" order=\"1000\" auto-active=\"false\"><div data-jsonify=\"field\"></div></div></div></div></div>');
   $templateCache.put('angular-form-gen/edit/canvas/field/properties/options/options.ng.html', '<div ng-if=\"!field.options || field.options.length === 0\" ng-click=\"optionsCtrl.addOption()\" class=\"alert alert-info\"><h2>No options defined</h2><p class=\"lead\">Click here to add a new option definition to this field.</p></div><table ng-if=\"field.options.length > 0\" class=\"table-field-options\"><thead><tr><th></th><th>Value</th><th>Text</th><th><a href=\"\" class=\"btn btn-default btn-xs\" ng-click=\"optionsCtrl.addOption()\" title=\"Add a new option to the list\"><i class=\"glyphicon glyphicon-plus\"></i></a></th><th class=\"table-field-options-padding\"></th></tr></thead><tbody><tr ng-form=\"fieldOptionForm\" ng-repeat=\"option in field.options\" ng-class=\"{ \'error\': fieldOptionForm.$invalid }\"><td ng-if=\"multiple === false\"><input type=\"radio\" name=\"{{ field.name }}selection[]\" value=\"{{ option.value }}\" ng-model=\"field.value\"></td><td ng-if=\"multiple === true\"><input type=\"checkbox\" name=\"{{ field.name }}selection[]\" value=\"{{ option.value }}\" ng-model=\"field.value[option.value]\"></td><td><input type=\"text\" name=\"optionValue\" ng-model=\"option.value\" ng-required=\"true\" class=\"form-control\"></td><td><input type=\"text\" ng-model=\"option.text\" class=\"form-control\"></td><td><a href=\"\" class=\"btn btn-default btn-xs\" ng-click=\"optionsCtrl.removeOption($index)\" title=\"Remove this option from the list\"><i class=\"glyphicon glyphicon-trash\"></i></a></td><td></td></tr></tbody></table>');
-  $templateCache.put('angular-form-gen/edit/canvas/field/properties/property-field/common.ng.html', '<div ng-if=\"fields.fieldname\"><div fg-property-field=\"fieldName\" fg-property-field-label=\"Name\"><input type=\"text\" class=\"form-control\" name=\"fieldName\" ng-model=\"field.name\" ng-required=\"true\" ng-pattern=\"/^[a-zA-Z]([\\w]+)?$/\" fg-unique-field-name=\"\"></div></div><div ng-if=\"fields.displayname\"><div fg-property-field=\"displayName\" fg-property-field-label=\"Display name\"><input type=\"text\" class=\"form-control\" name=\"displayName\" ng-model=\"field.displayName\"></div></div><div ng-if=\"fields.placeholder\"><div fg-property-field=\"fieldPlaceholder\" fg-property-field-label=\"Placeholder text\"><input type=\"text\" class=\"form-control\" name=\"fieldPlaceholder\" ng-model=\"field.placeholder\"></div></div><div ng-if=\"fields.tooltip\"><div fg-property-field=\"fieldTooltip\" fg-property-field-label=\"Tooltip\"><input type=\"text\" class=\"form-control\" name=\"fieldTooltip\" ng-model=\"field.tooltip\"></div></div>');
+  $templateCache.put('angular-form-gen/edit/canvas/field/properties/property-field/common.ng.html', '<div  ng-if=\"fields.fieldname\"><div fg-property-field=\"fieldName\" fg-property-field-label=\"Name\"><input type=\"text\" class=\"form-control\" name=\"fieldName\" ng-model=\"field.name\" ng-required=\"true\" ng-pattern=\"/^[a-zA-Z]([\\w]+)?$/\" fg-unique-field-name=\"\"></div></div><div ng-if=\"fields.displayname\"><div fg-property-field=\"displayName\" fg-property-field-label=\"Display name\"><input type=\"text\" class=\"form-control\" name=\"displayName\" ng-model=\"field.displayName\"></div></div><div ng-if=\"fields.placeholder\"><div fg-property-field=\"fieldPlaceholder\" fg-property-field-label=\"Placeholder text\"><input type=\"text\" class=\"form-control\" name=\"fieldPlaceholder\" ng-model=\"field.placeholder\"></div></div><div ng-if=\"fields.tooltip\"><div fg-property-field=\"fieldTooltip\" fg-property-field-label=\"Tooltip\"><input type=\"text\" class=\"form-control\" name=\"fieldTooltip\" ng-model=\"field.tooltip\"></div></div>');
   $templateCache.put('angular-form-gen/edit/canvas/field/properties/property-field/field-value.ng.html', '<div ng-if=\"draw\"><div fg-property-field=\"fieldValue\" fg-property-field-label=\"Initial value\"><div ng-transclude=\"\"></div></div></div>');
   $templateCache.put('angular-form-gen/edit/canvas/field/properties/property-field/property-field.ng.html', '<div class=\"form-group fg-property-field\" ng-class=\"{ \'has-error\': fieldPropertiesForm[fieldName].$invalid }\"><label class=\"col-sm-5 col-md-4 control-label\">{{ fieldLabel }}</label><div class=\"col-sm-7 col-md-8\"><div ng-transclude=\"\"></div><div fg-validation-summary=\"{{ fieldName }}\"></div></div></div>');
   $templateCache.put('angular-form-gen/edit/canvas/field/properties/validation/validation-message.ng.html', '<div ng-form=\"valMsgForm\"><div fg-property-field=\"message\" fg-property-field-label=\"Message\"><input type=\"text\" name=\"message\" title=\"{{ tooltip }}\" placeholder=\"Optional message\" ng-model=\"field.validation.messages[validationType]\" class=\"form-control\"></div></div>');
   $templateCache.put('angular-form-gen/edit/canvas/field/properties/validation/validation.ng.html', '<div ng-if=\"fields.minlength\" class=\"fg-property-field-validation\"><div fg-property-field=\"minlength\" fg-property-field-label=\"Minimum length\"><input type=\"text\" fg-field-redraw=\"\" fg-input-number=\"\" title=\"The minimum length of characters that should be entered.\" name=\"minlength\" ng-model=\"field.validation.minlength\" class=\"form-control\"></div><div ng-if=\"field.validation.minlength >= 1\"><div fg-edit-validation-message=\"minlength\"></div></div></div><div ng-if=\"fields.maxlength\" class=\"fg-property-field-validation\"><div fg-property-field=\"maxlength\" fg-property-field-label=\"Maximum length\"><input type=\"text\" fg-field-redraw=\"\" fg-input-number=\"\" title=\"The maximum length of characters that should be entered.\" name=\"maxlength\" ng-model=\"field.validation.maxlength\" class=\"form-control\"></div><div ng-if=\"field.validation.maxlength >= 1\"><div fg-edit-validation-message=\"maxlength\"></div></div></div><div ng-if=\"fields.pattern\" class=\"fg-property-field-validation\"><div fg-property-field=\"pattern\" fg-property-field-label=\"Pattern\"><div fg-dropdown-input=\"patternOptions\" name=\"pattern\" title=\"The pattern that should match with the input value.\" fg-parse-pattern=\"\" fg-field-redraw=\"\" ng-model=\"field.validation.pattern\"></div></div><div ng-if=\"field.validation.pattern.length > 0\"><div fg-edit-validation-message=\"pattern\"></div></div></div><div ng-if=\"fields.required\" class=\"fg-property-field-validation\"><div fg-property-field=\"required\"><div class=\"checkbox\"><label title=\"Indicates if a value is required for this field.\"><input type=\"checkbox\" ng-model=\"field.validation.required\">Required</label></div></div><div ng-if=\"field.validation.required\"><div fg-edit-validation-message=\"required\"></div></div></div>');
   //----------------------updated here-------------------------------------
-  $templateCache.put('angular-form-gen/edit/canvas/field/properties/customlist/customlist.ng.html', '<div class=\"form-data\"></div><div ng-if=\"!field.customlist || field.customlist.length === 0\" ng-click=\"customCtrl.addCustomAtt()\" class=\"alert alert-info\"><h2>No attributes defined</h2><p class=\"lead\">Click here to add a new attribute definition to this field.</p></div><table ng-if=\"field.customlist.length > 0\" class=\"table-field-options\"><thead><tr><th>Attribute Name</th><th>Attribute Value</th><th><a href=\"\" class=\"btn btn-default btn-xs\" ng-click=\"customCtrl.addCustomAtt()\" title=\"Add a new option to the list\"><i class=\"glyphicon glyphicon-plus\"></i></a></th><th class=\"table-field-options-padding\"></th></tr></thead><tbody><tr ng-form=\"fieldCustomForm\" ng-repeat=\"option in field.customlist\" ng-class=\"{ \'error\': fieldCustomForm.$invalid }\"><td><input type=\"text\" name=\"customValue\" ng-model=\"option.value\" ng-required=\"true\" class=\"form-control\"></td><td><input type=\"text\" ng-model=\"option.text\" class=\"form-control\"></td><td><a href=\"\" class=\"btn btn-default btn-xs\" ng-click=\"customCtrl.removeCustomAtt($index)\" title=\"Remove this option from the list\"><i class=\"glyphicon glyphicon-trash\"></i></a></td><td></td></tr></tbody></table>'); 
+  $templateCache.put('angular-form-gen/edit/canvas/field/properties/customlist/customlist.ng.html', '<div class=\"form-data\"></div><div ng-if=\"!field.customlist || field.customlist.length === 0\" ng-click=\"customCtrl.addCustomAtt()\" class=\"alert alert-info\"><h2>No attributes defined</h2><p class=\"lead\">Click here to add a new attribute definition to this field.</p></div><table ng-if=\"field.customlist.length > 0\" class=\"table-field-options\"><thead><tr><th>Attribute Name</th><th>Attribute Value</th><th><a href=\"\" class=\"btn btn-default btn-xs\" ng-click=\"customCtrl.addCustomAtt()\" title=\"Add a new option to the list\"><i class=\"glyphicon glyphicon-plus\"></i></a></th><th class=\"table-field-options-padding\"></th></tr></thead><tbody><tr ng-form=\"fieldCustomForm\" ng-repeat=\"option in field.customlist\" ng-class=\"{ \'error\': fieldCustomForm.$invalid }\"><td><input fg-disable-element  type=\"text\" name=\"customValue\" ng-model=\"option.value\" ng-required=\"true\" class=\"form-control\"></td><td><input fg-disable-element type=\"text\" ng-model=\"option.text\" class=\"form-control\"></td><td><a fg-disable-element ng-model=\"option.delete\" href=\"\" class=\"btn btn-default btn-xs\" ng-click=\"customCtrl.removeCustomAtt($index)\" title=\"Remove this option from the list\"><i class=\"glyphicon glyphicon-trash\"></i></a></td><td></td></tr></tbody></table>'); 
+  
+  //-------------course elements ------------------//
+  $templateCache.put('angular-form-gen/field-templates/default/youtubevideo.ng.html', '<input previewKey=\"youtube-video\" class=\"form-control\" fg-field-input=\"\" type=\"text\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\" placeholder=\"{{ field.schema.placeholder }}\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-minlength=\"{{ field.schema.validation.minlength }}\" ng-maxlength=\"{{ field.schema.validation.maxlength }}\" ng-pattern=\"/{{ field.schema.validation.pattern }}/\" ng-disabled=\"isDisabled(field.schema)\">');
+  $templateCache.put('angular-form-gen/field-templates/properties/youtubevideo.ng.html', '<div fg-tabs-pane=\"Properties\"><div fg-property-field-common=\"{ fieldname: true, displayname: true, placeholder: true, tooltip: true }\"></div><div fg-property-field-value=\"\"><span class=\"form-control\" name=\"fieldValue\" ng-model=\"field.value\" ng-minlength=\"{{ field.validation.minlength }}\" strip-br=\"false\" no-line-breaks=\"true\" select-non-editable=\"true\" ng-maxlength=\"{{ field.validation.maxlength }}\" ng-pattern=\"/{{ field.validation.pattern }}\"></div></div></div><div fg-tabs-pane=\"Validation\"><div fg-property-field-validation=\"{ required: true, minlength: true, maxlength: true, pattern: true }\"></div></div><div fg-tabs-pane=\"Custom Attributes\"><div fg-property-field-custom=\"\"></div></div>');
+
+  // course element title  
+  $templateCache.put('angular-form-gen/field-templates/default/title.ng.html', '<input previewKey=\"cours-element-title\" class=\"form-control\" fg-field-input=\"\" type=\"text\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\" placeholder=\"{{ field.schema.placeholder }}\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-minlength=\"{{ field.schema.validation.minlength }}\" ng-maxlength=\"{{ field.schema.validation.maxlength }}\" ng-pattern=\"/{{ field.schema.validation.pattern }}/\" ng-disabled=\"isDisabled(field.schema)\">');
+  $templateCache.put('angular-form-gen/field-templates/properties/title.ng.html', '<div fg-tabs-pane=\"Properties\"><div fg-property-field-common=\"{ fieldname: true, displayname: true, placeholder: true, tooltip: true }\"></div><div fg-property-field-value=\"\"><span class=\"form-control\" name=\"fieldValue\" ng-model=\"field.value\" ng-minlength=\"{{ field.validation.minlength }}\" strip-br=\"false\" no-line-breaks=\"true\" select-non-editable=\"true\" ng-maxlength=\"{{ field.validation.maxlength }}\" ng-pattern=\"/{{ field.validation.pattern }}\"></div></div></div><div fg-tabs-pane=\"Validation\"><div fg-property-field-validation=\"{ required: true, minlength: true, maxlength: true, pattern: true }\"></div></div><div fg-tabs-pane=\"Custom Attributes\"><div fg-property-field-custom=\"\"></div></div>');
+
+  // course element document viwer  
+  $templateCache.put('angular-form-gen/field-templates/default/coursefileUpload.ng.html', '<input previewKey=\"doc-viewer\" fileupload-dir=\"form.data[field.schema.name]\" accept=\"image/*,*.pdf,*.xml,*.doc\" ng-file-select=\"$parent.onFileSelect($files)\" ng-file-select  ng-file-change=\"$parent.fileSelected($files, $event)\" class=\"form-control\" fg-field-input=\"\" type=\"file\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\"  ng-multiple=\"false\"  resetOnClick=\"true\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-minlength=\"{{ field.schema.validation.minlength }}\" ng-maxlength=\"{{ field.schema.validation.maxlength }}\" ng-pattern=\"/{{ field.schema.validation.pattern }}/\" ng-disabled=\"isDisabled(field.schema)\">');
+  $templateCache.put('angular-form-gen/field-templates/properties/coursefileUpload.ng.html', '<div fg-tabs-pane=\"Properties\"><div fg-property-field-common=\"{ fieldname: true, displayname: true, placeholder: true, tooltip: true }\"></div><div fg-property-field-value=\"\"><span class=\"form-control\" name=\"fieldValue\" ng-model=\"field.value\" ng-minlength=\"{{ field.validation.minlength }}\" strip-br=\"false\" no-line-breaks=\"true\" select-non-editable=\"true\" ng-maxlength=\"{{ field.validation.maxlength }}\" ng-pattern=\"/{{ field.validation.pattern }}\"></div></div></div><div fg-tabs-pane=\"Validation\"><div fg-property-field-validation=\"{ required: true, minlength: true, maxlength: true, pattern: true }\"></div></div><div fg-tabs-pane=\"Custom Attributes\"><div fg-property-field-custom=\"\"></div></div>');
+
+  //-------------course elements end ------------------//
 
 }]);
+
+// Custom directive added by Anoop to disable certain controls
+fg.directive('fgDisableElement',function () {
+return {
+  restrict: 'A',
+  require:'ngModel',
+  link: function(scope, elem, attrs, ctrls) {
+    var disableItems = ['previewkey','Title'];
+  
+      if(!angular.equals($.inArray(scope.option.value, disableItems), -1)) {
+
+        $(elem).attr('disabled', 'disabled');
+
+      }
+  }
+};
+});
+// .End Custom directive added by Anoop to disable certain controls
+
+
+
+
 fg.directive('fgBindExpression', ["$interpolate", function ($interpolate) {
 
   function buildWatchExpression(interpolateFn) {
@@ -806,26 +849,79 @@ fg.factory('fgUtils', ["$templateCache", "$window", "fgConfig", function ($templ
           renderInfo.propertiesTemplateUrl = this.getTemplateUrl(field, 'properties');
         }
 
+
+
         // Added by Akshath/Anoop to prerender custom attributes
         if(field.customlist !== undefined) {
-          var templateData = $templateCache.get(renderInfo.templateUrl);        
-          var beforeCustom = templateData.split(">");
+          var templateData = $templateCache.get(renderInfo.templateUrl);
+
+
+          // replacing the already defined attributes with custom attributes of the same type
+          // Edited by Anoop
+          var elem = $('<div>') ;
+          elem.html(templateData);         
+
+          for (var i = 0; i < field.customlist.length; i++) {
+             elem[0].firstChild.removeAttribute(field.customlist[i].value);
+           }; 
+             
+          // .End edited by Anoop
+          
+
+          var beforeCustom = elem[0].innerHTML.split(">");
           for(var i=0;i<field.customlist.length;i++){
-            beforeCustom[0]=beforeCustom[0] + ' ' + field.customlist[i].value + '="' + field.customlist[i].text + '"';
+
+            if(!angular.equals(field.customlist[i].text, undefined)){
+
+                beforeCustom[0]=beforeCustom[0] + ' ' + field.customlist[i].value + '="' + field.customlist[i].text + '"';
+              }
+              else{
+                beforeCustom[0]=beforeCustom[0] + ' ' + field.customlist[i].value + ' ';
+
+              }
           }
+
+
+
+
         //   for(var j=0;j<beforeCustom.length;j++){
         //     if(j!==0){
         //       beforeCustom[0] = beforeCustom[0] + '>' + beforeCustom[j];
         //     }
 
         // }
+
+          beforeCustom[0] = beforeCustom[0] + ' xt-validate ';
          
           templateData= beforeCustom.join('>');
+          console.log(templateData);
           $templateCache.put(renderInfo.templateUrl, templateData);
         } 
-
         //.End Added by Akshath/Anoop to prerender custom attributes
-        
+
+
+         //adde by lijin for generating previewkey attribute list for course element preview
+          
+          var elementToBeChecked=$($templateCache.get(renderInfo.templateUrl));
+          var previewKeyAttrib=elementToBeChecked.attr('previewkey');
+          if(!angular.equals(previewKeyAttrib,undefined)){
+              if(angular.equals(field.customlist,undefined)){
+                field.customlist=[];
+              }
+              var weHaveTheKey=false;
+              angular.forEach(field.customlist,function(customProperty){
+                if(customProperty.value==="previewkey"&&customProperty.text===previewKeyAttrib){
+                  weHaveTheKey=true;
+                }
+              });
+
+              if(!weHaveTheKey){
+                field.customlist.push({text:previewKeyAttrib,value:"previewkey"});
+              }
+            }
+        //--------end of generating previewkey attribute list for course element preview----
+
+
         return renderInfo;
 
       },
@@ -1290,6 +1386,11 @@ fg.controller('fgFormController', ["$scope", "$parse", function($scope, $parse) 
   var self = this;
 
   this.init = function(dataExpression, schema, state, editMode) {
+
+    // Edited by Anoop + Jihin to make the course object available in the formgen
+    this.model.syncData = $scope.syncData;
+
+
     // Called by the directive
     
     self.editMode = editMode;
@@ -1343,19 +1444,22 @@ fg.directive('fgForm', ["fgFormCompileFn", function(fgFormCompileFn) {
     restrict: 'AE',
     require: ['^?form', 'fgForm', '^fgSchema'],
     controller: 'fgFormController',
-    scope: {formData:"="},
+    scope: {formData:"=", syncData:"="},
     compile: fgFormCompileFn
   };
 }]).factory('fgFormLinkFn', function() {
     return function link($scope, $element, $attrs, ctrls) {
-
+      
       var ngFormCtrl = ctrls[0];
       var formCtrl = ctrls[1];
       var schemaCtrl = ctrls[2];
 
+     
+
       var editMode = $attrs.fgNoRender === 'true';
 
       formCtrl.init($attrs.fgFormData, schemaCtrl, ngFormCtrl, editMode);
+     
       
     };
 }).factory('fgFormCompileFn', ["fgFormLinkFn", function(fgFormLinkFn) {
@@ -1374,59 +1478,64 @@ fg.directive('fgForm', ["fgFormCompileFn", function(fgFormCompileFn) {
   };
 }]);
 
+// Commented by anoop to hide the validation messages
+            // fg.directive('fgValidationSummary', ["fgValidationSummaryLinkFn", function(fgValidationSummaryLinkFn) {
 
-fg.directive('fgValidationSummary', ["fgValidationSummaryLinkFn", function(fgValidationSummaryLinkFn) {
+            //   return {
+            //     require: ['^?fgField', '^?form', '^?fgForm'],
+            //     templateUrl: 'angular-form-gen/validation/summary.ng.html',
+            //     scope: {
+            //       fieldName: '@?fgValidationSummary',
+            //       validationMessages: '=?fgValidationMessages'
+            //     },
+            //     link: fgValidationSummaryLinkFn
+            //   };
+            // }]).factory('fgValidationSummaryLinkFn', ["fgConfig", function(fgConfig) {
 
-  return {
-    require: ['^?fgField', '^?form'],
-    templateUrl: 'angular-form-gen/validation/summary.ng.html',
-    scope: {
-      fieldName: '@?fgValidationSummary',
-      validationMessages: '=?fgValidationMessages'
-    },
-    link: fgValidationSummaryLinkFn
-  };
-}]).factory('fgValidationSummaryLinkFn', ["fgConfig", function(fgConfig) {
+            //   return function($scope, $element, $attrs, ctrls) {
 
-  return function($scope, $element, $attrs, ctrls) {
 
-    var fgFieldCtrl = ctrls[0];
-    var ngFormController = ctrls[1];
 
-    if (fgFieldCtrl) {
-      // Grab the whole field state from the field controller
-      $scope.field = fgFieldCtrl.field();
-      $scope.form = fgFieldCtrl.form();
+            //     var fgFieldCtrl = ctrls[0];
+            //     var ngFormController = ctrls[1];
 
-    } else if (ngFormController) {
-      
-      $scope.form = {
-        state: ngFormController
-      };
+            //     if (fgFieldCtrl) {
+            //       // Grab the whole field state from the field controller
+            //       $scope.field = fgFieldCtrl.field();
+            //       $scope.form = fgFieldCtrl.form();
 
-      $scope.$watch('fieldName', function(value) {
-        $scope.field = {
-          name: value,
-          state: ngFormController[value]
-        };
-      });
-    }
+            //     } else if (ngFormController) {
+                  
+            //       $scope.form = {
+            //         state: ngFormController
+            //       };
 
-    // Whenever the form designer edits a custom message but decides to delete it later a "" is leftover.
-    // I don't feel like setting all kinds of watchers so we'll fix that here
+            //       $scope.$watch('fieldName', function(value) {
+            //         $scope.field = {
+            //           name: value,
+            //           state: ngFormController[value]
+            //         };
+            //       });
+            //     }
 
-    if($scope.validationMessages) {
-      angular.forEach($scope.validationMessages, function(value, key) {
-        if(!value) {
-          delete $scope.validationMessages[key];
-        }
-      });
-    }
+            //     // Whenever the form designer edits a custom message but decides to delete it later a "" is leftover.
+            //     // I don't feel like setting all kinds of watchers so we'll fix that here
 
-    $scope.messages = angular.extend({}, fgConfig.validation.messages, $scope.validationMessages);
-  };
+            //     if($scope.validationMessages) {
+            //       angular.forEach($scope.validationMessages, function(value, key) {
+            //         if(!value) {
+            //           delete $scope.validationMessages[key];
+            //         }
+            //       });
+            //     }
 
-}]);
+            //     $scope.messages = angular.extend({}, fgConfig.validation.messages, $scope.validationMessages);
+            //   };
+
+            // }]);
+// .End Commented by anoop to hide the validation messages
+
+
 fg.directive('fgUniqueFieldName', function () {
 
   var changeTick = 0;
@@ -1910,11 +2019,12 @@ fg.directive('fgField', ["fgFieldLinkFn", function(fgFieldLinkFn) {
 fg.directive('fgFieldInput', ["fgFieldInputLinkFn", function(fgFieldInputLinkFn) {
   return {
     require: ['^fgField', 'ngModel'],
+    scope:true,
     link: fgFieldInputLinkFn
   };
 }]).factory('fgFieldInputLinkFn', function() {
   return function($scope, $element, $attrs, ctrls) {
-
+    
     var fgFieldCtrl = ctrls[0];
     var ngModelCtrl = ctrls[1];
 
@@ -1927,11 +2037,10 @@ fg.directive('fgFormFields', function() {
     require: ['^?fgForm'],
     restrict: 'AE',
     templateUrl: 'angular-form-gen/form/form-fields/form-fields.ng.html',
-    scope: {},
+    scope: {syncData:"="},
     link: function($scope, $element, $attrs, ctrls) {
-
       var fgForm = ctrls[0];
-
+console.log($scope);
       $scope.$watch(function() {
         return fgForm.model;
       }, function(value) {

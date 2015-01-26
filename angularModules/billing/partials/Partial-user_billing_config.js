@@ -49,6 +49,8 @@ $scope.fnChangeplan=function(plan){
         $scope.userplan.plan.features[i].featureId=$scope.userplan.plan.features[i].featureId.$oid;
         i++;
       }
+
+   $scope.userplan.loggedusercrmid=loggedusercrmid;     
       // console.log($scope.userplan);
 	 userBillingConfigService.FnChangeUserPlan($scope);
 	}
@@ -132,8 +134,9 @@ else if($scope.sel.freqency!=='custom'){
       // console.log($scope.AddFeature);
       // console.log("featureconfig from addfeature")
       // console.log($scope.FeatureConfig);
+      $scope.AddFeature.loggedusercrmid=loggedusercrmid;
 
-      // userBillingConfigService.FnAddFeature($scope);
+      userBillingConfigService.FnAddFeature($scope);
 };
 //function to add a feature to user plan will update the clnuserfeatureconfig
 //runs along with funtion addfeature
@@ -199,6 +202,7 @@ $scope.saveFeature = function(){
   // console.log($scope.temp);
   // console.log("temp")
   // console.log($scope.featurelist.indexOf( $scope.temp ))
+  $scope.configValues.loggedusercrmid=loggedusercrmid;
   
   userFeatureConfigService.FnSaveFeaturesConfig($scope);
   userBillingConfigService.FnAddFeature($scope);
@@ -227,6 +231,8 @@ $scope.saveFeature = function(){
        // console.log("DeleteFeature");
        // console.log($scope.DeleteFeature);
       // $scope.DeleteFeature.featureId=feature._id.$oid;
+        $scope.DeleteFeature.loggedusercrmid=loggedusercrmid;
+
        userBillingConfigService.FnDeleteFeature($scope);
 
 };
@@ -237,6 +243,9 @@ $scope.editPricing = function(Pricing) {
   $scope.editPrice.companyId=$scope.companyId;
   $scope.editPrice.featureId=$scope.selectedFeature.featureId.$oid;
   $scope.editPrice.pricing=Pricing;
+  $scope.editPrice.loggedusercrmid=loggedusercrmid;
+
+
   // console.log($scope.editPrice);
   userBillingConfigService.FnEditPricing($scope);
 
@@ -248,6 +257,7 @@ $scope.editBill = function(Billing) {
     $scope.editBilling.billing={};
     $scope.editBilling.companyId=$scope.companyId;
     $scope.editBilling.featureId=$scope.selectedFeature.featureId.$oid;
+    $scope.editBilling.loggedusercrmid=loggedusercrmid;
   
   if(Billing==='yearly'){
     $scope.custombillfield=false;

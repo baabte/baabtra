@@ -59,11 +59,11 @@
 </div>
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="Pass out" name="passOut" ng-model="formData.academicDetails.passOut" ng-pattern="NumberPattern" msg-pattern="Enter a Valid passOut Year" maxlength='4' xt-validate required indicate-val="required">
+   <input type="text" class="form-control" xt-validate  placeholder="Pass out" name="passOut" ng-model="formData.academicDetails.passOut" ng-pattern="NumberPattern" msg-pattern="Enter a Valid passOut Year" ng-minlength="4" maxlength='4' xt-validate required indicate-val="required">
 </div>
 <div class="form-group">
    <!-- <label for="phone" class="control-label">Phone</label> -->
-   <input type="text" class="form-control" xt-validate  placeholder="Percentage" name="percentage" ng-pattern="NumberPattern" msg-pattern="Enter a Valid Percentage" maxlength='3' ng-model="formData.academicDetails.percentage" xt-validate required indicate-val="required">
+   <input type="text" class="form-control" xt-validate  placeholder="Percentage" name="percentage" ng-pattern="NumberPattern" msg-pattern="Enter a Valid Percentage"  maxlength='3' ng-model="formData.academicDetails.percentage" xt-validate required indicate-val="required">
 </div>
 
 </div>
