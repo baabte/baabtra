@@ -34,11 +34,9 @@
     "totalAmount": "",
     "currency": "",
     "payment": {
-      "oneTime": {
-        "When": {
+      "oneTime": true
           "mode": "",
           "dateOfPayment": ""
-        }
       },
       "Installments": {
         "arcadeMode": "true",

@@ -1,15 +1,44 @@
-angular.module('baabtra').controller('AddcourseCtrl',['$scope','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','RoleMenuMappingSrv','addCourseElementService',function($scope,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,RoleMenuMappingSrv,addCourseElementService){
+angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','RoleMenuMappingSrv','addCourseElementService','commonService','addCourseService',function($scope,bbConfig,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,RoleMenuMappingSrv,addCourseElementService,commonService,addCourseService){
 
-$scope.roleId=1;
-     
+
+  /*login detils start*/
+
+  if(!$rootScope.userinfo){
+    commonService.GetUserCredentials($scope);
+    $rootScope.hide_when_root_empty=false;
+  }
+
+  if($rootScope.loggedIn==false){
+    $state.go('login');
+  }
+
+  $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+  $scope.roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
+  $scope.cmp_id=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+  /*login detils ends*/
+
+if($state.params.courseId!=""){
+  //this function loads course details by course Id
+  $scope.courseId = $state.params.courseId;
+  var promise = addCourseService.fnLoadCourseDetails($scope, $scope.courseId);
+  promise.then(function(course){
+    if(!angular.equals($scope.course.Duration.durationInMinutes, undefined)){
+
+      $scope.totalCourseDuration = $scope.course.Duration.durationInMinutes;
+    }
+  });
+
+}
+else{
+  $scope.courseId = "";
+}
+
+
+
 $scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
 $scope.technologies={};//object to store selected technologies
 $scope.technologies.values = [];//object to store selected technologies
 
-    $scope.feeIn=[{id: "1",name: "<i class=\"fa  fa-inr\"></i>"},
-    			{id: "2",name: "<i class=\"fa fa-dollar\"></i>"},
-    			{id: "3",name: "SR"}];
-    $scope.selectedFee= {id: "1",name: "<i class=\"fa  fa-inr\"></i>"};
 
     $scope.selectedPaymentType={id: "1",name: "Before The Course"};
 
@@ -35,11 +64,6 @@ $scope.$watch('totalCourseDuration',function(){
                     
 
 
-    $scope.selects=[{id: "1",name: "<i class=\"fa  fa-inr\"></i>"},
-    				{id: "2",name: "<i class=\"fa fa-dollar\"></i>"},
-    				{id: "3",name: "SR"}];
-    $scope.selectedItem= "1";
-
 // variable to store courseDuration
     $scope.courseDuration={};
     $scope.courseDuration.days=0;
@@ -55,7 +79,6 @@ $scope.$watch('totalCourseDuration',function(){
                      }
     	else{
     		$scope.totalCourseDuration=0;
-    		console.log($scope.totalCourseDuration);
 
     	}                 
     }, true);
@@ -68,7 +91,6 @@ $scope.$watch('totalCourseDuration',function(){
   
 
 $scope.currentState=$state.current.name;
-console.log($state.current.name);
 $scope.nextPart = function(state){
     $scope.currentState=state;
     $state.go(state);
@@ -81,7 +103,7 @@ $scope.onDomainSelectionChanged = function(items) {
         $scope.selectedDomains.push(items[i].name);
       }
     }
-    
+    return $scope.selectedDomains;
   };
 
 $scope.onBranchSelectionChanged = function(items) {
@@ -106,9 +128,9 @@ commonSrv.FnLoadGlobalValues($scope,"");
 
 addCourseDomainSrv.FnLoadDomain($scope);
 
-branchSrv.fnLoadBranch($scope,'5457526122588a5db73e0b23');
+branchSrv.fnLoadBranch($scope,$scope.cmp_id);
 
-RoleMenuMappingSrv.FnGetRoles($scope,'54978cc57525614f6e3e710b',"","");
+RoleMenuMappingSrv.FnGetRoles($scope, $scope.cmp_id, "", "");
 
 // Global Declaration Of variables
 
@@ -142,7 +164,6 @@ $scope.$watch('roles', function(newVal, oldVal){
       angular.forEach($scope.roles,function(role){
         role.name=role.roleName;
       });
-      console.log($scope.roles);
       $scope.rolesDetails = angular.copy($scope.roles);
     }
 });
@@ -153,6 +174,7 @@ $scope.course={};
 $scope.course.Delivery = {};
 $scope.course.Delivery.online=true;//setting delevery mode default option to true
 $scope.course.Delivery.offline=true;//setting delevery mode default option to true
+$scope.course.balanceAmount = 5;
 
 var convertObjectName=function(menu,sub){
               if(sub==null){
@@ -197,34 +219,57 @@ $scope.completeStep1 = function(course){//created for build step1 object
 /* Building courseDetails Start */
     var Technologies = [];
     var Tags = [];
+    $scope.ItsTimeToSaveDataToDB = false;
 
-    angular.forEach(course.technologiesToBeSaved, function(technology)
-    {
+    angular.forEach(course.Technologies, function(technology){
         Technologies.push(technology.text);
     });
-    angular.forEach(course.tagsToBeSaved, function(tag)
-    {
+
+    angular.forEach(course.Tags, function(tag){
         Tags.push(tag.text);
     });
-    $rootScope.courseDetails = { Name:course.courseName,
-                             Image:"",
-                             Description:course.courseDescription,
-                             Benefits:course.courseBenefits,
-                             Technologies:Technologies,
-                             Tags:Tags,
-                             Domains:$scope.selectedDomains,
-                             Delivery: $scope.course.Delivery,
-                             Availability:{"Branches":$scope.selectedBranches,"Roles":$scope.selectedRole},
-                             courseTimeline:{}
-                           };
-console.log($rootScope.courseDetails);
 
-    if (!angular.equals($rootScope.courseDetails.Name,undefined)) {
-      addCourseService.saveCourseObject($scope, $rootScope.courseDetails, "", "");
+    var courseToBeSave = angular.copy($scope.course);
+    courseToBeSave.Tags = Tags;
+    courseToBeSave.Duration = {durationInMinutes : 525600,DurationDetails : {"Year(s)" : 1}
+    },
+    courseToBeSave.Technologies = Technologies;
+    courseToBeSave.updatedDate = Date();
+
+
+    if(angular.equals($scope.courseId,"")){
+      courseToBeSave.draftFlag = 0;
+      courseToBeSave.activeFlag = 1;
+      courseToBeSave.createdDate = Date();
+      courseToBeSave.crmId = $scope.rm_id;
+    }
+    courseToBeSave.urmId = $scope.rm_id;
+
+    if (!angular.equals(courseToBeSave.Name, undefined)) {
+      var path='Course/courseImage';
+
+      if(!angular.equals(course.Img,undefined)){
+      var promise = addCourseService.fnCourseFileUpload(course.Img, path);
+       promise.then(function(data){ // call back function for the fileupload
+        courseToBeSave.courseImg = bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','');
+        $scope.ItsTimeToSaveDataToDB=true;
+      });
+     }
+     else{
+       $scope.ItsTimeToSaveDataToDB=true;
+     }
+       var unbindWatchOnThis=$scope.$watch('ItsTimeToSaveDataToDB',function(){
+        if($scope.ItsTimeToSaveDataToDB){
+          delete courseToBeSave.Img;
+          addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId);//saving to database
+          unbindWatchOnThis(); // used to unbind this watch after triggering it once
+        }
+      });
       $scope.currentState="home.main.addCourse.step2";
-      $state.go('home.main.addCourse.step2');
+      $state.go('home.main.addCourse.step2',{'courseId':$scope.courseId});
     };
-/* Building courseDetails Start */
+
+/* Building courseDetails End */
 
 };
 
@@ -234,31 +279,52 @@ console.log($rootScope.courseDetails);
 // *********************** STEP 2 ***********************************
 
 // variable initaialisations
-$scope.course.free=true;
-$scope.course.installments = false;
+$scope.course.Fees = {};
+$scope.course.Fees.free = true;
+$scope.course.Fees.oneTime = true;
+$scope.course.Fees.payment = {};
 // Payment types
 $scope.paymentType = {};
-$scope.paymentType.selected = {id: "1",name: "Before The Course"};
+$scope.course.Fees.payment.mode = {id: "1",name: "Before The Course"};
 $scope.paymentTypes=[{id: "1",name: "Before The Course"},
                      {id: "2",name: "During The Course"},
                      {id: "3",name: "After The Course"}];
 
+    $scope.course.Fees.currency= {currency: "INR",name: "<i class=\"fa  fa-inr\"></i>"};
+                
+    $scope.feeIn=[{currency: "INR",name: "<i class=\"fa  fa-inr\"></i>"},
+          {currency: "Dollar",name: "<i class=\"fa fa-dollar\"></i>"},
+          {currency: "SR",name: "SR"}];
+    // $scope.course.Duration={};
+
+    // $scope.course.Duration.DurationDetails={"Year(s)":1,"Month(s)":2,"Week(s)":5};
 
 // adding and deleing the contextmenus the context menu
-$scope.$watch(function(){return $scope.course.installments + $scope.paymentType.selected.id}, function(){
-
-    if($scope.course.installments==='1' || angular.equals($scope.paymentType.selected.id,'2')){
-        $scope.tlPopOver.step2 = {colorClass:'bg-baabtra-green'};
-        addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Payment_checkpoint");//calling course element function
-    }    
-    else{
-        $("#tlContextMenu").remove();
-        $scope.tlPopOver.step2={};        
+  $scope.$watch(function(){return $scope.course.Fees.oneTime + $scope.course.Fees.payment.mode}, function(){
+      console.log($scope.course.Fees.payment.mode);
+      if(!angular.equals($scope.course.Fees.payment.mode,undefined)){
+      if($scope.course.Fees.oneTime === true || angular.equals($scope.course.Fees.payment.mode.id,'2')){
+          $scope.tlPopOver.step2 = {colorClass:'bg-baabtra-green'};
+          addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Payment_checkpoint");//calling course element function
+      }    
+      else{
+          $("#tlContextMenu").remove();
+          $scope.tlPopOver.step2={};        
+      }
     }
-
-});
+  });
  
-
+$scope.completeStep2 = function(){
+  console.log($scope.course);
+  $scope.course
+  if (!$scope.course.Fees.payment.oneTime) {
+    delete $scope.course.Fees.payment.mode;
+  }
+  delete $scope.course._id
+  addCourseService.saveCourseObject($scope, $scope.course, "", $scope.courseId);//saving to database
+  $scope.currentState="home.main.addCourse.step3";
+  $state.go('home.main.addCourse.step3',{'courseId':$scope.courseId});
+};
 
 
 

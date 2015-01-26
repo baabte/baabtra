@@ -391,3 +391,10 @@ pre                             { margin-bottom:20px; }
   100% { transform: rotate(-359deg); }
 }
 /*.End the reverse spinning class*/
+
+/*drafted course view start*/
+.course-description>.line{
+  font-size: 14px!important;
+  height: initial!important;
+}
+/*drafted course view end*/

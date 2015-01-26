@@ -8,7 +8,7 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 		},
 		templateUrl: 'angularModules/courseElementPreview/directives/Directive-courseElementPreview.html',
 		link: function(scope, element, attrs, fn) {
-
+			scope.rand=Math.floor(Math.random()*100000); // for generating random id for elements
 			scope.$watch('previewData', function(){
 				$(element).find('#elementContent').html('');
 				if(!angular.equals(scope.previewData,undefined)){
@@ -17,7 +17,7 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 							if(data instanceof Object){
 							 		var elementToBeCreated=$('<'+data.type+'>');
 							 		elementToBeCreated.attr('data',data.value);
-							 		$('#elementContent').append(elementToBeCreated);
+							 		$('#elementContent'+scope.rand).append(elementToBeCreated);
 							 		$compile(elementToBeCreated)(scope);
 							}
 						//});

@@ -247,8 +247,20 @@
                 }
                 
               })
+
+              .state('home.main.draftedCourses', {
+                url: '/draftedCourses',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-draftedCourses.html',
+                    controller: 'DraftedcoursesCtrl'
+                  }
+                }
+                
+              })
+
               .state('home.main.addCourse.step1', {
-                url: '/step1',
+                url: '/step1/:courseId',
                 views:{
                   'addCourse-container':{
                     templateUrl: 'angularModules/course/partials/addCourseStep1.html'
@@ -257,7 +269,7 @@
                 
               })
               .state('home.main.addCourse.step2', {
-                url: '/step2',
+                url: '/step2/:courseId',
                 views:{
                   'addCourse-container':{
                     templateUrl: 'angularModules/course/partials/addCourseStep2.html'
@@ -266,7 +278,7 @@
                 
               })
               .state('home.main.addCourse.step3', {
-                url: '/step3',
+                url: '/step3/:courseId',
                 views:{
                   'addCourse-container':{
                     templateUrl: 'angularModules/course/partials/addCourseStep3.html'
@@ -361,10 +373,7 @@
                      controller: 'UserregistrationCtrl'
 
               })
-
-
-
-                .state('home.JobPosting', {
+              .state('home.JobPosting', {
                 url: '/JobPosting',
                 templateUrl: 'angularModules/company/partials/Partial-JobPosting.html',
                 controller: 'JobpostingCtrl'

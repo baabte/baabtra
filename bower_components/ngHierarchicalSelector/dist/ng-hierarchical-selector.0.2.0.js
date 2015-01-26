@@ -23,6 +23,7 @@ angular.module('hierarchical-selector', [
       itemHasChildren: '&'
     },
     link: function(scope, element, attrs) {
+
       // is there a better way to know the callbacks are actually set. So we have make decisions on what to use
       if (attrs.canSelectItem) {
         scope.useCanSelectItemCallback = true;
@@ -259,6 +260,7 @@ angular.module('hierarchical-selector', [
       };
 
       $scope.itemSelected = function(item) {
+        console.log(JSON.stringify(item));
         if (($scope.useCanSelectItemCallback && $scope.canSelectItem({item: item}) === false) || ($scope.selectOnlyLeafs && selectorUtils.hasChildren(item, $scope.isAsync))) {
           return;
         }
