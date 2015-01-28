@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('UserregistrationCtrl',['$scope','$filter','$rootScope','$state','commonService','userRegistrationService','companyRegistrationService','$alert','branchSrv','manageTreeStructureSrv',function($scope,$filter,$rootScope,$state,commonService,userRegistrationService,companyRegistrationService,$alert,branchSrv,manageTreeStructureSrv){
+angular.module('baabtra').controller('UserregistrationCtrl',['$scope','$filter','$rootScope','$state','commonService','userRegistrationService','companyRegistrationService','formCustomizerService','$alert','branchSrv','manageTreeStructureSrv',function($scope,$filter,$rootScope,$state,commonService,userRegistrationService,companyRegistrationService,formCustomizerService,$alert,branchSrv,manageTreeStructureSrv){
 
 
 	if(!$rootScope.userinfo){
@@ -24,13 +24,54 @@ $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fr
 branchSrv.fnLoadBranch($scope, $rootScope, companyId);
 $scope.tableData={};
 $scope.formData={};
+$scope.FormData={};
 $scope.selection={};
+$scope.status={};
+$scope.status.selected=1;
 $scope.newUser=false;
 
+
+$scope.formFetchData={};
+$scope.formFetchData.fkcompanyId=companyId;//to fetch forms from clnCustomForms
+$scope.formFetchData.formName='userRegistration';//to fetch all the froms give specific name to fetch that form only
+
+
+// formCustomizerService.FnFetchCustomForm($scope);
+
+var formFetchData={};
+formFetchData.fkcompanyId=companyId;//to fetch forms from clnCustomForms
+formFetchData.formName='userRegistration';//to fetch all the froms give specific name to fetch that form only
+
+
+var FnFetchCustomFormCallBack= formCustomizerService.FnFetchCustomForm(formFetchData);
+
+FnFetchCustomFormCallBack.then(function(data){
+
+ $scope.formlist=angular.fromJson(JSON.parse(data.data));
+
+ $scope.createSteps($scope.formlist.formSteps);
+        
+
+});
 
 
 //code for branch select 
 $scope.branchDetails =[];
+
+$scope.createSteps = function(steps) {
+  // console.log(steps);
+
+  if(!angular.equals(steps,undefined)){
+  $scope.steps = new Array(steps*1);
+  }
+  else{ 
+    $scope.steps = [];   
+  }
+
+};
+
+
+
 
 $scope.$watch('branches', function(newVal, oldVal){
     if (!angular.equals($scope.branches,undefined)) {
@@ -183,6 +224,12 @@ $scope.removeProExperience = function(row){
 };
 
 
+$scope.trackFnc = function(){
+console.log($scope.formlist.formSchema[$scope.status.selected].stepFormSchema);
+console.log($scope.status.selected);
+
+
+};
 
 
 
@@ -194,26 +241,12 @@ $scope.removeProExperience = function(row){
 ///validations// 
 
 //function for user name validation
-$scope.userVal = function (e){
-     var userNameId=$scope.formData.userInfo;
+$scope.userVal = function (){
+      console.log(e);
+     var userNameId=$scope.FormData;
      console.log(userNameId.eMail);
-     if(angular.equals(userNameId.eMail,undefined)){
-      console.log(userNameId);
-        delete $scope.formData._id;
-        $scope.formData.personalInfo={};
-        $scope.formData.guardianDetails={};
-        $scope.formData.contactInfo={};
-        $scope.formData.academicDetails={};
-        $scope.formData.socialProfiles={};
-        $scope.formData.officeAdmin={};
-        $scope.proExperienceCollection=[];
-       
-
-
-     }
-    else{
     companyRegistrationService.fnUserNameValid($scope,userNameId);
-  }
+  
 };
 
  	  
@@ -267,6 +300,8 @@ $scope.AlfaPattern = (function() {
     };
 
 })();
+
+
 
 
 
@@ -344,6 +379,19 @@ $scope.fnFetchUserDetailsCallBack=function(result){
      }
   };
 
+// $scope.fnFetchCustomFormCallBack = function(result){
+
+//   if(result==='success'){
+
+//     console.log($scope.formlist)
+//     $scope.createSteps($scope.formlist.formSteps);
+        
+//       }
+//    if(result==='error'){
+//         $scope.notifications('opps!','Error in connecting to server','danger');
+       
+//       }
+// };
 
 
 
