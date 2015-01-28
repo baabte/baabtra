@@ -77,7 +77,7 @@ angular.module('ui.bootstrap.contextMenu', [])
       +'<div class="box-cell m-t">'
         +'<div class="box-inner col-xs-12">'
           +'<form novalidate xt-form class="form" name="courseElement" enctype="multipart/form-data">'
-           +'<div fg-form fg-form-data="myFormData" form-data="$parent.formData.'+$scope.randomKey+'" fg-schema="itemTemplate"> </div>'
+           +'<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData.'+$scope.randomKey+'" fg-schema="itemTemplate"> </div>'
            +'<button type="submit" ng-click="saveMyFormData()" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
            +'<button type="submit" ng-click="createPreviewElement(\'tempCourseDocs\')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-left btn '+options[state].colorClass+'">Preview</button>'
           +'</form>'
@@ -118,8 +118,10 @@ angular.module('ui.bootstrap.contextMenu', [])
         });
     };
     var clickedChiled=false;
-    return {scope:true,link:function ($scope, element, attrs) {
-        $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor;
+    return {
+        scope:true,
+        link:function ($scope, element, attrs) {
+        $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor-((1/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor))+1;
         $scope.ItsTimeToSaveDataToDB=false;
         $scope.weHaveGotAfile=false;
         
@@ -160,15 +162,14 @@ angular.module('ui.bootstrap.contextMenu', [])
                                           $scope.ItsTimeToSaveDataToDB=true;
                                     });
                                 }
-                                if(!$scope.weHaveGotAfile&&(fieldsTraversedCount==totalFields)){
-                                    $scope.ItsTimeToSaveDataToDB=true;
-                                }
+
                         }
                             else{
 
                                 if((loopCounter==maxLoopValue)&&!weHaveGotPreviewKey){ // when count meets length of custom list and still
                                     temp[item.name]=$scope.$parent.formData[$scope.randomKey][item.name];
                                 }
+
                             }
                         });
                         
@@ -177,13 +178,16 @@ angular.module('ui.bootstrap.contextMenu', [])
                     else{
                         temp[item.name]=$scope.$parent.formData[$scope.randomKey][item.name];
                     }
+                    if(!$scope.weHaveGotAfile&&(fieldsTraversedCount==totalFields)){
+                                    $scope.ItsTimeToSaveDataToDB=true;
+                                }
                     $scope.coursePreviewObj.elements.push(temp[item.name]);
                 });
                     
         };
         //function for triggering when save button in aside 
         $scope.saveMyFormData = function () {
-            
+           
 
             $scope.createPreviewElement('courseDocs'); // building the needed object
 

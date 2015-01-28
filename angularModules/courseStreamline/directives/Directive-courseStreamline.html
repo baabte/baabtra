@@ -1,0 +1,18 @@
+<div>
+	<!-- drop down list for choosing view type -->
+	<ui-select ng-model="ddlViewIn" theme="selectize" ng-disabled="disabled" style="width: 100px;">
+    	<ui-select-match placeholder="Select View In">{{$select.selected.name}}</ui-select-match>
+	    <ui-select-choices repeat="view in ddlView | filter: true">
+	    	<span ng-bind-html="view.name | highlight: $select.search"></span>
+	    </ui-select-choices>
+  </ui-select>{{syncData.Duration.durationInMinutes}}
+  <div  ng-repeat="(tlPoint, tlpointElems) in syncData.courseTimeline">
+    <div class="btn btn-sm btn-default m-l-xs">{{tlPoint}}</div>
+    	<div ng-repeat="elements in tlpointElems">
+    		<div ng-repeat="element in elements">
+    			<course-element-preview tl-position="Day 12" preview-data="element">
+    			</course-element-preview >
+    		</div>
+      	</div>
+    </div>
+</div>

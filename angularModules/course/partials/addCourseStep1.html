@@ -14,7 +14,6 @@
   
   </div>
   <!-- Top header row .End -->
-
   <!-- body row -->
   <div class="row">
 
@@ -25,7 +24,7 @@
 
         <!-- course name -->
         <div class="form-group">
-              <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="course.courseName" name="courseName" xt-validate required placeholder="Name of the course">
+              <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="course.Name" name="courseName" xt-validate required placeholder="Name of the course">
      
         </div>
 
@@ -41,14 +40,14 @@
 
         <!-- course Description -->
         <div class="form-group">
-            <ng-quill-editor ng-model="course.courseDescription"  toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" error-class="input-error"></ng-quill-editor>
+            <ng-quill-editor ng-model="course.Description"  toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" error-class="input-error"></ng-quill-editor>
             <em class="text-muted">A short description of the Course(Optional, recommended)</em>
 
         </div>
 
         <!-- Course Benefits -->
         <div class="form-group">            
-            <ng-quill-editor ng-model="course.courseBenefits" toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" error-class="input-error"></ng-quill-editor> 
+            <ng-quill-editor ng-model="course.Benefits" toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" error-class="input-error"></ng-quill-editor> 
             <em class="text-muted">Benefits of the Course(Optional, recommended)</em> 
         </div>
 
@@ -63,12 +62,12 @@
     <div class="col-xs-12 col-sm-6 m-t panel">
 
       <!-- Course domains -->
-      <hierarchical-selector  ng-model="course.domain" data="domains" multi-select="true" on-selection-changed="selectedItem2 = onDomainSelectionChanged(items)"></hierarchical-selector>
+      <hierarchical-selector  ng-model="course.testDomains" data="domains" multi-select="true" on-selection-changed="course.Domains = onDomainSelectionChanged(items)" selection="{{course.testDomains}}"></hierarchical-selector>
       <em class="text-muted">Please specify Domains applicable to your course (eg: Accounting, Hospitality etc.)</em>
       <!-- Technologies -->
       <div class="form-group m-t-lg" >
                   <tags-input class="bootstrap"
-                        ng-model="course.technologiesToBeSaved"
+                        ng-model="course.Technologies"
                         placeholder="Technologies covered (Optional, Recommended)"
                         replace-spaces-with-dashes="false" 
                         min-length="1">
@@ -83,7 +82,7 @@
       <!-- Tags -->
       <div class="form-group" >
               <tags-input  ng-class="{'no-border':course.tagsToBeSaved.length}" class="bootstrap"
-                        ng-model="course.tagsToBeSaved"
+                        ng-model="course.Tags"
                         placeholder="Tags (Optional, Recommended)"
                         replace-spaces-with-dashes="false" 
                         min-length="1">
@@ -122,9 +121,9 @@
 
       <!-- course image -->
        <div class="form-group col-sm-6 no-padding" >
-        <input f-max-size="100" type="file" id="exampleInputFile" ng-file-select="onFileSelect($files,imageSrc)" ng-file-select ng-model="courseImg" ng-file-change="fileSelected($files, $event)" ng-multiple="false" accept="image/*" resetOnClick="true" data-placement="top" data-html="true" data-container="body" data-title="Please select an image to represent the course"  bs-tooltip>
+        <input f-max-size="500" src-obj="course.courseImg" type="file" fileupload-dir="course.Img" id="exampleInputFile" ng-model="course.Img" ng-multiple="false" accept="image/*" resetOnClick="true" data-placement="top" data-html="true" data-container="body" data-title="Please select an image to represent the course"  bs-tooltip>
         <em ng-hide="imageSrc">Please select an image to represent the course</em>
-        <img class="img-responsive img-thumbnail m-xs" ng-src="{{imageSrc}}" />
+        <img class="img-responsive img-thumbnail m-xs" ng-src="{{course.courseImg}}" />
         
       </div>
     </div>

@@ -375,7 +375,7 @@ angular.module('fg').run(['$templateCache', function($templateCache){
   $templateCache.put('angular-form-gen/field-templates/properties/title.ng.html', '<div fg-tabs-pane=\"Properties\"><div fg-property-field-common=\"{ fieldname: true, displayname: true, placeholder: true, tooltip: true }\"></div><div fg-property-field-value=\"\"><span class=\"form-control\" name=\"fieldValue\" ng-model=\"field.value\" ng-minlength=\"{{ field.validation.minlength }}\" strip-br=\"false\" no-line-breaks=\"true\" select-non-editable=\"true\" ng-maxlength=\"{{ field.validation.maxlength }}\" ng-pattern=\"/{{ field.validation.pattern }}\"></div></div></div><div fg-tabs-pane=\"Validation\"><div fg-property-field-validation=\"{ required: true, minlength: true, maxlength: true, pattern: true }\"></div></div><div fg-tabs-pane=\"Custom Attributes\"><div fg-property-field-custom=\"\"></div></div>');
 
   // course element document viwer  
-  $templateCache.put('angular-form-gen/field-templates/default/coursefileUpload.ng.html', '<input previewKey=\"doc-viewer\" fileupload-dir=\"form.data[field.schema.name]\" accept=\"image/*,*.pdf,*.xml,*.doc\" ng-file-select=\"$parent.onFileSelect($files)\" ng-file-select  ng-file-change=\"$parent.fileSelected($files, $event)\" class=\"form-control\" fg-field-input=\"\" type=\"file\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\"  ng-multiple=\"false\"  resetOnClick=\"true\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-minlength=\"{{ field.schema.validation.minlength }}\" ng-maxlength=\"{{ field.schema.validation.maxlength }}\" ng-pattern=\"/{{ field.schema.validation.pattern }}/\" ng-disabled=\"isDisabled(field.schema)\">');
+  $templateCache.put('angular-form-gen/field-templates/default/coursefileUpload.ng.html', '<input src-obj="imageSrcz" previewKey=\"doc-viewer\" fileupload-dir=\"form.data[field.schema.name]\" accept=\"*.pdf,*.xml,*.doc\" ng-file-select=\"$parent.onFileSelect($files)\" ng-file-change=\"$parent.fileSelected($files, $event)\" class=\"form-control\" fg-field-input=\"\" type=\"file\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\"  ng-multiple=\"false\"  resetOnClick=\"true\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-minlength=\"{{ field.schema.validation.minlength }}\" ng-maxlength=\"{{ field.schema.validation.maxlength }}\" ng-pattern=\"/{{ field.schema.validation.pattern }}/\" ng-disabled=\"isDisabled(field.schema)\">');
   $templateCache.put('angular-form-gen/field-templates/properties/coursefileUpload.ng.html', '<div fg-tabs-pane=\"Properties\"><div fg-property-field-common=\"{ fieldname: true, displayname: true, placeholder: true, tooltip: true }\"></div><div fg-property-field-value=\"\"><span class=\"form-control\" name=\"fieldValue\" ng-model=\"field.value\" ng-minlength=\"{{ field.validation.minlength }}\" strip-br=\"false\" no-line-breaks=\"true\" select-non-editable=\"true\" ng-maxlength=\"{{ field.validation.maxlength }}\" ng-pattern=\"/{{ field.validation.pattern }}\"></div></div></div><div fg-tabs-pane=\"Validation\"><div fg-property-field-validation=\"{ required: true, minlength: true, maxlength: true, pattern: true }\"></div></div><div fg-tabs-pane=\"Custom Attributes\"><div fg-property-field-custom=\"\"></div></div>');
 
   //-------------course elements end ------------------//
@@ -857,9 +857,24 @@ fg.factory('fgUtils', ["$templateCache", "$window", "fgConfig", function ($templ
 
         // Added by Akshath/Anoop to prerender custom attributes
         if(field.customlist !== undefined) {
-          var templateData = $templateCache.get(renderInfo.templateUrl);        
-          var beforeCustom = templateData.split(">");
+          var templateData = $templateCache.get(renderInfo.templateUrl);
+
+
+          // replacing the already defined attributes with custom attributes of the same type
+          // Edited by Anoop
+          var elem = $('<div>') ;
+          elem.html(templateData);         
+
+          for (var i = 0; i < field.customlist.length; i++) {
+             elem[0].firstChild.removeAttribute(field.customlist[i].value);
+           }; 
+             
+          // .End edited by Anoop
+          
+
+          var beforeCustom = elem[0].innerHTML.split(">");
           for(var i=0;i<field.customlist.length;i++){
+
             if(!angular.equals(field.customlist[i].text, undefined)){
 
                 beforeCustom[0]=beforeCustom[0] + ' ' + field.customlist[i].value + '="' + field.customlist[i].text + '"';
@@ -879,8 +894,10 @@ fg.factory('fgUtils', ["$templateCache", "$window", "fgConfig", function ($templ
         //     }
 
         // }
+
+          beforeCustom[0] = beforeCustom[0] + ' xt-validate ';
          
-          templateData= beforeCustom.join('>');          
+          templateData= beforeCustom.join('>');
           $templateCache.put(renderInfo.templateUrl, templateData);
         } 
         //.End Added by Akshath/Anoop to prerender custom attributes
@@ -1372,6 +1389,11 @@ fg.controller('fgFormController', ["$scope", "$parse", function($scope, $parse) 
   var self = this;
 
   this.init = function(dataExpression, schema, state, editMode) {
+
+    // Edited by Anoop + Jihin to make the course object available in the formgen
+    this.model.syncData = $scope.syncData;
+
+
     // Called by the directive
     
     self.editMode = editMode;
@@ -1425,19 +1447,22 @@ fg.directive('fgForm', ["fgFormCompileFn", function(fgFormCompileFn) {
     restrict: 'AE',
     require: ['^?form', 'fgForm', '^fgSchema'],
     controller: 'fgFormController',
-    scope: {formData:"="},
+    scope: {formData:"=", syncData:"="},
     compile: fgFormCompileFn
   };
 }]).factory('fgFormLinkFn', function() {
     return function link($scope, $element, $attrs, ctrls) {
-
+      
       var ngFormCtrl = ctrls[0];
       var formCtrl = ctrls[1];
       var schemaCtrl = ctrls[2];
 
+     
+
       var editMode = $attrs.fgNoRender === 'true';
 
       formCtrl.init($attrs.fgFormData, schemaCtrl, ngFormCtrl, editMode);
+     
       
     };
 }).factory('fgFormCompileFn', ["fgFormLinkFn", function(fgFormLinkFn) {
@@ -1456,59 +1481,64 @@ fg.directive('fgForm', ["fgFormCompileFn", function(fgFormCompileFn) {
   };
 }]);
 
+// Commented by anoop to hide the validation messages
+            // fg.directive('fgValidationSummary', ["fgValidationSummaryLinkFn", function(fgValidationSummaryLinkFn) {
 
-fg.directive('fgValidationSummary', ["fgValidationSummaryLinkFn", function(fgValidationSummaryLinkFn) {
+            //   return {
+            //     require: ['^?fgField', '^?form', '^?fgForm'],
+            //     templateUrl: 'angular-form-gen/validation/summary.ng.html',
+            //     scope: {
+            //       fieldName: '@?fgValidationSummary',
+            //       validationMessages: '=?fgValidationMessages'
+            //     },
+            //     link: fgValidationSummaryLinkFn
+            //   };
+            // }]).factory('fgValidationSummaryLinkFn', ["fgConfig", function(fgConfig) {
 
-  return {
-    require: ['^?fgField', '^?form'],
-    templateUrl: 'angular-form-gen/validation/summary.ng.html',
-    scope: {
-      fieldName: '@?fgValidationSummary',
-      validationMessages: '=?fgValidationMessages'
-    },
-    link: fgValidationSummaryLinkFn
-  };
-}]).factory('fgValidationSummaryLinkFn', ["fgConfig", function(fgConfig) {
+            //   return function($scope, $element, $attrs, ctrls) {
 
-  return function($scope, $element, $attrs, ctrls) {
 
-    var fgFieldCtrl = ctrls[0];
-    var ngFormController = ctrls[1];
 
-    if (fgFieldCtrl) {
-      // Grab the whole field state from the field controller
-      $scope.field = fgFieldCtrl.field();
-      $scope.form = fgFieldCtrl.form();
+            //     var fgFieldCtrl = ctrls[0];
+            //     var ngFormController = ctrls[1];
 
-    } else if (ngFormController) {
-      
-      $scope.form = {
-        state: ngFormController
-      };
+            //     if (fgFieldCtrl) {
+            //       // Grab the whole field state from the field controller
+            //       $scope.field = fgFieldCtrl.field();
+            //       $scope.form = fgFieldCtrl.form();
 
-      $scope.$watch('fieldName', function(value) {
-        $scope.field = {
-          name: value,
-          state: ngFormController[value]
-        };
-      });
-    }
+            //     } else if (ngFormController) {
+                  
+            //       $scope.form = {
+            //         state: ngFormController
+            //       };
 
-    // Whenever the form designer edits a custom message but decides to delete it later a "" is leftover.
-    // I don't feel like setting all kinds of watchers so we'll fix that here
+            //       $scope.$watch('fieldName', function(value) {
+            //         $scope.field = {
+            //           name: value,
+            //           state: ngFormController[value]
+            //         };
+            //       });
+            //     }
 
-    if($scope.validationMessages) {
-      angular.forEach($scope.validationMessages, function(value, key) {
-        if(!value) {
-          delete $scope.validationMessages[key];
-        }
-      });
-    }
+            //     // Whenever the form designer edits a custom message but decides to delete it later a "" is leftover.
+            //     // I don't feel like setting all kinds of watchers so we'll fix that here
 
-    $scope.messages = angular.extend({}, fgConfig.validation.messages, $scope.validationMessages);
-  };
+            //     if($scope.validationMessages) {
+            //       angular.forEach($scope.validationMessages, function(value, key) {
+            //         if(!value) {
+            //           delete $scope.validationMessages[key];
+            //         }
+            //       });
+            //     }
 
-}]);
+            //     $scope.messages = angular.extend({}, fgConfig.validation.messages, $scope.validationMessages);
+            //   };
+
+            // }]);
+// .End Commented by anoop to hide the validation messages
+
+
 fg.directive('fgUniqueFieldName', function () {
 
   var changeTick = 0;
@@ -1996,7 +2026,6 @@ fg.directive('fgFieldInput', ["fgFieldInputLinkFn", function(fgFieldInputLinkFn)
   };
 }]).factory('fgFieldInputLinkFn', function() {
   return function($scope, $element, $attrs, ctrls) {
-
     var fgFieldCtrl = ctrls[0];
     var ngModelCtrl = ctrls[1];
 
@@ -2009,11 +2038,9 @@ fg.directive('fgFormFields', function() {
     require: ['^?fgForm'],
     restrict: 'AE',
     templateUrl: 'angular-form-gen/form/form-fields/form-fields.ng.html',
-    scope: {},
+    scope: {syncData:"="},
     link: function($scope, $element, $attrs, ctrls) {
-
       var fgForm = ctrls[0];
-
       $scope.$watch(function() {
         return fgForm.model;
       }, function(value) {

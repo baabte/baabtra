@@ -20,7 +20,9 @@ angular.module('baabtra')
 						'facebook': 'ti-facebook text-info',
 						'twitter':'ti-twitter-alt text-info',
 						'google':'ti-google text-info',
-						'linkedin' : 'ti-linkedin  text-info'
+						'linkedin' : 'ti-linkedin  text-info',
+						'amount' : 'ti-money text-info',
+						'youtube':'ti-youtube text-info'
 
 					};
 

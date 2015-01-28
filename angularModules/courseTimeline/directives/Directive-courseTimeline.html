@@ -4,8 +4,8 @@
 	<div class="col-sm-12">
 
 		
-        <div class="col-sm-3 form-group form-group-sm">
-        	<label>Duration :</label>
+        <div class="col-sm-3 form-group form-group-sm font-bold">
+        	<label class="font-bold">Duration :</label>
         	{{duration}}
         	<button ng-if="ddlBindObject!=undefined" type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedDuration" data-html="1"  ng-change="changeDuration(this.selectedDuration)" ng-options="value.id as value.name for (key, value) in durationIn" bs-select=""></button></div>
 	</div>
@@ -27,15 +27,19 @@
 								<span style="padding-left:{{tlPointMinWidth}}px;left:-3.6px;z-index: 0;" class="b-b tl-line" ></span>
 								<div ng-show="mouseOverTl" style="margin-top: -50px;margin-left:-{{tlPointMinWidth}}px" class="tooltip in ng-scope top am-fade-and-scale tooltip-success"><!-- <div class="tooltip-arrow"></div> --><div class="tooltip-inner ng-binding" >{{selectedDurType}} {{$index+1}}</div></div>
 								<div ng-repeat="elementname in tlElements" style="margin-left:1px solid #444444;">
-								 <ul ng-repeat="elements in syncData[elementname][tlpoint/ddlBindObject[selectedDuration-1].mFactor]" class="timeline" ng-class="{'timeline-center': center}">
-									    <li class="tl-item">
-									      <div class="tl-v-point">
-									      </div>
-									    </li>
-									    <li ng-repeat="element in elements" class="tl-header" style="float:left !important;width:0px !important;margin-left: -13px !important;margin-bottom: 15px;!important">
-									      <i class="iconCustomBg ui-icon fa {{element.Icon}} b-white b-2x text-lg bg-info" style="Background-color: {{element.iconBackground}}!important; color: {{element.iconColor}}!important;border-radius: 12px;"></i>
-									    </li>
-								  </ul>
+									<div ng-repeat="(key,tlpointsData) in syncData[elementname]">
+										 <ul ng-if="tlpoint<=(key*ddlBindObject[selectedDuration-1].mFactor+1)&&tlpoint>(key*ddlBindObject[selectedDuration-1].mFactor)" ng-repeat="elements in tlpointsData" class="timeline" ng-class="{'timeline-center': center}">
+											    <li class="tl-item">
+											      <div class="tl-v-point">
+											      </div>
+											    </li>
+											    <li ng-repeat="element in elements" class="tl-header" style="float:left !important;width:0px !important;margin-left: -13px !important;margin-bottom: 15px;!important">
+											      <i class="iconCustomBg ui-icon fa {{element.Icon}} b-white b-2x text-lg bg-info" style="background-color: {{element.iconBackground}}!important; color: {{element.iconColor}}!important;border-radius: 12px;cursor: pointer;"></i>
+											    </li>
+										 </ul>
+
+									</div>
+								
 								</div>
 								</div>
 

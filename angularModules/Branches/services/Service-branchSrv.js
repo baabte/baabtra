@@ -26,7 +26,7 @@ angular.module('baabtra').service('branchSrv',['$http','bbConfig',function branc
           });
       };
 
-      this.fnLoadBranch=function($scope, $rootScope ,cmp_id){
+      this.fnLoadBranch=function($scope, cmp_id){
         $http({
           method: 'post',
           url: bbConfig.BWS+'LoadBranches/',

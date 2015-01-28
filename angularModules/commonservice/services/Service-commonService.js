@@ -80,7 +80,6 @@ this.GetUserCredentials=function($scope)
 					       		 $rootScope.userinfo=angular.fromJson(JSON.parse(request.responseText));
 		  						 $rootScope.hide_when_root_empty=false;
 		  						 $rootScope.loggedIn=true;
-		  						 console.log($rootScope.userinfo);
 			       			}		  
 						}
 			}
