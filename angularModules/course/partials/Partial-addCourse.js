@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','RoleMenuMappingSrv','addCourseElementService','commonService','addCourseService',function($scope,bbConfig,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,RoleMenuMappingSrv,addCourseElementService,commonService,addCourseService){
+angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','RoleMenuMappingSrv','addCourseElementService','commonService',function($scope,bbConfig,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,RoleMenuMappingSrv,addCourseElementService,commonService){
 
 
   /*login detils start*/
@@ -8,7 +8,7 @@ angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$root
     $rootScope.hide_when_root_empty=false;
   }
 
-  if($rootScope.loggedIn==false){
+  if(angular.equals($rootScope.loggedIn,false)){
     $state.go('login');
   }
 
@@ -17,17 +17,15 @@ angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$root
   $scope.cmp_id=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   /*login detils ends*/
 
-if($state.params.courseId!=""){
+if(!angular.equals($state.params.courseId,"")){
   //this function loads course details by course Id
   $scope.courseId = $state.params.courseId;
   var promise = addCourseService.fnLoadCourseDetails($scope, $scope.courseId);
   promise.then(function(course){
     if(!angular.equals($scope.course.Duration.durationInMinutes, undefined)){
-
       $scope.totalCourseDuration = $scope.course.Duration.durationInMinutes;
     }
   });
-
 }
 else{
   $scope.courseId = "";
@@ -35,15 +33,11 @@ else{
 
 
 
-$scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
+//$scope.availableColors = ['Red','Green','Blue','Yellow','Magenta','Maroon','Umbra','Turquoise'];
 $scope.technologies={};//object to store selected technologies
 $scope.technologies.values = [];//object to store selected technologies
 
-
-    $scope.selectedPaymentType={id: "1",name: "Before The Course"};
-
-    $rootScope.courseDetails={}; // for supressing errors lijin have commented this and you can uncomment below and
-    $scope.ExitPoints={"exitPointList":{}}; // initializing exit point obj
+$scope.ExitPoints={"exitPointList":{}}; // initializing exit point obj
 			
 $scope.totalCourseDuration=0; // course duration in minutes
 
@@ -54,7 +48,7 @@ $scope.ddlBindObject={0:{id: "1",name:"Days",mFactor:(1/1440),show:true},
 
 // for dynamically change the visibility variable 'show' of all dropdown list datas
 $scope.$watch('totalCourseDuration',function(){
-  if($scope.totalCourseDuration!=undefined&&$scope.totalCourseDuration!=0)
+  if(!angular.equals($scope.totalCourseDuration,undefined) && !angular.equals($scope.totalCourseDuration,0))
   {
     $scope.ddlBindObject[1].show=($scope.totalCourseDuration>=43200);
     $scope.ddlBindObject[2].show=($scope.totalCourseDuration>=60);
@@ -92,8 +86,10 @@ $scope.$watch('totalCourseDuration',function(){
 
 $scope.currentState=$state.current.name;
 $scope.nextPart = function(state){
-    $scope.currentState=state;
-    $state.go(state);
+    if(!angular.equals($scope.courseId,"")){
+      $scope.currentState=state;
+      $state.go(state,{'courseId':$scope.courseId});
+    }
 };
 
 $scope.onDomainSelectionChanged = function(items) {
@@ -138,7 +134,7 @@ RoleMenuMappingSrv.FnGetRoles($scope, $scope.cmp_id, "", "");
   $scope.branchDetails =[];
   $scope.rolesDetails = [];
   $scope.selectedBranches =[];
-  $scope.selectedRole = []
+  $scope.selectedRole = [];
 
 // Global Declaration Of variables end  
 
@@ -231,8 +227,7 @@ $scope.completeStep1 = function(course){//created for build step1 object
 
     var courseToBeSave = angular.copy($scope.course);
     courseToBeSave.Tags = Tags;
-    courseToBeSave.Duration = {durationInMinutes : 525600,DurationDetails : {"Year(s)" : 1}
-    },
+    courseToBeSave.Duration = {durationInMinutes : 525600,DurationDetails : {"Year(s)" : 1}};
     courseToBeSave.Technologies = Technologies;
     courseToBeSave.updatedDate = Date();
 
@@ -261,13 +256,13 @@ $scope.completeStep1 = function(course){//created for build step1 object
        var unbindWatchOnThis=$scope.$watch('ItsTimeToSaveDataToDB',function(){
         if($scope.ItsTimeToSaveDataToDB){
           delete courseToBeSave.Img;
-          addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId);//saving to database
+          var toState='home.main.addCourse.step2';
+          console.log(courseToBeSave);
+          addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId, toState);//saving to database
           unbindWatchOnThis(); // used to unbind this watch after triggering it once
         }
       });
-      $scope.currentState="home.main.addCourse.step2";
-      $state.go('home.main.addCourse.step2',{'courseId':$scope.courseId});
-    };
+    }
 
 /* Building courseDetails End */
 
@@ -300,8 +295,7 @@ $scope.paymentTypes=[{id: "1",name: "Before The Course"},
     // $scope.course.Duration.DurationDetails={"Year(s)":1,"Month(s)":2,"Week(s)":5};
 
 // adding and deleing the contextmenus the context menu
-  $scope.$watch(function(){return $scope.course.Fees.oneTime + $scope.course.Fees.payment.mode}, function(){
-      console.log($scope.course.Fees.payment.mode);
+  $scope.$watch(function(){return $scope.course.Fees.oneTime + $scope.course.Fees.payment.mode;}, function(){
       if(!angular.equals($scope.course.Fees.payment.mode,undefined)){
       if($scope.course.Fees.oneTime === true || angular.equals($scope.course.Fees.payment.mode.id,'2')){
           $scope.tlPopOver.step2 = {colorClass:'bg-baabtra-green'};
@@ -315,19 +309,27 @@ $scope.paymentTypes=[{id: "1",name: "Before The Course"},
   });
  
 $scope.completeStep2 = function(){
-  console.log($scope.course);
-  $scope.course
+
   if (!$scope.course.Fees.payment.oneTime) {
     delete $scope.course.Fees.payment.mode;
   }
-  delete $scope.course._id
-  addCourseService.saveCourseObject($scope, $scope.course, "", $scope.courseId);//saving to database
-  $scope.currentState="home.main.addCourse.step3";
-  $state.go('home.main.addCourse.step3',{'courseId':$scope.courseId});
+  delete $scope.course._id;
+  var toState='home.main.addCourse.step3';
+  addCourseService.saveCourseObject($scope, $scope.course, "", $scope.courseId ,toState);//saving to database
 };
 
 
 
 // *********************** STEP 2 .End ***********************************
+
+// *********************** STEP 3 .Start ***********************************
+$scope.completeStep3 = function(){
+  delete $scope.course._id;
+  $scope.course.draftFlag=1;
+  console.log($scope.course);
+  var toState='home.main.addCourse.step3';
+  addCourseService.saveCourseObject($scope, $scope.course, "", $scope.courseId ,toState);//saving to database
+};
+// *********************** STEP 3 .End ***********************************
 
 }]);

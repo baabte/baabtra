@@ -121,7 +121,7 @@ angular.module('ui.bootstrap.contextMenu', [])
     return {
         scope:true,
         link:function ($scope, element, attrs) {
-        $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor;
+        $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor-((1/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor))+1;
         $scope.ItsTimeToSaveDataToDB=false;
         $scope.weHaveGotAfile=false;
         

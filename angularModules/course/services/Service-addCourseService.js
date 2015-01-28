@@ -1,7 +1,7 @@
-angular.module('baabtra').service('addCourseService',['$http','bbConfig','$upload',function addCourseService($http,bbConfig,$upload) {
+angular.module('baabtra').service('addCourseService',['$http','bbConfig','$upload','$state',function addCourseService($http,bbConfig,$upload,$state) {
 
 	
-	this.saveCourseObject=function ($scope, courseDetails, keyObj, courseId){ // functon that call web service to add a comapny role
+	this.saveCourseObject=function ($scope, courseDetails, keyObj, courseId, toState){ // functon that call web service to add a comapny role
 	 	$http({
 	 		url: bbConfig.BWS+'saveCourseObject/',
 	 		data: {"courseObj":courseDetails, "keyObj":keyObj, "courseId":courseId},
@@ -12,8 +12,9 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	 	}).
 	 	success(function(data, status, headers, config) {
 	 			var result=angular.fromJson(JSON.parse(data));
-	 			console.log(result);
 	 			$scope.courseId = result.str;
+	 			$scope.currentState=toState;
+	 			$state.go(toState,{'courseId':$scope.courseId});//go to next state,after completing each step
                }).
 	 	error(function(data, status, headers, config) {
 	 		
