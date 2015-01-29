@@ -51,6 +51,6 @@ angular.module('baabtra').controller('header',['$scope','$rootScope','$state','l
 			header.logout($scope);
 		}
 				
-   			
+   
 
 }]);
