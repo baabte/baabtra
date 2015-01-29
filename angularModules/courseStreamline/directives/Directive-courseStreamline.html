@@ -5,14 +5,13 @@
 	    <ui-select-choices repeat="view in ddlView | filter: true">
 	    	<span ng-bind-html="view.name | highlight: $select.search"></span>
 	    </ui-select-choices>
-  	</ui-select>
-
-    <div  ng-repeat="(tlPoint, tlpointElems) in syncData.courseTimeline">
-      	<div class="btn btn-sm btn-default btn-rounded">{{tlPoint}}</div>
+  </ui-select>{{syncData.Duration.durationInMinutes}}
+  <div  ng-repeat="(tlPoint, tlpointElems) in syncData.courseTimeline">
+    <div class="btn btn-sm btn-default m-l-xs">{{tlPoint}}</div>
     	<div ng-repeat="elements in tlpointElems">
     		<div ng-repeat="element in elements">
     			<course-element-preview tl-position="Day 12" preview-data="element">
-    			</course-element-preview>
+    			</course-element-preview >
     		</div>
       	</div>
     </div>

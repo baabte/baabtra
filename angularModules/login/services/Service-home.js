@@ -14,7 +14,6 @@ this.FnLoadMenus = function($scope){//for load menu for logged user
            }).
               success(function(data, status, headers, config) { //success respond from server
                 var result=angular.fromJson(JSON.parse(data));
-                // console.log(result);
                 $scope.userMenus=$scope.userMenusOrigin=result[0].menuStructure[0].regionMenuStructure;
               }).
               error(function(data, status, headers, config) {
