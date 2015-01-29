@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','RoleMenuMappingSrv','addCourseElementService','commonService',function($scope,bbConfig,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,RoleMenuMappingSrv,addCourseElementService,commonService){
+angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','RoleMenuMappingSrv','addCourseElementService','commonService','$alert',function($scope,bbConfig,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,RoleMenuMappingSrv,addCourseElementService,commonService,$alert){
 
 
   /*login detils start*/
@@ -170,7 +170,6 @@ $scope.course={};
 $scope.course.Delivery = {};
 $scope.course.Delivery.online=true;//setting delevery mode default option to true
 $scope.course.Delivery.offline=true;//setting delevery mode default option to true
-$scope.course.balanceAmount = 5;
 
 var convertObjectName=function(menu,sub){
               if(sub==null){
@@ -318,7 +317,21 @@ $scope.completeStep2 = function(){
   addCourseService.saveCourseObject($scope, $scope.course, "", $scope.courseId ,toState);//saving to database
 };
 
-
+$scope.fnTotalFeeChanged = function(){// this function trigers, when user change the total payment
+  var payedAmt =0;
+  angular.forEach($scope.course.courseTimeline, function(time){
+     angular.forEach(time, function(element,key){//looping through all the existing check points
+      if (angular.equals(key,"Payment_checkpoint")) {
+        payedAmt = payedAmt + element[0].elements[0];// taking the sum of the already defined  payment check points amt 
+      };
+    });
+  });
+  if(!angular.equals($scope.course.balanceAmount,$scope.course.Fees.totalAmount -payedAmt)){// checking value is changed
+    $scope.course.balanceAmount = $scope.course.Fees.totalAmount -payedAmt;// if the value is changed, changing the balance amt to pay respectivily
+    var toState='home.main.addCourse.step2';
+    addCourseService.saveCourseObject($scope, $scope.course, "", $scope.courseId ,toState);//saving to database
+  }
+};
 
 // *********************** STEP 2 .End ***********************************
 
@@ -326,8 +339,8 @@ $scope.completeStep2 = function(){
 $scope.completeStep3 = function(){
   delete $scope.course._id;
   $scope.course.draftFlag=1;
-  console.log($scope.course);
   var toState='home.main.addCourse.step3';
+  $alert({title: 'Done..!', content: 'Course has been published successfuly  :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
   addCourseService.saveCourseObject($scope, $scope.course, "", $scope.courseId ,toState);//saving to database
 };
 // *********************** STEP 3 .End ***********************************

@@ -1,32 +1,26 @@
 <div class="col-xs-12">
-	<div class="panel b-light">
-		<div class="panel-heading text-md text-ellipsis font-bold bg-info">Drafted Courses</div>
-		<div class="panel-body">
-	<div class="col-md-4" ng-repeat="course in draftedCourses">
-      <div class="box">
-        <div class="box-row">
-          <div class="box-cell scrollable hover">
-            <div class="box-inner" style="height: 116px;!important">
-              <div class="list-group list-group-md no-border no-radius no-margin">
-                <div class="list-group-item select">
-                  <a href="" class="w-thumb-md pull-left m-r"><img src="images/a1.jpg" class="img-responsive"></a>
-                  <div class="clear m-b-sm">
-                  	<a class="pull-right text-muted" ><i class="fa fa-trash"></i></a>
-                  	<a class="pull-right text-muted m-r-xs" ng-click="editCourseDetails(course._id.$oid)"><i class="fa  fa-edit"></i></a>
-                    <span class="pull-right text-muted text-xs">10:34 PM
-                      <label class="ui-checks m-l-sm"><input type="checkbox"><i></i></label>
-                    </span>
-                    <div>Eric Dane</div>
-                    <a href="" class="text-md text-ellipsis">{{course.Name}}</a>
-                  </div>
-                  <small class="text-muted course-description" ng-bind-html="course.Description"></small>
-                </div>
-              </div>
+  <div class="panel b-info b-2x">
+    <div class="panel-heading p-sm bg-info">
+      <a href="" class="text-md text-ellipsis"><i class="fa fa-recycle fa-1x m-r"></i>Drafted Courses</a>
+    </div>
+    <div class="panel-body p-sm">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t" ng-repeat="course in draftedCourses">
+        <div class="panel bg-info lt">
+          <div class="panel-heading p-v-xs p-h-sm">
+            <a class="pull-right text-muted m-r-xs" ng-click="deleteCourseDetails(course._id.$oid)"><i class="fa fa-trash"></i></a>
+            <a class="pull-right text-muted m-r-xs" ng-click="editCourseDetails(course._id.$oid)"><i class="fa fa-edit"></i></a>
+          </div>
+          <div class="panel-body p-sm">
+            <div class="pull-left p-h text-center m-r-xs">
+              <i class="fa fa-globe fa-4x text-lt"></i>
+            </div>
+            <div class="clear">
+              <div class="text-2x font-bold" title="{{course.Name}}">{{course.Name | limitTo : 14}}</div>
+             <!--  <small class="text-muted course-description" ng-bind-html="course.Description?course.Description:'<div class=line>&nbsp;</div>'"></small> -->
             </div>
           </div>
         </div>
       </div>
     </div>
-		</div>
-	</div>
+  </div>
 </div>
