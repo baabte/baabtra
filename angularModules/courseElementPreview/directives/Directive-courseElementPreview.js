@@ -10,7 +10,7 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 		link: function(scope, element, attrs, fn) {
 			scope.rand=Math.floor(Math.random()*100000); // for generating random id for elements
 			scope.$watch('previewData', function(){
-				$(element).find('#elementContent').html('');
+				$(element).find('#elementContent'+scope.rand).html('');
 				if(!angular.equals(scope.previewData,undefined)){
 					angular.forEach(scope.previewData.elements, function(data){//looping through each type of course elements at this point in the object
 						//angular.forEach(previewData.elements, function(data){//looping through each values in the element object

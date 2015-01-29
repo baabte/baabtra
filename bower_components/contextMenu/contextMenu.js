@@ -76,13 +76,14 @@ angular.module('ui.bootstrap.contextMenu', [])
     +'<div class="box-row">'
       +'<div class="box-cell m-t">'
         +'<div class="box-inner col-xs-12">'
-          +'<form novalidate xt-form class="form" name="courseElement" enctype="multipart/form-data">'
+          +'<form novalidate xt-form class="form m-b" name="courseElement" enctype="multipart/form-data">'
            +'<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData.'+$scope.randomKey+'" fg-schema="itemTemplate"> </div>'
            +'<button type="submit" ng-click="saveMyFormData()" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
            +'<button type="submit" ng-click="createPreviewElement(\'tempCourseDocs\')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-left btn '+options[state].colorClass+'">Preview</button>'
           +'</form>'
-          +'<course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('s','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview>'
-+'</div></div></div></div></div>');
+          +'<br>'
+          +'<div class="m-t-lg"><course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('s','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview>'
++'</div></div></div></div></div></div>');
  $aside({scope: $scope, template:'course-element-popup.html', html:true});
                         //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
                     });
@@ -121,7 +122,6 @@ angular.module('ui.bootstrap.contextMenu', [])
     return {
         scope:true,
         link:function ($scope, element, attrs) {
-        $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor-((1/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor))+1;
         $scope.ItsTimeToSaveDataToDB=false;
         $scope.weHaveGotAfile=false;
         
@@ -215,12 +215,18 @@ angular.module('ui.bootstrap.contextMenu', [])
               // below function will trigger only when the object is built
               var unbindWatchOnThis=$scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if($scope.ItsTimeToSaveDataToDB===true){
+                    angular.forEach(courseObj, function(obj, key){
+                        if (angular.equals($scope.instance+".Payment_checkpoint",key)) {
+                            $scope.syncData.balanceAmount = $scope.syncData.balanceAmount-obj.elements[0];
+                        }
+                    });
                     addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);//saving to database
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once
                 }
               });
         }
             element.on('click', function (event) {
+                $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor-((1/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor))+1;
                  event.preventDefault();
     
                 setTimeout(function(){
