@@ -1393,7 +1393,7 @@ fg.controller('fgFormController', ["$scope", "$parse", function($scope, $parse) 
     // Edited by Anoop + Jihin to make the course object available in the formgen
     this.model.syncData = $scope.syncData;
 
-
+    // console.log($scope.syncData);
     // Called by the directive
     
     self.editMode = editMode;

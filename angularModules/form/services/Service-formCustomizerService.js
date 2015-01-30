@@ -4,11 +4,11 @@ angular.module('baabtra').service('formCustomizerService',['$http','$upload','bb
 
 
 	//service function to register a user 
-this.FnSaveCustomForm=function($scope){
+this.FnSaveCustomForm=function(customForm){
     var result;
-      $http({
+   var promise=$http({
            url: bbConfig.BWS+'SaveCustomForm/',
-           data: angular.toJson($scope.customForm),
+           data: angular.toJson(customForm),
            method: 'POST',
            withCredentials: false,
            contentType:'application/json',
@@ -16,16 +16,15 @@ this.FnSaveCustomForm=function($scope){
            }).
               success(function(data, status, headers, config) {
              
-                $scope.result=angular.fromJson(JSON.parse(data));
-                result='success';
-                $scope.fnSaveCustomFormCallBack(result);
+                return data;
+                
                
               }).
               error(function(data, status, headers, config) {
                 result='error';
-                $scope.fnSaveCustomFormCallBack(result);
+                
              });  
-      return result;
+      return promise;
    };
 
 

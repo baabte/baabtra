@@ -8,15 +8,15 @@ formName:,
 formSteps:,
 formSchema:{
 	1:{
-	name:step1,
+	stepName:step1,
 	stepFormSchema:{}
 	},
 	2:{
-	name:step1,
+	stepName:step1,
 	stepFormSchema:{}
 	},
 	3:{
-	name:step1,
+	stepName:step1,
 	stepFormSchema:{}
 	}
 	};

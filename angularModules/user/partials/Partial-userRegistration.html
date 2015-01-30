@@ -7,15 +7,15 @@
           <h2>Complete your profile</h2>
           
           <div ng-hide="currentState=='home.main.userRegistration.step5'" id="status-buttons" class="text-center">
-              <a ui-sref-active="active" ng-class="{'active':status.selected === $index+1}" ng-repeat="i in formlist.formSchema"  ng-click="status.selected = $index+1;trackFnc()"><span>{{$index+1}}</span> Basic</a>
+              <a ui-sref-active="active" ng-class="{'active':status.selected === $index+1}" ng-repeat="i in formlist.formSchema "  ng-click="status.selected = $index+1" ><span>{{$index+1}}</span></a>
              
           </div>
          
       </div>
 
       <div class="panel-body">
-        <form novalidate name="userRegistrationForm" ng-submit="fnUserRegister(userRegistrationForm)" class="form">
-          <div fg-form fg-form-data="FormData" form-data="FormData" fg-schema="formlist.formSchema[status.selected].stepFormSchema">
+        <form novalidate name="userRegistrationForm" ng-submit="fnUserRegister()" class="form" xt-form editable-form novalidate>
+          <div fg-form fg-form-data="FormData" form-data="FormData" sync-data="allFunction" fg-schema="formlist.formSchema[status.selected-1].stepFormSchema">
           </div>
 
           <div ng-show="status.selected===1" class="col-xs-6 col-xs-offset-3">
@@ -24,14 +24,14 @@
 
           <div ng-show="status.selected<formlist.formSteps&&status.selected>1">
            <div class="col-xs-4 col-xs-offset-2">
-              <a ng-click="status.selected = status.selected-1" class="btn btn-block btn-info" ng-disabled="userRegistrationForm.$invalid"> Previous Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+              <a ng-click="status.selected = status.selected-1" class="btn btn-block btn-info" ng-disabled="userRegistrationForm.$invalid"><span class="glyphicon glyphicon-circle-arrow-left"></span> Previous Section </a>
           </div>
           <div class="col-xs-4 ">
               <a ng-click="status.selected = status.selected+1" class="btn btn-block btn-info" ng-disabled="userRegistrationForm.$invalid"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
           </div>
           </div>
 
-          <div ng-show="status.selected ===formlist.formSteps" class="col-xs-12 text-center">
+          <div ng-show="status.selected ===formlist.formSteps+1" class="col-xs-12 text-center">
             <span class="glyphicon glyphicon-heart"></span>
             <h3>Its Great You did it!</h3>
     
@@ -43,7 +43,9 @@
           <!-- <pre>{{status.selected}}</pre> -->
 
           <!-- <pre>{{formlist.formSchema[status.selected].stepName}}</pre> -->
+
           <pre>{{FormData}}</pre>
+
           <!-- <pre>{{FormData}}</pre> -->
 
 
@@ -55,3 +57,5 @@
  
   </div>
 </div>
+
+
