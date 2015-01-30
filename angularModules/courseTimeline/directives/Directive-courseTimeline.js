@@ -49,7 +49,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope', fun
 					var name=scope.ddlBindObject[scope.selectedDuration-1].name;
 				name = name.replace('s','');
 				scope.selectedDurType=name;
-				scope.duration=scope.totalDuration*scope.ddlBindObject[scope.selectedDuration-1].mFactor;
+				scope.duration=Math.ceil(scope.totalDuration*scope.ddlBindObject[scope.selectedDuration-1].mFactor);
 				
 				}
 				scope.setMinWidth(15);
