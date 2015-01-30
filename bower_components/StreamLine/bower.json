@@ -1,0 +1,23 @@
+{
+  "name": "StreamLine",
+  "version": "1.0",
+  "homepage": "https://github.com/baabte/baabtra",
+  "authors": [
+    "Jihin <jihin@baabte.com>"
+  ],
+  "description": "streamline for showing the course",
+  "main": "CSS/stylebbfb.css",
+  "keywords": [
+    "stream",
+    "line",
+    "course"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
