@@ -351,7 +351,6 @@ angular.module('ui.bootstrap.contextMenu', [])
                 });
 
             formModal.nestedElements[schemaDesign.Name].push(coursePreviewObj);
-            schemaDesign.tick=false;
             $hide();
             
         };

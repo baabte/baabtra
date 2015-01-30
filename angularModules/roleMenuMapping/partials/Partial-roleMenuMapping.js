@@ -1,13 +1,13 @@
 
 angular.module('baabtra').
-	controller('RoleMenuMappingCtrl',['$location','commonService','$scope','$modal','$rootScope','RoleMenuMappingSrv','$alert','localStorageService',function ($location,commonService,$scope,$modal,$rootScope,RoleMenuMappingSrv,$alert,localStorageService) {
+	controller('RoleMenuMappingCtrl',['$location','commonService','$scope','$modal','$rootScope','RoleMenuMappingSrv','$alert','localStorageService','$state',function ($location,commonService,$scope,$modal,$rootScope,RoleMenuMappingSrv,$alert,localStorageService,$state) {
 
     if(!$rootScope.userinfo){
    commonService.GetUserCredentials($scope);
    $rootScope.hide_when_root_empty=false;
 }
 
-if($rootScope.loggedIn==false){
+if(angular.equals($rootScope.loggedIn,false)){
  $state.go('login');
 }
 
@@ -108,8 +108,7 @@ else if(angular.equals($scope.roleId,2))
                     RoleMenuMappingSrv.FnGetRoles($scope,$scope.companyId,"",newValue);
                   }
                 }
-          }
-        ,400);
+          },400);
           
 
     });

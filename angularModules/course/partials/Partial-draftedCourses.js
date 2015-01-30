@@ -23,4 +23,9 @@ angular.module('baabtra').controller('DraftedcoursesCtrl',['$scope', '$rootScope
 		$state.go('home.main.addCourse.step1',{'courseId':courseId});
 	};
 
+	//delete course
+	$scope.deleteCourseDetails = function(courseId){
+		alert(courseId);
+	};
+
 }]);
