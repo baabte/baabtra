@@ -52,6 +52,11 @@ addCourseElementService.FnGetExitCriteria($scope);
 
 	$scope.saveCourseElement = function(course_element_form){
 
+		// angular.forEach($scope.courseElement.nestableElements, function(item){			
+		// 	delete item.icon; 
+		// });
+
+
 		$scope.courseElement.courseElementData={};
 		if ($scope.courseElement._id!==undefined){
 			$scope.courseElement.courseElementData._id=$scope.courseElement._id;
@@ -72,20 +77,22 @@ addCourseElementService.FnGetExitCriteria($scope);
 
 		$scope.courseElement.courseElementData.courseElementTemplate=$scope.courseElement.schema;
 		delete $scope.courseElement.schema;
-		$scope.courseElement.courseElementData.exitCriteria={};
-		if($scope.exitCriteria.length){
-		$scope.courseElement.courseElementData.exitCriteria[$scope.exitCriteria.Name]={};	
-		$scope.courseElement.courseElementData.exitCriteria[$scope.exitCriteria.Name].criteriaValue=$scope.courseElement.exitCriteria.config;
-		$scope.courseElement.courseElementData.exitCriteria[$scope.exitCriteria.Name].criteriaForm=$scope.exitCriteria.exitCriteriaConfig;
+		$scope.courseElement.courseElementData.nestableElements=$scope.courseElement.nestableElements;
+		delete $scope.courseElement.nestableElements;
 
-		delete $scope.courseElement.exitCriteria;
-		}
-		delete $scope.courseElement.exitCriteria;
+		// $scope.courseElement.courseElementData.exitCriteria={};
+		// if($scope.exitCriteria.length){
+		// $scope.courseElement.courseElementData.exitCriteria[$scope.exitCriteria.Name]={};	
+		// $scope.courseElement.courseElementData.exitCriteria[$scope.exitCriteria.Name].criteriaValue=$scope.courseElement.exitCriteria.config;
+		// $scope.courseElement.courseElementData.exitCriteria[$scope.exitCriteria.Name].criteriaForm=$scope.exitCriteria.exitCriteriaConfig;
+
+		// delete $scope.courseElement.exitCriteria;
+		// }
+		// delete $scope.courseElement.exitCriteria;
 		$scope.courseElement.loggedusercrmid=loggedusercrmid;
 		
 
-		// console.log($scope.courseElement);
-
+	
 
 
 		addCourseElementService.FnSaveCourseElementForm($scope);
@@ -105,18 +112,19 @@ $scope.courseElementConfig	= function(courseElementEdit){
 	$scope.courseElement.menuDisplayName=courseElementEdit.menuDisplayName;
 	$scope.courseElement.iconColor=courseElementEdit.iconColor;	
 	$scope.courseElement.iconBackground=courseElementEdit.iconBackground;
+	$scope.courseElement.nestableElements=courseElementEdit.nestableElements;
 	$scope.courseElement.schema=courseElementEdit.courseElementTemplate;
 	$scope.courseElement._id=courseElementEdit._id.$oid;
 	// console.log(courseElementEdit.exitCriteria);
 
 	// $scope.exitCriteria.exitCriteriaConfig=courseElementEdit
-	if($scope.exitCriteria.length){
-	$.each(courseElementEdit.exitCriteria, function(key,val) {
-   $scope.exitCriteria.exitCriteriaConfig=courseElementEdit.exitCriteria[key].criteriaForm;
-   $scope.courseElement.exitCriteria.config=courseElementEdit.exitCriteria[key].criteriaValue;
-   $scope.exitCriteria.Name=key;
-  });
-	}
+	// if($scope.exitCriteria.length){
+	// $.each(courseElementEdit.exitCriteria, function(key,val) {
+ //   $scope.exitCriteria.exitCriteriaConfig=courseElementEdit.exitCriteria[key].criteriaForm;
+ //   $scope.courseElement.exitCriteria.config=courseElementEdit.exitCriteria[key].criteriaValue;
+ //   $scope.exitCriteria.Name=key;
+ //  });
+	// }
 // console.log($scope.exitCriteria);
 
 };
@@ -145,7 +153,11 @@ $scope.updateCourseElementsFetch = function(course_element_form){
     $scope.courseElement.iconColor="#ffffff";
     $scope.courseElement.iconBackground="#2772ee";
 
-	addCourseElementService.FnGetCourseElements($scope,"");
+	var promiseOfFnGetCrsElem=addCourseElementService.FnGetCourseElements("");
+	
+	promiseOfFnGetCrsElem.then(function(data){
+		$scope.courseElementlist=angular.fromJson(JSON.parse(data.data));
+	});
 		
 };
 
@@ -197,7 +209,7 @@ $scope.fnSaveCourseElementFormCallBack = function(result){
 
 	if(result==='success'){
         $scope.notifications('Done!','Created Course Element Successfully ','info');
-       addCourseElementService.FnGetCourseElements($scope,"");
+       addCourseElementService.FnGetCourseElements("");
       }
    if(result==='error'){
         $scope.notifications('opps!','Error in connecting to server','danger');
@@ -213,7 +225,7 @@ $scope.fnDeleteCourseElementCallBack = function(result){
 
 	if(result==='success'){
         $scope.notifications('Done!',' Course Element Deleted ','info');
-		addCourseElementService.FnGetCourseElements($scope,"");
+		addCourseElementService.FnGetCourseElements("");
  
       }
    if(result==='error'){
@@ -229,5 +241,19 @@ $scope.notifications=function(title,message,type){
      // Notify(message, 'top-right', '2000', type, symbol, true); \
      $alert({title: title, content: message , placement: 'top-right',duration:3, type: type});// calling notification message function
     };
+
+
+// Fetch course elements list to populate the nestable elements dropdown
+	var promiseOfFnGetNestableElem=addCourseElementService.FnGetCourseElements("");
+	
+	promiseOfFnGetNestableElem.then(function(data){
+		$scope.nestableElementlist=angular.fromJson(JSON.parse(data.data));
+		angular.forEach($scope.nestableElementlist, function(item){
+			console.log(item);
+			item.icon = '<i class="fa ' + item.Icon +'"></i>';
+
+		});
+		
+	});
 
 }]);

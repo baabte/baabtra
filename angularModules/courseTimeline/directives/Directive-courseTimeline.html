@@ -28,7 +28,7 @@
 								<div ng-show="mouseOverTl" style="margin-top: -50px;margin-left:-{{tlPointMinWidth}}px" class="tooltip in ng-scope top am-fade-and-scale tooltip-success"><!-- <div class="tooltip-arrow"></div> --><div class="tooltip-inner ng-binding" >{{selectedDurType}} {{$index+1}}</div></div>
 								<div ng-repeat="elementname in tlElements" style="margin-left:1px solid #444444;">
 									<div ng-repeat="(key,tlpointsData) in syncData[elementname]">
-										 <ul ng-if="tlpoint<=(key*ddlBindObject[selectedDuration-1].mFactor+1)&&tlpoint>(key*ddlBindObject[selectedDuration-1].mFactor)" ng-repeat="elements in tlpointsData" class="timeline" ng-class="{'timeline-center': center}">
+										 <ul ng-if="tlpoint<(key*ddlBindObject[selectedDuration-1].mFactor+1)&&tlpoint>(key*ddlBindObject[selectedDuration-1].mFactor)" ng-repeat="elements in tlpointsData" class="timeline" ng-class="{'timeline-center': center}">
 											    <li class="tl-item">
 											      <div class="tl-v-point">
 											      </div>

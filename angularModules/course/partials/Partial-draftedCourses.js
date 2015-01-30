@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('DraftedcoursesCtrl',['$scope', '$rootScope', '$state', 'draftedCourses', 'commonService', function($scope, $rootScope, $state, draftedCourses, commonService){
+angular.module('baabtra').controller('DraftedcoursesCtrl',['$scope', '$rootScope', '$state', 'draftedCourses', 'commonService','$alert', function($scope, $rootScope, $state, draftedCourses, commonService ,$alert){
 
 	/*login detils start*/
 
@@ -21,6 +21,18 @@ angular.module('baabtra').controller('DraftedcoursesCtrl',['$scope', '$rootScope
 	//edit course details
 	$scope.editCourseDetails = function(courseId){
 		$state.go('home.main.addCourse.step1',{'courseId':courseId});
+	};
+
+	//for undo deleted course
+	$scope.undo = function(){
+		draftedCourses.fnManageDraftedCourse($scope,{activeFlag:1},$scope.lastDeletedCourseId, $scope.rm_id);
+	};
+	
+	//delete course
+	$scope.deleteCourseDetails = function(courseId){
+		$scope.lastDeletedCourseId = courseId;
+		$alert({scope: $scope, container:'body', keyboard:true, animation:'am-fade-and-slide-top', template:'views/ui/angular-strap/alert.tpl.html', title:'Undo', content:'The course has been moved to the Trash <i class="fa fa-smile-o"></i>', placement: 'top-right', type: 'warning'});
+		draftedCourses.fnManageDraftedCourse($scope,{activeFlag:0},courseId, $scope.rm_id);
 	};
 
 }]);

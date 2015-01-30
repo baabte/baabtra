@@ -19,7 +19,6 @@ angular.module('baabtra').directive('courseStreamline', function() {
 
 			scope.$watch('syncData.courseTimeline', function(){
 				if(!angular.equals(scope.syncData.courseTimeline, undefined)){
-					console.log(scope.syncData.Duration.durationInMinutes);
 					angular.forEach(scope.ddlView, function(item){
 						console.log(item.name+':'+Math.floor(scope.syncData.Duration.durationInMinutes*item.mFactor));
 					});
