@@ -2915,7 +2915,7 @@ angular.module('material.components.bottomSheet', [
 
 function MdBottomSheetDirective() {
   return {
-    restrict: 'E'
+    restrict: 'EA'
   };
 }
 
@@ -3240,7 +3240,7 @@ angular.module('material.components.button', [
 function MdButtonDirective($mdInkRipple, $mdTheming, $mdAria) {
 
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     replace: true,
     transclude: true,
     template: getTemplate,
@@ -3339,7 +3339,7 @@ function MdCheckboxDirective(inputDirective, $mdInkRipple, $mdAria, $mdConstant,
   var CHECKED_CSS = 'md-checked';
 
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     transclude: true,
     require: '?ngModel',
     template: 
@@ -3464,7 +3464,7 @@ angular.module('material.components.card', [
  */
 function mdCardDirective($mdTheming) {
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     link: function($scope, $element, $attr) {
       $mdTheming($element);
     }
@@ -3518,7 +3518,7 @@ angular.module('material.components.content', [
  */
 function mdContentDirective($mdTheming) {
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     controller: ['$scope', '$element', ContentController],
     link: function($scope, $element, $attr) {
       $mdTheming($element);
@@ -3556,7 +3556,7 @@ angular.module('material.components.dialog', [
 
 function MdDialogDirective($$rAF, $mdTheming) {
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     link: function(scope, element, attr) {
       $mdTheming(element);
       $$rAF(function() {
@@ -4071,7 +4071,7 @@ function MdDividerController(){}
  */
 function MdDividerDirective($mdTheming) {
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     link: $mdTheming,
     controller: [MdDividerController]
   };
@@ -4118,7 +4118,7 @@ angular.module('material.components.icon', [
  */
 function mdIconDirective() {
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     template: '<object class="md-icon"></object>',
     compile: function(element, attr) {
       var object = angular.element(element[0].children[0]);
@@ -4183,7 +4183,7 @@ angular.module('material.components.input', [
 function mdInputContainerDirective($mdTheming) {
   ContainerCtrl.$inject = ["$scope", "$element", "$mdUtil"];
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     link: postLink,
     controller: ContainerCtrl
   };
@@ -4218,7 +4218,7 @@ mdInputContainerDirective.$inject = ["$mdTheming"];
 
 function labelDirective() {
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     require: '^?mdInputContainer',
     link: function(scope, element, attr, containerCtrl) {
       if (!containerCtrl) return;
@@ -4302,7 +4302,7 @@ function labelDirective() {
  */
 function inputTextareaDirective($mdUtil, $window, $compile, $animate) {
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     require: ['^?mdInputContainer', '?ngModel'],
     link: postLink
   };
@@ -4518,7 +4518,7 @@ angular.module('material.components.list', [
  */
 function mdListDirective() {
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     link: function($scope, $element, $attr) {
       $element.attr({
         'role' : 'list'
@@ -4549,7 +4549,7 @@ function mdListDirective() {
  */
 function mdItemDirective() {
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     link: function($scope, $element, $attr) {
       $element.attr({
         'role' : 'listitem'
@@ -4619,7 +4619,7 @@ function MdProgressCircularDirective($$rAF, $mdConstant, $mdTheming) {
   }
 
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     template:
         '<div class="md-spinner-wrapper">' +
           '<div class="md-inner">' +
@@ -4740,7 +4740,7 @@ angular.module('material.components.progressLinear', [
 function MdProgressLinearDirective($$rAF, $mdConstant, $mdTheming) {
 
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     template: '<div class="md-container">' +
       '<div class="md-dashed"></div>' +
       '<div class="md-bar md-bar1"></div>' +
@@ -4877,7 +4877,7 @@ function mdRadioGroupDirective($mdUtil, $mdConstant, $mdTheming) {
   RadioGroupController.prototype = createRadioGroupControllerProto();
 
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     controller: ['$element', RadioGroupController],
     require: ['mdRadioGroup', '?ngModel'],
     link: { pre: linkRadioGroup }
@@ -5036,7 +5036,7 @@ function mdRadioButtonDirective($mdAria, $mdUtil, $mdTheming) {
   var CHECKED_CSS = 'md-checked';
 
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     require: '^mdRadioGroup',
     transclude: true,
     template: '<div class="md-container" md-ink-ripple md-ink-ripple-checkbox>' +
@@ -5248,7 +5248,7 @@ SidenavService.$inject = ["$mdComponentRegistry", "$q"];
  */
 function SidenavDirective($timeout, $animate, $parse, $mdMedia, $mdConstant, $compile, $mdTheming, $q, $document) {
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     scope: {
       isOpen: '=?mdIsOpen'
     },
@@ -6189,7 +6189,7 @@ angular.module('material.components.subheader', [
 
 function MdSubheaderDirective($mdSticky, $compile, $mdTheming) {
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     replace: true,
     transclude: true,
     template: 
@@ -6497,7 +6497,7 @@ function MdSwitch(mdCheckboxDirective, $mdTheming, $mdUtil, $document, $mdConsta
   var checkboxDirective = mdCheckboxDirective[0];
 
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     transclude: true,
     template:
       '<div class="md-container">' +
@@ -6646,7 +6646,7 @@ angular.module('material.components.textField', [
 
 function mdTextFloatDirective($mdTheming, $mdUtil, $parse, $log) {
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     replace: true,
     scope : {
       fid : '@?mdFid',
@@ -6685,7 +6685,7 @@ mdTextFloatDirective.$inject = ["$mdTheming", "$mdUtil", "$parse", "$log"];
 
 function mdInputGroupDirective($log) {
   return {
-    restrict: 'CE',
+    restrict: 'CEA', //Added by Anoop to include the attribute restriction
     controller: ['$element', function($element) {
 
       $log.warn('<md-input-group> is deprecated. Please use `<md-input-container>` and `<input>`.' + 
@@ -6704,7 +6704,7 @@ mdInputGroupDirective.$inject = ["$log"];
 
 function mdInputDirective($mdUtil, $log) {
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     replace: true,
     template: '<input >',
     require: ['^?mdInputGroup', '?ngModel'],
@@ -6790,7 +6790,7 @@ angular.module('material.components.toast', [
 
 function MdToastDirective() {
   return {
-    restrict: 'E'
+    restrict: 'EA'
   };
 }
 
@@ -7070,7 +7070,7 @@ angular.module('material.components.toolbar', [
 function mdToolbarDirective($$rAF, $mdConstant, $mdUtil, $mdTheming) {
 
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     controller: angular.noop,
     link: function(scope, element, attr) {
       $mdTheming(element);
@@ -7224,7 +7224,7 @@ function MdTooltipDirective($timeout, $window, $$rAF, $document, $mdUtil, $mdThe
   var TOOLTIP_WINDOW_EDGE_SPACE = 8;
 
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     transclude: true,
     template:
       '<div class="md-background"></div>' +
@@ -7396,7 +7396,7 @@ function MdTabInkDirective($$rAF) {
   var lastIndex = 0;
 
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     require: ['^?mdNoBar', '^mdTabs'],
     link: postLink
   };
@@ -7854,7 +7854,7 @@ angular.module('material.components.tabs')
  */
 function MdTabDirective($mdInkRipple, $compile, $mdUtil, $mdConstant, $timeout) {
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     require: ['mdTab', '^mdTabs'],
     controller: '$mdTab',
     scope: {
@@ -8292,7 +8292,7 @@ angular.module('material.components.tabs')
  */
 function TabsDirective($mdTheming) {
   return {
-    restrict: 'E',
+    restrict: 'EA', //Added by Anoop to include the attribute restriction
     controller: '$mdTabs',
     require: 'mdTabs',
     transclude: true,
