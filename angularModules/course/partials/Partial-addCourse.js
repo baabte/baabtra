@@ -42,7 +42,7 @@ $scope.ExitPoints={"exitPointList":{}}; // initializing exit point obj
 $scope.totalCourseDuration=0; // course duration in minutes
 
 $scope.ddlBindObject={0:{id: "1",name:"Days",mFactor:(1/1440),show:true},
-                         1:{id: "2",name: "Months",mFactor:(1/43200),show:false},
+                         1:{id: "2",name: "Months",mFactor:(1/43200),show:true},
                          2:{id: "3",name: "Hours",mFactor:1/60,show:true},
                          3:{id: "4",name: "Minutes",mFactor:1,show:true}};//mFactor is multiplication factor
 
@@ -80,8 +80,10 @@ $scope.$watch('totalCourseDuration',function(){
 
 	$scope.tlPopOver={};//obj for bulding context menu of timeline point
 	$scope.tlPopOver.step3={colorClass:'bg-gold-dark'};
-  addCourseElementService.FnGetCourseElements($scope.tlPopOver.step3,"");//calling course element function
-
+  var weHaveGotCrsElementsStep3=addCourseElementService.FnGetCourseElements("");//calling course element function
+      weHaveGotCrsElementsStep3.then(function(data){
+        $scope.tlPopOver.step3.courseElementlist=angular.fromJson(JSON.parse(data.data));
+      });
   
 
 $scope.currentState=$state.current.name;
@@ -299,7 +301,11 @@ $scope.paymentTypes=[{id: "1",name: "Before The Course"},
       if(!angular.equals($scope.course.Fees.payment.mode,undefined)){
       if($scope.course.Fees.oneTime === true || angular.equals($scope.course.Fees.payment.mode.id,'2')){
           $scope.tlPopOver.step2 = {colorClass:'bg-baabtra-green'};
-          addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Payment_checkpoint");//calling course element function
+          //addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Payment_checkpoint");//calling course element function
+          var weHaveGotCrsElementsStep2=addCourseElementService.FnGetCourseElements("Payment_checkpoint");//calling course element function
+          weHaveGotCrsElementsStep2.then(function(data){
+            $scope.tlPopOver.step2.courseElementlist=angular.fromJson(JSON.parse(data.data));
+          });
       }    
       else{
           $("#tlContextMenu").remove();

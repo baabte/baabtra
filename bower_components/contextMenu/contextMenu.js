@@ -5,7 +5,6 @@ angular.module('ui.bootstrap.contextMenu', [])
         // taking current state for loading context menu
         var state=$state.current.name.split('.');
         state=state[state.length-1];
-
         if (!$) { var $ = angular.element; }
 
          // if contextmenucontents are not present don't render the menu
@@ -13,7 +12,6 @@ angular.module('ui.bootstrap.contextMenu', [])
             return 0;
         }
        
-        
         
         //adding a class to the container of context menu
         $(event.currentTarget).parent().parent().parent().parent().addClass('context');
@@ -53,9 +51,10 @@ angular.module('ui.bootstrap.contextMenu', [])
                 $a.append($span);
                 $li.on('click', function ($event) {
                     $event.preventDefault();
-                    $scope.randomKey=Math.floor(Math.random()*1000,1000);
+                    $scope.randomKey=Math.floor(Math.random()*1000,1000); // used to override some scope errors due to duplication
                     $scope.$parent.formData[$scope.instance]=new Object();//used to save datas from timeline
                     $scope.$parent.formData[$scope.randomKey]=new Object();
+                    $scope.$parent.formData[$scope.randomKey].mainData=new Object();
                     clickedChiled=true;
                     $scope.$apply(function () {
                         $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
@@ -64,6 +63,8 @@ angular.module('ui.bootstrap.contextMenu', [])
                         //taking template for form builder to take required inputs of 
                         //selected context menu
                         $scope.itemTemplate=item.courseElementTemplate;
+                        //elements that comes under this element
+                        $scope.subElements=item.nestableElements;
                         //clearing data in preview object that is previously created
                         $scope.coursePreviewObj={};
                         $templateCache.put('course-element-popup.html','<div style="padding: 0px;" class="aside col-xs-6 m-h-n b-l" role="dialog">'
@@ -77,8 +78,9 @@ angular.module('ui.bootstrap.contextMenu', [])
       +'<div class="box-cell m-t">'
         +'<div class="box-inner col-xs-12">'
           +'<form novalidate xt-form class="form" name="courseElement" enctype="multipart/form-data">'
-           +'<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData.'+$scope.randomKey+'" fg-schema="itemTemplate"> </div>'
-           +'<button type="submit" ng-click="saveMyFormData()" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
+           +'<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData.'+$scope.randomKey+'.mainData" fg-schema="itemTemplate"> </div>'
+           +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData.'+$scope.randomKey+')" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick"></div>'//multiselect to be added
+           +'<button type="submit" ng-click="saveMyFormData($hide)" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
            +'<button type="submit" ng-click="createPreviewElement(\'tempCourseDocs\')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-left btn '+options[state].colorClass+'">Preview</button>'
           +'</form>'
           +'<course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('s','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview>'
@@ -124,8 +126,8 @@ angular.module('ui.bootstrap.contextMenu', [])
         $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor-((1/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor))+1;
         $scope.ItsTimeToSaveDataToDB=false;
         $scope.weHaveGotAfile=false;
-        
 
+        //function for creating preview object
         $scope.createPreviewElement=function (path) {
             $scope.ItsTimeToSaveDataToDB=false; // check for object built successfully or not
             $scope.weHaveGotAfile=false;
@@ -151,7 +153,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                             // here we build object to store into db and to push into timeline
                             if(angular.equals(customProperty.value,'previewkey')){ // checking is there have a value for previewkey
                                 weHaveGotPreviewKey=true;
-                                temp[item.name].value=$scope.$parent.formData[$scope.randomKey][item.name];
+                                temp[item.name].value=$scope.$parent.formData[$scope.randomKey].mainData[item.name];
                                 temp[item.name].type=customProperty.text;
                                 if(angular.equals(customProperty.text,"doc-viewer")){ // if it is a file, it should be stored in server to show preview through
                                                                                       // google doc preview
@@ -159,6 +161,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                                     var promise=addCourseService.fnCourseFileUpload(temp[item.name].value, path); // uploading file to the server
                                     promise.then(function(data){ // call back function for the fileupload
                                           temp[item.name].value='http://docs.google.com/gview?url='+bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','')+'&embedded=true';
+                                          temp[item.name].url=bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','');
                                           $scope.ItsTimeToSaveDataToDB=true;
                                     });
                                 }
@@ -167,7 +170,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                             else{
 
                                 if((loopCounter==maxLoopValue)&&!weHaveGotPreviewKey){ // when count meets length of custom list and still
-                                    temp[item.name]=$scope.$parent.formData[$scope.randomKey][item.name];
+                                    temp[item.name]=$scope.$parent.formData[$scope.randomKey].mainData[item.name];
                                 }
 
                             }
@@ -176,17 +179,20 @@ angular.module('ui.bootstrap.contextMenu', [])
                         
                     }
                     else{
-                        temp[item.name]=$scope.$parent.formData[$scope.randomKey][item.name];
+                        temp[item.name]=$scope.$parent.formData[$scope.randomKey].mainData[item.name];
                     }
                     if(!$scope.weHaveGotAfile&&(fieldsTraversedCount==totalFields)){
                                     $scope.ItsTimeToSaveDataToDB=true;
                                 }
                     $scope.coursePreviewObj.elements.push(temp[item.name]);
+                    if($scope.$parent.formData[$scope.randomKey].nestedElements){
+                        $scope.coursePreviewObj.nestedElements=$scope.$parent.formData[$scope.randomKey].nestedElements;
+                    }
                 });
                     
         };
         //function for triggering when save button in aside 
-        $scope.saveMyFormData = function () {
+        $scope.saveMyFormData = function ($hide) {
            
 
             $scope.createPreviewElement('courseDocs'); // building the needed object
@@ -217,12 +223,146 @@ angular.module('ui.bootstrap.contextMenu', [])
                 if($scope.ItsTimeToSaveDataToDB===true){
                     addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);//saving to database
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once
+                    $hide();
                 }
               });
-        }
+        };
+
+
+        //=========== managing nested list of elements ==================
+
+        //this will trigger when an item in the nested list is selected
+        $scope.selectedNestedElem=function (selectedObj,$formModal) {
+            if(!$scope.formModal){
+                $scope.formModal={};
+            }
+            if(!$scope.nestedElemSelected){
+                $scope.nestedElemSelected={};
+            }
+        var randomKeyForNested=Math.floor(Math.random()*100000,1000); // used to override some scope errors due to duplication
+        $scope.formModal[randomKeyForNested]=$formModal; // object where the formdata to be stored
+        $scope.nestedElemSelected[randomKeyForNested]=selectedObj;
+            if(!$scope.formModal[randomKeyForNested].nestedElements){
+                $scope.formModal[randomKeyForNested].nestedElements={};
+            }
+            if(!$scope.formModal[randomKeyForNested].nestedElements[$scope.nestedElemSelected[randomKeyForNested].Name]){
+                $scope.formModal[randomKeyForNested].nestedElements[$scope.nestedElemSelected[randomKeyForNested].Name]=[];
+            }
+
+        $scope.tempFormData=new Object();
+        $scope.tempFormData[randomKeyForNested]=new Object();
+        var state=$state.current.name.split('.');
+            state=state[state.length-1];
+
+            $templateCache.put('course-element-nested-popup.html','<div style="padding: 0px;" class="aside col-xs-6 m-h-n b-l" role="dialog">'
+            +'<div class="box">'
+            +'<div class="p '+$scope.callbackFunctions[state].colorClass+' font-bold">'
+              +'<a ng-click="$hide()" class="pull-right text-white"><i class="fa fa-times"></i></a>'
+              +'<i class="fa '+ selectedObj.Icon +' text-md m-r"></i>'
+              +selectedObj.menuDisplayName
+            +'</div>'
+            +'<div class="box-row">'
+              +'<div class="box-cell m-t">'
+                +'<div class="box-inner col-xs-12">'
+                  +'<form novalidate xt-form class="form" name="courseElement" enctype="multipart/form-data">'
+                   +'<div sync-data="$parent.syncData" fg-form fg-form-data="" form-data="tempFormData.'+randomKeyForNested+'" fg-schema="nestedElemSelected.'+randomKeyForNested+'.courseElementTemplate"> </div>'
+                   +'<div ng-if="nestedElemSelected.'+randomKeyForNested+'.nestableElements.length>0" on-item-click="selectedNestedElem(data,formModal.'+randomKeyForNested+')" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick"></div>'//multiselect to be added
+                   //+'<button type="submit" ng-click="pushNestedObject(\'courseDocs\',nestedElemSelected,formModal,tempFormData.'+randomKeyForNested+')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+$scope.callbackFunctions[state].colorClass+'">Save</button>'
+                   +'<button type="submit" ng-click="createFormatedElement($hide,\'tempCourseDocs\',nestedElemSelected.'+randomKeyForNested+',formModal.'+randomKeyForNested+',tempFormData.'+randomKeyForNested+')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+$scope.callbackFunctions[state].colorClass+'">Embed</button>'
+                  +'</form>'
+                  +'<course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('s','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview>'
+                +'</div></div></div></div></div>');
+ $aside({scope: $scope, template:'course-element-nested-popup.html', html:true});
+        };
+
+
+        // // function triggers when user clicks save button in nested element's aside
+        // $scope.pushNestedObject=function(path,schemaDesign,formModal,formData) {
+        //     if(!formModal.nestedElements){
+        //         formModal.nestedElements={};
+        //     }
+        //     if(!formModal.nestedElements[schemaDesign.Name]){
+        //         formModal.nestedElements[schemaDesign.Name]=[];
+        //     }
+        //      $scope.createFormatedElement(path,schemaDesign,formModal,formData);
+        // };
+
+
+
+        $scope.createFormatedElement=function ($hide,path,schemaDesign,formModal,formData) {
+            
+            $scope.ItsTimeToSaveNestedDataToDB=false; // check for object built successfully or not
+            $scope.weHaveGotNestedfile=false;
+            var fieldsTraversedCount=0;
+            var totalFields=schemaDesign.courseElementTemplate.fields.length;
+            var temp = {}; // temp object for storing each elements in a course element
+            var coursePreviewObj={};
+                    coursePreviewObj.elements=[]; // array for storing elements
+                    coursePreviewObj.Name=schemaDesign.Name; // course element name
+                    coursePreviewObj.Icon=schemaDesign.Icon; // course element icon
+                    coursePreviewObj.iconBackground=schemaDesign.iconBackground; // icon bg colour
+                    coursePreviewObj.iconColor=schemaDesign.iconColor; //icon colour
+                    
+               angular.forEach(schemaDesign.courseElementTemplate.fields,function(item){ // looping through item template
+                    fieldsTraversedCount++;
+                    if(!angular.equals(item.customlist,undefined)) //checking if it is having a custom attrib or not
+                    {
+                        temp[item.name]={}; // each elements in a course element will be stored like this (Ex: Title, file ..etc.)
+                        var loopCounter=0; // a counter for all loops comes inside custom list of properties
+                        var maxLoopValue=item.customlist.length;
+                        var weHaveGotPreviewKey=false;
+                        angular.forEach(item.customlist,function(customProperty){
+                            loopCounter++;
+                            // here we build object to store into db and to push into timeline
+                            if(angular.equals(customProperty.value,'previewkey')){ // checking is there have a value for previewkey
+                                weHaveGotPreviewKey=true;
+                                temp[item.name].value=formData[item.name];
+                                temp[item.name].type=customProperty.text;
+                                if(angular.equals(customProperty.text,"doc-viewer")){ // if it is a file, it should be stored in server to show preview through
+                                                                                      // google doc preview
+                                    $scope.weHaveGotNestedfile=true;
+                                    var promise=addCourseService.fnCourseFileUpload(temp[item.name].value, path); // uploading file to the server
+                                    promise.then(function(data){ // call back function for the fileupload
+                                          temp[item.name].value='http://docs.google.com/gview?url='+bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','')+'&embedded=true';
+                                          temp[item.name].url=bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','');
+                                          $scope.ItsTimeToSaveNestedDataToDB=true;
+                                    });
+                                }
+
+                        }
+                            else{
+
+                                if((loopCounter==maxLoopValue)&&!weHaveGotPreviewKey){ // when count meets length of custom list and still
+                                    temp[item.name]=formData[item.name];
+                                }
+
+                            }
+                        });
+                        
+                        
+                    }
+                    else{
+                        temp[item.name]=formData[item.name];
+                    }
+                    if(!$scope.weHaveGotNestedfile&&(fieldsTraversedCount==totalFields)){
+                                    $scope.ItsTimeToSaveNestedDataToDB=true;
+                                }
+                    coursePreviewObj.elements.push(temp[item.name]);
+                });
+
+            formModal.nestedElements[schemaDesign.Name].push(coursePreviewObj);
+            schemaDesign.tick=false;
+            $hide();
+            
+        };
+
+
+
+        //============= end of nested list of elements ===================
+
+
             element.on('click', function (event) {
                  event.preventDefault();
-    
                 setTimeout(function(){
                     if(!clickedChiled)
                     {
