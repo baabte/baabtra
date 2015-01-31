@@ -79,7 +79,7 @@ angular.module('ui.bootstrap.contextMenu', [])
         +'<div class="box-inner col-xs-12">'
           +'<form novalidate xt-form class="form" name="courseElement" enctype="multipart/form-data">'
            +'<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData.'+$scope.randomKey+'.mainData" fg-schema="itemTemplate"> </div>'
-           +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData.'+$scope.randomKey+')" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick"></div>'//multiselect to be added
+           +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData.'+$scope.randomKey+')" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
            +'<button type="submit" ng-click="saveMyFormData($hide)" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
            +'<button type="submit" ng-click="createPreviewElement(\'tempCourseDocs\')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-left btn '+options[state].colorClass+'">Preview</button>'
           +'</form>'
@@ -158,8 +158,10 @@ angular.module('ui.bootstrap.contextMenu', [])
                                 if(angular.equals(customProperty.text,"doc-viewer")){ // if it is a file, it should be stored in server to show preview through
                                                                                       // google doc preview
                                     $scope.weHaveGotAfile=true;
+                                    console.log(temp[item.name].value);
                                     var promise=addCourseService.fnCourseFileUpload(temp[item.name].value, path); // uploading file to the server
                                     promise.then(function(data){ // call back function for the fileupload
+                                          temp[item.name].fileType = temp[item.name].value.type;
                                           temp[item.name].value='http://docs.google.com/gview?url='+bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','')+'&embedded=true';
                                           temp[item.name].url=bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','');
                                           $scope.ItsTimeToSaveDataToDB=true;

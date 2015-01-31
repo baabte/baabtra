@@ -8,7 +8,8 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope', fun
 		callbackFunctions:"=callbackFunctions",
 		syncData:"=syncData",
 		tlElements:"=tlElements",
-		courseId:"=courseId"
+		courseId:"=courseId",
+		coursePreviewObj:"="
 		},
 		templateUrl: 'angularModules/courseTimeline/directives/Directive-courseTimeline.html',
 		link: function(scope, element, attrs, fn) {
@@ -143,8 +144,22 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope', fun
             
 
 			
-            
+            scope.callbackOfTlPointClick=function(selectedPoint){
+            	var startPoint=((selectedPoint/scope.ddlBindObject[scope.selectedDuration-1].mFactor)-(1/scope.ddlBindObject[scope.selectedDuration-1].mFactor)+1);
+            	var endPoint=(((selectedPoint)/scope.ddlBindObject[scope.selectedDuration-1].mFactor));
+            	scope.coursePreviewObj.datas=[];
+            	angular.forEach(scope.syncData.courseTimeline, function(CourseElements, key){
+            		if(key >= startPoint && key <= endPoint){
+            			angular.forEach(CourseElements,function(courseElemType){
+            				angular.forEach(courseElemType, function(courseElem){
+	            				scope.coursePreviewObj.datas.push(courseElem);
+            				});
+            			});
+            		}
+            	});
+            };
 
 		}
+
 	};
 }]);
