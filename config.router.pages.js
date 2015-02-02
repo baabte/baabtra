@@ -364,6 +364,31 @@
                   }
                 }
               })
+
+               .state('home.main.formCustomizer.SelectForm', {
+                url: '/SelectForm',
+                views:{
+                  'formCustom-container':{
+                    templateUrl: 'angularModules/form/partials/selectForm.html'
+                  }
+                }
+              })
+               .state('home.main.formCustomizer.SelectStep', {
+                url: '/SelectStep',
+                views:{
+                  'formCustom-container':{
+                    templateUrl: 'angularModules/form/partials/selectStep.html'
+                  }
+                }
+              })
+               .state('home.main.formCustomizer.customizeForm', {
+                url: '/customizeForm',
+                views:{
+                  'formCustom-container':{
+                    templateUrl: 'angularModules/form/partials/customizeForm.html'
+                  }
+                }
+              })
                          
 
               .state('userRegistration', {

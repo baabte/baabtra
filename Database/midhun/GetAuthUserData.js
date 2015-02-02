@@ -3,7 +3,7 @@ db.system.js.save(
 		_id:"GetAuthUserData",
 		value:function(data)
 		{
-			ReturnData = {};
+			 ReturnData = {};
 		    ip_addresses=[];
 		    login_data = db.clnUserLogin.find(data, {_id:1, roleMappings:1, lastLoggedRoleMapping:1}).limit(1).toArray();
 		    role_id = db.clnUserRoleMapping.find({_id:login_data[0].lastLoggedRoleMapping}).toArray();

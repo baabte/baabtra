@@ -5,7 +5,7 @@ angular.module('baabtra').service('commonService',['$http','bbConfig','$state','
 // loadCredantials=function($scope)//function for logout
 // 	 {
 // 	 	var deferred = $q.defer();
-	 
+// 	 	// console.log(deferred);
 // 		if(!$rootScope.userinfo){ //whenever the user refresh the page it will check the credential variable 
 // 			if(localStorageService.get('logDatas')){ // then it will chack the local storage for neccessary datas
 				 
@@ -37,10 +37,10 @@ angular.module('baabtra').service('commonService',['$http','bbConfig','$state','
 
 // this.GetUserCredentials=function ($scope){ // functon that call web service to load a feature
 // 	var myPromise = loadCredantials();
-	
 //     // wait until the promise return resolve or eject
 //     //"then" has 2 functions (resolveFunction, rejectFunction)
 //     myPromise.then(function(resolve){
+//     	// alert(resolve);
 //         if(angular.fromJson(JSON.parse(resolve))=="error"||angular.fromJson(JSON.parse(resolve))=="failed"){ //if the user data not present it active user log it will push to logout
 // 	       			       		localStorageService.set('logDatas','{}');//resetting the userinfo before logout 
 // 								$rootScope.loggedIn=false;
@@ -57,28 +57,7 @@ angular.module('baabtra').service('commonService',['$http','bbConfig','$state','
 //     });
 // };
 
-
-// if(localStorageService.get('logDatas')){
-// 	if(localStorageService.get('logDatas').length){
-// 		alert("hai");
-// 	// 	$http({
-// 	// 	 		url: bbConfig.BWS+'loadInputTypes/',
-// 	// 	 		data: JSON.stringify({"name":"nothing"}),
-// 	// 	 		method: "POST",
-// 	// 	 		withCredentials: false,
-// 	// 	 		contentType:"application/json",
-// 	// 	 		dataType:"json",
-// 	// 	 	}).
-// 	// 	 	success(function(data, status, headers, config) {
-// 	//                    $scope.loadInputTypescallback(data);
-// 	//                }).
-// 	// 	 	error(function(data, status, headers, config) {
-// 	// 	 		console.log(data);
-// 	// 	 	});  
-// 	 }
-// }
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 this.GetUserCredentials=function($scope)
 	 {
@@ -103,7 +82,6 @@ this.GetUserCredentials=function($scope)
 						}
 			}
 			else{
-				// console.log("common1");
 				localStorageService.set('logDatas','{}');//resetting the userinfo before logout 
 				$rootScope.hide_when_root_empty=false;
 				$rootScope.loggedIn=true;
@@ -113,7 +91,6 @@ this.GetUserCredentials=function($scope)
 	return $rootScope.userinfo;
 };
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 

@@ -35,7 +35,10 @@
              <spectrum-colorpicker ng-model="courseElement.iconBackground" options="{showPalette:true}"></spectrum-colorpicker></div>   
             </div>	
 
-             <div class="col-md-7   form-group">
+
+<!-- Commented by Anoop - to be uncommented when introducing exit criteria -->
+
+           <!--   <div class="col-md-7   form-group">
               <div class="font-bold m-t-lg" > 
                 Exit Criteria<hr>
             </div>   
@@ -43,10 +46,12 @@
               <option value="">Select a Exit Criteria</option>
               </select>
               
-             <!-- <pre> {{courseElement.exitCriteria.config;}}</pre>
-             <pre> {{exitCriteria.exitCriteriaConfig}}</pre>  -->
+             <pre> {{courseElement.exitCriteria.config;}}</pre>
+             <pre> {{exitCriteria.exitCriteriaConfig}}</pre>
+            </div>   
 
-            </div>  
+
+
              <div class="col-md-7   form-group">
              <form  novalidate class="form">
               <div fg-form
@@ -54,7 +59,28 @@
                 fg-schema="exitCriteria.exitCriteriaConfig">
               </div>
              </form>
-           </div>
+           </div>-->
+<!-- .End Commented by Anoop - to be uncommented when introducing exit criteria -->
+
+
+<!-- Nestable Elements added by ANoop/Lijin to include elements inside elements -->
+<div class="row-fluid">
+  <div class="col-xs-12">
+    <label  class="font-bold" for="definpu">Nestable Elements</label><br>
+    <em class="text-muted">
+      Here you can select elemets which the user should be able to nest with the currently adding course element
+    </em><br>
+   
+      <div multi-selectable input-model="nestableElementlist" output-model="courseElement.nestableElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="ticked" helper-elements="all none reset filter">
+      </div>
+       
+  </div>
+</div>
+<!-- .End Nestable Elements added by ANoop/Lijin to include elements inside elements -->
+
+
+
+
 
       </div>
 

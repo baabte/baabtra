@@ -13,17 +13,24 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 				$(element).find('#elementContent'+scope.rand).html('');
 				if(!angular.equals(scope.previewData,undefined)){
 					angular.forEach(scope.previewData.elements, function(data){//looping through each type of course elements at this point in the object
-						//angular.forEach(previewData.elements, function(data){//looping through each values in the element object
 							if(data instanceof Object){
-							 		var elementToBeCreated=$('<'+data.type+'>');
-							 		elementToBeCreated.attr('data',data.value);
+							 		var elementToBeCreated=$('<'+data.type+'>');							 		
+							 		elementToBeCreated.attr('data',JSON.stringify(data));
+							 		elementToBeCreated.attr('course-element',JSON.stringify(scope.previewData));
 							 		$('#elementContent'+scope.rand).append(elementToBeCreated);
-							 		$compile(elementToBeCreated)(scope);
 							}
-						//});
-					}); 
+					});
+					if(!angular.equals(scope.previewData.nestedElements,undefined)){
+						// if it is having any nested elements we have to append like this
+						// then only it can append same directive inside this directive
+						var elem='<nested-element data="previewData.nestedElements"></nested-element>';
+						$('#elementContent'+scope.rand).append(elem);
+
+					} 
 						
 				}
+				// now we have to compile the view to render all the directives that we have added manually using js
+				$compile(element)(scope);
 			},true);
 		}
 	};
