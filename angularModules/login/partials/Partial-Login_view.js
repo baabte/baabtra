@@ -65,9 +65,7 @@ function refresh() {
       		}
       	});
       });
-      //$scope.linkedInLoginStatus=$linkedIn.authorize();
-      //console.log($scope.linkedInLoginStatus);
-      //$scope.getLinkedInData();
+     
   };
 $scope.getLinkedInData= function(){
 	$linkedIn.profile("~",["id","firstName","lastName","pictureUrl","publicProfileUrl","email-address","location","headline","phoneNumbers"],{scope:"r_fullprofile+r_emailaddress"}).then( 
@@ -133,18 +131,16 @@ $scope.loginSuccessCallback=function(data){
 			      $scope.loginCredential={};
 			      $scope.signinform.$setPristine();
 			      $scope.Error_msg=true; 
-			      $scope.login_error="incorrect Username or Password";   
+			      $scope.login_error="wrong email or password. Try again!";   
 			      $scope.login_frequency++;  
 			    }
 	    }
 	}; 
 
-
-
 $scope.Show_hide_val_msg=function(){
 
 	if($scope.login_frequency>0){
-		$scope.error_class='login-form-control';
+		$scope.error_class='login-form';
 		$scope.Error_msg=false; 
 	}
 };

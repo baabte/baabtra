@@ -6,7 +6,6 @@ if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       commonService.GetUserCredentials($scope);
 }
 
-
  if($rootScope.userinfo. ActiveUserData.roleMappingObj.fkRoleId==2){
          $scope.companyId=$rootScope.userinfo.ActiveUserData.userLoginId;
   }
