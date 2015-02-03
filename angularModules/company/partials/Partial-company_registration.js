@@ -83,10 +83,26 @@ $scope.checkPassword = function () {
 };
 
 //function for user name validation
-$scope.userVal = function (e){
-     var userNameId=$scope.company;
-     // console.log(userNameId);
-    companyRegistrationService.fnUserNameValid($scope,userNameId);
+$scope.userVal = function (){
+      var userValObj=$scope.company;//object to fetch the user details
+     // console.log(userNameId.eMail);
+     userValObj.fetch='';//to fetch related details of the user pass '' to just user check
+    // companyRegistrationService.fnUserNameValid(userNameId);
+    var fnUserNameValidCallBack= companyRegistrationService.fnUserNameValid(userValObj);
+
+fnUserNameValidCallBack.then(function(data){
+
+ var result=angular.fromJson(JSON.parse(data.data));
+
+  if(result.userCheck===1){   //if the email id already registered
+       $scope.existingEmail=$scope.company.eMail; //setting the existing email id to scope variable for validation.
+       $scope.notifications('Error!','UserName already in Use!','danger');
+      }
+      if(result.userCheck===0){ //if not matching existing registered email
+      
+     }
+
+})
 };
 
 
@@ -126,25 +142,25 @@ $scope.fnGetCountryStateDistrictCallBack=function(result){
 
 };
 
-  $scope.fnUserCheckCallBack=function(result){
-    // if(result.userCheck===1){
-    //     $scope.companyregistrationform.companyEmail.$error.alreadyUsed =true;
-    //     $scope.notifications('UserName already in Use!','fa-warning');
-    //   }
-    //  if(result.userCheck===0){
-    //     $scope.companyregistrationform.companyEmail.$error.alreadyUsed =false;
-    //   }
-    // if(result==='error'){
-    //     $scope.notifications('Error in Username Checking','fa-warning');
-    //   }  
-     if(result.userCheck===1){   //if the email id already registered
-       $scope.existingEmail=$scope.company.eMail; //setting the existing email id to scope variable for validation.
-       $scope.notifications('Error!','UserName already in Use!','danger');
-      }
-      if(result.userCheck===0){ //if not matching existing registered email
+  // $scope.fnUserCheckCallBack=function(result){
+  //   // if(result.userCheck===1){
+  //   //     $scope.companyregistrationform.companyEmail.$error.alreadyUsed =true;
+  //   //     $scope.notifications('UserName already in Use!','fa-warning');
+  //   //   }
+  //   //  if(result.userCheck===0){
+  //   //     $scope.companyregistrationform.companyEmail.$error.alreadyUsed =false;
+  //   //   }
+  //   // if(result==='error'){
+  //   //     $scope.notifications('Error in Username Checking','fa-warning');
+  //   //   }  
+  //    if(result.userCheck===1){   //if the email id already registered
+  //      $scope.existingEmail=$scope.company.eMail; //setting the existing email id to scope variable for validation.
+  //      $scope.notifications('Error!','UserName already in Use!','danger');
+  //     }
+  //     if(result.userCheck===0){ //if not matching existing registered email
       
-     }
-  };
+  //    }
+  // };
 
 $scope.fnGetCompanyRegisterDetailsCallBack=function(result){
   if(result==='success'){

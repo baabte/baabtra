@@ -11,7 +11,7 @@ angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$root
   if(angular.equals($rootScope.loggedIn,false)){
     $state.go('login');
   }
-
+  $scope.coursePreviewObject={};
   $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
   $scope.roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
   $scope.cmp_id=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
@@ -238,8 +238,14 @@ $scope.completeStep1 = function(course){//created for build step1 object
       courseToBeSave.activeFlag = 1;
       courseToBeSave.createdDate = Date();
       courseToBeSave.crmId = $scope.rm_id;
+      courseToBeSave.companyId =  $scope.cmp_id;
+      courseToBeSave.urmId = $scope.rm_id;
     }
-    courseToBeSave.urmId = $scope.rm_id;
+    else{
+      courseToBeSave.crmId = $scope.course.crmId.$oid;
+      courseToBeSave.companyId =  $scope.course.companyId.$oid;
+      courseToBeSave.urmId = $scope.course.urmId.$oid;
+    }
 
     if (!angular.equals(courseToBeSave.Name, undefined)) {
       var path='Course/courseImage';
@@ -258,7 +264,6 @@ $scope.completeStep1 = function(course){//created for build step1 object
         if($scope.ItsTimeToSaveDataToDB){
           delete courseToBeSave.Img;
           var toState='home.main.addCourse.step2';
-          console.log(courseToBeSave);
           addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId, toState);//saving to database
           unbindWatchOnThis(); // used to unbind this watch after triggering it once
         }
@@ -319,8 +324,14 @@ $scope.completeStep2 = function(){
     delete $scope.course.Fees.payment.mode;
   }
   delete $scope.course._id;
+
+  var courseToBeSave = angular.copy($scope.course);
+  courseToBeSave.companyId = courseToBeSave.companyId.$oid;
+  courseToBeSave.crmId = courseToBeSave.crmId.$oid;
+  courseToBeSave.urmId = courseToBeSave.urmId.$oid;
+
   var toState='home.main.addCourse.step3';
-  addCourseService.saveCourseObject($scope, $scope.course, "", $scope.courseId ,toState);//saving to database
+  addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId ,toState);//saving to database
 };
 
 $scope.fnTotalFeeChanged = function(){// this function trigers, when user change the total payment
@@ -344,10 +355,17 @@ $scope.fnTotalFeeChanged = function(){// this function trigers, when user change
 // *********************** STEP 3 .Start ***********************************
 $scope.completeStep3 = function(){
   delete $scope.course._id;
-  $scope.course.draftFlag=1;
+
+  var courseToBeSave = angular.copy($scope.course);
+  
+  courseToBeSave.companyId = courseToBeSave.companyId.$oid;
+  courseToBeSave.crmId = courseToBeSave.crmId.$oid;
+  courseToBeSave.urmId = courseToBeSave.urmId.$oid;
+  courseToBeSave.draftFlag=1;
+
   var toState='home.main.addCourse.step3';
   $alert({title: 'Done..!', content: 'Course has been published successfuly  :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
-  addCourseService.saveCourseObject($scope, $scope.course, "", $scope.courseId ,toState);//saving to database
+  addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId ,toState);//saving to database
 };
 // *********************** STEP 3 .End ***********************************
 

@@ -56,34 +56,34 @@ this.FnGetCountryStateDistrict=function($scope){
 
    };
    //service fuction for username validation
-this.fnUserNameValid=function($scope,userNameId){
+this.fnUserNameValid=function(userValObj){
       
      var result;
-      $http({
+     var promise= $http({
            url: bbConfig.BWS+'UserNameValid/',
-           data: JSON.stringify(userNameId),
+           data: angular.toJson(userValObj),
            method: 'POST',
            withCredentials: false,
            contentType:'application/json',
            dataType:'json',
            }).
               success(function(data, status, headers, config) {
-             
+  
             
-                result=angular.fromJson(JSON.parse(data));
-                // console.log(result);
-                $scope.fnUserCheckCallBack(result);
+                return data;
                 
               }).
               error(function(data, status, headers, config) {
                 result='error';
-                $scope.fnUserCheckCallBack(result);
+                // $scope.fnUserCheckCallBack(result);
 
              });  
-      return result;
+      return promise;
 
    };
-
+//service is called in
+//company registration 
+//user registration
 
     
 

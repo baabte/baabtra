@@ -3,11 +3,21 @@ angular.module('baabtra').directive('youtubeVideo',['$sce', function($sce) {
 		restrict: 'AE',
 		replace: true,
 		scope: {
-			url:"@data"
+			data:"@data",
+			courseElement:"@"
 		},
 		templateUrl: 'angularModules/courseElementFields/youtubeVideo/directives/Directive-youtubeVideo.html',
 		link: function(scope, element, attrs, fn) {
-				scope.$watch('url',function () {
+
+
+
+			//converting text data to objects
+			scope.docObj = JSON.parse(scope.data);			
+			scope.docObjParent = JSON.parse(scope.courseElement);
+
+			scope.url = scope.docObj.value;
+
+			scope.$watch('url',function () {
 				if(!angular.equals(scope.url,undefined)){
 					if(scope.url.indexOf("v=") !== -1){
 						var videoUrl=scope.url.split('v=')[1];

@@ -14,8 +14,9 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 				if(!angular.equals(scope.previewData,undefined)){
 					angular.forEach(scope.previewData.elements, function(data){//looping through each type of course elements at this point in the object
 							if(data instanceof Object){
-							 		var elementToBeCreated=$('<'+data.type+'>');
-							 		elementToBeCreated.attr('data',data.value);
+							 		var elementToBeCreated=$('<'+data.type+'>');							 		
+							 		elementToBeCreated.attr('data',JSON.stringify(data));
+							 		elementToBeCreated.attr('course-element',JSON.stringify(scope.previewData));
 							 		$('#elementContent'+scope.rand).append(elementToBeCreated);
 							}
 					});
