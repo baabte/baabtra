@@ -3,9 +3,12 @@ db.system.js.save(
  		_id:"fnLogin",
  		value:function(data)
  		{			
+			{			
 			ReturnData={};
 			if(data.from_where=="direct"){
-				user_valid_or_not=db.clnUserLogin.find(data.loginCredential).limit(1).count();
+                               
+			    //user_valid_or_not=db.clnUserLogin.find(data.loginCredential).limit(1).count();
+                            user_valid_or_not=db.clnUserLogin.find({$and:[{"userName":data.loginCredential.userName},{"password":data.loginCredential.password}]}).limit(1).count();
 				if(user_valid_or_not==0)
 				{
 					ReturnData.result="false";
@@ -14,7 +17,7 @@ db.system.js.save(
 				}
 				else
 				{
-			                return GetAuthUserData(data.loginCredential);
+			                return GetAuthUserData(data.loginCredential,data.ip);
 				}
 			}
 			else if(data.from_where=="facebook"){
@@ -25,7 +28,7 @@ db.system.js.save(
 					id=db.clnUserLogin.find({"userName":data.socialData.email},{_id:1}).map(function(item){ return item._id; });
                                         if(id[0]){
                                             db.clnUserLogin.update({_id:id[0]},{ $push: { socialProfiles: data.socialData } });
-                                            return GetAuthUserDataThroughlinkedIn(data.loginCredential);
+                                            return GetAuthUserDataThroughlinkedIn(data.loginCredential,data.ip);
                                          }
                                         else{
                                                 db.clnUserLogin.save({"userName":data.socialData.email,	"roleMappings" : [
@@ -56,7 +59,7 @@ db.system.js.save(
                                         if(id[0]){
                                             
                                             db.clnUserLogin.update({_id:id[0]},{ $push: { socialProfiles: data.socialData } });
-                                            return GetAuthUserDataThroughlinkedIn(data.loginCredential);
+                                            return GetAuthUserDataThroughlinkedIn(data.loginCredential,data.ip);
                                         }
                                         else{ 
                                            db.clnUserLogin.save({"userName":data.socialData.emailAddress,	"roleMappings" : [
@@ -84,5 +87,5 @@ db.system.js.save(
  	}});
 
 
-db.clnUserLogin.ensureIndex({"socialProfiles.mediaName" : 1})
-db.clnUserLogin.ensureIndex({"socialProfiles.id" : 1})
+// db.clnUserLogin.ensureIndex({"socialProfiles.mediaName" : 1})
+// db.clnUserLogin.ensureIndex({"socialProfiles.id" : 1})

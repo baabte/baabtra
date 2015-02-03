@@ -1,0 +1,15 @@
+<div class="modal ng-scope center am-fade-and-scale" tabindex="-1" role="dialog" style="display: block;">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header bg-danger" >
+<button type="button" class="close" ng-click="$hide()"><code>×</code></button>
+<h4 class="modal-title ng-binding" >Confirm logout</h4>
+</div>
+<div class="modal-body ng-binding " >
+There are <code>{{numberOfSessions}}</code> People now logined with this account<br>Do you want to logout all sessions?
+</div>
+<div class="modal-footer ">
+<button type="button" class="btn btn-default btn-stroke btn-danger" ng-click="confirmLogout(1);$hide();">Logout all devices</button>
+<button type="button" class="btn btn-default btn-stroke btn-success" ng-click="confirmLogout(2);$hide();">Logout this device</button>
+</div></div></div></div>
+

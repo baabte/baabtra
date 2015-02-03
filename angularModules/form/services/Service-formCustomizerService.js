@@ -1,6 +1,56 @@
-angular.module('baabtra').factory('formCustomizerService',function() {
+angular.module('baabtra').service('formCustomizerService',['$http','$upload','bbConfig',function formCustomizerService($http,$upload,bbConfig) {
 
-	var formCustomizerService = {};
 
-	return formCustomizerService;
-});
+
+
+	//service function to register a user 
+this.FnSaveCustomForm=function(customForm){
+    var result;
+   var promise=$http({
+           url: bbConfig.BWS+'SaveCustomForm/',
+           data: angular.toJson(customForm),
+           method: 'POST',
+           withCredentials: false,
+           contentType:'application/json',
+           dataType:'json',
+           }).
+              success(function(data, status, headers, config) {
+             
+                return data;
+                
+               
+              }).
+              error(function(data, status, headers, config) {
+                result='error';
+                
+             });  
+      return promise;
+   };
+
+
+   //service function to fetch all details of an exsisting user 
+   this.FnFetchCustomForm=function(formFetchData){
+   	// console.log(formFetchData);
+    var result;
+      var promise=$http({
+           url: bbConfig.BWS+'FetchCustomForm/',
+           data: angular.toJson(formFetchData),
+           method: 'POST',
+           withCredentials: false,
+           contentType:'application/json',
+           dataType:'json',
+           }).
+              success(function(data, status, headers, config) {
+             	return data;
+               
+              }).
+              error(function(data, status, headers, config) {
+                result='error';
+             });
+
+      return promise;	
+   };
+
+					
+	
+}]);

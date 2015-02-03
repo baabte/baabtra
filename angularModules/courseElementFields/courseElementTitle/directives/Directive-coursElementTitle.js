@@ -7,6 +7,9 @@ angular.module('baabtra').directive('coursElementTitle', function() {
 		},
 		templateUrl: 'angularModules/courseElementFields/courseElementTitle/directives/Directive-coursElementTitle.html',
 		link: function(scope, element, attrs, fn) {
+
+			scope.titleObj = JSON.parse(scope.data);			
+
 		}
 	};
 });

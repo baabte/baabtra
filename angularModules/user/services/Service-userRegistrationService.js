@@ -2,11 +2,11 @@ angular.module('baabtra').service('userRegistrationService',['$http','$upload','
 
 
 //service function to register a user 
-this.FnRegisterUser=function($scope){
+this.FnRegisterUser=function(userRegister){
     var result;
-      $http({
+      var promise=$http({
            url: bbConfig.BWS+'RegisterUser/',
-           data: angular.toJson($scope.userRegister),
+           data: angular.toJson(userRegister),
            method: 'POST',
            withCredentials: false,
            contentType:'application/json',
@@ -14,43 +14,37 @@ this.FnRegisterUser=function($scope){
            }).
               success(function(data, status, headers, config) {
              
-                $scope.result=angular.fromJson(JSON.parse(data));
-                result='success';
-                $scope.fnRegisterUserCallBack(result);
+                return promise;
                
               }).
               error(function(data, status, headers, config) {
                 result='error';
-                $scope.fnRegisterUserCallBack(result);
              });  
-      return result;
+      return promise;
    };
 
 
-   //service function to fetch all details of an exsisting user 
-   this.FnFetchUserDetails=function($scope){
-    var result;
-      $http({
-           url: bbConfig.BWS+'FetchUserDetails/',
-           data: angular.toJson($scope.formData.userInfo),
-           method: 'POST',
-           withCredentials: false,
-           contentType:'application/json',
-           dataType:'json',
-           }).
-              success(function(data, status, headers, config) {
+ //   //service function to fetch all details of an exsisting user 
+ //   this.FnFetchUserDetails=function(formData){
+ //    var result;
+ // var promise=$http({
+ //           url: bbConfig.BWS+'FetchUserDetails/',
+ //           data: angular.toJson(formData),
+ //           method: 'POST',
+ //           withCredentials: false,
+ //           contentType:'application/json',
+ //           dataType:'json',
+ //           }).
+ //              success(function(data, status, headers, config) {
              
-                $scope.userDetails=angular.fromJson(JSON.parse(data));
-                result='success';
-                $scope.fnFetchUserDetailsCallBack(result);
-               
-              }).
-              error(function(data, status, headers, config) {
-                result='error';
-                $scope.fnFetchUserDetailsCallBack(result);
-             });  
-      return result;
-   };
+ //                data=angular.fromJson(JSON.parse(data));
+ //                return data;
+ //              }).
+ //              error(function(data, status, headers, config) {
+ //                result='error';
+ //             });  
+ //      return promise;
+ //   };
 
 
 	//end of service 

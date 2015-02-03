@@ -5,12 +5,12 @@
   "authors": [
     "Jihin <jihin@baabte.com>"
   ],
-  "description": "streamline for showing the course",
-  "main": "CSS/stylebbfb.css",
+  "description": "course streamline",
+  "main": ["css/style.css","js/main.js","js/modernizr.js"],
   "keywords": [
-    "stream",
-    "line",
-    "course"
+    "angular",
+    "vertical",
+    "streamline"
   ],
   "license": "MIT",
   "ignore": [
