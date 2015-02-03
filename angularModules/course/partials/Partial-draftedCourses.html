@@ -4,11 +4,20 @@
       <a href="" class="text-md text-ellipsis"><i class="fa fa-recycle fa-1x m-r"></i>Drafted Courses</a>
     </div>
     <div class="panel-body p-sm">
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t" ng-repeat="course in draftedCourses">
+      <div class="col-xs-12" ng-if="!draftedCourses.length">
+        <div id="alerts-container" class="animated fadeIn">
+          <div class="alert ng-scope am-fade alert-button bg-danger lt" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
+            <strong class="ng-binding">Not Found!</strong>&nbsp;
+            <span class="ng-binding">{{WarringMessage}}</span>
+            <i class="ti ti-face-sad text-lg"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t" ng-repeat="course in draftedCourses" ng-if="draftedCourses.length">
         <div class="panel bg-info lt">
           <div class="panel-heading p-v-xs p-h-sm">
-            <a class="pull-right text-muted m-r-xs" ng-click="deleteCourseDetails(course._id.$oid)"><i class="fa fa-trash"></i></a>
-            <a class="pull-right text-muted m-r-xs" ng-click="editCourseDetails(course._id.$oid)"><i class="fa fa-edit"></i></a>
+            <a title="click to delete this course" class="pull-right text-muted m-r-xs" ng-click="deleteCourseDetails(course._id.$oid)"><i class="fa fa-trash"></i></a>
+            <a title="click to edit this course" class="pull-right text-muted m-r-xs" ng-click="editCourseDetails(course._id.$oid)"><i class="fa fa-edit"></i></a>
           </div>
           <div class="panel-body p-sm">
             <div class="pull-left p-h text-center m-r-xs">
