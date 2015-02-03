@@ -12,6 +12,9 @@
 		 		<div class="form-group">
 					<input type="text" class="form-control text-sm bg-white	 " placeholder="Enter New Role" xt-validate required ng-minlength="5" name="roleName" ng-model="roleName">
 				</div>
+				 <div class="form-group" ng-show="showOrhideroleId">
+					<input type="text" class="form-control text-sm bg-white	 " placeholder="Enter a role id" xt-validate required ng-minlength="1" name="roleId" ng-model="roleId">
+				</div> 
 				<div class="form-group">
 					<textarea class="form-control text-sm bg-white" rows="3"  placeholder="Enter Role Description" xt-validate required ng-minlength="7" name="roleDesc" ng-model="RoleDesc"></textarea>
 				</div> 

@@ -148,18 +148,18 @@ $scope.fnUserRegister =function (argument) {
   $scope.userRegister.companyId=companyId;
 
   //service call for user registration
-  console.log($scope.userRegister);
+  // console.log($scope.userRegister);
 
-//   var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
+  var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
 
 
-// fnRegisterUserCallBack.then(function(data){
+fnRegisterUserCallBack.then(function(data){
 
-//  var result=angular.fromJson(JSON.parse(data.data));
+ var result=angular.fromJson(JSON.parse(data.data));
 
-//      $scope.notifications('Yaay..!','Registered Successfully','success');   
+     $scope.notifications('Yaay..!','Registered Successfully','success');   
 
-// });
+});
 
 };
 

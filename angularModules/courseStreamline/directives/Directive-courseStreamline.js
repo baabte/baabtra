@@ -3,7 +3,7 @@ angular.module('baabtra').directive('courseStreamline', function() {
 		restrict: 'E',
 		replace: true,
 		scope: {
-			syncData:'='
+			previewData:'='
 		},
 		templateUrl: 'angularModules/courseStreamline/directives/Directive-courseStreamline.html',
 		link: function(scope, element, attrs, fn) {
@@ -17,13 +17,13 @@ angular.module('baabtra').directive('courseStreamline', function() {
                            	   {id: "6",name: "Minute(s)",mFactor:1,show:true}];
 
 
-			scope.$watch('syncData.courseTimeline', function(){
-				if(!angular.equals(scope.syncData.courseTimeline, undefined)){
-					angular.forEach(scope.ddlView, function(item){
-						console.log(item.name+':'+Math.floor(scope.syncData.Duration.durationInMinutes*item.mFactor));
-					});
-				}
-			});
+			// scope.$watch('syncData.courseTimeline', function(){
+			// 	if(!angular.equals(scope.syncData.courseTimeline, undefined)){
+			// 		angular.forEach(scope.ddlView, function(item){
+			// 			console.log(item.name+':'+Math.floor(scope.syncData.Duration.durationInMinutes*item.mFactor));
+			// 		});
+			// 	}
+			// });
 		}
 	};
 });

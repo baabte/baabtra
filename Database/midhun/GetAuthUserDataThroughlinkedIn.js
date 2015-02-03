@@ -17,6 +17,7 @@ db.system.js.save(
 		    ReturnData.result = "true";
 		    ReturnData.userLoginId = login_data[0]._id.valueOf();
 		    db.clnActiveUserData.insert(user);
+		    db.clnLoginHistory.insert(user);
 		    LogUserData = db.clnUserLogin.find({_id:ObjectId(ReturnData.userLoginId)}).limit(1).toArray();
 		    ReturnData.ActiveUserData.username = LogUserData[0].userName;
 		    return ReturnData;

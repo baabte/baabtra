@@ -11,7 +11,7 @@ angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$root
   if(angular.equals($rootScope.loggedIn,false)){
     $state.go('login');
   }
-
+  $scope.coursePreviewObject={};
   $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
   $scope.roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
   $scope.cmp_id=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;

@@ -3,14 +3,13 @@ angular.module('baabtra').service('header',['$http','bbConfig',function header($
 	
 	 this.logout=function($scope)//function for logout
 	 {
-	 	// console.log(userisnfo);
 	      $http({//call to the webservice
 	      method: 'POST',
 	      url: bbConfig.BWS+'logout/',
-	      data: JSON.stringify({"UserLogoutObjId":$scope.userinfo}), //passing the login credentials          
+	      data: JSON.stringify({"UserLogoutObjId":$scope.logDatas}), //passing the login credentials          
 	      }).success(function(data, status, headers, config) 
 	      {
-		       	$scope.fnCallbackLogout();	       	
+		       	$scope.fnCallbackLogout(data);	       	
 	      }).error(function(data, status, headers, config) {
 	          
 	         });
