@@ -91,7 +91,7 @@ $scope.fnCreateStep = function(stepName){
 //function to delete step
 $scope.fnDeleteStep = function(key){
 
-console.log("fnDeleteStep");
+// console.log("fnDeleteStep");
  $scope.customForm.formSchema[key]= {};
 while(key<=$scope.customForm.formSteps){
  $scope.customForm.formSchema[key]= $scope.customForm.formSchema[key+1];

@@ -42,7 +42,6 @@
     "ngquill": "~1.0.3",
     "contextMenu":"~0.0.0",
     "ngHierarchicalSelector":"~1.0",
-    "angular-material": "~0.7.0",
     "bootstrap-social": "~4.8.0",
     "StreamLine":"~1.0",
     "angular-multi-select": "~2.0.2"

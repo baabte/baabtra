@@ -32,7 +32,7 @@ angular.module('baabtra')
 		restrict: 'A',
 		require: ["^?form",'ngModel'],
 		scope: {srcObj:"="},
-		link: function(scope, elem, attrs, ctrls) {
+		link: function(scope, elem, attrs, ctrls) {			
 			// if there is no $error object in the control, define an error object to push our custom validation error
 			if (angular.equals(ctrls[1].$error, undefined)){
 				ctrls[1].$error = {};
