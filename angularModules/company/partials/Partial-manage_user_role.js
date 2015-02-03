@@ -7,7 +7,7 @@ if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
 }
 
  if($rootScope.userinfo. ActiveUserData.roleMappingObj.fkRoleId==2){
-         $scope.companyId=$rootScope.userinfo.ActiveUserData.userLoginId;
+         $scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   }
   else if($rootScope.userinfo. ActiveUserData.roleMappingObj.fkRoleId==1){
     $scope.showOrhideroleId=true;

@@ -85,6 +85,7 @@ $scope.getLinkedInData= function(){
 
 $scope.fnCheckLogin=function(){//FnCheckLogin() is the functoin which is to be fired when user clickg the login button .
   $scope.progress=true;
+  $scope.isLoggedIn = false;
   $scope.btnSignupText='Inprogress...'; //While login to show the inprogress status as value of button. 
   $scope.from_where="direct";
   LoginService.fnloginService($scope);
@@ -133,6 +134,7 @@ $scope.loginSuccessCallback=function(data){
 			      $scope.Error_msg=true; 
 			      $scope.login_error="wrong email or password. Try again!";   
 			      $scope.login_frequency++;  
+            $scope.isLoggedIn = true;
 			    }
 	    }
 	}; 

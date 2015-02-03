@@ -51,6 +51,13 @@ angular.module('baabtra').controller('header',['$scope','$rootScope','$state','l
 			header.logout($scope);
 		}
 				
-   
+   		$scope.test=function(){
+   			// console.log($rootScope.userinfo.ActiveUserData.ip_address);
+   			$scope.ips=$rootScope.userinfo.ActiveUserData.ip_address;
+   			// for (var counter=0;counter<ips.length;counter++){
+   			// 	console.log(ips[counter]);
+   			// }
+   			console.log(ips.length);
+   		};
 
 }]);
