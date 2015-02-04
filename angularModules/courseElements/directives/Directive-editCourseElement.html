@@ -1,0 +1,20 @@
+<div style="padding: 0px;" class="aside col-xs-6 m-h-n b-l" role="dialog">
+	<div class="box">
+		<div class="p bg-success font-bold">
+			<a ng-click="$hide()" class="pull-right text-white"><i class="fa fa-times"></i></a>
+			<i class="fa {{courseElement.Icon}} text-md m-r"></i>{{courseElement.menuDisplayName}}
+		</div>
+		<div class="box-row">
+			<div class="box-cell m-t">
+				<div class="box-inner col-xs-12">
+					<form novalidate xt-form class="form" name="" enctype="multipart/form-data">
+						<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="formData" fg-schema="courseElement.courseElementTemplate"></div>
+						<!-- <div  on-item-click="selectedNestedElem(data,formModal.'+randomKeyForNested+')" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick"></div> -->
+						<button type="submit" ng-click="saveMyFormData($hide)" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn btn-success">Save</button><button type="button" ng-click="createPreviewElement()" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-left btn btn-success">Preview</button>
+					</form>
+					<course-element-preview tl-position="'+scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].name.replace('s','')+' '+scope.$parent.selectedTpoint+'" preview-data="coursePreviewObj"></course-element-preview>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

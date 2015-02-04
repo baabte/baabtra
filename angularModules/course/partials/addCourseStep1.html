@@ -101,7 +101,6 @@
           <input type="radio" name="Branches" ng-click="specificBranches=true" id="inlineRadio1" value="option1"> Specific Branches
         </label>
         <em class="text-muted">&nbsp;(Please specifiy  to which all branches this course is available)</em>
-
         <hierarchical-selector ng-if="specificBranches" ng-model="course.branchDetails" data="branchDetails" multi-select="true" class="am-fade" on-selection-changed="selectedItem2 = onBranchSelectionChanged(items)"></hierarchical-selector>
       </div>
 

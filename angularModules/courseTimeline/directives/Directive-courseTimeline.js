@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('courseTimeline',['$state','$rootScope', function($state,$rootScope) {
+angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService) {
 	return {
 		restrict: 'E', // to use as an element . Use 'A' to use as an attribute
 		replace: true,
@@ -47,13 +47,13 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope', fun
 					scope.duration=scope.totalDuration;
 				}
 				else{
-					var name=scope.ddlBindObject[scope.selectedDuration-1].name;
+				var name=scope.ddlBindObject[scope.selectedDuration-1].name;
 				name = name.replace('s','');
 				scope.selectedDurType=name;
 				scope.duration=Math.ceil(scope.totalDuration*scope.ddlBindObject[scope.selectedDuration-1].mFactor);
 				
 				}
-				scope.setMinWidth(15);
+				scope.setMinWidth(35);
 				scope.tlPointList=[];
 				scope.buildTlPointList(1);
 				
@@ -145,6 +145,10 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope', fun
 
 			
             scope.callbackOfTlPointClick=function(selectedPoint){
+
+            	var tlSelectedPoint = scope.ddlBindObject[scope.selectedDuration-1].name.replace('s','');
+            	tlSelectedPoint = tlSelectedPoint + ' ' + selectedPoint;
+
             	var startPoint=((selectedPoint/scope.ddlBindObject[scope.selectedDuration-1].mFactor)-(1/scope.ddlBindObject[scope.selectedDuration-1].mFactor)+1);
             	var endPoint=(((selectedPoint)/scope.ddlBindObject[scope.selectedDuration-1].mFactor));
             	scope.coursePreviewObj.datas=[];
@@ -153,11 +157,41 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope', fun
             			angular.forEach(CourseElements,function(courseElemType){
             				angular.forEach(courseElemType, function(courseElem){
 	            				scope.coursePreviewObj.datas.push(courseElem);
+	            				scope.coursePreviewObj.tlSelectedPoint = tlSelectedPoint;
             				});
             			});
             		}
             	});
             };
+
+            var selectedCourseElement = {};
+            //var selectedTpoint = 0;
+            scope.manageCourseElement = function(element,tPoint,selectedIndex){
+            	selectedCourseElement = element;
+            	scope.selectedTpoint = tPoint;
+            	scope.selectedIndex = selectedIndex;
+            }
+
+            scope.editCourseElement = function(){
+
+            	angular.forEach(scope.popoverObject.courseElementlist,function(courseElement){
+            		if(angular.equals(selectedCourseElement.Name,courseElement.Name)){
+            			scope.courseElement = courseElement;
+            		}
+            	});
+
+            	 for(var elementCount=0;elementCount < selectedCourseElement.elements.length; elementCount++){
+            	 	scope.courseElement.courseElementTemplate.fields[elementCount].value = selectedCourseElement.elements[elementCount].value;
+            	 }
+            	$templateCache.put('course-element-popup.html','<edit-course-element></edit-course-element>');
+ 				$aside({scope: scope, template:'course-element-popup.html', html:true});
+            }
+
+            scope.removeCourseElement = function(){
+            	var startPoint=((scope.selectedTpoint/scope.ddlBindObject[scope.selectedDuration-1].mFactor)-(1/scope.ddlBindObject[scope.selectedDuration-1].mFactor)+1);
+            	scope.syncData.courseTimeline[startPoint][selectedCourseElement.Name].splice(scope.selectedIndex,1);
+            	addCourseService.removeCourseTimelineElement(scope.courseId, selectedCourseElement.Name, startPoint, scope.selectedIndex, scope.$parent.$parent.rm_id);
+            }
 
 		}
 

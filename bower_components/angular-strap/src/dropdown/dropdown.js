@@ -17,7 +17,6 @@ angular.module('mgcrea.ngStrap.dropdown', ['mgcrea.ngStrap.tooltip'])
     };
 
     this.$get = function($window, $rootScope, $tooltip) {
-
       var bodyEl = angular.element($window.document.body);
       var matchesSelector = Element.prototype.matchesSelector || Element.prototype.webkitMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.oMatchesSelector;
 
@@ -97,13 +96,12 @@ angular.module('mgcrea.ngStrap.dropdown', ['mgcrea.ngStrap.tooltip'])
       restrict: 'EAC',
       scope: true,
       link: function postLink(scope, element, attr, transclusion) {
-
         // Directive options
         var options = {scope: scope};
         angular.forEach(['placement', 'container', 'delay', 'trigger', 'keyboard', 'html', 'animation', 'template'], function(key) {
           if(angular.isDefined(attr[key])) options[key] = attr[key];
         });
-
+        
         // Support scope as an object
         attr.bsDropdown && scope.$watch(attr.bsDropdown, function(newValue, oldValue) {
           scope.content = newValue;

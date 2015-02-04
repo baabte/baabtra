@@ -399,3 +399,22 @@ pre                             { margin-bottom:20px; }
 }
 /*drafted course view end*/
 
+
+.bubble-nottification{
+  margin-left: -15px!important;
+  box-shadow: -3px 2px 10px #fff;
+  -webkit-box-shadow: -3px 2px 10px #fff;
+  -o-box-shadow: -3px 2px 10px #fff;
+  -moz-box-shadow: -3px 2px 10px #fff;
+  -khtml-box-shadow: -3px 2px 10px #fff;
+  -ms-box-shadow: -3px 2px 10px #fff;
+}
+
+.tl-header-custom{
+  position: relative;
+  display: block;
+margin-left: 1px;
+text-align: center;
+}
+
+

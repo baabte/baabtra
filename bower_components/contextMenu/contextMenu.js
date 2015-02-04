@@ -193,6 +193,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                 });
                     
         };
+        
         //function for triggering when save button in aside 
         $scope.saveMyFormData = function ($hide) {
            
