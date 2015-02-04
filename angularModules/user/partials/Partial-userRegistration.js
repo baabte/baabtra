@@ -18,7 +18,7 @@ $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fr
 });
 
 var companyId;
-//getting user crmid and data
+//getting user crmid and data companyid
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 
  if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,1)){
@@ -31,13 +31,13 @@ else{
  
 }
 
- 
+ //loading branches of company 
 branchSrv.fnLoadBranch($scope,companyId);
-$scope.allSync={};
-$scope.selection={};
+$scope.allSync={}; //the variable to pass data in controller to syncdata
 $scope.status={};
 $scope.status.selected=1;
 // $scope.allFunction.newUser=false;
+$scope.allSync.testSpace={};
 $scope.allSync.FormData={};
 
 
@@ -47,7 +47,7 @@ var formFetchData={};
 formFetchData.fkcompanyId=companyId;//to fetch forms from clnCustomForms
 formFetchData.formName='userRegistration';//to fetch all the froms give specific name to fetch that form only
 
-
+//sevice call to fetch form 
 var FnFetchCustomFormCallBack= formCustomizerService.FnFetchCustomForm(formFetchData);
 
 FnFetchCustomFormCallBack.then(function(data){
@@ -60,8 +60,8 @@ FnFetchCustomFormCallBack.then(function(data){
 });
 
 
-
-var courseFetchData={};
+//service call for course fetch
+var courseFetchData={fkcompanyId:companyId};
 
 var FetchCourseListCallBack= addCourseService.fnFetchCourseList(courseFetchData);
 
@@ -131,8 +131,13 @@ $scope.existingEmail='';
 
 
 //service to fetch all state district from database 
-companyRegistrationService.FnGetCountryStateDistrict($scope);
+   var fnGetCountryStateDistrictCallBack=companyRegistrationService.FnGetCountryStateDistrict();   
+fnGetCountryStateDistrictCallBack.then(function(data){
 
+  $scope.CSDlist=angular.fromJson(JSON.parse(data.data));
+
+
+});
 
 
 
@@ -238,18 +243,18 @@ fnRegisterUserCallBack.then(function(data){
 ///call back funtions 
 
 //callback fnc for country stata district fetch
-$scope.fnGetCountryStateDistrictCallBack=function(result){
-   if(result==='error'){
-        $scope.notifications('opps!','Error in connecting to server','danger');
-      }
+// $scope.fnGetCountryStateDistrictCallBack=function(result){
+//    if(result==='error'){
+//         $scope.notifications('opps!','Error in connecting to server','danger');
+//       }
 
-};
+// };
 
-//call back for user check validation
-$scope.fnUserCheckCallBack=function(result){
+// //call back for user check validation
+// $scope.fnUserCheckCallBack=function(result){
     
      
-  };
+//   };
 
 
 // $scope.fnRegisterUserCallBack = function(result){
