@@ -27,8 +27,25 @@ if($rootScope.loggedIn===false){
 
 
 
-   companyRegistrationService.FnGetSectors($scope);
-   companyRegistrationService.FnGetCountryStateDistrict($scope);
+  var fnGetSectorsCallBack =companyRegistrationService.FnGetSectors();
+  fnGetSectorsCallBack.then(function(data){
+
+ $scope.sectorlist=angular.fromJson(JSON.parse(data.data));
+
+
+});
+
+
+
+   var fnGetCountryStateDistrictCallBack=companyRegistrationService.FnGetCountryStateDistrict();   
+fnGetCountryStateDistrictCallBack.then(function(data){
+
+  $scope.CSDlist=angular.fromJson(JSON.parse(data.data));
+
+
+});
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //validation
 
@@ -128,19 +145,14 @@ fnUserNameValidCallBack.then(function(data){
   };
  
 
-$scope.fnGetSectorsCallBack=function(result){
-   if(result==='error'){
-        $scope.notifications('opps!','Error in connecting to server','danger');
-      }
 
-};
 
-$scope.fnGetCountryStateDistrictCallBack=function(result){
-   if(result==='error'){
-        $scope.notifications('opps!','Error in connecting to server','danger');
-      }
+// $scope.fnGetCountryStateDistrictCallBack=function(result){
+//    if(result==='error'){
+//         $scope.notifications('opps!','Error in connecting to server','danger');
+//       }
 
-};
+// };
 
   // $scope.fnUserCheckCallBack=function(result){
   //   // if(result.userCheck===1){

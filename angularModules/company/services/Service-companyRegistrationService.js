@@ -6,10 +6,10 @@ angular.module('baabtra').service('companyRegistrationService',['$http','$upload
 	// service('Companyregistration',['$http','$upload', function Companyregistration($http,$upload) {
 
  //service function for sector loading
-this.FnGetSectors=function($scope){
+this.FnGetSectors=function(){
     
     var result;
-      $http({
+     var promise=$http({
            url: bbConfig.BWS+'CompanySector/',
            method: 'POST',
            withCredentials: false,
@@ -18,15 +18,14 @@ this.FnGetSectors=function($scope){
            }).
               success(function(data, status, headers, config) {
              
-                $scope.sectorlist=angular.fromJson(JSON.parse(data));
-                result='success';
+              return data;  
                
               }).
               error(function(data, status, headers, config) {
                 result='error';
-                $scope.fnGetSectorsCallBack(result);
+               
              });  
-      return result;
+      return promise;
 
    };
 
@@ -34,7 +33,7 @@ this.FnGetSectors=function($scope){
 this.FnGetCountryStateDistrict=function($scope){
      
      var result;
-      $http({
+     var promise=$http({
            url: bbConfig.BWS+'CountryStateDistrict/',
            method: 'POST',
            withCredentials: false,
@@ -43,15 +42,15 @@ this.FnGetCountryStateDistrict=function($scope){
            }).
               success(function(data, status, headers, config) {
              
-                $scope.CSDlist=angular.fromJson(JSON.parse(data));
+              return data;
               }).
               error(function(data, status, headers, config) {
                 
                 result='error';
-                $scope.fnGetCountryStateDistrictCallBack(result);
+                
                 
              });  
-      return result;
+      return promise;
  
 
    };

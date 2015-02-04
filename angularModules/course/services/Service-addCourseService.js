@@ -96,4 +96,22 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	return promise;
 };
 
+this.fnFetchCourseList = function (courseFetchData){ // this function load completed coursers
+	 	var promise = $http({
+		url: bbConfig.BWS+'FetchCourseList/',
+		method: "POST",
+		data:angular.toJson(courseFetchData),
+		withCredentials: false,
+		contentType:"application/json",
+		dataType:"json",
+	}).
+	success(function(data, status, headers, config) {
+		return data;
+	}).
+	error(function(data, status, headers, config) {
+
+	});
+	return promise;
+};
+
 }]);

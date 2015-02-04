@@ -1,14 +1,18 @@
 angular.module('baabtra').controller('ManageUserRoleCtrl',['$scope','manageCompanyRoleService','localStorageService','$state','$alert','$rootScope','commonService',function($scope,manageCompanyRoleService,localStorageService,$state,$alert,$rootScope,commonService){
 
+$scope.showOrhideroleId=false;
 if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       $rootScope.hide_when_root_empty=true;
       commonService.GetUserCredentials($scope);
 }
 
-
  if($rootScope.userinfo. ActiveUserData.roleMappingObj.fkRoleId==2){
-         $scope.companyId=$rootScope.userinfo.ActiveUserData.userLoginId;
+         $scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   }
+  else if($rootScope.userinfo. ActiveUserData.roleMappingObj.fkRoleId==1){
+    $scope.showOrhideroleId=true;
+  }
+
 if($rootScope.loggedIn==false){
   $state.go('login');
 }
@@ -27,8 +31,12 @@ $scope.AddCompanyRole=function(){
  $scope.deleteRole=function(RollData,arrayindex_for_delete) //it wil edit roles from database
     {
        $scope.arrayindex_for_delete=arrayindex_for_delete;
-       RollData._id=RollData._id.$oid;
-       manageCompanyRoleService.DeleteCompanyRole($scope,RollData); // calling service function
+       if($rootScope.userinfo. ActiveUserData.roleMappingObj.fkRoleId!=1){
+          RollData._id=RollData._id.$oid;
+       }
+       // RollData._id=RollData._id.$oid;
+       // console.log(RollData._id);
+       manageCompanyRoleService.DeleteCompanyRole($scope,RollData._id); // calling service function
     };
   $scope.updateUserRole=function(role,roleData,data) //it wil edit roles from database
     {

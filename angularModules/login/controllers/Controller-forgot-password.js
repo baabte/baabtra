@@ -1,5 +1,5 @@
 angular.module('baabtra').controller('forgotPassword',['$scope','forgotPassword','$alert', function($scope,forgotPassword,$alert) {
-	$scope.user_email="midhun@baabte.com";
+	$scope.user_email="";
 	$scope.process=false;
 	$scope.Error_msg_of_forgot_pwd=false; 
 	$scope.login_frequency=0; 

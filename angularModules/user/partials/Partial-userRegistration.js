@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('UserregistrationCtrl',['$scope','$filter','$rootScope','$state','commonService','userRegistrationService','companyRegistrationService','formCustomizerService','$alert','branchSrv','manageTreeStructureSrv',function($scope,$filter,$rootScope,$state,commonService,userRegistrationService,companyRegistrationService,formCustomizerService,$alert,branchSrv,manageTreeStructureSrv){
+angular.module('baabtra').controller('UserregistrationCtrl',['$scope','$filter','$rootScope','$state','commonService','userRegistrationService','companyRegistrationService','formCustomizerService','addCourseService','$alert','branchSrv','manageTreeStructureSrv',function($scope,$filter,$rootScope,$state,commonService,userRegistrationService,companyRegistrationService,formCustomizerService,addCourseService,$alert,branchSrv,manageTreeStructureSrv){
 
 
 	if(!$rootScope.userinfo){
@@ -17,21 +17,28 @@ $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fr
   }
 });
 
-//getting user crmid and data
+var companyId;
+//getting user crmid and data companyid
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
- var companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;//"5457526122588a5db73e0b23";
- // console.log($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid);
 
- // console.log(companyId);
+ if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,1)){
+
+  companyId='';
+
+}
+else{
+  companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;//
  
- // $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-// branchSrv.fnLoadBranch($scope,companyId);
-$scope.FormData={};
-$scope.allFunction={};
-$scope.selection={};
+}
+
+ //loading branches of company 
+branchSrv.fnLoadBranch($scope,companyId);
+$scope.allSync={}; //the variable to pass data in controller to syncdata
 $scope.status={};
 $scope.status.selected=1;
-$scope.allFunction.newUser=false;
+// $scope.allFunction.newUser=false;
+$scope.allSync.testSpace={};
+$scope.allSync.FormData={};
 
 
 // formCustomizerService.FnFetchCustomForm($scope);
@@ -40,68 +47,80 @@ var formFetchData={};
 formFetchData.fkcompanyId=companyId;//to fetch forms from clnCustomForms
 formFetchData.formName='userRegistration';//to fetch all the froms give specific name to fetch that form only
 
-
+//sevice call to fetch form 
 var FnFetchCustomFormCallBack= formCustomizerService.FnFetchCustomForm(formFetchData);
 
 FnFetchCustomFormCallBack.then(function(data){
 
  var result=angular.fromJson(JSON.parse(data.data));
-console.log(result);
+// console.log(result);
  $scope.formlist=result.formlist;
         
 
 });
 
 
-// //code for branch select 
-// $scope.branchDetails =[];
+//service call for course fetch
+var courseFetchData={fkcompanyId:companyId};
+
+var FetchCourseListCallBack= addCourseService.fnFetchCourseList(courseFetchData);
+
+FetchCourseListCallBack.then(function(data){
+
+ $scope.allSync.courselist=angular.fromJson(JSON.parse(data.data));
+// console.log($scope.allFunction.courselist);
 
 
+        
+
+});
 
 
+//code for branch select 
+$scope.allSync.branchDetails =[];
 
 
-// $scope.$watch('branches', function(newVal, oldVal){
-//     if (!angular.equals($scope.branches,undefined)) {
-//         $scope.data1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.branches,null),null);
-//         $scope.branchDetails = angular.copy($scope.data1);
-//         convertObjectName($scope.branchDetails, null);
-//         // console.log($scope.branchDetails);
-//         $scope.branchDetails=$scope.branchDetails[0].children;
-//     }
-// });
+$scope.$watch('branches', function(newVal, oldVal){
+    if (!angular.equals($scope.branches,undefined)) {
+        $scope.data1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.branches,null),null);
+        $scope.allSync.branchDetails = angular.copy($scope.data1);
+        convertObjectName($scope.allSync.branchDetails, null);
+        // console.log($scope.allFunction.branchDetails);
+        $scope.allSync.branchDetails=$scope.allSync.branchDetails[0].children;
+    }
+});
 
-// var convertObjectName=function(menu,sub){
-//               if(sub==null){
-//                 sub=0;
-//               }
-//               if(angular.equals(menu[sub],undefined)){
-//                 return 0;
-//               }
+var convertObjectName=function(menu,sub){
+              if(sub==null){
+                sub=0;
+              }
+              if(angular.equals(menu[sub],undefined)){
+                return 0;
+              }
                 
-//               if(!angular.equals(menu[sub].childrenObj,undefined)){
-//                 menu[sub].name=menu[sub]._id;
-//                 menu[sub].id=menu[sub]._id;
-//                 menu[sub].$$hashKey=menu[sub]._id+sub;
-//                 delete menu[sub]._id;
-//                 delete menu[sub].createdDate;
-//                 delete menu[sub].parent;
-//                 delete menu[sub].crmId;
-//                 delete menu[sub].updatedDate;
-//                 delete menu[sub].urmId;
-//                 delete menu[sub].activeFlag;
-//                 if(!angular.equals(menu[sub].children,null)){
-//                 menu[sub].children=menu[sub].childrenObj;
-//                 }
-//                 else{
-//                   menu[sub].children=[];
-//                 }
-//               }
-//               if(menu[sub].childrenObj.length){
-//                convertObjectName(menu[sub].childrenObj,null);
-//               }
-//               convertObjectName(menu,++sub);
-//             };
+              if(!angular.equals(menu[sub].childrenObj,undefined)){
+                menu[sub].name=menu[sub]._id;
+                menu[sub].id=menu[sub]._id;
+                menu[sub].$$hashKey=menu[sub]._id+sub;
+                delete menu[sub]._id;
+                delete menu[sub].createdDate;
+                delete menu[sub].parent;
+                delete menu[sub].crmId;
+                delete menu[sub].updatedDate;
+                delete menu[sub].urmId;
+                delete menu[sub].activeFlag;
+                if(!angular.equals(menu[sub].children,null)){
+                menu[sub].children=menu[sub].childrenObj;
+                }
+                else{
+                  menu[sub].children=[];
+                }
+              }
+              if(menu[sub].childrenObj.length){
+               convertObjectName(menu[sub].childrenObj,null);
+              }
+              convertObjectName(menu,++sub);
+            };
 
 
 
@@ -112,8 +131,13 @@ $scope.existingEmail='';
 
 
 //service to fetch all state district from database 
-// companyRegistrationService.FnGetCountryStateDistrict($scope);
+   var fnGetCountryStateDistrictCallBack=companyRegistrationService.FnGetCountryStateDistrict();   
+fnGetCountryStateDistrictCallBack.then(function(data){
 
+  $scope.CSDlist=angular.fromJson(JSON.parse(data.data));
+
+
+});
 
 
 
@@ -121,13 +145,16 @@ $scope.existingEmail='';
 //function for user registration 
 $scope.fnUserRegister =function (argument) {
 
-  
-  $scope.userRegister.userRegisterData=$scope.FormData;
+  if(!angular.equals($scope.allSync.FormData._id,undefined)){
+    $scope.userRegister._id=$scope.allSync.FormData._id.$oid;
+  }
+  $scope.userRegister=$scope.allSync.FormData;
   $scope.userRegister.loggedusercrmid=loggedusercrmid;
   $scope.userRegister.companyId=companyId;
 
   //service call for user registration
-  console.log($scope.userRegister);
+  // console.log($scope.userRegister);
+
   var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
 
 
@@ -152,32 +179,7 @@ fnRegisterUserCallBack.then(function(data){
 
 ///validations// 
 
-//function for user name validation
-$scope.allFunction.userVal = function (){
-      
-     var userValObj=$scope.FormData;//object to fetch the user details
-     console.log(userValObj.eMail);
-     userValObj.fetch='data';//to fetch related details of the user pass '' to just user check
-    // companyRegistrationService.fnUserNameValid(userNameId);
 
-    var fnUserNameValidCallBack= companyRegistrationService.fnUserNameValid(userValObj);
-
-fnUserNameValidCallBack.then(function(data){
-
- var result=angular.fromJson(JSON.parse(data.data));
-console.log(result);
- if(result.userCheck===1){  
-       $scope.notifications('!','Already a user!','info');
-       $scope.allFunction.newUser=false;
-            }
- else if(result.userCheck===0){ 
-  $scope.allFunction.newUser=true;
-
-            }
-
-});
-  
-};
 
  
  	  
@@ -241,18 +243,18 @@ console.log(result);
 ///call back funtions 
 
 //callback fnc for country stata district fetch
-$scope.fnGetCountryStateDistrictCallBack=function(result){
-   if(result==='error'){
-        $scope.notifications('opps!','Error in connecting to server','danger');
-      }
+// $scope.fnGetCountryStateDistrictCallBack=function(result){
+//    if(result==='error'){
+//         $scope.notifications('opps!','Error in connecting to server','danger');
+//       }
 
-};
+// };
 
-//call back for user check validation
-$scope.fnUserCheckCallBack=function(result){
+// //call back for user check validation
+// $scope.fnUserCheckCallBack=function(result){
     
      
-  };
+//   };
 
 
 // $scope.fnRegisterUserCallBack = function(result){
@@ -269,27 +271,27 @@ $scope.fnUserCheckCallBack=function(result){
 // };
 
 
-$scope.fnFetchUserDetailsCallBack=function(result){
+// $scope.fnFetchUserDetailsCallBack=function(result){
     
-     if(result==='success'){   //if the email id already registered
-      // console.log($scope.userDetails);
-       $scope.formData=$scope.userDetails.profile;
-       $scope.formData._id=$scope.userDetails._id.$oid;
+//      if(result==='success'){   //if the email id already registered
+//       // console.log($scope.userDetails);
+//        $scope.formData=$scope.userDetails.profile;
+//        $scope.formData._id=$scope.userDetails._id.$oid;
 
-       // console.log($scope.formData);
-       $scope.selection.country=$scope.userDetails.profile.contactInfo.country;
-       $scope.selection.state=$scope.userDetails.profile.contactInfo.state;
-       $scope.selection.district=$scope.userDetails.profile.contactInfo.district;
-       $scope.proExperienceCollection=$scope.userDetails.profile.professionalExperience;
-       $scope.formData.officeAdmin.branchDetails=$scope.userDetails.profile.officeAdmin.branchDetails;
+//        // console.log($scope.formData);
+//        $scope.selection.country=$scope.userDetails.profile.contactInfo.country;
+//        $scope.selection.state=$scope.userDetails.profile.contactInfo.state;
+//        $scope.selection.district=$scope.userDetails.profile.contactInfo.district;
+//        $scope.proExperienceCollection=$scope.userDetails.profile.professionalExperience;
+//        $scope.formData.officeAdmin.branchDetails=$scope.userDetails.profile.officeAdmin.branchDetails;
 
-       // console.log($scope.formData);
-      }
-      if(result==='error'){ //if not matching existing registered email
-        $scope.notifications('opps!','Error in connecting to server','danger');
+//        // console.log($scope.formData);
+//       }
+//       if(result==='error'){ //if not matching existing registered email
+//         $scope.notifications('opps!','Error in connecting to server','danger');
       
-     }
-  };
+//      }
+//   };
 
 // $scope.fnFetchCustomFormCallBack = function(result){
 

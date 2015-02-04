@@ -149,6 +149,7 @@ $scope.updateCourseElementsFetch = function(course_element_form){
 
 	course_element_form.$setPristine();
 	$scope.courseElement={};
+	$scope.courseElement.schema={}
 	$scope.courseElement.menuIcon="fa-info";//Set default icon name
     $scope.courseElement.iconColor="#ffffff";
     $scope.courseElement.iconBackground="#2772ee";
@@ -171,6 +172,7 @@ $scope.AddCourseElementsText = function(course_element_form){
 
 	course_element_form.$setPristine();
 	$scope.courseElement={};
+	$scope.courseElement.schema={}
 					
 	};
 
@@ -249,7 +251,7 @@ $scope.notifications=function(title,message,type){
 	promiseOfFnGetNestableElem.then(function(data){
 		$scope.nestableElementlist=angular.fromJson(JSON.parse(data.data));
 		angular.forEach($scope.nestableElementlist, function(item){
-			console.log(item);
+			// console.log(item);
 			item.icon = '<i class="fa ' + item.Icon +'"></i>';
 
 		});
