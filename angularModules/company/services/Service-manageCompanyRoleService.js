@@ -7,7 +7,6 @@ this.addUserRole=function ($scope){ // functon that call web service to add a co
       else{
           var roles={"role":2,"roleName":$scope.roleName,"roleDescription":$scope.RoleDesc,"companyId":$scope.companyId,"crmId":$scope.crmId,"urmId":$scope.urmId};
       }
-	 	console.log(roles);
     $http({
 	 		url: bbConfig.BWS+'ManageCompanyRole/',
 	 		data: JSON.stringify({"roles":roles}),
