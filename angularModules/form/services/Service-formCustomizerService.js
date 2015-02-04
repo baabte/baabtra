@@ -30,7 +30,7 @@ this.FnSaveCustomForm=function(customForm){
 
    //service function to fetch all details of an exsisting user 
    this.FnFetchCustomForm=function(formFetchData){
-   	console.log(formFetchData);
+   	// console.log(formFetchData);
     var result;
       var promise=$http({
            url: bbConfig.BWS+'FetchCustomForm/',

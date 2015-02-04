@@ -15,7 +15,8 @@ else{
     $rootScope.hide_when_root_empty=true;
     commonService.GetUserCredentials($scope);
     if($rootScope.userinfo){$scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
-    home.FnLoadMenus($scope);}
+    home.FnLoadMenus($scope);
+  }
     
 }
 if($rootScope.loggedIn==false){

@@ -1,9 +1,9 @@
 db.system.js.save(
 	{
-		_id:"GetAuthUserData",
-		value:function(data)
+		_id:"GetAuthUserData_dummy",
+		value:function(data,ip_address)
 		{
-			 ReturnData = {};
+			ReturnData = {};
 		    ip_addresses=[];
 		    login_data = db.clnUserLogin.find(data, {_id:1, roleMappings:1, lastLoggedRoleMapping:1}).limit(1).toArray();
 		    role_id = db.clnUserRoleMapping.find({_id:login_data[0].lastLoggedRoleMapping}).toArray();
@@ -21,11 +21,9 @@ db.system.js.save(
 		    userExistsOrNot=db.clnActiveUserData.find({"userLoginId":user.userLoginId}).limit(1).count();
 		    if(userExistsOrNot==0){
 		    	db.clnActiveUserData.insert(user);
-                        db.clnLoginHistory.insert(user);
 		    }
 		    else{
 		    	db.clnActiveUserData.update({"userLoginId":user.userLoginId},{ $push: { "ip_address": ip_address } });
-                        db.clnLoginHistory.insert(user);
 		    	ActiveUserDataId=db.clnActiveUserData.find({"userLoginId":user.userLoginId},{ "_id":1 }).limit(1).toArray();
 		    	ReturnData.ActiveUserDataId=ActiveUserDataId[0]._id;
 		    	user._id=ActiveUserDataId[0]._id;

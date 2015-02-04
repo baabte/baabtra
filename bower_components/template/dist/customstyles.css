@@ -94,7 +94,7 @@ position:relative;
 }
 #current_plan{
   background-color: #F5F5F5;
-  padding: 5px;
+  padding-top: 5px;
   min-height:100px;
 }
 .popover-title{
@@ -110,17 +110,9 @@ position:relative;
   min-height: 50px;
 
 }
-.ms_content{
-  font-weight: 500;
-  font-size: 15px;
-  text-align: center;
-  /*border: solid;*/
-  position: relative;
-  margin: 10px;
 
-}
 .content_span{
-  margin: 5px;
+  color: red;
 }
 .my-panel-heading{/*added by jihin on 23/12/2014*/
   padding: 10px 15px;
@@ -398,4 +390,10 @@ pre                             { margin-bottom:20px; }
   height: initial!important;
 }
 /*drafted course view end*/
-
+.hg{
+  height: 45px;
+}
+.shadow{
+box-shadow:10px #888888;
+border-radius: 2px;
+}
