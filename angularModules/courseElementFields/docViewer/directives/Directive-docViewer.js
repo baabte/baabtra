@@ -34,7 +34,7 @@ angular.module('baabtra').directive('docViewer',[ '$sce','$modal',function($sce,
 
 			scope.docObj = JSON.parse(scope.data);			
 			scope.docObjParent = JSON.parse(scope.courseElement);
-			
+
 			if(angular.equals(scope.icons[scope.docObj.fileType], undefined)){
 				scope.docIcon = scope.icons["default"].icon;
 				scope.docColor = scope.icons["default"].color;
@@ -44,12 +44,9 @@ angular.module('baabtra').directive('docViewer',[ '$sce','$modal',function($sce,
 			 	scope.docColor =scope.icons[scope.docObj.fileType].color;
 			 }
 
-			
 			scope.trustSrc = function(src) {
-				console.log(src);
-    				return $sce.trustAsResourceUrl(src);
-
-  			};
+				return $sce.trustAsResourceUrl(src);
+			};
 
 
 		}

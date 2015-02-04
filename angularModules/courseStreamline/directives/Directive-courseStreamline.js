@@ -7,7 +7,6 @@ angular.module('baabtra').directive('courseStreamline', function() {
 		},
 		templateUrl: 'angularModules/courseStreamline/directives/Directive-courseStreamline.html',
 		link: function(scope, element, attrs, fn) {
-
 			scope.ddlViewIn = {id: "3",name:"Week(s)",mFactor:(1/10080),show:true};
 			scope.ddlView 	= [{id: "1",name: "Year(s)",mFactor:(1/525600),show:false},
 							   {id: "2",name:"Month(s)",mFactor:(1/43200),show:true},
@@ -15,15 +14,6 @@ angular.module('baabtra').directive('courseStreamline', function() {
 							   {id: "4",name:"Day(s)",mFactor:(1/1440),show:true},
                            	   {id: "5",name: "Hour(s)",mFactor:1/60,show:true},
                            	   {id: "6",name: "Minute(s)",mFactor:1,show:true}];
-
-
-			// scope.$watch('syncData.courseTimeline', function(){
-			// 	if(!angular.equals(scope.syncData.courseTimeline, undefined)){
-			// 		angular.forEach(scope.ddlView, function(item){
-			// 			console.log(item.name+':'+Math.floor(scope.syncData.Duration.durationInMinutes*item.mFactor));
-			// 		});
-			// 	}
-			// });
 		}
 	};
 });
