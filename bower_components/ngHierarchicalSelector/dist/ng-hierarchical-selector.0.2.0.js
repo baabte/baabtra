@@ -260,7 +260,6 @@ angular.module('hierarchical-selector', [
       };
 
       $scope.itemSelected = function(item) {
-        console.log(JSON.stringify(item));
         if (($scope.useCanSelectItemCallback && $scope.canSelectItem({item: item}) === false) || ($scope.selectOnlyLeafs && selectorUtils.hasChildren(item, $scope.isAsync))) {
           return;
         }
