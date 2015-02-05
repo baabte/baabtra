@@ -99,8 +99,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
               clearTimeout(timeout);
 			    timeout = setTimeout(function(){
 			    	//current position of end point of timeline
-			    	var endPointPos=element[0].querySelector('.end-of-tl').getBoundingClientRect().left;
-			    	
+			    	var endPointPos=element[0].querySelector('.end-of-tl').style.left;
 			        if(endPointPos<scope.tlContainerWidth){
 			        	scope.buildTlPointList(scope.tlPointList.length+1);
 			        	scope.$digest();	

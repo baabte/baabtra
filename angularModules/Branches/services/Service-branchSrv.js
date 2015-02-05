@@ -27,7 +27,7 @@ angular.module('baabtra').service('branchSrv',['$http','bbConfig',function branc
       };
 
       this.fnLoadBranch=function($scope, cmp_id){
-        $http({
+        var promise=$http({
           method: 'post',
           url: bbConfig.BWS+'LoadBranches/',
           data:{"cmp_id":cmp_id},
@@ -48,6 +48,7 @@ angular.module('baabtra').service('branchSrv',['$http','bbConfig',function branc
             // called asynchronously if an error occurs
             // or server returns response with an error status.
           });
+        return promise;
       };
 }]);
 

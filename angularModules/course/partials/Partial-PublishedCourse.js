@@ -11,7 +11,7 @@ PublishedCourse.loadPublishedCourses($scope);
 
 $scope.loadPublishedCoursesCallback=function(data){
 	$scope.publishedCourses=angular.fromJson(JSON.parse(data));
-	console.log($scope.publishedCourses);
+	console.log($scope.publishedCourses[0]);
 };
 
 }]);

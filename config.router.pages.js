@@ -408,6 +408,11 @@
                 templateUrl: 'angularModules/company/partials/Partial-ListJobs.html',
                 controller: 'ListjobsCtrl'
               })
+                .state('home.PublishedCourse', {
+                url: '/PublishedCourse',
+                templateUrl: 'angularModules/course/partials/Partial-PublishedCourse.html',
+                controller: 'PublishedcourseCtrl'
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'
