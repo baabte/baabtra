@@ -329,9 +329,9 @@ $scope.completeStep2 = function(){
   courseToBeSave.companyId = courseToBeSave.companyId.$oid;
   courseToBeSave.crmId = courseToBeSave.crmId.$oid;
   courseToBeSave.urmId = courseToBeSave.urmId.$oid;
-
   var toState='home.main.addCourse.step3';
   addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId ,toState);//saving to database
+
 };
 
 $scope.fnTotalFeeChanged = function(){// this function trigers, when user change the total payment

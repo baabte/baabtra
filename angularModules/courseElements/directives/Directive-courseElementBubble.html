@@ -1,0 +1,17 @@
+<ul ng-mouseenter="viewAllBubble(elements.length)" ng-mouseleave="viewAllBubble(1)" ng-if="tlpoint<(key*ddlBindObject[selectedDuration-1].mFactor+1)&&tlpoint>(key*ddlBindObject[selectedDuration-1].mFactor)" ng-repeat="elements in tlpointsData" class="timeline-outer-container m-b" ng-class="{'timeline-center': center}">
+	<li ng-click="manageCourseElement(element,tlpoint,$index);" class="timeline-item" ng-repeat="element in elements | limitTo:count">
+		<i data-animation="am-fade" data-template="angularModules/courseTimeline/templates/courseElemContextMenu.html" data-placement="right" bs-dropdown="dropdown" class="iconCustomBg ui-icon fa {{element.Icon}} b-white b-2x text-lg bg-info am-fade" style="background-color: {{element.iconBackground}}!important; color: {{element.iconColor}}!important;border-radius: 12px;position: relative;z-index: 1;"></i>
+		<b ng-if="elements.length != count" class="badge bg-danger up bubble-nottification" style="margin-left: 15px;position: relative;z-index: 2;">{{elements.length}}</b>
+	</li>
+	<!-- <li class="tl-item">
+		<div class="tl-v-point">
+		</div>
+	</li>
+	<li ng-click="manageCourseElement(element,tlpoint)" ng-repeat="element in elements | limitTo:count" class="tl-item" style="float:left !important;margin-left: -13px !important;margin-bottom: 15px!important;margin-right:{{count*7}}px;">
+		<i data-animation="am-fade" data-template="angularModules/courseTimeline/templates/courseElemContextMenu.html" data-placement="right" bs-dropdown="dropdown" class="iconCustomBg ui-icon fa {{element.Icon}} b-white b-2x text-lg bg-info" style="background-color: {{element.iconBackground}}!important; color: {{element.iconColor}}!important;border-radius: 12px;"></i>
+		<b ng-if="elements.length != count" class="badge bg-danger up bubble-nottification" style="margin-left: 15px;">{{elements.length}}</b>
+		</li> -->
+</ul>
+<!-- style="float:left !important;width:0px !important;margin-left: -13px !important;margin-bottom: 15px;!important;margin-right:{{count*5}}px;" -->
+
+<!-- style="background-color: {{element.iconBackground}}!important; color: {{element.iconColor}}!important;border-radius: 12px;cursor: pointer;" -->

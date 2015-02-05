@@ -4,7 +4,7 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
 		require :["^?form",'ngModel'],
 		scope:{checkMode:"=",outObject:"="},
 		link: function(scope, element, attrs, ctrls) {
-			console.log(attrs.checkMode);
+			console.log(attrs.outObject);
 			 
 			 
 
@@ -13,7 +13,7 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
 
 					//if the required attribute is set to true the color will change to red
 						if(ctrls[1].$valid){
-							console.log(ctrls[1].$modelValue);
+							// console.log(ctrls[1].$modelValue);
 
 							var userValObj={eMail:$(element).val(),fetch:attrs.checkMode};
 							var fnUserNameValidCallBack= companyRegistrationService.fnUserNameValid(userValObj);
@@ -26,6 +26,7 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
        						scope.notifications('!','Already a user!','info');
        						result.UserDetails.profile._id=result.UserDetails._id.$oid;
        						scope.outObject=result.UserDetails.profile;
+       						console.log(scope.outObject);
             				}
  							else if(result.userCheck===0){ 
   							scope.outObject={};

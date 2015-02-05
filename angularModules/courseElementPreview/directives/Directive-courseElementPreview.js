@@ -8,6 +8,7 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 		},
 		templateUrl: 'angularModules/courseElementPreview/directives/Directive-courseElementPreview.html',
 		link: function(scope, element, attrs, fn) {
+			console.log(scope.tlPosition);
 			scope.rand=Math.floor(Math.random()*100000); // for generating random id for elements
 			scope.$watch('previewData', function(){
 				$(element).find('#elementContent'+scope.rand).html('');

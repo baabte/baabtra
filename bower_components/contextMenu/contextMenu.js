@@ -79,7 +79,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                             +'<div class="box-row">'
                               +'<div class="box-cell m-t">'
                                 +'<div class="box-inner col-xs-12">'
-                                  +'<form novalidate xt-form class="form" name="courseElement" enctype="multipart/form-data">{{$parent.formData['+$scope.randomKey+']}}'
+                                  +'<form novalidate xt-form class="form" name="courseElement" enctype="multipart/form-data">'
                                    +'<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"> </div>'
                                    +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData['+$scope.randomKey+'])" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
                                    +'<button type="submit" ng-click="saveMyFormData($hide)" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
@@ -198,6 +198,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                 });
                     
         };
+        
         //function for triggering when save button in aside 
         $scope.saveMyFormData = function ($hide) {
            

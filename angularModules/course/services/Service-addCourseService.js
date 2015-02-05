@@ -22,7 +22,7 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 
 	 };
 
-	 this.saveCourseTimelineElement = function ($scope, courseId, courseElement){ // functon that call web service to add a comapny role
+	 this.saveCourseTimelineElement = function ($scope, courseId, courseElement){ 
 	 	$http({
 	 		url: bbConfig.BWS+'saveCourseTimelineEelement/',
 	 		data: {"courseId":courseId, "courseElement":courseElement},
@@ -34,6 +34,24 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	 	success(function(data, status, headers, config) {
 	 			var result=angular.fromJson(JSON.parse(data));
                }).
+	 	error(function(data, status, headers, config) {
+	 		
+	 	});  
+
+	 };
+
+	 this.removeCourseTimelineElement = function (courseId, courseElemName, tlPoint, index, rmId){ // functon that call web service to remove course element
+	 	$http({
+	 		url: bbConfig.BWS+'removeCourseElement/',
+	 		data: {"courseId":courseId, "courseElemName":courseElemName, "tlPoint":tlPoint, "index":index, "rmId":rmId},
+	 		method: "POST",
+	 		withCredentials: false,
+	 		contentType:"application/json",
+	 		dataType:"json",
+	 	}).
+	 	success(function(data, status, headers, config) {
+	 			//var result=angular.fromJson(JSON.parse(data));
+	 		}).
 	 	error(function(data, status, headers, config) {
 	 		
 	 	});  
