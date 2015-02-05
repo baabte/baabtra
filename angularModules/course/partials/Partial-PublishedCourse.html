@@ -1,10 +1,10 @@
 <div class="col-xs-12">
   <div class="panel b-info b-2x">
     <div class="panel-heading p-sm bg-info">
-      <a href="" class="text-md text-ellipsis"><i class="fa fa-recycle fa-1x m-r"></i>Drafted Courses</a>
+      <a href="" class="text-md text-ellipsis"><i class="fa fa-globe fa-1x m-r"></i>Published Course</a>
     </div>
     <div class="panel-body p-sm">
-      <div class="col-xs-12" ng-if="!draftedCourses.length">
+      <div class="col-xs-12" ng-if="!publishedCourses.length">
         <div id="alerts-container" class="animated fadeIn">
           <div class="alert ng-scope am-fade alert-button bg-danger lt" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
             <strong class="ng-binding">Not Found!</strong>&nbsp;
@@ -13,19 +13,19 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t" ng-repeat="course in draftedCourses" ng-if="draftedCourses.length">
-        <div class="panel bg-info lt" >
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t" ng-repeat="course in publishedCourses" ng-if="publishedCourses.length">
+        <div class="panel bg-info lt">
           <div class="panel-heading p-v-xs p-h-sm">
             <a title="click to delete this course" class="pull-right text-muted m-r-xs" ng-click="deleteCourseDetails(course._id.$oid)"><i class="fa fa-trash"></i></a>
             <a title="click to edit this course" class="pull-right text-muted m-r-xs" ng-click="editCourseDetails(course._id.$oid)"><i class="fa fa-edit"></i></a>
           </div>
-          <div class="panel-body p-sm" >
+          <div class="panel-body p-sm">
             <div class="pull-left p-h text-center m-r-xs">
               <i class="fa fa-globe fa-4x text-lt"></i>
             </div>
-            <div class="clear" >
-              <div  class="text-2x font-bold" title="{{course.Name}}">{{course.Name | limitTo : 14}}</div>
-             <!--  <small class="text-muted course-description" ng-bind-html="course.Description?course.Description:'<div class=line>&nbsp;</div>'"></small> -->
+            <div class="clear">
+              <div class="text-2x font-bold" title="{{course.Name}}">{{course.Name | limitTo : 14}}</div>
+            
             </div>
           </div>
         </div>
