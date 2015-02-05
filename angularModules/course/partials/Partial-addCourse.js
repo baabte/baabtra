@@ -264,6 +264,7 @@ $scope.completeStep1 = function(course){//created for build step1 object
         if($scope.ItsTimeToSaveDataToDB){
           delete courseToBeSave.Img;
           var toState='home.main.addCourse.step2';
+          $alert({title: 'Done..!', content: 'Step 1 completed successfuly :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
           addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId, toState);//saving to database
           unbindWatchOnThis(); // used to unbind this watch after triggering it once
         }
@@ -324,12 +325,14 @@ $scope.completeStep2 = function(){
     delete $scope.course.Fees.payment.mode;
   }
   delete $scope.course._id;
-
+  console.log($scope.course);
   var courseToBeSave = angular.copy($scope.course);
   courseToBeSave.companyId = courseToBeSave.companyId.$oid;
   courseToBeSave.crmId = courseToBeSave.crmId.$oid;
   courseToBeSave.urmId = courseToBeSave.urmId.$oid;
+  console.log(courseToBeSave);
   var toState='home.main.addCourse.step3';
+  $alert({title: 'Done..!', content: 'Step 2 completed successfuly :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
   addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId ,toState);//saving to database
 
 };

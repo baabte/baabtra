@@ -90,10 +90,10 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService', fun
                 // below function will trigger only when the object is built
               var unbindWatchOnThis=scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if(scope.ItsTimeToSaveDataToDB===true){
-                	console.log(scope);
-                	console.log(scope.selectedIndex);
+                	console.log(courseObj);
+                	console.log(scope.$parent.courseId+' '+scope.$parent.courseElement.Name+' '+scope.instance+' '+scope.$parent.$parent.rm_id+' '+scope.selectedIndex);
                 	//scope.courseId, selectedCourseElement.Name, startPoint, scope.selectedIndex, scope.$parent.$parent.rm_id
-                    //addCourseService.saveCourseTimelineElement(scope, scope.$parent.courseId, courseObj);//saving to database
+                    addCourseService.editCourseTimelineElement(scope.$parent.courseId, scope.$parent.courseElement.Name, scope.instance,scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name], scope.$parent.$parent.rm_id);//saving to database
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once
                     $hide();
                 }

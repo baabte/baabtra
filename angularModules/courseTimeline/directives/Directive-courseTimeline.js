@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService) {
+angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService','$modal', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService,$modal) {
 	return {
 		restrict: 'E', // to use as an element . Use 'A' to use as an attribute
 		replace: true,
@@ -6,7 +6,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 		totalDuration:"=totalDuration",
 		ddlBindObject:"=ddlBindObject",
 		callbackFunctions:"=callbackFunctions",
-		syncData:"=syncData",
+		syncData:"=",
 		tlElements:"=tlElements",
 		courseId:"=courseId",
 		coursePreviewObj:"="
@@ -18,6 +18,20 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 
 			scope.formData=new Object();//used to save datas from timeline
 
+			//set the height of the outer timeline container in accordance with the tallest bubble container
+			scope.$watch('syncData',function(){			
+				if(!angular.equals(scope.syncData.courseTimeline, undefined)){
+					scope.containerCount = 0;
+
+					angular.forEach(scope.syncData.courseTimeline,function(element){
+						if(Object.keys(element).length > scope.containerCount){
+							scope.containerCount = Object.keys(element).length;							
+						}
+					});
+					console.log(scope.containerCount);
+					scope.containerHeight = 50 + (scope.containerCount*70);
+				}
+			}, true);
 
 			//These are kept in rootscope as these are to be availble throughout the application
 			$rootScope.valid=true;
@@ -99,7 +113,8 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
               clearTimeout(timeout);
 			    timeout = setTimeout(function(){
 			    	//current position of end point of timeline
-			    	var endPointPos=element[0].querySelector('.end-of-tl').style.left;
+			    	var endPointPos=element[0].querySelector('.end-of-tl').getBoundingClientRect().left;
+			    	
 			        if(endPointPos<scope.tlContainerWidth){
 			        	scope.buildTlPointList(scope.tlPointList.length+1);
 			        	scope.$digest();	
@@ -172,7 +187,11 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             }
 
             scope.editCourseElement = function(){
-
+            	console.log(scope.coursePreviewObj);
+            	if(!angular.equals(scope.coursePreviewObj,undefined))
+            	{
+            		scope.coursePreviewObj = {};
+            	}
             	angular.forEach(scope.popoverObject.courseElementlist,function(courseElement){
             		if(angular.equals(selectedCourseElement.Name,courseElement.Name)){
             			scope.courseElement = courseElement;
@@ -184,6 +203,12 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	 }
             	$templateCache.put('course-element-popup.html','<edit-course-element></edit-course-element>');
  				$aside({scope: scope, template:'course-element-popup.html', html:true});
+            }
+
+            scope.removeCourseElementCnfrm = function(){
+            	scope.confirmationTitle = "Are You Sure";
+            	scope.confirmationMsg = "This Action Can't be Reverted";
+            	$modal({scope: scope, template: 'angularModules/template/model/confirmation.html',placement:"center",show: true});
             }
 
             scope.removeCourseElement = function(){
