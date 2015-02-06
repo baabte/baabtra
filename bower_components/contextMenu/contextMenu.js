@@ -49,6 +49,8 @@ angular.module('ui.bootstrap.contextMenu', [])
                 $span.text(item.menuDisplayName);
                 $span.addClass('font-normal m-l');
                 $a.append($span);
+
+
                 $li.on('click', function ($event) {
                     $event.preventDefault();
                     $scope.randomKey=Math.floor(Math.random()*1000,1000); // used to override some scope errors due to duplication
@@ -57,38 +59,41 @@ angular.module('ui.bootstrap.contextMenu', [])
                     $scope.$parent.formData[$scope.randomKey].mainData=new Object();
                     clickedChiled=true;
                     $scope.$apply(function () {
-                        $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
-                        $contextMenu.remove();
-                        $scope.item=item;
-                        //taking template for form builder to take required inputs of 
-                        //selected context menu
-                        $scope.itemTemplate=item.courseElementTemplate;
-                        //elements that comes under this element
-                        $scope.subElements=item.nestableElements;
-                        //clearing data in preview object that is previously created
-                        $scope.coursePreviewObj={};
-                        $templateCache.put('course-element-popup.html','<div style="padding: 0px;" class="aside col-xs-6 m-h-n b-l" role="dialog">'
-    +'<div class="box">'
-    +'<div class="p '+options[state].colorClass+' font-bold">'
-      +'<a ng-click="$hide()" class="pull-right text-white"><i class="fa fa-times"></i></a>'
-      +'<i class="fa '+ item.Icon +' text-md m-r"></i>'
-      +item.menuDisplayName
-    +'</div>'
-    +'<div class="box-row">'
-      +'<div class="box-cell m-t">'
-        +'<div class="box-inner col-xs-12">'
-          +'<form novalidate xt-form class="form" name="courseElement" enctype="multipart/form-data">'
-           +'<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData.'+$scope.randomKey+'.mainData" fg-schema="itemTemplate"> </div>'
-           +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData.'+$scope.randomKey+')" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
-           +'<button type="submit" ng-click="saveMyFormData($hide)" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
-           +'<button type="submit" ng-click="createPreviewElement(\'tempCourseDocs\')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-left btn '+options[state].colorClass+'">Preview</button>'
-          +'</form>'
-          +'<course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('s','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview>'
-+'</div></div></div></div></div>');
- $aside({scope: $scope, template:'course-element-popup.html', html:true});
+                         $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
+                         $contextMenu.remove();
+                         $scope.item=item;
+                         //taking template for form builder to take required inputs of 
+                         //selected context menu
+                         $scope.itemTemplate=item.courseElementTemplate;
+                         //elements that comes under this element
+                         $scope.subElements=item.nestableElements;
+                         //clearing data in preview object that is previously created
+                         $scope.coursePreviewObj={};
+                         $templateCache.put('course-element-popup.html','<div style="padding: 0px;" class="aside col-xs-6 m-h-n b-l" role="dialog">'
+                            +'<div class="box">'
+                            +'<div class="p '+options[state].colorClass+' font-bold">'
+                              +'<a ng-click="$hide()" class="pull-right text-white"><i class="fa fa-times"></i></a>'
+                              +'<i class="fa '+ item.Icon +' text-md m-r"></i>'
+                              +item.menuDisplayName
+                            +'</div>'
+                            +'<div class="box-row">'
+                              +'<div class="box-cell m-t">'
+                                +'<div class="box-inner col-xs-12">'
+                                  +'<form novalidate xt-form class="form" name="courseElement" enctype="multipart/form-data">'
+                                   +'<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"> </div>'
+                                   +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData['+$scope.randomKey+'])" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
+                                   +'<button type="submit" ng-click="saveMyFormData($hide)" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
+                                   +'<button type="submit" ng-click="createPreviewElement(\'tempCourseDocs\')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-left btn '+options[state].colorClass+'">Preview</button>'
+                                  +'</form>'
+                                  +'<course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('s','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview>'
+                        +'</div></div></div></div></div>');
+        $aside({scope: $scope, template:'course-element-popup.html', html:true});
                         //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
-                    });
+                     });
                 });
+
+
+
                 $li.append($a)
             }
             $ul.append($li);

@@ -30,42 +30,42 @@ angular.module('baabtra')
 .directive('fMaxSize', ['$parse','fileReader', function($parse, fileReader) {
 	return {
 		restrict: 'A',
-		require: ["^?form",'ngModel'],
-		scope: {srcObj:"="},
-		link: function(scope, elem, attrs, ctrls) {			
+		require: ["^?form",'ngModel'],		
+		link: function(scope, elem, attrs, ctrls) {
+
 			// if there is no $error object in the control, define an error object to push our custom validation error
 			if (angular.equals(ctrls[1].$error, undefined)){
 				ctrls[1].$error = {};
 			}
 
+
+
 			//pushing our custom validity error into the $error object of the control, this decided the validity and invalidity of the control in accordance with the custom validations
 			ctrls[1].$error.fMaxSize =  false;			
 
-		// binding the change function to the control
-		elem.bind("change", function(e){ 
+			// binding the change function to the control
+			elem.bind("change", function(e){ 
+				
+					
+				   //getting the file object of the control into a scope variable
+			       scope.file = (e.srcElement || e.target).files[0];
 
-				//getting the file object of the control into a scope variable
-		       scope.file = (e.srcElement || e.target).files[0];
+			       // checking the validity of the control (f-max-size)		      
+			       if(scope.validateFileSIze()) {
+			      
+				       	// if the control is valid setting the validity of the control to true
+				        ctrls[1].$setValidity("fMaxSize", true);			       
 
-		       // checking the validity of the control (f-max-size)		      
-		       if(scope.validateFileSIze()) {
-		      
-			       	// if the control is valid setting the validity of the control to true
-			        ctrls[1].$setValidity("fMaxSize", true);
+				       	//setting the tolltip to null if the file is valid
+				       	scope.title = '';
 
-			        // displaying the file
-			       	scope.getFile();
+				       	//removing the red danger class
+				       	elem.removeClass('bg-danger lt');
 
-			       	//setting the tolltip to null if the file is valid
-			       	scope.title = '';
+			       }
 
-			       	//removing the red danger class
-			       	elem.removeClass('bg-danger lt');
-
-		       }
-
-		             
-		});
+			             
+			});
 
 				// To validate the file attributes
 			     scope.validateFileSIze = function () {     
@@ -98,18 +98,6 @@ angular.module('baabtra')
 					       }       
 
 			    };
-
-
-
-			    //To show the added image
-			    scope.getFile = function () {
-		      
-				       fileReader.readAsDataUrl(scope.file, scope)
-				                     .then(function(result) {             
-				                         scope.srcObj = result;      
-				        });
-
-		        };
 
 		} //.End link
 	  
