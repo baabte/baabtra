@@ -41,20 +41,22 @@ $scope.ExitPoints={"exitPointList":{}}; // initializing exit point obj
 			
 $scope.totalCourseDuration=0; // course duration in minutes
 
-$scope.ddlBindObject={0:{id: "1",name:"Days",mFactor:(1/1440),show:true},
-                         1:{id: "2",name: "Months",mFactor:(1/43200),show:true},
-                         2:{id: "3",name: "Hours",mFactor:1/60,show:true},
-                         3:{id: "4",name: "Minutes",mFactor:1,show:true}};//mFactor is multiplication factor
 
-// for dynamically change the visibility variable 'show' of all dropdown list datas
-$scope.$watch('totalCourseDuration',function(){
-  if(!angular.equals($scope.totalCourseDuration,undefined) && !angular.equals($scope.totalCourseDuration,0))
-  {
-    $scope.ddlBindObject[1].show=($scope.totalCourseDuration>=43200);
-    $scope.ddlBindObject[2].show=($scope.totalCourseDuration>=60);
-    $scope.ddlBindObject[3].show=($scope.totalCourseDuration>=1);
-  }
-});
+
+// // $scope.ddlBindObject={0:{id: "1",name:"Days",mFactor:(1/1440),show:true},
+// //                          1:{id: "2",name: "Months",mFactor:(1/43200),show:true},
+// //                          2:{id: "3",name: "Hours",mFactor:1/60,show:true},
+// //                          3:{id: "4",name: "Minutes",mFactor:1,show:true}};
+
+// // for dynamically change the visibility variable 'show' of all dropdown list datas
+// $scope.$watch('totalCourseDuration',function(){
+//   if(!angular.equals($scope.totalCourseDuration,undefined) && !angular.equals($scope.totalCourseDuration,0))
+//   {
+//     $scope.ddlBindObject[1].show=($scope.totalCourseDuration>=43200);
+//     $scope.ddlBindObject[2].show=($scope.totalCourseDuration>=60);
+//     $scope.ddlBindObject[3].show=($scope.totalCourseDuration>=1);
+//   }
+// });
                     
 
 

@@ -34,6 +34,7 @@
   <link rel="stylesheet" href="bower_components/bootstrap-social/bootstrap-social.css" />
   <link rel="stylesheet" href="bower_components/StreamLine/css/style.css" />
   <link rel="stylesheet" href="bower_components/angular-multi-select/angular-multi-select.css" />
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -41,9 +42,11 @@
 
 
 </head>
+
 <body ng-app="baabtra">
 
-<div class="container text-center" style="height:85%;" ng-show="hide_when_root_empty">
+<div class="container text-center" style="height:85%;" ng-show="hide_when_root_empty
+">
    <div style="margin-top:25%;"><i class="fa fa-gear fa-spin text-4x row-centered baab-loader" ></i></div>
    <div style="margin-top:-10px;margin-left:15px;" ><i class="fa fa-gear fa-spin text-4x row-centered baab-loader"></i></div>
    <div style="margin-top:-65px;margin-left:-60px;"><i class="fa fa-gear fa-spin text-3x row-centered baab-loader"></i></div>
@@ -102,6 +105,9 @@
 <script src="bower_components/StreamLine/js/main.js"></script>
 <script src="bower_components/StreamLine/js/modernizr.js"></script>
 <script src="bower_components/angular-multi-select/angular-multi-select.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/hammerjs/hammer.js"></script>
+<script src="bower_components/angular-material/angular-material.js"></script>
 <!-- endbower -->
 
 
@@ -199,6 +205,7 @@
   <script src="angularModules/durationSelector/directives/Directive-durationSelector.js"></script>
   <script src="angularModules/courseStreamline/directives/Directive-courseStreamline.js"></script>
   <script src="angularModules/courseElementPreview/directives/Directive-nestedElement.js"></script>
+  <script src="angularModules/common/directives/Directive-fileRenderers.js"></script>
   <script src="angularModules/common/directives/Directive-checkUserExistence.js"></script>
   <script src="angularModules/courseElementFields/description/directives/Directive-description.js"></script>
   <script src="angularModules/common/directives/Directive-branchLoader.js"></script>
