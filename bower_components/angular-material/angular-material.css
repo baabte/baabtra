@@ -12,8 +12,8 @@
 
 html, body {
   height: 100%;
-  color: rgba(0, 0, 0, 0.87);
-  background: white;
+  /*color: rgba(0, 0, 0, 0.87);
+  background: white;*/ /*Commented by Anoop to remove the default color and background*/
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-touch-callout: none;
   -webkit-text-size-adjust: 100%;
@@ -33,10 +33,10 @@ html, body {
 button, select, html, textarea, input {
   font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif; }
 
-body {
+/*body {
   margin: 0;
   padding: 0;
-  outline: none; }
+  outline: none; }*//*Commented by Anoop to remove the default 0 margin and 0 padding*/
 
 .inset {
   padding: 10px; }
@@ -6179,3 +6179,10 @@ md-tooltip {
   md-tooltip[width-32="8"].md-show .md-background {
     -webkit-animation-duration: 200ms;
             animation-duration: 200ms; }
+
+/*Anoop - Overriding bootstrap's label's style to be in compatible with angular material*/
+label{
+  margin-bottom:-5px;
+}
+/*.End Anoop - Overriding bootstrap's label's style to be in compatible with angular material*/
+

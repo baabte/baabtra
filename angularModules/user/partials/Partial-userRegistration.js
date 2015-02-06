@@ -60,78 +60,10 @@ FnFetchCustomFormCallBack.then(function(data){
 });
 
 
-//service call for course fetch
-var courseFetchData={fkcompanyId:companyId};
-
-var FetchCourseListCallBack= addCourseService.fnFetchCourseList(courseFetchData);
-
-FetchCourseListCallBack.then(function(data){
-
- $scope.allSync.courselist=angular.fromJson(JSON.parse(data.data));
-// console.log($scope.allFunction.courselist);
-
-
-        
-
-});
-
-
-//code for branch select 
-$scope.allSync.branchDetails =[];
-
-
-$scope.$watch('branches', function(newVal, oldVal){
-    if (!angular.equals($scope.branches,undefined)) {
-        $scope.data1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.branches,null),null);
-        $scope.allSync.branchDetails = angular.copy($scope.data1);
-        convertObjectName($scope.allSync.branchDetails, null);
-        // console.log($scope.allFunction.branchDetails);
-        $scope.allSync.branchDetails=$scope.allSync.branchDetails[0].children;
-    }
-});
-
-var convertObjectName=function(menu,sub){
-              if(sub==null){
-                sub=0;
-              }
-              if(angular.equals(menu[sub],undefined)){
-                return 0;
-              }
-                
-              if(!angular.equals(menu[sub].childrenObj,undefined)){
-                menu[sub].name=menu[sub]._id;
-                menu[sub].id=menu[sub]._id;
-                menu[sub].$$hashKey=menu[sub]._id+sub;
-                delete menu[sub]._id;
-                delete menu[sub].createdDate;
-                delete menu[sub].parent;
-                delete menu[sub].crmId;
-                delete menu[sub].updatedDate;
-                delete menu[sub].urmId;
-                delete menu[sub].activeFlag;
-                if(!angular.equals(menu[sub].children,null)){
-                menu[sub].children=menu[sub].childrenObj;
-                }
-                else{
-                  menu[sub].children=[];
-                }
-              }
-              if(menu[sub].childrenObj.length){
-               convertObjectName(menu[sub].childrenObj,null);
-              }
-              convertObjectName(menu,++sub);
-            };
 
 
 
-// $scope.professionalFilled=false;
-$scope.emailMsg='Not a valid email';          //error message for invalid email validation
-$scope.emailEMsg='This Email Already exists'; //error message for email already exists validation 
-$scope.existingEmail='';
-
-
-//service to fetch all state district from database 
-   var fnGetCountryStateDistrictCallBack=companyRegistrationService.FnGetCountryStateDistrict();   
+var fnGetCountryStateDistrictCallBack=companyRegistrationService.FnGetCountryStateDistrict();   
 fnGetCountryStateDistrictCallBack.then(function(data){
 
   $scope.CSDlist=angular.fromJson(JSON.parse(data.data));
