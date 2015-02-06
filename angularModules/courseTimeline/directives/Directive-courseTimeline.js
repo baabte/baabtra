@@ -201,7 +201,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 			
             scope.callbackOfTlPointClick=function(selectedPoint){
 
-            	var tlSelectedPoint = scope.ddlBindObject[scope.selectedDuration-1].name.replace('s','');
+            	var tlSelectedPoint = scope.ddlBindObject[scope.selectedDuration-1].name.replace('(s)','');
             	tlSelectedPoint = tlSelectedPoint + ' ' + selectedPoint;
 
             	var startPoint=((selectedPoint/scope.ddlBindObject[scope.selectedDuration-1].mFactor)-(1/scope.ddlBindObject[scope.selectedDuration-1].mFactor)+1);
