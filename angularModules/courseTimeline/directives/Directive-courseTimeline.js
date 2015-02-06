@@ -73,6 +73,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 								scope.timeLineView[newTlPoint][elemType] = [];
 								}
 								angular.forEach(crsElement,function (item) {
+								item.tlPointInMinute = timePoint*1;
 								scope.timeLineView[newTlPoint][elemType].push(item);
 								});
 							});
