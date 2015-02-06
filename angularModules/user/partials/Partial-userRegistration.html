@@ -22,7 +22,7 @@
               <a ng-click="status.selected = status.selected+1" class="btn btn-block btn-info" ng-disabled="userRegistrationForm.$invalid"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
           </div>
 
-          <div ng-show="status.selected<formlist.formSteps&&status.selected>1">
+          <div ng-show="status.selected<formlist.formSteps+1&&status.selected>1">
            <div class="col-xs-4 col-xs-offset-2">
               <a ng-click="status.selected = status.selected-1" class="btn btn-block btn-info" ng-disabled="userRegistrationForm.$invalid"><span class="glyphicon glyphicon-circle-arrow-left"></span> Previous Section </a>
           </div>
@@ -44,9 +44,11 @@
 
           <!-- <pre>{{formlist.formSchema[status.selected].stepName}}</pre> -->
 
-         <!--  <pre>{{allSync.testSpace}}</pre>
+          <!-- <pre>{{status.selected}}</pre> -->
 
-          <pre>{{allSync.FormData}}</pre> -->
+          <!-- <pre>{{allSync.FormData}}</pre>
+          <pre>{{userRegistrationForm.$invalid}}</pre>
+ -->
 
 
         <!-- {{FormData[formlist.formSchema[status.selected].stepName]}} -->
