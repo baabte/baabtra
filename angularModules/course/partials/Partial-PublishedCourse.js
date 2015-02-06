@@ -7,11 +7,17 @@ if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
 if($rootScope.loggedIn==false){
   $state.go('login');
 }
-PublishedCourse.loadPublishedCourses($scope);
+if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId==2){
+	$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+	PublishedCourse.loadPublishedCourses($scope);
+}
 
 $scope.loadPublishedCoursesCallback=function(data){
 	$scope.publishedCourses=angular.fromJson(JSON.parse(data));
-	console.log($scope.publishedCourses[0]);
 };
+
+$scope.navigateToCourse = function( courseId ){
+    $state.go('home.main.viewCourse',{id:courseId});
+}
 
 }]);

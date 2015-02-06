@@ -408,10 +408,25 @@
                 templateUrl: 'angularModules/company/partials/Partial-ListJobs.html',
                 controller: 'ListjobsCtrl'
               })
-                .state('home.PublishedCourse', {
+                .state('home.main.PublishedCourse', {
                 url: '/PublishedCourse',
-                templateUrl: 'angularModules/course/partials/Partial-PublishedCourse.html',
-                controller: 'PublishedcourseCtrl'
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-PublishedCourse.html',
+                    controller: 'PublishedcourseCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.viewCourse', {
+                url: '/viewCourse:id',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-viewCourse.html',
+                    controller: 'ViewcourseCtrl'
+                  }
+                }
+                
               })
               .state('page.document', {
                 url: '/document',

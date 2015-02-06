@@ -1,0 +1,21 @@
+<div class="p-h-sm p-v-sm bg-white box-shadow " >
+  <h4 class="no-margin">Course Details</h3>
+</div>
+<div class="col-md-12 p-h-sm p-v-sm bg-white box-shadow ">
+
+	 <div class="row">
+
+	            <div class="col-xs-12 am-fade" ng-if="course._id">
+	              <em class="text-muted text-baabtra-green">
+	              The time line below represents the total duration of the course. 
+	              </em>
+	              <br>
+	              <em class="text-muted text-baabtra-green" ng-if="(course.Fees.free==0)">
+	              You can click on any point in the timeline and add a payment check point. A payment check point means an intermediate point of time during the course where the candidate has to pay a certain amount as part of the installments. If you set an arcade mode on this the candidate will not be able to advance without making the specified payment. (Payment check points can also be added while adding course materials)
+	              </em>
+	              <course-timeline class="p-v" total-duration="course.Duration.durationInMinutes" ddl-bind-object="ddlBindObject"  sync-data="course" tl-elements="['courseTimeline']" course-id="course._id" err-tooltip = "errTooltip" valid = "valid" course-preview-obj="coursePreviewObject">
+	          </course-timeline>
+	        </div>
+	 </div>
+
+</div>
