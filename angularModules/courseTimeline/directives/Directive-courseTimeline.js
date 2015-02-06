@@ -80,7 +80,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 
 
 						});
-						console.log(scope.timeLineView);
+						// console.log(scope.timeLineView);
 					}
 				}
 			}
@@ -165,7 +165,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             // rebuild the scrollbar
   			 scope.$broadcast('rebuild:me');
   scope.$on('scrollbar.show', function(){
-      console.log('Scrollbar show');
+      // console.log('Scrollbar show');
     });
     scope.$on('scrollbar.hide', function(){
       console.log('Scrollbar hide');
