@@ -4,7 +4,7 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
 		require :["^?form",'ngModel'],
 		scope:{checkMode:"=",outObject:"="},
 		link: function(scope, element, attrs, ctrls) {
-			console.log(attrs.outObject);
+			// console.log(attrs.outObject);
 			 
 			 
 
@@ -21,12 +21,13 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
 								fnUserNameValidCallBack.then(function(data){
 
 							var result=angular.fromJson(JSON.parse(data.data));
-							console.log(result);
+							// console.log(result);
  							if(result.userCheck===1){  
        						scope.notifications('!','Already a user!','info');
        						result.UserDetails.profile._id=result.UserDetails._id.$oid;
        						scope.outObject=result.UserDetails.profile;
-       						console.log(scope.outObject);
+       						// console.log(scope.outObject);
+       						 ctrls[1].$setValidity("checkUserExistence", true);
             				}
  							else if(result.userCheck===0){ 
   							scope.outObject={};

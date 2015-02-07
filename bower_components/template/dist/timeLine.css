@@ -244,9 +244,18 @@ z-index: 0;
 
 .timeline-item{
   display: inline;
+  cursor: pointer;
 }
 
-.timeline-outer-container:hover{
+/*.timeline-outer-container{
+  width:45px;
+  height:40px;
+  overflow:visible;
+  padding-top:10px;
+  overflow-x:hidden;
+}*/
+.timeline-item:hover{
   position: relative;
+  /*overflow:visible;*/
   z-index: 3;
 }
