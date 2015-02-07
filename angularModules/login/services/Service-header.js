@@ -16,13 +16,10 @@ angular.module('baabtra').service('header',['$http','bbConfig',function header($
 	     
 	 }; 
 
-	 // this.Details=function($scope){
-	 // 	$http(
-	 // 		method:'POST',
-	 // 		url:'http://ipinfo.io',
-	 // 		data:JSON.stringify();
-	 // 	});
+	 this.Details=function($scope){
+	 	console.log($scope.ips);
+  
 
-	 // }
+	 }
 
 }]);

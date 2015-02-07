@@ -23,13 +23,12 @@
 			<!-- REPEAT -->		
 			<span style="padding-left:{{tlPointMinWidth}}px;"class="b-b tl-line" ></span>
 								<div ng-mouseover="mouseOverTl=true" ng-mouseleave="mouseOverTl=false" style="display:inline-block;" ng-repeat="tlpoint in tlPointList">
-								<i  context-menu="popoverObject" ng-click="callbackOfTlPointClick(tlpoint)" class="fa fa-circle-o text-inverse tl-point" ng-class="{'fa-dot-circle-o tl-ripple':mouseOverTl}" style="cursor: pointer;font-weight: bolder;position: relative;z-index: 1;" data-placement="top" data-type="success" data-html="true" data-animation="am-fade-and-scale" bs-tooltip></i>
+								<i  context-menu="popoverObject" ng-click="callbackOfTlPointClick(tlpoint)" class="fa fa-circle-o text-inverse tl-point" ng-class="{'fa-dot-circle-o tl-ripple':mouseOverTl}" style="cursor: pointer;font-weight: bolder;position: relative;z-index: 1;"><md-tooltip md-direction="top">{{selectedDurType}} {{$index+1}}</md-tooltip></i>
 								<span style="padding-left:{{tlPointMinWidth}}px;left:-3.6px;z-index: 0;" class="b-b tl-line" ></span>
-								<div ng-show="mouseOverTl" style="margin-top: -50px;margin-left:-{{tlPointMinWidth}}px" class="tooltip in ng-scope top am-fade-and-scale tooltip-success"><!-- <div class="tooltip-arrow"></div> --><div class="tooltip-inner ng-binding" >{{selectedDurType}} {{$index+1}}</div></div>
 								<div style="margin-left:1px solid #444444;">
 									<div class="m-b" style="float:left !important;position: absolute;" >
 										<course-element-bubble tl-point="{{tlpoint}}">
-											 </course-element-bubble>
+										 </course-element-bubble>
 									</div>
 								
 								</div>

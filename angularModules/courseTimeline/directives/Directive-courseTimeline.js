@@ -226,7 +226,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             scope.editCourseElement = function(){
             	if(!angular.equals(scope.coursePreviewObj,undefined))
             	{
-            		scope.coursePreviewObj = {};
+            		scope.coursePreviewObj = angular.copy(selectedCourseElement);
             	}
             	angular.forEach(scope.popoverObject.courseElementlist,function(courseElement){
             		if(angular.equals(selectedCourseElement.Name,courseElement.Name)){
@@ -236,7 +236,10 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	
             	 for(var elementCount=0;elementCount < selectedCourseElement.elements.length; elementCount++){
             	 	if(!angular.equals(selectedCourseElement.elements[elementCount],null)){
-            	 	    console.log(selectedCourseElement.elements[elementCount]);
+            	 		if(angular.equals(selectedCourseElement.elements[elementCount].type,'doc-viewer')){
+            	 			console.log(selectedCourseElement.elements[elementCount].url.split('/')[selectedCourseElement.elements[elementCount].url.split('/').length-1]);
+
+            	 		}
             	 	scope.courseElement.courseElementTemplate.fields[elementCount].value = selectedCourseElement.elements[elementCount].value;
             	 }
             	 }

@@ -5,12 +5,10 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService', fun
 		//scope:{selectedTpoint:'='},
 		templateUrl: 'angularModules/courseElements/directives/Directive-editCourseElement.html',
 		link: function(scope, element, attrs, fn) {
-            console.log(scope.selectedTpoint);
 			var randomKeyForNested=Math.floor(Math.random()*100000,1000);
 			//scope.instance = scope.selectedTpoint/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor-((1/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor))+1;
-			console.log(scope.instance);
             scope.instance = scope.selectedTpoint;
-            scope.createPreviewElement = function(){
+            scope.createPreviewElement = function(path){
 				scope.ItsTimeToSaveDataToDB=false; // check for object built successfully or not
 				scope.weHaveGotAfile=false;
             	var fieldsTraversedCount=0;
@@ -92,7 +90,7 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService', fun
                 // below function will trigger only when the object is built
               var unbindWatchOnThis=scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if(scope.ItsTimeToSaveDataToDB===true){
-                    addCourseService.editCourseTimelineElement(scope.$parent.courseId, scope.$parent.courseElement.Name, scope.instance,scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name], scope.$parent.$parent.rm_id);//saving to database
+                    //addCourseService.editCourseTimelineElement(scope.$parent.courseId, scope.$parent.courseElement.Name, scope.instance,scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name], scope.$parent.$parent.rm_id);//saving to database
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once
                     $hide();
                 }
