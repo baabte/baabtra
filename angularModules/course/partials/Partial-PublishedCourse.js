@@ -19,5 +19,8 @@ $scope.loadPublishedCoursesCallback=function(data){
 $scope.navigateToCourse = function( courseId ){
     $state.go('home.main.viewCourse',{id:courseId});
 }
+$scope.editCourse=function(courseId){
+	$state.go('home.main.addCourse.step1',{courseId:courseId});
+};
 
 }]);

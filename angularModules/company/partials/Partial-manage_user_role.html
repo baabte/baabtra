@@ -28,11 +28,11 @@
 	</div>	
 </div>
 
-<div class="p-h-sm p-v-sm bg-white box-shadow " >
+<div class="p-h-sm p-v-sm bg-white box-shadow " ng-if="ng-repeat.length">
   <h4 class="no-margin">Existing roles</h3>
 </div>
 
-<div class="panel col-md-12 p-v-lg bg-white b-b-success p-l-sm b-b-5x scrollmodel" style="height: 320px;overflow: auto;" >
+<div ng-if="ng-repeat.length" class="panel col-md-12 p-v-lg bg-white b-b-success p-l-sm b-b-5x scrollmodel" style="height: 320px;overflow: auto;" >
 	<div class="col-sm-4" style="padding-left: 0px;" ng-repeat="roleData in roles" >
 			<a href=""><span class="pull-right" data-title="Remove role!" ng-click="deleteRole(roleData,$index)" bs-tooltip> <i  class="ui-icon ti-trash p-sm"></i></a> </span>
 	<div class="panel bg-white " style="box-shadow: 0 5px 10px rgba(0, 0, 0, .2);">
