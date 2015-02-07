@@ -36,8 +36,7 @@ branchSrv.fnLoadBranch($scope,companyId);
 $scope.allSync={}; //the variable to pass data in controller to syncdata
 $scope.status={};
 $scope.status.selected=1;
-// $scope.allFunction.newUser=false;
-$scope.allSync.testSpace={};
+$scope.allSync.newUser=false;
 $scope.allSync.FormData={};
 
 

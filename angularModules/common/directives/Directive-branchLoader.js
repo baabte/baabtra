@@ -6,8 +6,10 @@ angular.module('baabtra').directive('branchLoader',['branchSrv','manageTreeStruc
 			ngModel:"="
 		},
 		templateUrl: 'angularModules/common/directives/Directive-branchLoader.html',
-		link: function($scope, element, attrs, fn) {
+		link: function($scope, element, attrs, ctrls) {
 
+// console.log(ctrls[0]);
+ctrls[0].$setValidity('branchLoader',false);
 	// function for converting object : created by Jihin
 			var convertObjectName=function(menu,sub){
               if(sub==null){
@@ -50,6 +52,8 @@ angular.module('baabtra').directive('branchLoader',['branchSrv','manageTreeStruc
 			}
 			$scope.onBranchSelectionChanged = function(items){
 				$scope.ngModel=items;
+        ctrls[0].$setValidity('branchLoader',true);
+
 			};
 			
         $scope.branches={};

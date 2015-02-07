@@ -14,8 +14,8 @@
       </div>
 
       <div class="panel-body">
-        <form novalidate name="userRegistrationForm" ng-submit="fnUserRegister()" class="form" xt-form editable-form novalidate>
-          <div fg-form fg-form-data="allSync.FormData" form-data="allSync.FormData" sync-data="allSync" fg-schema="formlist.formSchema[status.selected-1].stepFormSchema">
+        <form  name="userRegistrationForm" ng-submit="fnUserRegister()" class="form" xt-form editable-form novalidate>
+          <div novalidate fg-form fg-form-data="allSync.FormData" form-data="allSync.FormData" sync-data="allSync" fg-schema="formlist.formSchema[status.selected-1].stepFormSchema">
           </div>
 
           <div ng-show="status.selected===1" class="col-xs-6 col-xs-offset-3">
@@ -46,7 +46,7 @@
 
           <!-- <pre>{{status.selected}}</pre> -->
 
-          <!-- <pre>{{allSync.FormData}}</pre> -->
+          <!-- <pre>{{userRegistrationForm.eMail.$valid}}</pre> -->
           <!-- <pre>{{userRegistrationForm.$invalid}}</pre> -->
 
 
