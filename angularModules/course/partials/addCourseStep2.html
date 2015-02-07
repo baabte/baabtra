@@ -18,10 +18,9 @@
       <div class="panel-body">
         <div class="row row-sm">
         <!-- Duration Selector Directive -->
-        <duration-selector duration="course.Duration.DurationDetails" return-in="Minutes" tot-duration-in-units ="totalCourseDuration">
+        <duration-selector duration="course.Duration.DurationDetails" duration-in-minutes="course.Duration.durationInMinutes"  return-in="Minutes" tot-duration-in-units ="totalCourseDuration">
         </duration-selector>
         <!-- Duration Selector Directive -->
-
         </div>
       </div>
       <!-- Panel body .end -->
@@ -94,8 +93,8 @@
               <em class="text-muted text-baabtra-green" ng-if="(course.Fees.free==0)">
               You can click on any point in the timeline and add a payment check point. A payment check point means an intermediate point of time during the course where the candidate has to pay a certain amount as part of the installments. If you set an arcade mode on this the candidate will not be able to advance without making the specified payment. (Payment check points can also be added while adding course materials)
               </em>
-              <course-timeline class="p-v" total-duration="totalCourseDuration" ddl-bind-object="ddlBindObject" callback-functions="tlPopOver" sync-data="course" tl-elements="['courseTimeline']" course-id="courseId" err-tooltip = "errTooltip" valid = "valid" course-preview-obj="coursePreviewObject">
-          </course-timeline>
+              <course-timeline class="p-v" total-duration="course.Duration.durationInMinutes" ddl-bind-object="ddlBindObject" callback-functions="tlPopOver" sync-data="course" tl-elements="['courseTimeline']" course-id="courseId" err-tooltip = "errTooltip" valid = "valid" course-preview-obj="coursePreviewObject">
+              </course-timeline>
             </div>
           </div>
 

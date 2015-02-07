@@ -83,7 +83,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                                    +'<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"> </div>'
                                    +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData['+$scope.randomKey+'])" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
                                    +'<button type="submit" ng-click="saveMyFormData($hide)" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
-                                   +'<button type="submit" ng-click="createPreviewElement(\'tempCourseDocs\')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-left btn '+options[state].colorClass+'">Preview</button>'
+                                   +'<button type="submit" ng-click="createPreviewElement(\'tempCourseDocs\')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid" class="pull-left btn '+options[state].colorClass+'">Preview</button>'
                                   +'</form>'
                                   +'<course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('s','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview>'
                         +'</div></div></div></div></div>');
@@ -128,6 +128,12 @@ angular.module('ui.bootstrap.contextMenu', [])
     return {
         scope:true,
         link:function ($scope, element, attrs) {
+
+
+        // if contextmenucontents are not present don't render the menu
+        if(angular.equals($scope.callbackFunctions, undefined)){
+            return 0;
+        }
         $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor-((1/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor))+1;
         $scope.ItsTimeToSaveDataToDB=false;
         $scope.weHaveGotAfile=false;
@@ -163,7 +169,6 @@ angular.module('ui.bootstrap.contextMenu', [])
                                 if(angular.equals(customProperty.text,"doc-viewer")){ // if it is a file, it should be stored in server to show preview through
                                                                                       // google doc preview
                                     $scope.weHaveGotAfile=true;
-                                    console.log(temp[item.name].value);
                                     var promise=addCourseService.fnCourseFileUpload(temp[item.name].value, path); // uploading file to the server
                                     promise.then(function(data){ // call back function for the fileupload
                                           temp[item.name].fileType = temp[item.name].value.type;
@@ -216,7 +221,7 @@ angular.module('ui.bootstrap.contextMenu', [])
 
             
                 if(!$scope.syncData.courseTimeline[$scope.instance]){
-                                $scope.syncData.courseTimeline[$scope.instance]={};
+                    $scope.syncData.courseTimeline[$scope.instance]={};
                 }
                 if(!$scope.syncData.courseTimeline[$scope.instance][$scope.item.Name]){
                     $scope.syncData.courseTimeline[$scope.instance][$scope.item.Name]=[];
@@ -276,7 +281,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                    +'<div sync-data="$parent.syncData" fg-form fg-form-data="" form-data="tempFormData.'+randomKeyForNested+'" fg-schema="nestedElemSelected.'+randomKeyForNested+'.courseElementTemplate"> </div>'
                    +'<div ng-if="nestedElemSelected.'+randomKeyForNested+'.nestableElements.length>0" on-item-click="selectedNestedElem(data,formModal.'+randomKeyForNested+')" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick"></div>'//multiselect to be added
                    //+'<button type="submit" ng-click="pushNestedObject(\'courseDocs\',nestedElemSelected,formModal,tempFormData.'+randomKeyForNested+')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+$scope.callbackFunctions[state].colorClass+'">Save</button>'
-                   +'<button type="submit" ng-click="createFormatedElement($hide,\'tempCourseDocs\',nestedElemSelected.'+randomKeyForNested+',formModal.'+randomKeyForNested+',tempFormData.'+randomKeyForNested+')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+$scope.callbackFunctions[state].colorClass+'">Embed</button>'
+                   +'<button type="submit" ng-click="createFormatedElement($hide,\'tempCourseDocs\',nestedElemSelected.'+randomKeyForNested+',formModal.'+randomKeyForNested+',tempFormData.'+randomKeyForNested+')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid" class="pull-right btn '+$scope.callbackFunctions[state].colorClass+'">Embed</button>'
                   +'</form>'
                   +'<course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('s','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview>'
                 +'</div></div></div></div></div>');

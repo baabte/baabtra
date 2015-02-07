@@ -1,7 +1,8 @@
 <ul ng-mouseenter="viewAllBubble(elements.length)" ng-mouseleave="viewAllBubble(1)" ng-if="tlpoint<(key*ddlBindObject[selectedDuration-1].mFactor+1)&&tlpoint>(key*ddlBindObject[selectedDuration-1].mFactor)" ng-repeat="elements in tlpointsData" class="timeline-outer-container m-b" ng-class="{'timeline-center': center}">
-	<li ng-click="manageCourseElement(element,tlpoint,$index);" class="timeline-item" ng-repeat="element in elements | limitTo:count">
+	<li ng-click="manageCourseElement(element,tlpoint,$index);" class="timeline-item " ng-repeat="element in elements | limitTo:count">
 		<i data-animation="am-fade" data-template="angularModules/courseTimeline/templates/courseElemContextMenu.html" data-placement="right" bs-dropdown="dropdown" class="iconCustomBg ui-icon fa {{element.Icon}} b-white b-2x text-lg bg-info am-fade" style="background-color: {{element.iconBackground}}!important; color: {{element.iconColor}}!important;border-radius: 12px;position: relative;z-index: 1;"></i>
-		<b ng-if="elements.length != count" class="badge bg-danger up bubble-nottification" style="margin-left: 15px;position: relative;z-index: 2;">{{elements.length}}</b>
+		<b ng-if="elements.length != count && elements.length > 1" class="badge bg-danger up bubble-nottification" style="margin-left: 15px;position: relative;z-index: 2;">
+			{{elements.length}}</b>
 	</li>
 	<!-- <li class="tl-item">
 		<div class="tl-v-point">

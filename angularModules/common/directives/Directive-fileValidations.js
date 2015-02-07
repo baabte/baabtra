@@ -51,7 +51,7 @@ angular.module('baabtra')
 			       scope.file = (e.srcElement || e.target).files[0];
 
 			       // checking the validity of the control (f-max-size)		      
-			       if(scope.validateFileSIze()) {
+			       if(scope.validateFileSize()) {
 			      
 				       	// if the control is valid setting the validity of the control to true
 				        ctrls[1].$setValidity("fMaxSize", true);			       
@@ -68,26 +68,22 @@ angular.module('baabtra')
 			});
 
 				// To validate the file attributes
-			     scope.validateFileSIze = function () {     
+			     scope.validateFileSize = function () {     
 
 						// file size checking
 					      if ((scope.file.size) > parseInt(attrs.fMaxSize)*1024) { 
+
 
 					     	  // if the file size has a size more than the defined f-max-size attribute, setting the property in the $error object of the control to false. This will in turn set the form invalid		  			
 					      	  ctrls[1].$setValidity("fMaxSize", false);  	  
 					      	  
 					      	  //setting the corresponding title(tooltiop)
 					      	  scope.title = 'This exceeds the maximum file size limit of ' + attrs.fMaxSize + 'Kb';
-					      	  
+					      	  console.log(scope.title);
 					      	  // adding a danger class to the control
 					          elem.addClass('bg-danger lt'); 
 
-					          //clearing the loaded image
-					          if (!angular.equals(scope.$parent.imageSrc, undefined)) {
-					          		scope.$parent.imageSrc = '';
-					          }
-					          $(elem).parent().find('img').attr('src', '');
-					         
+					          				         
 					          // returning the flse status back
 					          return false;             
 					       }

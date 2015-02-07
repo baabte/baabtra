@@ -39,6 +39,23 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	 	});  
 
 	 };
+	
+	this.editCourseTimelineElement = function (courseId, courseElemName, tlPoint, courseObj, rmId){ // functon that call web service to remove course element
+	 	$http({
+	 		url: bbConfig.BWS+'editCourseElement/',
+	 		data: {"courseId":courseId, "courseElemName":courseElemName, "tlPoint":tlPoint,"courseObj":courseObj, "rmId":rmId},
+	 		method: "POST",
+	 		withCredentials: false,
+	 		contentType:"application/json",
+	 		dataType:"json",
+	 	}).
+	 	success(function(data, status, headers, config) {
+	 			//var result=angular.fromJson(JSON.parse(data));
+	 		}).
+	 	error(function(data, status, headers, config) {
+	 		
+	 	});
+	 };
 
 	 this.removeCourseTimelineElement = function (courseId, courseElemName, tlPoint, index, rmId){ // functon that call web service to remove course element
 	 	$http({
