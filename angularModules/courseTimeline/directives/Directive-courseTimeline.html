@@ -27,7 +27,8 @@
 								<span style="padding-left:{{tlPointMinWidth}}px;left:-3.6px;z-index: 0;" class="b-b tl-line" ></span>
 								<div ng-show="mouseOverTl" style="margin-top: -50px;margin-left:-{{tlPointMinWidth}}px" class="tooltip in ng-scope top am-fade-and-scale tooltip-success"><!-- <div class="tooltip-arrow"></div> --><div class="tooltip-inner ng-binding" >{{selectedDurType}} {{$index+1}}</div></div>
 								<div style="margin-left:1px solid #444444;">
-									<div class="m-b" style="float:left !important;position: absolute;" ng-repeat="(key,tlpointsData) in syncData.courseTimeline">				 <course-element-bubble>
+									<div class="m-b" style="float:left !important;position: absolute;" >
+										<course-element-bubble tl-point="{{tlpoint}}">
 											 </course-element-bubble>
 									</div>
 								

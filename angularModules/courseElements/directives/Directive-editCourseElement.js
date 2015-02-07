@@ -5,10 +5,12 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService', fun
 		//scope:{selectedTpoint:'='},
 		templateUrl: 'angularModules/courseElements/directives/Directive-editCourseElement.html',
 		link: function(scope, element, attrs, fn) {
-
+            console.log(scope.selectedTpoint);
 			var randomKeyForNested=Math.floor(Math.random()*100000,1000);
-			scope.instance = scope.selectedTpoint/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor-((1/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor))+1;
-			scope.createPreviewElement = function(){
+			//scope.instance = scope.selectedTpoint/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor-((1/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor))+1;
+			console.log(scope.instance);
+            scope.instance = scope.selectedTpoint;
+            scope.createPreviewElement = function(){
 				scope.ItsTimeToSaveDataToDB=false; // check for object built successfully or not
 				scope.weHaveGotAfile=false;
             	var fieldsTraversedCount=0;
@@ -38,12 +40,12 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService', fun
                                 temp[item.name].type=customProperty.text;
                                 if(angular.equals(customProperty.text,"doc-viewer")){ // if it is a file, it should be stored in server to show preview through
                                                                                       // google doc preview
-                                    $scope.weHaveGotNestedfile=true;
+                                    scope.weHaveGotNestedfile=true;
                                     var promise=addCourseService.fnCourseFileUpload(temp[item.name].value, path); // uploading file to the server
                                     promise.then(function(data){ // call back function for the fileupload
                                           temp[item.name].value='http://docs.google.com/gview?url='+bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','')+'&embedded=true';
                                           temp[item.name].url=bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','');
-                                          $scope.ItsTimeToSaveNestedDataToDB=true;
+                                          scope.ItsTimeToSaveNestedDataToDB=true;
                                     });
                                 }
                             }
@@ -90,9 +92,6 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService', fun
                 // below function will trigger only when the object is built
               var unbindWatchOnThis=scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if(scope.ItsTimeToSaveDataToDB===true){
-                	console.log(courseObj);
-                	console.log(scope.$parent.courseId+' '+scope.$parent.courseElement.Name+' '+scope.instance+' '+scope.$parent.$parent.rm_id+' '+scope.selectedIndex);
-                	//scope.courseId, selectedCourseElement.Name, startPoint, scope.selectedIndex, scope.$parent.$parent.rm_id
                     addCourseService.editCourseTimelineElement(scope.$parent.courseId, scope.$parent.courseElement.Name, scope.instance,scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name], scope.$parent.$parent.rm_id);//saving to database
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once
                     $hide();

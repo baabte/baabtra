@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService','$modal', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService,$modal) {
+angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService','$mdDialog', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService,$mdDialog) {
 	return {
 		restrict: 'E', // to use as an element . Use 'A' to use as an attribute
 		replace: true,
@@ -21,21 +21,8 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 			//setting selected duration type as first object
 			scope.selectedDuration="4";
 
+
 			scope.formData=new Object();//used to save datas from timeline
-
-			//set the height of the outer timeline container in accordance with the tallest bubble container
-			scope.$watch('syncData',function(){			
-				if(!angular.equals(scope.syncData.courseTimeline, undefined)){
-					scope.containerCount = 0;
-
-					angular.forEach(scope.syncData.courseTimeline,function(element){
-						if(Object.keys(element).length > scope.containerCount){
-							scope.containerCount = Object.keys(element).length;							
-						}
-					});
-					scope.containerHeight = 50 + (scope.containerCount*70);
-				}
-			}, true);
 
 			//These are kept in rootscope as these are to be availble throughout the application
 			$rootScope.valid=true;
@@ -54,10 +41,14 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 
 
 			scope.buildTlObject = function(selectedDuration){//function for building timeline object
+				
+				scope.$watch(function() {return scope.syncData.courseTimeline}, function(){
+
 				if(!angular.equals(scope.syncData.courseTimeline,undefined)){
 					var name=scope.ddlBindObject[selectedDuration-1].name.replace('(s)','');
 					var newTlPoint = 1;
 					scope.timeLineView = {};
+					var containerCount = 0;
 					if(angular.equals(name,'Minute')){
 						scope.timeLineView = angular.copy(scope.syncData.courseTimeline);
 					}
@@ -69,22 +60,26 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 								}
 
 							angular.forEach(crsElements,function (crsElement,elemType) {
-								if(angular.equals(scope.timeLineView[newTlPoint][elemType],undefined)){
+								if(angular.equals(scope.timeLineView[newTlPoint][elemType],undefined) && crsElement.length){
 								scope.timeLineView[newTlPoint][elemType] = [];
 								}
 								angular.forEach(crsElement,function (item) {
 								item.tlPointInMinute = timePoint*1;
 								scope.timeLineView[newTlPoint][elemType].push(item);
-								});
+								if(containerCount < Object.keys(scope.timeLineView[newTlPoint]).length){
+									containerCount = Object.keys(scope.timeLineView[newTlPoint]).length;
+								}
 							});
-
-
+							});
+							scope.containerHeight = 30/containerCount + (containerCount*70);
 						});
-						console.log(scope.timeLineView);
 					}
 				}
+			  }, true);
 			}
 
+			//building the object for the first time
+			scope.buildTlObject(scope.selectedDuration);
 
 
 			//function to change the appearance of the timeline whilst the change in the dropdownlist		 
@@ -165,10 +160,10 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             // rebuild the scrollbar
   			 scope.$broadcast('rebuild:me');
   scope.$on('scrollbar.show', function(){
-      console.log('Scrollbar show');
+      //console.log('Scrollbar show');
     });
     scope.$on('scrollbar.hide', function(){
-      console.log('Scrollbar hide');
+      //console.log('Scrollbar hide');
       scope.flag=true;
     });
 
@@ -222,8 +217,9 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             var selectedCourseElement = {};
             //var selectedTpoint = 0;
             scope.manageCourseElement = function(element,tPoint,selectedIndex){
+            	scope.tPoint = tPoint;
             	selectedCourseElement = element;
-            	scope.selectedTpoint = tPoint;
+            	scope.selectedTpoint = element.tlPointInMinute;
             	scope.selectedIndex = selectedIndex;
             }
 
@@ -237,25 +233,38 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             			scope.courseElement = courseElement;
             		}
             	});
-
+            	
             	 for(var elementCount=0;elementCount < selectedCourseElement.elements.length; elementCount++){
+            	 	if(!angular.equals(selectedCourseElement.elements[elementCount],null)){
+            	 	    console.log(selectedCourseElement.elements[elementCount]);
             	 	scope.courseElement.courseElementTemplate.fields[elementCount].value = selectedCourseElement.elements[elementCount].value;
+            	 }
             	 }
             	$templateCache.put('course-element-popup.html','<edit-course-element></edit-course-element>');
  				$aside({scope: scope, template:'course-element-popup.html', html:true});
             }
 
-            scope.removeCourseElementCnfrm = function(){
-            	scope.confirmationTitle = "Are You Sure";
-            	scope.confirmationMsg = "This Action Can't be Reverted";
-            	$modal({scope: scope, template: 'angularModules/template/model/confirmation.html',placement:"center",show: true});
-            }
-
-            scope.removeCourseElement = function(){
-            	var startPoint=((scope.selectedTpoint/scope.ddlBindObject[scope.selectedDuration-1].mFactor)-(1/scope.ddlBindObject[scope.selectedDuration-1].mFactor)+1);
-            	scope.syncData.courseTimeline[startPoint][selectedCourseElement.Name].splice(scope.selectedIndex,1);
-            	addCourseService.removeCourseTimelineElement(scope.courseId, selectedCourseElement.Name, startPoint, scope.selectedIndex, scope.$parent.$parent.rm_id);
-            }
+            scope.removeCourseElement = function(ev) {
+            	var confirm = $mdDialog.confirm()
+            	.title('Are You Sure..?')
+            	.content('This Action Can\'t be Reverted')
+            	.ariaLabel('Lucky day')
+            	.ok('Please do it!')
+            	.cancel('Cancel').targetEvent(ev);
+            	$mdDialog.show(confirm).then(function() {
+            		angular.forEach(scope.popoverObject.courseElementlist,function(courseElement){
+            		if(angular.equals(selectedCourseElement.Name,courseElement.Name)){
+            			scope.courseElement = courseElement;
+            		}
+            	});
+            		scope.syncData.courseTimeline[scope.selectedTpoint][selectedCourseElement.Name].splice(scope.selectedIndex,1);
+            	//var startPoint=((scope.selectedTpoint/scope.ddlBindObject[scope.selectedDuration-1].mFactor)-(1/scope.ddlBindObject[scope.selectedDuration-1].mFactor)+1);
+            	//scope.timeLineView[scope.tPoint][scope.courseElement.Name].splice(scope.selectedIndex,1);
+            	addCourseService.removeCourseTimelineElement(scope.courseId, selectedCourseElement.Name, scope.selectedTpoint, scope.selectedIndex, scope.$parent.$parent.rm_id);
+            	}, function() {
+            		console.log("not");
+            	});
+  };
 
 		}
 
