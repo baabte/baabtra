@@ -110,7 +110,10 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	}).
 	success(function(data, status, headers, config) {
 		var result=angular.fromJson(JSON.parse(data));
-		return $scope.course = result[0];
+		$scope.course = result[0];
+		$scope.course.crmId = $scope.course.crmId.$oid;
+    	$scope.course.companyId =  $scope.course.companyId.$oid;
+    	$scope.course.urmId = $scope.course.urmId.$oid;
 	}).
 	error(function(data, status, headers, config) {
 
