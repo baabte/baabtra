@@ -22,7 +22,8 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
 
 							var result=angular.fromJson(JSON.parse(data.data));
 							// console.log(result);
- 							if(result.userCheck===1){  
+ 							if(result.userCheck===1){
+ 								console.log(ctrls[1]);  
        						scope.notifications('!','Already a user!','info');
        						result.UserDetails.profile._id=result.UserDetails._id.$oid;
 
@@ -34,8 +35,12 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
        						 ctrls[1].$setValidity("checkUserExistence", true);
             				}
  							else if(result.userCheck===0){ 
+ 								console.log(ctrls[1]);
  								for(var key in scope.outObject){
   									if(angular.equals(key,'eMail')){}
+  									else if(angular.equals(key,'password')){
+  										delete scope.outObject.password;
+  									}	
   									else{
   										scope.outObject[key]='';
   									}
