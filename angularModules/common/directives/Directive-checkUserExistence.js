@@ -10,7 +10,17 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
 
 			scope.$watch(function (){return ctrls[1].$modelValue;/* define what to watch*/
 				}, function(){
+						if(ctrls[1].$invalid){
+							scope.newUser=false;
+							for(var key in scope.outObject){
+  									if(angular.equals(key,'eMail')){}
+  									else{
+  										
+  										scope.outObject[key]='';
+  									}
+  								}
 
+						}
 					//if the required attribute is set to true the color will change to red
 						if(ctrls[1].$valid){
 							// console.log(ctrls[1].$modelValue);
@@ -22,8 +32,7 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
 
 							var result=angular.fromJson(JSON.parse(data.data));
 							// console.log(result);
- 							if(result.userCheck===1){
- 								console.log(ctrls[1]);  
+ 							if(result.userCheck===1){  
        						scope.notifications('!','Already a user!','info');
        						result.UserDetails.profile._id=result.UserDetails._id.$oid;
 
@@ -31,18 +40,15 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
        							scope.outObject[key]=result.UserDetails.profile[key];
        						}
        						scope.newUser=false;
-
+       						scope.outObject.password='password';
        						 ctrls[1].$setValidity("checkUserExistence", true);
             				}
  							else if(result.userCheck===0){ 
- 								console.log(ctrls[1]);
- 								for(var key in scope.outObject){
-  									if(angular.equals(key,'eMail')){}
-  									else if(angular.equals(key,'password')){
-  										delete scope.outObject.password;
-  									}	
+ 								for(var key1 in scope.outObject){
+  									if(angular.equals(key1,'eMail')){}	
   									else{
-  										scope.outObject[key]='';
+  										
+  										scope.outObject[key1]='';
   									}
   								}
   							scope.newUser=true;
