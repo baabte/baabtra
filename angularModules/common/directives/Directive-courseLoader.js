@@ -30,13 +30,13 @@ angular.module('baabtra').directive('courseLoader',['addCourseService','$rootSco
 
 			});
 
-			ctrls.$setValidity('courseLoader',false);
+			// ctrls.$setValidity('courseLoader',false);
 
 
 			scope.onCourseSelectionChanged = function(course){
 				if(angular.equals(course,null)){
 					scope.ngModel=course;
-					// ctrls.$setValidity('courseLoader',false);
+					ctrls.$setValidity('courseLoader',false);
 
 									
 				}

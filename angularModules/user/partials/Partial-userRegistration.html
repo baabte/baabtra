@@ -15,11 +15,11 @@
 
       <div class="panel-body">
         <form  name="userRegistrationForm" ng-submit="fnUserRegister()" class="form" xt-form editable-form novalidate>
-          <div novalidate fg-form fg-form-data="allSync.FormData" form-data="allSync.FormData" sync-data="allSync" fg-schema="formlist.formSchema[status.selected-1].stepFormSchema">
+          <div fg-form fg-form-data="allSync.FormData" form-data="allSync.FormData" sync-data="allSync" fg-schema="formlist.formSchema[status.selected-1].stepFormSchema">
           </div>
 
           <div ng-show="status.selected===1" class="col-xs-6 col-xs-offset-3">
-              <a ng-click="status.selected = status.selected+1" ng-disabled="userRegistrationForm.$invalid" class="btn btn-block btn-info"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+              <a ng-click="status.selected = status.selected+1" ng-disabled="!userRegistrationForm.$valid" class="btn btn-block btn-info"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
           </div>
           <!-- ng-disabled="userRegistrationForm.$invalid" -->
           <div ng-show="status.selected<formlist.formSteps+1&&status.selected>1">
@@ -49,12 +49,7 @@
 
           <!-- <pre>{{status.selected}}</pre> -->
 
-          <!-- <pre>{{allSync.FormData}}</pre> -->
-          <!-- <pre>{{userRegistrationForm.$invalid}}</pre> -->
 
-
-
-        <!-- {{FormData[formlist.formSchema[status.selected].stepName]}} -->
       </div>
 
   	
