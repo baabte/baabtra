@@ -10,14 +10,15 @@
 	<div class="col-md-4 " style="padding-left: 0px">
 		 <form name="Form_Adding_form" ng-submit="AddCompanyRole()" class="form-validation" role="form" xt-form novalidate>
 
-		 		<md-input-container flex>
-		 			<label>Name of the Role</label>
-					<input type="text" ng-model="roleName" required xt-validate>
-				</md-input-container>
-				<md-input-container flex>
-					<label>Enter a description for the role</label>
-					<textarea class="form-control text-sm bg-white" rows="3"  name="roleDesc" ng-model="RoleDesc"></textarea>
-				</md-input-container> 
+
+		 		<paper-input name="roleName" label="Name of the role" style="width:100%;" floatingLabel="true" type="text" ng-model="roleName" required xt-validate></paper-input>
+		 		<paper-input-decorator  label="Enter a description for the role" floatingLabel>
+      				<paper-autogrow-textarea>
+        				<textarea  name="roleDesc" ng-model="RoleDesc" rows="0" required xt-validate style="width:100%;"></textarea>
+     				 </paper-autogrow-textarea>
+    			</paper-input-decorator>		 		
+		 		
+				
 				<div class="form-group" layout="row" layout-align="space-between end">
 					<md-button class="md-raised md-warn" type="reset" style="">cancel</md-button>		
 					<md-button class="md-raised md-primary md-hue-2" ng-disabled="Form_Adding_form.$invalid || progress" type="submit" style="">{{btnRoleAdd}} </md-button>
