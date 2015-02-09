@@ -20,7 +20,7 @@ $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fr
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
  var userId=$rootScope.userinfo.ActiveUserData.userLoginId;//user id
  var companyId='';
-console.log($rootScope.userinfo.ActiveUserData);
+// console.log($rootScope.userinfo.ActiveUserData);
 //objects for custom form 
 $scope.customForm={};
  $scope.customForm.formSteps=0; //if super admin to create new form the form steps will be set as 0 primary 
@@ -129,7 +129,7 @@ var fnSaveCustomFormCallBack=formCustomizerService.FnSaveCustomForm(customForm);
 fnSaveCustomFormCallBack.then(function(data){
 
  var result=angular.fromJson(JSON.parse(data.data));
- console.log(result);
+ // console.log(result);
  $scope.notifications('Yaay..!','Form Customized Successfully','success');
 
  $state.go('home.main.formCustomizer.SelectStep');

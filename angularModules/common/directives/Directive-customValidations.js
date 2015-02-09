@@ -7,11 +7,15 @@ angular.module('baabtra')
 		require :["^?form",'ngModel'],
 		link: function(scope, elem, attrs, ctrls) {
 
-										
-			scope.$watch(function (){return elem.context.required;/* define what to watch*/
+	
+		// console.log(ctrls[1].$error);
+	
+
+			scope.$watch(function (){return elem.context.value;/* define what to watch*/
 }, function() { 
-			  			  
-					// the array to hold the symbols
+				
+				
+			  			  					// the array to hold the symbols
 					scope.symbolCollection = {
 						'required': 'ti-star text-danger',
 						'email':'ti-email text-info',
@@ -39,23 +43,36 @@ angular.module('baabtra')
 							$(elem).parent().prepend(scope.icon);
 						}
 
-
 						
-					});
+					delete 	ctrls[1].$error.messages;
+					// console.log(ctrls[1].$error);
+						
 
-				//setting a watch function on the elem.context.required attribute
-				scope.$watch(function (){return ctrls[1].$invalid;/* define what to watch*/
-				}, function(){
+					//don't show any colors if the form is untouched
+					if(!ctrls[0].$pristine)	{			
 
 					//if the required attribute is set to true the color will change to red
-						if(ctrls[1].$invalid){
-							$(elem).parent().find("span").addClass('text-danger');
+						if(Object.keys(ctrls[1].$error).length > 0){							
+							$(elem).parent().find("span").addClass('text-danger');							
 						}
 						else{ //otherwise the color of the existing scope.icon will change to blue
+									
 							$(elem).parent().find("span").removeClass('text-danger').addClass('text-success');				
+							
 						}
+					}
 
-				});	
+
+						
+					},true);
+
+				// //setting a watch function on the elem.context.required attribute
+				// scope.$watch(function (){return ctrls[1].$invalid;/* define what to watch*/
+				// }, function(){
+
+					
+
+				// });	
 							
 			
 		} 

@@ -2,9 +2,9 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
 	return {
 		restrict: 'A',
 		require :["^?form",'ngModel'],
-		scope:{checkMode:"=",outObject:"="},
+		scope:{checkMode:"=",outObject:"=",newUser:"="},
 		link: function(scope, element, attrs, ctrls) {
-			// console.log(attrs.outObject);
+			// console.log(ctrls);
 			 
 			 
 
@@ -25,12 +25,16 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
  							if(result.userCheck===1){  
        						scope.notifications('!','Already a user!','info');
        						result.UserDetails.profile._id=result.UserDetails._id.$oid;
-       						scope.outObject=result.UserDetails.profile;
-       						// console.log(scope.outObject);
+       						for(key for result.UserDetails.profile){
+       							// alert(key);
+       						}
+       						scope.outObject.firstName=result.UserDetails.profile.firstName;
+       						scope.newUser=true;
        						 ctrls[1].$setValidity("checkUserExistence", true);
             				}
  							else if(result.userCheck===0){ 
   							scope.outObject={};
+  							scope.newUser=true;
             				}
 
 							});

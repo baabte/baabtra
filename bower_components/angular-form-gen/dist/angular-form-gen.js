@@ -299,8 +299,7 @@ fg.config(["fgConfigProvider", "FgField", function (fgConfigProvider, FgField) {
     'Url': '^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$',
     'Domain': '^([a-z][a-z0-9\\-]+(\\.|\\-*\\.))+[a-z]{2,6}$',
     'IPv4 Address': '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$',
-    'Email Address': '^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$',//edited by Arun
-    'Integer': '^-{0,1}\\d+$',
+    'Email Address': '^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$',
     'Positive Integers': '^\\d+$',
     'Negative Integers': '^-\\d+$',
     'Number': '^-{0,1}\\d*\\.{0,1}\\d+$',
@@ -313,7 +312,8 @@ fg.config(["fgConfigProvider", "FgField", function (fgConfigProvider, FgField) {
 
 //'^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$',
 //'^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$',
-///^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3  }$/
+// /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3  }$/
+// /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$/
 
 
 // ATTENTION!
@@ -330,7 +330,7 @@ angular.module('fg').run(['$templateCache', function($templateCache){
   $templateCache.put('angular-form-gen/field-templates/default/checkbox.ng.html', '<div class=\"checkbox\"><label title=\"{{ field.schema.tooltip }}\"><input   fg-field-input=\"\" id=\"{{ field.$_id }}\" type=\"checkbox\" tabindex=\"{{ tabIndex }}\" ng-model=\"form.data[field.schema.name]\"> <span ng-if=\"field.schema.nolabel\">{{ field.schema.displayName }}</span></label></div>');
   $templateCache.put('angular-form-gen/field-templates/default/checkboxlist.ng.html', '<div class=\"checkbox\" ng-repeat=\"option in field.schema.options\"><label title=\"{{ field.schema.tooltip }}\"><input   fg-field-input=\"\" type=\"checkbox\" tabindex=\"{{ tabIndex }}\" name=\"{{ field.schema.name }}[]\" value=\"{{ option.value }}\" ng-model=\"form.data[field.schema.name][option.value]\"> <span>{{option.text || option.value}}</span></label></div>');
   $templateCache.put('angular-form-gen/field-templates/default/dropdownlist.ng.html', '<div fg-field-input=\"\"   fg-dropdown-input=\"field.schema.options\" title=\"{{ field.schema.tooltip }}\" id=\"{{ field.$_id }}\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" tabindex=\"{{ tabIndex }}\" placeholder=\"{{ field.schema.placeholder }}\" ng-minlength=\"{{ field.schema.validation.minlength }}\" ng-maxlength=\"{{ field.schema.validation.maxlength }}\" ng-pattern=\"{{ field.schema.validation.pattern }}\" ng-disabled=\"isDisabled(field.schema)\"></div>');
-  $templateCache.put('angular-form-gen/field-templates/default/email.ng.html', '<input   class=\"form-control\" fg-field-input=\"\" type=\"email\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\" placeholder=\"{{ field.schema.placeholder }}\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-minlength=\"{{ field.schema.validation.minlength }}\" ng-maxlength=\"{{ field.schema.validation.maxlength }}\" ng-pattern=\"{{ field.schema.validation.pattern }}\" ng-disabled=\"isDisabled(field.schema)\">');
+  $templateCache.put('angular-form-gen/field-templates/default/email.ng.html', '<input   class=\"form-control\" fg-field-input=\"\" type=\"text\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\" placeholder=\"{{ field.schema.placeholder }}\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-pattern=\"{{ field.schema.validation.pattern }}\" ng-disabled=\"isDisabled(field.schema)\">');
   $templateCache.put('angular-form-gen/field-templates/default/not-in-cache.ng.html', '<div class=\"fg-field-not-in-cache alert alert-error\"><p>No template registered in cache for field type \"{{ field.type }}\".</p></div>');
   $templateCache.put('angular-form-gen/field-templates/default/number.ng.html', '<input   class=\"form-control\" fg-field-input=\"\" fg-input-number=\"\" type=\"text\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\" placeholder=\"{{ field.schema.placeholder }}\" min=\"{{ field.schema.validation.min }}\" max=\"{{ field.schema.validation.max }}\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-minlength=\"{{ field.schema.validation.minlength }}\" ng-maxlength=\"{{ field.schema.validation.maxlength }}\" ng-pattern=\"{{ field.schema.validation.pattern }}\" ng-disabled=\"isDisabled(field.schema)\">');
   $templateCache.put('angular-form-gen/field-templates/default/password.ng.html', '<input   class=\"form-control\" fg-field-input=\"\" type=\"password\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\" placeholder=\"{{ field.schema.placeholder }}\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-minlength=\"{{ field.schema.validation.minlength }}\" ng-maxlength=\"{{ field.schema.validation.maxlength }}\" ng-pattern=\"{{ field.schema.validation.pattern }}\" ng-disabled=\"isDisabled(field.schema)\">');
@@ -392,7 +392,7 @@ angular.module('fg').run(['$templateCache', function($templateCache){
 
   //-------------date Field------------------//
 
-  $templateCache.put('angular-form-gen/field-templates/default/date.ng.html', '<input type=\"text\" class=\"form-control\"  placement=\"bottom-right\" data-date-format=\"dd-MM-yyyy\" data-date-type=\"date\" data-autoclose=\"true\"  data-min-date=\"02/10/86\" data-max-date=\"today\"  bs-datepicker=\"\" autocomplete=\"off\"fg-field-input=\"\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\"  ng-multiple=\"false\"  resetOnClick=\"true\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-minlength=\"{{ field.schema.validation.minlength }}\" ng-maxlength=\"{{ field.schema.validation.maxlength }}\" ng-pattern=\"{{ field.schema.validation.pattern }}\" ng-disabled=\"isDisabled(field.schema)\">');
+  $templateCache.put('angular-form-gen/field-templates/default/date.ng.html', '<input type=\"text\" class=\"form-control\"  placement=\"bottom-right\" data-date-format=\"dd-MM-yyyy\" data-date-type=\"date\" data-autoclose=\"true\"  data-min-date=\"02/10/86\" data-max-date=\"today\"  bs-datepicker=\"\" autocomplete=\"off\"fg-field-input=\"\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\"  placeholder=\"{{ field.schema.placeholder }}\" ng-multiple=\"false\"  resetOnClick=\"true\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-disabled=\"isDisabled(field.schema)\">');
 
    
 
@@ -413,7 +413,7 @@ angular.module('fg').run(['$templateCache', function($templateCache){
 
 // ----------- course loader -----------
 
-  $templateCache.put('angular-form-gen/field-templates/default/courseloader.ng.html', '<course-loader  fg-field-input=\"\" type=\"text\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\" placeholder=\"{{ field.schema.placeholder }}\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-minlength=\"{{ field.schema.validation.minlength }}\" ng-maxlength=\"{{ field.schema.validation.maxlength }}\" ng-pattern=\"/{{ field.schema.validation.pattern }}/\" ng-disabled=\"isDisabled(field.schema)\"></course-loader>');
+  $templateCache.put('angular-form-gen/field-templates/default/courseloader.ng.html', '<course-loader  fg-field-input=\"\" type=\"text\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\" placeholder=\"{{ field.schema.placeholder }}\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-disabled=\"isDisabled(field.schema)\"></course-loader>');
 
 
   $templateCache.put('angular-form-gen/field-templates/properties/courseloader.ng.html', '<div fg-tabs-pane=\"Properties\"><div fg-property-field-common=\"{ fieldname: true, displayname: true, placeholder: true, tooltip: true }\"></div><div fg-property-field-value=\"\"><span class=\"form-control\" name=\"fieldValue\" ng-model=\"field.value\" ng-minlength=\"{{ field.validation.minlength }}\" strip-br=\"false\" no-line-breaks=\"true\" select-non-editable=\"true\" ng-maxlength=\"{{ field.validation.maxlength }}\" ng-pattern=\"/{{ field.validation.pattern }}\"></div></div></div><div fg-tabs-pane=\"Validation\"><div fg-property-field-validation=\"{ required: true, minlength: true, maxlength: true, pattern: true }\"></div></div><div fg-tabs-pane=\"Custom Attributes\"><div fg-property-field-custom=\"\"></div></div>');
