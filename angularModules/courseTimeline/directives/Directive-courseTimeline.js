@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService) {
+angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService','addCourseElementService', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService,addCourseElementService) {
 	return {
 		restrict: 'E', // to use as an element . Use 'A' to use as an attribute
 		replace: true,
@@ -71,7 +71,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 								}
 							});
 							});
-							scope.containerHeight = 30/containerCount + (containerCount*70);
+							scope.containerHeight = 30/containerCount + (containerCount*80);
 						});
 					}
 				}
@@ -211,11 +211,14 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             			});
             		}
             	});
-            	console.log(scope.coursePreviewObj);
             };
 
             var selectedCourseElement = {};
             //var selectedTpoint = 0;
+              var tlPopOverEditObject=addCourseElementService.FnGetCourseElements("");//calling course element function
+      			tlPopOverEditObject.then(function(data){
+        			scope.tlPopOverEditObject = angular.fromJson(JSON.parse(data.data));
+      			});
             scope.manageCourseElement = function(element,tPoint,selectedIndex){
             	scope.tPoint = tPoint;
             	selectedCourseElement = element;
@@ -228,7 +231,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	{
             		scope.coursePreviewObjAside = angular.copy(selectedCourseElement);
             	}
-            	angular.forEach(scope.popoverObject.courseElementlist,function(courseElement){
+            	angular.forEach(scope.tlPopOverEditObject,function(courseElement){
             		if(angular.equals(selectedCourseElement.Name,courseElement.Name)){
             			scope.courseElement = courseElement;
             		}
@@ -254,7 +257,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             		}
             	});
             	scope.syncData.courseTimeline[scope.selectedTpoint][selectedCourseElement.Name].splice(scope.selectedIndex,1);
-            	//addCourseService.removeCourseTimelineElement(scope.courseId, selectedCourseElement.Name, scope.selectedTpoint, scope.selectedIndex, scope.$parent.$parent.rm_id);
+            	addCourseService.removeCourseTimelineElement(scope.courseId, selectedCourseElement.Name, scope.selectedTpoint, scope.selectedIndex, scope.$parent.$parent.rm_id);
             };
 
 		}
