@@ -18,7 +18,7 @@
           <div fg-form fg-form-data="allSync.FormData" form-data="allSync.FormData" sync-data="allSync" fg-schema="formlist.formSchema[status.selected-1].stepFormSchema">
           </div>
 
-          <div ng-show="status.selected===1" class="col-xs-6 col-xs-offset-3">
+          <div ng-show="status.selected===1&&formlist.formSteps!=status.selected" class="col-xs-6 col-xs-offset-3">
               <a ng-click="status.selected = status.selected+1" ng-disabled="!userRegistrationForm.$valid" class="btn btn-block btn-info"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
           </div>
           <!-- ng-disabled="userRegistrationForm.$invalid" -->
@@ -32,7 +32,7 @@
           </div>
           <!-- ng-disabled="userRegistrationForm.$invalid" -->
 
-          <div ng-show="status.selected ===formlist.formSteps+1" class="col-xs-12 text-center">
+          <div ng-show="status.selected ===formlist.formSteps+1||formlist.formSteps==status.selected" class="col-xs-12 text-center">
             <span class="glyphicon glyphicon-heart"></span>
             <h3>Its Great You did it!</h3>
     
