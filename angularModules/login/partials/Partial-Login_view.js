@@ -130,7 +130,7 @@ $scope.loginSuccessCallback=function(data){
 			    {
 			      $scope.progress=false; //setting button enable
 			      $scope.btnSignupText='Sign in'; //re setting the value of nutton to signup
-			      $scope.loginCredential={};
+			      $scope.loginCredential.password="";
 			      $scope.signinform.$setPristine();
 			      $scope.Error_msg=true; 
 			      $scope.login_error="wrong email or password. Try again!";   
