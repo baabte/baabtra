@@ -88,7 +88,6 @@ angular.module('ui.bootstrap.contextMenu', [])
                                   +'<course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview>'
                         +'</div></div></div></div></div>');
         $aside({scope: $scope, template:'course-element-popup.html', html:true});
-        //$modal({scope: $scope, template: 'course-element-popup.html', html: true, show: true});
                         //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
                      });
                 });
@@ -287,8 +286,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                   +'</form>'
                   +'<course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview>'
                 +'</div></div></div></div></div>');
- //$aside({scope: $scope, template:'course-element-nested-popup.html', html:true});
-        $modal({scope: $scope, template: 'course-element-nested-popup.html', html: true,show: true});
+ $aside({scope: $scope, template:'course-element-nested-popup.html', html:true});
         };
 
 
@@ -340,6 +338,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                                     $scope.weHaveGotNestedfile=true;
                                     var promise=addCourseService.fnCourseFileUpload(temp[item.name].value, path); // uploading file to the server
                                     promise.then(function(data){ // call back function for the fileupload
+                                          temp[item.name].fileType = temp[item.name].value.type;
                                           temp[item.name].value='http://docs.google.com/gview?url='+bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','')+'&embedded=true';
                                           temp[item.name].url=bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','');
                                           $scope.ItsTimeToSaveNestedDataToDB=true;
