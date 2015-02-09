@@ -4,10 +4,9 @@
       <a href="" class="text-md text-ellipsis"><i class="fa fa-recycle fa-1x m-r"></i>Drafted Courses</a>
     </div>
     <div class="panel-body p-sm">
-      <div class="col-xs-12" ng-if="!draftedCourses.length">
+      <div class="col-xs-12" ng-if="WarringMessage.length && WarringMessage != undefined">
         <div id="alerts-container" class="animated fadeIn">
           <div class="alert ng-scope am-fade alert-button bg-danger lt" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
-            <strong class="ng-binding">Not Found!</strong>&nbsp;
             <span class="ng-binding">{{WarringMessage}}</span>
             <i class="ti ti-face-sad text-lg"></i>
           </div>
@@ -25,11 +24,24 @@
             </div>
             <div class="clear" >
               <div  class="text-2x font-bold" title="{{course.Name}}">{{course.Name | limitTo : 14}}</div>
-             <!--  <small class="text-muted course-description" ng-bind-html="course.Description?course.Description:'<div class=line>&nbsp;</div>'"></small> -->
+             <!--  <small class="text-muted course-description" ng-bind-html="course.Description?course.Description:'<div class=line>&nbsp;</div>'"></small>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
+<!-- 
+      <md-content ng-if="draftedCourses.length" layout="row" layout-align="space-around center" layout-wrap >
+      <md-card ng-repeat="course in draftedCourses" layout="column" flex-sm="95" flex-gt-sm="45" flex-gt-md="30">
+        <img src="img/washedout.png" alt="Washed Out">
+        <md-card-content>
+        <h2>Paracosm</h2>
+        <p>
+          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+          two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+        </p>
+      </md-card-content>
+    </md-card>
+  </md-content> -->
