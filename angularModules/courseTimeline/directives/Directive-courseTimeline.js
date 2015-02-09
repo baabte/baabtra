@@ -248,7 +248,6 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             }
 
             scope.removeCourseElement = function(ev) {
-            	alert();
             		angular.forEach(scope.popoverObject.courseElementlist,function(courseElement){
             		if(angular.equals(selectedCourseElement.Name,courseElement.Name)){
             			scope.courseElement = courseElement;
