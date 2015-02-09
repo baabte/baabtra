@@ -22,6 +22,7 @@ this.fnLoadDraftedCourses = function (cmp_id){ // this function load in-complete
 	return draftedCourses;
 };
 
+
 this.fnDeleteCourse = function (manageType, courseId, urmId, courseType, companyId){ // this function delete drafted courses
 var promise = $http({
 		url: bbConfig.BWS+'deleteDraftedCourse/',

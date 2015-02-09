@@ -428,6 +428,26 @@
                 }
                 
               })
+              .state('home.main.CandidateCourseView', {
+                url: '/CandidateCourseView',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-candidateCourseView.html',
+                    controller: 'CandidatecourseviewCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.CandidateCourseDetails', {
+                url: '/CandidateCourseDetails:courseId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-candidateCourseDetail.html',
+                    controller: 'CandidatecoursedetailCtrl'
+                  }
+                }
+                
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'
