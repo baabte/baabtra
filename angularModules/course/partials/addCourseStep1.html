@@ -6,10 +6,10 @@
   <div class="row">
   
       <!-- Heading -->
-      <div class="bg-white p-sm bg-chocolate">
+     <!--  <div class="bg-white p-sm bg-chocolate">
             <i class="glyphicon glyphicon-bullhorn text-1x inline"></i>
             <span class="text-1x font-bold">General Info</span>
-      </div>
+      </div> -->
       <!-- Heading .end -->
   
   </div>
@@ -36,20 +36,20 @@
         <label class="checkbox-inline">
           <input type="checkbox" ng-model="course.Delivery.offline" value="course.Delivery.offline" checked>Offline
         </label>
-        <em class="text-muted">&nbsp;(Please specifiy  the mode of delivery of the course)</em>
+        <em class="text-muted text-f44336">&nbsp;(Please specifiy  the mode of delivery of the course)</em>
       </div>
 
         <!-- course Description -->
         <div class="form-group">
             <ng-quill-editor name="courseDescription" ng-model="course.Description"  toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" error-class="input-error"></ng-quill-editor>
-            <em class="text-muted">A short description of the Course(Optional, recommended)</em>
+            <em class="text-muted text-f44336">A short description of the Course(Optional, recommended)</em>
 
         </div>
 
         <!-- Course Benefits -->
         <div class="form-group">            
             <ng-quill-editor ng-model="course.Benefits" toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" error-class="input-error"></ng-quill-editor> 
-            <em class="text-muted">Benefits of the Course(Optional, recommended)</em> 
+            <em class="text-muted text-f44336">Benefits of the Course(Optional, recommended)</em> 
         </div>
 
         <!-- Course Image -->
@@ -64,7 +64,7 @@
 
       <!-- Course domains -->
       <hierarchical-selector  ng-model="course.testDomains" data="domains" multi-select="true" on-selection-changed="course.Domains = onDomainSelectionChanged(items)" selection="{{course.testDomains}}"></hierarchical-selector>
-      <em class="text-muted">Please specify Domains applicable to your course (eg: Accounting, Hospitality etc.)</em>
+      <em class="text-muted text-f44336">Please specify Domains applicable to your course (eg: Accounting, Hospitality etc.)</em>
       <!-- Technologies -->
       <div class="form-group m-t-lg" >
                   <tags-input class="bootstrap"
@@ -77,7 +77,7 @@
                              debounce-delay="0"                             
                         max-results="15"></auto-complete>
                 </tags-input>
-        <em class="text-muted">*Technologies help your course to be shown when people search courses under specific technologies</em>                
+        <em class="text-muted text-f44336">*Technologies help your course to be shown when people search courses under specific technologies</em>                
       </div>
 
       <!-- Tags -->
@@ -101,7 +101,7 @@
         <label class="radio-inline">
           <input type="radio" name="Branches" ng-click="specificBranches=true" id="inlineRadio1" value="option1"> Specific Branches
         </label>
-        <em class="text-muted">&nbsp;(Please specifiy  to which all branches this course is available)</em>
+        <em class="text-muted text-f44336">&nbsp;(Please specifiy  to which all branches this course is available)</em>
         <hierarchical-selector ng-if="specificBranches" ng-model="course.branchDetails" data="branchDetails" multi-select="true" class="am-fade" on-selection-changed="selectedItem2 = onBranchSelectionChanged(items)"></hierarchical-selector>
       </div>
 
@@ -112,7 +112,7 @@
         <label class="radio-inline">
           <input type="radio" name="Accessibility" ng-click="specificAccessibility=true" id="inlineRadio1" value="option1"> Private
         </label>
-        <em class="text-muted">&nbsp;(Please specify who all in the selected branches has access to the course)</em>
+        <em class="text-muted text-f44336">&nbsp;(Please specify who all in the selected branches has access to the course)</em>
         <hierarchical-selector ng-if="specificAccessibility" ng-model="course.branchDetails" data="rolesDetails" multi-select="true" class="am-fade" on-selection-changed="selectedItem2 = onRoleSelectionChanged(items)"></hierarchical-selector>
 
       </div>
@@ -121,9 +121,11 @@
 
       <!-- course image -->
        <div class="form-group col-sm-6 no-padding" >
-        <input f-max-size="500" name="courseImg" type="file" fileupload-dir="course.Img" id="exampleInputFile" ng-model="course.courseImg" ng-multiple="false" accept="image/*" resetOnClick="true" data-placement="top" data-html="true" data-container="body" data-title="Please select an image to represent the course"  bs-tooltip>
-        <em ng-hide="imageSrc">Please select an image to represent the course</em>
-        <img render-image image="course.courseImg" file-source = "courseImg"  ng-model="course.courseImg" class="img-responsive img-thumbnail m-xs" ng-src="{{course.courseImg}}" />
+        <input  f-max-size="500" name="courseImg" type="file" fileupload-dir="course.Img" id="exampleInputFile" ng-model="course.courseImg" ng-multiple="false" accept="image/*" resetOnClick="true" data-placement="top" data-html="true" data-container="body" data-title="Please select an image to represent the course"  bs-tooltip>
+        <em ng-if="!course.courseImg" class="text-f44336">Please select an image to represent the course</em>
+        <div ng-if="course.courseImg">
+          <img render-image image="course.courseImg" file-source = "courseImg"  ng-model="course.courseImg" class="img-responsive img-thumbnail m-xs" ng-src="{{course.courseImg}}" />
+        </div>
         
       </div>
     </div>

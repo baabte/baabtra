@@ -81,7 +81,7 @@ $scope.totalCourseDuration=0; // course duration in minutes
 
 
 	$scope.tlPopOver={};//obj for bulding context menu of timeline point
-	$scope.tlPopOver.step3={colorClass:'bg-gold-dark'};
+	$scope.tlPopOver.step3={colorClass:'bg-9C27B0'};
   var weHaveGotCrsElementsStep3=addCourseElementService.FnGetCourseElements("");//calling course element function
       weHaveGotCrsElementsStep3.then(function(data){
         $scope.tlPopOver.step3.courseElementlist=angular.fromJson(JSON.parse(data.data));
@@ -307,7 +307,7 @@ $scope.paymentTypes=[{id: "1",name: "Before The Course"},
   $scope.$watch(function(){return $scope.course.Fees.oneTime + $scope.course.Fees.payment.mode;}, function(){
       if(!angular.equals($scope.course.Fees.payment.mode,undefined)){
       if($scope.course.Fees.oneTime === true || angular.equals($scope.course.Fees.payment.mode.id,'2')){
-          $scope.tlPopOver.step2 = {colorClass:'bg-baabtra-green'};
+          $scope.tlPopOver.step2 = {colorClass:'bg-E91E63'};
           //addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Payment_checkpoint");//calling course element function
           var weHaveGotCrsElementsStep2=addCourseElementService.FnGetCourseElements("Payment_checkpoint");//calling course element function
           weHaveGotCrsElementsStep2.then(function(data){
@@ -327,12 +327,10 @@ $scope.completeStep2 = function(){
     delete $scope.course.Fees.payment.mode;
   }
   delete $scope.course._id;
-  console.log($scope.course);
   var courseToBeSave = angular.copy($scope.course);
   courseToBeSave.companyId = courseToBeSave.companyId.$oid;
   courseToBeSave.crmId = courseToBeSave.crmId.$oid;
   courseToBeSave.urmId = courseToBeSave.urmId.$oid;
-  console.log(courseToBeSave);
   var toState='home.main.addCourse.step3';
   $alert({title: 'Done..!', content: 'Step 2 completed successfuly :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
   addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId ,toState);//saving to database

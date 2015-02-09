@@ -10,7 +10,7 @@ angular.module('baabtra').directive('courseElementBubble', function() {
 			scope.status = true;
 			scope.showBubble = 2;
 			scope.viewAllBubble = function(length,elementName){
-				console.log(elementName);
+				//console.log(elementName);
 				scope.status = false;
 				if(!angular.equals(elementName,"")){
 					scope.status = true;
