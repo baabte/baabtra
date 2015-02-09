@@ -85,7 +85,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                                    +'<button type="submit" ng-click="saveMyFormData($hide)" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
                                    +'<button type="submit" ng-click="createPreviewElement(\'tempCourseDocs\')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid" class="pull-left btn '+options[state].colorClass+'">Preview</button>'
                                   +'</form>'
-                                  +'<course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview>'
+                                  +'<div class="clearfix m-v-lg"><course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview></div>'
                         +'</div></div></div></div></div>');
         $aside({scope: $scope, template:'course-element-popup.html', html:true});
                         //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
@@ -284,7 +284,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                    //+'<button type="submit" ng-click="pushNestedObject(\'courseDocs\',nestedElemSelected,formModal,tempFormData.'+randomKeyForNested+')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+$scope.callbackFunctions[state].colorClass+'">Save</button>'
                    +'<button type="submit" ng-click="createFormatedElement($hide,\'tempCourseDocs\',nestedElemSelected['+randomKeyForNested+'],formModal['+randomKeyForNested+'],tempFormData['+randomKeyForNested+'])" style="color:#fff!important;" ng-disabled = "courseElement.$invalid" class="pull-right btn '+$scope.callbackFunctions[state].colorClass+'">Embed</button>'
                   +'</form>'
-                  +'<course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview>'
+                  +'<div class="clearfix m-v-lg"><course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview></div>'
                 +'</div></div></div></div></div>');
  $aside({scope: $scope, template:'course-element-nested-popup.html', html:true});
         };
