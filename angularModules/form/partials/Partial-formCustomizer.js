@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('FormcustomizerCtrl',['$scope','$rootScope','$state','commonService','formCustomizerService','$modal','$state','$alert',function($scope,$rootScope,$state,commonService,formCustomizerService,$modal,$state,$alert){
+angular.module('baabtra').controller('FormcustomizerCtrl',['$scope','$rootScope','$state','commonService','formCustomizerService','$modal','$alert',function($scope,$rootScope,$state,commonService,formCustomizerService,$modal,$alert){
 
 	if(!$rootScope.userinfo){
    commonService.GetUserCredentials($scope);
@@ -20,7 +20,7 @@ $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fr
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
  var userId=$rootScope.userinfo.ActiveUserData.userLoginId;//user id
  var companyId='';
-
+// console.log($rootScope.userinfo.ActiveUserData);
 //objects for custom form 
 $scope.customForm={};
  $scope.customForm.formSteps=0; //if super admin to create new form the form steps will be set as 0 primary 
@@ -55,7 +55,7 @@ FnFetchCustomFormCallBack.then(function(data){
  var result=angular.fromJson(JSON.parse(data.data));
 
 $scope.formlist=result.formlist;
-})
+});
 
 
 
@@ -120,9 +120,11 @@ $scope.customForm.loggedusercrmid=loggedusercrmid;
 $scope.customForm.fkcompanyId=companyId;
 $scope.customForm.fkuserId=userId;
 
-// console.log($scope.customForm);
+var customForm= angular.copy($scope.customForm);
 
-var fnSaveCustomFormCallBack=formCustomizerService.FnSaveCustomForm($scope.customForm);
+
+
+var fnSaveCustomFormCallBack=formCustomizerService.FnSaveCustomForm(customForm);
 
 fnSaveCustomFormCallBack.then(function(data){
 
@@ -133,7 +135,7 @@ fnSaveCustomFormCallBack.then(function(data){
  $state.go('home.main.formCustomizer.SelectStep');
 
 
-})
+});
 
 
 };

@@ -7,11 +7,15 @@ angular.module('baabtra')
 		require :["^?form",'ngModel'],
 		link: function(scope, elem, attrs, ctrls) {
 
-										
-			scope.$watch(function (){return elem.context.required;/* define what to watch*/
+	
+		// console.log(ctrls[1].$error);
+	
+
+			scope.$watch(function (){return elem.context.value;/* define what to watch*/
 }, function() { 
-			  			  
-					// the array to hold the symbols
+				
+
+			  		// the array to hold the symbols
 					scope.symbolCollection = {
 						'required': 'ti-star',
 						'email':'ti-email',
@@ -40,21 +44,14 @@ angular.module('baabtra')
 							$(elem).parent().find("label").prepend(scope.icon);
 						}
 
-
 						
-					});
+					delete 	ctrls[1].$error.messages;
+					console.log(ctrls[1].$error);
+				
 
-				//setting a watch function on the elem.context.required attribute
-				scope.$watch(function (){return elem.context.value;/* define what to watch*/
-				}, function(){				
-
-					// delete the messages object inside the error object to check for the correct no. of errors
-					delete 	ctrls[1].$error.messages;					
-					
 					//don't show any colors if the form is untouched
-					if(!ctrls[0].$pristine)	{			
+					if(!ctrls[0].$pristine)	{				
 
-					//if the required attribute is set to true the color will change to red
 						if(Object.keys(ctrls[1].$error).length > 0){
 							$(elem).parent().find("span").addClass('text-danger');
 							$(elem).parent().addClass('md-input-invalid');							
@@ -63,9 +60,17 @@ angular.module('baabtra')
 							$(elem).parent().find("span").removeClass('text-danger').addClass('text-success');				
 							$(elem).parent().removeClass('md-input-invalid');
 						}
-					}
+ 					}						
+			},true);
 
-				}, true);	
+				// //setting a watch function on the elem.context.required attribute
+				// scope.$watch(function (){return ctrls[1].$invalid;/* define what to watch*/
+				// }, function(){
+
+					
+
+				// });	
+//>>>>>>> e0d8f506ab7fad6f653d352b347009b3907fa2b0
 							
 			
 		} 

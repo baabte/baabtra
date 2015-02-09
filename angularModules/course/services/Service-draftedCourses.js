@@ -19,25 +19,27 @@ this.fnLoadDraftedCourses = function ($scope){ // this function load in-complete
 	});
 };
 
-this.fnManageDraftedCourse = function ($scope, manageType, courseId, urmId){ // this function delete drafted courses
-	$http({
+this.fnDeleteCourse = function (manageType, courseId, urmId, courseType){ // this function delete drafted courses
+var promise = $http({
 		url: bbConfig.BWS+'deleteDraftedCourse/',
 		method: "POST",
-		data:{'manageType':manageType, 'courseId':courseId, 'urmId':urmId},
+		data:{'manageType':manageType, 'courseId':courseId, 'urmId':urmId, 'courseType':courseType},
 		withCredentials: false,
 		contentType:"application/json",
 		dataType:"json",
 	}).
 	success(function(data, status, headers, config) {
-		$scope.draftedCourses = angular.fromJson(JSON.parse(data));
-		if(!$scope.draftedCourses.length){
-			$scope.WarringMessage="Drafted Courses Not Found... :-)"
-		}
-		//$scope.draftedCourses=angular.fromJson(JSON.parse(data));
+
+		// $scope.draftedCourses = angular.fromJson(JSON.parse(data));
+		// if(!$scope.draftedCourses.length){
+		// 	$scope.WarringMessage="Drafted Courses Not Found... :-)"
+		// }
+		// //$scope.draftedCourses=angular.fromJson(JSON.parse(data));
 	}).
 	error(function(data, status, headers, config) {
 
 	});
+return promise;
 };
 
 }]);

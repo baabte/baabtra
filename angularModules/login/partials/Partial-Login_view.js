@@ -121,7 +121,8 @@ $scope.loginSuccessCallback=function(data){
 			   	  var logdata=$scope.logData.ActiveUserDataId.$oid.concat($scope.logData.userLoginId);
 			  	  localStorageService.add('logDatas',logdata);
 			  	  $rootScope.userinfo=$scope.logData;//if login is ok put it in the login info variable.
-			  	  $rootScope.loggedIn=true;//if login is ok ,changin the variable in rootscope.
+            // console.log($rootScope.userinfo);
+            $rootScope.loggedIn=true;//if login is ok ,changin the variable in rootscope.
 				  $state.go('home.main');//routing to home after success login by user
 				  $scope.login_or_not='login Success'; 
 				}
@@ -129,7 +130,7 @@ $scope.loginSuccessCallback=function(data){
 			    {
 			      $scope.progress=false; //setting button enable
 			      $scope.btnSignupText='Sign in'; //re setting the value of nutton to signup
-			      $scope.loginCredential={};
+			      $scope.loginCredential.password="";
 			      $scope.signinform.$setPristine();
 			      $scope.Error_msg=true; 
 			      $scope.login_error="wrong email or password. Try again!";   

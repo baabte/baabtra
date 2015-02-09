@@ -3,6 +3,7 @@ angular.module('baabtra').directive('durationSelector', function() {
 		restrict: 'E',
 		replace: true,
 		scope: {duration:"=",
+				durationInMinutes:"=",
 				totDurationInUnits:"="},
 		templateUrl: 'angularModules/durationSelector/directives/Directive-durationSelector.html',
 		link: function(scope, element, attrs, fn) {
@@ -14,27 +15,51 @@ angular.module('baabtra').directive('durationSelector', function() {
 				Weeks:{'Year(s)':52, 'Month(s)':4, 'Week(s)':1, 'Day(s)':0, 'Hour(s)':0, 'Minute(s)':0},
 				Months:{'Year(s)':12, 'Month(s)':1, 'Week(s)':0, 'Day(s)':0, 'Hour(s)':0, 'Minute(s)':0},
 				Years:{'Year(s)':1, 'Month(s)':0, 'Week(s)':0, 'Day(s)':0, 'Hour(s)':0, 'Minute(s)':0}
-			}		
+			}
 
-			
-			scope.addeddurationTypes = [{id: "1",name: "Year(s)",Duration:1, selected:{id: "1",name: "Year(s)"}}];
-			
-
-
-
-			
-			//scope.Duration = scope.addeddurationTypes;
 			scope.durationTypes = [{id: "1",name: "Year(s)"},
 									{id: "2",name: "Month(s)"},
 									{id: "3",name: "Week(s)"},
 									{id: "4",name: "Day(s)"},
 									{id: "5",name: "Hour(s)"},
 									{id: "6",name: "Minute(s)"}];
+
+			// function to get the id of the key
+			scope.getDurationIdByName = function(durName){
+				var id = 0;
+				for (var i =0; i < scope.durationTypes.length; i++) {					
+					
+					if (angular.equals(scope.durationTypes[i].name, durName)){
+						id = scope.durationTypes[i].id;
+						break;
+					}
+					
+				}
+				return id;
+			}
+
+
+			if(!angular.equals(scope.duration,undefined)){
+			    scope.addeddurationTypes = [];				
+				for(key in scope.duration ){					
+				scope.addeddurationTypes.push({id: scope.getDurationIdByName(key),name: key,Duration:scope.duration[key], selected:{id: scope.getDurationIdByName(key),name: key}});
+				};
+				console.log(scope.addeddurationTypes);
+			}
+			else{
+				scope.addeddurationTypes = [{id: "1",name: "Year(s)",Duration:1, selected:{id: "1",name: "Year(s)"}}];
+			}
+			
+			
+
+
+			
+			//scope.Duration = scope.addeddurationTypes;
+
 			scope.durationTypesLength = Object.keys(scope.durationTypes).length;
 
 
 			scope.removeDuration = function(singleDurationIndex){
-				console.log
 				scope.addeddurationTypes.splice(singleDurationIndex,1);
 			};
 
@@ -49,7 +74,7 @@ angular.module('baabtra').directive('durationSelector', function() {
 				scope.addeddurationTypes.push({id: scope.addeddurationTypes.length + 1 ,name: name,Duration:1, selected : {id: scope.addeddurationTypes.length + 1 ,name: name}});
 			};
 
-			scope.$watch('addeddurationTypes', function(){
+			scope.$watch('addeddurationTypes', function(){				
 				scope.duration = {};
 				for (var i = 0; i < scope.addeddurationTypes.length; i++) {
 					if(angular.equals(scope.duration[scope.addeddurationTypes[i].selected.name],undefined)){
@@ -57,20 +82,22 @@ angular.module('baabtra').directive('durationSelector', function() {
 					}else{
 						 scope.duration[scope.addeddurationTypes[i].selected.name] = parseInt(scope.duration[scope.addeddurationTypes[i].selected.name]) + parseInt(scope.addeddurationTypes[i].Duration);
 					}					
-				}				
+				}	
+
 
 			},true);
 
 			scope.$watch('duration', function(){
-				if(!angular.equals(scope.duration,undefined)){
 
-					scope.totDurationInUnits = 0;			
+				if(!angular.equals(scope.duration,undefined)){
+					scope.totDurationInUnits = 0;
+					scope.durationInMinutes = 0;			
 					for(key in scope.duration ){				
 						scope.totDurationInUnits = scope.totDurationInUnits + (parseInt(scope.duration[key]))*(parseInt(scope.unitsArray[attrs.returnIn][key]));
 					}
+					scope.durationInMinutes = scope.totDurationInUnits;
 
-				
-					var tempDuration = JSON.stringify(scope.duration);
+					var tempDuration = JSON.stringify(scope.duration);					
 					tempDuration = JSON.parse(tempDuration);
 					scope.addeddurationTypes=[];
 					var i = 1;
