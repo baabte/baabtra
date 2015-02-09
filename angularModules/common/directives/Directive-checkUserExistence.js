@@ -25,15 +25,21 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
  							if(result.userCheck===1){  
        						scope.notifications('!','Already a user!','info');
        						result.UserDetails.profile._id=result.UserDetails._id.$oid;
-       						// for(key for result.UserDetails.profile){
-       						// 	// alert(key);
-       						// }
-       						scope.outObject.firstName=result.UserDetails.profile.firstName;
-       						scope.newUser=true;
+
+       						for(var key in result.UserDetails.profile){
+       							scope.outObject[key]=result.UserDetails.profile[key];
+       						}
+       						scope.newUser=false;
+
        						 ctrls[1].$setValidity("checkUserExistence", true);
             				}
  							else if(result.userCheck===0){ 
-  							scope.outObject={};
+ 								for(var key in scope.outObject){
+  									if(angular.equals(key,'eMail')){}
+  									else{
+  										scope.outObject[key]='';
+  									}
+  								}
   							scope.newUser=true;
             				}
 
