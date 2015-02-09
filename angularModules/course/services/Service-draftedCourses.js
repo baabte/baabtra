@@ -40,6 +40,7 @@ var promise = $http({
 
 	});
 return promise;
+alert("hai");
 };
 
 }]);

@@ -46,8 +46,7 @@
     "StreamLine": "~1.0",
     "angular-multi-select": "~2.0.2",
     "StreamLine":"~1.0",
-    "angular-multi-select": "~2.0.2",
-    "angular-material":"~0.7.0"
+    "angular-multi-select": "~2.0.2"    
   },
   "devDependencies": {
     "angular-mocks": "~1.2"

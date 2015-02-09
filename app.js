@@ -44,8 +44,7 @@
         'ngTagsInput',
         'ngQuill',
         'hierarchical-selector',
-        'angularSpectrumColorpicker',
-        'ngMaterial',
+        'angularSpectrumColorpicker',       
         'multi-select'
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';

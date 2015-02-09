@@ -36,11 +36,9 @@ $scope.deleteCourseDetails = function(courseId){
 	$scope.lastDeletedCourseId = courseId;		
 	var deleteCourse = draftedCourses.fnDeleteCourse({activeFlag:0},courseId, $scope.rm_id , "Publish",$scope.companyId);
 	deleteCourse.then(function (data) {
-		console.log(data);
 		$scope.publishedCourses = angular.fromJson(JSON.parse(data.data));
 		$alert({scope: $scope, container:'body', keyboard:true, animation:'am-fade-and-slide-top', template:'views/ui/angular-strap/alert.tpl.html', title:'Undo', content:'The course has been moved to the Trash <i class="fa fa-smile-o"></i>', placement: 'top-right', type: 'warning'});
 	});
-	// console.log(courseId+" "+$scope.rm_id+" "+$scope.companyId);
 		
 };
 

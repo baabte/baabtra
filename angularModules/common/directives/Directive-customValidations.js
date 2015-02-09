@@ -14,57 +14,54 @@ angular.module('baabtra')
 			scope.$watch(function (){return elem.context.value;/* define what to watch*/
 }, function() { 
 				
-				
-			  			  					// the array to hold the symbols
+
+			  		// the array to hold the symbols
 					scope.symbolCollection = {
-						'required': 'ti-star text-danger',
-						'email':'ti-email text-info',
-						'phone':'ti-mobile text-info',
-						'date' : 'ti-calendar  text-info',
-						'facebook': 'ti-facebook text-info',
-						'twitter':'ti-twitter-alt text-info',
-						'google':'ti-google text-info',
-						'linkedin' : 'ti-linkedin  text-info',
-						'amount' : 'ti-money text-info',
-						'youtube':'ti-youtube text-info'
+						'required': 'ti-star',
+						'email':'ti-email',
+						'phone':'ti-mobile',
+						'date' : 'ti-calendar',
+						'facebook': 'ti-facebook',
+						'twitter':'ti-twitter-alt',
+						'google':'ti-google',
+						'linkedin' : 'ti-linkedin',
+						'amount' : 'ti-money',
+						'youtube':'ti-youtube',
+						'number':'fa fa-sort-numeric-asc'
 
 					};
 
-						$(elem).parent().attr('class', 'input-group m-b col-xs-12');
-						scope.icon=$('<span class="input-group-addon"></span>');
+						//$(elem).parent().attr('class', 'input-group m-b col-xs-12');
+						scope.icon=$('<span class="indicate-val-icon"></span>');
 
-						scope.icon.addClass(scope.symbolCollection[attrs.indicateVal]);
+						scope.icon.addClass(scope.symbolCollection[attrs.indicateVal]);						
 						add=true;
 
 									
 
 						
 						if(add && !$(elem).parent().find("span").length){
-							$(elem).parent().prepend(scope.icon);
+							$(elem).parent().find("label").prepend(scope.icon);
 						}
 
 						
 					delete 	ctrls[1].$error.messages;
-					// console.log(ctrls[1].$error);
-						
+					console.log(ctrls[1].$error);
+				
 
 					//don't show any colors if the form is untouched
-					if(!ctrls[0].$pristine)	{			
+					if(!ctrls[0].$pristine)	{				
 
-					//if the required attribute is set to true the color will change to red
-						if(Object.keys(ctrls[1].$error).length > 0){							
-							$(elem).parent().find("span").addClass('text-danger');							
+						if(Object.keys(ctrls[1].$error).length > 0){
+							$(elem).parent().find("span").addClass('text-danger');
+							$(elem).parent().addClass('md-input-invalid');							
 						}
-						else{ //otherwise the color of the existing scope.icon will change to blue
-									
+						else{ //otherwise the color of the existing scope.icon will change to blue							
 							$(elem).parent().find("span").removeClass('text-danger').addClass('text-success');				
-							
+							$(elem).parent().removeClass('md-input-invalid');
 						}
-					}
-
-
-						
-					},true);
+ 					}						
+			},true);
 
 				// //setting a watch function on the elem.context.required attribute
 				// scope.$watch(function (){return ctrls[1].$invalid;/* define what to watch*/
@@ -73,6 +70,7 @@ angular.module('baabtra')
 					
 
 				// });	
+//>>>>>>> e0d8f506ab7fad6f653d352b347009b3907fa2b0
 							
 			
 		} 
