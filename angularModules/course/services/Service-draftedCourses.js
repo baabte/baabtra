@@ -19,11 +19,11 @@ this.fnLoadDraftedCourses = function ($scope){ // this function load in-complete
 	});
 };
 
-this.fnDeleteCourse = function (manageType, courseId, urmId, courseType){ // this function delete drafted courses
+this.fnDeleteCourse = function (manageType, courseId, urmId, courseType,companyId){ // this function delete drafted courses
 var promise = $http({
 		url: bbConfig.BWS+'deleteDraftedCourse/',
 		method: "POST",
-		data:{'manageType':manageType, 'courseId':courseId, 'urmId':urmId, 'courseType':courseType},
+		data:{'manageType':manageType, 'courseId':courseId, 'urmId':urmId, 'courseType':courseType,'companyId':companyId},
 		withCredentials: false,
 		contentType:"application/json",
 		dataType:"json",
@@ -40,6 +40,7 @@ var promise = $http({
 
 	});
 return promise;
+alert("hai");
 };
 
 }]);

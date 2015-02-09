@@ -38,16 +38,22 @@
           <md-content layout="row"  layout-wrap layout-align="space-around center" >
               <md-card ng-repeat="course in publishedCourses" flex-sm="95" flex-gt-sm="30" >
                 <img src='{{course.courseImg}}' alt="Washed Out">
-                <md-card-content>
+                <md-card-content >
                 
                    <a ng-click="navigateToCourse(course._id.$oid)" ><h2>
                    {{course.Name |uppercase| limitTo : 20}}
                    </h2> 
                    </a>
                   <p>
+                    <!-- <span class="course-description" ng-bind-html='course.Description'></span> -->
                     The titles of Washed Out's breakthrough song and the first single from Paracosm share the
                     two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
                   </p>
+                  <md-divider >
+                  
+                  <md-button ng-click="editCourse(course._id.$oid)"><i class="fa fa-edit"></i></md-button>
+                  <md-button ng-click="deleteCourseDetails(course._id.$oid)"><i class="fa fa-trash"></i></md-button>
+                  </md-divider>
 
                 </md-card-content>
                 
