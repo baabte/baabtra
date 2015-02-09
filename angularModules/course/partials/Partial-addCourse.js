@@ -81,7 +81,7 @@ $scope.totalCourseDuration=0; // course duration in minutes
 
 
 	$scope.tlPopOver={};//obj for bulding context menu of timeline point
-	$scope.tlPopOver.step3={colorClass:'bg-9C27B0'};
+	$scope.tlPopOver.step3={colorClass:'bg-03A9F4'};
   var weHaveGotCrsElementsStep3=addCourseElementService.FnGetCourseElements("");//calling course element function
       weHaveGotCrsElementsStep3.then(function(data){
         $scope.tlPopOver.step3.courseElementlist=angular.fromJson(JSON.parse(data.data));

@@ -40,7 +40,7 @@
           <div class="col-xs-12">
             <label class="ui-checks "><input type="radio" ng-model="course.Fees.free" ng-value="true" ng-change="course.Fees.totalAmount = ''"><i></i>Free</label>
             <label class="ui-checks m-l"><input type="radio"  ng-model="course.Fees.free" ng-value="false"><i></i>Paid</label>
-            <em class="text-muted text-E91E63">( Please specify the type of the Course. )</em>
+            <em class="text-muted text-baabtra-green">( Please specify the type of the Course. )</em>
             <br>           
           </div>
           </div>
@@ -56,7 +56,7 @@
               </ui-select-choices>
             </ui-select>
             </div>
-            <em class="text-muted text-E91E63">Please specify the total fee</em>           
+            <em class="text-muted text-baabtra-green">Please specify the total fee</em>           
           </div>
           
           <!-- Payment Type row -->
@@ -76,7 +76,7 @@
             </ui-select>
               </div>
           </div>
-          <em ng-show="PaymentOpt" class="text-muted text-E91E63">Please specify the payment type.</em>
+          <em ng-show="PaymentOpt" class="text-muted text-baabtra-green">Please specify the payment type.</em>
           </div>
      </div>
     <!-- Right half .End -->
@@ -86,11 +86,11 @@
           <div class="row">
 
             <div class="col-xs-12 am-fade" ng-if="totalCourseDuration">
-              <em class="text-muted text-E91E63">
+              <em class="text-muted text-baabtra-green">
               The time line below represents the total duration of the course. 
               </em>
               <br>
-              <em class="text-muted text-E91E63" ng-if="(course.Fees.free==0)">
+              <em class="text-muted text-baabtra-green" ng-if="(course.Fees.free==0)">
               You can click on any point in the timeline and add a payment check point. A payment check point means an intermediate point of time during the course where the candidate has to pay a certain amount as part of the installments. If you set an arcade mode on this the candidate will not be able to advance without making the specified payment. (Payment check points can also be added while adding course materials)
               </em>
               <course-timeline class="p-v" total-duration="course.Duration.durationInMinutes" ddl-bind-object="ddlBindObject" callback-functions="tlPopOver" sync-data="course" tl-elements="['courseTimeline']" course-id="courseId" err-tooltip = "errTooltip" valid = "valid" course-preview-obj="coursePreviewObject">
