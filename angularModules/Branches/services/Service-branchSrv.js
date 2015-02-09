@@ -1,4 +1,4 @@
-angular.module('baabtra').service('branchSrv',['$http','bbConfig',function branchSrv($http,bbConfig) {
+angular.module('baabtra').service('branchSrv',['$http','bbConfig','$rootScope',function branchSrv($http,bbConfig,$rootScope) {
 
 	this.fnInsertBranch=function($scope,cmp_id,branches,rm_id){
 		 angular.forEach($scope.branches,function(branch)

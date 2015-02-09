@@ -33,7 +33,7 @@ angular.module('baabtra').directive('docViewer',[ '$sce','$modal',function($sce,
 			}
 
 			scope.docObj = JSON.parse(scope.data);			
-			scope.docObjParent = JSON.parse(scope.courseElement);
+			scope.docObjParent = scope.courseElement;
 
 			if(angular.equals(scope.icons[scope.docObj.fileType], undefined)){
 				scope.docIcon = scope.icons["default"].icon;

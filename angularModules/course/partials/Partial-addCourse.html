@@ -1,11 +1,11 @@
 <!-- Steps -->
-<div class="col-xs-12 container text-center">
-	<div class="col-xs-4" style="cursor: pointer;" ng-click="nextPart('home.main.addCourse.step1')">
-		<span class="tl-instance hidden-xs w-lg p-md " ng-class="{'bg-chocolate':currentState=='home.main.addCourse.step1'}">
+<div class="row">
+	<!-- <div class="col-xs-4" style="cursor: pointer;" ng-click="nextPart('home.main.addCourse.step1')">
+		<span class="tl-instance hidden-xs p-md " ng-class="{'bg-chocolate':currentState=='home.main.addCourse.step1'}">
 			<i class="fa fa-bullhorn text-2x "></i>
 			<span>General Info</span>
 		</span>
-		<span class="tl-instance w-xs p-md visible-xs" ng-class="{'bg-chocolate':currentState=='home.main.addCourse.step1'}">
+		<span class="tl-instance p-md visible-xs" ng-class="{'bg-chocolate':currentState=='home.main.addCourse.step1'}">
 			<i class="fa fa-bullhorn text-2x"></i>
 		</span>
 	</div>
@@ -26,13 +26,25 @@
 		<span class="tl-instance w-xs p-md visible-xs" ng-class="{'bg-gold-dark':currentState=='home.main.addCourse.step3'}">
 			<i class="fa fa-puzzle-piece text-2x"></i>
 		</span>
+	</div> -->
+	<div class="col-xs-4 p bg-f44336" style="cursor: pointer;" ng-class="{'course-step-shadow':currentState=='home.main.addCourse.step1'}" ng-click="nextPart('home.main.addCourse.step1')">
+			<i class="fa fa-bullhorn text-2x p-h"></i>
+			<span>General Info</span>
 	</div>
+	<div class="col-xs-4 p bg-baabtra-green" style="cursor: pointer;" ng-class="{'course-step-shadow':currentState=='home.main.addCourse.step2'}" ng-click="nextPart('home.main.addCourse.step2')">
+		<i class="fa fa-clock-o text-2x p-h"></i>
+		<span>Duration & Fee Settings</span>
+	</div>
+	<div class="col-xs-4 p bg-9C27B0" style="cursor: pointer;" ng-class="{'course-step-shadow':currentState=='home.main.addCourse.step3'}" ng-click="nextPart('home.main.addCourse.step3')">
+		<i class="fa fa-puzzle-piece text-2x p-h"></i>
+		<span>Design Course</span>
+	</div>
+	<div name="addCourse-container"  role="main" ui-view></div>
 </div>
 
 <!-- Steps .End -->
 	
-<div name="addCourse-container" class="app-content" role="main" ui-view></div>
-
+	
 <div class="p">
 	<!-- course stream line -->
 	<course-streamline preview-data="coursePreviewObject"></course-streamline>

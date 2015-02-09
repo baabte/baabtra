@@ -35,29 +35,38 @@
 
         </div> -->
 
-          <md-content layout="row"  layout-wrap layout-align="space-around center" >
-              <md-card ng-repeat="course in publishedCourses" flex-sm="95" flex-gt-sm="30" >
-                <img src='{{course.courseImg}}' alt="Washed Out">
-                <md-card-content>
-                
-                   <a ng-click="navigateToCourse(course._id.$oid)" ><h2>
-                   {{course.Name |uppercase| limitTo : 20}}
-                   </h2> 
-                   </a>
-                  <p>
-                    The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-                    two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-                  </p>
+          <md-content class="row-fluid" >
+              <md-card class="col-xs-12 col-sm-6 col-md-4" ng-repeat="course in publishedCourses">
+                <div class="row-fluid p-v">
+                  <div class="col-xs-3">                    
+                      <img src='{{course.courseImg}}' alt="Washed Out" >
+                    
+                      <md-icon class="fa fa-bell-o md-primary md-raised"></md-icon> 
+                      <md-icon class="fa fa-bell-o md-primary md-raised"></md-icon>                 
+               
 
-                </md-card-content>
-                
-              </md-card>
-          </md-content>
+                  </div>
+                   <div class="col-xs-8">
+                      <md-card-content>
+                      
+                         <a ng-click="navigateToCourse(course._id.$oid)" ><h2>
+                         {{course.Name |uppercase| limitTo : 20}}
+                         </h2> 
+                         </a>
+                        
+                          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+                          two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+                        
+
+                      </md-card-content> 
+                  </div> 
+                </div>                
+              </md-content>
+          </div>
 
 
 
 
         </div>
       </div>
-    </div>
-    </div>
+   

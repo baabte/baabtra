@@ -12,7 +12,7 @@ angular.module('baabtra').directive('description', function() {
 
 			scope.docObj = JSON.parse(scope.data);	
 			console.log(scope.docObj);		
-			//scope.docObjParent = JSON.parse(scope.courseElement);
+			scope.docObjParent = scope.courseElement;
 
 		}
 	};

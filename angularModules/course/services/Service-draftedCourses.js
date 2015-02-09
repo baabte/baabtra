@@ -1,22 +1,25 @@
 angular.module('baabtra').service('draftedCourses',['$http','bbConfig',function draftedCourses($http, bbConfig) {
 
-this.fnLoadDraftedCourses = function ($scope){ // this function load in-completed coursers
-	$http({
+this.fnLoadDraftedCourses = function (cmp_id){ // this function load in-completed coursers
+	var draftedCourses = $http({
 		url: bbConfig.BWS+'loadDraftedCourses/',
 		method: "POST",
+		data:{'cmp_id':cmp_id},
 		withCredentials: false,
 		contentType:"application/json",
 		dataType:"json",
 	}).
 	success(function(data, status, headers, config) {
-		$scope.draftedCourses=angular.fromJson(JSON.parse(data));
-		if(!$scope.draftedCourses.length){
-			$scope.WarringMessage="Drafted Courses Not Found..."
-		}
+		return data;
+		// $scope.draftedCourses=angular.fromJson(JSON.parse(data));
+		// if(!$scope.draftedCourses.length){
+		// 	$scope.WarringMessage="Drafted Courses Not Found..."
+		// }
 	}).
 	error(function(data, status, headers, config) {
 
 	});
+	return draftedCourses;
 };
 
 this.fnDeleteCourse = function (manageType, courseId, urmId, courseType){ // this function delete drafted courses
