@@ -214,7 +214,9 @@ $scope.loadTechnologies = function(Query){
 $scope.loadTags =function(Query){
     return $scope.globalValues[1].values.approved;
 };
-
+$scope.course.crmId = $scope.rm_id;
+    $scope.course.companyId =  $scope.cmp_id;
+    $scope.course.urmId = $scope.rm_id;
 $scope.completeStep1 = function(course){//created for build step1 object
 /* Building courseDetails Start */
     var Technologies = [];
@@ -229,9 +231,9 @@ $scope.completeStep1 = function(course){//created for build step1 object
         Tags.push(tag.text);
     });
 
-    $scope.course.crmId = $scope.rm_id;
-    $scope.course.companyId =  $scope.cmp_id;
-    $scope.course.urmId = $scope.rm_id;
+    // $scope.course.crmId = $scope.rm_id;
+    // $scope.course.companyId =  $scope.cmp_id;
+    // $scope.course.urmId = $scope.rm_id;
 
     var courseToBeSave = angular.copy($scope.course);
     courseToBeSave.Tags = Tags;
@@ -368,6 +370,7 @@ $scope.completeStep3 = function(){
   courseToBeSave.urmId = courseToBeSave.urmId.$oid;
   courseToBeSave.draftFlag=1;
 
+console.log(courseToBeSave);
   var toState='home.main.addCourse.step3';
   $alert({title: 'Done..!', content: 'Course has been published successfuly  :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
   addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId ,toState);//saving to database
