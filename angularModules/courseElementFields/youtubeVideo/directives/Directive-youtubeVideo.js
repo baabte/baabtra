@@ -13,7 +13,7 @@ angular.module('baabtra').directive('youtubeVideo',['$sce', function($sce) {
 
 			//converting text data to objects
 			scope.docObj = JSON.parse(scope.data);			
-			scope.docObjParent = JSON.parse(scope.courseElement);
+			scope.docObjParent = scope.courseElement;
 
 			scope.url = scope.docObj.value;
 

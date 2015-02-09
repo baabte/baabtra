@@ -438,6 +438,16 @@
                 }
                 
               })
+              .state('home.main.CandidateCourseDetails', {
+                url: '/CandidateCourseDetails:courseId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-candidateCourseDetail.html',
+                    controller: 'CandidatecoursedetailCtrl'
+                  }
+                }
+                
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'

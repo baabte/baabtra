@@ -16,8 +16,7 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 							if(data instanceof Object){
 							 		var elementToBeCreated=$('<'+data.type+'>');							 		
 							 		elementToBeCreated.attr('data',JSON.stringify(data));
-							 		console.log(scope.previewData);
-							 		elementToBeCreated.attr('course-element',JSON.stringify(scope.previewData));
+							 		elementToBeCreated.attr('course-element',scope.previewData);
 							 		$('#elementContent'+scope.rand).append(elementToBeCreated);
 							}
 					});

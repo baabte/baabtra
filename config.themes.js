@@ -21,6 +21,6 @@ angular.module('baabtra')
      '200', '300', '400', 'A100'],
     'contrastLightColors': undefined    // could also specify this if default was 'dark'
   });
-  console.log($mdThemingProvider.theme('default'));
+  //console.log($mdThemingProvider.theme('default'));
   //$mdThemingProvider.theme('default').primaryPalette('amazingPaletteName')
 });

@@ -1,7 +1,6 @@
 angular.module('baabtra').service('candidateCourseView',['$http','bbConfig',function candidateCourseView($http,bbConfig) {
 
 this.loadCoursesForCandidates=function(courseId){
-	console.log(courseId);
 	var promise = $http({
 		url: bbConfig.BWS+'loadCoursesForCandidates/',
 		method: "POST",

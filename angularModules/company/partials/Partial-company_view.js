@@ -19,7 +19,6 @@ if($rootScope.loggedIn===false){
  $scope.superadminView=true;
  // console.log($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid)
  if(!angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,1)){
-  console.log($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid)
   $scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   $state.params.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   $scope.superadminView=false;
