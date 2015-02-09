@@ -416,3 +416,13 @@ text-align: center;
 box-shadow:10px #888888;
 border-radius: 2px;
 }
+
+/*Style for the indicate-cal directive icon*/
+.indicate-val-icon{
+
+  float:left;
+  margin-right:5px;
+  margin-top:3px;
+
+}
+/*.End Style for the indicate-cal directive icon*/

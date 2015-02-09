@@ -432,7 +432,7 @@ return {
 fg.directive('fgCustomAttributes',['$compile',function ($compile) {
 return {
   restrict: 'A',
-  require:['ngModel', '^fgField'],
+  //require:['ngModel', '^fgField'],
   link: function(scope, elem, attrs, ctrls) {
 
 
