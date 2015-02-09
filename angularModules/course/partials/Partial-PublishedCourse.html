@@ -3,10 +3,10 @@
         <div class="panel-heading p-sm bg-info" >
           <a href="" class="text-md text-ellipsis"><i class="fa fa-globe fa-1x m-r"></i>Published Course</a>
         </div>
-        <div class="panel-body p-sm" >
+<!--         <div class="panel-body p-sm" >
           <div class="col-xs-12" ng-show="!publishedCourses.length>0" >
             <div id="alerts-container" class="animated fadeIn">
-              <div class="alert ng-scope am-fade alert-button bg-danger lt" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
+              <div class="alert ng-scope am-fade alert-button bg-danger lt" ng-class="[type ? 'alert-' + type : null]" style="display: block;">
                 <strong class="ng-binding">Not Found!</strong>&nbsp;
                 <span class="ng-binding">{{WarringMessage}}</span>
                 <i class="ti ti-face-sad text-lg"></i>
@@ -15,7 +15,7 @@
           </div>
           <div class="col-xs-12 col-sm-6 no-padding  col-lg-6 m-t b " ng-repeat="course in publishedCourses" ng-if="publishedCourses.length" >
           
-        <!--  <div class="col-sm-3   b p-xs publishedCourse_shadow1 xs-hidden" style="background:url({{course.courseImg}}) no-repeat; background-size:contain;height:140px;"></div> -->
+      
         <div class="col-md-3 hidden-xs  no-padding">
           <img class="w-full pull-left img-responsive" style="height:140px;" src='{{course.courseImg}}'>
         </div>
@@ -33,8 +33,40 @@
           </div>
         </div>
 
-        </div>
+        </div> -->
+
+          <md-content class="row-fluid" >
+              <md-card class="col-xs-12 col-sm-6 col-md-4" ng-repeat="course in publishedCourses">
+                <div class="row-fluid p-v">
+                  <div class="col-xs-3">                    
+                      <img src='{{course.courseImg}}' alt="Washed Out" >
+                    
+                      <md-icon class="fa fa-bell-o md-primary md-raised"></md-icon> 
+                      <md-icon class="fa fa-bell-o md-primary md-raised"></md-icon>                 
+               
+
+                  </div>
+                   <div class="col-xs-8">
+                      <md-card-content>
+                      
+                         <a ng-click="navigateToCourse(course._id.$oid)" ><h2>
+                         {{course.Name |uppercase| limitTo : 20}}
+                         </h2> 
+                         </a>
+                        
+                          The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+                          two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+                        
+
+                      </md-card-content> 
+                  </div> 
+                </div>                
+              </md-content>
+          </div>
+
+
+
+
         </div>
       </div>
-    </div>
-    </div>
+   

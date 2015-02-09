@@ -36,8 +36,7 @@ branchSrv.fnLoadBranch($scope,companyId);
 $scope.allSync={}; //the variable to pass data in controller to syncdata
 $scope.status={};
 $scope.status.selected=1;
-// $scope.allFunction.newUser=false;
-$scope.allSync.testSpace={};
+$scope.allSync.newUser=false;
 $scope.allSync.FormData={};
 
 
@@ -77,15 +76,13 @@ fnGetCountryStateDistrictCallBack.then(function(data){
 //function for user registration 
 $scope.fnUserRegister =function (argument) {
 
-  if(!angular.equals($scope.allSync.FormData._id,undefined)){
-    $scope.userRegister._id=$scope.allSync.FormData._id.$oid;
-  }
+  
   $scope.userRegister=$scope.allSync.FormData;
   $scope.userRegister.loggedusercrmid=loggedusercrmid;
   $scope.userRegister.companyId=companyId;
 
   //service call for user registration
-  // console.log($scope.userRegister);
+  console.log($scope.userRegister);
 
   var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
 

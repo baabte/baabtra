@@ -14,28 +14,31 @@
       </div>
 
       <div class="panel-body">
-        <form novalidate name="userRegistrationForm" ng-submit="fnUserRegister()" class="form" xt-form editable-form novalidate>
-          <div fg-form fg-form-data="allSync.FormData" form-data="allSync.FormData" sync-data="allSync" fg-schema="formlist.formSchema[status.selected-1].stepFormSchema">
+        <form  name="userRegistrationForm" ng-submit="fnUserRegister()" class="form" xt-form editable-form novalidate>
+          <div novalidate fg-form fg-form-data="allSync.FormData" form-data="allSync.FormData" sync-data="allSync" fg-schema="formlist.formSchema[status.selected-1].stepFormSchema">
           </div>
 
           <div ng-show="status.selected===1" class="col-xs-6 col-xs-offset-3">
-              <a ng-click="status.selected = status.selected+1" class="btn btn-block btn-info" ng-disabled="userRegistrationForm.$invalid"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+              <a ng-click="status.selected = status.selected+1" ng-disabled="userRegistrationForm.$invalid" class="btn btn-block btn-info"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
           </div>
-
+          <!-- ng-disabled="userRegistrationForm.$invalid" -->
           <div ng-show="status.selected<formlist.formSteps+1&&status.selected>1">
            <div class="col-xs-4 col-xs-offset-2">
-              <a ng-click="status.selected = status.selected-1" class="btn btn-block btn-info" ng-disabled="userRegistrationForm.$invalid"><span class="glyphicon glyphicon-circle-arrow-left"></span> Previous Section </a>
+              <a ng-click="status.selected = status.selected-1" ng-disabled="userRegistrationForm.$invalid" class="btn btn-block btn-info"><span class="glyphicon glyphicon-circle-arrow-left"></span> Previous Section </a>
           </div>
           <div class="col-xs-4 ">
-              <a ng-click="status.selected = status.selected+1" class="btn btn-block btn-info" ng-disabled="userRegistrationForm.$invalid"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+              <a ng-click="status.selected = status.selected+1" ng-disabled="userRegistrationForm.$invalid" class="btn btn-block btn-info" > Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
           </div>
           </div>
+          <!-- ng-disabled="userRegistrationForm.$invalid" -->
 
           <div ng-show="status.selected ===formlist.formSteps+1" class="col-xs-12 text-center">
             <span class="glyphicon glyphicon-heart"></span>
             <h3>Its Great You did it!</h3>
     
-            <button type="submit" class="btn btn-danger" ng-disabled="userRegistrationForm.$invalid">Submit</button>
+            <button ng-disabled="userRegistrationForm.$invalid" type="submit" class="btn btn-danger">Submit</button>
+          <!-- ng-disabled="userRegistrationForm.$invalid" -->
+
     <!-- <a href="https://www.instamojo.com/baabte/proceed-to-payment/?data_email={{formData.userInfo.eMail}}&data_name={{formData.personalInfo.firstName+' '+formData.personalInfo.lastName}}&data_readonly=data_amount&data_readonly=data_email&data_amount=100" rel="im-checkout" data-behavior="remote" data-style="flat" data-text="Proceed to pay ?" data-token="83820d4b552a6170ee7f06e69fb84d82"></a><script src="https://d2xwmjc4uy2hr5.cloudfront.net/im-embed/im-embed.min.js"></script> -->
           </div>
 

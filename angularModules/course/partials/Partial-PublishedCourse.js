@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('PublishedcourseCtrl',['$scope','$rootScope','commonService','$state','PublishedCourse',function($scope,$rootScope,commonService,$state,PublishedCourse){
+angular.module('baabtra').controller('PublishedcourseCtrl',['$scope','$rootScope','commonService','$state','PublishedCourse','$alert',function($scope,$rootScope,commonService,$state,PublishedCourse,$alert){
 
 if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       $rootScope.hide_when_root_empty=true;
@@ -22,5 +22,8 @@ $scope.navigateToCourse = function( courseId ){
 $scope.editCourse=function(courseId){
 	$state.go('home.main.addCourse.step1',{courseId:courseId});
 };
+$scope.deleteCourseDetails=function(courseId){
+	
+}
 
 }]);
