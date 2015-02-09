@@ -23,7 +23,6 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
 
             	angular.forEach(scope.$parent.courseElement.courseElementTemplate.fields,function(item){ // looping through item template
                     fieldsTraversedCount++;
-                    console.log(item);
                     if(!angular.equals(item.customlist,undefined)) //checking if it is having a custom attrib or not
                     {
                     	temp[item.name]={}; // each elements in a course element will be stored like this (Ex: Title, file ..etc.)

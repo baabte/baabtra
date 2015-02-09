@@ -1,8 +1,5 @@
 angular.module('baabtra').controller('BranchesCtrl',['$scope','$rootScope','commonService','$state','$alert','$timeout','localStorageService','$aside','branchSrv','manageTreeStructureSrv',function ($scope,$rootScope,commonService,$state,$alert,$timeout,localStorageService,$aside,branchSrv,manageTreeStructureSrv){
 
-if( !angular.element('link#branchCss').length){
-    angular.element('head').append('<link id="branchCss" href="bower_components/angular-ui-tree/demo/css/demo-horizontal.css" rel="stylesheet">');
-}
 
 $scope.branchTree=[];
 $scope.branch="";
@@ -18,7 +15,6 @@ if($rootScope.loggedIn==false){
     $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
     var companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-    console.log(companyId);
     branchSrv.fnLoadBranch($scope,companyId);
         //$scope.companyId="5457526122588a5db73e0b23";
 

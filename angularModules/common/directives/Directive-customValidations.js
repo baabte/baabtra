@@ -46,7 +46,7 @@ angular.module('baabtra')
 
 						
 					delete 	ctrls[1].$error.messages;
-					console.log(ctrls[1].$error);
+					// console.log(ctrls[1].$error);
 				
 
 					//don't show any colors if the form is untouched

@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('courseElementBubble', function() {
+angular.module('baabtra').directive('courseElementBubble',['$dropdown','$rootScope', function($dropdown,$rootScope) {
 	return {
 		restrict: 'E',
 		templateUrl: 'angularModules/courseElements/directives/Directive-courseElementBubble.html',
@@ -16,6 +16,9 @@ angular.module('baabtra').directive('courseElementBubble', function() {
 					scope.status = true;
 				}
 			}
-		}
+			if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,2)){
+				scope.dropdown = [{text:'<i class=\"fa fa-fw fa-edit\"></i>&nbsp;Edit', click:"editCourseElement()"},{text:'<i class=\"fa fa-fw fa-trash\"></i>&nbsp;Remove', click:"removeCourseElement($event)"}];
+			}
+		 }
 	};
-});
+}]);
