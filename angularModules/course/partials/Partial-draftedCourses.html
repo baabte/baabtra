@@ -13,25 +13,21 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 m-t" ng-repeat="course in draftedCourses" ng-if="draftedCourses.length">
-        <div class="panel bg-info lt" >
-          <div class="panel-heading p-v-xs p-h-sm">
-            <a title="click to delete this course" class="pull-right text-muted m-r-xs" ng-click="deleteCourseDetails(course._id.$oid)"><i class="fa fa-trash"></i></a>
+        <div class="panel b-light">
+        <div class="panel-heading">
+          <a title="click to delete this course" class="pull-right text-muted m-r-xs" ng-click="deleteCourseDetails(course._id.$oid)"><i class="fa fa-trash"></i></a>
             <a title="click to edit this course" class="pull-right text-muted m-r-xs" ng-click="editCourseDetails(course._id.$oid)"><i class="fa fa-edit"></i></a>
+        </div>
+        <div class="panel-body">
+          <div ng-if="course.courseImg" class="pull-left pull-none-sm text-center m-r-xs">
+             <img class="img-responsive img-thumbnail w-xs" src="{{course.courseImg}}" alt="Washed Out">
           </div>
-          <div class="panel-body p-sm" >
-            <div class="pull-left p-h text-center m-r-xs">
-              <i class="fa fa-globe fa-4x text-lt"></i>
-            </div>
-            <div class="clear" >
-              <div  class="text-2x font-bold" title="{{course.Name}}">{{course.Name | limitTo : 14}}</div>
-             <!--  <small class="text-muted course-description" ng-bind-html="course.Description?course.Description:'<div class=line>&nbsp;</div>'"></small>
-            </div>
+          <div class="clear m-l">
+            <div class="text-2x font-bold" title="{{course.Name}}">{{course.Name | limitTo : 14}}</div>
+            <!-- <small class="text-muted">Peaked at 14:30 Mon</small> -->
           </div>
         </div>
-      </div> -->
-    </div>
-  </div>
-</div>
+      </div>
 <!-- 
       <md-content ng-if="draftedCourses.length" layout="row" layout-align="space-around center" layout-wrap >
       <md-card ng-repeat="course in draftedCourses" layout="column" flex-sm="95" flex-gt-sm="45" flex-gt-md="30">
