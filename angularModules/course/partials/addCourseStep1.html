@@ -123,7 +123,7 @@
        <div class="form-group col-sm-6 no-padding" >
         <input  f-max-size="500" name="courseImg" type="file" fileupload-dir="course.Img" id="exampleInputFile" ng-model="course.courseImg" ng-multiple="false" accept="image/*" resetOnClick="true" data-placement="top" data-html="true" data-container="body" data-title="Please select an image to represent the course"  bs-tooltip>
         <em ng-if="!course.courseImg" class="text-E91E63">Please select an image to represent the course</em>
-        <div ng-if="course.courseImg">
+        <div >
           <img render-image image="course.courseImg" file-source = "courseImg"  ng-model="course.courseImg" class="img-responsive img-thumbnail m-xs" ng-src="{{course.courseImg}}" />
         </div>
         
