@@ -231,9 +231,9 @@ $scope.completeStep1 = function(course){//created for build step1 object
         Tags.push(tag.text);
     });
 
-    // $scope.course.crmId = $scope.rm_id;
-    // $scope.course.companyId =  $scope.cmp_id;
-    // $scope.course.urmId = $scope.rm_id;
+    $scope.course.crmId = $scope.rm_id;
+    $scope.course.companyId =  $scope.cmp_id;
+    $scope.course.urmId = $scope.rm_id;
     var courseToBeSave = angular.copy($scope.course);
     courseToBeSave.Tags = Tags;
     courseToBeSave.Duration = {durationInMinutes : 525600,DurationDetails : {"Year(s)" : 1}};
