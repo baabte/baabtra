@@ -416,7 +416,6 @@ text-align: center;
 box-shadow:10px #888888;
 border-radius: 2px;
 }
-<<<<<<< HEAD
 
 /*Style for the indicate-cal directive icon*/
 .indicate-val-icon{
@@ -427,11 +426,15 @@ border-radius: 2px;
 
 }
 /*.End Style for the indicate-cal directive icon*/
-=======
+
 .publishedCourse_shadow{
   box-shadow: 1px 1px 1px #888888;
 }
 .publishedCourse_shadow1{
   box-shadow: 0px 1px 1px 0px #888888;
 }
->>>>>>> e0d8f506ab7fad6f653d352b347009b3907fa2b0
+
+/*Error Icon placement in polymer element*/
+.error-icon{
+  margin-top:-30px!important;
+}

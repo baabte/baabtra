@@ -22,6 +22,12 @@ $scope.urmId=$rootScope.userinfo.ActiveUserData.roleMappingObj.urmId;
 	$scope.btnRoleAdd='add';
   manageCompanyRoleService.RetrieveUserRole($scope);
 
+$scope.resetForm = function(){
+  $scope.RoleDesc="";
+  $scope.roleName="";
+  $scope.Form_Adding_form.$pristine = true;
+
+}
 
 $scope.AddCompanyRole=function(){
 	// $scope.progress=true;

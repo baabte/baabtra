@@ -13,7 +13,7 @@ angular.module('baabtra')
 
 			scope.$watch(function (){return elem.context.value;/* define what to watch*/
 }, function() { 
-				
+								
 
 			  		// the array to hold the symbols
 					scope.symbolCollection = {
