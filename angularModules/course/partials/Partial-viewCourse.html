@@ -2,16 +2,15 @@
   <h4 class="no-margin">Course Details</h3>
 </div>
 <div class="col-md-12 p-h-sm p-v-sm bg-white box-shadow ">
-
 	 <div class="row">
 
-	            <div class="col-xs-12 am-fade" ng-if="course._id">
+	            <div class="col-xs-12 am-fade">
 	              <em class="text-muted text-baabtra-green">
 	              The time line below represents the total duration of the course. 
 	              </em>
 	              <br>
 	              
-	              <course-timeline class="p-v" total-duration="course.Duration.durationInMinutes"   sync-data="course" tl-elements="['courseTimeline']" course-id="course._id" valid = "valid" course-preview-obj="coursePreviewObject">
+	              <course-timeline class="p-v" total-duration="course[0].Duration.durationInMinutes"   sync-data="course[0]" tl-elements="['courseTimeline']" course-id="course[0]._id" valid = "valid" course-preview-obj="coursePreviewObject">
 	          </course-timeline>
 	        </div>
 	 </div>
