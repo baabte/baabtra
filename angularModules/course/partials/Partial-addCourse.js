@@ -367,6 +367,7 @@ $scope.completeStep3 = function(){
   // courseToBeSave.crmId = courseToBeSave.crmId.$oid;
   // courseToBeSave.urmId = courseToBeSave.urmId.$oid;
   courseToBeSave.draftFlag=1;
+  courseToBeSave.activeFlag = 1;
   var toState='home.main.addCourse.step3';
   $alert({title: 'Done..!', content: 'Course has been published successfuly  :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
   addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId ,toState);//saving to database
