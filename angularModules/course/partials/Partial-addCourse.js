@@ -81,10 +81,11 @@ $scope.totalCourseDuration=0; // course duration in minutes
 
 
 	$scope.tlPopOver={};//obj for bulding context menu of timeline point
-	$scope.tlPopOver.step3={colorClass:'bg-gold-dark'};
+	$scope.tlPopOver.step3={colorClass:'bg-03A9F4'};
   var weHaveGotCrsElementsStep3=addCourseElementService.FnGetCourseElements("");//calling course element function
       weHaveGotCrsElementsStep3.then(function(data){
         $scope.tlPopOver.step3.courseElementlist=angular.fromJson(JSON.parse(data.data));
+        $scope.tlPopOverEditObject = angular.fromJson(JSON.parse(data.data));
       });
   
 
@@ -213,7 +214,9 @@ $scope.loadTechnologies = function(Query){
 $scope.loadTags =function(Query){
     return $scope.globalValues[1].values.approved;
 };
-
+    $scope.course.crmId = $scope.rm_id.$oid;
+    $scope.course.companyId =  $scope.cmp_id.$oid;
+    $scope.course.urmId = $scope.rm_id.$oid;
 $scope.completeStep1 = function(course){//created for build step1 object
 /* Building courseDetails Start */
     var Technologies = [];
@@ -228,25 +231,19 @@ $scope.completeStep1 = function(course){//created for build step1 object
         Tags.push(tag.text);
     });
 
+    $scope.course.crmId = $scope.rm_id;
+    $scope.course.companyId =  $scope.cmp_id;
+    $scope.course.urmId = $scope.rm_id;
     var courseToBeSave = angular.copy($scope.course);
     courseToBeSave.Tags = Tags;
     courseToBeSave.Duration = {durationInMinutes : 525600,DurationDetails : {"Year(s)" : 1}};
     courseToBeSave.Technologies = Technologies;
     courseToBeSave.updatedDate = Date();
-
-
+    
     if(angular.equals($scope.courseId,"")){
       courseToBeSave.draftFlag = 0;
       courseToBeSave.activeFlag = 1;
       courseToBeSave.createdDate = Date();
-      courseToBeSave.crmId = $scope.rm_id;
-      courseToBeSave.companyId =  $scope.cmp_id;
-      courseToBeSave.urmId = $scope.rm_id;
-    }
-    else{
-      courseToBeSave.crmId = $scope.course.crmId.$oid;
-      courseToBeSave.companyId =  $scope.course.companyId.$oid;
-      courseToBeSave.urmId = $scope.course.urmId.$oid;
     }
 
     if (!angular.equals(courseToBeSave.Name, undefined)) {
@@ -327,12 +324,15 @@ $scope.completeStep2 = function(){
     delete $scope.course.Fees.payment.mode;
   }
   delete $scope.course._id;
-  console.log($scope.course);
   var courseToBeSave = angular.copy($scope.course);
-  courseToBeSave.companyId = courseToBeSave.companyId.$oid;
-  courseToBeSave.crmId = courseToBeSave.crmId.$oid;
-  courseToBeSave.urmId = courseToBeSave.urmId.$oid;
-  console.log(courseToBeSave);
+  courseToBeSave.companyId = $scope.cmp_id;
+  if(angular.equals(courseToBeSave.crmId.$oid,undefined)){
+      courseToBeSave.crmId = courseToBeSave.crmId;
+  }
+  else{
+    courseToBeSave.crmId = courseToBeSave.crmId.$oid;
+  }
+  courseToBeSave.urmId = $scope.rm_id;
   var toState='home.main.addCourse.step3';
   $alert({title: 'Done..!', content: 'Step 2 completed successfuly :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
   addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId ,toState);//saving to database
@@ -363,11 +363,11 @@ $scope.completeStep3 = function(){
 
   var courseToBeSave = angular.copy($scope.course);
   
-  courseToBeSave.companyId = courseToBeSave.companyId.$oid;
-  courseToBeSave.crmId = courseToBeSave.crmId.$oid;
-  courseToBeSave.urmId = courseToBeSave.urmId.$oid;
+  // courseToBeSave.companyId = $scope.cmp_id;
+  // courseToBeSave.crmId = courseToBeSave.crmId.$oid;
+  // courseToBeSave.urmId = courseToBeSave.urmId.$oid;
   courseToBeSave.draftFlag=1;
-
+  courseToBeSave.activeFlag = 1;
   var toState='home.main.addCourse.step3';
   $alert({title: 'Done..!', content: 'Course has been published successfuly  :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
   addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId ,toState);//saving to database

@@ -14,5 +14,7 @@ this.loadPublishedCourses=function($scope){
 	 });
 	
 };
+
+
 	
 }]);

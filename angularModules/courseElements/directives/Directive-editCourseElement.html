@@ -10,10 +10,10 @@
 					<form novalidate xt-form class="form" name="" enctype="multipart/form-data">
 						<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="formData" fg-schema="courseElement.courseElementTemplate"></div>
 						<!-- <div  on-item-click="selectedNestedElem(data,formModal.'+randomKeyForNested+')" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick"></div> -->
-						<button type="submit" ng-click="saveMyFormData($hide)" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn btn-success">Save</button><button type="button" ng-click="createPreviewElement()" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-left btn btn-success">Preview</button>
+						<button type="submit" ng-click="saveMyFormData($hide)" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn btn-success">Save</button><button type="button" ng-click="createPreviewElement('tempCourseDocs')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-left btn btn-success">Preview</button>
 					</form>
 					<div class="clearfix m-v-lg">
-						<course-element-preview tl-position="'+scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].name.replace('s','')+' '+scope.$parent.selectedTpoint+'" preview-data="coursePreviewObj"></course-element-preview>
+						<course-element-preview tl-position="'+scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].name.replace('s','')+' '+scope.$parent.selectedTpoint+'" preview-data="coursePreviewObjAside"></course-element-preview>
 					</div>
 				</div>
 			</div>

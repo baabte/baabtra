@@ -35,7 +35,7 @@ else{
 branchSrv.fnLoadBranch($scope,companyId);
 $scope.allSync={}; //the variable to pass data in controller to syncdata
 $scope.status={};
-$scope.status.selected=1;
+$scope.status.selected=0;
 $scope.allSync.newUser=false;
 $scope.allSync.FormData={};
 
@@ -82,7 +82,7 @@ $scope.fnUserRegister =function (argument) {
   $scope.userRegister.companyId=companyId;
 
   //service call for user registration
-  console.log($scope.userRegister);
+  // console.log($scope.userRegister);
 
   var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
 
@@ -92,7 +92,7 @@ fnRegisterUserCallBack.then(function(data){
  var result=angular.fromJson(JSON.parse(data.data));
 
      $scope.notifications('Yaay..!','Registered Successfully','success');   
-
+     $state.go('home.main');
 });
 
 };

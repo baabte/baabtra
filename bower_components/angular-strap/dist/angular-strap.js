@@ -1484,7 +1484,6 @@ angular.module('mgcrea.ngStrap.dropdown', ['mgcrea.ngStrap.tooltip'])
       restrict: 'EAC',
       scope: true,
       link: function postLink(scope, element, attr, transclusion) {
-
         // Directive options
         var options = {scope: scope};
         angular.forEach(['placement', 'container', 'delay', 'trigger', 'keyboard', 'html', 'animation', 'template'], function(key) {
@@ -1494,6 +1493,9 @@ angular.module('mgcrea.ngStrap.dropdown', ['mgcrea.ngStrap.tooltip'])
         // Support scope as an object
         attr.bsDropdown && scope.$watch(attr.bsDropdown, function(newValue, oldValue) {
           scope.content = newValue;
+          if(!newValue){
+            dropdown.destroy();
+          }
         }, true);
 
         // Visibility binding support

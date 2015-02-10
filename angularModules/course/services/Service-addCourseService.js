@@ -33,6 +33,8 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	 	}).
 	 	success(function(data, status, headers, config) {
 	 			var result=angular.fromJson(JSON.parse(data));
+	 			//$scope.course 
+	 			console.log(result);
                }).
 	 	error(function(data, status, headers, config) {
 	 		
@@ -41,7 +43,7 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	 };
 	
 	this.editCourseTimelineElement = function (courseId, courseElemName, tlPoint, courseObj, rmId){ // functon that call web service to remove course element
-	 	$http({
+	 	var promise = $http({
 	 		url: bbConfig.BWS+'editCourseElement/',
 	 		data: {"courseId":courseId, "courseElemName":courseElemName, "tlPoint":tlPoint,"courseObj":courseObj, "rmId":rmId},
 	 		method: "POST",
@@ -50,11 +52,14 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	 		dataType:"json",
 	 	}).
 	 	success(function(data, status, headers, config) {
-	 			//var result=angular.fromJson(JSON.parse(data));
+	 			return data;
+	 			// var result=angular.fromJson(JSON.parse(data));
+	 			// $scope.course = result[0];
 	 		}).
 	 	error(function(data, status, headers, config) {
 	 		
 	 	});
+	 	return promise;
 	 };
 
 	 this.removeCourseTimelineElement = function (courseId, courseElemName, tlPoint, index, rmId){ // functon that call web service to remove course element
@@ -105,7 +110,10 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	}).
 	success(function(data, status, headers, config) {
 		var result=angular.fromJson(JSON.parse(data));
-		return $scope.course = result[0];
+		$scope.course = result[0];
+		$scope.course.crmId = $scope.course.crmId.$oid;
+    	$scope.course.companyId =  $scope.course.companyId.$oid;
+    	$scope.course.urmId = $scope.course.urmId.$oid;
 	}).
 	error(function(data, status, headers, config) {
 
