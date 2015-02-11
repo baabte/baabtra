@@ -400,13 +400,23 @@
               })
               .state('home.JobPosting', {
                 url: '/JobPosting',
-                templateUrl: 'angularModules/company/partials/Partial-JobPosting.html',
-                controller: 'JobpostingCtrl'
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/company/partials/Partial-JobPosting.html',
+                    controller: 'JobpostingCtrl'
+                  }
+                }
+                
               })
                 .state('home.ViewJobs', {
                 url: '/ViewJobs',
-                templateUrl: 'angularModules/company/partials/Partial-ListJobs.html',
-                controller: 'ListjobsCtrl'
+                views:{
+                  'innercontent':{
+                  templateUrl: 'angularModules/company/partials/Partial-ListJobs.html',
+                  controller: 'ListjobsCtrl'
+                }
+              }
+                
               })
                 .state('home.main.PublishedCourse', {
                 url: '/PublishedCourse',
