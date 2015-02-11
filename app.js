@@ -2,6 +2,8 @@
 
     'use strict';
 
+    window.addEventListener('polymer-ready', function() { angular.bootstrap(wrap(document), ['baabtra']); });
+
     /**
      * @ngdoc overview
      * @name app
@@ -49,7 +51,10 @@
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';
 })
-      
+
+
+
+
 
 }());
 

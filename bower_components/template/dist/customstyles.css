@@ -426,6 +426,10 @@ border-radius: 2px;
 
 }
 /*.End Style for the indicate-cal directive icon*/
+<<<<<<< HEAD
+
+=======
+>>>>>>> 3cd6f66edb6bb825078dad31cf78c7bfb59a1149
 .publishedCourse_shadow{
   box-shadow: 1px 1px 1px #888888;
 }
@@ -436,3 +440,4 @@ border-radius: 2px;
 .hide-ul > ul{
   display: none!important;
 }
+
