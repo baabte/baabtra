@@ -129,15 +129,23 @@
                 templateUrl: 'angularModules/company/partials/Partial-manage_user_role.html',
                 controller:'ManageUserRoleCtrl'
               })
-              .state('home.feature_config', {
-                url: '/feature_config',
+              .state('home.main.featureConfig', {
+                url: '/featureConfig',
+                 views:{
+                  'innercontent':{
                 templateUrl: 'angularModules/feature/partials/Partial-feature_config.html',
                 controller:'FeatureConfigCtrl'
+                   }
+                }
               })
-              .state('home.billing_plans', {
-                url: '/billing_plans',
+              .state('home.main.billingPlans', {
+                url: '/billingPlans',
+                 views:{
+                  'innercontent':{
                 templateUrl: 'angularModules/billing/partials/Partial-billing_plans.html',
                 controller:'BillingPlansCtrl'
+                   }
+                }
               })
               .state('home.main.roleMenuMapping', {
                 url: '/roleMenuMapping',
@@ -297,55 +305,7 @@
                 }
                 
               })
-              .state('home.main.userRegistration.step1', {
-                url: '/step1',
-                views:{
-                  'userRegistration-container':{
-             
-                    templateUrl: 'angularModules/user/partials/step1_UserInfo.html'
-                     // controller: 'UserregistrationCtrl'
-
-                  }
-                }
-                
-              })
-              .state('home.main.userRegistration.step2', {
-                url: '/step2',
-                views:{
-                  'userRegistration-container':{
-             
-                    templateUrl: 'angularModules/user/partials/step2_UserInfo.html'
-                     // controller: 'UserregistrationCtrl'
-
-                  }
-                }
-                
-              })
-               .state('home.main.userRegistration.step3', {
-                url: '/step3',
-                views:{
-                  'userRegistration-container':{
-             
-                    templateUrl: 'angularModules/user/partials/step3_SocialProfile.html'
-                     // controller: 'UserregistrationCtrl'
-
-                  }
-                }
-                
-              })
-               .state('home.main.userRegistration.step4', {
-                url: '/step4',
-                views:{
-                  'userRegistration-container':{
-             
-                    templateUrl: 'angularModules/user/partials/step4_OfficeAdmin.html'
-                     // controller: 'UserregistrationCtrl'
-
-                  }
-                }
-                
-              })
-
+              
                .state('home.main.userRegistration.step5', {
                 url: '/step5',
                 views:{
@@ -398,25 +358,23 @@
                      controller: 'UserregistrationCtrl'
 
               })
-              .state('home.JobPosting', {
+              .state('home.main.JobPosting', {
                 url: '/JobPosting',
                 views:{
                   'innercontent':{
-                    templateUrl: 'angularModules/company/partials/Partial-JobPosting.html',
-                    controller: 'JobpostingCtrl'
+                      templateUrl: 'angularModules/company/partials/Partial-JobPosting.html',
+                      controller: 'JobpostingCtrl'
                   }
                 }
-                
               })
-                .state('home.ViewJobs', {
+                .state('home.main.ViewJobs', {
                 url: '/ViewJobs',
-                views:{
+                  views:{
                   'innercontent':{
-                  templateUrl: 'angularModules/company/partials/Partial-ListJobs.html',
-                  controller: 'ListjobsCtrl'
+                templateUrl: 'angularModules/company/partials/Partial-ListJobs.html',
+                controller: 'ListjobsCtrl'
+                  }
                 }
-              }
-                
               })
                 .state('home.main.PublishedCourse', {
                 url: '/PublishedCourse',
