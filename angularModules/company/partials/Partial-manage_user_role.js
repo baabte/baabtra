@@ -71,14 +71,7 @@ $scope.fnAddNewRollCallBack=function(data){ //callback function for handle Add n
 
 $scope.fnRertrivecompanyRoleCallBack=function(data){ //callback function for handle Edit role of the company         
  $scope.roles=angular.fromJson(JSON.parse(data));
- // console.log($scope.roles);
- if($scope.roles=="error"||$scope.roles=="failed"){
-   // alert("Error in loading");
- } 
- else if($scope.roles.length<1) 
- {
-  // alert("you have no roles");
-}             
+
 };
 $scope.fnEditUserRoleCallBack=function(data){ //callback function for handle Edit role of the company         
  data=angular.fromJson(JSON.parse(data));

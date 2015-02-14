@@ -413,6 +413,16 @@
                     templateUrl: 'angularModules/course/partials/Partial-candidateCourseDetail.html',
                     controller: 'CandidatecoursedetailCtrl'
                   }
+                } 
+                
+              })
+              .state('home.main.userProfile', {
+                url: '/userProfile',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/profile/partials/Partial-userProfile.html',
+                    controller: 'UserprofileCtrl'
+                  }
                 }
                 
               })
