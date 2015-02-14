@@ -1,8 +1,17 @@
+/* 
+    Created by:lijin
+    Created on:13-02-2015
+    use: This can be used for displaying question input
+    Example:"<question-field></question-field>"
+    required attributes:
+*/
+
+
 angular.module('baabtra').directive('questionField', function() {
 	return {
 		restrict: 'E',
 		replace: true,
-		scope: {
+		scope: { // should take an input object to bind the output
 
 		},
 		templateUrl: 'angularModules/formGenFields/questionField/directives/Directive-questionField.html',

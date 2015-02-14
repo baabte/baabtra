@@ -18,12 +18,17 @@
 					</paper-input-decorator>
 				</div>
 
-				<div class="col-xs-4 m-v-lg">
+				<!-- palette Name -->
+				<div class="col-xs-2 m-v-lg">
 					<div class="paper-dropdown">
 					<select placeholder="Select palette" data-animation="am-fade-and-slide-top"  ng-model="element.paletteName" ng-options="value.name as value.name for (key, value) in palette" data-html="true" bs-select></select>
 					</div>
 				</div>
 
+				<div class="col-xs-2 m-v-lg">
+					<icon-chooser selected-icon="element.icon"></icon-chooser>
+				</div>
+				
 				<!-- Default template -->
 				<div class="col-xs-12">
 					<paper-input-decorator label="Default template" floatinglabel>
