@@ -21,7 +21,6 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 			//setting selected duration type as first object
 			scope.selectedDuration="4";
 
-
 			scope.formData=new Object();//used to save datas from timeline
 
 			//These are kept in rootscope as these are to be availble throughout the application
@@ -49,6 +48,8 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 					var newTlPoint = 1;
 					scope.timeLineView = {};
 					var containerCount = 0;
+					scope.containerHeight = 95;
+					
 					if(angular.equals(name,'Minute')){
 						scope.timeLineView = angular.copy(scope.syncData.courseTimeline);
 					}
@@ -71,7 +72,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 								}
 							});
 							});
-							scope.containerHeight = 30/containerCount + (containerCount*80);
+							scope.containerHeight = 30/containerCount + (containerCount*90);
 						});
 					}
 				}

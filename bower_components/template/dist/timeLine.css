@@ -13,16 +13,12 @@
 }
 
 .tl-point{
-  /*background: #dddddd;
-	max-height: 1px;
-	display: inline-block;
-	border-bottom:1px solid #999999;
-	float: left;
-	margin-left: 2px;
-	padding-bottom:7px;
-	padding-left: 0px;*/
-  width: 10px;
-	font-size: 10px;
+color:#AB47BC;
+cursor: pointer;
+}
+
+.tl-point:hover{
+  color: #4A148C;
 }
 .tl-point:hover{
 	border-color: blue;
@@ -229,7 +225,7 @@ margin-left: -100px;
 .timeline-outer-container{
   margin-top: -20px;
   list-style-type: none;
-    margin: 18px 0px 0px -18px;
+    margin: 18px 0px 0px -11px;
     padding: 0;
 }
 
@@ -254,8 +250,20 @@ z-index: 0;
   padding-top:10px;
   overflow-x:hidden;
 }*/
-.timeline-item:hover{
+.timeline-outer-container:hover{
   position: relative;
   /*overflow:visible;*/
-  z-index: 3;
+  z-index: 1;
+}
+
+
+.hover-content:hover > .hover-content-child{
+display: inline-block;
+}
+.hover-content > .hover-content-child{
+display: none;
+}
+
+.hover-content:hover .hover-content-child-hide{
+  display: none;
 }
