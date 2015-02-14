@@ -438,6 +438,27 @@ border-radius: 2px;
   display: none!important;
 }
 
+
+/* Added for customize paper radio button group*/
+
+
+.teal-300 > paper-radio-button[checked]::shadow #offRadio {
+  border-color: #4DB6AC;  
+}
+.teal-300 > paper-radio-button::shadow #onRadio {
+  background-color: #4DB6AC;
+}
+.teal-300 > paper-radio-button::shadow #ink[checked] {
+  color:  #4DB6AC;
+}
+/*.lime > paper-radio-button::shadow #offRadio {
+  border-color: #8bc34a;
+}*/
+.teal-300 > paper-radio-button::shadow #ink[checked] {
+  color: #4DB6AC;
+}
+
+/* end of paper radio button styles*/
 .baab-btn{
   height:30px;
   line-height: 10px;
