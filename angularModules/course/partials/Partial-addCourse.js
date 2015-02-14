@@ -7,7 +7,7 @@ angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$root
     commonService.GetUserCredentials($scope);
     $rootScope.hide_when_root_empty=false;
   }
-
+  
   if(angular.equals($rootScope.loggedIn,false)){
     $state.go('login');
   }
@@ -90,8 +90,9 @@ $scope.totalCourseDuration=0; // course duration in minutes
   
 
 $scope.currentState=$state.current.name;
-$scope.nextPart = function(state){
+$scope.nextPart = function(state,borderClass){
     if(!angular.equals($scope.courseId,"")){
+      $scope.borderClass = borderClass;
       $scope.currentState=state;
       $state.go(state,{'courseId':$scope.courseId});
     }
@@ -248,7 +249,7 @@ $scope.completeStep1 = function(course){//created for build step1 object
 
     if (!angular.equals(courseToBeSave.Name, undefined)) {
       var path='Course/courseImage';
-
+      console.log(course);
       if(!angular.equals(course.Img,undefined)){
       var promise = addCourseService.fnCourseFileUpload(course.Img, path);
        promise.then(function(data){ // call back function for the fileupload

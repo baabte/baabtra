@@ -43,8 +43,7 @@ angular.module('baabtra').directive('durationSelector', function() {
 			    scope.addeddurationTypes = [];				
 				for(key in scope.duration ){					
 				scope.addeddurationTypes.push({id: scope.getDurationIdByName(key),name: key,Duration:scope.duration[key], selected:{id: scope.getDurationIdByName(key),name: key}});
-				};
-				console.log(scope.addeddurationTypes);
+				}
 			}
 			else{
 				scope.addeddurationTypes = [{id: "1",name: "Year(s)",Duration:1, selected:{id: "1",name: "Year(s)"}}];

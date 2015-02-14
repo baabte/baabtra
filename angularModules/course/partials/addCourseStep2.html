@@ -1,6 +1,6 @@
 <!-- Outer Panel  -->
 <form name="generalInfo" class="form-validation ng-pristine ng-invalid ng-invalid-required">
-<div class="panel panel-default m-t p-md p-v-xs">
+<div class="panel panel-default m-t p-md p-v-xs b-b b-5x {{borderClass}}">
   
 
   <!-- body row -->
@@ -102,7 +102,7 @@
 <div class="row">
   <div class="col-xs-12 m-b">
     <footer class="text-right">
-     <button type="submit" class="btn btn-info" ng-disabled="generalInfo.$invalid || !totalCourseDuration" disabled="disabled" ng-click="completeStep2();" >Next</button>
+     <button  type="submit" class="btn btn-info" ng-disabled="generalInfo.$invalid || !totalCourseDuration" disabled="disabled" ng-click="completeStep2();" >Next</button>
     </footer>   
   </div>
 </div>

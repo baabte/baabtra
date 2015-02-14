@@ -8,7 +8,7 @@
      * # Config
      * Config for the pages router
      */
-    angular.module('baabtra')
+     angular.module('baabtra')
       .config(
         ['$stateProvider', '$urlRouterProvider',
           function ( $stateProvider,   $urlRouterProvider ) {
@@ -416,6 +416,16 @@
                 }
                 
               })
+              .state('home.main.courseElementFieldsManaging', {
+                url: '/courseElementFieldsManaging',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html',
+                    controller: 'CourseelementfieldsmanagingCtrl'
+                  }
+                }
+                
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'
@@ -443,6 +453,16 @@
               .state('505', {
                 url: '/505',
                 templateUrl: 'views/pages/505.html'
+              })
+              .state('home.main.test', {
+                url: '/test',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/test/partials/Partial-test.html',
+                    controller: ''
+                  }
+                }
+                
               });
 
 

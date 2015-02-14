@@ -206,7 +206,7 @@ height: 66px;
 
 .breadCrumb li{
   display:inline-block !important;
-  padding: 15px;
+  padding: 14.5px;
   margin-top: -10px;
   margin-left: -10px;
 }
@@ -426,10 +426,7 @@ border-radius: 2px;
 
 }
 /*.End Style for the indicate-cal directive icon*/
-<<<<<<< HEAD
 
-=======
->>>>>>> 3cd6f66edb6bb825078dad31cf78c7bfb59a1149
 .publishedCourse_shadow{
   box-shadow: 1px 1px 1px #888888;
 }
@@ -441,3 +438,46 @@ border-radius: 2px;
   display: none!important;
 }
 
+
+/* Added for customize paper radio button group*/
+
+
+.teal-300 > paper-radio-button[checked]::shadow #offRadio {
+  border-color: #4DB6AC;  
+}
+.teal-300 > paper-radio-button::shadow #onRadio {
+  background-color: #4DB6AC;
+}
+.teal-300 > paper-radio-button::shadow #ink[checked] {
+  color:  #4DB6AC;
+}
+/*.lime > paper-radio-button::shadow #offRadio {
+  border-color: #8bc34a;
+}*/
+.teal-300 > paper-radio-button::shadow #ink[checked] {
+  color: #4DB6AC;
+}
+
+/* end of paper radio button styles*/
+.baab-btn{
+  height:30px;
+  line-height: 10px;
+}
+
+/*paper dropdown menu*/
+paper-dropdown-menu > .dropdown{
+  position: absolute;
+}
+
+.paper-dropdown > button{
+  border: none!important;
+border-bottom: 1px solid #666666!important;
+cursor: pointer!important;
+}
+
+.paper-file{
+  border: none;
+border-bottom: 1px solid #666666;
+margin-bottom: 20px;
+margin-top: 10px;
+}
