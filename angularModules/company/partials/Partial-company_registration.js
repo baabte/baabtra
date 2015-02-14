@@ -1,5 +1,5 @@
 
-angular.module('baabtra').controller('CompanyRegistrationCtrl',['$scope','commonService','companyRegistrationService','localStorageService','$location','$alert','$rootScope', function ($scope,commonService,companyRegistrationService,localStorageService,$location,$alert,$rootScope) {
+angular.module('baabtra').controller('CompanyRegistrationCtrl',['$scope','commonService','companyRegistrationService','localStorageService','$location','$alert','$state','$rootScope', function ($scope,commonService,companyRegistrationService,localStorageService,$location,$alert,$state,$rootScope) {
    
         
 
@@ -136,43 +136,27 @@ fnUserNameValidCallBack.then(function(data){
       $scope.companyRegData.loggedusercrmid=loggedusercrmid;
 
 
-      console.log($scope.company);
-      companyRegistrationService.fnCompanyRegister($scope,$scope.companyRegData);
-      $scope.companyButtonDisable=true;
-      $scope.companyLoading=true;
-      
+      console.log($scope.companyRegData);
+    var fnGetCompanyRegisterDetailsCallBack=companyRegistrationService.fnCompanyRegister($scope.companyRegData);
+      // $scope.companyButtonDisable=true;
+      // $scope.companyLoading=true;
+      fnGetCompanyRegisterDetailsCallBack.then(function(data){
+        $scope.notifications('Success','Company Registered Successfuly','success');
+        // console.log(data.data);
+        var result=angular.fromJson(JSON.parse(data.data));
+        $state.go('home.main.company.manage.billing-config',{'companyId':result.companyId});
+        // console.log(result);
+        $scope.companyButtonDisable=false;
+        $scope.companyLoading=false;
+      });
+
       }
   };
  
 
 
 
-// $scope.fnGetCountryStateDistrictCallBack=function(result){
-//    if(result==='error'){
-//         $scope.notifications('opps!','Error in connecting to server','danger');
-//       }
 
-// };
-
-  // $scope.fnUserCheckCallBack=function(result){
-  //   // if(result.userCheck===1){
-  //   //     $scope.companyregistrationform.companyEmail.$error.alreadyUsed =true;
-  //   //     $scope.notifications('UserName already in Use!','fa-warning');
-  //   //   }
-  //   //  if(result.userCheck===0){
-  //   //     $scope.companyregistrationform.companyEmail.$error.alreadyUsed =false;
-  //   //   }
-  //   // if(result==='error'){
-  //   //     $scope.notifications('Error in Username Checking','fa-warning');
-  //   //   }  
-  //    if(result.userCheck===1){   //if the email id already registered
-  //      $scope.existingEmail=$scope.company.eMail; //setting the existing email id to scope variable for validation.
-  //      $scope.notifications('Error!','UserName already in Use!','danger');
-  //     }
-  //     if(result.userCheck===0){ //if not matching existing registered email
-      
-  //    }
-  // };
 
 $scope.fnGetCompanyRegisterDetailsCallBack=function(result){
   if(result==='success'){
@@ -189,7 +173,7 @@ $scope.fnGetCompanyRegisterDetailsCallBack=function(result){
         $scope.companyLoading=false;
         // $scope.companyregistrationform.$invalid;
         //$scope.companyregistrationform.reset();
-        $scope.companyButtonDisable=true;
+        // $scope.companyButtonDisable=true;
       }  
     if(result==='fileErr'){
         $scope.notifications('Error!','Unsupported Picture Format','danger');
