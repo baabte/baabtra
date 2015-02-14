@@ -12,7 +12,7 @@
      *
      * Main module of the application.
      */
-    angular
+    var baabtra = angular
       .module('baabtra', [
         'ngAnimate',
         'ngCookies',
@@ -36,7 +36,7 @@
         'uiRouterStyles',
         'schemaForm',
         'ui.select',
-        'fg',
+        function(){  return 'fg';}(),
         'ui.bootstrap.contextMenu',
         'ngFacebook',
         'perfect_scrollbar',
@@ -51,10 +51,6 @@
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';
 })
-
-
-
-
 
 }());
 
