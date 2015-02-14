@@ -469,7 +469,7 @@ paper-dropdown-menu > .dropdown{
   position: absolute;
 }
 
-.paper-dropdown > button{
+.paper-dropdown > button ,.icon-paper-btn{
   border: none!important;
 border-bottom: 1px solid #666666!important;
 cursor: pointer!important;
@@ -479,8 +479,9 @@ cursor: pointer!important;
   border: none;
 border-bottom: 1px solid #666666;
 margin-bottom: 20px;
-margin-top: 10px;
+margin-top: 20px;
 }
+
 
 /*ngqull text editor border none*/
 #content-container{
@@ -490,3 +491,7 @@ margin-top: 10px;
   border:none!important;
 }
 /*ngqull text editor border none*/
+
+li:has( > a .dropdown-submenu-title){
+  background-color: red;
+}
