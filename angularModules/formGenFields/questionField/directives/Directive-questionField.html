@@ -1,0 +1,26 @@
+<div>
+				<paper-input-decorator label="Title (optional)" floatinglabel="">
+      					<input is="core-input" name="questionTitle" ng-model="question.title">
+    			</paper-input-decorator>
+
+    			<paper-input-decorator label="Question" floatinglabel="">
+      					 <ng-quill-editor name="questionDesc" ng-model="question.question"  toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" required xt-validate editor-required="true" error-class="input-error"></ng-quill-editor>
+    			</paper-input-decorator>
+
+    			
+    			<paper-radio-group class="am-fade" ng-if="outputPlainText(question.question).length>0">
+				  <paper-radio-button value="objective"  radio-model="question.type"  name="objective" label="Objective"></paper-radio-button>
+				  <paper-radio-button value="descriptive"  radio-model="question.type" name="descriptive" label="Descriptive"></paper-radio-button>
+				</paper-radio-group>
+				<div ng-if="question.type=='objective'" class="col-xs-12 p">
+					<paper-radio-group class="am-fade teal-300" selected="singleAnswer" ng-if="question.type=='objective'&&outputPlainText(question.question).length>0">
+					  <paper-radio-button name="singleAnswer" label="Single Answer"></paper-radio-button>
+					  <paper-radio-button name="multiAnswer" label="Multi Answer"></paper-radio-button>
+					</paper-radio-group>
+				</div>
+{{question.answers}}
+				<objective-options-field answers="question.answers"></objective-options-field>
+
+
+
+</div>

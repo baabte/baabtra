@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="baabtra">
 <head>
   <meta charset="utf-8" />
   <title>Baabtra.com</title>
@@ -55,7 +55,6 @@
 </div>
 <div ng-hide="hide_when_root_empty">
   <div class="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-top':app.settings.asideTop}" ui-view ng-controller="MainCtrl"></div>
-
 <!-- build:js(.) js/script.min.js -->
 <!-- bower:js -->
 <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -220,6 +219,9 @@
   <script src="angularModules/course/partials/Partial-candidateCourseDetail.js"></script>
   <script src="angularModules/course/services/Service-candidateCourseDetail.js"></script>
   <script src="angularModules/courseElementFields/paymentCheckpoint/directives/Directive-paymentCheckpoint.js"></script>
+  <script src="angularModules/formGenFields/questionField/directives/Directive-questionField.js"></script>
+  <script src="angularModules/common/directives/Directive-radioModel.js"></script>
+  <script src="angularModules/questionRelated/objectiveOptionsField/directives/Directive-objectiveOptionsField.js"></script>
   <!-- Add New Component JS Above -->
 <!-- endbuild -->
 </div>

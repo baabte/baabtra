@@ -1,0 +1,5 @@
+<div class="col-xs-12 p">
+	<paper-input-decorator ng-repeat="(key,val) in answers track by key" label="Option {{optionsArray[$index]}}" floatinglabel="">
+      	<input is="core-input" ng-change="ansChanged(answers[optionsArray[$index]],$index)" name="questionTitle" ng-model="answers[optionsArray[$index]]">
+    </paper-input-decorator>
+</div>{{question.answers}}
