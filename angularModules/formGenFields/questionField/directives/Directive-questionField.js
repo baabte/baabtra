@@ -18,6 +18,8 @@ angular.module('baabtra').directive('questionField', function() {
 			};
 
 			scope.question={};
+			scope.question.type="objective";
+			scope.question.answerType="singleAnswer";
 
 		}
 	};
