@@ -15,7 +15,7 @@ $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fr
     $scope.currentState=toState.name;
   }
 });
-console.log($rootScope.userinfo.ActiveUserData);
+// console.log($rootScope.userinfo.ActiveUserData);
 //getting user crmid and data user id 
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
  var userId=$rootScope.userinfo.ActiveUserData.userLoginId;//user id
