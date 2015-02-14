@@ -426,6 +426,15 @@
                 }
                 
               })
+              .state('home.main.test', {
+                url: '/test',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/test/partials/Partial-test.html',
+                    controller: 'TestCtrl'
+                  }
+                }
+              })
               .state('home.main.courseElementFieldsManaging', {
                 url: '/courseElementFieldsManaging',
                 views:{
@@ -463,16 +472,6 @@
               .state('505', {
                 url: '/505',
                 templateUrl: 'views/pages/505.html'
-              })
-              .state('home.main.test', {
-                url: '/test',
-                views:{
-                  'innercontent':{
-                    templateUrl: 'angularModules/test/partials/Partial-test.html',
-                    controller: ''
-                  }
-                }
-                
               });
 
 
