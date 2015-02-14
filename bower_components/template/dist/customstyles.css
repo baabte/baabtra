@@ -460,3 +460,12 @@ border-bottom: 1px solid #666666;
 margin-bottom: 20px;
 margin-top: 10px;
 }
+
+/*ngqull text editor border none*/
+#content-container{
+  border:none!important;
+}
+.advanced-wrapper{
+  border:none!important;
+}
+/*ngqull text editor border none*/
