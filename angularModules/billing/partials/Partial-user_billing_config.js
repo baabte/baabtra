@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('UserBillingConfigCtrl',['$scope','commonService','userBillingConfigService','userFeatureConfigService','$location','$alert','$state','$modal','schemaForm', function ($scope,commonService,userBillingConfigService,userFeatureConfigService,$location,$alert,$state,$modal,schemaForm){
+angular.module('baabtra').controller('UserBillingConfigCtrl',['$scope','$rootScope','commonService','userBillingConfigService','userFeatureConfigService','$location','$alert','$state','$modal','schemaForm', function ($scope,$rootScope,commonService,userBillingConfigService,userFeatureConfigService,$location,$alert,$state,$modal,schemaForm){
 
 
 if(!$rootScope.userinfo){
@@ -6,19 +6,19 @@ if(!$rootScope.userinfo){
    $rootScope.hide_when_root_empty=false;
 }
 
-if($rootScope.loggedIn==false){
+if($rootScope.loggedIn===false){
  $state.go('login');
 }
 
 
-console.log($rootScope.userinfo.ActiveUserData.roleMappingId.$oid);
+// console.log($rootScope.userinfo.ActiveUserData.roleMappingId.$oid);
 
- var loggedusercrmid=loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+ var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 
 
 
 	$scope.companyId=$state.params.companyId;
-	// console.log($scope.companyId);
+	console.log($scope.companyId);
     userBillingConfigService.FnGetUserPlan($scope);
     userBillingConfigService.FnGetPlan($scope);
     userBillingConfigService.FnGetFeature($scope);
@@ -30,6 +30,9 @@ $scope.PlanChangeTT="Warning changing plan will lead loss of current plan";
 $scope.PriceConfigTT="Click to edit Price";
 $scope.BillConfigTT="Click to edit Billing";
 //variables for iteration 
+ $scope.userplan={};
+ $scope.userplan.plan={};
+ $scope.userplan.plan.features=[];
 var i;
 
 //funtion to change the user plan to some pre defined plan
@@ -107,7 +110,7 @@ else if($scope.sel.freqency!=='custom'){
 // console.log("feature1");
 // console.log(feature1);
 
-  var index = $scope.featurelist.indexOf( feature1 );
+  var index = $scope.featurelist.indexOf(feature1);
    // console.log("feature @addfeature");
    // console.log(feature1);
    // feature1=[];
@@ -136,7 +139,7 @@ else if($scope.sel.freqency!=='custom'){
       // console.log($scope.FeatureConfig);
       $scope.AddFeature.loggedusercrmid=loggedusercrmid;
 
-      userBillingConfigService.FnAddFeature($scope);
+      // userBillingConfigService.FnAddFeature($scope);
 };
 //function to add a feature to user plan will update the clnuserfeatureconfig
 //runs along with funtion addfeature
@@ -205,7 +208,7 @@ $scope.saveFeature = function(){
   $scope.configValues.loggedusercrmid=loggedusercrmid;
   
   userFeatureConfigService.FnSaveFeaturesConfig($scope);
-  userBillingConfigService.FnAddFeature($scope);
+ 
 
 
 };
@@ -333,6 +336,8 @@ $scope.fnChangeUserPlanCallBack=function(result){
   if(result==='success'){
         userBillingConfigService.FnGetUserPlan($scope);
         userBillingConfigService.FnGetFeature($scope);
+      $scope.notifications('Done!','User Plan Switched Successfully','info');
+
       }
 
    if(result==='error'){
@@ -358,7 +363,7 @@ $scope.fnAddFeatureCallBack=function(result){
 if(result==='success'){
       userBillingConfigService.FnGetUserPlan($scope);
         userBillingConfigService.FnGetFeature($scope);
-        
+      $scope.notifications('Done!','Feature Added Successfully','info');
       }
 
    if(result==='error'){
@@ -397,10 +402,9 @@ if(result==='success'){
 
 $scope.fnSaveFeaturesConfigCallBack=function(result){
   if(result==='success'){
-        //console.log($scope.temp);
-        //$scope.addFeature($scope);
-        $scope.notifications('Done!','Feature configured successfully','info');
-       
+        
+         userBillingConfigService.FnAddFeature($scope);
+        //$scope.notifications('Done!','Feature configured successfully','info');
       }
    if(result==='error'){
         $scope.notifications('opps!','Error in connecting to server','danger');

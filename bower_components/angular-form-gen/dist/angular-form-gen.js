@@ -5,6 +5,15 @@
 */
 (function(angular) {
 var fg = angular.module('fg', ['dq']);
+  var courseElementFieldsDropdown = [{text:'<i class="fa fa-user"></i>&nbsp;Remove',"href": "#"},
+    {"divider": true},
+    {text:'<strong class="dropdown-submenu-title">Add</strong>',"href": "#"},
+    {text:'<i class="fa fa-user m-l"></i>&nbsp;Add below',"href": "#"},
+    {text:'<i class="fa fa-user m-l"></i>&nbsp;Add Above',"href": "#"},
+    {"divider": true},
+    {text:'<i class="fa fa-user m-l"></i>&nbsp;Embed',"href": "#",submenu:[]}];
+
+
 
 // angular.directive('baabtra', function(){
   
@@ -66,7 +75,6 @@ fg.config(["$provide", function ($provide) {
 
         add: function (objectTemplate, categories, templateUrl, propertiesTemplateUrl) {
           
-          console.log();
 
           if (!objectTemplate || !objectTemplate.type || !categories || !categories.length) {
             throw new Error('Need a valid objectTemplate and at least one category');
@@ -174,7 +182,6 @@ fg.config(["fgConfigProvider", "FgField", function (fgConfigProvider, FgField) {
   // - - - - - - - - - - - - - - - - - - - - - -
   // Fields
   // - - - - - - - - - - - - - - - - - - - - - -
-
   var categories = {
     'Text input fields': [
       new FgField('text', {
@@ -329,22 +336,17 @@ fg.config(["fgConfigProvider", "FgField", function (fgConfigProvider, FgField) {
 // DO NOT MODIFY THIS FILE BECAUSE IT WAS GENERATED AUTOMATICALLY
 // SO ALL YOUR CHANGES WILL BE LOST THE NEXT TIME THE FILE IS GENERATED
 angular.module('fg').run(['$templateCache','courseElementFieldsManaging','fgConfig','FgField', function($templateCache,courseElementFieldsManaging,fgConfig,FgField){
-  
-  
 
-
-
-
-
-
-  console.log(fgConfig.fields);
   fgConfig.fields.categories['Course element fields'] = {};
-  var courseElementFields = courseElementFieldsManaging.fnGetCourseElementFields();
-  courseElementFields.then(function(response){
+
+  var courseElementFieldsResponse = courseElementFieldsManaging.fnGetCourseElementFields();
+  courseElementFieldsResponse.then(function(response){
     var courseElements = angular.fromJson(JSON.parse(response.data));
     angular.forEach(courseElements, function(courseElement){
       var name = courseElement.Name;
       var displayname = courseElement.DispalyName;
+
+      courseElementFieldsDropdown[6].submenu.push({"text": displayname, "href": displayname});
 
     fgConfig.fields.categories[courseElement.paletteName][name] = true; 
     fgConfig.fields.renderInfo[name] = {propertiesTemplateUrl:undefined,templateUrl:undefined};
@@ -352,9 +354,10 @@ angular.module('fg').run(['$templateCache','courseElementFieldsManaging','fgConf
       displayName:displayname
     }));
 
-      $templateCache.put('angular-form-gen/field-templates/default/'+courseElement.Name+'.ng.html',courseElement.DefaultTemplate);
+      $templateCache.put('angular-form-gen/field-templates/default/'+courseElement.Name+'.ng.html',courseElement.DefaultTemplate +'<paper-icon-button style="margin-top: -40px;margin-right: -10px;" class="pull-right"  icon="menu" bs-dropdown="form.courseElementFieldsDropdown" data-html="true" data-placement="left"></paper-icon-button>');
       $templateCache.put('angular-form-gen/field-templates/properties/'+courseElement.Name+'.ng.html',courseElement.PropertiesTemplate);
   });
+
   });
 
 
@@ -1475,7 +1478,8 @@ fg.controller('fgFormController', ["$scope", "$parse", function($scope, $parse) 
     // Edited by Anoop + Jihin to make the course object available in the formgen
     this.model.syncData = $scope.syncData;
     // Called by the directive
-    
+    this.model.courseElementFieldsDropdown = courseElementFieldsDropdown;
+    console.log(courseElementFieldsDropdown);
     self.editMode = editMode;
 
     var dataGetter = $parse(dataExpression);

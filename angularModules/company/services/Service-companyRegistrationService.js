@@ -87,18 +87,19 @@ this.fnUserNameValid=function(userValObj){
     
 
 //service function for company registration
-    this.fnCompanyRegister=function($scope,companyRegData){
+    this.fnCompanyRegister=function(companyRegData){
       var result;
-      var companyLogo=$scope.company.companyLogo;
+      console.log(companyRegData);
+      var companyLogo=companyRegData.companyLogo;
       var extArr=companyLogo.name.split('.');
       var ext=extArr[extArr.length-1].toUpperCase();
       // console.log(companyRegData);
       if(ext!=='JPG'&&ext!=='JPEG'&&ext!=='PNG'&&ext!=='TIF'&&ext!=='GIF'){
         result='fileErr';
-        $scope.fnGetCompanyRegisterDetailsCallBack(result);
+        // $scope.fnGetCompanyRegisterDetailsCallBack(result);
         return 0;
       }
-       $upload.upload({
+       var promise= $upload.upload({
            url: bbConfig.BWS+'CompanyRegistration/',
            file: companyLogo,
            data: companyRegData,
@@ -109,19 +110,17 @@ this.fnUserNameValid=function(userValObj){
       
            }).
        success(function( data, status, headers, config) {
-                 result='success';
-                $scope.fnGetCompanyRegisterDetailsCallBack(result);
+                 return data;
               }).
        error(function(data, status, headers, config) {
-                 result='error';    
-                $scope.fnGetCompanyRegisterDetailsCallBack(result);
+                 return data;     
              }).
        progress(function(evt) {
         console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
       });
 
 
-     return result;
+     return promise;
    };
 //end ofservice function for company registration
 
