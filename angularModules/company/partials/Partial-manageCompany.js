@@ -18,12 +18,6 @@ angular.module('baabtra').controller('ManagecompanyCtrl',['$scope','$localStorag
       }      
     }
 
-    //console.log($state.current);
-    
-// $rootScope.$watch('userMenusOrigin',function(){ 
-//         if($rootScope.userMenusOrigin)
-//           $rootScope.breadCrumb($rootScope.userMenusOrigin);
-//       });
 
  manageCompanySrv.FnGetCompanyDetails($scope,"","");
  $scope.manageComapny = function(comapny)

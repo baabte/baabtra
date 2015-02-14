@@ -126,18 +126,29 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelectable' , [ '$sce'
 
             $scope.$watch('outputModel', function(){  
                 if ( typeof $scope.outputModel !== 'undefined' ) {
+
                         angular.forEach($scope.inputModel, function(item){
                            angular.forEach($scope.outputModel, function(itemOuter){
                             if (angular.equals(itemOuter.Name, item.Name)){
-                                console.log(itemOuter.Name + "=" + item.Name)
-                                item.ticked = true;
+                                item.ticked = itemOuter.ticked;
                             }
                            });                    
                         }) ; 
 
+                        if($scope.outputModel.length==0){
+                            angular.forEach($scope.inputModel, function(item){
+                                item.ticked = false;
+                           });  
+                        }
+
                         $scope.refreshSelectedItems();       
                 }
             });
+
+
+
+
+
 
             // If user specify a height, call this function
             $scope.setHeight = function() {
