@@ -45,8 +45,7 @@ $scope.AddCompanyRole=function(){
        manageCompanyRoleService.DeleteCompanyRole($scope,RollData._id); // calling service function
     };
   $scope.updateUserRole=function(role,roleData,data) //it wil edit roles from database
-    {
-      
+    {      
        $scope.roleData=roleData;
        $scope.role=role;
        $scope.data=data;

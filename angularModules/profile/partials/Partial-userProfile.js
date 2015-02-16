@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('UserprofileCtrl',['$scope','$rootScope','userProfile',function($scope,$rootScope,userProfile){
+angular.module('baabtra').controller('UserprofileCtrl',['$scope','$rootScope','userProfile','$state',function($scope,$rootScope,userProfile,$state){
 
 $rootScope.$watch(function(rootScope){
 		return $rootScope.userinfo;
@@ -6,26 +6,31 @@ $rootScope.$watch(function(rootScope){
 		$scope.userinfo =newvalue;
 		var profile = userProfile.loadProfileData($scope.userinfo.ActiveUserData.roleMappingId.$oid);
 		profile.then(function (data) {
-			// console.log(data);
 			$scope.profileData = angular.fromJson(JSON.parse(data.data));
-			console.log($scope.profileData.profile.dob);
+			$rootScope.userinfo.profileData=$scope.profileData;
+			if(!$scope.profileData.profileImg){
+				$scope.profileData.profileImg="default.jpg";
+			}
 		});
 
 });
 
 $scope.capitalize=function(str){
-	return str.substr(0, 1).toUpperCase() + str.substr(1);
+	return str.replace(/\b./g, function(m){ return m.toUpperCase(); });
 };
 
 $scope.convertDate=function(date){
-	// console.log(date);
-	date=new Date(date);
-	console.log(date.toDateString());
-	// date=date.toISOString()
-	// return date;
-	console.log(date);
+	var date=new Date(date);
+	var cur = new Date();
+	var diff = cur-date; // This is the difference in milliseconds
+    var age = Math.floor(diff/31536000000); 
+    date=date.toDateString();
+	return "Born on "+date+" ("+age+" years old)";
 };
 
+$scope.updateinfo=function(){
+	 $state.go('home.main.updateUserProfile');
+};
 
 
 }]);
