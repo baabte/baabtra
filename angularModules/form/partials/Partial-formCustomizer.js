@@ -23,6 +23,7 @@ $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fr
 // console.log($rootScope.userinfo.ActiveUserData);
 //objects for custom form 
 $scope.customForm={};
+$scope.rolelist=[];
  $scope.customForm.formSteps=0; //if super admin to create new form the form steps will be set as 0 primary 
 
 if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,1)){
