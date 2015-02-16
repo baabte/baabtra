@@ -77,7 +77,6 @@ this.UpdateUserRole=function($scope)
 {
       
       var roleData={"_id":$scope.roleData._id.$oid,"role":$scope.role,"data":$scope.data};
-      console.log(roleData);
         $http({
            url: bbConfig.BWS+'UpdateCompanyRole/',
            data: JSON.stringify(roleData), //it will filter roles under a comapany
