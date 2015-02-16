@@ -413,8 +413,27 @@
                     templateUrl: 'angularModules/course/partials/Partial-candidateCourseDetail.html',
                     controller: 'CandidatecoursedetailCtrl'
                   }
+                } 
+                
+              })
+              .state('home.main.userProfile', {
+                url: '/userProfile',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/profile/partials/Partial-userProfile.html',
+                    controller: 'UserprofileCtrl'
+                  }
                 }
                 
+              })
+              .state('home.main.test', {
+                url: '/test',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/test/partials/Partial-test.html',
+                    controller: 'TestCtrl'
+                  }
+                }
               })
               .state('home.main.courseElementFieldsManaging', {
                 url: '/courseElementFieldsManaging',
@@ -453,16 +472,6 @@
               .state('505', {
                 url: '/505',
                 templateUrl: 'views/pages/505.html'
-              })
-              .state('home.main.test', {
-                url: '/test',
-                views:{
-                  'innercontent':{
-                    templateUrl: 'angularModules/test/partials/Partial-test.html',
-                    controller: ''
-                  }
-                }
-                
               });
 
 

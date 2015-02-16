@@ -1,0 +1,8 @@
+<div ng-repeat="element in previewData">
+
+<div ng-if="element.answerType=='singleAnswer'">
+	<paper-radio-button ng-repeat= "option in element.options" name="always" label="{{option.value}}" role="radio" tabindex="0" aria-checked="true" aria-label="Always" class="core-selected m-l" ></paper-radio-button>
+</div>
+
+
+</div>

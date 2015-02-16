@@ -12,6 +12,7 @@
 						<div class="form-group">
 						<input type="text" class="form-control " ng-model="planName" placeholder="plan name">
 						</div>
+            <!-- id="feature_list_div" -->
 						<div class="list-group" >
 					          <a href="" class="list-group-item b-l-primary" data-animation="am-fade-and-scale" data-type="success" bs-tooltip="tooltip" ng-repeat="feature in features" ng-click="addfeature($index)">
 					          <span class="pull-right text-primary "><i class="glyphicon glyphicon fa fa-plus"></i></span>
@@ -62,7 +63,7 @@
           <ul class="nav nav-sub nav-sm " >
             <li >
               <a href="" ng-repeat="feature in plan.features" ><span class="fa  fa-fw text-muted" >{{feature.featureName}}</span> </a>
-              <a href="" ><span class="fa  fa-fw text-muted" >hai</span> </a>
+    
             </li>
 
           </ul>
