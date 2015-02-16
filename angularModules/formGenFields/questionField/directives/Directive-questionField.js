@@ -10,9 +10,8 @@
 angular.module('baabtra').directive('questionField', function() {
 	return {
 		restrict: 'E',
-		replace: true,
 		scope: { // should take an input object to bind the output
-
+			question:'=ngModel'
 		},
 		templateUrl: 'angularModules/formGenFields/questionField/directives/Directive-questionField.html',
 		link: function(scope, element, attrs, fn) {
@@ -26,9 +25,21 @@ angular.module('baabtra').directive('questionField', function() {
 
 			};
 
+
+			scope.questionTypeChange=function (type) {
+				if(type=='objective'){
+					scope.question.answerType="singleAnswer";
+				}
+				else if(type=='descriptive'){
+					delete scope.question.answerType;
+					delete scope.question.options;
+				}
+			};
+
 			scope.question={};
 			scope.question.type="objective";
 			scope.question.answerType="singleAnswer";
+			scope.question.mark={};
 
 		}
 	};

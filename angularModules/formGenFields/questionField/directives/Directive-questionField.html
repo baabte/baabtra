@@ -9,8 +9,8 @@
 
 				<div ng-if="outputPlainText(question.question).length>0">		    			
 		    			<paper-radio-group selected="objective" class="am-fade">
-						  <paper-radio-button value="objective"  radio-model="question.type"  name="objective" label="Objective"></paper-radio-button>
-						  <paper-radio-button value="descriptive"  radio-model="question.type" name="descriptive" label="Descriptive"></paper-radio-button>
+						  <paper-radio-button ng-change="questionTypeChange('objective')" value="objective"  radio-model="question.type"  name="objective" label="Objective"></paper-radio-button>
+						  <paper-radio-button ng-change="questionTypeChange('descriptive')" value="descriptive"  radio-model="question.type" name="descriptive" label="Descriptive"></paper-radio-button>
 						</paper-radio-group>
 
 						<div ng-if="question.type=='objective'" class="col-xs-12 p">
@@ -20,20 +20,28 @@
 							</paper-radio-group>
 						</div>
 
-						<objective-options-field ng-if="question.type=='objective'" answers="question.options"></objective-options-field>
+						<div class="col-xs-12 col-md-6">
+							<objective-options-field ng-if="question.type=='objective'" answers="question.options"></objective-options-field>
 
-						<div ng-if="question.type=='objective'&&question.answerType=='multiAnswer'" class="col-xs-12 m-v-lg">
-							<div  multi-selectable input-model="question.options" output-model="question.answer" button-label="key" item-label="key" tick-property="ticked" helper-elements="all none reset filter">
-	      					</div>
-						</div>
-						
-      					<div ng-if="question.type=='objective'&&question.answerType=='singleAnswer'" class="col-xs-12 m-v-lg">
-							<div class="paper-dropdown">
-							<select ng-change="changeNumberingType()" placeholder="Select an answer" data-animation="am-fade-and-slide-top"  ng-model="question.answer[0]" ng-options="value.key for (key, value) in question.options" data-html="true" bs-select></select>
+
+							<div ng-if="question.type=='objective'&&question.answerType=='multiAnswer'" class="col-xs-12 m-v-lg">
+								<div  multi-selectable input-model="question.options" output-model="question.answer" button-label="Name" item-label="Name" tick-property="ticked" helper-elements="all none reset filter">
+		      					</div>
+							</div>
+							
+	      					<div ng-if="question.type=='objective'&&question.answerType=='singleAnswer'" class="col-xs-12 m-v-lg">
+								<div class="paper-dropdown">
+								<select  placeholder="Select an answer" data-animation="am-fade-and-slide-top"  ng-model="question.answer[0]" ng-options="value.Name for (key, value) in question.options" data-html="true" bs-select></select>
+								</div>
 							</div>
 						</div>
 
+
+						<div class="col-xs-12 col-md-6">
+							<mark-fields-input mark-obj="question.mark" ></mark-fields-input>
+						</div>
+						
+
 				</div>
-				{{question}}
 
 </div>
