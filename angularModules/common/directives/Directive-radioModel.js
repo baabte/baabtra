@@ -9,22 +9,24 @@
 angular.module('baabtra').directive('radioModel', function() {
 	return {
 		restrict: 'A',
-		scope:{radioModel:"="},
+		scope:{radioModel:"=",
+			   ngChange:'&'},
 		link: function(scope, element, attrs, fn) {
 			
 			element.on('keyup', function(evt){
 				if(evt.which==9){ // for handling tab key press
 					return 0;
 				}
-				
 				scope.$apply(function() {
 					scope.radioModel=attrs.value;
+					scope.ngChange();
 				});
 			});
 			element.on('click', function(){
 				
 				scope.$apply(function() {
 					scope.radioModel=attrs.value;
+					scope.ngChange();
 				});
 			});
 

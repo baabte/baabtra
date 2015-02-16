@@ -495,3 +495,11 @@ margin-top: 20px;
 li:has( > a .dropdown-submenu-title){
   background-color: red;
 }
+
+.am-slide-top{
+  height: 90%;
+}
+
+.am-slide-top .box{
+  height: 96%;
+}
