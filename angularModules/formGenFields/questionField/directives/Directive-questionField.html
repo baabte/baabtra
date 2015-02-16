@@ -14,7 +14,7 @@
 						</paper-radio-group>
 
 						<div ng-if="question.type=='objective'" class="col-xs-12 p">
-							<paper-radio-group class="am-fade teal-300" selected="singleAnswer" ng-if="question.type=='objective'">
+							<paper-radio-group class="am-fade teal-300" ng-click="question.answer=[]" selected="singleAnswer" ng-if="question.type=='objective'">
 							  <paper-radio-button name="singleAnswer" value="singleAnswer" radio-model="question.answerType" label="Single Answer"></paper-radio-button>
 							  <paper-radio-button name="multiAnswer" value="multiAnswer" radio-model="question.answerType" label="Multi Answer"></paper-radio-button>
 							</paper-radio-group>
@@ -22,9 +22,18 @@
 
 						<objective-options-field ng-if="question.type=='objective'" answers="question.options"></objective-options-field>
 
-						<div ng-if="question.answerType=='multiAnswer'" multi-selectable input-model="question.options" output-model="question.answer" button-label="icon key" item-label="icon key" tick-property="ticked" helper-elements="all none reset filter">
-      					</div>
+						<div ng-if="question.type=='objective'&&question.answerType=='multiAnswer'" class="col-xs-12 m-v-lg">
+							<div  multi-selectable input-model="question.options" output-model="question.answer" button-label="key" item-label="key" tick-property="ticked" helper-elements="all none reset filter">
+	      					</div>
+						</div>
+						
+      					<div ng-if="question.type=='objective'&&question.answerType=='singleAnswer'" class="col-xs-12 m-v-lg">
+							<div class="paper-dropdown">
+							<select ng-change="changeNumberingType()" placeholder="Select an answer" data-animation="am-fade-and-slide-top"  ng-model="question.answer[0]" ng-options="value.key for (key, value) in question.options" data-html="true" bs-select></select>
+							</div>
+						</div>
 
 				</div>
+				{{question}}
 
 </div>
