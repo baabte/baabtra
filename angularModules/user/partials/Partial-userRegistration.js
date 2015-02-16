@@ -20,22 +20,22 @@ $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fr
 var companyId;
 //getting user crmid and data companyid
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
-
+ $scope.status={};
  if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,1)){
 
   companyId='';
+  $scope.status.selected=1;
 
 }
 else{
   companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;//
- 
+ $scope.status.selected=0;
 }
 
  //loading branches of company 
 branchSrv.fnLoadBranch($scope,companyId);
 $scope.allSync={}; //the variable to pass data in controller to syncdata
-$scope.status={};
-$scope.status.selected=0;
+// $scope.status.selected=0;
 $scope.allSync.newUser=false;
 $scope.allSync.FormData={};
 

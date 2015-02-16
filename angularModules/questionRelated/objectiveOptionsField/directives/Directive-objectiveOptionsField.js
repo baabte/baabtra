@@ -24,7 +24,7 @@ angular.module('baabtra').directive('objectiveOptionsField', function() {
 
 		    scope.selectedNumbering={name:'Alphabet',value:['a','b','c','d','e','f','g','h','i','j','k']}; // setting default key type
 
-		    scope.answers=[{key:scope.selectedNumbering.value[0]}]; // default first answer option
+		    scope.answers=[{Name:scope.selectedNumbering.value[0]}]; // default first answer option
 
 		    scope.dropDown=function (index) {
 		    	var list=[];
@@ -33,10 +33,10 @@ angular.module('baabtra').directive('objectiveOptionsField', function() {
 		    	list.push({text:"Remove",click:function() {
 		    		if(scope.answers.length>1){
 			    		scope.answers.splice(index,1); //removes that object if there have more than one element in the list
-			    		if(scope.answers.length==1){
-			    			// this will add an element if there have only one element left after deleting this element
-			    			scope.answers.push({});
-			    		}
+			    		// if(scope.answers.length==1){
+			    		// 	// this will add an element if there have only one element left after deleting this element
+			    		// 	scope.answers.push({});
+			    		// }
 			    		scope.changeNumberingType();   //this function rebuilds the key values(numberings) in correct order
 
 		    		}
@@ -47,13 +47,11 @@ angular.module('baabtra').directive('objectiveOptionsField', function() {
 		    list.push({text:"Insert after",click:function() {
 		    		scope.answers.splice(index+1,0,{});
 		    		scope.changeNumberingType(); 
-		    		console.log(scope.answers[index].key+'Insert after');
 		    		}});
 
 		    list.push({text:"Insert before",click:function() {
 		    		scope.answers.splice(index,0,{});
 		    		scope.changeNumberingType(); 
-		    		console.log(scope.answers[index].key+'Insert before');
 		    		}});
 
 		    	return list;
@@ -63,7 +61,7 @@ angular.module('baabtra').directive('objectiveOptionsField', function() {
 		    scope.changeNumberingType=function() {
 		    	var optLoop=0;
 		    	for(optLoop;optLoop<scope.answers.length;optLoop++){
-		    		scope.answers[optLoop].key=scope.selectedNumbering.value[optLoop];
+		    		scope.answers[optLoop].Name=scope.selectedNumbering.value[optLoop];
 		    	}
 		    };
 
@@ -73,7 +71,7 @@ angular.module('baabtra').directive('objectiveOptionsField', function() {
 		    		clearTimeout(timer);
 		    		if(ans.length>0){
 		    			if(angular.equals(scope.answers[index+1],undefined)){
-			    			scope.answers[index+1]={key:scope.selectedNumbering.value[index+1]};
+			    			scope.answers[index+1]={Name:scope.selectedNumbering.value[index+1]};
 			    			scope.$digest();
 			    		}
 			    	}
