@@ -5,13 +5,10 @@
 */
 (function(angular) {
 var fg = angular.module('fg', ['dq']);
-  var courseElementFieldsDropdown = [{text:'<i class="fa fa-user"></i>&nbsp;Remove',"href": "#"},
+
+  var courseElementFieldsDropdown = [{text:'<i class="fa fa-fw fa-trash"></i>&nbsp;Remove',"href": "#"},
     {"divider": true},
-    {text:'<strong class="dropdown-submenu-title">Add</strong>',"href": "#"},
-    {text:'<i class="fa fa-user m-l"></i>&nbsp;Add below',"href": "#"},
-    {text:'<i class="fa fa-user m-l"></i>&nbsp;Add Above',"href": "#"},
-    {"divider": true},
-    {text:'<i class="fa fa-user m-l"></i>&nbsp;Embed',"href": "#",submenu:[]}];
+    {text:'<strong class="dropdown-submenu-title">Add</strong>',"href": "#"}];
 
 
 
@@ -346,17 +343,19 @@ angular.module('fg').run(['$templateCache','courseElementFieldsManaging','fgConf
       var name = courseElement.Name;
       var displayname = courseElement.DispalyName;
 
-      courseElementFieldsDropdown[6].submenu.push({"text": displayname, "href": displayname});
+      courseElementFieldsDropdown.push({"text": '<div class="m-l">'+displayname+'</div>', "href": "#"});
 
     fgConfig.fields.categories[courseElement.paletteName][name] = true; 
     fgConfig.fields.renderInfo[name] = {propertiesTemplateUrl:undefined,templateUrl:undefined};
+
     fgConfig.fields.templates.push(new FgField(name,{
       displayName:displayname
     }));
 
-      $templateCache.put('angular-form-gen/field-templates/default/'+courseElement.Name+'.ng.html',courseElement.DefaultTemplate +'<paper-icon-button style="margin-top: -40px;margin-right: -10px;" class="pull-right"  icon="menu" bs-dropdown="form.courseElementFieldsDropdown" data-html="true" data-placement="left"></paper-icon-button>');
+      $templateCache.put('angular-form-gen/field-templates/default/'+courseElement.Name+'.ng.html',courseElement.DefaultTemplate);
       $templateCache.put('angular-form-gen/field-templates/properties/'+courseElement.Name+'.ng.html',courseElement.PropertiesTemplate);
   });
+    courseElementFieldsDropdown.push({"divider": true});
 
   });
 
