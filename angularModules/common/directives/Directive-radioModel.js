@@ -10,7 +10,7 @@ angular.module('baabtra').directive('radioModel', function() {
 	return {
 		restrict: 'A',
 		scope:{radioModel:"=",
-			   ngChange:'&'},
+			   radioChange:'&'},
 		link: function(scope, element, attrs, fn) {
 			
 			element.on('keyup', function(evt){
@@ -19,14 +19,14 @@ angular.module('baabtra').directive('radioModel', function() {
 				}
 				scope.$apply(function() {
 					scope.radioModel=attrs.value;
-					scope.ngChange();
+					scope.radioChange();
 				});
 			});
 			element.on('click', function(){
 				
 				scope.$apply(function() {
 					scope.radioModel=attrs.value;
-					scope.ngChange();
+					scope.radioChange();
 				});
 			});
 
