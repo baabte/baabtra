@@ -503,3 +503,11 @@ li:has( > a .dropdown-submenu-title){
 .am-slide-top .box{
   height: 96%;
 }
+
+.step-box{
+  width: 0px;
+height: 0px;
+border-style: solid;
+border-width: 50px 0 50px 75px;
+border-color: transparent transparent transparent #ff002f;
+}

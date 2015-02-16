@@ -16,6 +16,10 @@ angular.module('baabtra').controller('CourseelementfieldsmanagingCtrl',['$scope'
   $scope.roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
   /*login detils ends*/
 
+  $scope.element = {};
+  $scope.element.canAdd = true;
+  $scope.element.canBeAnAnswer = false;
+
   var courseElementFields = courseElementFieldsManaging.fnGetCourseElementFields();
   courseElementFields.then(function(response){
   	$scope.courseElementFields = angular.fromJson(JSON.parse(response.data));
@@ -26,6 +30,11 @@ $scope.palette = [{"id": "1","name": "Text input fields"},
 				  {"id": "3","name": "Select input fields"},
 				  {"id": "4","name": "Other fields"},
 				  {"id": "5","name": "Course element fields"}];
+
+  $scope.toggleCanAdd =function(canAdd){
+    $scope.element.canAdd = !canAdd;
+    console.log(canAdd);
+  };
 
   $scope.saveCourseElementFields = function(){//for save course element
   	$scope.element.updatedDate = Date();

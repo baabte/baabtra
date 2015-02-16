@@ -343,7 +343,11 @@ angular.module('fg').run(['$templateCache','courseElementFieldsManaging','fgConf
       var name = courseElement.Name;
       var displayname = courseElement.DispalyName;
 
-      courseElementFieldsDropdown.push({"text": '<div class="m-l">'+displayname+'</div>', "href": "#"});
+      if(courseElement.canAdd){
+        courseElementFieldsDropdown.push({"text": '<i class=\"fa fa-fw '+courseElement.icon+'\"></i>&nbsp;'+displayname, click: 'form.addCourseElementField('+JSON.stringify(courseElement)+')'});
+      }
+
+
 
     fgConfig.fields.categories[courseElement.paletteName][name] = true; 
     fgConfig.fields.renderInfo[name] = {propertiesTemplateUrl:undefined,templateUrl:undefined};
@@ -1361,7 +1365,6 @@ angular.module('dq').directive('dqDraggable', ["dqUtils", "$rootScope",function 
           return dqUtils.stopEvent(e);
         }
       }).on('dragstart',function (e) {
-
           e = dqUtils.getEvent(e);
 
           if(disabled) {
@@ -1478,8 +1481,21 @@ fg.controller('fgFormController', ["$scope", "$parse", function($scope, $parse) 
     this.model.syncData = $scope.syncData;
     // Called by the directive
     this.model.courseElementFieldsDropdown = courseElementFieldsDropdown;
-    console.log(courseElementFieldsDropdown);
     self.editMode = editMode;
+
+    //function add course element field
+    this.model.addCourseElementField = function(courseElement){
+      
+      // var newField ={};
+      // newField.displayName = courseElement.DispalyName;
+      // newField.name = courseElement.Name;
+      // newField.validation = {};
+      // newField.customlist = {};
+
+
+      this.schema.fields.push(angular.fromJson(JSON.parse(courseElement.Debug)));
+      console.log(angular.fromJson(JSON.parse(courseElement.Debug)));
+    } 
 
     var dataGetter = $parse(dataExpression);
     var dataSetter = dataGetter.assign;

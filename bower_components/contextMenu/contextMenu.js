@@ -64,9 +64,9 @@ angular.module('ui.bootstrap.contextMenu', [])
                          $scope.item=item;
                          //taking template for form builder to take required inputs of 
                          //selected context menu
-                         $scope.itemTemplate=item.courseElementTemplate;
+                         $scope.itemTemplate = item.courseElementTemplate;
                          //elements that comes under this element
-                         $scope.subElements=item.nestableElements;
+                         $scope.subElements = item.nestableElements;
                          //clearing data in preview object that is previously created
                          $scope.coursePreviewObj={};
                          $templateCache.put('course-element-popup.html','<div style="padding: 0px;" class="aside" role="dialog">'
