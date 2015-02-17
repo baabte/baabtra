@@ -29,7 +29,7 @@ var companyId;
 }
 else{
   companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;//
- $scope.status.selected=0;
+ $scope.status.selected=1;
 }
 
  //loading branches of company 
