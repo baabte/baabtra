@@ -207,6 +207,15 @@ em{
 	color:#03A9F4;
 }
 
+.bg-00C853{
+	background-color: #00C853!important;
+	color: white!important;
+}
+
+.text-00C853{
+	color: #00C853!important;
+}
+
 .course-step-shadow{
 	box-shadow:0px 0px 9px 3px rgba(223, 204, 223, 1);
 	position: relative;

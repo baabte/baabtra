@@ -426,6 +426,16 @@
                 }
                 
               })
+              .state('home.main.updateUserProfile', {
+                url: '/updateUserProfile',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/profile/partials/Partial-updateProfileInfo.html',
+                    controller: 'UpdateprofileinfoCtrl'
+                  }
+                }
+                
+              })
               .state('home.main.test', {
                 url: '/test',
                 views:{

@@ -1,7 +1,7 @@
-<div class="col-xs-12 p">
+<div>
 
-	<div class="col-xs-12 m-v-lg">
-		<div class="paper-dropdown">
+	<div class="col-xs-12">
+		<div class="paper-dropdown col-xs-12">
 		<select ng-change="changeNumberingType()" placeholder="Select numbering type" data-animation="am-fade-and-slide-top"  ng-model="selectedNumbering" ng-options="value.name for (key, value) in optionsArray" data-html="true" bs-select></select>
 		</div>
 	</div>
@@ -9,14 +9,16 @@
 		<div class="col-xs-12" ng-repeat="(key,val) in answers track by key">
 			<div class="col-xs-12 col-sm-6">
 			<paper-input-decorator label="Option {{selectedNumbering.value[$index]}}." floatinglabel="">
-			  	<input is="core-input" ng-change="ansChanged(answers[$index].value,$index)" name="questionTitle" ng-model="answers[$index].value">
+			  	<input is="core-input" ng-change="ansChanged(answers[$index].value,$index)" name="option" ng-model="answers[$index].value">
 		    </paper-input-decorator>
 		    <paper-icon-button class="pull-right" style="margin-top:-40px;margin-right:-10px;" icon="menu" data-placement="left" bs-dropdown="dropDown($index)">
 			</paper-icon-button>
 			</div>
 			<div class="col-xs-12 col-sm-6">
 		    <paper-input-decorator label="Why / Why not this answer (optional)" floatinglabel="">
-			  	<input is="core-input" ng-change="ansChanged(answers[$index].value,$index)" name="questionTitle" ng-model="answers[$index].why">
+			  	<paper-autogrow-textarea>
+        				<textarea  name="optionWhy" ng-model="answers[$index].why" rows="0" xt-validate style="width:100%;"></textarea>
+     				 </paper-autogrow-textarea>
 		    </paper-input-decorator>
 			</div>
 			

@@ -81,7 +81,7 @@ $scope.totalCourseDuration=0; // course duration in minutes
 
 
 	$scope.tlPopOver={};//obj for bulding context menu of timeline point
-	$scope.tlPopOver.step3={colorClass:'bg-03A9F4'};
+	$scope.tlPopOver.step3={colorClass:'03A9F4'};
   var weHaveGotCrsElementsStep3=addCourseElementService.FnGetCourseElements("");//calling course element function
       weHaveGotCrsElementsStep3.then(function(data){
         $scope.tlPopOver.step3.courseElementlist=angular.fromJson(JSON.parse(data.data));
@@ -305,7 +305,7 @@ $scope.paymentTypes=[{id: "1",name: "Before The Course"},
   $scope.$watch(function(){return $scope.course.Fees.oneTime + $scope.course.Fees.payment.mode;}, function(){
       if(!angular.equals($scope.course.Fees.payment.mode,undefined)){
       if($scope.course.Fees.oneTime === true || angular.equals($scope.course.Fees.payment.mode.id,'2')){
-          $scope.tlPopOver.step2 = {colorClass:'bg-baabtra-green'};
+          $scope.tlPopOver.step2 = {colorClass:'00C853'};
           //addCourseElementService.FnGetCourseElements($scope.tlPopOver.step2,"Payment_checkpoint");//calling course element function
           var weHaveGotCrsElementsStep2=addCourseElementService.FnGetCourseElements("Payment_checkpoint");//calling course element function
           weHaveGotCrsElementsStep2.then(function(data){

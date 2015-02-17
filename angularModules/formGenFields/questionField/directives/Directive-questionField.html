@@ -1,39 +1,126 @@
-<div>
-				<paper-input-decorator label="Title (optional)" floatinglabel="">
+<paper-shadow class="p-md" z="1">
+
+
+
+<!-- style="background:#F3E5F5;border:1px solid #ff4081" class="p-sm"  -->
+<style type="text/css">
+paper-tabs paper-tab{
+	cursor: pointer;
+}
+paper-tabs.pink::shadow #selectionBar {
+  background-color: #ff4081;
+}
+
+paper-tabs.pink paper-tab::shadow #ink {
+  color: #ff4081;
+}
+
+.icon-container-active {
+	margin-top: 15px;
+	color: #ff4081 !important; 
+	margin-left:-20px;
+}
+
+.icon-container-inactive{
+	margin-top: 15px;
+	color: #777777; 
+	margin-left:-20px;
+}
+
+</style>
+
+
+
+
+
+	<paper-tabs selected="0" class="pink">
+	  <paper-tab ng-click="selectedTab='question'">Question </paper-tab>
+	  <div  class="icon-container-inactive" ng-class="{'icon-container-active':selectedTab=='question'}"><core-icon icon="arrow-forward"></core-icon></div>
+	  <paper-tab ng-click="selectedTab='answerType'">Answer type</paper-tab>
+	  <div  class="icon-container-inactive" ng-class="{'icon-container-active':selectedTab=='answerType'}"><core-icon icon="arrow-forward"></core-icon></div>
+	  <paper-tab ng-click="selectedTab='answers'">Answers</paper-tab>
+	  <div  class="icon-container-inactive" ng-class="{'icon-container-active':selectedTab=='answers'}"><core-icon icon="arrow-forward"></core-icon></div>
+	  <paper-tab ng-click="selectedTab='marks'">Marks</paper-tab>
+	</paper-tabs>
+
+
+
+
+
+				<div ng-if="selectedTab=='question'" >
+					<paper-input-decorator label="Question Title (optional)" floatinglabel="">
       					<input is="core-input" name="questionTitle" ng-model="question.title">
-    			</paper-input-decorator>
+    				</paper-input-decorator>
 
-    			<paper-input-decorator label="Question" floatinglabel="">
-      					 <ng-quill-editor name="questionDesc" ng-model="question.question"  toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" required xt-validate editor-required="true" error-class="input-error"></ng-quill-editor>
-    			</paper-input-decorator>
-
-				<div ng-if="outputPlainText(question.question).length>0">		    			
-		    			<paper-radio-group selected="objective" class="am-fade">
-						  <paper-radio-button value="objective"  radio-model="question.type"  name="objective" label="Objective"></paper-radio-button>
-						  <paper-radio-button value="descriptive"  radio-model="question.type" name="descriptive" label="Descriptive"></paper-radio-button>
+	    			<paper-input-decorator label="Question" floatinglabel="">
+	      					 <ng-quill-editor name="questionDesc" ng-model="question.question"  toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" required xt-validate editor-required="true" error-class="input-error"></ng-quill-editor>
+	    			</paper-input-decorator>
+				</div>
+				<div class="col-xs-12 pull-left" ng-if="selectedTab=='answerType'" >
+						<paper-radio-group selected="{{question.type}}" class="am-fade">
+						  <paper-radio-button radio-change="questionTypeChange('objective')" value="objective"  radio-model="question.type"  name="objective" label="Objective"></paper-radio-button>
+						  <paper-radio-button radio-change="questionTypeChange('descriptive')" value="descriptive"  radio-model="question.type" name="descriptive" label="Descriptive"></paper-radio-button>
 						</paper-radio-group>
 
-						<div ng-if="question.type=='objective'" class="col-xs-12 p">
-							<paper-radio-group class="am-fade teal-300" ng-click="question.answer=[]" selected="singleAnswer" ng-if="question.type=='objective'">
+						<div class="col-xs-12 p">
+							<paper-radio-group class="am-fade teal-300" ng-click="question.answer=[]" selected="{{question.answerType}}" ng-if="question.type=='objective'">
 							  <paper-radio-button name="singleAnswer" value="singleAnswer" radio-model="question.answerType" label="Single Answer"></paper-radio-button>
 							  <paper-radio-button name="multiAnswer" value="multiAnswer" radio-model="question.answerType" label="Multi Answer"></paper-radio-button>
 							</paper-radio-group>
 						</div>
+				</div>
 
-						<objective-options-field ng-if="question.type=='objective'" answers="question.options"></objective-options-field>
 
-						<div ng-if="question.type=='objective'&&question.answerType=='multiAnswer'" class="col-xs-12 m-v-lg">
-							<div  multi-selectable input-model="question.options" output-model="question.answer" button-label="key" item-label="key" tick-property="ticked" helper-elements="all none reset filter">
-	      					</div>
-						</div>
-						
-      					<div ng-if="question.type=='objective'&&question.answerType=='singleAnswer'" class="col-xs-12 m-v-lg">
-							<div class="paper-dropdown">
-							<select ng-change="changeNumberingType()" placeholder="Select an answer" data-animation="am-fade-and-slide-top"  ng-model="question.answer[0]" ng-options="value.key for (key, value) in question.options" data-html="true" bs-select></select>
+				<div class="col-xs-12 pull-left" ng-if="selectedTab=='marks'">
+					<div class="col-xs-12">
+						<mark-fields-input custom-marks="question.type=='descriptive'" mark-obj="question.mark" ></mark-fields-input>
+					</div>
+				</div>
+
+
+				<div class="col-xs-12 pull-left"  ng-if="selectedTab=='answers'">
+						<div class="col-xs-12">
+							<objective-options-field ng-if="question.type=='objective'" answers="question.options"></objective-options-field>
+
+
+							<div ng-if="question.type=='objective'&&question.answerType=='multiAnswer'" class="col-xs-12 m-v-lg">
+								<div  multi-selectable input-model="optionsTemp" output-model="question.answer" button-label="Name" item-label="Name" tick-property="ticked" helper-elements="all none reset filter">
+		      					</div>
+							</div>
+							
+	      					<div ng-if="question.type=='objective'&&question.answerType=='singleAnswer'" class="col-xs-12 m-v-lg">
+								<div class="paper-dropdown">
+								<select required xt-validate placeholder="Select an answer" data-animation="am-fade-and-slide-top"  ng-model="question.answer[0]" ng-options="value.Name for (key, value) in optionsTemp" data-html="true" bs-select></select>
+								</div>
+							</div>
+
+							<div ng-if="question.type=='descriptive'" class="col-xs-12 m-v-lg">
+								<div class="p-v-sm">
+									Primary answer template:<br>
+									<em>(Primary answer template will be shown to the candidate when he tries to answer this question.)</em>
+									<!-- <div class="paper-dropdown">
+										<select  placeholder="Select a primary answer field"  ng-model="question.primaryAnswer" required xt-validate ng-options="value.Name for (key, value) in answerTypes" data-html="true" bs-select></select>
+		      						</div> -->
+		      							<div  multi-selectable input-model="answerTypes" output-model="question.primaryAnswer" button-label="Name" item-label="Name" required xt-validate tick-property="ticked" helper-elements="all none reset filter">
+		      							</div>
+										<br>
+									</div>
+									
+								</div>
+								<div ng-if="question.type=='descriptive'" class="p-v-sm">
+									Embeddable fields:<br>
+									<em>(Embeddable fields can be added to the answer template by the candidate if needed.)</em>
+									<div  multi-selectable input-model="answerTypes" required xt-validate output-model="question.secondaryAnswer" button-label="Name" item-label="Name" tick-property="ticked" helper-elements="all none reset filter">
+		      						</div>
+		      					</div>
+								
 							</div>
 						</div>
 
 				</div>
-				{{question}}
 
-</div>
+
+				
+
+
+</paper-shadow>

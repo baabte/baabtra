@@ -1,7 +1,6 @@
 angular.module('baabtra').service('userProfile',['$http','bbConfig',function userProfile($http,bbConfig) {
 
 this.loadProfileData=function(profileId){
-	console.log(profileId);
 var profile=$http({
 		url: bbConfig.BWS+'loadProfileData/',
 		method: "POST",

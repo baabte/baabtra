@@ -5,13 +5,8 @@
 */
 (function(angular) {
 var fg = angular.module('fg', ['dq']);
-  var courseElementFieldsDropdown = [{text:'<i class="fa fa-user"></i>&nbsp;Remove',"href": "#"},
-    {"divider": true},
-    {text:'<strong class="dropdown-submenu-title">Add</strong>',"href": "#"},
-    {text:'<i class="fa fa-user m-l"></i>&nbsp;Add below',"href": "#"},
-    {text:'<i class="fa fa-user m-l"></i>&nbsp;Add Above',"href": "#"},
-    {"divider": true},
-    {text:'<i class="fa fa-user m-l"></i>&nbsp;Embed',"href": "#",submenu:[]}];
+
+  var courseElementFieldsDropdown = [];
 
 
 
@@ -346,17 +341,22 @@ angular.module('fg').run(['$templateCache','courseElementFieldsManaging','fgConf
       var name = courseElement.Name;
       var displayname = courseElement.DispalyName;
 
-      courseElementFieldsDropdown[6].submenu.push({"text": displayname, "href": displayname});
+      if(courseElement.canAdd){
+        courseElementFieldsDropdown.push({"text": '<i class=\"fa fa-fw '+courseElement.icon+'\"></i>&nbsp;'+displayname, formSchema: ''+JSON.stringify(courseElement)+''});
+      }
 
     fgConfig.fields.categories[courseElement.paletteName][name] = true; 
     fgConfig.fields.renderInfo[name] = {propertiesTemplateUrl:undefined,templateUrl:undefined};
+
     fgConfig.fields.templates.push(new FgField(name,{
       displayName:displayname
     }));
 
-      $templateCache.put('angular-form-gen/field-templates/default/'+courseElement.Name+'.ng.html',courseElement.DefaultTemplate +'<paper-icon-button style="margin-top: -40px;margin-right: -10px;" class="pull-right"  icon="menu" bs-dropdown="form.courseElementFieldsDropdown" data-html="true" data-placement="left"></paper-icon-button>');
-      $templateCache.put('angular-form-gen/field-templates/properties/'+courseElement.Name+'.ng.html',courseElement.PropertiesTemplate);
+    $templateCache.put('angular-form-gen/field-templates/default/'+courseElement.Name+'.ng.html',courseElement.DefaultTemplate);
+
+    $templateCache.put('angular-form-gen/field-templates/properties/'+courseElement.Name+'.ng.html',courseElement.PropertiesTemplate);
   });
+    courseElementFieldsDropdown.push({"divider": true});
 
   });
 
@@ -1363,7 +1363,6 @@ angular.module('dq').directive('dqDraggable', ["dqUtils", "$rootScope",function 
           return dqUtils.stopEvent(e);
         }
       }).on('dragstart',function (e) {
-
           e = dqUtils.getEvent(e);
 
           if(disabled) {
@@ -1469,7 +1468,7 @@ fg.directive('fgEdit', function () {
     }
   }
 });
-fg.controller('fgFormController', ["$scope", "$parse", function($scope, $parse) {
+fg.controller('fgFormController', ["$scope", "$parse","$modal", function($scope, $parse, $modal) {
 
   this.model = {};
   var self = this;
@@ -1479,9 +1478,39 @@ fg.controller('fgFormController', ["$scope", "$parse", function($scope, $parse) 
     // Edited by Anoop + Jihin to make the course object available in the formgen
     this.model.syncData = $scope.syncData;
     // Called by the directive
-    this.model.courseElementFieldsDropdown = courseElementFieldsDropdown;
-    console.log(courseElementFieldsDropdown);
+    this.model.genDropdown = function (index) {
+      var list=[{text:'<i class="fa fa-fw fa-trash"></i>&nbsp;Remove',"click": "form.removeCourseElementField("+index+")"},
+                {"divider": true},
+                {text:'<strong class="dropdown-submenu-title">Add</strong>',"href": "#"}];
+      var looper=0;
+      for (looper; looper <courseElementFieldsDropdown.length-1; looper++) {
+        var elemToBepushed=angular.copy(courseElementFieldsDropdown[looper]);
+            elemToBepushed.click='form.addCourseElementField('+elemToBepushed.formSchema+','+index+')';
+            delete elemToBepushed.formSchema;
+            list.push(elemToBepushed);
+      }
+      return list;
+    }
     self.editMode = editMode;
+
+    this.model.removeCourseElementField =function(index){
+      this.schema.fields.splice(index,1);
+    };
+
+
+    //function for add course element field
+    this.model.addCourseElementField = function(courseElement,index){
+          $scope.debugObject = angular.fromJson(JSON.parse(courseElement.Debug));
+      $scope.myOtherModal = $modal({scope: $scope, title: 'My Title', template: 'angularModules/courseElementFieldsManaging/partials/Popup-addCourseElementField.html',html:true, placement:'center', show: true});
+      rootThis = this;
+      $scope.myOtherModal.fnaddCourseElement = function(displayName){
+        $scope.debugObject.displayName = displayName+' ('+$scope.debugObject.displayName+')';
+        var date=new Date();
+        $scope.debugObject.name ="field"+Math.floor(Math.random()*10)+date.getTime();
+        //courseElement have the element to be insert
+        rootThis.schema.fields.splice(index+1,0,$scope.debugObject);
+      };
+    } 
 
     var dataGetter = $parse(dataExpression);
     var dataSetter = dataGetter.assign;

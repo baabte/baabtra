@@ -1,0 +1,24 @@
+<div>
+	<paper-input-decorator label="Total marks" floatinglabel="">
+      	<input is="core-input" required xt-validate type="number"  name="TotalMarks" ng-model="markObj.totalMark">
+    </paper-input-decorator>
+    
+		<div class="col-xs-12" ng-if="customMarks" ng-repeat="criteria in markObj.markCriteria">
+			<div class="col-xs-12 col-sm-6">
+				<paper-input-decorator label="Mark criteria" floatinglabel="">
+				  	<input is="core-input" ng-change="criteriaTyped(markObj.markCriteria[$index].criteria,$index)" name="option" ng-model="markObj.markCriteria[$index].criteria">
+			    </paper-input-decorator>
+
+			    <paper-icon-button class="pull-right" style="margin-top:-40px;margin-right:-10px;" icon="menu" data-placement="left" bs-dropdown="dropDown($index)">
+				</paper-icon-button>
+
+			</div>
+
+			<div class="col-xs-12 col-sm-6">
+			    <paper-input-decorator label="Mark" floatinglabel="">
+	        		<input  name="mark" ng-change="markChanged($index)" ng-model="markObj.markCriteria[$index].mark" type="number" xt-validate>
+			    </paper-input-decorator>
+			</div>
+			
+    	</div>
+</div>
