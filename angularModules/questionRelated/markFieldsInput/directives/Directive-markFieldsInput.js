@@ -2,7 +2,8 @@ angular.module('baabtra').directive('markFieldsInput', function() {
 	return {
 		restrict: 'E',
 		scope: {
-			markObj:'='
+			markObj:'=',
+			customMarks:'='
 		},
 		templateUrl: 'angularModules/questionRelated/markFieldsInput/directives/Directive-markFieldsInput.html',
 		link: function(scope, element, attrs, fn) {
@@ -34,7 +35,7 @@ angular.module('baabtra').directive('markFieldsInput', function() {
 		    	}
 		    	});
 
-		    	if(totalMark>scope.markObj.totalMark){ // checks if he entered an invalid mark more than total mark
+		    	if(totalMark>=scope.markObj.totalMark){ // checks if he entered an invalid mark more than total mark
 		    		scope.markObj.markCriteria[index].mark=scope.markObj.totalMark-(totalMark-scope.markObj.markCriteria[index].mark);
 		    		if(!angular.equals(scope.markObj.markCriteria[index+1],undefined)){
 			    			scope.markObj.markCriteria.splice(index+1,1);
