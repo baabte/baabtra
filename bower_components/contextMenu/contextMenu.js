@@ -30,7 +30,7 @@ angular.module('ui.bootstrap.contextMenu', [])
         //creating a header for context menu
         var $headerA = $('<span>');
              $headerA.text($scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+" "+$scope.$parent.tlpoint);
-             $headerA.addClass('font-bold '+options[state].colorClass+' p-xs col-xs-12');
+             $headerA.addClass('font-bold bg-'+options[state].colorClass+' p-xs col-xs-12');
              $ul.append($headerA);
             //creating context menu elements
         angular.forEach(options[state].courseElementlist, function (item, i) {
@@ -71,15 +71,16 @@ angular.module('ui.bootstrap.contextMenu', [])
                          $scope.coursePreviewObj={};
                          $templateCache.put('course-element-popup.html','<div style="padding: 0px;" class="aside" role="dialog">'
                             +'<div class="box">'
-                            +'<div class="p '+options[state].colorClass+' font-bold">'
+                            +'<div class="p bg-'+options[state].colorClass+' font-bold">'
                               +'<a ng-click="$hide()" class="pull-right text-white"><i class="fa fa-times"></i></a>'
                               +'<i class="fa '+ item.Icon +' text-md m-r"></i>'
                               +item.menuDisplayName
-                            +'</div>'
+                              +'<div style="margin-top: -5px;" class="pull-right m-r p-xs  bg-white text-'+options[state].colorClass+'">'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+" "+$scope.$parent.tlpoint
+                            +'</div></div>'
                             +'<div class="box-row">'
                               +'<div class="box-cell m-t">'
                                 +'<div class="box-inner col-xs-12">'
-                                  +'<form novalidate xt-form class="form" name="courseElement" enctype="multipart/form-data">'
+                                  +'<form xt-form novalidate class="form" name="courseElement" enctype="multipart/form-data">'
                                    +'<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"></div>'
                                    +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData['+$scope.randomKey+'])" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
                                    +'<paper-button raised class="baab-btn pull-right m-v-lg" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="saveMyFormData($hide)" type="button" ng-disabled = "courseElement.$invalid">Add</paper-button>'
