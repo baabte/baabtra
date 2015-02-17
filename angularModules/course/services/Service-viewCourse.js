@@ -7,7 +7,7 @@ this.loadCourseData=function($scope){
  var promise=$http({
  	method:'POST',
  	url:bbConfig.BWS+'loadCourseData/',
- 	data:JSON.stringify({"courseid":$scope.courseid,"userLoginId":$scope.userLoginId}),
+ 	data:JSON.stringify({"courseid":$scope.courseid,"userLoginId":$scope.userLoginId,"roleid":$scope.roleid}),
  }).success(function(data, status, headers, config)
  {
  		return data;
