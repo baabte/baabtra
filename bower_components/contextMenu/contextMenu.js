@@ -82,8 +82,8 @@ angular.module('ui.bootstrap.contextMenu', [])
                                   +'<form novalidate xt-form class="form" name="courseElement" enctype="multipart/form-data">'
                                    +'<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"></div>'
                                    +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData['+$scope.randomKey+'])" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
-                                   +'<paper-button raised class="'+options[state].colorClass+' baab-btn pull-right" ng-click="saveMyFormData($hide)" type="button" ng-disabled = "courseElement.$invalid || !$root.valid">Add</paper-button>'
-                                   +'<paper-button raised class="'+options[state].colorClass+' baab-btn pull-left" ng-click="createPreviewElement(\'tempCourseDocs\')" type="button" ng-disabled = "courseElement.$invalid">Preview</paper-button>'
+                                   +'<paper-button raised class="baab-btn pull-right m-v-lg" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="saveMyFormData($hide)" type="button" ng-disabled = "courseElement.$invalid">Add</paper-button>'
+                                   +'<paper-button raised class="baab-btn pull-left m-v-lg" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="createPreviewElement(\'tempCourseDocs\')" type="button" ng-disabled = "courseElement.$invalid">Preview</paper-button>'
                                   +'</form>'
                                   +'<div class="clearfix m-v-lg"><course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview></div>'
                         +'</div></div></div></div></div>');
