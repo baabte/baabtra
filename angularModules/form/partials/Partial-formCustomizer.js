@@ -42,6 +42,7 @@ else{
 
 
 $scope.status={};//status for the tick mark of all selections
+ $scope.customForm.formSchema={};
 
 //fetching all forms of the user 
 var formFetchData={};
@@ -61,24 +62,70 @@ $scope.formlist=result.formlist;
 
 
 
+ // service call to fetch roles of company and specified toplevel role 
+
+ var FetchRoleObj={companyId:companyId,topRoleFetch:[3]};
+ var fnFetchRoleCallBack= formCustomizerService.FnFetchRoles(FetchRoleObj);
+fnFetchRoleCallBack.then(function  (data) {
+
+  $scope.rolelist=angular.fromJson(JSON.parse(data.data));
+
+// console.log($scope.rolelist);
+
+});
+
+
+
+
 //functon trigred when a form is selected 
 $scope.fnselectForm = function(selForm){
-	
-  // console.log("fnselectForm");
-  
+for (var i = 0; i < $scope.rolelist.length; i++) {
+ 
+    for (var x = 0; x < selForm.roleSchema.length; x++) {
+      if(angular.equals($scope.rolelist[i].Name,selForm.roleSchema[x].Name)){
+        $scope.rolelist[i].formSchema=selForm.roleSchema[x].formSchema;
+        $scope.rolelist[i].formSteps=selForm.roleSchema[x].formSteps;
+      }
+     
+     }
+
+}
+
    $scope.customForm=selForm;
    $scope.customForm._id=selForm._id.$oid;
    $scope.selectFormcheck=true;
+
 };
 
+$scope.fnroleChange= function(roleSchema){
+     
+     $scope.customForm.roleSchema=[roleSchema];
+  if(!angular.equals(roleSchema.formSchema,undefined)){
+    
+      $scope.customForm.formSteps=roleSchema.formSteps;
+      $scope.customForm.formSchema=roleSchema.formSchema;
+     }
+     else {
+      $scope.customForm.formSteps=0;
+      $scope.customForm.formSchema={};
+     }
 
+};
+// //watch funtion to analyse change in courseDuration object
+//     $scope.$watch('customForm.roleSchema', function(){
+//         $scope.customForm.formSteps=$scope.customForm.roleSchema[0].formSteps;
+//    $scope.customForm.formSchema=$scope.customForm.roleSchema[0].formSchema;
+                   
+//     }, true);
 
 //funtion to create step
 $scope.fnCreateStep = function(stepName){
   // console.log("fnCreateStep");
-  
+   // console.log($scope.customForm);
   $scope.customForm.formSteps+=1;
+  
   var stepslen=$scope.customForm.formSteps;
+ 
   $scope.customForm.formSchema[stepslen]= {};
   $scope.customForm.formSchema[stepslen].stepFormSchema={};
   $scope.customForm.formSchema[stepslen].stepName=stepName;
@@ -123,8 +170,18 @@ $scope.customForm.fkuserId=userId;
 
 var customForm= angular.copy($scope.customForm);
 
+if(angular.equals($scope.formNameFieldActive,false)){
+for (var i = 0; i < customForm.roleSchema.length; i++) {
 
+  customForm.roleSchema[i].formSchema=customForm.formSchema;
+  customForm.roleSchema[i].formSteps=customForm.formSteps;
+  
+}
 
+delete customForm.formSchema;
+delete customForm.formSteps;
+}
+// console.log(customForm);
 var fnSaveCustomFormCallBack=formCustomizerService.FnSaveCustomForm(customForm);
 
 fnSaveCustomFormCallBack.then(function(data){

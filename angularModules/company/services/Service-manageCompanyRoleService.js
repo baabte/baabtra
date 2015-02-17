@@ -24,14 +24,16 @@ this.addUserRole=function ($scope){ // functon that call web service to add a co
 
 }; 
 
-this.RetrieveUserRole=function ($scope){ // sending a parameter only for test
+//service call changed using promise edit by arun
+//this service is used in company mange role ,form Customizer 
+this.RetrieveUserRole=function (companyId){ // sending a parameter only for test
       if($rootScope.userinfo. ActiveUserData.roleMappingObj.fkRoleId==1){
        var  userdata={"usertype":1};
     }
     else{
-      var userdata={"usertype":2,"companyId":$scope.companyId};
+      var userdata={"usertype":2,"companyId":companyId};
     }
-         $http({
+    var promise=$http({
          	url: bbConfig.BWS+'ViewManageCompanyRole/',
            data: JSON.stringify({"userdata":userdata}), //it will filter roles under a comapany
            method: "POST",
@@ -40,11 +42,13 @@ this.RetrieveUserRole=function ($scope){ // sending a parameter only for test
            dataType:"json",
        }).
          success(function(data, status, headers, config) {
-         	$scope.fnRertrivecompanyRoleCallBack(data);                     
+         	// $scope.fnRertrivecompanyRoleCallBack(data);  
+          return data;                   
              }).
          error(function(data, status, headers, config) {
          	
          }); 
+    return promise;
 };
 
 this.DeleteCompanyRole=function($scope,RollData)
