@@ -12,11 +12,12 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 			scope.$watch('previewData', function(){
 				$(element).find('#elementContent'+scope.rand).html('');
 				if(!angular.equals(scope.previewData,undefined)){
-					angular.forEach(scope.previewData.elements, function(data){//looping through each type of course elements at this point in the object
+					angular.forEach(scope.previewData.elements, function(data,key){//looping through each type of course elements at this point in the object
 							if(data instanceof Object){
 							 		var elementToBeCreated=$('<'+data.type+'>');							 		
 							 		elementToBeCreated.attr('data',JSON.stringify(data));
-							 		elementToBeCreated.attr('course-element',scope.previewData);
+							 		elementToBeCreated.attr('course-element',JSON.stringify(scope.previewData));
+							 		elementToBeCreated.attr('index',key);
 							 		$('#elementContent'+scope.rand).append(elementToBeCreated);
 							}
 					});
