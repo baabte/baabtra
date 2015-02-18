@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('questionViewer',['$compile','questionAnsweringSrv', function($compile) {
+angular.module('baabtra').directive('questionViewer',['$compile','questionAnsweringSrv','$rootScope','$state', function($compile,questionAnsweringSrv,$rootScope,$state) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -9,11 +9,37 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 		},
 		templateUrl: 'angularModules/courseElementFields/questionViewer/directives/Directive-questionViewer.html',
 		link: function(scope, element, attrs, fn) {
-			var index=scope.index;
+			var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
+			var userLoginId;
+			var courseId;
+			var innerIndex=scope.index;
+			var outerIndex=scope.courseElement.index;
 			var tlPointInmins=scope.courseElement.tlPointInMinute;
 			var keyName=scope.courseElement.Name;
+			scope.isMentee=false;
+			if(roleId==3){
+				userLoginId=$rootScope.userinfo.ActiveUserData.userLoginId;
+				courseId=$state.params.id;
+				scope.isMentee=true;
+			}
 
-			var updateKey=tlPointInmins+'.'+keyName+'.'+
+			scope.saveAnswer=function (argument) {
+				//ObjectId(data['courseId']),ObjectId(data['userId']),data['key'],data['index'],data['answerObj']
+				var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.userAnswer,markScored:scope.mark});
+				promise.then(function (data) {
+					if(data.data=='ok'){
+						scope.question.userAnswer=scope.userAnswer;
+						scope.question.markScored=scope.mark;
+					}
+				});
+			};
+			
+
+
+			
+
+
+			
 
 
 
