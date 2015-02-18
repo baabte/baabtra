@@ -27,7 +27,8 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 				//ObjectId(data['courseId']),ObjectId(data['userId']),data['key'],data['index'],data['answerObj']
 				var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.userAnswer,markScored:scope.mark});
 				promise.then(function (data) {
-					if(data.data=='ok'){
+					data=angular.fromJson(JSON.parse(data.data));
+					if(data.success){
 						scope.question.userAnswer=scope.userAnswer;
 						scope.question.markScored=scope.mark;
 					}
