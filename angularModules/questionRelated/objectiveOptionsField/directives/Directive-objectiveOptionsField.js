@@ -24,7 +24,9 @@ angular.module('baabtra').directive('objectiveOptionsField', function() {
 
 		    scope.selectedNumbering={name:'Alphabet',value:['a','b','c','d','e','f','g','h','i','j','k']}; // setting default key type
 
-		    scope.answers=[{Name:scope.selectedNumbering.value[0]}]; // default first answer option
+		    if(!scope.answers){
+		    	scope.answers=[{Name:scope.selectedNumbering.value[0]}]; // default first answer option
+		    }
 
 		    scope.dropDown=function (index) {
 		    	var list=[];
