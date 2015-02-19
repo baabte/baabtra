@@ -24,6 +24,12 @@ if($rootScope.loggedIn==false){
 }
 
 });
+
+$rootScope.modal = {
+  "title": "Title",
+  "content": "Hello Popover<br />This is a multiline message!"
+};
+
 $scope.genRandomNumbers=function(){
   return Math.floor(Math.random()*10,1);
 };

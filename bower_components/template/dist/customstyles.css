@@ -511,3 +511,7 @@ border-style: solid;
 border-width: 50px 0 50px 75px;
 border-color: transparent transparent transparent #ff002f;
 }
+
+.baab-shadow{
+  box-shadow: 6px 3px 7px #424242;
+}

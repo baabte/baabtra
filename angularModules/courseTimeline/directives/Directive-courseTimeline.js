@@ -80,7 +80,6 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 							});
 							scope.containerHeight = 30/containerCount + (containerCount*90);
 						});
-						console.log(scope.timeLineView);
 					}
 				}
 			  }, true);

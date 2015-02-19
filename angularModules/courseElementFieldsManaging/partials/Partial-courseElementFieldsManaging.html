@@ -1,9 +1,10 @@
+
 <div class="row">
-	<div class="panel">
+	<div class="panel b-t b-9C27B0">
 		<form name="Manage_course_element_fields" xt-form novalidate>
-			<div class="panel-heading font-bold bg-primary">Manage Course Element Fields</div>
+			<div class="panel-heading font-bold text-white bg-9C27B0 p baab-shadow">Manage Course Element Fields</div>
 			<div class="panel-body">
-					
+<!-- 				<qrcode version="1" color="#4A148C" data="jihin" href="http://example.com"></qrcode> -->
 				<!-- Dispaly Name -->
 				<div class="col-md-6 col-lg-2">
 					<paper-input-decorator label="Dispaly Name" floatinglabel>
@@ -18,15 +19,18 @@
 					</paper-input-decorator>
 				</div>
 
-				<!-- added by the user -->
-				<div class="col-xs-6 col-sm-4 col-lg-2 m-v-lg">
+				<!-- can add by user -->
+				<div class="col-xs-6 col-sm-4 col-lg-2 m-t-lg">
 					<!-- <input id="option_1" type="checkbox" ng-click="element.canAdd=!element.canAdd" ng-checked="element.canAdd" ng-model="element.canAdd"/> -->
-					<paper-checkbox label="Can be added by the user" ng-click="toggleCanAdd(element.canAdd)" class="m-t-sm" checked="element.canAdd" ng-model="element.canAdd"></paper-checkbox>
+					<div class="pull-left m-r m-t">Can be added by the user</div>
+					<paper-toggle-button class="m-t" ng-click="element.canAdd=!element.canAdd" ng-checked="element.canAdd" ng-value="element.canAdd"></paper-toggle-button>
 				</div>
 
 				<!-- answer -->
-				<div class="col-xs-6 col-sm-4 col-lg-2 m-v-lg">
-					<paper-checkbox label="Can be an answer" ng-click="element.canBeAnAnswer = !element.canBeAnAnswer" class="m-t-sm" ng-checked="!element.canBeAnAnswer" ng-model="element.canBeAnAnswer"></paper-checkbox>
+				<div class="col-xs-6 col-sm-4 col-lg-2 m-t-lg">
+					<div class="pull-left m-r  m-t">Can be an answer</div>
+					<paper-toggle-button class="m-t" ng-click="element.canBeAnAnswer=!element.canBeAnAnswer" ng-checked="element.canBeAnAnswer" ng-value="element.canBeAnAnswer"></paper-toggle-button>
+					<!-- <paper-checkbox label="Can be an answer" ng-click="element.canBeAnAnswer = !element.canBeAnAnswer" class="m-t-sm" ng-checked="!element.canBeAnAnswer" ng-model="element.canBeAnAnswer"></paper-checkbox> -->
 				</div>
 
 				<!-- palette Name -->
@@ -70,12 +74,13 @@
 
 			</div>
 			<div class="panel-footer">
-				<paper-button raised class="bg-danger baab-btn" type="button">Cancel</paper-button>
-				<paper-button class="pull-right baab-btn" ng-class="{'bg-info':!Manage_course_element_fields.$invalid}" ng-disabled="Manage_course_element_fields.$invalid" disabled="disabled" raised type="button" ng-click="saveCourseElementFields()">Save</paper-button>
+				<paper-button raised class="baab-btn" ng-disabled="Manage_course_element_fields.$pristine" ng-class="{'bg-warning':!Manage_course_element_fields.$pristine}" type="button">Cancel</paper-button>
+				<paper-button class="pull-right baab-btn"  ng-disabled="Manage_course_element_fields.$invalid" ng-class="{'bg-info':!Manage_course_element_fields.$invalid}" disabled="disabled" raised type="button" ng-click="saveCourseElementFields()">Save</paper-button>
 			</div>
 		</form>
 	</div>
 	<div class="col-xs-12">
+
 		<div class="m-v-sm list-group-gap col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="(key, courseElementField) in courseElementFields">
 			<a title="Click to edit" href=""  class="list-group-item" ng-click="editCourseElement(courseElementField)">{{courseElementField.DispalyName}}
 				<span ng-click="fnDeleteCourseElementFields(courseElementField._id.$oid)" title="Click to delete" class="pull-right text-muted m-l-xs">
