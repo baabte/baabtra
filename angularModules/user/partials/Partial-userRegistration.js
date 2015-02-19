@@ -24,7 +24,7 @@ var companyId;
  if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,1)){
 
   companyId='';
-  $scope.status.selected=1;
+  $scope.status.selected=0;
 
 }
 else{
