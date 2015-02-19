@@ -8,12 +8,19 @@ angular.module('baabtra').directive('objectiveOptions', function() {
 			answer:'=',
 			markScored:'=',
 			markObj:'=',
-			userAnswer:'='
+			userAnswer:'=',
+			dbAnswer:'='
 		},
 		templateUrl: 'angularModules/questionRelated/objectiveOptions/directives/Directive-objectiveOptions.html',
 		link: function(scope, element, attrs, fn) {
-			scope.selectedAnswer=[];
-			scope.markScored=0;
+
+			if(!scope.userAnswer){
+				scope.markScored=0;
+			}
+			else{
+				scope.selectedAnswer=scope.userAnswer;
+			}
+			
 			scope.$watch('selectedAnswer',function () {
 				var answerList=angular.copy(scope.answer);
 				scope.userAnswer=angular.copy(scope.selectedAnswer);
@@ -23,6 +30,7 @@ angular.module('baabtra').directive('objectiveOptions', function() {
 
 					if(answerList[0].Name==scope.selectedAnswer[count]){
 						correctAnswer++;
+						console.log(answerList);
 						answerList.splice(0,1);
 					}
 					
