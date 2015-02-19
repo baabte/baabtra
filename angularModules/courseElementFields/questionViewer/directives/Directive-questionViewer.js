@@ -3,12 +3,13 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 		restrict: 'E',
 		replace: true,
 		scope: {
-			data:'=',
+			data:'@',
 			index:'=',
 			courseElement:'='
 		},
 		templateUrl: 'angularModules/courseElementFields/questionViewer/directives/Directive-questionViewer.html',
 		link: function(scope, element, attrs, fn) {
+			console.log(scope.data);
 			var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
 			var userLoginId;
 			var courseId;
@@ -18,7 +19,7 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 			var keyName=scope.courseElement.Name;
 			scope.isMentee=false;
 			if(roleId==3){
-				userLoginId=$rootScope.userinfo.ActiveUserData.userLoginId;
+				userLoginId=$rootScope.userinfo.userLoginId;
 				courseId=$state.params.id;
 				scope.isMentee=true;
 			}
@@ -46,6 +47,13 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 
 			scope.mark=0;
 			var unbind=scope.$watch('data',function (argument) {
+				if(!(scope.data instanceof Object)){
+					scope.data=JSON.parse(scope.data);					
+				}
+				// else{
+				// 	unbind();
+				// 	return 0;
+				// }
 				scope.question=scope.data.value;
 
 				//if(!angular.equals(scope.data,undefined))
@@ -53,7 +61,6 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 					if(scope.question.userAnswer){
 
 						scope.dbAnswer=scope.question.userAnswer;
-						console.log(scope.question.userAnswer);
 					}
 					//else{
 
@@ -70,7 +77,7 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 					    optionsElem.attr('user-answer','userAnswer');
 					    optionsElem.attr('db-answer','dbAnswer');
 					    optionsElem.attr('mark-obj',JSON.stringify(scope.question.mark));
-					answerArea.append(optionsElem);
+					answerArea.html(optionsElem);
 					$compile(optionsElem)(scope);
 					//scope.$digest();
 				}

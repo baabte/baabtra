@@ -6,6 +6,6 @@
 	</div>
 
 	<div ng-if="answerType=='multiAnswer'">
-		<paper-checkbox class="col-xs-12 m-h-lg p" ng-repeat="option in options" check-model="selectedAnswer[$index]" label="{{option.value}}" ng-if="option.value" value="{{option.Name}}"></paper-checkbox>
+		<paper-checkbox class="col-xs-12 m-h-lg p" ng-disabled="dbAnswer.length" ng-checked="fnCheckTicked(option.Name)" ng-repeat="option in options" check-model="selectedAnswer[$index]" label="{{option.value}}" ng-if="option.value" value="{{option.Name}}"></paper-checkbox>
 	</div>
 </div>
