@@ -3,12 +3,13 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 		restrict: 'E',
 		replace: true,
 		scope: {
-			data:'=',
+			data:'@',
 			index:'=',
 			courseElement:'='
 		},
 		templateUrl: 'angularModules/courseElementFields/questionViewer/directives/Directive-questionViewer.html',
 		link: function(scope, element, attrs, fn) {
+			console.log(scope.data);
 			var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
 			var userLoginId;
 			var courseId;
@@ -18,7 +19,7 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 			var keyName=scope.courseElement.Name;
 			scope.isMentee=false;
 			if(roleId==3){
-				userLoginId=$rootScope.userinfo.ActiveUserData.userLoginId;
+				userLoginId=$rootScope.userinfo.userLoginId;
 				courseId=$state.params.id;
 				scope.isMentee=true;
 			}
@@ -30,6 +31,7 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 					data=angular.fromJson(JSON.parse(data.data));
 					if(data.success){
 						scope.question.userAnswer=scope.userAnswer;
+						scope.dbAnswer=scope.userAnswer;
 						scope.question.markScored=scope.mark;
 					}
 				});
@@ -37,32 +39,48 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 			
 
 
-			
 
-
-			
-
-
-
-
-			console.log(scope.courseElement);
+			//console.log(scope.courseElement);
 			scope.randomKey=Math.floor(Math.random()*1000000);
+
+			
+
 			scope.mark=0;
-			scope.userAnswer={};
 			var unbind=scope.$watch('data',function (argument) {
+				if(!(scope.data instanceof Object)){
+					scope.data=JSON.parse(scope.data);					
+				}
+				// else{
+				// 	unbind();
+				// 	return 0;
+				// }
 				scope.question=scope.data.value;
+
+				//if(!angular.equals(scope.data,undefined))
+				{
+					if(scope.question.userAnswer){
+
+						scope.dbAnswer=scope.question.userAnswer;
+					}
+					//else{
+
+						scope.userAnswer=[];
+					//}
 
 				var answerArea=$('#answers'+scope.randomKey);
 				if(scope.question.type=='objective'){
 					var optionsElem=$('<objective-options>');
-					    optionsElem.attr('options',JSON.stringify(scope.question.options));
-					    optionsElem.attr('answer-type',JSON.stringify(scope.question.answerType));
-					    optionsElem.attr('answer',JSON.stringify(scope.question.answer));
+					    optionsElem.attr('options',"question.options");
+					    optionsElem.attr('answer-type',"question.answerType");
+					    optionsElem.attr('answer',"question.answer");
 					    optionsElem.attr('mark-scored','mark');
 					    optionsElem.attr('user-answer','userAnswer');
+					    optionsElem.attr('db-answer','dbAnswer');
 					    optionsElem.attr('mark-obj',JSON.stringify(scope.question.mark));
-					answerArea.append(optionsElem);
+					answerArea.html(optionsElem);
 					$compile(optionsElem)(scope);
+					//scope.$digest();
+				}
 				}
 			},true);
 			
