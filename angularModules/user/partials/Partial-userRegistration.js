@@ -39,7 +39,6 @@ $scope.allSync={}; //the variable to pass data in controller to syncdata
 $scope.allSync.newUser=false;
 $scope.allSync.FormData={};
 
-
 // formCustomizerService.FnFetchCustomForm($scope);
 
 var formFetchData={};
@@ -54,8 +53,9 @@ FnFetchCustomFormCallBack.then(function(data){
  var result=angular.fromJson(JSON.parse(data.data));
 // console.log(result);
  $scope.formlist=result.formlist;
-        
-
+      
+      // console.log($scope.formlist);  
+$scope.stepCount=$scope.formlist.formSteps;
 });
 
 
@@ -69,6 +69,19 @@ fnGetCountryStateDistrictCallBack.then(function(data){
 
 
 });
+
+$scope.$watch('allSync.FormData.role', function(newVal, oldVal){
+
+        if($scope.allSync.FormData.role.formSchema){    
+              for(i in $scope.allSync.FormData.role.formSchema){
+
+                  $scope.formlist.formSchema[++$scope.formlist.formSteps]=$scope.allSync.FormData.role.formSchema[i];
+                             
+              }
+              console.log($scope.formlist.formSteps);
+            }
+                
+    }, true);
 
 
 

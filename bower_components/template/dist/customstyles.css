@@ -511,3 +511,16 @@ border-style: solid;
 border-width: 50px 0 50px 75px;
 border-color: transparent transparent transparent #ff002f;
 }
+
+/*paper dropdown menu*/
+formgen-dropdown-menu > .dropdown{
+  position: absolute;
+}
+
+.formgen-dropdown > button ,.icon-paper-btn{
+  border: none!important;
+border-bottom: 1px solid #666666!important;
+cursor: pointer!important;
+width: 100%;
+text-align: left;
+}

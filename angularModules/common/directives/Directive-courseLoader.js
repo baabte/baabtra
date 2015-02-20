@@ -34,12 +34,12 @@ angular.module('baabtra').directive('courseLoader',['addCourseService','$rootSco
 
 
 			scope.onCourseSelectionChanged = function(course){
-				if(angular.equals(course,null)){
-					scope.ngModel=course;
+				// if(angular.equals(course,null)){
+				// 	// scope.ngModel=course;
 					ctrls.$setValidity('courseLoader',false);
 
 									
-				}
+				//}
 				if(!angular.equals(course,null)){
 					if(!angular.equals(course._id.$oid,undefined)){
 					course._id=course._id.$oid;

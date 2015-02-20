@@ -12,13 +12,13 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
 				}, function(){
 						if(ctrls[1].$invalid){
 							scope.newUser=false;
-							for(var key in scope.outObject){
-  									if(angular.equals(key,'eMail')){}
-  									else{
+							// for(var key in scope.outObject){
+  					// 				if(angular.equals(key,'eMail')){}
+  					// 				else{
   										
-  										scope.outObject[key]='';
-  									}
-  								}
+  					// 					scope.outObject[key]='';
+  					// 				}
+  					// 			}
 
 						}
 					//if the required attribute is set to true the color will change to red
@@ -44,13 +44,13 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
        						 ctrls[1].$setValidity("checkUserExistence", true);
             				}
  							else if(result.userCheck===0){ 
- 								for(var key1 in scope.outObject){
-  									if(angular.equals(key1,'eMail')){}	
-  									else{
+ 								// for(var key1 in scope.outObject){
+  							// 		if(angular.equals(key1,'eMail')){}	
+  							// 		else{
   										
-  										scope.outObject[key1]='';
-  									}
-  								}
+  							// 			scope.outObject[key1]='';
+  							// 		}
+  							// 	}
   							scope.newUser=true;
             				}
 

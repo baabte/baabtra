@@ -98,15 +98,15 @@ for (var i = 0; i < $scope.rolelist.length; i++) {
 };
 
 $scope.fnroleChange= function(roleSchema){
-     
-     $scope.customForm.roleSchema=[roleSchema];
+
+     // $scope.customForm.roleSchema=[roleSchema];
   if(!angular.equals(roleSchema.formSchema,undefined)){
     
       $scope.customForm.formSteps=roleSchema.formSteps;
       $scope.customForm.formSchema=roleSchema.formSchema;
      }
      else {
-      $scope.customForm.formSteps=0;
+      $scope.customForm.formSteps=1;
       $scope.customForm.formSchema={};
      }
 
@@ -149,7 +149,7 @@ delete $scope.customForm.formSchema[$scope.customForm.formSteps];
 
 $scope.customForm.formSteps-=1;
 
-$scope.status.selected={};
+delete $scope.status.selected;
 
 };
 
@@ -171,12 +171,11 @@ $scope.customForm.fkuserId=userId;
 var customForm= angular.copy($scope.customForm);
 
 if(angular.equals($scope.formNameFieldActive,false)){
-for (var i = 0; i < customForm.roleSchema.length; i++) {
 
-  customForm.roleSchema[i].formSchema=customForm.formSchema;
-  customForm.roleSchema[i].formSteps=customForm.formSteps;
+customForm.roleSchema.formSchema=customForm.formSchema;
+customForm.roleSchema.formSteps=customForm.formSteps;
   
-}
+
 
 delete customForm.formSchema;
 delete customForm.formSteps;
