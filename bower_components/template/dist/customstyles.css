@@ -512,7 +512,17 @@ border-width: 50px 0 50px 75px;
 border-color: transparent transparent transparent #ff002f;
 }
 
-/*paper dropdown menu*/
+
+.baab-shadow{
+  box-shadow: 6px 3px 7px #424242;
+}
+
+/*add by jihin for change button color*/
+.change-avatar-btn:hover{
+  background-color: red!important;
+}
+
+/*formgen dropdown menu*/
 formgen-dropdown-menu > .dropdown{
   position: absolute;
 }

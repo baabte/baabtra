@@ -79,17 +79,17 @@ fnFetchRoleCallBack.then(function  (data) {
 
 //functon trigred when a form is selected 
 $scope.fnselectForm = function(selForm){
-for (var i = 0; i < $scope.rolelist.length; i++) {
+// for (var i = 0; i < $scope.rolelist.length; i++) {
  
-    for (var x = 0; x < selForm.roleSchema.length; x++) {
-      if(angular.equals($scope.rolelist[i].Name,selForm.roleSchema[x].Name)){
-        $scope.rolelist[i].formSchema=selForm.roleSchema[x].formSchema;
-        $scope.rolelist[i].formSteps=selForm.roleSchema[x].formSteps;
-      }
+//     for (var x = 0; x < selForm.roleSchema.length; x++) {
+//       if(angular.equals($scope.rolelist[i].Name,selForm.roleSchema[x].Name)){
+//         $scope.rolelist[i].formSchema=selForm.roleSchema[x].formSchema;
+//         $scope.rolelist[i].formSteps=selForm.roleSchema[x].formSteps;
+//       }
      
-     }
+//      }
 
-}
+// }
 
    $scope.customForm=selForm;
    $scope.customForm._id=selForm._id.$oid;
@@ -170,15 +170,16 @@ $scope.customForm.fkuserId=userId;
 
 var customForm= angular.copy($scope.customForm);
 
+
 if(angular.equals($scope.formNameFieldActive,false)){
 
 customForm.roleSchema.formSchema=customForm.formSchema;
 customForm.roleSchema.formSteps=customForm.formSteps;
   
 
-
 delete customForm.formSchema;
 delete customForm.formSteps;
+
 }
 // console.log(customForm);
 var fnSaveCustomFormCallBack=formCustomizerService.FnSaveCustomForm(customForm);

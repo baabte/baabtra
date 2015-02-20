@@ -62,10 +62,12 @@ angular.module('baabtra').directive('questionField',['courseElementFieldsManagin
 			};
 
 			//initializing toway bindable objects
-			scope.question={};
+			if(!scope.question){
+				scope.question={};
+				scope.question.mark={};
+			}
 			// scope.question.type="objective";
 			// scope.question.answerType="singleAnswer";
-			scope.question.mark={};
 
 		}
 	};

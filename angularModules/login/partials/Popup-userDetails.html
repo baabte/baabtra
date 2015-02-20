@@ -1,0 +1,32 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+       <form class="form-horizontal ng-pristine ng-valid" name="course_element_field" xt-form novalidate>
+      <div class="modal-header">
+        <h4 class="modal-title text-primary">Change your avatar?</h4>
+      </div>
+      <div class="modal-body">
+      	<!-- <qrcode version="2" size="80" color="#4A148C" ng-click="$hide()" data="{{loggedUserInfo.username}}"></qrcode>
+      	<div class="form-file">
+			<input type="file">
+			<button class="btn btn-default btn-info" style="cursor: pointer;">Upload new picture</button>
+		</div>
+		</div> -->
+    <div>
+        <qrcode ng-if="!avatar" version="2" size="150" color="#4A148C" ng-click="$hide()" data="{{userinfo.ActiveUserData.username}}"></qrcode>
+        <img ng-show="avatar" render-image image="avatar" file-source ="avatar"  ng-model="course.courseImg" class="img-responsive img-thumbnail w-sm m-b-xs" ng-src="{{avatar}}" />
+        <div class="form-file m-b-xs">
+          <input f-max-size="500" name="avatar" type="file" fileupload-dir="avatarImg" id="exampleInputFile" ng-model="avatar" ng-multiple="false" accept="image/*" resetOnClick="true">
+          <button class="btn btn-default w-sm">Upload new picture</button>
+        </div>
+          
+        </div>
+
+      <div class="modal-footer">
+        <paper-button class="pull-left baab-btn text-warning"  ng-click="$hide()" type="button">Cancel</paper-button>
+        <paper-button class="pull-right baab-btn"  type="button" ng-click="changeProfilePic(avatarImg);$hide();">Save</paper-button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
