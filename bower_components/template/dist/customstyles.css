@@ -512,9 +512,18 @@ border-width: 50px 0 50px 75px;
 border-color: transparent transparent transparent #ff002f;
 }
 
+
 /*course view*/
 .course-box{
   min-height: 200px;
 box-shadow: 0 2px 2px rgba(0,0,0,.05);
 box-sizing: border-box;
+}
+.baab-shadow{
+  box-shadow: 6px 3px 7px #424242;
+}
+
+/*add by jihin for change button color*/
+.change-avatar-btn:hover{
+  background-color: red!important;
 }

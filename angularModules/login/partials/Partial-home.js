@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state','$scope','$localStorage','localStorageService','home','$dropdown','commonService',function ($browser,$rootScope,$state,$scope,$localStorage,localStorageService,home,$dropdown,commonService){
+angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state','$scope','$localStorage','localStorageService','home','$dropdown','commonService','$modal','addCourseService','bbConfig','commonSrv',function ($browser,$rootScope,$state,$scope,$localStorage,localStorageService,home,$dropdown,commonService,$modal,addCourseService,bbConfig,commonSrv){
 
 // Global variables for validating fileupload control
 $rootScope.valid=true;
@@ -8,7 +8,9 @@ $rootScope.errTooltip = "Please choose an image to be shown for the course";
 
 $rootScope.$watch('userinfo',function(){
   if($rootScope.userinfo){
-    $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+    $scope.rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+    $scope.userinfo = $rootScope.userinfo;
+    console.log($rootScope.userinfo);
     home.FnLoadMenus($scope);//Load Menus for logged user
 }
 else{
@@ -24,6 +26,25 @@ if($rootScope.loggedIn==false){
 }
 
 });
+
+
+
+
+$modal({scope: $scope, template: 'angularModules/login/partials/Popup-userDetails.html', placement:"center", show: true});
+
+$scope.changeProfilePic = function(avatarImg){
+  var path='ProfileImage';
+      if(!angular.equals(avatarImg,undefined)){
+      var promise = addCourseService.fnCourseFileUpload(avatarImg, path);
+       promise.then(function(data){ // call back function for the fileupload
+      var profileImagePath = bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','');
+      console.log($scope.rm_id);
+      commonSrv.fnUploadProfilePic(profileImagePath, $scope.rm_id);
+      });
+     }
+};
+
+
 $scope.genRandomNumbers=function(){
   return Math.floor(Math.random()*10,1);
 };

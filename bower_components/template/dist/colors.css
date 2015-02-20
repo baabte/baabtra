@@ -185,6 +185,9 @@ em{
 .text-9C27B0{
 	color: #9C27B0!important;
 }
+.b-9C27B0{
+	border: #9C27B0!important;
+}
 
 .bg-E91E63{
 	background-color: #E91E63;
@@ -214,6 +217,9 @@ em{
 
 .text-00C853{
 	color: #00C853!important;
+}
+.b-00C853{
+	border-color: #00C853;
 }
 
 .course-step-shadow{

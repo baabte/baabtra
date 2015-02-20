@@ -48,7 +48,8 @@
         'hierarchical-selector',
         'angularSpectrumColorpicker',       
         'multi-select',
-        'ngImgCrop'
+        'ngImgCrop',
+        'monospaced.qrcode'
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';
 })

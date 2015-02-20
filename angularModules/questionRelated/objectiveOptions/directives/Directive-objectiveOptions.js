@@ -14,7 +14,7 @@ angular.module('baabtra').directive('objectiveOptions', function() {
 		templateUrl: 'angularModules/questionRelated/objectiveOptions/directives/Directive-objectiveOptions.html',
 		link: function(scope, element, attrs, fn) {
 
-			if(!scope.userAnswer){
+			if(!scope.userAnswer){ // if he already answered no need to reset the marks
 				scope.markScored=0;
 			}
 			else{
@@ -28,9 +28,8 @@ angular.module('baabtra').directive('objectiveOptions', function() {
 				var correctAnswer=0;
 				while(answerList.length!=0&&scope.selectedAnswer.length>count){
 
-					if(answerList[0].Name==scope.selectedAnswer[count]){
+					if(answerList[0].Name==scope.selectedAnswer[count]){ // looping through user's answer to calculate marks
 						correctAnswer++;
-						console.log(answerList);
 						answerList.splice(0,1);
 					}
 					
@@ -38,18 +37,39 @@ angular.module('baabtra').directive('objectiveOptions', function() {
 					
 				}
 
-				while(scope.userAnswer.indexOf('')!=-1){
-					var indexNum=scope.userAnswer.indexOf('');
-					scope.userAnswer.splice(indexNum,1);
+				// while(scope.userAnswer.indexOf('')!=-1){
+				// 	var indexNum=scope.userAnswer.indexOf('');
+				// 	scope.userAnswer.splice(indexNum,1);
+				// }
+				var uaLooper=0;
+				for(uaLooper;uaLooper<scope.userAnswer.length;){ // looping to remove null values and empty values
+					if(scope.userAnswer[uaLooper]==null||scope.userAnswer[uaLooper]==''){
+						scope.userAnswer.splice(uaLooper,1);
+					}
+					else
+					{
+						uaLooper++;
+					}
 				}
 
 				if(correctAnswer==scope.answer.length&&scope.userAnswer.length==correctAnswer){
-					scope.markScored=scope.markObj.totalMark;
+					scope.markScored=scope.markObj.totalMark; // calculating marks to be given
 				}
 				else{
 					scope.markScored=0;
 				}
 			},true);
+
+
+		// function for checking selected user answer
+		scope.fnCheckTicked=function (option) {
+			if(typeof scope.dbAnswer !='undefined'){
+				return scope.dbAnswer.indexOf(option)!=-1;
+			}
+			else{
+				return false;
+			}
+		};
 
 		}
 	};

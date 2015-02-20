@@ -11,7 +11,6 @@ var fnViewCourseData=viewCourse.loadCourseData($scope);
 fnViewCourseData.then(function(data){
 	$scope.coursePreviewObject={};
 	$scope.course=angular.fromJson(JSON.parse(data.data));
-	console.log($scope.course);
 
 });
 

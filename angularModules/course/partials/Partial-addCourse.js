@@ -249,7 +249,6 @@ $scope.completeStep1 = function(course){//created for build step1 object
 
     if (!angular.equals(courseToBeSave.Name, undefined)) {
       var path='Course/courseImage';
-      console.log(course);
       if(!angular.equals(course.Img,undefined)){
       var promise = addCourseService.fnCourseFileUpload(course.Img, path);
        promise.then(function(data){ // call back function for the fileupload

@@ -16,6 +16,19 @@ this.FnLoadGlobalValues=function($scope,key)
           });
       };
 
+  this.fnUploadProfilePic = function (path, urmId){
+    alert(urmId);
+    var promise = $http({
+      url: bbConfig.BWS+'UploadProfilePic/',
+      data: {"path":path, "urmId":urmId},
+      method: "POST",
+      withCredentials: false,
+      contentType:"application/json",
+      dataType:"json",
+    });
+    return promise;
+   };
+
       // this.FnLoadExistingResellerUserData=function($scope, userEmail)
       // {
       //   $http({
