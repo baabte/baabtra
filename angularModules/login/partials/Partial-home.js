@@ -10,7 +10,10 @@ $rootScope.$watch('userinfo',function(){
   if($rootScope.userinfo){
     $scope.rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.userinfo = $rootScope.userinfo;
-    console.log($rootScope.userinfo);
+    if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.avatar,undefined)){
+      $rootScope.userinfo.ActiveUserData.roleMappingObj.avatar = '';
+    }
+    
     home.FnLoadMenus($scope);//Load Menus for logged user
 }
 else{
@@ -27,22 +30,48 @@ if($rootScope.loggedIn==false){
 
 });
 
+ $scope.avatarSource = '';
+ var existingAvatar = '';
+  $scope.handleFileSelect=function(evt) {
+          $scope.undo=false;
+          var file=evt.context.files[0];
 
-
-
-$modal({scope: $scope, template: 'angularModules/login/partials/Popup-userDetails.html', placement:"center", show: true});
+          var reader = new FileReader();
+          reader.onload = function (evt) {
+            $scope.$apply(function($scope){
+              $scope.avatarSource=evt.target.result;
+            });
+          };
+          reader.readAsDataURL(file);
+  };
 
 $scope.changeProfilePic = function(avatarImg){
-  var path='ProfileImage';
-      if(!angular.equals(avatarImg,undefined)){
-      var promise = addCourseService.fnCourseFileUpload(avatarImg, path);
-       promise.then(function(data){ // call back function for the fileupload
-      var profileImagePath = bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','');
-      console.log($scope.rm_id);
-      commonSrv.fnUploadProfilePic(profileImagePath, $scope.rm_id);
-      });
-     }
+      commonSrv.fnUploadProfilePic(avatarImg, $scope.rm_id);
 };
+
+$scope.cancelChangeProfilePic = function(){
+  $rootScope.userinfo.ActiveUserData.roleMappingObj.avatar = existingAvatar;
+}
+
+$scope.removeAvatar =function(elem){
+  $rootScope.userinfo.ActiveUserData.roleMappingObj.avatar = "";
+  existingAvatar = "";
+   commonSrv.fnUploadProfilePic("", $scope.rm_id);
+   //$scope.undo=true;
+};
+
+$scope.undoRemoveAvatar = function(){
+  $rootScope.userinfo.ActiveUserData.roleMappingObj.avatar = existingAvatar;
+  existingAvatar = "";
+  commonSrv.fnUploadProfilePic(existingAvatar, $scope.rm_id);
+};
+var modelPop = '';
+
+$rootScope.manageProfile =function(){
+    existingAvatar = angular.copy($rootScope.userinfo.ActiveUserData.roleMappingObj.avatar);
+modelPop= $modal({scope: $scope, template: 'angularModules/login/partials/Popup-userDetails.html', placement:"center", show: true});
+ };
+
 
 
 $scope.genRandomNumbers=function(){

@@ -17,7 +17,6 @@ this.FnLoadGlobalValues=function($scope,key)
       };
 
   this.fnUploadProfilePic = function (path, urmId){
-    alert(urmId);
     var promise = $http({
       url: bbConfig.BWS+'UploadProfilePic/',
       data: {"path":path, "urmId":urmId},
