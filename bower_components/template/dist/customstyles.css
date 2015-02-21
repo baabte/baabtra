@@ -387,7 +387,7 @@ pre                             { margin-bottom:20px; }
 /*drafted course view start*/
 .course-description>.line{
   font-size: 14px!important;
-  height: initial!important;
+  height: inherit!important;
 }
 /*drafted course view end*/
 
@@ -515,9 +515,21 @@ border-color: transparent transparent transparent #ff002f;
 
 /*course view*/
 .course-box{
-  min-height: 200px;
 box-shadow: 0 2px 2px rgba(0,0,0,.05);
 box-sizing: border-box;
+border-radius: 5px;
+}
+
+.content-limiter{
+text-overflow: ellipsis;
+display: -webkit-box;
+line-height: 16px;
+max-height: 60px;
+-webkit-line-clamp:3;
+-webkit-box-orient: vertical;
+overflow:hidden; 
+
+ 
 }
 .baab-shadow{
   box-shadow: 6px 3px 7px #424242;

@@ -30,7 +30,7 @@ if($rootScope.loggedIn==false){
 
 
 
-$modal({scope: $scope, template: 'angularModules/login/partials/Popup-userDetails.html', placement:"center", show: true});
+//$modal({scope: $scope, template: 'angularModules/login/partials/Popup-userDetails.html', placement:"center", show: true});
 
 $scope.changeProfilePic = function(avatarImg){
   var path='ProfileImage';
