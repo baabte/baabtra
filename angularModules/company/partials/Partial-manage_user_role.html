@@ -10,15 +10,17 @@
 	<div class="col-md-4 " style="padding-left: 0px">
 		 <form name="Form_Adding_form" ng-submit="AddCompanyRole()" class="form-validation" role="form" xt-form novalidate>
 
-		 		<paper-input-decorator label="Name of the role" floatinglabel="">
+		 		<!-- <paper-input-decorator label="Name of the role" floatinglabel="">
       					<input is="core-input" name="roleName" required xt-validate ng-model="roleName">
-    			</paper-input-decorator>	 		
+    			</paper-input-decorator>	 		 -->
+
+    			 <input type="text" class="form-control floating-label" placeholder="floating label">
 
 
 
-		 		<paper-input-decorator  label="Enter a description for the role" floatingLabel>
+		 		<paper-input-decorator  label="Enter a description for the role" floatingLabel layout vertical>
       				<paper-autogrow-textarea>
-        				<textarea  name="roleDesc" ng-model="RoleDesc" rows="0" xt-validate style="width:100%;"></textarea>
+        				<textarea  name="roleDesc" ng-model="RoleDesc" xt-validate style="width:100%;"></textarea>
      				 </paper-autogrow-textarea>
     			</paper-input-decorator>		 		
 		 		

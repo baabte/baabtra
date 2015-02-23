@@ -23,6 +23,7 @@
     "angular-translate": "~2.2.0",
     "angular-loading-bar": "~0.6.0",
     "template": "~0.1.0",
+    "bootstrap-material-design": "~0.2.2",
     "angular-ui-tree": "~2.1.5",
     "angular-local-storage": "~0.1.3",
     "xtform": "*",
@@ -44,8 +45,7 @@
     "ngHierarchicalSelector": "~1.0",
     "bootstrap-social": "~4.8.0",
     "StreamLine": "~1.0",
-    "angular-multi-select": "~2.0.2",
-    "paper-elements": "polymer/paper-elements#~0.5.4"
+    "angular-multi-select": "~2.0.2"
   },
   "devDependencies": {
     "angular-mocks": "~1.2"

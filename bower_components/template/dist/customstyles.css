@@ -165,14 +165,14 @@ border-radius: 3px;
 
 /*Body BG*/
 html{
-  background:url(../images/Mainbg/promo2.png) no-repeat center center fixed;
+  background:url(../images/Mainbg/promo2.png) no-repeat center center fixed !important;
   
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -khtml-background-size: cover;
-  -ms-background-size: cover;
-  background-size: cover;
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+  -khtml-background-size: cover !important;
+  -ms-background-size: cover !important;
+  background-size: cover !important;
 }
 
 /*Fixed Bread crumb*/
@@ -426,10 +426,7 @@ border-radius: 2px;
 
 }
 /*.End Style for the indicate-cal directive icon*/
-<<<<<<< HEAD
 
-=======
->>>>>>> 3cd6f66edb6bb825078dad31cf78c7bfb59a1149
 .publishedCourse_shadow{
   box-shadow: 1px 1px 1px #888888;
 }
