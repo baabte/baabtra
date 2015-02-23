@@ -6,17 +6,17 @@
         <h4 class="modal-title text-primary">Change your avatar?</h4>
       </div>
       <div class="modal-body">
+        <a ng-click="undoRemoveAvatar();" ng-if="undo" class="text-md text-ellipsis text-info pull-right"><i class="fa fa-undo"></i>&nbsp;Undo Remove Avatar</a>
       	<!-- <qrcode version="2" size="80" color="#4A148C" ng-click="$hide()" data="{{userinfo.ActiveUserData.username}}"></qrcode>
       	<div class="form-file">
 			<input type="file">
 			<button class="btn btn-default btn-info" style="cursor: pointer;">Upload new picture</button>
 		</div>
 		</div> -->
-    <div>
       <div class="row p-sm">
         <qrcode ng-if="!userinfo.ActiveUserData.roleMappingObj.avatar.length" class="pull-left" version="2" size="150" color="#4A148C" ng-click="$hide()" data="{{userinfo.ActiveUserData.username}}"></qrcode>
         <div class="pull-right text-center">
-            <img ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length"  class="img-thumbnail w img-circle"  ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" />
+            <img ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length"  class="w img-circle"  ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" />
             <br>
             <button type="button" class="btn btn-addon btn-light m-r-xs m-t-xs pull-right w" ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length && !undo" ng-click="removeAvatar(this);">
                 <i class="fa fa-trash"></i>Remove my avatar
@@ -46,7 +46,6 @@
           </button>
         </div>
                 
-        </div>
 
       <div class="modal-footer">
         <paper-button class="pull-left baab-btn text-warning" type="button" ng-click="cancelChangeProfilePic();$hide();">Cancel</paper-button>

@@ -13,13 +13,17 @@ $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 $scope.tree1=[];
 var domainStatus = "";
 
-addCourseDomainSrv.FnLoadDomain($scope);
-
-$scope.$watch('domainDetails',function (newValue,oldValue){
-  if (!angular.equals($scope.domainDetails,undefined)) {
-    $scope.tree1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);
-  }
+var courseDomainResponse = addCourseDomainSrv.FnLoadDomain();
+courseDomainResponse.then(function(response){
+  $scope.domainDetails=angular.fromJson(JSON.parse(response.data));//Converting the result to json object
+  $scope.tree1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);
 });
+
+// $scope.$watch('domainDetails',function (newValue,oldValue){
+//   if (!angular.equals($scope.domainDetails,undefined)) {
+//     $scope.tree1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);
+//   }
+// });
 
 
 $scope.tree1NodesOptions = { 
@@ -57,9 +61,6 @@ $scope.tree1NodesOptions = {
           }
           
         }
-          console.log(domain);
-          console.log(oldParent);
-          console.log(curParent);
           addCourseDomainSrv.FnInsertDomain($scope ,domain, curParent, oldParent);
       }
     }
