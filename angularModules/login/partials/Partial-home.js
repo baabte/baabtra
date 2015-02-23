@@ -60,6 +60,7 @@ $scope.removeAvatar =function(elem){
    //$scope.undo=true;
 };
 
+
 $scope.undoRemoveAvatar = function(){
   $rootScope.userinfo.ActiveUserData.roleMappingObj.avatar = existingAvatar;
   existingAvatar = "";

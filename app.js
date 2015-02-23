@@ -49,7 +49,8 @@
         'angularSpectrumColorpicker',       
         'multi-select',
         'ngImgCrop',
-        'monospaced.qrcode'
+        'monospaced.qrcode',
+        'masonry'
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';
 })

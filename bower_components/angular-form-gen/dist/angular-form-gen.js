@@ -330,7 +330,7 @@ fg.config(["fgConfigProvider", "FgField", function (fgConfigProvider, FgField) {
 // ATTENTION!
 // DO NOT MODIFY THIS FILE BECAUSE IT WAS GENERATED AUTOMATICALLY
 // SO ALL YOUR CHANGES WILL BE LOST THE NEXT TIME THE FILE IS GENERATED
-angular.module('fg').run(['$templateCache','courseElementFieldsManaging','fgConfig','FgField', function($templateCache,courseElementFieldsManaging,fgConfig,FgField){
+angular.module('fg').run(['$templateCache','courseElementFieldsManaging','fgConfig','FgField','addCourseElementService', function($templateCache,courseElementFieldsManaging,fgConfig,FgField,addCourseElementService){
 
   fgConfig.fields.categories['Course element fields'] = {};
 
@@ -342,6 +342,7 @@ angular.module('fg').run(['$templateCache','courseElementFieldsManaging','fgConf
       var displayname = courseElement.DispalyName;
 
       if(courseElement.canAdd){
+        console.log(courseElement);
         courseElementFieldsDropdown.push({"text": '<i class=\"fa fa-fw '+courseElement.icon+'\"></i>&nbsp;'+displayname, formSchema: ''+JSON.stringify(courseElement)+''});
       }
 
@@ -359,6 +360,17 @@ angular.module('fg').run(['$templateCache','courseElementFieldsManaging','fgConf
     courseElementFieldsDropdown.push({"divider": true});
 
   });
+
+var tlPopOverEditObject = addCourseElementService.FnGetCourseElements("");//calling course element function
+      tlPopOverEditObject.then(function(data){
+        var tlPopOverEditObject = angular.fromJson(JSON.parse(data.data));
+        angular.forEach(tlPopOverEditObject,function(PopOverEditObject){
+          
+        courseElementFieldsDropdown.push({"text": '<i class=\"fa fa-fw '+PopOverEditObject.Icon+'\"></i>&nbsp;'+PopOverEditObject.Name,formSchema:PopOverEditObject.courseElementTemplate});
+          //, formSchema: ''+JSON.stringify(courseElement)+''
+          console.log(PopOverEditObject);
+        });
+      });
 
 
   $templateCache.put('angular-form-gen/edit/edit.ng.html', '<div class=\"fg-edit row form-group\" ng-form=\"$fg\"><div class=\"col-sm-8\"><div fg-form=\"\" fg-edit-canvas=\"\" fg-no-render=\"true\"></div></div><div class=\"col-sm-4\" ng-form=\"$palette\" fg-null-form=\"\"><div fg-form=\"\" fg-edit-palette=\"\" fg-no-render=\"true\"></div></div></div>');
@@ -1485,6 +1497,8 @@ fg.controller('fgFormController', ["$scope", "$parse","$modal", function($scope,
       var looper=0;
       for (looper; looper <courseElementFieldsDropdown.length-1; looper++) {
         var elemToBepushed=angular.copy(courseElementFieldsDropdown[looper]);
+      console.log(elemToBepushed);
+            
             elemToBepushed.click='form.addCourseElementField('+elemToBepushed.formSchema+','+index+')';
             delete elemToBepushed.formSchema;
             list.push(elemToBepushed);

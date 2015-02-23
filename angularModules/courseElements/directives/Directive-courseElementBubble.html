@@ -1,10 +1,13 @@
 <div>
+	
 	<ul ng-repeat="elements in timeLineView[tlpoint]" class="timeline-outer-container m-b hover-content" ng-class="{'timeline-center': center}">
+		
 		<li bs-dropdown="dropdown" data-html="true" bs-show="false" data-animation="am-flip-x" data-placement="right" ng-click="manageCourseElement(element,tlpoint,$index);" class="timeline-item hide-ul" ng-class="{'hover-content-child animated fadeInLeft':($index>0)}" ng-repeat="element in elements " >
+
 			<core-tooltip label="{{element.elements[0].value}}" position="left">
-				<i class="iconCustomBg ui-icon fa {{element.Icon}} b-white b-2x text-lg bg-info am-fade" style="background-color: {{element.iconBackground}}!important; color: {{element.iconColor}}!important;border-radius: 12px;">
-			</i>
+				<i class="iconCustomBg ui-icon fa {{element.Icon}} b-white b-2x text-lg bg-info am-fade" style="background-color: {{element.iconBackground}}!important; color: {{element.iconColor}}!important;border-radius: 12px;"></i>
 			</core-tooltip>
+
 			<b ng-if="elements.length > 1" class="hover-content-child-hide badge bg-danger up bubble-nottification" style="margin-left: 15px;position: relative;z-index: 1;">
 			{{elements.length}}</b>
 		</li>
