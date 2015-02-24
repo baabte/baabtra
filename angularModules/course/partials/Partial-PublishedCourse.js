@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('PublishedcourseCtrl',['$scope','$rootScope','commonService','$state','PublishedCourse','$alert','draftedCourses','$aside',function($scope,$rootScope,commonService,$state,PublishedCourse,$alert,draftedCourses,$aside){
+angular.module('baabtra').controller('PublishedcourseCtrl',['$scope','$rootScope','commonService','$state','PublishedCourse','$alert','draftedCourses','$aside','addCourseDomainSrv','manageTreeStructureSrv','branchSrv',function($scope,$rootScope,commonService,$state,PublishedCourse,$alert,draftedCourses,$aside,addCourseDomainSrv,manageTreeStructureSrv,branchSrv){
 
 if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       $rootScope.hide_when_root_empty=true;
@@ -14,7 +14,13 @@ if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId==2){
 }
 
 $scope.showCourseFilter = false;
+var courseDomainResponse = addCourseDomainSrv.FnLoadDomain();
+courseDomainResponse.then(function(response){
+  $scope.domainDetails=angular.fromJson(JSON.parse(response.data));//Converting the result to json object
+  $scope.tree1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);
+});
 
+branchSrv.fnLoadBranch($scope,$scope.cmp_id);
 $scope.loadPublishedCoursesCallback=function(data){
 	$scope.publishedCourses=angular.fromJson(JSON.parse(data));
 };
@@ -44,13 +50,19 @@ $scope.deleteCourseDetails = function(courseId){
 		
 };
 var searchInProgress;
-$scope.searchCoursesAvailable=function(searchKey){
+$scope.searchCoursesAvailable=function(searchKey){//for seaeching the available courses
 	clearTimeout(searchInProgress);
 searchInProgress=setTimeout(function(){
-	console.log("calling");
+	//console.log("calling");
 PublishedCourse.loadPublishedCourses($scope,searchKey);
-},500)
+},400)
 
 };
+$scope.showCourseFilter=function(){
+ 
+  console.log($scope.tree1);
+  console.log($scope.domainDetails);
+};
+
 
 }]);
