@@ -9,7 +9,6 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 		},
 		templateUrl: 'angularModules/courseElementFields/questionViewer/directives/Directive-questionViewer.html',
 		link: function(scope, element, attrs, fn) {
-			console.log(scope.data);
 			var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
 			var userLoginId;
 			var courseId;
@@ -80,6 +79,16 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 					answerArea.html(optionsElem);
 					$compile(optionsElem)(scope);
 					//scope.$digest();
+				}
+				else if(scope.question.type=='descriptive'){
+					var descriptiveElem=$('<descriptive-answer>');
+						descriptiveElem.attr('primary','question.primaryAnswer');
+						descriptiveElem.attr('user-answer','userAnswer');
+						descriptiveElem.attr('mark-scored','mark');
+						descriptiveElem.attr('db-answer','dbAnswer');
+
+					answerArea.html(descriptiveElem);
+					$compile(descriptiveElem)(scope);
 				}
 				}
 			},true);

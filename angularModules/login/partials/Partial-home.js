@@ -33,9 +33,12 @@ if($rootScope.loggedIn==false){
  $scope.avatarSource = '';
  var existingAvatar = '';
   $scope.handleFileSelect=function(evt) {
-          $scope.undo=false;
-          var file=evt.context.files[0];
 
+    if($scope.undo){
+      $scope.undo=false;
+      existingAvatar = '';
+    }
+          var file=evt.context.files[0];
           var reader = new FileReader();
           reader.onload = function (evt) {
             $scope.$apply(function($scope){
@@ -50,27 +53,29 @@ $scope.changeProfilePic = function(avatarImg){
 };
 
 $scope.cancelChangeProfilePic = function(){
-  $rootScope.userinfo.ActiveUserData.roleMappingObj.avatar = existingAvatar;
+  if(!$scope.undo){
+    $scope.avatarSource = '';
+    $rootScope.userinfo.ActiveUserData.roleMappingObj.avatar = existingAvatar;
+  }
 }
 
 $scope.removeAvatar =function(elem){
+  existingAvatar =  angular.copy($rootScope.userinfo.ActiveUserData.roleMappingObj.avatar);
   $rootScope.userinfo.ActiveUserData.roleMappingObj.avatar = "";
-  existingAvatar = "";
    commonSrv.fnUploadProfilePic("", $scope.rm_id);
-   //$scope.undo=true;
+   $scope.undo=true;
 };
 
 
 $scope.undoRemoveAvatar = function(){
   $rootScope.userinfo.ActiveUserData.roleMappingObj.avatar = existingAvatar;
-  existingAvatar = "";
   commonSrv.fnUploadProfilePic(existingAvatar, $scope.rm_id);
+  $scope.undo=false;
 };
-var modelPop = '';
 
 $rootScope.manageProfile =function(){
-    existingAvatar = angular.copy($rootScope.userinfo.ActiveUserData.roleMappingObj.avatar);
-modelPop= $modal({scope: $scope, template: 'angularModules/login/partials/Popup-userDetails.html', placement:"center", show: true});
+  existingAvatar =  angular.copy($rootScope.userinfo.ActiveUserData.roleMappingObj.avatar);
+  $modal({scope: $scope, template: 'angularModules/login/partials/Popup-userDetails.html', placement:"center", show: true});
  };
 
 

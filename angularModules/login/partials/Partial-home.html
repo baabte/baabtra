@@ -25,11 +25,14 @@ Created On:12/11/2014 -->
               </div>
 
         </div>
+
         </div>       
       </div>
 	</div>
 
-   <span  ng-repeat="menu in userMenus" class="visible-xs col-xs-12" style="cursor: pointer;">
+
+        <span  ng-repeat="menu in userMenus" class="visible-xs col-xs-12 p-xs" style="cursor: pointer;">
+
       <div ng-click="loadDetails(menu)" class="animated fadeInDown p-xs text-sm b bg-light lt">
           <i class="fa {{menu.menuIcon}} fa-2x pull-left col-sm-1 col-xs-2" style="margin-top: 2px;"></i>
           <span class="block clear text-left m-v-xs"><span class="text-lg block pull-left">{{menu.MenuName}}</span>
