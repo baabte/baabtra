@@ -7,7 +7,8 @@ this.loadPublishedCourses=function($scope,searchKey){
 	    data:JSON.stringify({"companyId":$scope.companyId,"searchKey":searchKey}),
 	 }).success(function(data, status, headers, config)
 	 {
-	 		$scope.loadPublishedCoursesCallback(data);
+	 	$scope.publishedCourses = angular.fromJson(JSON.parse(data));
+	 	console.log($scope.publishedCourses);
 	 }).error(function(data, status, headers, config)
 	 {
 

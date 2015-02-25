@@ -20,10 +20,10 @@ courseDomainResponse.then(function(response){
   $scope.tree1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);
 });
 
-branchSrv.fnLoadBranch($scope,$scope.cmp_id);
-$scope.loadPublishedCoursesCallback=function(data){
-	$scope.publishedCourses=angular.fromJson(JSON.parse(data));
-};
+//branchSrv.fnLoadBranch($scope,$scope.cmp_id);
+// $scope.loadPublishedCoursesCallback=function(data){
+// 	$scope.publishedCourses=angular.fromJson(JSON.parse(data));
+// };
 
 $scope.navigateToCourse = function( courseId ){
     $state.go('home.main.viewCourse',{id:courseId});
