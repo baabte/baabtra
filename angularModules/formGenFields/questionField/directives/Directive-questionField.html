@@ -98,7 +98,7 @@ paper-tabs.pink paper-tab::shadow #ink {
 									<!-- <div class="paper-dropdown">
 										<select  placeholder="Select a primary answer field"  ng-model="question.primaryAnswer" required xt-validate ng-options="value.Name for (key, value) in answerTypes" data-html="true" bs-select></select>
 		      						</div> -->
-		      							<div  multi-selectable input-model="answerTypes" output-model="question.primaryAnswer" button-label="Name" item-label="Name" required xt-validate tick-property="ticked" helper-elements="all none reset filter">
+		      							<div  multi-selectable ng-if="answerTypesSecond" input-model="answerTypes" output-model="question.primaryAnswer" button-label="Name" item-label="Name" required xt-validate tick-property="ticked" helper-elements="all none reset filter">
 		      							</div>
 										<br>
 									</div>
@@ -107,7 +107,7 @@ paper-tabs.pink paper-tab::shadow #ink {
 								<div ng-if="question.type=='descriptive'" class="p-v-sm">
 									Embeddable fields:<br>
 									<em>(Embeddable fields can be added to the answer template by the candidate if needed.)</em>
-									<div  multi-selectable input-model="answerTypes" required xt-validate output-model="question.secondaryAnswer" button-label="Name" item-label="Name" tick-property="ticked" helper-elements="all none reset filter">
+									<div  multi-selectable ng-if="answerTypesSecond" input-model="answerTypesSecond" required xt-validate output-model="question.secondaryAnswer" button-label="Name" item-label="Name" tick-property="ticked" helper-elements="all none reset filter">
 		      						</div>
 		      					</div>
 								
