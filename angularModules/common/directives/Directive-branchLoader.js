@@ -7,7 +7,7 @@ angular.module('baabtra').directive('branchLoader',['branchSrv','manageTreeStruc
 		},
 		templateUrl: 'angularModules/common/directives/Directive-branchLoader.html',
 		link: function($scope, element, attrs, ctrls) {
-
+      // console.log($scope.ngModel);
 // console.log(ctrls[0]);
 // ctrls[0].$setValidity('branchLoader',false);
 	// function for converting object : created by Jihin

@@ -13,17 +13,8 @@ this.FnSaveCustomForm=function(customForm){
            withCredentials: false,
            contentType:'application/json',
            dataType:'json',
-           }).
-              success(function(data, status, headers, config) {
-             
-                return data;
-                
-               
-              }).
-              error(function(data, status, headers, config) {
-                result='error';
-                
-             });  
+           });
+   
       return promise;
    };
 
@@ -39,16 +30,25 @@ this.FnSaveCustomForm=function(customForm){
            withCredentials: false,
            contentType:'application/json',
            dataType:'json',
-           }).
-              success(function(data, status, headers, config) {
-             	return data;
-               
-              }).
-              error(function(data, status, headers, config) {
-                result='error';
-             });
+           });
 
       return promise;	
+   };
+
+   //service function to fetch all details of an exsisting user 
+   this.FnFetchSpecificCustomForm=function(formFetchData){
+    // console.log(formFetchData);
+    var result;
+      var promise=$http({
+           url: bbConfig.BWS+'FetchSpecificCustomForm/',
+           data: angular.toJson(formFetchData),
+           method: 'POST',
+           withCredentials: false,
+           contentType:'application/json',
+           dataType:'json',
+           });
+
+      return promise; 
    };
 
    //service function to fetch all details of an exsisting user 
@@ -62,15 +62,8 @@ this.FnSaveCustomForm=function(customForm){
            withCredentials: false,
            contentType:'application/json',
            dataType:'json',
-           }).
-              success(function(data, status, headers, config) {
-              return data;
-               
-              }).
-              error(function(data, status, headers, config) {
-                result='error';
-             });
-
+           });
+    
       return promise; 
    };
 
