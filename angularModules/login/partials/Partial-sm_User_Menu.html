@@ -7,33 +7,36 @@
       <div class="box-cell">
         <div class="box-inner">
           <div class="list-group no-radius no-borders">
-            <a class="list-group-item p-h-md bg-baabtra">
-              <img src="images/a1.jpg" class="pull-left w-thumb m-r b-b b-b-2x b-success">
+            <a class="list-group-item p-v-sm bg-baabtra" style="padding-bottom: 25px;">
+              <qrcode ng-if="!userinfo.ActiveUserData.roleMappingObj.avatar.length" version="2" size="50" color="#4A148C" ng-click="manageProfile();$hide()" class="pull-left m-r" data="{{userinfo.ActiveUserData.username}}" style="margin-left: -9px;margin-top: -6px;"></qrcode>
+
+              <img ng-click="manageProfile();$hide();" ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length" ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" class="pull-left m-r img-circle" style="height: 50px;">
+
               <div class="clear">
-                <span class="font-bold block">{{loggedUserInfo.username}}</span>
-                <span class="clear text-ellipsis text-xs">{{loggedUserInfo.eMail}}</span>
+                <span class="font-bold block">{{userinfo.ActiveUserData.username}}</span>
+                <span class="clear text-ellipsis text-xs">{{userinfo.ActiveUserData.eMail}}&nbsp;</span>
               </div>
             </a>
             <!-- <div class="p-h-md p-v-xs m-t">Work</div> -->
             <a class="list-group-item p-md bg-hover-green-line" ng-click="navigateToProfile()">
-                <i class="glyphicon glyphicon-user text-sm m-r-xs"></i>
-                <span class="text-sm">Profile</span>
+                <i class="glyphicon glyphicon-user text-md m-r-xs"></i>
+                <span class="text-md">Profile</span>
             </a>
             <a class="list-group-item p-md bg-hover-green-line" >
-                <i class="fa fa-gears text-sm m-r-xs"></i>
-                <span class="text-sm">Settings</span>
+                <i class="fa fa-gears text-md m-r-xs"></i>
+                <span class="text-md">Settings</span>
             </a>
             <a class="list-group-item p-md bg-hover-green-line">
-                <i class="fa fa-lock text-sm m-r-xs"></i>
-                <span class="text-sm">Lock me</span>
+                <i class="fa fa-lock text-md m-r-xs"></i>
+                <span class="text-md">Lock me</span>
             </a>
              <a class="list-group-item p-md bg-hover-green-line" ng-click="details()">
-                <i class="glyphicon glyphicon-search text-sm m-r-xs"></i>
-                <span class="text-sm">Details</span>
+                <i class="glyphicon glyphicon-search text-md m-r-xs"></i>
+                <span class="text-md">Details</span>
             </a>
             <a class="list-group-item p-md bg-hover-green-line" ng-click="logout()">
-                <i class="glyphicon glyphicon-log-out text-sm m-r-xs"></i>
-                <span class="text-sm">LogOut</span>
+                <i class="glyphicon glyphicon-log-out text-md m-r-xs"></i>
+                <span class="text-md">LogOut</span>
             </a>
            
           </div>

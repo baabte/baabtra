@@ -95,7 +95,6 @@ else if(angular.equals($scope.roleId,2))
       clearTimeout(searchInProgress);
       searchInProgress=setTimeout(function ()
         {
-          console.log("calling...");
             if(!angular.equals(newValue,undefined)){
                   CurNewValue=newValue;
                   if($scope.SearchType==="Company"){//Search by Company

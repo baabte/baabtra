@@ -33,7 +33,6 @@ $scope.palette = [{"id": "1","name": "Text input fields"},
 
   $scope.toggleCanAdd =function(canAdd){
     $scope.element.canAdd = !canAdd;
-    console.log(canAdd);
   };
 
   $scope.saveCourseElementFields = function(){//for save course element
@@ -63,6 +62,7 @@ $scope.palette = [{"id": "1","name": "Text input fields"},
 
   $scope.editCourseElement = function(courseElement){
   	$scope.element = courseElement;
+    $scope.$apply();
   };
 
   var lasteDeletedId = 0;

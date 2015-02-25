@@ -27,11 +27,13 @@ angular.module('ui.bootstrap.contextMenu', [])
             left: (event.pageX-75) + 'px',
             top: (event.pageY/2.1)-130+'px'
         });
+
         //creating a header for context menu
         var $headerA = $('<span>');
              $headerA.text($scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+" "+$scope.$parent.tlpoint);
              $headerA.addClass('font-bold bg-'+options[state].colorClass+' p-xs col-xs-12');
              $ul.append($headerA);
+             
             //creating context menu elements
         angular.forEach(options[state].courseElementlist, function (item, i) {
             var $li = $('<li>');

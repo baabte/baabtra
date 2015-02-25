@@ -1,0 +1,57 @@
+<div class="modal" id="modalbg" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+       <form class="form-horizontal ng-pristine ng-valid" name="course_element_field" xt-form novalidate>
+      <div class="modal-header">
+        <h4 class="modal-title text-primary">Change your avatar?</h4>
+      </div>
+      <div class="modal-body">
+        <a ng-click="undoRemoveAvatar();" ng-if="undo" class="text-md text-ellipsis text-info pull-right"><i class="fa fa-undo"></i>&nbsp;Undo Remove Avatar</a>
+      	<!-- <qrcode version="2" size="80" color="#4A148C" ng-click="$hide()" data="{{userinfo.ActiveUserData.username}}"></qrcode>
+      	<div class="form-file">
+			<input type="file">
+			<button class="btn btn-default btn-info" style="cursor: pointer;">Upload new picture</button>
+		</div>
+		</div> -->
+      <div class="row p-sm">
+        <qrcode ng-if="!userinfo.ActiveUserData.roleMappingObj.avatar.length" class="pull-left" version="2" size="150" color="#4A148C" ng-click="$hide()" data="{{userinfo.ActiveUserData.username}}"></qrcode>
+        <div class="pull-right text-center">
+            <img ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length"  class="w img-circle"  ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" />
+            <br>
+            <button type="button" class="btn btn-addon btn-light m-r-xs m-t-xs pull-right w" ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length && !undo" ng-click="removeAvatar(this);">
+                <i class="fa fa-trash"></i>Remove my avatar
+              </button>
+              <!-- <button type="button" ng-if="undo" class="btn btn-addon btn-light m-r-xs m-t-xs pull-right w" ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length" ng-click="undoRemoveAvatar();">
+                <i class="fa fa-undo"></i>Undo
+              </button> -->
+
+        </div>
+
+      </div>
+      <br class="clearfix">
+      <div class="row p-sm" ng-if="avatarSource.length">
+        <div class="cropArea">
+          <div class="bg-light" style="height:256px">
+              <img-crop image="avatarSource" result-image="userinfo.ActiveUserData.roleMappingObj.avatar" result-image-size="128" area-type="circle" class="ng-isolate-scope"><canvas width="0" height="0" style="margin-top: 0px;"></canvas></img-crop>
+          
+          </div>
+        </div>
+      </div>
+
+        <div class="form-file m-b-xs">
+          <input f-max-size="500" name="avatar" type="file" fileupload-dir="avatarImg" id="exampleInputFile" ng-model="avatar" ng-multiple="false" accept="image/*" resetOnClick="true" id="avatarInput" onchange="angular.element(this).scope().handleFileSelect(angular.element(this))">
+
+          <button type="button" class="btn btn-addon btn-light">
+            <i class="fa fa-cloud-upload"></i>Upload new picture
+          </button>
+        </div>
+                
+
+      <div class="modal-footer">
+        <paper-button class="pull-left baab-btn text-warning" type="button" ng-click="cancelChangeProfilePic();$hide();">Cancel</paper-button>
+        <paper-button class="pull-right baab-btn"  type="button" ng-click="changeProfilePic(userinfo.ActiveUserData.roleMappingObj.avatar);$hide();">Save</paper-button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

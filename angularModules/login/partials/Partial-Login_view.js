@@ -9,6 +9,9 @@ if(localStorageService.get('logDatas')){
 }
 }
 
+
+
+
 $scope.login_frequency=0;
 $scope.loginCredential={};
 $scope.btnSignupText='Sign in'; 

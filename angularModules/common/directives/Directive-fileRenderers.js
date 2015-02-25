@@ -2,7 +2,7 @@ angular.module('baabtra').directive('renderImage', ['fileReader',function(fileRe
 	return {
 		restrict: 'A',
 		require: ["^?form",'ngModel'],
-		scope:{image:"="},
+		scope:{imgToRender:"="},
 		link: function(scope, element, attrs, ctrls) {
 
 			//keeping the form control in a variable
@@ -39,7 +39,7 @@ angular.module('baabtra').directive('renderImage', ['fileReader',function(fileRe
 						if(!angular.equals(scope.file, undefined)){
 							fileReader.readAsDataUrl(scope.file, scope)
 						                     .then(function(result) {             
-						                         scope.image = result;      
+						                         scope.imgToRender = result;      
 					 		});
 						}					
 

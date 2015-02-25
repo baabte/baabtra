@@ -330,7 +330,7 @@ fg.config(["fgConfigProvider", "FgField", function (fgConfigProvider, FgField) {
 // ATTENTION!
 // DO NOT MODIFY THIS FILE BECAUSE IT WAS GENERATED AUTOMATICALLY
 // SO ALL YOUR CHANGES WILL BE LOST THE NEXT TIME THE FILE IS GENERATED
-angular.module('fg').run(['$templateCache','courseElementFieldsManaging','fgConfig','FgField', function($templateCache,courseElementFieldsManaging,fgConfig,FgField){
+angular.module('fg').run(['$templateCache','courseElementFieldsManaging','fgConfig','FgField','addCourseElementService', function($templateCache,courseElementFieldsManaging,fgConfig,FgField,addCourseElementService){
 
   fgConfig.fields.categories['Course element fields'] = {};
 
@@ -358,6 +358,14 @@ angular.module('fg').run(['$templateCache','courseElementFieldsManaging','fgConf
   });
     courseElementFieldsDropdown.push({"divider": true});
 
+  });
+
+  var tlPopOverEditObject = addCourseElementService.FnGetCourseElements("");//calling course element function
+  tlPopOverEditObject.then(function(data){
+    var tlPopOverEditObject = angular.fromJson(JSON.parse(data.data));
+    angular.forEach(tlPopOverEditObject,function(PopOverEditObject){
+      courseElementFieldsDropdown.push({"text": '<i class=\"fa fa-fw '+PopOverEditObject.Icon+'\"></i>&nbsp;'+PopOverEditObject.Name,courseElem:''+JSON.stringify(PopOverEditObject.courseElementTemplate.fields)+''});
+    });
   });
 
 
@@ -1483,12 +1491,21 @@ fg.controller('fgFormController', ["$scope", "$parse","$modal", function($scope,
                 {"divider": true},
                 {text:'<strong class="dropdown-submenu-title">Add</strong>',"href": "#"}];
       var looper=0;
+
       for (looper; looper <courseElementFieldsDropdown.length-1; looper++) {
         var elemToBepushed=angular.copy(courseElementFieldsDropdown[looper]);
-            elemToBepushed.click='form.addCourseElementField('+elemToBepushed.formSchema+','+index+')';
-            delete elemToBepushed.formSchema;
+            console.log(elemToBepushed);
+            if(!angular.equals(elemToBepushed.formSchema,undefined)){
+              elemToBepushed.click = 'form.addCourseElementField('+elemToBepushed.formSchema+','+index+')';
+              delete elemToBepushed.formSchema;
+            }
+            if(!angular.equals(elemToBepushed.courseElem,undefined)){
+              elemToBepushed.click = 'form.embedCourseElement('+elemToBepushed.courseElem+','+index+')';
+              delete elemToBepushed.courseElem;
+            }
             list.push(elemToBepushed);
       }
+
       return list;
     }
     self.editMode = editMode;
@@ -1497,10 +1514,16 @@ fg.controller('fgFormController', ["$scope", "$parse","$modal", function($scope,
       this.schema.fields.splice(index,1);
     };
 
-
+    this.model.embedCourseElement = function (courseElements,index) {
+      rootThis = this;
+      angular.forEach(courseElements, function (courseElement) {
+        console.log(this);
+        rootThis.schema.fields.push(courseElement);
+      })
+    }
     //function for add course element field
     this.model.addCourseElementField = function(courseElement,index){
-          $scope.debugObject = angular.fromJson(JSON.parse(courseElement.Debug));
+      $scope.debugObject = angular.fromJson(JSON.parse(courseElement.Debug));
       $scope.myOtherModal = $modal({scope: $scope, title: 'My Title', template: 'angularModules/courseElementFieldsManaging/partials/Popup-addCourseElementField.html',html:true, placement:'center', show: true});
       rootThis = this;
       $scope.myOtherModal.fnaddCourseElement = function(displayName){
