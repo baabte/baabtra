@@ -27,7 +27,7 @@
                           <i class="ti-search"></i>
                         </button>
                       </span>
-                      <input ng-model="modelSearch" type="text" class="form-control input-sm no-border" placeholder="{{placeholderVal}}...">
+                      <input ng-model="modelSearch" type="text" class="form-control floating-label input-sm no-border" placeholder="{{placeholderVal}}...">
                     </div>
                   </div>
                   </div>
@@ -109,14 +109,16 @@
                                         <li ng-repeat="node in node.childMenuStructure" class="dd-item dd2-item" data-id="13"  ui-tree-node ng-include="'Render_ExMenus.html'">
                                         </li>
                                     </ol>
+                                  <div ng-if="node.actionMaster.length" class="checkbox animated fadeInDown" style="margin-top: -5px;">
+
+                                <div class="checkbox" ng-repeat="action in node.actionMaster">
+                                  <label>
+                                    <input type="checkbox" ng-init="node.actionStatus[$index]=fnActionExists(action.actionName==undefined?null:action.actionName,node.actions)" ng-model="node.actionStatus[$index]" ng-change="checkAction(node,this,$index)" value=""> {{action.actionName}}
+                                  </label>
+                                </div>          
+                            </div>
                                 </div>
-                                <div ng-if="node.actionMaster.length" class="checkbox bg-light animated fadeInDown" style="margin-top: -5px;">
-          <label class="ui-checks m-l p-xs" ng-repeat="action in node.actionMaster">
-            <input type="checkbox" ng-init="node.actionStatus[$index]=fnActionExists(action.actionName==undefined?null:action.actionName,node.actions)" ng-model="node.actionStatus[$index]" ng-change="checkAction(node,this,$index)" value="">
-            <i></i>
-            {{action.actionName}}
-          </label>
-        </div>   
+                                   
                             </script>
                             <script type="text/ng-template" id="Render_AllMenus.html">
                                 <div style="font-weight:400!important" ui-tree-handle class="tree-node dd-item dd2-item" id="{{node.fkMenuId.$oid}}">
@@ -152,7 +154,7 @@
           </div>
         </div>
         <div class="p p-v-sm">
-          <button class="btn w-sm btn-info pull-right m-b" ng-click="SaveChange()">Save Changes</button>
+          <button class="btn w-sm btn-info pull-right m-b baab-btn" ng-click="SaveChange()">Save Changes</button>
         </div>
       </div>
     </div>
