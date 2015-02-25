@@ -6,9 +6,9 @@ Created On:12/11/2014 -->
 <div class="p-md" >
 	<div class="row" name="innercontent" ui-view>
     <div class="col-xs-12"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-      <div masonry-tile   ng-repeat="menu in userMenus" class="hidden-xs text-center p-xs pull-left tile masonry-brick" style="width:150px;">
+      <div masonry-tile   ng-repeat="menu in userMenus" class="text-center p-xs pull-left tile masonry-brick" style="width:140px; margin-bottom:0px;">
 
-      <div ng-click="loadDetails(menu)" class="text-sm btn text-dark btn-lg bg-light lt btn-stroke {{colorArray[($index+1)%colorArray.length]}} text-center col-xs-12" style="padding-bottom:0px;">
+      <div ng-click="loadDetails(menu)" class="text-sm btn text-dark btn-lg bg-light lt btn-stroke {{colorArray[($index+1)%colorArray.length]}} text-center col-xs-12" style="padding-bottom:0px; margin-bottom:0px; margin-top:0px;">
         
               <div class="row text-center">
                 <i class="fa {{menu.menuIcon}} fa-2x" ></i>
@@ -31,7 +31,7 @@ Created On:12/11/2014 -->
 	</div>
 
 
-        <span  ng-repeat="menu in userMenus" class="visible-xs col-xs-12 p-xs" style="cursor: pointer;">
+        <!-- <span  ng-repeat="menu in userMenus" class="visible-xs col-xs-12 p-xs" style="cursor: pointer;">
 
       <div ng-click="loadDetails(menu)" class="animated fadeInDown p-xs text-sm b bg-light lt">
           <i class="fa {{menu.menuIcon}} fa-2x pull-left col-sm-1 col-xs-2" style="margin-top: 2px;"></i>
@@ -39,7 +39,7 @@ Created On:12/11/2014 -->
           <i class="fa fa-caret-right m-t-xs pull-right" ng-show="{{menu.childMenuStructure.length}}"></i>
           </span>
         </div>
-        </span>
+        </span> -->
 
 </div>
 </div>
