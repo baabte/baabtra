@@ -13,9 +13,11 @@
 				        
 				        
 				      </div>
-      
+      				<!-- {{test}}
+      				{{customForm.formSchema}} -->
+      				<!-- customForm.formSchema[$index+2].stepName -->
             		<div class="col-xs-12">
-            		  <div class="col-md-2 panel b-light panel-body m-r-md  m-b"  ng-click="status.selected = $index+1" href ng-repeat="i in customForm.formSchema">{{customForm.formSchema[$index+1].stepName}} &nbsp  <i ng-show="status.selected==$index+1" class="pull-right fa fa-check-circle text-primary"></i><br><a href class="pull-right fa fa-trash" ng-click="fnDeleteStep($index+1)"></a>
+            		  <div class="col-md-2 panel b-light panel-body m-r-md  m-b"  ng-click="status.selected = i" href ng-repeat="(i,val) in customForm.formSchema">{{val.stepName}} &nbsp  <i ng-show="status.selected==$index+1" class="pull-right fa fa-check-circle text-primary"></i><br><a href class="pull-right fa fa-trash" ng-click="fnDeleteStep($index+1)"></a>
             		  </div> 
             		</div>    
     			 </div>				        	

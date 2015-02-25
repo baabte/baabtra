@@ -44,6 +44,7 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
        						 ctrls[1].$setValidity("checkUserExistence", true);
             				}
  							else if(result.userCheck===0){ 
+ 								scope.outObject.password='';
  								// for(var key1 in scope.outObject){
   							// 		if(angular.equals(key1,'eMail')){}	
   							// 		else{

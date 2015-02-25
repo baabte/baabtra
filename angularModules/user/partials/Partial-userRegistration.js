@@ -24,12 +24,12 @@ var companyId;
  if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,1)){
 
   companyId='';
-  $scope.status.selected=0;
+  $scope.status.selected=1;
 
 }
 else{
   companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;//
- $scope.status.selected=0;
+ $scope.status.selected=1;
 }
 
  //loading branches of company 
@@ -37,8 +37,8 @@ branchSrv.fnLoadBranch($scope,companyId);
 $scope.allSync={}; //the variable to pass data in controller to syncdata
 // $scope.status.selected=0;
 $scope.allSync.newUser=false;
-$scope.allSync.FormData={};
-
+$scope.allSync.FormData={}; // formdata to keep all form inserted data
+var mandatoryFields=[]; //array to keep the mandatory form data fields       
 // formCustomizerService.FnFetchCustomForm($scope);
 
 var formFetchData={};
@@ -56,32 +56,62 @@ FnFetchCustomFormCallBack.then(function(data){
       
       // console.log($scope.formlist);  
 $scope.stepCount=$scope.formlist.formSteps;
+//to get the mandtory from field name in an array 
+for(var i in $scope.formlist.formSchema){
+    for(var x in $scope.formlist.formSchema[i].stepFormSchema.fields){
+       if(angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'role')){}
+          else{
+      mandatoryFields.push($scope.formlist.formSchema[i].stepFormSchema.fields[x].name);
+     }
+    } 
+    } 
+    // console.log(mandatoryFields)   
 });
 
 
 
 
 
-var fnGetCountryStateDistrictCallBack=companyRegistrationService.FnGetCountryStateDistrict();   
-fnGetCountryStateDistrictCallBack.then(function(data){
+// var fnGetCountryStateDistrictCallBack=companyRegistrationService.FnGetCountryStateDistrict();   
+// fnGetCountryStateDistrictCallBack.then(function(data){
 
-  $scope.CSDlist=angular.fromJson(JSON.parse(data.data));
+//   $scope.CSDlist=angular.fromJson(JSON.parse(data.data));
 
 
-});
+// });
 
-$scope.$watch('allSync.FormData.role', function(newVal, oldVal){
 
+$scope.$watch('allSync.FormData.role', function(){
+if(!angular.equals($scope.formlist,undefined)){
+
+        $scope.stepCount= $scope.formlist.formSteps;
+        while(!angular.equals($scope.formlist.formSchema[++$scope.stepCount],undefined)){
+          // console.log($scope.stepCount);
+          delete $scope.formlist.formSchema[$scope.stepCount];
+        }
+
+        $scope.stepCount= $scope.formlist.formSteps;
         if($scope.allSync.FormData.role.formSchema){    
-              for(i in $scope.allSync.FormData.role.formSchema){
+              for(var i in $scope.allSync.FormData.role.formSchema){
 
-                  $scope.formlist.formSchema[++$scope.formlist.formSteps]=$scope.allSync.FormData.role.formSchema[i];
+                  $scope.formlist.formSchema[++$scope.stepCount]=$scope.allSync.FormData.role.formSchema[i];
                              
               }
-              console.log($scope.formlist.formSteps);
+              // console.log($scope.formlist.formSteps);
             }
+    }
                 
     }, true);
+
+
+// $scope.$watch('allSync.FormData', function(){
+        
+//        if (angular.equals($scope.status.selected,1)){
+
+
+//        };
+                
+//     }, true);
 
 
 
@@ -90,13 +120,30 @@ $scope.$watch('allSync.FormData.role', function(newVal, oldVal){
 $scope.fnUserRegister =function (argument) {
 
   
+var mandatoryData={};            
+  for(var key in $scope.allSync.FormData){
+    for(var n in mandatoryFields) {
+
+      if(angular.equals(key,mandatoryFields[n])){
+       
+        mandatoryData[key]=$scope.allSync.FormData[key];
+        delete $scope.allSync.FormData[key];
+
+      }
+    }
+  }
+
+
   $scope.userRegister=$scope.allSync.FormData;
+  $scope.userRegister.mandatoryData=mandatoryData;
   $scope.userRegister.loggedusercrmid=loggedusercrmid;
   $scope.userRegister.companyId=companyId;
 
   //service call for user registration
   // console.log($scope.userRegister);
-
+  delete  $scope.userRegister.role.formSchema;
+  delete  $scope.userRegister.role.formSteps;
+console.log($scope.userRegister);
   var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
 
 

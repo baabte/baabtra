@@ -7,7 +7,6 @@ angular.module('baabtra').directive('roleLoader',['formCustomizerService','$root
 		},
 		templateUrl: 'angularModules/common/directives/Directive-roleLoader.html',
 		link: function(scope, element, attrs, ctrls) {
-
 			
 			var companyId='';
 			if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
@@ -17,6 +16,7 @@ angular.module('baabtra').directive('roleLoader',['formCustomizerService','$root
 			
 
 			if((!angular.equals(companyId,undefined))&&(!angular.equals(attrs.getForm,undefined))){
+				// console.log('fetching role for db');
 			// service call to fetch roles of company and specified toplevel role 
 		
 			 var FetchSpecificFormObj={companyId:companyId,fetchFormName:attrs.getForm};
@@ -34,15 +34,22 @@ angular.module('baabtra').directive('roleLoader',['formCustomizerService','$root
 
 			  scope.rolelist=angular.fromJson(JSON.parse(data.data));
 
-			// console.log(scope.rolelist);
+		
 			//combining role and role schema of that role for that company
 			for (var i = 0; i < scope.rolelist.length; i++) { 
     			for (var x = 0; x < scope.roleSchema.length; x++) {
-      				if(angular.equals(scope.rolelist[i].Name,scope.roleSchema[x].Name)){
-        					scope.rolelist[i].formSchema=scope.roleSchema[x].formSchema;        
+      				if(angular.equals(scope.rolelist[i].roleId,scope.roleSchema[x].roleId)){
+        					scope.rolelist[i].formSchema=scope.roleSchema[x].formSchema;
+        					scope.rolelist[i].formSteps=scope.roleSchema[x].formSteps;           
       						}     
      				}
 			}
+
+
+			// if(!angular.equals(scope.ngModel,undefined)) {
+			// 	scope.ngModel=scope.ngModel;
+
+			// };
 
 			});
 
@@ -50,6 +57,7 @@ angular.module('baabtra').directive('roleLoader',['formCustomizerService','$root
 			});
 
 			}
+		    
 			// service call to fetch roles of company and specified toplevel role 
 
 			 
@@ -58,7 +66,7 @@ angular.module('baabtra').directive('roleLoader',['formCustomizerService','$root
 
 
 			scope.onRoleSelectionChanged = function(role){
-				// console.log(ctrls);
+				// console.log(role);
 				// if(angular.equals(role,null)){
 				// 	scope.ngModel=role;
 										

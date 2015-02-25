@@ -79,17 +79,18 @@ fnFetchRoleCallBack.then(function  (data) {
 
 //functon trigred when a form is selected 
 $scope.fnselectForm = function(selForm){
-// for (var i = 0; i < $scope.rolelist.length; i++) {
+  console.log(selForm);
+for (var i = 0; i < $scope.rolelist.length; i++) {
  
-//     for (var x = 0; x < selForm.roleSchema.length; x++) {
-//       if(angular.equals($scope.rolelist[i].Name,selForm.roleSchema[x].Name)){
-//         $scope.rolelist[i].formSchema=selForm.roleSchema[x].formSchema;
-//         $scope.rolelist[i].formSteps=selForm.roleSchema[x].formSteps;
-//       }
+    for (var x = 0; x < selForm.roleSchema.length; x++) {
+      if(angular.equals($scope.rolelist[i].roleId,selForm.roleSchema[x].roleId.$oid)){
+        $scope.rolelist[i].formSchema=selForm.roleSchema[x].formSchema;
+        $scope.rolelist[i].formSteps=selForm.roleSchema[x].formSteps;
+      }
      
-//      }
+     }
 
-// }
+}
 
    $scope.customForm=selForm;
    $scope.customForm._id=selForm._id.$oid;
@@ -98,7 +99,7 @@ $scope.fnselectForm = function(selForm){
 };
 
 $scope.fnroleChange= function(roleSchema){
-
+    console.log(roleSchema);
      // $scope.customForm.roleSchema=[roleSchema];
   if(!angular.equals(roleSchema.formSchema,undefined)){
     
@@ -130,7 +131,7 @@ $scope.fnCreateStep = function(stepName){
   $scope.customForm.formSchema[stepslen].stepFormSchema={};
   $scope.customForm.formSchema[stepslen].stepName=stepName;
   
-  delete $scope.stepName;
+ 
 
 // console.log($scope.customForm);
 
