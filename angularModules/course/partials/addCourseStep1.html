@@ -1,6 +1,6 @@
 <!-- Outer Panel  -->
 <form profile="showAll" nv-file-drop xt-form name="acGenInfo" no-validate class="form-validation ng-pristine ng-invalid ng-invalid-required" role="form">
-<div class="panel panel-default m-t p-md p-v-xs">
+<div class="panel panel-default m-t p-md p-v-xs b-b b-5x {{borderClass}}">
   
   <!-- Top Header row -->
   <div class="row">
@@ -25,17 +25,23 @@
         <!-- course name -->
         <div class="form-group">
           
-              <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="course.Name" name="courseName" xt-validate required placeholder="Name of the course">
+              <input type="text" class="form-control floating-label" ng-model="course.Name" name="courseName" xt-validate required placeholder="Name of the course">
      
         </div>
 
         <div class="form-group" >
-        <label class="checkbox-inline">
-          <input type="checkbox" ng-model="course.Delivery.online" value="course.Delivery.online" checked>Online
-        </label>
-        <label class="checkbox-inline">
-          <input type="checkbox" ng-model="course.Delivery.offline" value="course.Delivery.offline" checked>Offline
-        </label>
+
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="course.Delivery.online" value="course.Delivery.online" checked> Online
+            </label>
+          </div>
+
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="course.Delivery.offline" value="course.Delivery.offline" checked> Offline
+            </label>
+          </div>        
         <em class="text-muted text-E91E63">&nbsp;(Please specifiy  the mode of delivery of the course)</em>
       </div>
 
@@ -60,7 +66,7 @@
     <!-- Left Half .End -->
 
     <!-- Right half -->
-    <div class="col-xs-12 col-sm-6 m-t panel">
+    <div class="col-xs-12 col-sm-6 m-v-lg">
 
       <!-- Course domains -->
       <hierarchical-selector  ng-model="course.testDomains" data="domains" multi-select="true" on-selection-changed="course.Domains = onDomainSelectionChanged(items)" selection="{{course.testDomains}}"></hierarchical-selector>
@@ -95,25 +101,47 @@
       </div>
         <!-- Availability -->
       <div class="form-group" >
-        <label class="radio-inline">
-          <input type="radio" name="Branches" ng-click="specificBranches=false" id="inlineRadio1" checked> All Branches
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="Branches" ng-click="specificBranches=true" id="inlineRadio1" value="option1"> Specific Branches
-        </label>
-        <em class="text-muted text-E91E63">&nbsp;(Please specifiy  to which all branches this course is available)</em>
-        <hierarchical-selector ng-if="specificBranches" ng-model="course.branchDetails" data="branchDetails" multi-select="true" class="am-fade" on-selection-changed="selectedItem2 = onBranchSelectionChanged(items)"></hierarchical-selector>
+
+        <div class="radio radio-success pull-left">
+            <label>
+              <input type="radio" name="Branches" ng-click="specificBranches=false" id="inlineRadio1" checked>
+              All Branches
+            </label>
+        </div>
+
+        <div class="radio radio-success pull-left m-l" style="padding-top:15px;">
+            <label>
+              <input type="radio" name="Branches" ng-click="specificBranches=true" id="inlineRadio1" value="option1">
+              Specific Branches
+            </label>
+        </div>
+
+        <em class="text-muted text-E91E63 col-xs-12">&nbsp;(Please specifiy  to which all branches this course is available)</em>
+        <div class="col-xs-12">
+          <hierarchical-selector ng-if="specificBranches" ng-model="course.branchDetails" data="branchDetails" multi-select="true" class="am-fade" on-selection-changed="selectedItem2 = onBranchSelectionChanged(items)"></hierarchical-selector>
+        </div>
       </div>
 
       <div class="form-group col-xs-11 pull-right">
-        <label class="radio-inline">
-          <input type="radio" name="Accessibility" ng-click="specificAccessibility=false" id="inlineRadio1" value="option1" checked>Public
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="Accessibility" ng-click="specificAccessibility=true" id="inlineRadio1" value="option1"> Private
-        </label>
-        <em class="text-muted text-E91E63">&nbsp;(Please specify who all in the selected branches has access to the course)</em>
-        <hierarchical-selector ng-if="specificAccessibility" ng-model="course.branchDetails" data="rolesDetails" multi-select="true" class="am-fade" on-selection-changed="selectedItem2 = onRoleSelectionChanged(items)"></hierarchical-selector>
+
+        <div class="radio radio-success pull-left m-l">
+            <label>
+              <input type="radio" name="Accessibility" ng-click="specificAccessibility=false" id="inlineRadio1" value="option1" checked>
+              Public
+            </label>
+        </div>
+        <div class="radio radio-success pull-left m-l" style="padding-top:15px;">
+            <label>
+              <input type="radio" name="Accessibility" ng-click="specificAccessibility=true" id="inlineRadio1" value="option1">
+              Private
+            </label>
+        </div>
+
+        <em class="text-muted text-E91E63 col-xs-12">&nbsp;(Please specify who all in the selected branches has access to the course)</em>
+
+        <div class="col-xs-12">
+            <hierarchical-selector ng-if="specificAccessibility" ng-model="course.branchDetails" data="rolesDetails" multi-select="true" class="am-fade" on-selection-changed="selectedItem2 = onRoleSelectionChanged(items)"></hierarchical-selector>
+        </div>
 
       </div>
 
@@ -121,10 +149,13 @@
 
       <!-- course image -->
        <div class="form-group col-sm-6 no-padding" >
-        <input  f-max-size="500" name="courseImg" type="file" fileupload-dir="course.Img" id="exampleInputFile" ng-model="course.courseImg" ng-multiple="false" accept="image/*" resetOnClick="true" data-placement="top" data-html="true" data-container="body" data-title="Please select an image to represent the course"  bs-tooltip>
-        <em ng-if="!course.courseImg" class="text-E91E63">Please select an image to represent the course</em>
-        <div >
-          <img render-image image="course.courseImg" file-source = "courseImg"  ng-model="course.courseImg" class="img-responsive img-thumbnail m-xs" ng-src="{{course.courseImg}}" />
+
+         <input type="text" readonly="" class="form-control floating-label" placeholder="Please choose a title image for the course...">
+        <input f-max-size="500" name="courseImg" type="file" fileupload-dir="course.Img" id="exampleInputFile" ng-model="course.courseImg" ng-multiple="false" accept="image/*" resetOnClick="true" data-placement="top" data-html="true" data-container="body" data-title="Please select an image to represent the course"  bs-tooltip>        
+        <!-- <em ng-if="!course.courseImg" class="text-E91E63">Please select an image to represent the course</em> -->
+        
+        <div ng-show="course.courseImg">
+          <img render-image img-to-render="course.courseImg" file-source = "courseImg"  ng-model="course.courseImg" class="img-responsive img-thumbnail w-sm m-xs" ng-src="{{course.courseImg}}" />
         </div>
         
       </div>
@@ -138,7 +169,7 @@
 <div class="row">
   <div class="col-xs-12 m-b">
     <footer class="text-right">
-     <button type="submit" class="btn btn-info" ng-disabled="acGenInfo.$invalid || !valid" disabled="disabled" ng-click="completeStep1(course);" >Next</button>
+     <button type="submit" class="btn btn-info baab-btn" ng-disabled="acGenInfo.$invalid || !valid" disabled="disabled" ng-click="completeStep1(course);" >Next</button>
     </footer>   
   </div>
 </div>

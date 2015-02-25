@@ -1,0 +1,89 @@
+
+<div class="row">
+	<div class="panel b-t b-9C27B0">
+		<form name="Manage_course_element_fields" xt-form novalidate>
+			<div class="panel-heading font-bold text-white bg-9C27B0 p baab-shadow">Manage Course Element Fields</div>
+			<div class="panel-body p-v-lg">
+<!-- 				<qrcode version="1" color="#4A148C" data="jihin" href="http://example.com"></qrcode> -->
+				<!-- Dispaly Name -->
+				<div class="col-md-6 col-lg-2">
+					
+						<input class="form-control floating-label" ng-model="element.DispalyName" name="DispalyName" required xt-validate placeholder="Name to be displayed for the field">
+				
+				</div>
+
+				<!-- Name -->
+				<div class="col-md-6 col-lg-2">
+					
+						<input name="Name" ng-model="element.Name" required xt-validate class="form-control floating-label" placeholder="Actual name of the field">
+					
+				</div>
+
+				<!-- can add by user -->
+				<div class="col-xs-12 col-sm-4 col-lg-2">
+					<div class="togglebutton">
+	                    <label>
+	                        <input type="checkbox" ng-click="element.canAdd=!element.canAdd" ng-checked="element.canAdd" ng-value="element.canAdd"> Can be added by the user
+	                    </label>
+                	</div>
+				</div>
+
+				<!-- answer -->
+				<div class="col-xs-12 col-sm-4 col-lg-2">
+					<div class="togglebutton">
+	                    <label>
+	                        <input type="checkbox" nng-click="element.canBeAnAnswer=!element.canBeAnAnswer" ng-checked="element.canBeAnAnswer" ng-value="element.canBeAnAnswer"> Can be an answer
+	                    </label>
+                	</div>				
+				</div>
+
+				<!-- palette Name -->
+				<div class="col-xs-6 col-sm-4 col-lg-2 m-v-n">
+					
+					<select placeholder="Select palette" data-animation="am-fade-and-slide-top"  ng-model="element.paletteName" ng-options="value.name as value.name for (key, value) in palette" data-html="true" bs-select></select>
+				
+				</div>
+
+				<!-- icon chooser -->
+				<div class="col-xs-6 col-sm-4 col-lg-2 m-v-n">
+					<icon-chooser selected-icon="element.icon"></icon-chooser>
+				</div>
+
+				<!-- Default template -->
+				<div class="col-xs-12 m-v-lg">
+				
+							<textarea ng-model="element.DefaultTemplate" name="DefaultTemplate" required xt-validate rows="0" placeholder="Default Template" class="form-control floating-label"></textarea>
+				
+				</div>
+
+				<!-- Properties template -->
+				<div class="col-xs-12 m-v-lg">					
+							<textarea ng-model="element.PropertiesTemplate" name="PropertiesTemplate" required xt-validate placeholder="Properties Template" class="form-control floating-label"></textarea>
+				
+				</div>
+
+				<!-- Debug -->
+				<div class="col-xs-12 m-v-lg">
+				
+							<textarea ng-model="element.Debug" name="PropertiesTemplate" required xt-validate placeholder="Debug" class="form-control floating-label"></textarea>
+						
+				</div>
+
+			</div>
+			<div class="panel-footer">
+				<button class="btn btn-warning baab-btn" ng-disabled="Manage_course_element_fields.$pristine" ng-class="{'bg-warning':!Manage_course_element_fields.$pristine}" type="button">Cancel</button>
+				<button class="btn btn-info baab-btn pull-right"  ng-disabled="Manage_course_element_fields.$invalid" ng-class="{'bg-info':!Manage_course_element_fields.$invalid}" disabled="disabled" type="button" ng-click="saveCourseElementFields()">Save</button>
+			</div>
+		</form>
+	</div>
+	<div class="col-xs-12">
+
+		<div class="m-v-sm list-group-gap col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="(key, courseElementField) in courseElementFields">
+			<a title="Click to edit" href=""  class="list-group-item" ng-click="editCourseElement(courseElementField)">{{courseElementField.DispalyName}}
+				<span ng-click="fnDeleteCourseElementFields(courseElementField._id.$oid)" title="Click to delete" class="pull-right text-muted m-l-xs">
+					<i class="fa fa-trash"></i>
+				</span>
+			</a>
+		</div>
+	</div>
+</div>

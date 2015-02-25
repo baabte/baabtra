@@ -27,11 +27,13 @@ angular.module('ui.bootstrap.contextMenu', [])
             left: (event.pageX-75) + 'px',
             top: (event.pageY/2.1)-130+'px'
         });
+
         //creating a header for context menu
         var $headerA = $('<span>');
              $headerA.text($scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+" "+$scope.$parent.tlpoint);
-             $headerA.addClass('font-bold '+options[state].colorClass+' p-xs col-xs-12');
+             $headerA.addClass('font-bold bg-'+options[state].colorClass+' p-xs col-xs-12');
              $ul.append($headerA);
+             
             //creating context menu elements
         angular.forEach(options[state].courseElementlist, function (item, i) {
             var $li = $('<li>');
@@ -64,30 +66,31 @@ angular.module('ui.bootstrap.contextMenu', [])
                          $scope.item=item;
                          //taking template for form builder to take required inputs of 
                          //selected context menu
-                         $scope.itemTemplate=item.courseElementTemplate;
+                         $scope.itemTemplate = item.courseElementTemplate;
                          //elements that comes under this element
-                         $scope.subElements=item.nestableElements;
+                         $scope.subElements = item.nestableElements;
                          //clearing data in preview object that is previously created
                          $scope.coursePreviewObj={};
-                         $templateCache.put('course-element-popup.html','<div style="padding: 0px;" class="aside col-xs-6 m-h-n b-l" role="dialog">'
+                         $templateCache.put('course-element-popup.html','<div style="padding: 0px;" class="aside" role="dialog">'
                             +'<div class="box">'
-                            +'<div class="p '+options[state].colorClass+' font-bold">'
+                            +'<div class="p bg-'+options[state].colorClass+' font-bold">'
                               +'<a ng-click="$hide()" class="pull-right text-white"><i class="fa fa-times"></i></a>'
                               +'<i class="fa '+ item.Icon +' text-md m-r"></i>'
                               +item.menuDisplayName
-                            +'</div>'
+                              +'<div style="margin-top: -5px;" class="pull-right m-r p-xs  bg-white text-'+options[state].colorClass+'">'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+" "+$scope.$parent.tlpoint
+                            +'</div></div>'
                             +'<div class="box-row">'
                               +'<div class="box-cell m-t">'
                                 +'<div class="box-inner col-xs-12">'
-                                  +'<form novalidate xt-form class="form" name="courseElement" enctype="multipart/form-data">'
-                                   +'<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"> </div>'
+                                  +'<form xt-form novalidate class="form" name="courseElement" enctype="multipart/form-data">'
+                                   +'<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"></div>'
                                    +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData['+$scope.randomKey+'])" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
-                                   +'<button type="submit" ng-click="saveMyFormData($hide)" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn '+options[state].colorClass+'">Save</button>'
-                                   +'<button type="submit" ng-click="createPreviewElement(\'tempCourseDocs\')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid" class="pull-left btn '+options[state].colorClass+'">Preview</button>'
+                                   +'<paper-button raised class="baab-btn pull-right m-v-lg" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="saveMyFormData($hide)" type="button" ng-disabled = "courseElement.$invalid">Add</paper-button>'
+                                   +'<paper-button raised class="baab-btn pull-left m-v-lg" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="createPreviewElement(\'tempCourseDocs\')" type="button" ng-disabled = "courseElement.$invalid">Preview</paper-button>'
                                   +'</form>'
                                   +'<div class="clearfix m-v-lg"><course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview></div>'
                         +'</div></div></div></div></div>');
-        $aside({scope: $scope, template:'course-element-popup.html', html:true});
+        $aside({scope: $scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
                         //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
                      });
                 });
@@ -268,7 +271,7 @@ angular.module('ui.bootstrap.contextMenu', [])
         var state=$state.current.name.split('.');
             state=state[state.length-1];
 
-            $templateCache.put('course-element-nested-popup.html','<div style="padding: 0px;" class="aside col-xs-6 m-h-n b-l" role="dialog">'
+            $templateCache.put('course-element-nested-popup.html','<div style="padding: 0px;" class="aside" role="dialog">'
             +'<div class="box" >'
             +'<div class="p '+$scope.callbackFunctions[state].colorClass+' font-bold">'
               +'<a ng-click="$hide()" class="pull-right text-white"><i class="fa fa-times"></i></a>'
@@ -286,7 +289,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                   +'</form>'
                   +'<div class="clearfix m-v-lg"><course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview></div>'
                 +'</div></div></div></div></div>');
- $aside({scope: $scope, template:'course-element-nested-popup.html', html:true});
+ $aside({scope: $scope, template:'course-element-nested-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
         };
 
 

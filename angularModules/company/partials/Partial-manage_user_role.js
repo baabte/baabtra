@@ -20,8 +20,11 @@ $scope.crmId=$rootScope.userinfo.ActiveUserData.roleMappingObj.crmId;
 $scope.urmId=$rootScope.userinfo.ActiveUserData.roleMappingObj.urmId;
 	
 	$scope.btnRoleAdd='add';
-  manageCompanyRoleService.RetrieveUserRole($scope);
-
+  // service call to fetch roles of company edit by arun 
+ var fnRertrivecompanyRoleCallBack= manageCompanyRoleService.RetrieveUserRole( $scope.companyId);
+fnRertrivecompanyRoleCallBack.then(function  (data) {
+  $scope.roles=angular.fromJson(JSON.parse(data.data));
+});
 $scope.resetForm = function(){
   $scope.RoleDesc="";
   $scope.roleName="";
@@ -45,8 +48,7 @@ $scope.AddCompanyRole=function(){
        manageCompanyRoleService.DeleteCompanyRole($scope,RollData._id); // calling service function
     };
   $scope.updateUserRole=function(role,roleData,data) //it wil edit roles from database
-    {
-      
+    {      
        $scope.roleData=roleData;
        $scope.role=role;
        $scope.data=data;
@@ -62,24 +64,22 @@ $scope.fnAddNewRollCallBack=function(data){ //callback function for handle Add n
     {
       $scope.Form_Adding_form.$setPristine();
       $scope.roleName="";$scope.RoleDesc="";
-      manageCompanyRoleService.RetrieveUserRole($scope);
-    	$scope.notifications("Success","new role added","success");}
+       // service call to fetch roles of company edit by arun 
+ var fnRertrivecompanyRoleCallBack= manageCompanyRoleService.RetrieveUserRole($scope);
+fnRertrivecompanyRoleCallBack.then(function  (data) {
+  $scope.roles=angular.fromJson(JSON.parse(data.data));
+});
+$scope.notifications("Success","new role added","success");
+    	}
   else if (data=="error"||data=="failed") 
     {$scope.notifications('Warning!',"Failed to Create role","warning");} 
      $scope.btnRoleAdd='add';          
 };
 
-$scope.fnRertrivecompanyRoleCallBack=function(data){ //callback function for handle Edit role of the company         
- $scope.roles=angular.fromJson(JSON.parse(data));
- // console.log($scope.roles);
- if($scope.roles=="error"||$scope.roles=="failed"){
-   // alert("Error in loading");
- } 
- else if($scope.roles.length<1) 
- {
-  // alert("you have no roles");
-}             
-};
+// $scope.fnRertrivecompanyRoleCallBack=function(data){ //callback function for handle Edit role of the company         
+//  $scope.roles=angular.fromJson(JSON.parse(data));
+
+// };
 $scope.fnEditUserRoleCallBack=function(data){ //callback function for handle Edit role of the company         
  data=angular.fromJson(JSON.parse(data));
  if(data=="success")

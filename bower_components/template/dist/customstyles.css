@@ -206,7 +206,7 @@ height: 66px;
 
 .breadCrumb li{
   display:inline-block !important;
-  padding: 15px;
+  padding: 14.5px;
   margin-top: -10px;
   margin-left: -10px;
 }
@@ -387,7 +387,7 @@ pre                             { margin-bottom:20px; }
 /*drafted course view start*/
 .course-description>.line{
   font-size: 14px!important;
-  height: initial!important;
+  height: inherit!important;
 }
 /*drafted course view end*/
 
@@ -436,5 +436,134 @@ border-radius: 2px;
 
 .hide-ul > ul{
   display: none!important;
+}
+
+
+/* Added for customize paper radio button group*/
+
+
+.teal-300 > paper-radio-button[checked]::shadow #offRadio {
+  border-color: #4DB6AC;  
+}
+.teal-300 > paper-radio-button::shadow #onRadio {
+  background-color: #4DB6AC;
+}
+.teal-300 > paper-radio-button::shadow #ink[checked] {
+  color:  #4DB6AC;
+}
+/*.lime > paper-radio-button::shadow #offRadio {
+  border-color: #8bc34a;
+}*/
+.teal-300 > paper-radio-button::shadow #ink[checked] {
+  color: #4DB6AC;
+}
+
+/* end of paper radio button styles*/
+.baab-btn{
+  height:30px;
+  line-height: 10px;
+}
+
+/*paper dropdown menu*/
+paper-dropdown-menu > .dropdown{
+  position: absolute;
+}
+
+.paper-dropdown > button ,.icon-paper-btn{
+  border: none!important;
+border-bottom: 1px solid #666666!important;
+cursor: pointer!important;
+}
+
+.paper-file{
+  border: none;
+border-bottom: 1px solid #666666;
+margin-bottom: 20px;
+margin-top: 20px;
+}
+
+
+/*ngqull text editor border none*/
+#content-container{
+  border:none!important;
+}
+.advanced-wrapper{
+  border:none!important;
+}
+/*ngqull text editor border none*/
+
+li:has( > a .dropdown-submenu-title){
+  background-color: red;
+}
+
+.am-slide-top{
+  height: 90%;
+}
+
+.am-slide-top .box{
+  height: 96%;
+}
+
+.step-box{
+  width: 0px;
+height: 0px;
+border-style: solid;
+border-width: 50px 0 50px 75px;
+border-color: transparent transparent transparent #ff002f;
+}
+
+
+/*course view*/
+.course-box{
+box-shadow: 0 2px 2px rgba(0,0,0,.05);
+box-sizing: border-box;
+border-radius: 5px;
+}
+
+.content-limiter{
+text-overflow: ellipsis;
+display: -webkit-box;
+line-height: 16px;
+max-height: 60px;
+-webkit-line-clamp:3;
+-webkit-box-orient: vertical;
+overflow:hidden; 
+
+ 
+}
+.baab-shadow{
+  box-shadow: 6px 3px 7px #424242;
+}
+
+/*add by jihin for change button color*/
+.change-avatar-btn:hover{
+  background-color: red!important;
+}
+
+
+/*overriding form-group to introduce vertical margin*/
+.form-group{
+  margin-top:20px;
+  margin-bottom:20px;
+}
+/*End. overriding form-group to introduce vertical margin*/
+
+/*overriding the top-margin of select*/
+select{
+  margin-top:5px;
+}
+/*End. overriding the top-margin of select*/
+
+/*overriding the top and bottom margin for list-group-item class*/
+.list-group-item{
+  padding-top:20px!important;
+  padding-bottom:20px!important;
+}
+/*End. overriding the top and bottom margin for list-group-item class*/
+
+
+.word-wrap{
+   white-space:normal !important;
+    word-wrap:break-word; 
 }
 

@@ -4,18 +4,18 @@
 
 
 <div class="container w-xxl p-lg bg-white shadow" >
-<button type="button" class="close" ui-sref="forgot-password"><code>×</code></button>
+<!-- <button type="button" class="close" ui-sref="forgot-password"><code>×</code></button> -->
   <div class="" >
     <h4 >Sign in to {{app.name}}</h4>
     <div class="p-v-sm"></div>
     <div>
-      <a class="btn btn-block btn-social btn-lg btn-facebook " ng-click="facebook_login()" ng-enabled="isLoggedIn">
-        <i class="fa fa-facebook "></i>
+      <a class="btn btn-block btn-social btn-facebook btn-material-indigo-A400 p" ng-click="facebook_login()" ng-enabled="isLoggedIn" style="background:#3A5791;">
+        <i class="fa fa-facebook" style="padding:3px;"></i>
         Sign in with facebook
       </a>
       <div class="p-xs"></div>
-      <a class="btn btn-block btn-social btn-lg btn-linkedin" ng-click="linkedIn_login()" ng-enabled="isLoggedIn">
-        <i class="fa fa-linkedin "></i>
+      <a class="btn btn-block btn-social btn-linkedin  btn-material-light-blue-A700 p" ng-click="linkedIn_login()" ng-enabled="isLoggedIn" style="background:#287bbc;" >
+        <i class="fa fa-linkedin" style="padding:3px;"></i>
         Sign in with linkedin
       </a>
     </div>
@@ -34,13 +34,18 @@
     <div  ng-class="Error_msg ? 'login-form' : ''" ng-show="Error_msg">
       <span class="content_span" >{{login_error}}</span>
     </div>
-    <label class="ui-checks">
+    <!-- <label class="ui-checks">
         <input type="checkbox"><i></i> Keep me signed in 
-    </label>
+    </label> -->
     <div>
-      <button  type="submit" class="btn btn-primary hg" ng-disabled="signinform.$invalid || progress" ><span class="p-h-md">{{btnSignupText}}</span></button>
+          <div class="row text-center">
+            <button  type="submit" class="btn btn-warning baab-btn" ng-disabled="signinform.$invalid || progress" ><span class="p-h-md">{{btnSignupText}}</span></button>
+
+            <p class="text-xs"><a ui-sref="forgot-password">Forgot password?</a></p>
+
+          </div>
       </form>
-      <p class="text-xs"><a ui-sref="forgot-password">Forgot password?</a></p>
+      
       
     </div>
   </div>  

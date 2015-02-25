@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService','addCourseElementService', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService,addCourseElementService) {
+angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService','addCourseElementService','courseElementFieldsManaging', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService,addCourseElementService,courseElementFieldsManaging) {
 	return {
 		restrict: 'E', // to use as an element . Use 'A' to use as an attribute
 		replace: true,
@@ -12,6 +12,11 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 		},
 		templateUrl: 'angularModules/courseTimeline/directives/Directive-courseTimeline.html',
 		link: function(scope, element, attrs, fn) {
+
+		var courseElementFieldsResponse = courseElementFieldsManaging.fnGetCourseElementFields();
+			courseElementFieldsResponse.then(function(response){
+				scope.courseElements = angular.fromJson(JSON.parse(response.data));
+			});
 			scope.ddlBindObject = {0:{id: "1",name: "Year(s)",mFactor:(1/525600),show:true},
                         1:{id: "2",name: "Month(s)",mFactor:(1/43200),show:true},
                         2:{id: "3",name: "Week(s)",mFactor:(1/10080),show:true},
@@ -20,7 +25,6 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
                         5:{id: "6",name: "Minute(s)",mFactor:1,show:true}};//mFactor is multiplication factor
 			//setting selected duration type as first object
 			scope.selectedDuration="4";
-
 
 			scope.formData=new Object();//used to save datas from timeline
 
@@ -49,6 +53,8 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 					var newTlPoint = 1;
 					scope.timeLineView = {};
 					var containerCount = 0;
+					scope.containerHeight = 95;
+					
 					if(angular.equals(name,'Minute')){
 						scope.timeLineView = angular.copy(scope.syncData.courseTimeline);
 					}
@@ -63,15 +69,16 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 								if(angular.equals(scope.timeLineView[newTlPoint][elemType],undefined) && crsElement.length){
 								scope.timeLineView[newTlPoint][elemType] = [];
 								}
-								angular.forEach(crsElement,function (item) {
+								angular.forEach(crsElement,function (item, index) {
 								item.tlPointInMinute = timePoint*1;
+								item.index = index;
 								scope.timeLineView[newTlPoint][elemType].push(item);
 								if(containerCount < Object.keys(scope.timeLineView[newTlPoint]).length){
 									containerCount = Object.keys(scope.timeLineView[newTlPoint]).length;
 								}
 							});
 							});
-							scope.containerHeight = 30/containerCount + (containerCount*80);
+							scope.containerHeight = 30/containerCount + (containerCount*90);
 						});
 					}
 				}
@@ -234,20 +241,27 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	angular.forEach(scope.tlPopOverEditObject,function(courseElement){
             		if(angular.equals(selectedCourseElement.Name,courseElement.Name)){
             			scope.courseElement = courseElement;
+            			scope.courseElement.courseElementTemplate.fields = [];
             		}
             	});
             	
             	 for(var elementCount=0;elementCount < selectedCourseElement.elements.length; elementCount++){
             	 	if(!angular.equals(selectedCourseElement.elements[elementCount],null)){
-            	 		// if(angular.equals(selectedCourseElement.elements[elementCount].type,'doc-viewer')){
-            	 		// 	console.log(selectedCourseElement.elements[elementCount].url.split('/')[selectedCourseElement.elements[elementCount].url.split('/').length-1]);
 
-            	 		// }
-            	 	scope.courseElement.courseElementTemplate.fields[elementCount].value = selectedCourseElement.elements[elementCount].value;
-            	 }
+            	 		angular.forEach(scope.courseElements,function(courseElement){
+            	 			if(angular.equals($(courseElement.DefaultTemplate).attr('previewKey'),selectedCourseElement.elements[elementCount].type)){
+            	 				var elementTo = angular.fromJson(JSON.parse(courseElement.Debug));
+            	 				var date=new Date();
+            	 				elementTo.name = "field"+Math.floor(Math.random()*10)+date.getTime();
+            	 				elementTo.value = selectedCourseElement.elements[elementCount].value;
+            	 				scope.courseElement.courseElementTemplate.fields.push(elementTo);
+            	 			}
+            	 			});
+
+            	 	}
             	 }
             	$templateCache.put('course-element-popup.html','<edit-course-element></edit-course-element>');
- 				$aside({scope: scope, template:'course-element-popup.html', html:true});
+ 				$aside({scope: scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
             }
 
             scope.removeCourseElement = function(ev) {

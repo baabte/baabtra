@@ -93,7 +93,6 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
                 if(scope.ItsTimeToSaveDataToDB===true){
                     var promise = addCourseService.editCourseTimelineElement(scope.$parent.courseId, scope.$parent.courseElement.Name, scope.instance,scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name], scope.$parent.$parent.rm_id);//saving to database
                     promise.then(function(response){
-                        console.log(angular.fromJson(JSON.parse(response.data)));
                         scope.$parent.syncData = angular.fromJson(JSON.parse(response.data))[0];
                     });
 

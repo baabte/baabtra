@@ -51,6 +51,29 @@ this.FnSaveCustomForm=function(customForm){
       return promise;	
    };
 
+   //service function to fetch all details of an exsisting user 
+   this.FnFetchRoles=function(FetchRoleObj){
+    // console.log(formFetchData);
+    var result;
+      var promise=$http({
+           url: bbConfig.BWS+'FetchRolesList/',
+           data: angular.toJson(FetchRoleObj),
+           method: 'POST',
+           withCredentials: false,
+           contentType:'application/json',
+           dataType:'json',
+           }).
+              success(function(data, status, headers, config) {
+              return data;
+               
+              }).
+              error(function(data, status, headers, config) {
+                result='error';
+             });
+
+      return promise; 
+   };
+
 					
 	
 }]);

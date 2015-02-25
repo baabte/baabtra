@@ -259,3 +259,7 @@ $scope.notifications=function(title,message,type){
 	});
 
 }]);
+
+// angular.module('baabtra',[function(){
+// 	return 'fg';
+// }()]);

@@ -1,37 +1,33 @@
 <div class="aside" ds-placement="top" tabindex="-1" role="dialog">
   <div class="aside-dialog">
-    <div class="aside-content">
-      <div class="aside-header">
+    <div class="aside-content  shadow-z-1">
+      <div class="p-xs b-b b-2x b-success">
         <button type="button" class="close" ng-click="$hide()">&times;</button>
         <h4 class="aside-title" >{{message}}{{CurrentTopBranch}}</h4>
       </div>
       <div class="aside-body" >
         <form name="form" class="form-validation ng-pristine ng-invalid ng-invalid-required">
             <div class="form-group m-h-n clearfix">
-              <div class="col-sm-6">
-                <label>Branch Name</label>
-                <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" placeholder="Branch Name" ng-model="branch.name" required="">
+              <div class="col-sm-6">                
+                <input type="text" class="form-control floating-label" placeholder="Branch Name" ng-model="branch.name" required="" placeholder="Branch Name">
               </div>
-              <div class="col-sm-6">
-                <label>Location</label>
-                <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-email" placeholder="Location" ng-model="branch.location" required="">
+              <div class="col-sm-6">                
+                <input type="text" class="form-control floating-label" placeholder="Location" ng-model="branch.location" required="">
               </div>
             </div>
             <div class="form-group m-h-n clearfix">
-              <div class="col-sm-6">
-                <label>Email</label>
-                <input type="email" class="form-control ng-pristine ng-invalid ng-valid-email ng-invalid-required" placeholder="Email" ng-model="branch.email" required="">
+              <div class="col-sm-6">                
+                <input type="email" class="form-control floating-label" placeholder="Email" ng-model="branch.email" required="">
               </div>
-              <div class="col-sm-6">
-                <label>Phone</label>
-                <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-email" placeholder="Phone" ng-pattern="/^(\+\d{1,3}[- ]?)?\d{10}$/" ng-model="branch.phone" required="">
+              <div class="col-sm-6">               
+                <input type="text" class="form-control floating-label" placeholder="Phone" ng-pattern="/^(\+\d{1,3}[- ]?)?\d{10}$/" ng-model="branch.phone" required="">
               </div>
             </div>
         </form>
       </div>
       <div class="aside-footer">
-        <button type="button" class="btn btn-primary" ng-show="updateBranch" ng-click="updateSubBranch(branch);$hide();">Update</button>
-        <button type="button" class="btn btn-primary" ng-show="addBranch" ng-click="addSubBranch(branch);$hide();">Add</button>
+        <button type="button" class="btn btn-info baab-btn" ng-show="updateBranch" ng-click="updateSubBranch(branch);$hide();">Update</button>
+        <button type="button" class="btn btn-info baab-btn"  ng-show="addBranch" ng-click="addSubBranch(branch);$hide();">Add</button>
       </div>
     </div>
   </div>

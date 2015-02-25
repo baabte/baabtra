@@ -2,7 +2,7 @@
 
     'use strict';
 
-    window.addEventListener('polymer-ready', function() { angular.bootstrap(wrap(document), ['baabtra']); });
+    //window.addEventListener('polymer-ready', function() { angular.bootstrap(wrap(document), ['baabtra']); });
 
     /**
      * @ngdoc overview
@@ -12,7 +12,7 @@
      *
      * Main module of the application.
      */
-    angular
+    var baabtra = angular
       .module('baabtra', [
         'ngAnimate',
         'ngCookies',
@@ -36,7 +36,7 @@
         'uiRouterStyles',
         'schemaForm',
         'ui.select',
-        'fg',
+        function(){  return 'fg';}(),
         'ui.bootstrap.contextMenu',
         'ngFacebook',
         'perfect_scrollbar',
@@ -47,13 +47,18 @@
         'ngQuill',
         'hierarchical-selector',
         'angularSpectrumColorpicker',       
-        'multi-select'
+        'multi-select',
+        'ngImgCrop',
+        'monospaced.qrcode',
+        'masonry'
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';
 })
 
 
 
+//code to get the bootstrap-mterial-design working
+  $.material.init();
 
 
 }());

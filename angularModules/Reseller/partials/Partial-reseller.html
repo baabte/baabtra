@@ -1,11 +1,10 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="bg-white">
-			 <md-toolbar class="md-primary md-default-theme">
-			    <h1 class="md-toolbar-tools">
-			      Add a reseller
-			    </h1>
-	 		 </md-toolbar>
+
+<div class="bg-white p-sm b-b b-2x b-success " >
+  <h4 class="no-margin">Add a reseller</h3>
+</div>
 
 
 	        <!-- panel body -->
@@ -14,50 +13,39 @@
 		        	<!-- body content -->
 		        	<!-- left half -->
 		        	<div class="col-xs-12">
-		        		<div class="row-fluid">
-		        			<!-- Email -->
-              				<md-input-container flex class="col-sm-6">
-              					<label>Email Address</label>
-                				<input type="text" xt-validate required name="eMail" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-pattern" ng-model="reseller.eMail" autocomplete="off"  ng-blur="LoadExistingUserData(reseller.eMail)" ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$/" indicate-val="email">                				
-              				</md-input-container>
+		        		<div class="form-group col-xs-12 col-sm-6">
+		        			<!-- Email -->              				
+                				<input type="text" xt-validate required name="eMail" class="form-control floating-label" placeholder="Email Address" ng-model="reseller.eMail" autocomplete="off"  ng-blur="LoadExistingUserData(reseller.eMail)" ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$/" indicate-val="email">                				
+              			</div> 	
               				<!-- Password -->
-              				<md-input-container flex class="col-sm-6">
-              					<label>Password</label>
-                				<input type="password" xt-validate required name="password" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-pattern" ng-model="reseller.password" indicate-val="required">
+              			<div class="form-group col-xs-12 col-sm-6">              				
+                				<input type="password" xt-validate required name="password" class="form-control floating-label" ng-model="reseller.password" indicate-val="required" placeholder="password">
               				</md-input-container>
             			</div>            			
             			
-            			<div class="row-fluid">
-            				<md-input-container flex  class="col-sm-6">
-            				<!-- contact person -->
-            				 <label>Contact Person</label>
-            				 <input type="text" xt-validate required name="contactPerson" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-pattern" ng-model="reseller.contactPerson" indicate-val="required">
-            			</md-input-container>
-              			<md-input-container flex class="col-sm-6">
-                				<!-- contact number -->
-                				<label>Contact Number</label>
-			        			<input type="text" xt-validate required name="contactNumber" ng-pattern="/^(\+\d{1,3}[- ]?)?\d{10}$/" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-pattern" ng-model="reseller.contactNumber"  indicate-val="phone" >
-              				</md-input-container>              				
+            			<div class="form-group col-xs-12 col-sm-4">
+            				 <input type="text" xt-validate required name="contactPerson" class="form-control floating-label" ng-model="reseller.contactPerson" indicate-val="required" placeholder="Contact Person">
             			</div>
+
+              			<div class="form-group col-xs-12 col-sm-4">
+			        			<input type="text" xt-validate required name="contactNumber" ng-pattern="/^(\+\d{1,3}[- ]?)?\d{10}$/" class="form-control floating-label" ng-model="reseller.contactNumber"  indicate-val="phone" placeholder="Contact Number" >
+              			</div>             				
+            			
 		        	
 		        		<!-- Address -->
-		        		<div class="row-fluid">
-			        		<md-input-container class="col-sm-6">
-	                				<!-- commission in percentage -->
-	                				<label>Percentage of commission</label>
-				        			<input type="number" class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-minlength" xt-validate required name="commission" ui-validate=" '$value <= 100' " ng-model="reseller.commission" required  indicate-val="number">
-	              			</md-input-container>		        		
-			        		<md-input-container flex class="col-sm-6">
-			        			<label>Address</label>
-			        			<textarea class="form-control" ng-model="reseller.address"  ></textarea>
-			        		</md-input-container>
+		        		<div class="form-group col-xs-12 col-sm-4">
+				        			<input type="number" class="form-control floating-label" xt-validate required name="commission" ui-validate=" '$value <= 100' " ng-model="reseller.commission" required  indicate-val="number" placeholder="% of commission">
+	              		</div>		        		
+			        	<div class="form-group col-xs-12 col-sm-12">
+			        			<textarea class="form-control floating-label" ng-model="reseller.address"  placeholder="address"></textarea>
+			        	
 		        		</div>
 		        	</div>
 		        </div>
 
 		        <div class="panel-footer text-right" layout="row" layout-align="space-between end">
-		        	<md-button class="md-raised md-warn" type="reset" ng-disabled="resellerInfo.$pristine">cancel</md-button>		
-	            	<button md-button type="button" class="md-raised md-primary md-hue-2" ng-disabled="resellerInfo.$invalid" ng-click="insertResellerDetails(reseller)">Add Reseller</button>
+		        	<button class="btn btn-warning baab-btn" type="reset" ng-disabled="resellerInfo.$pristine">cancel</button>		
+	            	<button class="btn btn-info baab-btn" ng-disabled="resellerInfo.$invalid" ng-click="insertResellerDetails(reseller)">Add Reseller</button>
 	          	</div>
           	</form>
 	    </div>

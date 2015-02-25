@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('PublishedcourseCtrl',['$scope','$rootScope','commonService','$state','PublishedCourse','$alert','draftedCourses',function($scope,$rootScope,commonService,$state,PublishedCourse,$alert,draftedCourses){
+angular.module('baabtra').controller('PublishedcourseCtrl',['$scope','$rootScope','commonService','$state','PublishedCourse','$alert','draftedCourses','$aside',function($scope,$rootScope,commonService,$state,PublishedCourse,$alert,draftedCourses,$aside){
 
 if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       $rootScope.hide_when_root_empty=true;
@@ -10,8 +10,10 @@ if($rootScope.loggedIn==false){
 $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId==2){
 	$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-	PublishedCourse.loadPublishedCourses($scope);
+	PublishedCourse.loadPublishedCourses($scope,'');
 }
+
+$scope.showCourseFilter = false;
 
 $scope.loadPublishedCoursesCallback=function(data){
 	$scope.publishedCourses=angular.fromJson(JSON.parse(data));
@@ -40,6 +42,15 @@ $scope.deleteCourseDetails = function(courseId){
 		$alert({scope: $scope, container:'body', keyboard:true, animation:'am-fade-and-slide-top', template:'views/ui/angular-strap/alert.tpl.html', title:'Undo', content:'The course has been moved to the Trash <i class="fa fa-smile-o"></i>', placement: 'top-right', type: 'warning'});
 	});
 		
+};
+var searchInProgress;
+$scope.searchCoursesAvailable=function(searchKey){
+	clearTimeout(searchInProgress);
+searchInProgress=setTimeout(function(){
+	console.log("calling");
+PublishedCourse.loadPublishedCourses($scope,searchKey);
+},500)
+
 };
 
 }]);
