@@ -16,8 +16,11 @@ var domainStatus = "";
 var courseDomainResponse = addCourseDomainSrv.FnLoadDomain();
 courseDomainResponse.then(function(response){
   $scope.domainDetails=angular.fromJson(JSON.parse(response.data));//Converting the result to json object
-  $scope.tree1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);
+  $scope.tree1 = manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);
+  console.log($scope.tree1);
 });
+
+
 
 // $scope.$watch('domainDetails',function (newValue,oldValue){
 //   if (!angular.equals($scope.domainDetails,undefined)) {

@@ -2,7 +2,7 @@
       <div class="navbar-header p-v-xs bg-light">
         <button class="pull-right visible-xs" bs-aside="aside" data-template="angularModules/login/partials/Partial-sm_User_Menu.html" data-placement="right" data-animation="am-slide-right aside-open-inner modal-open" data-container="body">
           <!-- <span class="visible-xs m-r pull-left">{{userinfo.ActiveUserData.username}}</span> -->
-          <i class="ti-settings"></i>
+          <img  ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length" ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" class="navbar-img img-circle pull-right m-t" style="margin-top: 0px;">
         </button>
         <!-- brand -->
         <a class="navbar-brand text-lt">
@@ -100,8 +100,8 @@
             <a href class="clear no-padding-h" style="color: #444;" bs-aside="aside" data-template="angularModules/login/partials/Partial-sm_User_Menu.html" data-placement="right" data-animation="am-slide-right aside-open-inner modal-open" data-container="body">
               <qrcode ng-if="!userinfo.ActiveUserData.roleMappingObj.avatar.length" version="2" size="30" color="#4A148C" ng-click="$hide()" class="navbar-img  pull-right" data="{{userinfo.ActiveUserData.username}}" style="margin-left: -8px;"></qrcode>
               <img  ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length" ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" alt="..." class="navbar-img img-circle pull-right">
-              <span class="hidden-sm m-l">{{userinfo.ActiveUserData.username}}</span>
-              <b class="fa fa-caret-left m-h-xs hidden-sm m-r-xs"></b>
+              <span class="m-l">{{userinfo.ActiveUserData.username}}</span>
+              <b class="fa fa-caret-left m-h-xs m-r-xs"></b>
             </a>
           </li>
         </ul>

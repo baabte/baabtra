@@ -66,7 +66,6 @@ $scope.totalCourseDuration=0; // course duration in minutes
     $scope.courseDuration.months=0;
     $scope.courseDuration.years=0;
 
-
 //watch funtion to analyse change in courseDuration object
     $scope.$watch('courseDuration', function(newVal, oldVal){
         
@@ -97,15 +96,11 @@ $scope.nextPart = function(state,borderClass){
       $state.go(state,{'courseId':$scope.courseId});
     }
 };
-
 $scope.onDomainSelectionChanged = function(items) {
-    $scope.selectedDomains =[];
-    if (items) {
-      for (var i = 0; i < items.length; i++) {
-        $scope.selectedDomains.push(items[i].name);
-      }
+  console.log($scope.course.Domains.indexOf(items[0]));
+    if(angular.equals($scope.course.Domains.indexOf(items[0]),-1)){
+      $scope.course.Domains.push(items[0]);
     }
-    return $scope.selectedDomains;
   };
 
 $scope.onBranchSelectionChanged = function(items) {
@@ -128,9 +123,15 @@ $scope.onRoleSelectionChanged = function(items) {
 
 commonSrv.FnLoadGlobalValues($scope,"");
 
-addCourseDomainSrv.FnLoadDomain($scope);
-
 branchSrv.fnLoadBranch($scope,$scope.cmp_id);
+
+var courseDomainResponse = addCourseDomainSrv.FnLoadDomain();
+courseDomainResponse.then(function(response){
+  var domainDetails=angular.fromJson(JSON.parse(response.data));//Converting the result to json object
+  $scope.domains = manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots(domainDetails,null),null);
+ convertObjectName($scope.domains, null);
+});
+
 
 RoleMenuMappingSrv.FnGetRoles($scope, $scope.cmp_id, "", "");
 
@@ -144,13 +145,13 @@ RoleMenuMappingSrv.FnGetRoles($scope, $scope.cmp_id, "", "");
 
 // Global Declaration Of variables end  
 
-$scope.$watch('domainDetails', function(newVal, oldVal){
-    if (!angular.equals($scope.domainDetails,undefined)) {
-        $scope.data1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);
-        $scope.domains = angular.copy($scope.data1);
-        convertObjectName($scope.domains, null);
-    }
-});
+// $scope.$watch('domainDetails', function(newVal, oldVal){
+//     if (!angular.equals($scope.domainDetails,undefined)) {
+//         $scope.data1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);
+//         $scope.domains = angular.copy($scope.data1);
+//         convertObjectName($scope.domains, null);
+//     }
+// });
 
 $scope.$watch('branches', function(newVal, oldVal){
     if (!angular.equals($scope.branches,undefined)) {
@@ -235,6 +236,7 @@ $scope.completeStep1 = function(course){//created for build step1 object
     $scope.course.crmId = $scope.rm_id;
     $scope.course.companyId =  $scope.cmp_id;
     $scope.course.urmId = $scope.rm_id;
+
     var courseToBeSave = angular.copy($scope.course);
     courseToBeSave.Tags = Tags;
     courseToBeSave.Duration = {durationInMinutes : 525600,DurationDetails : {"Year(s)" : 1}};

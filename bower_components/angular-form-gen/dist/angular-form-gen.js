@@ -1494,7 +1494,6 @@ fg.controller('fgFormController', ["$scope", "$parse","$modal", function($scope,
 
       for (looper; looper <courseElementFieldsDropdown.length-1; looper++) {
         var elemToBepushed=angular.copy(courseElementFieldsDropdown[looper]);
-            console.log(elemToBepushed);
             if(!angular.equals(elemToBepushed.formSchema,undefined)){
               elemToBepushed.click = 'form.addCourseElementField('+elemToBepushed.formSchema+','+index+')';
               delete elemToBepushed.formSchema;
@@ -1517,9 +1516,9 @@ fg.controller('fgFormController', ["$scope", "$parse","$modal", function($scope,
     this.model.embedCourseElement = function (courseElements,index) {
       rootThis = this;
       angular.forEach(courseElements, function (courseElement) {
-        console.log(this);
+        courseElement.nextedElement = true;
         rootThis.schema.fields.push(courseElement);
-      })
+      });
     }
     //function for add course element field
     this.model.addCourseElementField = function(courseElement,index){

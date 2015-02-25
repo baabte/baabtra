@@ -63,8 +63,7 @@
     <div class="col-xs-12 col-sm-6 m-t panel">
 
       <!-- Course domains -->
-      {{course.Domains}}
-      <hierarchical-selector  ng-model="course.Domains" data="domains" multi-select="true" on-selection-changed="course.Domains = onDomainSelectionChanged(items)" selection="{{course.Domains}}" no-button></hierarchical-selector>
+      <hierarchical-selector data="domains" multi-select="true" on-selection-changed="onDomainSelectionChanged(items)" selection="{{course.Domains}}"></hierarchical-selector>
       <em class="text-muted text-E91E63">Please specify Domains applicable to your course (eg: Accounting, Hospitality etc.)</em>
       <!-- Technologies -->
       <div class="form-group m-t-lg" >
