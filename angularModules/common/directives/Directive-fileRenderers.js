@@ -2,8 +2,9 @@ angular.module('baabtra').directive('renderImage', ['fileReader',function(fileRe
 	return {
 		restrict: 'A',
 		require: ["^?form",'ngModel'],
-		scope:{image:"="},
+		scope:{imgToRender:"="},
 		link: function(scope, element, attrs, ctrls) {
+
 
 			//keeping the form control in a variable
 			var formCtrl = ctrls[0];
@@ -35,11 +36,11 @@ angular.module('baabtra').directive('renderImage', ['fileReader',function(fileRe
 
 			// setting a watch on the file variable to change the source whenever the file changes
 			scope.$watch(function (){return scope.getFile();/* define what to watch*/
-				}, function(){					
-						if(!angular.equals(scope.file, undefined)){
+				}, function(){
+						if(!angular.equals(scope.file, undefined)){							
 							fileReader.readAsDataUrl(scope.file, scope)
 						                     .then(function(result) {             
-						                         scope.image = result;      
+						                         scope.imgToRender = result;      
 					 		});
 						}					
 

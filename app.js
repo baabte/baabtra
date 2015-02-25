@@ -2,7 +2,7 @@
 
     'use strict';
 
-    window.addEventListener('polymer-ready', function() { angular.bootstrap(wrap(document), ['baabtra']); });
+    //window.addEventListener('polymer-ready', function() { angular.bootstrap(wrap(document), ['baabtra']); });
 
     /**
      * @ngdoc overview
@@ -49,10 +49,17 @@
         'angularSpectrumColorpicker',       
         'multi-select',
         'ngImgCrop',
-        'monospaced.qrcode'
+        'monospaced.qrcode',
+        'masonry'
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';
 })
+
+
+
+//code to get the bootstrap-mterial-design working
+  $.material.init();
+
 
 }());
 

@@ -10,8 +10,8 @@
 					<form novalidate xt-form class="form" name="" enctype="multipart/form-data">
 						<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="formData" fg-schema="courseElement.courseElementTemplate"></div>
 						<!-- <div  on-item-click="selectedNestedElem(data,formModal.'+randomKeyForNested+')" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick"></div> -->
-						<paper-button raised ng-click="saveMyFormData($hide)" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right baab-btn btn-success" type="button">Add</paper-button>
-						<paper-button raised ng-click="createPreviewElement('tempCourseDocs')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-left baab-btn btn-success" type="button">Preview</paper-button>
+						<button ng-click="saveMyFormData($hide)" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="btn pull-right baab-btn btn-success" type="button">Add</button>
+						<button ng-click="createPreviewElement('tempCourseDocs')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="btn pull-left baab-btn btn-success" type="button">Preview</button>
 						<!-- <button type="submit" ng-click="saveMyFormData($hide)" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-right btn btn-success">Save</button> -->
 						<!-- <button type="button" ng-click="createPreviewElement('tempCourseDocs')" style="color:#fff!important;" ng-disabled = "courseElement.$invalid || !$root.valid" class="pull-left  btn-success">Preview</button> -->
 					</form>

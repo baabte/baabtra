@@ -1,25 +1,32 @@
 <div  name="manage" class="col-xl-12 " ui-view>
-  <div class="panel panel-default">
-    <br>
-    <span class="pull-right">
-    <a class="btn btn-lg btn-primary" ng-href="#/home/main/company/registration">Register a new Company</a> </span>
+
+  <div class="row">
+      <div class="col-xs-12">
+        <span class="pull-right">
+        <a class="btn btn-warning baab-btn" ng-href="#/home/main/company/registration">Register a new Company</a>
+        </span>
+      </div>
+    </div>
+
+
+  <div class="panel panel-default"> 
+
+  <div class="bg-white p-sm b-b b-2x b-success " >
+  <h4 class="no-margin">Registered Companies</h3>
+</div>  
  
     <div class="panel-heading bg-white">
       <div class="col-sm-4">
-      <div class="input-group">
+      <div class="input-group m-v-md">
                       
-                      <input ng-model="CompanySearch" type="text" class="form-control input col-md-2 no-border well" placeholder="{{placeholderVal}}...">
+                      <input ng-model="CompanySearch" type="text" class="form-control floating-label input col-md-2 no-border well" placeholder="{{placeholderVal}}...">
                       <span class="input-group-btn">
                         <button ng-click="searchCompany(CompanySearch)" class="btn btn-sm bg-white btn-icon no-shadow no-padder">
                           <i class="glyphicon glyphicon-search text-xl"></i>
                         </button>
                       </span>
                     </div>
-                    </div>
-    <br>
-    <br>
-              
-          <h3>Registered Companies</h3>
+                    </div>          
           
            
     </div>

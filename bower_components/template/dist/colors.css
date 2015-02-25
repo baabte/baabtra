@@ -218,6 +218,9 @@ em{
 .text-00C853{
 	color: #00C853!important;
 }
+.b-00C853{
+	border-color: #00C853;
+}
 
 .course-step-shadow{
 	box-shadow:0px 0px 9px 3px rgba(223, 204, 223, 1);

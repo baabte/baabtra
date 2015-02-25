@@ -165,14 +165,14 @@ border-radius: 3px;
 
 /*Body BG*/
 html{
-  background:url(../images/Mainbg/promo2.png) no-repeat center center fixed;
+  background:url(../images/Mainbg/promo2.png) no-repeat center center fixed !important;
   
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  -khtml-background-size: cover;
-  -ms-background-size: cover;
-  background-size: cover;
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+  -khtml-background-size: cover !important;
+  -ms-background-size: cover !important;
+  background-size: cover !important;
 }
 
 /*Fixed Bread crumb*/
@@ -387,7 +387,7 @@ pre                             { margin-bottom:20px; }
 /*drafted course view start*/
 .course-description>.line{
   font-size: 14px!important;
-  height: initial!important;
+  height: inherit!important;
 }
 /*drafted course view end*/
 
@@ -513,14 +513,61 @@ border-color: transparent transparent transparent #ff002f;
 }
 
 
+
+/*course view*/
+.course-box{
+box-shadow: 0 2px 2px rgba(0,0,0,.05);
+box-sizing: border-box;
+border-radius: 5px;
+}
+
+.content-limiter{
+text-overflow: ellipsis;
+display: -webkit-box;
+line-height: 16px;
+max-height: 60px;
+-webkit-line-clamp:3;
+-webkit-box-orient: vertical;
+overflow:hidden; 
+
+ 
+}
+
 .baab-shadow{
-  box-shadow: 6px 3px 7px #424242;
+  box-shadow: 0px 3px 7px 0px #424242;
 }
 
 /*add by jihin for change button color*/
 .change-avatar-btn:hover{
   background-color: red!important;
 }
+
+/*overriding form-group to introduce vertical margin*/
+.form-group{
+  margin-top:20px;
+  margin-bottom:20px;
+}
+/*End. overriding form-group to introduce vertical margin*/
+
+/*overriding the top-margin of select*/
+select{
+  margin-top:5px;
+}
+/*End. overriding the top-margin of select*/
+
+/*overriding the top and bottom margin for list-group-item class*/
+.list-group-item{
+  padding-top:20px!important;
+  padding-bottom:20px!important;
+}
+/*End. overriding the top and bottom margin for list-group-item class*/
+
+
+.word-wrap{
+   white-space:normal !important;
+    word-wrap:break-word; 
+}
+
 
 /*formgen dropdown menu*/
 formgen-dropdown-menu > .dropdown{

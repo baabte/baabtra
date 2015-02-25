@@ -41,6 +41,8 @@ angular.module('baabtra').directive('questionField',['courseElementFieldsManagin
 						    scope.answerTypes.push(elem);
 						}
 					}
+
+					scope.answerTypesSecond=angular.copy(scope.answerTypes);
 				}
 			});
 

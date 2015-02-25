@@ -57,7 +57,7 @@ angular.module('baabtra').directive('objectiveOptionsField', function() {
 		    		}});
 
 		    	return list;
-		    }
+		    };
 
 
 		    scope.changeNumberingType=function() {

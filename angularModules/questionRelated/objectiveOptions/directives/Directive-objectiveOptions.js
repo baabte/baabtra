@@ -26,7 +26,7 @@ angular.module('baabtra').directive('objectiveOptions', function() {
 				scope.userAnswer=angular.copy(scope.selectedAnswer);
 				var count=0;
 				var correctAnswer=0;
-				while(answerList.length!=0&&scope.selectedAnswer.length>count){
+				while(!angular.equals(answerList.length,0)&&scope.selectedAnswer.length>count){
 
 					if(answerList[0].Name==scope.selectedAnswer[count]){ // looping through user's answer to calculate marks
 						correctAnswer++;

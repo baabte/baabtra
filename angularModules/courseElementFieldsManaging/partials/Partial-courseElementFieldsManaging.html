@@ -3,79 +3,76 @@
 	<div class="panel b-t b-9C27B0">
 		<form name="Manage_course_element_fields" xt-form novalidate>
 			<div class="panel-heading font-bold text-white bg-9C27B0 p baab-shadow">Manage Course Element Fields</div>
-			<div class="panel-body">
+			<div class="panel-body p-v-lg">
 <!-- 				<qrcode version="1" color="#4A148C" data="jihin" href="http://example.com"></qrcode> -->
 				<!-- Dispaly Name -->
 				<div class="col-md-6 col-lg-2">
-					<paper-input-decorator label="Dispaly Name" floatinglabel>
-						<input class="" ng-model="element.DispalyName" name="DispalyName" required xt-validate>
-					</paper-input-decorator>
+					
+						<input class="form-control floating-label" ng-model="element.DispalyName" name="DispalyName" required xt-validate placeholder="Name to be displayed for the field">
+				
 				</div>
 
 				<!-- Name -->
 				<div class="col-md-6 col-lg-2">
-					<paper-input-decorator label="Name" floatinglabel>
-						<input name="Name" ng-model="element.Name" required xt-validate>
-					</paper-input-decorator>
+					
+						<input name="Name" ng-model="element.Name" required xt-validate class="form-control floating-label" placeholder="Actual name of the field">
+					
 				</div>
 
 				<!-- can add by user -->
-				<div class="col-xs-12 col-sm-4 col-lg-2 m-t-lg">
-					<!-- <input id="option_1" type="checkbox" ng-click="element.canAdd=!element.canAdd" ng-checked="element.canAdd" ng-model="element.canAdd"/> -->
-					<div class="pull-left m-r m-t">Can be added by the user</div>
-					<paper-toggle-button class="m-t" ng-click="element.canAdd=!element.canAdd" ng-checked="element.canAdd" ng-value="element.canAdd"></paper-toggle-button>
+				<div class="col-xs-12 col-sm-4 col-lg-2">
+					<div class="togglebutton">
+	                    <label>
+	                        <input type="checkbox" ng-click="element.canAdd=!element.canAdd" ng-checked="element.canAdd" ng-value="element.canAdd"> Can be added by the user
+	                    </label>
+                	</div>
 				</div>
 
 				<!-- answer -->
-				<div class="col-xs-12 col-sm-4 col-lg-2 m-t-lg">
-					<div class="pull-left m-r  m-t">Can be an answer</div>
-					<paper-toggle-button class="m-t" ng-click="element.canBeAnAnswer=!element.canBeAnAnswer" ng-checked="element.canBeAnAnswer" ng-value="element.canBeAnAnswer"></paper-toggle-button>
-					<!-- <paper-checkbox label="Can be an answer" ng-click="element.canBeAnAnswer = !element.canBeAnAnswer" class="m-t-sm" ng-checked="!element.canBeAnAnswer" ng-model="element.canBeAnAnswer"></paper-checkbox> -->
+				<div class="col-xs-12 col-sm-4 col-lg-2">
+					<div class="togglebutton">
+	                    <label>
+	                        <input type="checkbox" nng-click="element.canBeAnAnswer=!element.canBeAnAnswer" ng-checked="element.canBeAnAnswer" ng-value="element.canBeAnAnswer"> Can be an answer
+	                    </label>
+                	</div>				
 				</div>
 
 				<!-- palette Name -->
-				<div class="col-xs-6 col-sm-4 col-lg-2 m-v-lg">
-					<div class="paper-dropdown">
+				<div class="col-xs-6 col-sm-4 col-lg-2 m-v-n">
+					
 					<select placeholder="Select palette" data-animation="am-fade-and-slide-top"  ng-model="element.paletteName" ng-options="value.name as value.name for (key, value) in palette" data-html="true" bs-select></select>
-					</div>
+				
 				</div>
 
 				<!-- icon chooser -->
-				<div class="col-xs-6 col-sm-4 col-lg-2 m-v-lg">
+				<div class="col-xs-6 col-sm-4 col-lg-2 m-v-n">
 					<icon-chooser selected-icon="element.icon"></icon-chooser>
 				</div>
 
 				<!-- Default template -->
-				<div class="col-xs-12">
-					<paper-input-decorator label="Default template" floatinglabel>
-						<paper-autogrow-textarea>
-							<textarea ng-model="element.DefaultTemplate" name="DefaultTemplate" required xt-validate rows="0" style="width:100%;"></textarea>
-						</paper-autogrow-textarea>
-					</paper-input-decorator>
+				<div class="col-xs-12 m-v-lg">
+				
+							<textarea ng-model="element.DefaultTemplate" name="DefaultTemplate" required xt-validate rows="0" placeholder="Default Template" class="form-control floating-label"></textarea>
+				
 				</div>
 
 				<!-- Properties template -->
-				<div class="col-xs-12">
-					<paper-input-decorator label="Properties template" floatinglabel>
-						<paper-autogrow-textarea>
-							<textarea ng-model="element.PropertiesTemplate" name="PropertiesTemplate" required xt-validate rows="0" style="width:100%;"></textarea>
-						</paper-autogrow-textarea>
-					</paper-input-decorator>
+				<div class="col-xs-12 m-v-lg">					
+							<textarea ng-model="element.PropertiesTemplate" name="PropertiesTemplate" required xt-validate placeholder="Properties Template" class="form-control floating-label"></textarea>
+				
 				</div>
 
 				<!-- Debug -->
-				<div class="col-xs-12">
-					<paper-input-decorator label="Debug" floatinglabel>
-						<paper-autogrow-textarea>
-							<textarea ng-model="element.Debug" name="PropertiesTemplate" required xt-validate rows="0" style="width:100%;"></textarea>
-						</paper-autogrow-textarea>
-					</paper-input-decorator>
+				<div class="col-xs-12 m-v-lg">
+				
+							<textarea ng-model="element.Debug" name="PropertiesTemplate" required xt-validate placeholder="Debug" class="form-control floating-label"></textarea>
+						
 				</div>
 
 			</div>
 			<div class="panel-footer">
-				<paper-button raised class="baab-btn" ng-disabled="Manage_course_element_fields.$pristine" ng-class="{'bg-warning':!Manage_course_element_fields.$pristine}" type="button">Cancel</paper-button>
-				<paper-button class="pull-right baab-btn"  ng-disabled="Manage_course_element_fields.$invalid" ng-class="{'bg-info':!Manage_course_element_fields.$invalid}" disabled="disabled" raised type="button" ng-click="saveCourseElementFields()">Save</paper-button>
+				<button class="btn btn-warning baab-btn" ng-disabled="Manage_course_element_fields.$pristine" ng-class="{'bg-warning':!Manage_course_element_fields.$pristine}" type="button">Cancel</button>
+				<button class="btn btn-info baab-btn pull-right"  ng-disabled="Manage_course_element_fields.$invalid" ng-class="{'bg-info':!Manage_course_element_fields.$invalid}" disabled="disabled" type="button" ng-click="saveCourseElementFields()">Save</button>
 			</div>
 		</form>
 	</div>

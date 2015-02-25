@@ -1,6 +1,6 @@
 angular.module('baabtra').controller('FormcustomizerCtrl',['$scope','$rootScope','$state','commonService','formCustomizerService','$modal','$alert',function($scope,$rootScope,$state,commonService,formCustomizerService,$modal,$alert){
 
-	if(!$rootScope.userinfo){
+  if(!$rootScope.userinfo){
    commonService.GetUserCredentials($scope);
    $rootScope.hide_when_root_empty=false;
 }
@@ -70,7 +70,7 @@ fnFetchRoleCallBack.then(function  (data) {
 
   $scope.rolelist=angular.fromJson(JSON.parse(data.data));
 
-// console.log($scope.rolelist);
+console.log($scope.rolelist);
 
 });
 
@@ -83,11 +83,18 @@ $scope.fnselectForm = function(selForm){
 for (var i = 0; i < $scope.rolelist.length; i++) {
  
     for (var x = 0; x < selForm.roleSchema.length; x++) {
+      if(!angular.equals(selForm.roleSchema[x].roleId.$oid,undefined)){
       if(angular.equals($scope.rolelist[i].roleId,selForm.roleSchema[x].roleId.$oid)){
         $scope.rolelist[i].formSchema=selForm.roleSchema[x].formSchema;
         $scope.rolelist[i].formSteps=selForm.roleSchema[x].formSteps;
+        }
       }
-     
+      else{
+        if(angular.equals($scope.rolelist[i].roleId,selForm.roleSchema[x].roleId)){
+        $scope.rolelist[i].formSchema=selForm.roleSchema[x].formSchema;
+        $scope.rolelist[i].formSteps=selForm.roleSchema[x].formSteps;
+        }
+      }
      }
 
 }
@@ -99,7 +106,7 @@ for (var i = 0; i < $scope.rolelist.length; i++) {
 };
 
 $scope.fnroleChange= function(roleSchema){
-    console.log(roleSchema);
+    // console.log(roleSchema);
      // $scope.customForm.roleSchema=[roleSchema];
   if(!angular.equals(roleSchema.formSchema,undefined)){
     
