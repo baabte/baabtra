@@ -340,6 +340,9 @@ pre                             { margin-bottom:20px; }
   padding: 0px;
 }
 
+.no-margin{
+  margin: 0px!important;
+}
 .bg-baabtra{
   background: #045067!important;
 }
@@ -580,4 +583,8 @@ border-bottom: 1px solid #666666!important;
 cursor: pointer!important;
 width: 100%;
 text-align: left;
+}
+
+.place-white::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #FFF;
 }
