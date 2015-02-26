@@ -80,16 +80,16 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 					$compile(optionsElem)(scope);
 					//scope.$digest();
 				}
-				else if(scope.question.type=='descriptive'){
-					var descriptiveElem=$('<descriptive-answer>');
-						descriptiveElem.attr('primary','question.primaryAnswer');
-						descriptiveElem.attr('user-answer','userAnswer');
-						descriptiveElem.attr('mark-scored','mark');
-						descriptiveElem.attr('db-answer','dbAnswer');
+				// else if(scope.question.type=='descriptive'){
+				// 	var descriptiveElem=$('<descriptive-answer>');
+				// 		descriptiveElem.attr('primary','question.primaryAnswer');
+				// 		descriptiveElem.attr('user-answer','userAnswer');
+				// 		descriptiveElem.attr('mark-scored','mark');
+				// 		descriptiveElem.attr('db-answer','dbAnswer');
 
-					answerArea.html(descriptiveElem);
-					$compile(descriptiveElem)(scope);
-				}
+				// 	answerArea.html(descriptiveElem);
+				// 	$compile(descriptiveElem)(scope);
+				// }
 				}
 			},true);
 			

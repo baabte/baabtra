@@ -6,20 +6,19 @@
 		</div>
 	</div>
 
-		<div class="col-xs-12" ng-repeat="(key,val) in answers track by key">
+		<div class="col-xs-12 m-v-md" ng-repeat="(key,val) in answers track by key">
 			<div class="col-xs-12 col-sm-6">
-			<paper-input-decorator label="Option {{selectedNumbering.value[$index]}}." floatinglabel="">
-			  	<input is="core-input" ng-change="ansChanged(answers[$index].value,$index)" name="option" ng-model="answers[$index].value">
-		    </paper-input-decorator>
-		    <paper-icon-button class="pull-right" style="margin-top:-40px;margin-right:-10px;" icon="menu" data-placement="left" bs-dropdown="dropDown($index)">
-			</paper-icon-button>
+		
+			  	<input class="form-control floating-label" placeholder="Option {{selectedNumbering.value[$index]}}." ng-change="ansChanged(answers[$index].value,$index)" name="option" ng-model="answers[$index].value">
+		 
+		   
+		    	<i class="pull-right mdi-av-playlist-add text-2x" data-placement="left" bs-dropdown="dropDown($index)"></i>
+			
 			</div>
 			<div class="col-xs-12 col-sm-6">
-		    <paper-input-decorator label="Why / Why not this answer (optional)" floatinglabel="">
-			  	<paper-autogrow-textarea>
-        				<textarea  name="optionWhy" ng-model="answers[$index].why" rows="0" xt-validate style="width:100%;"></textarea>
-     				 </paper-autogrow-textarea>
-		    </paper-input-decorator>
+		   
+        		<textarea class="form-control floating-label"  name="optionWhy" placeholder="Why / Why not this answer (optional)" ng-model="answers[$index].why" rows="0" xt-validate style="width:100%;"></textarea>
+     	
 			</div>
 			
     	</div>

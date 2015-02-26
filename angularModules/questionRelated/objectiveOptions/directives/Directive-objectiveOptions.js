@@ -36,7 +36,6 @@ angular.module('baabtra').directive('objectiveOptions', function() {
 					count++;
 					
 				}
-
 				// while(scope.userAnswer.indexOf('')!=-1){
 				// 	var indexNum=scope.userAnswer.indexOf('');
 				// 	scope.userAnswer.splice(indexNum,1);

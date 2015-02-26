@@ -67,6 +67,7 @@ angular.module('baabtra').directive('questionField',['courseElementFieldsManagin
 			if(!scope.question){
 				scope.question={};
 				scope.question.mark={};
+				scope.question.answer=[];
 			}
 			// scope.question.type="objective";
 			// scope.question.answerType="singleAnswer";
