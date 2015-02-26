@@ -70,7 +70,7 @@ fnFetchRoleCallBack.then(function  (data) {
 
   $scope.rolelist=angular.fromJson(JSON.parse(data.data));
 
-console.log($scope.rolelist);
+// console.log($scope.rolelist);
 
 });
 
@@ -79,7 +79,7 @@ console.log($scope.rolelist);
 
 //functon trigred when a form is selected 
 $scope.fnselectForm = function(selForm){
-  console.log(selForm);
+  // console.log(selForm);
 for (var i = 0; i < $scope.rolelist.length; i++) {
  
     for (var x = 0; x < selForm.roleSchema.length; x++) {
