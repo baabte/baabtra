@@ -1,17 +1,14 @@
 <div>
 	
       	<input class="form-control floating-label" required xt-validate type="number"  name="TotalMarks" ng-model="markObj.totalMark" placeholder="Total Marks">
-    
-    
-		<div class="col-xs-12" ng-if="customMarks" ng-repeat="criteria in markObj.markCriteria">
+		<div class="col-xs-12 m-v-md" ng-if="customMarks" ng-repeat="criteria in markObj.markCriteria">
 			<div class="col-xs-12 col-sm-6">
 				
 				  	<input class="form-control floating-label" placeholder="Mark Criteria" ng-change="criteriaTyped(markObj.markCriteria[$index].criteria,$index)" name="option" ng-model="markObj.markCriteria[$index].criteria">
-			    
-
-			    <button class="pull-right" style="margin-top:-40px;margin-right:-10px;" data-placement="left" bs-dropdown="dropDown($index)">
-			    	<i class="mdi-device-storage"></i>
-				</button>
+			
+			   
+			    	<i class="pull-right mdi-av-playlist-add text-2x" data-placement="left" bs-dropdown="dropDown($index)"></i>
+				
 
 			</div>
 

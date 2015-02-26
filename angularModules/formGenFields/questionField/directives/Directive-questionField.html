@@ -1,36 +1,20 @@
-<paper-shadow class="p-md m-h-lg" z="1">
+<div class="p-md m-v-md shadow-z-1">
 
 
 
 <!-- style="background:#F3E5F5;border:1px solid #ff4081" class="p-sm"  -->
-<style type="text/css">
-paper-tabs paper-tab{
-	cursor: pointer;
-}
-paper-tabs.pink::shadow #selectionBar {
-  background-color: #ff4081;
-}
-
-paper-tabs.pink paper-tab::shadow #ink {
-  color: #ff4081;
-}
-
-.icon-container-active {
-	margin-top: 15px;
-	color: #ff4081 !important; 
-	margin-left:-20px;
-}
-
-.icon-container-inactive{
-	margin-top: 15px;
-	color: #777777; 
-	margin-left:-20px;
-}
-
-</style>
 
 
-	<paper-tabs selected="0" class="pink">
+
+<ul class="nav nav-tabs p m-v-md">
+  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='question'}" ng-click="selectedTab='question'"><a href="#">Question</a></li>
+  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='answerType'}" ng-click="selectedTab='answerType'"><a href="#">Answer type</a></li>
+  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='answers'}" ng-click="selectedTab='answers'"><a href="#">Answers</a></li>
+  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='marks'}" ng-click="selectedTab='marks'"><a href="#">Marks</a></li>
+</ul>
+
+
+	<!-- <paper-tabs selected="0" class="pink">
 	  <paper-tab ng-click="selectedTab='question'">Question </paper-tab>
 	  <div  class="icon-container-inactive" ng-class="{'icon-container-active':selectedTab=='question'}"><core-icon icon="arrow-forward"></core-icon></div>
 	  <paper-tab ng-click="selectedTab='answerType'">Answer type</paper-tab>
@@ -38,32 +22,55 @@ paper-tabs.pink paper-tab::shadow #ink {
 	  <paper-tab ng-click="selectedTab='answers'">Answers</paper-tab>
 	  <div  class="icon-container-inactive" ng-class="{'icon-container-active':selectedTab=='answers'}"><core-icon icon="arrow-forward"></core-icon></div>
 	  <paper-tab ng-click="selectedTab='marks'">Marks</paper-tab>
-	</paper-tabs>
+	</paper-tabs> -->
 
 
 
 
 
 				<div ng-show="selectedTab=='question'" >
-					<paper-input-decorator label="Question Title (optional)" floatinglabel="">
-      					<input is="core-input" name="questionTitle" ng-model="question.title">
-    				</paper-input-decorator>
-
-	    			<paper-input-decorator label="Question" floatinglabel="">
+				
+      					<input class="form-control floating-label" type="text" placeholder="Question Title (optional)" name="questionTitle" ng-model="question.title">
+    		
+    					<div class="m-v-lg">
+	    					<em class="text-muted">Question</em>
 	      					 <ng-quill-editor name="questionDesc" ng-model="question.question"  toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" required xt-validate editor-required="true" error-class="input-error"></ng-quill-editor>
-	    			</paper-input-decorator>
+	      				</div>
+	    			
 				</div>
 				<div class="col-xs-12 pull-left" ng-show="selectedTab=='answerType'" >
-						<paper-radio-group selected="" class="am-fade">
-						  <paper-radio-button class="core-selected" ng-checked="question.type=='objective'" radio-change="questionTypeChange('objective')" value="objective"  radio-model="question.type"  name="objective" label="Objective"></paper-radio-button>
-						  <paper-radio-button radio-change="questionTypeChange('descriptive')" ng-checked="question.type=='descriptive'" value="descriptive"  radio-model="question.type" name="descriptive" label="Descriptive"></paper-radio-button>
-						</paper-radio-group>
 
-						<div class="col-xs-12 p">
-							<paper-radio-group class="am-fade teal-300" ng-click="question.answer=[]" selected="{{question.answerType}}" ng-if="question.type=='objective'">
-							  <paper-radio-button name="singleAnswer" ng-checked="question.answerType=='singleAnswer'" value="singleAnswer" radio-model="question.answerType" label="Single Answer"></paper-radio-button>
-							  <paper-radio-button name="multiAnswer" ng-checked="question.answerType=='multiAnswer'" value="multiAnswer" radio-model="question.answerType" label="Multi Answer"></paper-radio-button>
-							</paper-radio-group>
+						 <div class="radio radio-success pull-left">
+				            <label>
+				              <input type="radio" ng-checked="question.type=='objective'" ng-change="questionTypeChange('objective')" value="objective"  ng-model="question.type"  name="questionType">
+				              Objective
+				            </label>
+				        </div>
+
+				        <div class="radio radio-success pull-left m-l" style="padding-top:15px;">
+				            <label>
+				              <input type="radio" ng-change="questionTypeChange('descriptive')" ng-checked="question.type=='descriptive'" value="descriptive" ng-model="question.type"   name="questionType">
+				              Descriptive
+				            </label>
+				        </div>
+
+
+						<div class="col-xs-12 p" ng-if="question.type=='objective'">
+
+							<div class="radio radio-success pull-left">
+					            <label>
+					              <input type="radio" ng-checked="question.answerType=='singleAnswer'" value="singleAnswer"  ng-model="question.answerType"  name="answerType">
+					              Single Answer
+					            </label>
+					        </div>
+
+					        <div class="radio radio-success pull-left m-l" style="padding-top:15px;">
+					            <label>
+					              <input type="radio"  ng-checked="question.answerType=='multiAnswer'" value="multiAnswer"  ng-model="question.answerType" name="answerType">
+					              Multi Answer
+					            </label>
+					        </div>
+
 						</div>
 				</div>
 
@@ -120,4 +127,4 @@ paper-tabs.pink paper-tab::shadow #ink {
 				
 
 
-</paper-shadow>
+</div>
