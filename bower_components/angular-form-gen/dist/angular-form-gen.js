@@ -364,13 +364,13 @@ angular.module('fg').run(['$templateCache','courseElementFieldsManaging','fgConf
 
   });
 
-  var tlPopOverEditObject = addCourseElementService.FnGetCourseElements("");//calling course element function
-  tlPopOverEditObject.then(function(data){
-    var tlPopOverEditObject = angular.fromJson(JSON.parse(data.data));
-    angular.forEach(tlPopOverEditObject,function(PopOverEditObject){
-      courseElementFieldsDropdown.push({"text": '<i class=\"fa fa-fw '+PopOverEditObject.Icon+'\"></i>&nbsp;'+PopOverEditObject.Name,courseElem:''+JSON.stringify(PopOverEditObject.courseElementTemplate.fields)+''});
-    });
-  });
+  // var tlPopOverEditObject = addCourseElementService.FnGetCourseElements("");//calling course element function
+  // tlPopOverEditObject.then(function(data){
+  //   var tlPopOverEditObject = angular.fromJson(JSON.parse(data.data));
+  //   angular.forEach(tlPopOverEditObject,function(PopOverEditObject){
+  //     courseElementFieldsDropdown.push({"text": '<i class=\"fa fa-fw '+PopOverEditObject.Icon+'\"></i>&nbsp;'+PopOverEditObject.Name,courseElem:''+JSON.stringify(PopOverEditObject.courseElementTemplate.fields)+''});
+  //   });
+  // });
 
 
   $templateCache.put('angular-form-gen/edit/edit.ng.html', '<div class=\"fg-edit row form-group\" ng-form=\"$fg\"><div class=\"col-sm-8\"><div fg-form=\"\" fg-edit-canvas=\"\" fg-no-render=\"true\"></div></div><div class=\"col-sm-4\" ng-form=\"$palette\" fg-null-form=\"\"><div fg-form=\"\" fg-edit-palette=\"\" fg-no-render=\"true\"></div></div></div>');

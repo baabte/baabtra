@@ -9,8 +9,8 @@ angular.module('baabtra').directive('markFieldsInput', function() {
 		link: function(scope, element, attrs, fn) {
 
 
-			if(scope.markObj.markCriteria){
-				scope.markObj.markCriteria=[{criteria:''}]; // default first criteria option
+			if(!scope.markObj.markCriteria){
+				scope.markObj.markCriteria=[{}]; // default first criteria option
 			}
 
 			scope.criteriaTyped=function (ans,index) {

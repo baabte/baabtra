@@ -49,21 +49,21 @@
           
            <div class="col-xs-12" >
            <div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-           <div draggable ng-class="{'am-slide-left ':showCourseFilter}" masonry-tile class="tile col-xs-6 col-sm-4 col-md-3 col-lg-3 pull-left masonry-brick" ng-repeat="course in publishedCourses">            
+           <div masonry-tile class="tile col-xs-6 col-sm-4 col-md-3 col-lg-3 pull-left masonry-brick" ng-repeat="course in publishedCourses.courses">            
             <div class="panel course-box">
-                 <div class="panel-heading text-lt">
-                  <core-tooltip label="Delete Course" position="top" class="pull-right">
+                 <div class="p">
+
+                  <!-- <core-tooltip label="Delete Course" position="top" class="pull-right">
                     <core-icon-button icon="delete" class="pull-right text-muted" ng-click="deleteCourseDetails(course._id.$oid)"></core-icon-button>
                   </core-tooltip>
                    <core-tooltip label="Edit Course" position="top" class="pull-right">
                     <core-icon-button class=" text-muted" icon="create" ng-click="editCourse(course._id.$oid)"></core-icon-button>
-                   </core-tooltip> 
-                       <!-- <a href="" ng-click="editCourse(course._id.$oid)">
-                         <i class="fa fa-edit"></i>
-                       </a>
-                       <a href="" ng-click="deleteCourseDetails(course._id.$oid)">
-                         <i class="fa fa-trash"></i>
-                       </a> -->
+                   </core-tooltip>  -->
+                   <button ng-click="deleteCourseDetails(course._id.$oid)" class="btn btn-default pull-right no-margin"><i class="mdi-action-delete text-lg " ></i></button>
+
+                   <button ng-click="editCourse(course._id.$oid)" class="btn btn-default pull-right no-margin"><i class="mdi-image-edit text-lg" ></i></button>
+
+
                  </div>
                  <div class="panel-body ">       
                            

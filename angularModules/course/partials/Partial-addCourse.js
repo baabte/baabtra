@@ -65,7 +65,6 @@ $scope.totalCourseDuration=0; // course duration in minutes
     $scope.courseDuration.days=0;
     $scope.courseDuration.months=0;
     $scope.courseDuration.years=0;
-
 //watch funtion to analyse change in courseDuration object
     $scope.$watch('courseDuration', function(newVal, oldVal){
         
@@ -97,7 +96,6 @@ $scope.nextPart = function(state,borderClass){
     }
 };
 $scope.onDomainSelectionChanged = function(items) {
-  console.log($scope.course.Domains.indexOf(items[0]));
     if(angular.equals($scope.course.Domains.indexOf(items[0]),-1)){
       $scope.course.Domains.push(items[0]);
     }
@@ -174,6 +172,7 @@ $scope.$watch('roles', function(newVal, oldVal){
 
 // *********************** STEP 1 ****************************************
 $scope.course={};
+$scope.course.Domains = [];
 $scope.course.Delivery = {};
 $scope.course.Delivery.online=true;//setting delevery mode default option to true
 $scope.course.Delivery.offline=true;//setting delevery mode default option to true
@@ -238,15 +237,15 @@ $scope.completeStep1 = function(course){//created for build step1 object
     $scope.course.urmId = $scope.rm_id;
 
     var courseToBeSave = angular.copy($scope.course);
-    courseToBeSave.Tags = Tags;
-    courseToBeSave.Duration = {durationInMinutes : 525600,DurationDetails : {"Year(s)" : 1}};
-    courseToBeSave.Technologies = Technologies;
-    courseToBeSave.updatedDate = Date();
+    $scope.course.Tags = Tags;
+    $scope.course.Duration = {durationInMinutes : 525600,DurationDetails : {"Year(s)" : 1}};
+    $scope.course.Technologies = Technologies;
+    $scope.course.updatedDate = Date();
     
     if(angular.equals($scope.courseId,"")){
-      courseToBeSave.draftFlag = 0;
-      courseToBeSave.activeFlag = 1;
-      courseToBeSave.createdDate = Date();
+      $scope.course.draftFlag = 0;
+      $scope.course.activeFlag = 1;
+      $scope.course.createdDate = Date();
     }
 
     if (!angular.equals(courseToBeSave.Name, undefined)) {
@@ -266,6 +265,7 @@ $scope.completeStep1 = function(course){//created for build step1 object
           delete courseToBeSave.Img;
           var toState='home.main.addCourse.step2';
           $alert({title: 'Done..!', content: 'Step 1 completed successfuly :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
+          
           addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId, toState);//saving to database
           unbindWatchOnThis(); // used to unbind this watch after triggering it once
         }
@@ -364,10 +364,6 @@ $scope.completeStep3 = function(){
   delete $scope.course._id;
 
   var courseToBeSave = angular.copy($scope.course);
-  
-  // courseToBeSave.companyId = $scope.cmp_id;
-  // courseToBeSave.crmId = courseToBeSave.crmId.$oid;
-  // courseToBeSave.urmId = courseToBeSave.urmId.$oid;
   courseToBeSave.draftFlag=1;
   courseToBeSave.activeFlag = 1;
   var toState='home.main.addCourse.step3';

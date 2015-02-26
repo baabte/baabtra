@@ -8,10 +8,10 @@ if($rootScope.loggedIn==false){
   $state.go('login');
 }
 $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
-if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId==2){
+//if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId==2){
 	$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 	PublishedCourse.loadPublishedCourses($scope,'');
-}
+//}
 
 $scope.showCourseFilter = false;
 var courseDomainResponse = addCourseDomainSrv.FnLoadDomain();
@@ -20,10 +20,10 @@ courseDomainResponse.then(function(response){
   $scope.tree1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);
 });
 
-branchSrv.fnLoadBranch($scope,$scope.cmp_id);
-$scope.loadPublishedCoursesCallback=function(data){
-	$scope.publishedCourses=angular.fromJson(JSON.parse(data));
-};
+//branchSrv.fnLoadBranch($scope,$scope.cmp_id);
+// $scope.loadPublishedCoursesCallback=function(data){
+// 	$scope.publishedCourses=angular.fromJson(JSON.parse(data));
+// };
 
 $scope.navigateToCourse = function( courseId ){
     $state.go('home.main.viewCourse',{id:courseId});
