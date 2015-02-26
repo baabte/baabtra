@@ -585,6 +585,21 @@ width: 100%;
 text-align: left;
 }
 
+/*
+added by jihin
+for changing palceholder color*/
 .place-white::-webkit-input-placeholder { /* WebKit browsers */
     color:    #FFF;
 }
+.place-white:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #909;
+   opacity:  1;
+}
+.place-white::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #909;
+   opacity:  1;
+}
+.place-white:-ms-input-placeholder { /* Internet Explorer 10+ */
+   color:    #909;
+}
+/*for change palceholder color*/
