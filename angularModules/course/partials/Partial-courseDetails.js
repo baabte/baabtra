@@ -20,8 +20,9 @@ angular.module('baabtra').controller('CoursedetailsCtrl',['$scope','$rootScope',
 
   var promise = addCourseService.fnLoadCourseDetails($scope, $state.params.courseId);
   promise.then(function(course){
-    $scope.course = angular.fromJson(JSON.parse(course.data))[0];
-
+    var result = angular.fromJson(JSON.parse(course.data));
+    $scope.course = result.courseDetails
+    $scope.companyDetails = result.companyDetails;
     //Course Duration details
     angular.forEach($scope.course.Duration.DurationDetails,function(key, value){
 		$scope.prettyDuration = "";
@@ -32,6 +33,7 @@ angular.module('baabtra').controller('CoursedetailsCtrl',['$scope','$rootScope',
 
     $scope.feeDetails = {};
     if(!$scope.course.Fees.free){
+    	var totalCourseDuration = $scope.course.Duration.durationInMinutes;
     	$scope.feeDetails.amount = $scope.course.Fees.totalAmount;
     	$scope.feeDetails.paymentIn = $scope.course.Fees.currency.currency;
     	$scope.feeDetails.payment = {};
@@ -41,6 +43,23 @@ angular.module('baabtra').controller('CoursedetailsCtrl',['$scope','$rootScope',
     	}
     	else{
     		$scope.feeDetails.payment.Mode = "Installments";
+    		$scope.feeDetails.payment.installmentDetails = [];
+    			var installmentDetails = "";
+
+    		angular.forEach($scope.course.courseTimeline,function(elements){
+    			angular.forEach(elements,function(element, key){
+    				if(angular.equals(key,"Payment_checkpoint")){
+    					var paymentPoint = Math.ceil(element[0].tlPointInMinute/totalCourseDuration*100);
+    					paymentPoint = paymentPoint + 5-paymentPoint%5;
+    					
+    					installmentDetails= installmentDetails + '<br>'+ $scope.feeDetails.paymentIn + ' ' +  element[0].elements[0].value + ' on ' + paymentPoint + '% completion'
+
+    				}
+    			});
+    		});
+
+    		$scope.feeDetails.payment.installmentDetails = installmentDetails;
+
     	}
     }
     else{

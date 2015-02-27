@@ -23,7 +23,7 @@ if(!angular.equals($state.params.courseId,"")){
   $scope.courseId = $state.params.courseId;
   var promise = addCourseService.fnLoadCourseDetails($scope, $scope.courseId);
   promise.then(function(course){
-    $scope.course = angular.fromJson(JSON.parse(course.data))[0];
+    $scope.course = angular.fromJson(JSON.parse(course.data)).courseDetails;
     if(!angular.equals($scope.course.Duration.durationInMinutes, undefined)){
       $scope.totalCourseDuration = $scope.course.Duration.durationInMinutes;
     }
@@ -237,6 +237,7 @@ $scope.completeStep1 = function(course){//created for build step1 object
     $scope.course.crmId = $scope.rm_id;
     $scope.course.companyId =  $scope.cmp_id;
     $scope.course.urmId = $scope.rm_id;
+    $scope.course.Branches = $scope.selectedBranches;
 
     var courseToBeSave = angular.copy($scope.course);
     $scope.course.Tags = Tags;
@@ -298,7 +299,7 @@ $scope.paymentTypes=[{id: "1",name: "Before The Course"},
     $scope.course.Fees.currency= {currency: "INR",name: "<i class=\"fa  fa-inr\"></i>"};
                 
     $scope.feeIn=[{currency: "INR",name: "<i class=\"fa  fa-inr\"></i>"},
-          {currency: "Dollar",name: "<i class=\"fa fa-dollar\"></i>"},
+          {currency: "$",name: "<i class=\"fa fa-dollar\"></i>"},
           {currency: "SR",name: "SR"}];
     // $scope.course.Duration={};
 
