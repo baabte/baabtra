@@ -1,7 +1,6 @@
 angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService','addCourseElementService','courseElementFieldsManaging', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService,addCourseElementService,courseElementFieldsManaging) {
 	return {
 		restrict: 'E', // to use as an element . Use 'A' to use as an attribute
-		replace: true,
 		scope: {
 		totalDuration:"=totalDuration",
 		callbackFunctions:"=callbackFunctions",
@@ -86,7 +85,13 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 			}
 
 			//building the object for the first time
-			scope.buildTlObject(scope.selectedDuration);
+			var unbindFirstWatch=scope.$watch('syncData',function () {
+				if(!angular.equals(scope.syncData,undefined)){
+					scope.buildTlObject(scope.selectedDuration);
+					unbindFirstWatch();
+				}
+			});
+			
 
 
 			//function to change the appearance of the timeline whilst the change in the dropdownlist		 
@@ -95,7 +100,13 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 				
 				if(!angular.equals(selectedDuration,undefined))
 				{
-					scope.buildTlObject(selectedDuration);//calling function for building timeline object
+					// scope.buildTlObject(selectedDuration);//calling function for building timeline object
+					var unbindFirstWatch=scope.$watch('syncData',function () {
+					if(!angular.equals(scope.syncData,undefined)){
+						scope.buildTlObject(selectedDuration);
+						unbindFirstWatch();
+					}
+					});
 					
 					scope.selectedDuration=selectedDuration;
 				}
