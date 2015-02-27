@@ -5,7 +5,7 @@ if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       commonService.GetUserCredentials($scope);
 }
 $scope.roleid=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
-$scope.courseid=$stateParams.id;
+$scope.courseid=$stateParams.courseId;
 $scope.userLoginId=$rootScope.userinfo.userLoginId;
 var fnViewCourseData=viewCourse.loadCourseData($scope);
 fnViewCourseData.then(function(data){
