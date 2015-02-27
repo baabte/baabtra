@@ -16,6 +16,7 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 			var outerIndex=scope.courseElement.index;
 			var tlPointInmins=scope.courseElement.tlPointInMinute;
 			var keyName=scope.courseElement.Name;
+			var evStatus=0;
 			scope.isMentee=false;
 			if(roleId==3){
 				userLoginId=$rootScope.userinfo.userLoginId;
@@ -24,8 +25,8 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 			}
 
 			scope.saveAnswer=function (argument) {
-				//ObjectId(data['courseId']),ObjectId(data['userId']),data['key'],data['index'],data['answerObj']
-				var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.userAnswer,markScored:scope.mark});
+				
+				var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus});
 				promise.then(function (data) {
 					data=angular.fromJson(JSON.parse(data.data));
 					if(data.success){
@@ -68,6 +69,7 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 
 				var answerArea=$('#answers'+scope.randomKey);
 				if(scope.question.type=='objective'){
+					evStatus=1;
 					var optionsElem=$('<objective-options>');
 					    optionsElem.attr('options',"question.options");
 					    optionsElem.attr('answer-type',"question.answerType");
@@ -80,16 +82,17 @@ angular.module('baabtra').directive('questionViewer',['$compile','questionAnswer
 					$compile(optionsElem)(scope);
 					//scope.$digest();
 				}
-				// else if(scope.question.type=='descriptive'){
-				// 	var descriptiveElem=$('<descriptive-answer>');
-				// 		descriptiveElem.attr('primary','question.primaryAnswer');
-				// 		descriptiveElem.attr('user-answer','userAnswer');
-				// 		descriptiveElem.attr('mark-scored','mark');
-				// 		descriptiveElem.attr('db-answer','dbAnswer');
-
-				// 	answerArea.html(descriptiveElem);
-				// 	$compile(descriptiveElem)(scope);
-				// }
+				else if(scope.question.type=='descriptive'){
+					evStatus=0;
+					var descriptiveElem=$('<descriptive-answer>');
+						descriptiveElem.attr('primary','question.primaryAnswer');
+						descriptiveElem.attr('user-answer','userAnswer');
+						descriptiveElem.attr('mark-scored','mark');
+						descriptiveElem.attr('db-answer','dbAnswer');
+						console.log('descriptive',scope.randomKey);
+					answerArea.html(descriptiveElem);
+					$compile(descriptiveElem)(scope);
+				}
 				}
 			},true);
 			
