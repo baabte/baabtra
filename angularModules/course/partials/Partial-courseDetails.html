@@ -1,0 +1,60 @@
+<div  class="container-fluid shadow-z-1 bg-light" >
+
+  <!-- course header -->
+  <div class="row random-background-color shadow-z-1" id="courseHeaderBg">
+    <div class="col-xs-12 m-h-n">
+        <div class="col-xs-3  ">
+          <img class="img-responsive bg-white" style="width:100%;" ng-src="{{course.courseImg}}" />
+        </div>
+        <div class="col-xs-9">
+          
+          <!-- course Name -->
+          <div class="row p">
+            <h1 class="text-white">{{course.Name}}</h1>
+          </div>
+          
+          <!-- Details -->
+          <div class="row font-bold">
+            <div class="col-xs-12"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>              
+
+
+              <!-- Tile -->
+              <div masonry-tile ng-if="course.Fees" parent="courseHeaderBg" class="tile col-xs-12 col-sm-5 random-background-color p m shadow-z-1 masonry-brick">
+                <i class="mdi-maps-local-offer text-2x col-xs-1" ></i>
+                <div class="pull-left col-xs-11 m-v-xs">{{feeDetails.paymentIn}} {{feeDetails.amount}}
+                <div ng-if="feeDetails.payment">
+                  Mode : {{feeDetails.payment.Mode}} - {{feeDetails.payment.When}} 
+                </div>
+                </div>
+              </div>
+              <!-- End. Tile -->
+
+              <!-- Tile -->
+              <div ng-if="prettyDuration" masonry-tile parent="courseHeaderBg" class="tile col-xs-12 col-sm-5 random-background-color p m shadow-z-1 masonry-brick">
+                <i class="mdi-device-access-time text-2x col-xs-1" ></i>
+                <div class="pull-left col-xs-11 m-v-xs">{{prettyDuration}}</div>
+                
+              </div>
+              <!-- End. Tile -->
+
+              <!-- Tile -->
+              <div masonry-tile ng-if="course.Technologies.length" parent="courseHeaderBg" class="tile col-xs-12 col-sm-5 random-background-color p m shadow-z-1 masonry-brick">
+                <i class="mdi-action-settings-ethernet text-2x col-xs-1 m-r" ></i>
+                <div class="pull-left m-v-xs" ng-repeat="(key, value) in course.Technologies"><div class="pull-left p-h-xs" ng-if="$index>0">,</div>{{value.text}}</div>
+                
+              </div>
+              <!-- End. Tile -->             
+             
+            </div>
+          </div>
+          <!-- End. Details -->
+
+
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    {{course.courseTimeline}}<br>
+    {{course.Fees}}
+  </div>
+</div>

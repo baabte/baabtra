@@ -65,4 +65,9 @@ $scope.showCourseFilter=function(){
 };
 
 
+$scope.viewCourseDetails = function(courseId){
+	$state.go("home.main.course",{courseId:courseId})
+}
+
+
 }]);

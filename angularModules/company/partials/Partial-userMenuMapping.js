@@ -12,7 +12,7 @@ if($rootScope.loggedIn==false){
 
     $scope.userRoleMappingId=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
-
+    $scope.companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 
 $scope.range=1;
 var CurNewValue="";

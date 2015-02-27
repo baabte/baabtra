@@ -17,11 +17,13 @@ angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$root
   $scope.cmp_id=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   /*login detils ends*/
 
+
 if(!angular.equals($state.params.courseId,"")){
   //this function loads course details by course Id
   $scope.courseId = $state.params.courseId;
   var promise = addCourseService.fnLoadCourseDetails($scope, $scope.courseId);
   promise.then(function(course){
+    $scope.course = angular.fromJson(JSON.parse(course.data))[0];
     if(!angular.equals($scope.course.Duration.durationInMinutes, undefined)){
       $scope.totalCourseDuration = $scope.course.Duration.durationInMinutes;
     }

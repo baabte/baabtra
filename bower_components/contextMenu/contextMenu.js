@@ -141,11 +141,15 @@ angular.module('ui.bootstrap.contextMenu', [])
             return 0;
         }
         $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor-((1/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor))+1;
+
         $scope.ItsTimeToSaveDataToDB=false;
         $scope.weHaveGotAfile=false;
 
         //function for creating preview object
         $scope.createPreviewElement=function (path) {
+        $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor-((1/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor))+1;
+
+            console.log($scope.instance);
             $scope.ItsTimeToSaveDataToDB=false; // check for object built successfully or not
             $scope.weHaveGotAfile=false;
             var fieldsTraversedCount=0;

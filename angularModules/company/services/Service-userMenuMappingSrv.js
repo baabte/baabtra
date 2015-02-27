@@ -144,8 +144,9 @@ this.FnSaveUserMenu=function ($scope){ //function to save the user menus.
              });    
     };
 
-        this.FnLoadUsers=function ($scope,companyId,range,search_key){    
+        this.FnLoadUsers=function ($scope,companyId,range,search_key){
     $http({
+
            url: bbConfig.BWS+'LoadUsers/',
            data: JSON.stringify({'companyId': companyId,'prefix': search_key,'range':range}),
            method: 'POST',
@@ -155,7 +156,8 @@ this.FnSaveUserMenu=function ($scope){ //function to save the user menus.
            }).
               success(function(data, status, headers, config) {     //success respond from server
                 
-                var result = angular.fromJson(JSON.parse(data));    //setting the respond into a  variable
+                var result = angular.fromJson(JSON.parse(data)); 
+                console.log(result);   //setting the respond into a  variable
                 $scope.UserList=result.data;                   //filer the user list from respond data
                 $scope.user_count=result.user_count;
                 if($scope.ShowNoDataFound){

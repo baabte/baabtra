@@ -1,5 +1,4 @@
 <div>
-	
 	<ul ng-repeat="elements in timeLineView[tlpoint]" class="timeline-outer-container m-b hover-content" ng-class="{'timeline-center': center}">
 		
 		<li bs-dropdown="dropdown" data-html="true" bs-show="false" data-animation="am-flip-x" data-placement="right" ng-click="manageCourseElement(element,tlpoint,$index);" class="timeline-item hide-ul" ng-class="{'hover-content-child animated fadeInLeft':($index>0)}" ng-repeat="element in elements " >
