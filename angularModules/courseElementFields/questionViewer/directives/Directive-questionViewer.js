@@ -23,21 +23,12 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 			//if user is mentee copying all required datas 
 			if(roleId===bbConfig.MURID){
 				userLoginId=$rootScope.userinfo.userLoginId;
-				courseId=$state.params.id;
+				courseId=$state.params.courseId;
 				scope.isMentee=true;
 			}
 
 			scope.saveAnswer=function (argument) {
 				
-				var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus});
-				promise.then(function (data) {
-					data=angular.fromJson(JSON.parse(data.data));
-					if(data.success){
-						scope.question.userAnswer=scope.userAnswer;
-						scope.dbAnswer=scope.userAnswer;
-						scope.question.markScored=scope.mark;
-					}
-				});
 				var time=(new Date()).getTime();
 
 
@@ -49,19 +40,19 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 					scope.createPrimaryAnswer('candidateAnswers');
 					var dbSaverUnbind=scope.$watch('ItsTimeToSaveDataToDB',function(){
 						if(scope.ItsTimeToSaveDataToDB){
-			console.log('murid',courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
+			// console.log('murid',courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
 
-							// var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
-							// 	promise.then(function (data) {
-							// 		data=angular.fromJson(JSON.parse(data.data));
-							// 		if(data.success){
-							// 			scope.question.userAnswer=scope.answerToDb;
-							// 			scope.dbAnswer=scope.answerToDb;
-							// 			scope.question.markScored=scope.mark;
-							// 			scope.question.evaluated=evStatus;
-							// 			scope.question.dateOfSubmission=time;
-							// 		}
-							// 	});
+							var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
+								promise.then(function (data) {
+									data=angular.fromJson(JSON.parse(data.data));
+									if(data.success){
+										scope.question.userAnswer=scope.answerToDb;
+										scope.dbAnswer=scope.answerToDb;
+										scope.question.markScored=scope.mark;
+										scope.question.evaluated=evStatus;
+										scope.question.dateOfSubmission=time;
+									}
+								});
 							
 
 
@@ -189,17 +180,7 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 					answerArea.html(descriptiveElem);
 					$compile(descriptiveElem)(scope);
 				}
-				else if(scope.question.type=='descriptive'){
-					evStatus=0;
-					var descriptiveElem=$('<descriptive-answer>');
-						descriptiveElem.attr('primary','question.primaryAnswer');
-						descriptiveElem.attr('user-answer','userAnswer');
-						descriptiveElem.attr('mark-scored','mark');
-						descriptiveElem.attr('db-answer','dbAnswer');
-						console.log('descriptive',scope.randomKey);
-					answerArea.html(descriptiveElem);
-					$compile(descriptiveElem)(scope);
-				}
+				
 				}
 			},true);
 
