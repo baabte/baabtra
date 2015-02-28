@@ -24,10 +24,11 @@ angular.module('baabtra').controller('CoursedetailsCtrl',['$scope','$rootScope',
     $scope.course = result.courseDetails
     $scope.companyDetails = result.companyDetails;
     //Course Duration details
+    $scope.prettyDuration = [];
     angular.forEach($scope.course.Duration.DurationDetails,function(key, value){
-		$scope.prettyDuration = "";
-		$scope.prettyDuration = $scope.prettyDuration + key + ' ' + value + ' ';
-	})
+		$scope.prettyDuration.push(key + ' ' + value + ' ');
+	 })
+    $scope.prettyDuration = $scope.prettyDuration.reverse();
 
     //Course Fee Details
 

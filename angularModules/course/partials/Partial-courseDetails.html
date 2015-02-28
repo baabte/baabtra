@@ -1,20 +1,3 @@
-
-<div  class="container-fluid shadow-z-1 bg-light" >
-
-  <!-- course header -->
-  <div class="row random-background-color shadow-z-1" id="courseHeaderBg">
-
-    <div class="col-xs-12 m-h-n">
-        <div class="col-xs-3  m-t">
-          <img class="img-responsive bg-white shadow-z-1" style="width:100%;" ng-src="{{course.courseImg}}" />
-        </div>
-        <div class="col-xs-9">
-          
-          <!-- course Name -->
-          <div class="row p">
-            <h1 style="color: inherit;">{{course.Name}}</h1>
-            {{companyDetails}}
-            <img height="75" src="images/CompanyLogs/baabtra.png">
 <div class="container-fluid bg-light" >
 
   <!-- course header -->
@@ -30,7 +13,6 @@
           <div class="row p">
             <h1  class="pull-left" style="color: inherit;">{{course.Name}}</h1>
           </div>
-          
           <!-- Details -->
           <div class="row font-bold">
             <div class="col-xs-12"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>              
@@ -58,27 +40,30 @@
               <!-- Tile -->
               <div ng-if="prettyDuration" masonry-tile parent="courseHeaderBg" class="tile col-xs-12 col-sm-5 random-background-color p m shadow-z-1 masonry-brick no-margin" style="margin:3px!important;">
                 <i class="mdi-device-access-time text-2x col-xs-1" ></i>
-                <div class="pull-left col-xs-11 m-v-xs">{{prettyDuration}}</div>
-                
+                <div class="pull-left col-xs-11" ng-repeat="duration in prettyDuration">{{duration}}</div>
               </div>
               <!-- End. Tile -->
 
-              <!-- Tile -->
+
+                            <!-- Delivery Mode -->
+              <div ng-if="course.Delivery" masonry-tile parent="courseHeaderBg" class="tile col-xs-12 col-sm-5 random-background-color p m shadow-z-1 masonry-brick no-margin" style="margin:3px!important;">
+                <div ng-repeat="(key, value) in course.Delivery">
+                  <div class="pull-left" ng-class="{'line-through':!value}">{{key}}</div>
+                  <i class="text-lg m-t" ng-class="{'mdi-action-done':value, 'mdi-content-clear':!value}"></i>
+                </div>
+              </div>
+              <!-- Delivery Mode --> 
+              
+              <!-- Technologies -->
               <div masonry-tile ng-if="course.Technologies.length" parent="courseHeaderBg" class="tile col-xs-12 col-sm-5 random-background-color p m shadow-z-1 masonry-brick no-margin" style="margin:3px!important;">
                 <i class="mdi-action-settings-ethernet text-2x col-xs-1 m-r" ></i>
                 <div class="pull-left m-v-xs" ng-repeat="(key, value) in course.Technologies"><div class="pull-left p-h-xs" ng-if="$index>0">,</div>{{value.text}}</div>
                 
               </div>
-              <!-- End. Tile -->   
+              <!-- End. Technologies -->   
 
 
-                    <!-- Delivery Mode -->
-              <div ng-if="course.Delivery" masonry-tile parent="courseHeaderBg" class="tile col-xs-12 col-sm-5 random-background-color p m shadow-z-1 masonry-brick no-margin" style="margin:3px!important;">
-                <div ng-repeat="(key, value) in course.Delivery">
-                  {{key}} <i class="text-lg" ng-class="{'mdi-action-done':value, 'mdi-content-clear':!value}"></i>
-                </div>
-              </div>
-              <!-- Delivery Mode -->          
+         
              
             </div>
           </div>
@@ -88,15 +73,13 @@
         </div>
     </div>
   </div>
-  <div class="row">
-    {{course.Branches}}<br>
   <div class="row text-dark m-v">
     <div class="col-xs-10">
       <div ng-if="course.Description.length">
         <h2>Course Description</h2>
         <div class="course-description" ng-bind-html="course.Description"></div>
       </div>
-      <div ng-if="course.Benefits.length">
+      <div ng-if="course.Benefits.length>160">
         <h2>Benfits Of The Course</h2>
         <div class="course-description" ng-bind-html="course.Benefits"></div>
       </div>
