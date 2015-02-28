@@ -86,4 +86,9 @@ $scope.viewCourseDetails = function(courseId){
 }
 
 
+$scope.viewCourseDetails = function(courseId){
+	$state.go("home.main.course",{courseId:courseId})
+}
+
+
 }]);
