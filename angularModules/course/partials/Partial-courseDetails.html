@@ -1,3 +1,20 @@
+
+<div  class="container-fluid shadow-z-1 bg-light" >
+
+  <!-- course header -->
+  <div class="row random-background-color shadow-z-1" id="courseHeaderBg">
+
+    <div class="col-xs-12 m-h-n">
+        <div class="col-xs-3  m-t">
+          <img class="img-responsive bg-white shadow-z-1" style="width:100%;" ng-src="{{course.courseImg}}" />
+        </div>
+        <div class="col-xs-9">
+          
+          <!-- course Name -->
+          <div class="row p">
+            <h1 style="color: inherit;">{{course.Name}}</h1>
+            {{companyDetails}}
+            <img height="75" src="images/CompanyLogs/baabtra.png">
 <div class="container-fluid bg-light" >
 
   <!-- course header -->
@@ -73,6 +90,8 @@
         </div>
     </div>
   </div>
+  <div class="row">
+    {{course.Branches}}<br>
   <div class="row text-dark m-v">
     <div class="col-xs-10">
       <div ng-if="course.Description.length">
