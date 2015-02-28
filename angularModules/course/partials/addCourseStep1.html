@@ -118,7 +118,7 @@
 
         <em class="text-muted text-E91E63 col-xs-12">&nbsp;(Please specifiy  to which all branches this course is available)</em>
         <div class="col-xs-12">
-          <hierarchical-selector ng-if="specificBranches" ng-model="course.branchDetails" data="branchDetails" multi-select="true" class="am-fade" on-selection-changed="selectedItem2 = onBranchSelectionChanged(items)"></hierarchical-selector>
+          <hierarchical-selector ng-if="specificBranches" data="branchDetails" multi-select="true" class="am-fade" on-selection-changed="onBranchSelectionChanged(items)"></hierarchical-selector>
         </div>
       </div>
 

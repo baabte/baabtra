@@ -11,6 +11,7 @@ var courses = candidateCourseView.loadCoursesForCandidates($rootScope.userinfo.u
 
 $scope.navigateToDetails=function(courseId){
 	$state.go('home.main.CandidateCourseDetails',{courseId:courseId});
+	// $state.go('home.main.viewCourse',{courseId:courseId});
 };
 
 

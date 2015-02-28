@@ -37,7 +37,7 @@
 	      						<div title="To Level Roles" class="ng-binding ng-scope tab-pane am-fade" ng-class="{'active':!comapany,'ng-hide':roleId==2}" >
 	      							<div class="row">
 	      								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" ng-repeat="tRoles in topLevelRoles">
-                          <div class="box bg-light animated fadeInDown" ng-click="getRole(tRoles._id)" style="cursor: pointer;">
+                          <div class="box bg-light" ng-click="getRole(tRoles._id)" style="cursor: pointer;">
 	                  							<div class="box-col w-xs text-center">
 	                  								<img src="images/a0.jpg" class="w-xs pull-left" >
 	                  							</div>
@@ -54,7 +54,7 @@
       							<div class="ng-binding ng-scope tab-pane am-fade" ng-class="{'active':comapany,'ng-hide':roleId==2}">
       								<div class="row" ng-model="modelCompanyBox" ng-show="!ModelRoleBox">
 	      								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" ng-click="ChangeCompanyState(OneComapny._id.$oid,OneComapny.companyName)" ng-repeat="OneComapny in companyDetails">
-	      									<div class="box bg-light animated fadeInDown" style="cursor: pointer;" ng-onhover="box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.23);">
+	      									<div class="box bg-light" style="cursor: pointer;" ng-onhover="box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.23);">
 	                  							<div class="box-col w-xs text-center">
 	                  								<img src="images/CompanyLogs/company.png" class="w-xs m-r pull-left ">
 	                  							</div>
@@ -70,7 +70,7 @@
 	        					</div><!-- end ngRepeat: tab in tabs --><!-- end ngRepeat: tab in tabs -->
                     <div class="row" ng-show="ModelRoleBox">
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-sm"  ng-repeat="role in roles">
-                          <div class="box bg-light animated fadeInDown" style="cursor: pointer;" ng-click="getRole(role._id)">
+                          <div class="box bg-light" style="cursor: pointer;" ng-click="getRole(role._id)">
                                   <div class="box-col w-xs text-center">
                                     <img src="images/a0.jpg" class="w-xs m-r pull-left">
                                   </div>
@@ -109,13 +109,10 @@
                                         <li ng-repeat="node in node.childMenuStructure" class="dd-item dd2-item" data-id="13"  ui-tree-node ng-include="'Render_ExMenus.html'">
                                         </li>
                                     </ol>
-                                  <div ng-if="node.actionMaster.length" class="checkbox animated fadeInDown" style="margin-top: -5px;">
-
-                                <div class="checkbox" ng-repeat="action in node.actionMaster">
-                                  <label>
-                                    <input type="checkbox" ng-init="node.actionStatus[$index]=fnActionExists(action.actionName==undefined?null:action.actionName,node.actions)" ng-model="node.actionStatus[$index]" ng-change="checkAction(node,this,$index)" value=""> {{action.actionName}}
-                                  </label>
-                                </div>          
+                                  <div ng-if="node.actionMaster.length" class="" style="margin-top: -5px;">
+                                <div class="m-l" ng-repeat="action in node.actionMaster">
+                                    <input name="{{action.actionName}}" type="checkbox" ng-init="node.actionStatus[$index]=fnActionExists(action.actionName==undefined?null:action.actionName,node.actions)" ng-model="node.actionStatus[$index]" ng-change="checkAction(node,this,$index)" value=""> {{action.actionName}}
+                                </div>    
                             </div>
                                 </div>
                                    
@@ -134,7 +131,7 @@
 
                             </script>
                             <div class="box bg-white" style="border: #e3e5e7 solid 1px;" ng-show="menudetails">
-        <div class="col-sm-6 animated fadeIn">
+        <div class="col-sm-6">
       <div class="box">
         <div class="p p-v-sm">
           <h4 class="no-margin font-bold pull-left">Current Menus</h4>
@@ -158,7 +155,7 @@
         </div>
       </div>
     </div>
-        <div class="col-sm-6 animated fadeIn">
+        <div class="col-sm-6">
       <div class="box">
         <div class="p p-v-sm">
           <h4 class="no-margin font-bold">Menu List</h4>

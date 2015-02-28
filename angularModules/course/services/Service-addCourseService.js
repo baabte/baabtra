@@ -33,8 +33,6 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	 	}).
 	 	success(function(data, status, headers, config) {
 	 			var result=angular.fromJson(JSON.parse(data));
-	 			//$scope.course 
-	 			console.log(result);
                }).
 	 	error(function(data, status, headers, config) {
 	 		
@@ -110,10 +108,10 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	}).
 	success(function(data, status, headers, config) {
 		var result=angular.fromJson(JSON.parse(data));
-		$scope.course = result[0];
-		$scope.course.crmId = $scope.course.crmId.$oid;
-    	$scope.course.companyId =  $scope.course.companyId.$oid;
-    	$scope.course.urmId = $scope.course.urmId.$oid;
+		// $scope.course = result[0];
+		// $scope.course.crmId = $scope.course.crmId.$oid;
+  //   	$scope.course.companyId =  $scope.course.companyId.$oid;
+  //   	$scope.course.urmId = $scope.course.urmId.$oid;
 	}).
 	error(function(data, status, headers, config) {
 
