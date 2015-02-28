@@ -12,6 +12,11 @@
 			<button class="pull-right btn btn-success baab-btn" ng-class="{'bg-info':userAnswer.length}" ng-if="!question.userAnswer" ng-disabled="!userAnswer.length" type="submit" ng-click="saveAnswer()">Submit</button>
 		</div>
 	</div>
+	<div ng-if="question.markScored>=0&&question.evaluated">
+		<div class="col-xs-11 m-l-lg"><div class="font-bold pull-left m-t-xs">You have scored </div><span class="label label-lg bg-success pos-rlt m-l-md m-t-md"><b class="arrow left b-success pull-in"></b>{{question.markScored}} / {{question.mark.totalMark}}</span></div>
+	</div>
+	<div ng-if="question.markScored>=0&&!question.evaluated">
+		<div class="col-xs-11 m-l-lg"><div class="font-bold pull-left m-t-xs">Pending review</div></div>
 	<div ng-if="question.markScored>=0&&question.evaluated==1">
 		<div class="col-xs-11 m-l-lg"><div class="font-bold pull-left m-t-xs">You have scored </div><span class="label label-lg bg-success pos-rlt m-l-md m-t-md"><b class="arrow left b-success pull-in"></b>{{question.markScored}} / {{question.mark.totalMark}}</span></div>
 	</div>
