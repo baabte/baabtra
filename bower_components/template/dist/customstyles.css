@@ -603,3 +603,7 @@ for changing palceholder color*/
    color:    #909;
 }
 /*for change palceholder color*/
+
+.line-through{
+  text-decoration: line-through;
+}
