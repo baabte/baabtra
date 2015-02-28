@@ -366,6 +366,12 @@ $scope.fnTotalFeeChanged = function(){// this function trigers, when user change
 $scope.completeStep3 = function(){
   delete $scope.course._id;
 
+  if(!angular.equals($scope.course.companyId.$oid,undefined)){
+    $scope.course.companyId = $scope.course.companyId.$oid
+  }
+    $scope.course.urmId = $scope.rm_id;
+    $scope.course.crmId = $scope.rm_id
+
   var courseToBeSave = angular.copy($scope.course);
   courseToBeSave.draftFlag=1;
   courseToBeSave.activeFlag = 1;
