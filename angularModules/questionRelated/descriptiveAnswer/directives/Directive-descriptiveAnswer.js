@@ -35,6 +35,19 @@ angular.module('baabtra').directive('descriptiveAnswer', function() {
 
 				scope.primaryForm.fields.push(debugVal);
 			}
+			scope.enteredAnswer.primaryAnswer={};
+			scope.enteredAnswer.secondaryAnswer={};		
+
+			scope.$watch('enteredAnswer',function (oldval,newval) {
+
+				if(angular.equals(scope.enteredAnswer,undefined)){
+					return 0;
+				}
+		
+				scope.userAnswer[0]=angular.copy(scope.enteredAnswer);
+				
+			},true);
+
 
 			
 

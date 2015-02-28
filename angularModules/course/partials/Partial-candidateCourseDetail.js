@@ -1,3 +1,4 @@
+
 angular.module('baabtra').controller('CandidatecoursedetailCtrl',['$scope','$stateParams','candidateCourseDetail','$state',function($scope,$stateParams,candidateCourseDetail,$state){
 
 $scope.courseId=$stateParams.courseId;
@@ -10,6 +11,8 @@ courseDatas.then(function (data) {
 		$scope.prettyDuration = $scope.prettyDuration + key + ' ' + value + ' ';
 	})
 // end. build duration
+
+		console.log($scope.courseData);
 });
 
 
@@ -26,7 +29,7 @@ courseDatas.then(function (data) {
 
 
 $scope.navigateToTimeline=function(courseId){
-	$state.go('home.main.viewCourse',{id:courseId.$oid});
+	$state.go('home.main.viewCourse',{courseId:courseId.$oid});
 }
 
 

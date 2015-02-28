@@ -400,7 +400,7 @@
                 
               })
               .state('home.main.viewCourse', {
-                url: '/viewCourse:id',
+                url: '/viewCourse/:courseId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/course/partials/Partial-viewCourse.html',

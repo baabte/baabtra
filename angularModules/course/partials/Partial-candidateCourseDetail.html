@@ -1,3 +1,4 @@
+
 <div ng-if="courseData" class="container-fluid shadow-z-1 bg-light" >
 
   <!-- course header -->
@@ -22,7 +23,19 @@
               <div parent="courseHeaderBg" class="col-xs-12 col-sm-5 random-background-color p m shadow-z-1">
                 <i class="mdi-device-access-time text-2x col-xs-1" ></i>
                 <div class="pull-left col-xs-11 m-v-xs">{{prettyDuration}}</div>
-                
+               
+      <div class="col-xs-12" >
+        <div class="panel b-t b-00C853 bg-light dk ng-scope" >
+          <div class="panel-heading font-bold text-white bg-00C853 p baab-shadow" >
+            {{courseData.Name}}
+          </div>
+          <div class="panel-body" >
+              <span class="course-description" ng-bind-html="courseData.Description"></span>
+              <div class="text-warning" ng-repeat="(key, val) in courseData.Duration.DurationDetails">
+                Duration: {{ val+" "+ key}}
+              </div>
+              <div class="col-xs-12 text-center">
+                  <button class="btn  btn-success b-3x baab-btn" ng-click="navigateToTimeline(courseData.fkCourseId)">Take me to this course</button> 
               </div>
               <!-- End. Tile -->
 
@@ -47,4 +60,7 @@
   <div class="row">
     {{courseData.Technologies}}
   </div>
+
+     </div>
+
 </div>
