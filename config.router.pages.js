@@ -465,7 +465,9 @@
               })
               .state('signup', {
                 url: '/signup',
-                templateUrl: 'views/pages/signup.html'
+                templateUrl: 'angularModules/signUp/partials/Partial-signUp.html',
+                controller: 'SignupCtrl'
+
               })
               .state('forgot-password', {
                 url: '/forgot-password',

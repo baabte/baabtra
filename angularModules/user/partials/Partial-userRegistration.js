@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('UserregistrationCtrl',['$scope','$filter','$rootScope','$state','commonService','userRegistrationService','companyRegistrationService','formCustomizerService','addCourseService','$alert','branchSrv','manageTreeStructureSrv',function($scope,$filter,$rootScope,$state,commonService,userRegistrationService,companyRegistrationService,formCustomizerService,addCourseService,$alert,branchSrv,manageTreeStructureSrv){
+angular.module('baabtra').controller('UserregistrationCtrl',['$scope','$rootScope','$state','commonService','userRegistrationService','formCustomizerService','$alert',function($scope,$rootScope,$state,commonService,userRegistrationService,formCustomizerService,$alert){
 
 
 	if(!$rootScope.userinfo){
@@ -10,22 +10,20 @@ if($rootScope.loggedIn===false){
  $state.go('login');
 }
 
-$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
-  if($rootScope.userinfo)
-   {
-    $scope.currentState=toState.name;
-  }
-});
+// $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
+//   if($rootScope.userinfo)
+//    {
+//     $scope.currentState=toState.name;
+//   }
+// });
 
 var companyId;
 //getting user crmid and data companyid
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
  $scope.status={};
  if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,1)){
-
   companyId='';
   $scope.status.selected=1;
-
 }
 else{
   companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;//
@@ -33,7 +31,7 @@ else{
 }
 
  //loading branches of company 
-branchSrv.fnLoadBranch($scope,companyId);
+// branchSrv.fnLoadBranch($scope,companyId);
 $scope.allSync={}; //the variable to pass data in controller to syncdata
 // $scope.status.selected=0;
 $scope.allSync.newUser=false;
@@ -44,6 +42,7 @@ var mandatoryFields=[]; //array to keep the mandatory form data fields
 var formFetchData={};
 formFetchData.fkcompanyId=companyId;//to fetch forms from clnCustomForms
 formFetchData.formName='userRegistration';//to fetch all the froms give specific name to fetch that form only
+// formFetchData.formName='signUp';//to fetch all the froms give specific name to fetch that form only
 
 //sevice call to fetch form 
 var FnFetchCustomFormCallBack= formCustomizerService.FnFetchCustomForm(formFetchData);
@@ -59,8 +58,10 @@ $scope.stepCount=$scope.formlist.formSteps;
 //to get the mandtory from field name in an array 
 for(var i in $scope.formlist.formSchema){
     for(var x in $scope.formlist.formSchema[i].stepFormSchema.fields){
-       if(angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'role')){}
-          else{
+       if(angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'role')||angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'Branch'))
+       {}
+      
+       else{
       mandatoryFields.push($scope.formlist.formSchema[i].stepFormSchema.fields[x].name);
      }
     } 
@@ -104,17 +105,6 @@ if(!angular.equals($scope.formlist,undefined)){
     }, true);
 
 
-// $scope.$watch('allSync.FormData', function(){
-        
-//        if (angular.equals($scope.status.selected,1)){
-
-
-//        };
-                
-//     }, true);
-
-
-
 
 //function for user registration 
 $scope.fnUserRegister =function (argument) {
@@ -143,7 +133,7 @@ var mandatoryData={};
   // console.log($scope.userRegister);
   delete  $scope.userRegister.role.formSchema;
   delete  $scope.userRegister.role.formSteps;
-console.log($scope.userRegister);
+// console.log($scope.userRegister);
   var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
 
 
