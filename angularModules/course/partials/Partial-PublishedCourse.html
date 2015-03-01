@@ -31,6 +31,14 @@
      </div>
      </div>
  -->
+ <script type="text/ng-template" id="nestedBranch.html">
+ <a>{{branch.id}}</a>   
+      <ul class="dropdown-submenu" ng-if="branch.childrenObj" > 
+            <li ng-repeat="branch in branch.childrenObj" ng-include="'nestedBranch.html'" ></li>
+
+     </ul>
+              
+</script>
 
   <div class="panel b-t b-00C853 bg-light dk">
     <div class="panel-heading font-bold text-white bg-00C853 p baab-shadow">Published Course</div>
@@ -55,6 +63,7 @@
           </div>  
 
     </div> 
+     
       <div  class="panel-body">
           
            <div class="col-xs-12" >
