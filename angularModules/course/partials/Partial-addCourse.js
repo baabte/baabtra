@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','RoleMenuMappingSrv','addCourseElementService','commonService','$alert',function($scope,bbConfig,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,RoleMenuMappingSrv,addCourseElementService,commonService,$alert){
+angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','RoleMenuMappingSrv','addCourseElementService','commonService','$alert','$sce',function($scope,bbConfig,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,RoleMenuMappingSrv,addCourseElementService,commonService,$alert,$sce){
 
 
   /*login detils start*/
@@ -44,24 +44,6 @@ $scope.ExitPoints={"exitPointList":{}}; // initializing exit point obj
 $scope.totalCourseDuration=0; // course duration in minutes
 
 
-
-// // $scope.ddlBindObject={0:{id: "1",name:"Days",mFactor:(1/1440),show:true},
-// //                          1:{id: "2",name: "Months",mFactor:(1/43200),show:true},
-// //                          2:{id: "3",name: "Hours",mFactor:1/60,show:true},
-// //                          3:{id: "4",name: "Minutes",mFactor:1,show:true}};
-
-// // for dynamically change the visibility variable 'show' of all dropdown list datas
-// $scope.$watch('totalCourseDuration',function(){
-//   if(!angular.equals($scope.totalCourseDuration,undefined) && !angular.equals($scope.totalCourseDuration,0))
-//   {
-//     $scope.ddlBindObject[1].show=($scope.totalCourseDuration>=43200);
-//     $scope.ddlBindObject[2].show=($scope.totalCourseDuration>=60);
-//     $scope.ddlBindObject[3].show=($scope.totalCourseDuration>=1);
-//   }
-// });
-                    
-
-
 // variable to store courseDuration
     $scope.courseDuration={};
     $scope.courseDuration.days=0;
@@ -90,8 +72,9 @@ $scope.totalCourseDuration=0; // course duration in minutes
   
 
 $scope.currentState=$state.current.name;
-$scope.nextPart = function(state,borderClass){
+$scope.nextPart = function(state,borderClass){//for change step, when click tab
     if(!angular.equals($scope.courseId,"")){
+      console.log(state);
       $scope.borderClass = borderClass;
       $scope.currentState=state;
       $state.go(state,{'courseId':$scope.courseId});
@@ -178,6 +161,18 @@ $scope.course.Domains = [];
 $scope.course.Delivery = {};
 $scope.course.Delivery.online=true;//setting delevery mode default option to true
 $scope.course.Delivery.offline=true;//setting delevery mode default option to true
+$scope.course.courseDetails = {};
+$scope.course.courseDetails=[
+      {title:"Course Description",
+      value:"",
+      template:$sce.trustAsHtml('<input class=\"form-control\" >'),
+      help:"A short description of the Course(Optional, recommended)"},
+      {title:"Course Benefits",
+      value:"",
+      template:$sce.trustAsHtml('<ng-quill-editor name=\"{{detail.title}}\" ng-model=\"detail.value\"  toolbar=\"true\" link-tooltip=\"true\" image-tooltip=\"true\" toolbar-entries=\"font size bold list bullet italic underline strike align color background link image\" editor-required=\"true\" error-class=\"input-error\"></ng-quill-editor>'),
+      help:"Benefits of the Course(Optional, recommended)"}
+];
+
 
 var convertObjectName=function(menu,sub){
               if(sub==null){
@@ -220,7 +215,10 @@ $scope.loadTags =function(Query){
     $scope.course.crmId = $scope.rm_id.$oid;
     $scope.course.companyId =  $scope.cmp_id.$oid;
     $scope.course.urmId = $scope.rm_id.$oid;
+
+
 $scope.completeStep1 = function(course){//created for build step1 object
+
 /* Building courseDetails Start */
     var Technologies = [];
     var Tags = [];
@@ -274,7 +272,6 @@ $scope.completeStep1 = function(course){//created for build step1 object
         }
       });
     }
-
 /* Building courseDetails End */
 
 };
@@ -342,6 +339,7 @@ $scope.completeStep2 = function(){
   $alert({title: 'Done..!', content: 'Step 2 completed successfuly :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
   addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId ,toState);//saving to database
 
+
 };
 
 $scope.fnTotalFeeChanged = function(){// this function trigers, when user change the total payment
@@ -365,6 +363,12 @@ $scope.fnTotalFeeChanged = function(){// this function trigers, when user change
 // *********************** STEP 3 .Start ***********************************
 $scope.completeStep3 = function(){
   delete $scope.course._id;
+
+  if(!angular.equals($scope.course.companyId.$oid,undefined)){
+    $scope.course.companyId = $scope.course.companyId.$oid
+  }
+    $scope.course.urmId = $scope.rm_id;
+    $scope.course.crmId = $scope.rm_id;
 
   var courseToBeSave = angular.copy($scope.course);
   courseToBeSave.draftFlag=1;
