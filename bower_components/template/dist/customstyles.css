@@ -607,3 +607,9 @@ for changing palceholder color*/
 .line-through{
   text-decoration: line-through;
 }
+.dropdown-menu .divider{
+  background-color: #cccccc!important;
+}
+.vertical-scroll{
+  max-height: 250px;overflow-x: hidden;overflow:auto;
+}
