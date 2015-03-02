@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('questionViewer',['bbConfig','$compile','questionAnsweringSrv','$rootScope','$state', function(bbConfig,$compile,questionAnsweringSrv,$rootScope,$state) {
+angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseService','$compile','questionAnsweringSrv','$rootScope','$state', function(bbConfig,addCourseService,$compile,questionAnsweringSrv,$rootScope,$state) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -20,24 +20,15 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','$compile','que
 			var isDescriptive=false;
 			scope.isMentee=false;
 
-			//if user is mentee copying all required datas
-			if(roleId==bbConfig.MURID){
+			//if user is mentee copying all required datas 
+			if(roleId===bbConfig.MURID){
 				userLoginId=$rootScope.userinfo.userLoginId;
-				courseId=$state.params.id;
+				courseId=$state.params.courseId;
 				scope.isMentee=true;
 			}
 
 			scope.saveAnswer=function (argument) {
 				
-				var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus});
-				promise.then(function (data) {
-					data=angular.fromJson(JSON.parse(data.data));
-					if(data.success){
-						scope.question.userAnswer=scope.userAnswer;
-						scope.dbAnswer=scope.userAnswer;
-						scope.question.markScored=scope.mark;
-					}
-				});
 				var time=(new Date()).getTime();
 
 
@@ -47,8 +38,12 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','$compile','que
 					scope.answerToDb=[];
 					scope.answerToDb[0]={primaryAnswer:{},secondaryAnswer:{}};
 					scope.createPrimaryAnswer('candidateAnswers');
-					var dbSaverUnbind=scope.$watch('ItsTimeToSaveDataToDB',function(){
-						if(scope.ItsTimeToSaveDataToDB){
+					scope.createSecondaryAnswer('candidateAnswers');
+					var dbSaverUnbind=scope.$watch(function() { return scope.ItsTimeToSavePrimaryToDB+''+scope.ItsTimeToSaveSecondaryToDB; },function(){
+						// alert(scope.ItsTimeToSavePrimaryToDB+''+scope.ItsTimeToSaveSecondaryToDB);
+						if(scope.ItsTimeToSavePrimaryToDB && scope.ItsTimeToSaveSecondaryToDB){
+			// console.log('murid',courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
+
 							var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
 								promise.then(function (data) {
 									data=angular.fromJson(JSON.parse(data.data));
@@ -187,32 +182,15 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','$compile','que
 					answerArea.html(descriptiveElem);
 					$compile(descriptiveElem)(scope);
 				}
-				else if(scope.question.type=='descriptive'){
-					evStatus=0;
-					var descriptiveElem=$('<descriptive-answer>');
-						descriptiveElem.attr('primary','question.primaryAnswer');
-						descriptiveElem.attr('user-answer','userAnswer');
-						descriptiveElem.attr('mark-scored','mark');
-						descriptiveElem.attr('db-answer','dbAnswer');
-						console.log('descriptive',scope.randomKey);
-					answerArea.html(descriptiveElem);
-					$compile(descriptiveElem)(scope);
-				}
+				
 				}
 			},true);
-
-			
-
-
-
-
-
 
 
 
 	scope.createPrimaryAnswer=function (path) {
-            scope.ItsTimeToSaveDataToDB=false; // check for object built successfully or not
-            scope.weHaveGotAfile=false;
+            scope.ItsTimeToSavePrimaryToDB=false; // check for object built successfully or not
+            scope.weHaveGotAsecondaryFile=false;
             var fieldsTraversedCount=0;
             var totalFields=scope.primaryForm.fields.length;
             var temp = {}; // temp object for storing each elements in a course element
@@ -234,13 +212,13 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','$compile','que
                                 temp[item.name].type=customProperty.text;
                                 if(angular.equals(customProperty.text,"doc-viewer")){ // if it is a file, it should be stored in server to show preview through
                                                                                       // google doc preview
-                                    scope.weHaveGotAfile=true;
+                                    scope.weHaveGotAsecondaryFile=true;
                                     var promise=addCourseService.fnCourseFileUpload(temp[item.name].value, path); // uploading file to the server
                                     promise.then(function(data){ // call back function for the fileupload
                                           temp[item.name].fileType = temp[item.name].value.type;
                                           temp[item.name].value='http://docs.google.com/gview?url='+bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','')+'&embedded=true';
                                           temp[item.name].url=bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','');
-                                          scope.ItsTimeToSaveDataToDB=true;
+                                          scope.ItsTimeToSavePrimaryToDB=true;
                                     });
                                 }
 
@@ -259,13 +237,81 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','$compile','que
                     else{
                         temp[item.name]=scope.userAnswer[0].primaryAnswer[item.name];
                     }
-                    if(!scope.weHaveGotAfile&&(fieldsTraversedCount==totalFields)){
-                                    scope.ItsTimeToSaveDataToDB=true;
+                    if(!scope.weHaveGotAsecondaryFile&&(fieldsTraversedCount==totalFields)){
+                                    scope.ItsTimeToSavePrimaryToDB=true;
                                 }
 
                     scope.answerToDb[0].primaryAnswer[item.name]=temp[item.name];
                     
                 });
+
+                    
+        };
+
+    	scope.createSecondaryAnswer=function (path) {
+            scope.ItsTimeToSaveSecondaryToDB=false; // check for object built successfully or not
+            scope.weHaveGotASecondaryFile=false;
+            var fieldsTraversedCount=0;
+            var totalFields=scope.secondaryForm.fields.length;
+            var temp = {}; // temp object for storing each elements in a course element
+                    
+               angular.forEach(scope.secondaryForm.fields,function(item){ // looping through item template
+                    fieldsTraversedCount++;
+                    if(!angular.equals(item.customlist,undefined)) //checking if it is having a custom attrib or not
+                    {
+                        temp[item.name]={}; // each elements in a course element will be stored like this (Ex: Title, file ..etc.)
+                        var loopCounter=0; // a counter for all loops comes inside custom list of properties
+                        var maxLoopValue=item.customlist.length;
+                        var weHaveGotPreviewKey=false;
+                        angular.forEach(item.customlist,function(customProperty){
+                            loopCounter++;
+                            // here we build object to store into db and to push into timeline
+                            if(angular.equals(customProperty.value,'previewkey')){ // checking is there have a value for previewkey
+                                weHaveGotPreviewKey=true;
+                                temp[item.name].value=scope.userAnswer[0].secondaryAnswer[item.name];
+                                temp[item.name].type=customProperty.text;
+                                if(angular.equals(customProperty.text,"doc-viewer")){ // if it is a file, it should be stored in server to show preview through
+                                                                                     // google doc preview
+
+                                     if (angular.equals(temp[item.name].value,undefined)) {
+                                     	delete temp[item.name];
+                                     	return;
+                                     }
+                                    scope.weHaveGotASecondaryFile=true;
+                                    var promise=addCourseService.fnCourseFileUpload(temp[item.name].value, path); // uploading file to the server
+                                    promise.then(function(data){ // call back function for the fileupload
+                                          temp[item.name].fileType = temp[item.name].value.type;
+                                          temp[item.name].value='http://docs.google.com/gview?url='+bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','')+'&embedded=true';
+                                          temp[item.name].url=bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','');
+                                          scope.ItsTimeToSaveSecondaryToDB=true;
+                                    });
+                                }
+
+                        }
+                            else{
+
+                                if((loopCounter==maxLoopValue)&&!weHaveGotPreviewKey){ // when count meets length of custom list and still
+                                    temp[item.name]=scope.userAnswer[0].secondaryAnswer[item.name];
+                                }
+
+                            }
+                        });
+                        
+                        
+                    }
+                    else{
+                        temp[item.name]=scope.userAnswer[0].secondaryAnswer[item.name];
+                    }
+                    if(!scope.weHaveGotASecondaryFile&&(fieldsTraversedCount==totalFields)){
+                                    scope.ItsTimeToSaveSecondaryToDB=true;
+                                }
+
+                    scope.answerToDb[0].secondaryAnswer[item.name]=temp[item.name];
+                    
+                });
+				if(fieldsTraversedCount===0){
+					 scope.ItsTimeToSaveSecondaryToDB=true;
+				}
                     
         };
 			

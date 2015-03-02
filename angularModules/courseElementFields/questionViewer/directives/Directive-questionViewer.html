@@ -7,7 +7,7 @@
 	</div>
 	<div ><!-- ng-hide="question.markScored>=0" -->
 		<div id="answers{{randomKey}}" class="p col-xs-12"></div>
-		<div ng-if="isMentee" class="p col-xs-12">
+		<div ng-if="isMentee&&!question.multiAnswer" class="p col-xs-12">
 			<!-- <paper-button raised class="pull-right" ng-class="{'bg-info':userAnswer.length}" ng-if="!question.userAnswer" ng-disabled="!userAnswer.length" type="submit" style="" ng-click="saveAnswer()">Submit</paper-button> -->
 			<button class="pull-right btn btn-success baab-btn" ng-class="{'bg-info':userAnswer.length}" ng-if="!question.userAnswer" ng-disabled="!userAnswer.length" type="submit" ng-click="saveAnswer()">Submit</button>
 		</div>

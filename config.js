@@ -66,6 +66,8 @@ angular.module('baabtra')
      //"BWS": "http://services.baabtra.com/",//server - production
      //"BWS": "http://server.mb-test.in/",//server-test
      // "BWS": "http://server.mb-test.in/",//server-test
+
+    // "BWS": "http://server.mb-test.in/",//server-test
      "SARID":1, // SuperAdminRoleID
      "CURID":2, // CompanyUser
      "MURID":3, // MenteeUser
