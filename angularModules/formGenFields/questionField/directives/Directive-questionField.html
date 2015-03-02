@@ -30,7 +30,7 @@
 
 				<div ng-show="selectedTab=='question'" >
 				
-      					<input class="form-control floating-label" type="text" placeholder="Question Title (optional)" name="questionTitle" ng-model="question.title">
+      					<!-- <input class="form-control floating-label" type="text" placeholder="Question Title (optional)" name="questionTitle" ng-model="question.title"> -->
     		
     					<div class="m-v-lg">
 	    					<em class="text-muted">Question</em>
@@ -42,14 +42,14 @@
 
 						 <div class="radio radio-success pull-left">
 				            <label>
-				              <input type="radio" ng-checked="question.type=='objective'" ng-change="questionTypeChange('objective')" value="objective"  ng-model="question.type"  name="questionType">
+				              <input type="radio" required xt-validate ng-checked="question.type=='objective'" ng-change="questionTypeChange('objective')" value="objective"  ng-model="question.type"  name="questionType">
 				              Objective
 				            </label>
 				        </div>
 
 				        <div class="radio radio-success pull-left m-l" style="padding-top:15px;">
 				            <label>
-				              <input type="radio" ng-change="questionTypeChange('descriptive')" ng-checked="question.type=='descriptive'" value="descriptive" ng-model="question.type"   name="questionType">
+				              <input type="radio" required xt-validate ng-change="questionTypeChange('descriptive')" ng-checked="question.type=='descriptive'" value="descriptive" ng-model="question.type"   name="questionType">
 				              Descriptive
 				            </label>
 				        </div>
@@ -59,14 +59,14 @@
 
 							<div class="radio radio-success pull-left">
 					            <label>
-					              <input type="radio" ng-checked="question.answerType=='singleAnswer'" value="singleAnswer"  ng-model="question.answerType"  name="answerType">
+					              <input type="radio" required xt-validate ng-checked="question.answerType=='singleAnswer'" value="singleAnswer"  ng-model="question.answerType"  name="answerType">
 					              Single Answer
 					            </label>
 					        </div>
 
 					        <div class="radio radio-success pull-left m-l" style="padding-top:15px;">
 					            <label>
-					              <input type="radio"  ng-checked="question.answerType=='multiAnswer'" value="multiAnswer"  ng-model="question.answerType" name="answerType">
+					              <input type="radio" required xt-validate  ng-checked="question.answerType=='multiAnswer'" value="multiAnswer"  ng-model="question.answerType" name="answerType">
 					              Multi Answer
 					            </label>
 					        </div>

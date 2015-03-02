@@ -11,7 +11,8 @@ angular.module('baabtra').directive('questionField',['courseElementFieldsManagin
 	return {
 		restrict: 'E',
 		scope: { // should take an input object to bind the output
-			question:'=ngModel'
+			question:'=ngModel',
+			multiAnswer:'='
 		},
 		templateUrl: 'angularModules/formGenFields/questionField/directives/Directive-questionField.html',
 		link: function(scope, element, attrs, fn) {
@@ -68,6 +69,7 @@ angular.module('baabtra').directive('questionField',['courseElementFieldsManagin
 				scope.question={};
 				scope.question.mark={};
 				scope.question.answer=[];
+				scope.question.multiAnswer=scope.multiAnswer;
 			}
 			// scope.question.type="objective";
 			// scope.question.answerType="singleAnswer";
