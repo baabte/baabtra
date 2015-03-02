@@ -610,3 +610,6 @@ for changing palceholder color*/
 .dropdown-menu .divider{
   background-color: #cccccc!important;
 }
+.vertical-scroll{
+  max-height: 250px;overflow-x: hidden;overflow:auto;
+}
