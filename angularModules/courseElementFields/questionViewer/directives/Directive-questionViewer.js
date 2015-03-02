@@ -38,8 +38,10 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 					scope.answerToDb=[];
 					scope.answerToDb[0]={primaryAnswer:{},secondaryAnswer:{}};
 					scope.createPrimaryAnswer('candidateAnswers');
-					var dbSaverUnbind=scope.$watch('ItsTimeToSaveDataToDB',function(){
-						if(scope.ItsTimeToSaveDataToDB){
+					scope.createSecondaryAnswer('candidateAnswers');
+					var dbSaverUnbind=scope.$watch(function() { return scope.ItsTimeToSavePrimaryToDB+''+scope.ItsTimeToSaveSecondaryToDB; },function(){
+						alert(scope.ItsTimeToSavePrimaryToDB+''+scope.ItsTimeToSaveSecondaryToDB);
+						if(scope.ItsTimeToSavePrimaryToDB && scope.ItsTimeToSaveSecondaryToDB){
 			// console.log('murid',courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
 
 							var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
@@ -187,8 +189,8 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 
 
 	scope.createPrimaryAnswer=function (path) {
-            scope.ItsTimeToSaveDataToDB=false; // check for object built successfully or not
-            scope.weHaveGotAfile=false;
+            scope.ItsTimeToSavePrimaryToDB=false; // check for object built successfully or not
+            scope.weHaveGotAsecondaryFile=false;
             var fieldsTraversedCount=0;
             var totalFields=scope.primaryForm.fields.length;
             var temp = {}; // temp object for storing each elements in a course element
@@ -210,13 +212,13 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
                                 temp[item.name].type=customProperty.text;
                                 if(angular.equals(customProperty.text,"doc-viewer")){ // if it is a file, it should be stored in server to show preview through
                                                                                       // google doc preview
-                                    scope.weHaveGotAfile=true;
+                                    scope.weHaveGotAsecondaryFile=true;
                                     var promise=addCourseService.fnCourseFileUpload(temp[item.name].value, path); // uploading file to the server
                                     promise.then(function(data){ // call back function for the fileupload
                                           temp[item.name].fileType = temp[item.name].value.type;
                                           temp[item.name].value='http://docs.google.com/gview?url='+bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','')+'&embedded=true';
                                           temp[item.name].url=bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','');
-                                          scope.ItsTimeToSaveDataToDB=true;
+                                          scope.ItsTimeToSavePrimaryToDB=true;
                                     });
                                 }
 
@@ -235,13 +237,82 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
                     else{
                         temp[item.name]=scope.userAnswer[0].primaryAnswer[item.name];
                     }
-                    if(!scope.weHaveGotAfile&&(fieldsTraversedCount==totalFields)){
-                                    scope.ItsTimeToSaveDataToDB=true;
+                    if(!scope.weHaveGotAsecondaryFile&&(fieldsTraversedCount==totalFields)){
+                                    scope.ItsTimeToSavePrimaryToDB=true;
                                 }
 
                     scope.answerToDb[0].primaryAnswer[item.name]=temp[item.name];
                     
                 });
+
+                    
+        };
+
+    	scope.createSecondaryAnswer=function (path) {
+            scope.ItsTimeToSaveSecondaryToDB=false; // check for object built successfully or not
+            scope.weHaveGotASecondaryFile=false;
+            var fieldsTraversedCount=0;
+            var totalFields=scope.secondaryForm.fields.length;
+            var temp = {}; // temp object for storing each elements in a course element
+                    
+               angular.forEach(scope.secondaryForm.fields,function(item){ // looping through item template
+                    fieldsTraversedCount++;
+                    if(!angular.equals(item.customlist,undefined)) //checking if it is having a custom attrib or not
+                    {
+                        temp[item.name]={}; // each elements in a course element will be stored like this (Ex: Title, file ..etc.)
+                        var loopCounter=0; // a counter for all loops comes inside custom list of properties
+                        var maxLoopValue=item.customlist.length;
+                        var weHaveGotPreviewKey=false;
+                        angular.forEach(item.customlist,function(customProperty){
+                            loopCounter++;
+                            // here we build object to store into db and to push into timeline
+                            if(angular.equals(customProperty.value,'previewkey')){ // checking is there have a value for previewkey
+                                weHaveGotPreviewKey=true;
+                                temp[item.name].value=scope.userAnswer[0].secondaryAnswer[item.name];
+                                temp[item.name].type=customProperty.text;
+                                if(angular.equals(customProperty.text,"doc-viewer")){ // if it is a file, it should be stored in server to show preview through
+                                                                                     // google doc preview
+
+                                     if (angular.equals(temp[item.name].value,undefined)) {
+                                     	delete temp[item.name];
+                                     	return;
+                                     }
+                                     alert();
+                                    scope.weHaveGotASecondaryFile=true;
+                                    var promise=addCourseService.fnCourseFileUpload(temp[item.name].value, path); // uploading file to the server
+                                    promise.then(function(data){ // call back function for the fileupload
+                                          temp[item.name].fileType = temp[item.name].value.type;
+                                          temp[item.name].value='http://docs.google.com/gview?url='+bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','')+'&embedded=true';
+                                          temp[item.name].url=bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','');
+                                          scope.ItsTimeToSaveSecondaryToDB=true;
+                                    });
+                                }
+
+                        }
+                            else{
+
+                                if((loopCounter==maxLoopValue)&&!weHaveGotPreviewKey){ // when count meets length of custom list and still
+                                    temp[item.name]=scope.userAnswer[0].secondaryAnswer[item.name];
+                                }
+
+                            }
+                        });
+                        
+                        
+                    }
+                    else{
+                        temp[item.name]=scope.userAnswer[0].secondaryAnswer[item.name];
+                    }
+                    if(!scope.weHaveGotASecondaryFile&&(fieldsTraversedCount==totalFields)){
+                                    scope.ItsTimeToSaveSecondaryToDB=true;
+                                }
+
+                    scope.answerToDb[0].secondaryAnswer[item.name]=temp[item.name];
+                    
+                });
+				if(fieldsTraversedCount===0){
+					 scope.ItsTimeToSaveSecondaryToDB=true;
+				}
                     
         };
 			

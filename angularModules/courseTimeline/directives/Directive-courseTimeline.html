@@ -1,13 +1,14 @@
 <div ng-class="{'hide-elem':totalDuration==0}">
 <!-- Duration dropdown -->
-<div class="row-fluid">
+<div class="row-fluid" ng-if="MURID!=$root.userinfo.ActiveUserData.roleMappingObj.fkRoleId	">
 	<div class="col-sm-12">
 
-		
-        <div class="col-sm-3 form-group form-group-sm font-bold">
+		Test:{{MURID}}  {{$root.userinfo.ActiveUserData.roleMappingObj.fkRoleId}}
+        <div  class="col-sm-3 form-group form-group-sm font-bold">
         	<label class="font-bold">Duration :</label>
         	{{duration}}
-        	<button ng-if="ddlBindObject!=undefined" type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedDuration" data-html="1"  ng-change="changeDuration(this.selectedDuration)" ng-options="value.id as value.name for (key, value) in durationIn" bs-select=""></button></div>
+        	<button ng-if="ddlBindObject!=undefined" type="button" class="btn btn-default btn-sm ng-pristine ng-valid" ng-model="selectedDuration" data-html="1"  ng-change="changeDuration(this.selectedDuration)" ng-options="value.id as value.name for (key, value) in durationIn" bs-select=""></button>
+        </div>
 	</div>
 </div>
 <!-- Duration dropdown .End-->
