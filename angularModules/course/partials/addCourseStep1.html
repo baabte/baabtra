@@ -46,19 +46,22 @@
       </div>
 
         <!-- course Description -->
-        
-        <!-- <div ng-repeat="detail in course.courseDetails">{{detail.help}}</div> -->
-        <!-- <div class="form-group" ng-repeat="detail in course.courseDetails">
-            <div class="text-md font-bold p-xs b-b">{{detail.title}}-v-v-v</div>
-            <em class="text-muted text-E91E63">{{detail.help}}</em>
-            <div class="p-v" ng-bind-html="detail.template"></div>
+        <div class="form-group" ng-repeat="newField in course.courseDetails">
+            <div class="text-md font-bold p-xs b-b">{{newField.title}}
+              <a ng-if="newField.removable" href="" data-title="Delete this detail"  bs-tooltip data-placement="right" ng-click="removeThisDetails($index)"><i class="mdi-action-delete text-lg" ></i></a>
+            </div>
+            <div class="m-t" ng-include="newField.template"></div>
+            <span class="help-block text-muted text-E91E63">{{newField.help}}</span>
+            {{detail}}
         </div>
-        <div class="form-group">
-          <button type="button" class="btn btn-lg btn-addon col-xs-12 btn-material-pink-A200">Add more details</button>
-        </div> -->
+
+        <!-- dynamic fields directive -->
+        <add-dynamic-fields detail-fields="course.courseDetails">
+        </add-dynamic-fields>
+
 
         <!-- Course Benefits -->
-        <div class="form-group">
+       <!--  <div class="form-group">
             <ng-quill-editor name="courseDescription" ng-model="course.Description"  toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" error-class="input-error"></ng-quill-editor>
             <em class="text-muted text-E91E63">A short description of the Course(Optional, recommended)</em>
 
@@ -67,7 +70,7 @@
         <div class="form-group">            
             <ng-quill-editor ng-model="course.Benefits" toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" error-class="input-error"></ng-quill-editor> 
             <em class="text-muted text-E91E63">Benefits of the Course(Optional, recommended)</em> 
-        </div>
+        </div> -->
 
         <!-- Course Image -->
 
