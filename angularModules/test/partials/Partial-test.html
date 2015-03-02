@@ -2,19 +2,15 @@
 <div class="col-md-12 bg-white">
 
 <!-- <question-preview preview-data="previewData"></question-preview> -->
-<question-field ng-model="form"></question-field>
+<!-- <question-field ng-model="form"></question-field> -->
 
-<div class="col-md-6 bg-white">
-20
-<percent-indicator total-value="100" obtain-value="20" ng-model="form"></percent-indicator>
-30
-<percent-indicator total-value="100" obtain-value="40" ng-model="form"></percent-indicator>
-60
-<percent-indicator total-value="100" obtain-value="60" ng-model="form"></percent-indicator>
-80
-<percent-indicator total-value="100" obtain-value="80" ng-model="form"></percent-indicator>
-100
-<percent-indicator total-value="100" obtain-value="100" ng-model="form"></percent-indicator>
-</div>
+<!-- <percent-indicator total-value="100" obtain-value="100" ng-model="form"></percent-indicator> -->
+
+<question-group ng-model="questionGroup"></question-group>
+<pre>QuestionGroup:{{questionGroup}}</pre>
+
 
 </div>
+
+
+<!-- question model:{"mark":{"markCriteria":[{}],"totalMark":12},"answer":[{"Name":"b","value":"ans"}],"title":"asd","question":"<div class=\"line\" id=\"line-1\">test</div>","type":"objective","answerType":"singleAnswer","options":[{"Name":"a","value":"asd"},{"Name":"b","value":"ans"},{"Name":"c","value":"qwe"},{"Name":"d","value":""},{"Name":"e"}]} -->

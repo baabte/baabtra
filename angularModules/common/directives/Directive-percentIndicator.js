@@ -13,23 +13,28 @@ angular.module('baabtra').directive('percentIndicator', function() {
 
 			scope.percentage=(scope.obtainValueData/scope.totalValueData)*100;
 			if(scope.percentage==100){
-				scope.markColour='btn-success';
+				scope.textColour='text-success';
+				scope.badgeColour='btn-success';
 				scope.progressColour='progress-bar progress-bar-success';
 			}
 			else if(scope.percentage>=80){
-				scope.markColour='btn-info';
+				scope.textColour='text-info';
+				scope.badgeColour='btn-info';
 				scope.progressColour='progress-bar progress-bar-info';				
 			}
 			else if(scope.percentage>=60){
-				scope.markColour='btn-primary';
+				scope.textColour='text-primary';
+				scope.badgeColour='btn-primary';
 				scope.progressColour='progress-bar progress-bar-primary';
 			}
 			else if(scope.percentage>=30){
-				scope.markColour='btn-warning';
+				scope.textColour='text-warning';
+				scope.badgeColour='btn-warning';
 				scope.progressColour='progress-bar progress-bar-warning';
 			}
 			else if(scope.percentage<30){
-				scope.markColour='btn-danger';
+				scope.textColour='text-danger';
+				scope.badgeColour='btn-danger';
 				scope.progressColour='progress-bar progress-bar-danger';
 			}
 			

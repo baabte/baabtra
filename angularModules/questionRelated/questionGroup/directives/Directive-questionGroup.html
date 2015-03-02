@@ -1,0 +1,7 @@
+<div>
+	<div class="col-xs-12 m-v-md" ng-repeat="index in questionGroupModel track by $index">
+		<question-field ng-model="questionModel" multi-answer="true" ></question-field>
+		<i class="pull-right mdi-av-playlist-add text-2x" data-placement="left" bs-dropdown="dropDown($index)"></i>
+		<pre>question model:{{questionModel}}</pre>
+	</div>
+</div>
