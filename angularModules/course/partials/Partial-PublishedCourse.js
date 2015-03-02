@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('PublishedcourseCtrl',['$scope','$rootScope','commonService','$state','PublishedCourse','$alert','draftedCourses','$aside','addCourseDomainSrv','manageTreeStructureSrv','branchSrv',function($scope,$rootScope,commonService,$state,PublishedCourse,$alert,draftedCourses,$aside,addCourseDomainSrv,manageTreeStructureSrv,branchSrv){
+angular.module('baabtra').controller('PublishedcourseCtrl',['$scope','$rootScope','commonService','$state','PublishedCourse','$alert','draftedCourses','$aside','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','commonSrv',function($scope,$rootScope,commonService,$state,PublishedCourse,$alert,draftedCourses,$aside,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,commonSrv){
 
 if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       $rootScope.hide_when_root_empty=true;
@@ -7,17 +7,29 @@ if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
 if($rootScope.loggedIn==false){
   $state.go('login');
 }
+$scope.notfoundCourse=true;
+$scope.showNavMenu=false;
 $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 //if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId==2){
 	$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 	PublishedCourse.loadPublishedCourses($scope,'','');
 //}
-
 //$scope.showCourseFilter = false;
 var courseDomainResponse = addCourseDomainSrv.FnLoadDomain();
 courseDomainResponse.then(function(response){
   $scope.domainDetails=angular.fromJson(JSON.parse(response.data));//Converting the result to json object
   $scope.domainTree=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);//to get the course tree
+});
+
+commonSrv.FnLoadGlobalValues($scope,"");//to get technologies and tags
+//console.log($scope.globalValues[0]);
+ $scope.$watch('globalValues', function(newVal, oldVal){
+    if (!angular.equals($scope.globalValues,undefined)) {
+       $scope.technologies= $scope.globalValues[0].values.approved;
+       $scope.taggs= $scope.globalValues[1].values.approved;
+       console.log($scope.technologies);
+    }
+
 });
 
 $scope.cmp_id=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;//to get the company id
@@ -27,8 +39,6 @@ $scope.cmp_id=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid
         $scope.data1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.branches,null),null);
         $scope.branchDetails = angular.copy($scope.data1);
         convertObjectName($scope.branchDetails, null);
-
-        console.log($scope.branchDetails);
     }
 });
 
@@ -97,7 +107,6 @@ $scope.activeLink=1;
 $scope.searchCoursesAvailable=function(searchKey){//for seaeching the available courses
 	clearTimeout(searchInProgress);
 searchInProgress=setTimeout(function(){
-	//console.log("calling");
 PublishedCourse.loadPublishedCourses($scope,searchKey,"");
 },400)
 

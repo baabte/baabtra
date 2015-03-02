@@ -607,3 +607,7 @@ for changing palceholder color*/
 .line-through{
   text-decoration: line-through;
 }
+
+.vertical-scroll{
+  max-height: 250px;overflow-x: hidden;overflow:auto;
+}
