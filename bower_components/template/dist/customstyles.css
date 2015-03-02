@@ -607,3 +607,6 @@ for changing palceholder color*/
 .line-through{
   text-decoration: line-through;
 }
+.dropdown-menu .divider{
+  background-color: #cccccc!important;
+}

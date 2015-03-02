@@ -1,0 +1,18 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-primary"></h4>
+      </div>
+      <div class="modal-body">
+      	<input type="text" class="form-control floating-label" placeholder="Display Name" ng-model="newField.title">
+      	<div class="m-t" ng-include="newField.template"></div>
+      	<input class="form-control floating-label m-t" placeholder="Help text" ng-model="newField.help">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="addThisField(newField);$hide();">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+

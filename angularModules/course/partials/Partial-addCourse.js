@@ -24,6 +24,21 @@ if(!angular.equals($state.params.courseId,"")){
   var promise = addCourseService.fnLoadCourseDetails($scope, $scope.courseId);
   promise.then(function(course){
     $scope.course = angular.fromJson(JSON.parse(course.data)).courseDetails;
+
+    if(angular.equals($scope.course.courseDetails,undefined)){
+      $scope.course.courseDetails = [{title:"Course Description",
+                value:"",
+                template:'DynamicFields/editor.html',
+                help:"A short description of the Course(Optional, recommended)",
+                removable:false},
+                {title:"Course Benefits",
+                value:"",
+                template:'DynamicFields/editor.html',
+                help:"Benefits of the Course(Optional, recommended)",
+                removable:false}];
+    }
+
+    
     if(!angular.equals($scope.course.Duration.durationInMinutes, undefined)){
       $scope.totalCourseDuration = $scope.course.Duration.durationInMinutes;
     }
@@ -74,7 +89,6 @@ $scope.totalCourseDuration=0; // course duration in minutes
 $scope.currentState=$state.current.name;
 $scope.nextPart = function(state,borderClass){//for change step, when click tab
     if(!angular.equals($scope.courseId,"")){
-      console.log(state);
       $scope.borderClass = borderClass;
       $scope.currentState=state;
       $state.go(state,{'courseId':$scope.courseId});
@@ -136,6 +150,22 @@ RoleMenuMappingSrv.FnGetRoles($scope, $scope.cmp_id, "", "");
 //     }
 // });
 
+var lastDeletedCourseDetail = "";//for store last deleted course detail for undo
+var indexOfDeletedCourseDetail = "";//for store index of last deleted course detail
+$scope.removeThisDetails = function(index){//for remove detail from the course
+  lastDeletedCourseDetail = $scope.course.courseDetails[index];
+  indexOfDeletedCourseDetail = index;
+  $alert({scope: $scope,container:'body',keyboard:true,animation:'am-fade-and-slide-top',template:'views/ui/angular-strap/alert.tpl.html',title:'Undo',content:'Course detail has been removed', placement: 'top-right', type: 'warning'});  
+  $scope.course.courseDetails.splice(index,1);
+};
+
+$scope.undo = function(){
+  $scope.course.courseDetails.splice(indexOfDeletedCourseDetail, 0, lastDeletedCourseDetail);
+};
+
+
+
+
 $scope.$watch('branches', function(newVal, oldVal){
     if (!angular.equals($scope.branches,undefined)) {
         $scope.data1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.branches,null),null);
@@ -161,17 +191,8 @@ $scope.course.Domains = [];
 $scope.course.Delivery = {};
 $scope.course.Delivery.online=true;//setting delevery mode default option to true
 $scope.course.Delivery.offline=true;//setting delevery mode default option to true
-$scope.course.courseDetails = {};
-$scope.course.courseDetails=[
-      {title:"Course Description",
-      value:"",
-      template:$sce.trustAsHtml('<input class=\"form-control\" >'),
-      help:"A short description of the Course(Optional, recommended)"},
-      {title:"Course Benefits",
-      value:"",
-      template:$sce.trustAsHtml('<ng-quill-editor name=\"{{detail.title}}\" ng-model=\"detail.value\"  toolbar=\"true\" link-tooltip=\"true\" image-tooltip=\"true\" toolbar-entries=\"font size bold list bullet italic underline strike align color background link image\" editor-required=\"true\" error-class=\"input-error\"></ng-quill-editor>'),
-      help:"Benefits of the Course(Optional, recommended)"}
-];
+$scope.course.courseDetails = [];
+
 
 
 var convertObjectName=function(menu,sub){
@@ -266,7 +287,6 @@ $scope.completeStep1 = function(course){//created for build step1 object
           delete courseToBeSave.Img;
           var toState='home.main.addCourse.step2';
           $alert({title: 'Done..!', content: 'Step 1 completed successfuly :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
-          
           addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId, toState);//saving to database
           unbindWatchOnThis(); // used to unbind this watch after triggering it once
         }
