@@ -50,7 +50,8 @@
         'multi-select',
         'ngImgCrop',
         'monospaced.qrcode',
-        'masonry'
+        'masonry',
+        'googlechart'
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';
 })

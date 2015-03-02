@@ -468,6 +468,16 @@
                 }
                 
               })
+              .state('home.main.userReport', {
+                url: '/userReport',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-userReport.html',
+                    controller: 'UserreportCtrl'
+                  }
+                }
+                
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'
