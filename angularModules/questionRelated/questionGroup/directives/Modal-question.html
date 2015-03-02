@@ -1,0 +1,22 @@
+<!-- <div>
+	<div class="col-xs-12 m-v-md" >
+		<question-field ng-model="questionModel" multi-answer="true" ></question-field>
+		<div class="btn btn-primary" ng-click="addQuestion(questionModel)">Add Question<div class="ripple-wrapper"></div>
+		</div>
+	</div>
+</div>
+ -->
+<div class="modal"role="dialog">
+	<div class="modal-content">
+    	<div class="modal-header">        
+        	<h4 class="modal-title text-primary">Add Question</h4>
+    	</div>
+      	<div class="modal-body">
+      		<div class="box">
+        		<question-field ng-model="question" multi-answer="true" ></question-field>
+				<div class="btn btn-primary" ng-click="addQuestion(question,index);$hide()">Add Question<div class="ripple-wrapper"></div>
+				</div>
+      		</div>
+      	</div>
+    </div>
+</div>
