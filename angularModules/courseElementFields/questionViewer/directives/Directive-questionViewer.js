@@ -40,7 +40,7 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 					scope.createPrimaryAnswer('candidateAnswers');
 					scope.createSecondaryAnswer('candidateAnswers');
 					var dbSaverUnbind=scope.$watch(function() { return scope.ItsTimeToSavePrimaryToDB+''+scope.ItsTimeToSaveSecondaryToDB; },function(){
-						alert(scope.ItsTimeToSavePrimaryToDB+''+scope.ItsTimeToSaveSecondaryToDB);
+						// alert(scope.ItsTimeToSavePrimaryToDB+''+scope.ItsTimeToSaveSecondaryToDB);
 						if(scope.ItsTimeToSavePrimaryToDB && scope.ItsTimeToSaveSecondaryToDB){
 			// console.log('murid',courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
 
@@ -277,7 +277,6 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
                                      	delete temp[item.name];
                                      	return;
                                      }
-                                     alert();
                                     scope.weHaveGotASecondaryFile=true;
                                     var promise=addCourseService.fnCourseFileUpload(temp[item.name].value, path); // uploading file to the server
                                     promise.then(function(data){ // call back function for the fileupload
