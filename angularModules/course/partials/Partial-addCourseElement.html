@@ -7,17 +7,15 @@
         <div class="panel-body">
 <form name="course_element_form" class="form-validation" enctype= "multipart/form-data"  xt-form novalidate>
             <div class="col-md-7 form-group">
-			       <div class="col-md-7 form-group">
-              <label  class="font-bold pull" for="definpu" >Course Element Name</label>   
+			       <div class="col-md-7 form-group">              
 
-              <input type="text" ng-model="courseElement.Name"class="form-control" id="definput" xt-validate required placeholder="Enter Course Element Name" name="Name" >
+              <input type="text" ng-model="courseElement.Name"class="form-control floating-label" id="definput" xt-validate required placeholder="Enter a name for the course element" name="Name" >
              
             </div>	
            
-            <div class="col-md-7 form-group">
-              <label  class="font-bold" for="definpu">Display Name of Course Element</label>   
+            <div class="col-md-7 form-group">          
 
-              <input type="text" ng-model="courseElement.menuDisplayName"class="form-control" xt-validate required id="definput" placeholder="Enter Display Name" name="Name" >
+              <input type="text" ng-model="courseElement.menuDisplayName"class="form-control floating-label" xt-validate required id="definput" placeholder="Enter a Display Name for the course element" name="Name" >
              
             </div>
             <div class="col-md-7 form-group">
@@ -42,7 +40,7 @@
               <div class="font-bold m-t-lg" > 
                 Exit Criteria<hr>
             </div>   
-            <select  class="form-control " data-bv-field="sectors" ng-model="exitCriteria" ng-options="exitPoint.Name for exitPoint in exitcriterialist"  >
+            <select  class="form-control floating-label " data-bv-field="sectors" ng-model="exitCriteria" ng-options="exitPoint.Name for exitPoint in exitcriterialist"  >
               <option value="">Select a Exit Criteria</option>
               </select>
               
@@ -120,9 +118,9 @@
  
  <div class="col-md-12 form-group">
              
-             <button ng-show="courseElementSavebtn" class="btn btn-info pull-right" ng-click="saveCourseElement(course_element_form)" ng-disabled="course_element_form.$invalid||courseElement.schema.fields[0]==undefined||(sel.exitCriteria.exitCriteriaConfig!=undefined&&courseElement.exitCriteria.config==undefined)">Save Course Element</button>
+             <button ng-show="courseElementSavebtn" class="btn btn-info pull-right baab-btn" ng-click="saveCourseElement(course_element_form)" ng-disabled="course_element_form.$invalid||courseElement.schema.fields[0]==undefined||(sel.exitCriteria.exitCriteriaConfig!=undefined&&courseElement.exitCriteria.config==undefined)">Save Course Element</button>
 
-             <button ng-show="courseElementUpdatebtn" class="btn btn-info pull-right" ng-click="saveCourseElement(course_element_form)" ng-disabled="course_element_form.$invalid||courseElement.schema.fields[0]==undefined||(sel.exitCriteria.exitCriteriaConfig!=undefined&&courseElement.exitCriteria.config==undefined)">Update Course Element</button>
+             <button ng-show="courseElementUpdatebtn" class="btn btn-info pull-right baab-btn" ng-click="saveCourseElement(course_element_form)" ng-disabled="course_element_form.$invalid||courseElement.schema.fields[0]==undefined||(sel.exitCriteria.exitCriteriaConfig!=undefined&&courseElement.exitCriteria.config==undefined)">Update Course Element</button>
 
 </div>
 

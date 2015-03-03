@@ -47,7 +47,8 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
       };
 
       this.FnGetRoles=function ($scope,cmp_id,range,roleVal)//To Load The Roles based on company
-      {//$scope.indicator=true;
+      {
+          console.log({"rm_id":$scope.roleId,"cmp_id":cmp_id,"range":range,"roleVal":roleVal});
         $http({
           method: 'post',
           url: bbConfig.BWS+'GetAllRoles/',

@@ -9,6 +9,9 @@ if(localStorageService.get('logDatas')){
 }
 }
 
+
+
+
 $scope.login_frequency=0;
 $scope.loginCredential={};
 $scope.btnSignupText='Sign in'; 
@@ -17,6 +20,8 @@ $scope.emailRMsg='This is required field';    //error message for required field
 $scope.existingEmail='';                       //setting the existsing email id to a scope variable 
 $scope.Error_msg=false;  
 $scope.isLoggedIn = true;
+$scope.userEmail="";
+
 
 ///////////////////
 
@@ -27,19 +32,35 @@ $scope.facebook_login=function(){
 }
 
 function refresh() {
-    $facebook.api("/me").then( 
+    $facebook.api("/me/",{fields: "id,picture,first_name,last_name,link,email,gender"}).then( 
       function(response) {
          $scope.loginCredential={};
          $scope.signinform.$setPristine();
-         $scope.loginCredential.id=response.id;
-         $scope.socialData=response;
+         $scope.socialData={};
+         $scope.loginCredential.facebookId=response.id; 
+         $scope.socialData.firstName=response.first_name;
+         $scope.socialData.lastName=response.last_name;
+         $scope.socialData.facebookProfileLink=response.link;
+         $scope.socialData.facebookId=response.id;
+         $scope.socialData.email=response.email;
+         $scope.socialData.profileImg=response.picture.data.url;
          $scope.socialData.mediaName="facebook";
          $scope.from_where="facebook";
-         LoginService.fnloginService($scope);
+         if($scope.socialData.email==null){
+
+                  $modal({ scope: $scope,
+                  template: 'angularModules/login/partials/addUserEmail.html',
+                  placement:'center',
+                  show: true});        
+         }
+         else{
+              LoginService.fnloginService($scope);
+         }
+         
       },
       function(err) {
         $scope.welcomeMsg = "Please log in";
-        console.log("err");
+        console.log(err);
 
       });
   }
@@ -56,6 +77,8 @@ function refresh() {
 //          });
 
 //     };
+
+
  $scope.linkedIn_login= function() {
  	;
       $linkedIn.authorize().then(function(arg){
@@ -68,20 +91,38 @@ function refresh() {
      
   };
 $scope.getLinkedInData= function(){
-	$linkedIn.profile("~",["id","firstName","lastName","pictureUrl","publicProfileUrl","email-address","location","headline","phoneNumbers"],{scope:"r_fullprofile+r_emailaddress"}).then( 
+	$linkedIn.profile("me",["id","firstName","lastName","pictureUrl","publicProfileUrl","email-address","location","headline"],{scope:"r_fullprofile+r_emailaddress"}).then( 
       function(response) {
       	response=response.values[0];
       	$scope.loginCredential={};
+        $scope.socialData={};
       	$scope.signinform.$setPristine();
-      	$scope.loginCredential.id=response.id;
-      	$scope.socialData=response;
+      	$scope.loginCredential.linkedInId=response.id;
+      	$scope.socialData.firstName=response.firstName;
+        $scope.socialData.lastName=response.lastName;
+        $scope.socialData.linkedInProfileUrl=response.publicProfileUrl;
+        $scope.socialData.linkedInId=response.id;
+        $scope.socialData.email=response.emailAddress;
+        $scope.socialData.profileImg=response.pictureUrl;
       	$scope.socialData.mediaName="linkedIn";
       	$scope.from_where="linkedIn";
-      	LoginService.fnloginService($scope);
+        if($scope.socialData.email==null){
+
+                  $modal({ scope: $scope,
+                  template: 'angularModules/login/partials/addUserEmail.html',
+                  placement:'center',
+                  show: true});        
+         }
+         else{
+              LoginService.fnloginService($scope);
+         }
       });
 };
 
-
+$scope.submitEmailForLogin=function(userEmail){
+     $scope.socialData.email=userEmail;
+     LoginService.fnloginService($scope);
+}
 
 $scope.fnCheckLogin=function(){//FnCheckLogin() is the functoin which is to be fired when user clickg the login button .
   $scope.progress=true;
@@ -101,7 +142,7 @@ $scope.emailPattern = (function() {
        }};
   })();
 
- 
+
 
 $scope.loginSuccessCallback=function(data){
 		$scope.logData=angular.fromJson(JSON.parse(data));
@@ -121,7 +162,6 @@ $scope.loginSuccessCallback=function(data){
 			   	  var logdata=$scope.logData.ActiveUserDataId.$oid.concat($scope.logData.userLoginId);
 			  	  localStorageService.add('logDatas',logdata);
 			  	  $rootScope.userinfo=$scope.logData;//if login is ok put it in the login info variable.
-            // console.log($rootScope.userinfo);
             $rootScope.loggedIn=true;//if login is ok ,changin the variable in rootscope.
 				  $state.go('home.main');//routing to home after success login by user
 				  $scope.login_or_not='login Success'; 

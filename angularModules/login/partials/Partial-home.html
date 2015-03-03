@@ -1,27 +1,45 @@
 <!--Created By:Jihin
 Created On:12/11/2014 -->
 
-<aside ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}"  id="aside" class="app-aside {{app.settings.asideColor}} text-lg fixedBc" ng-include="'views/aside.html'">
+<aside ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}"  id="aside" class="app-aside {{app.settings.asideColor}} text-lg fixedBc" ng-include="'views/aside.html'"  style="margin-top:20px;">
 </aside>
 <div class="p-md" >
 	<div class="row" name="innercontent" ui-view>
-    <div class="col-sm-12 col-md-12 col-lg-12">
-      <span  ng-repeat="menu in userMenus" class="hidden-xs">
-      <div ng-click="loadDetails(menu)" class="animated fadeInDown m-md text-sm btn text-dark b btn-lg bg-light lt m-r m-b btn-stroke {{colorArray[($index+1)%colorArray.length]}}">
-          <i class="fa {{menu.menuIcon}} fa-2x pull-left" ></i>
-          <span class="block clear text-left m-v-xs"><span class="text-lg block  pull-left">{{menu.MenuName}}</span>
-            <i class="fa fa-caret-right m-t-lg pull-right" style="position: absolute;right: 5px;top: 12px;" ng-show="{{menu.childMenuStructure.length}}"></i>
-          </span>
+    <div class="col-xs-12"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
+      <div masonry-tile   ng-repeat="menu in userMenus" class="text-center p-xs pull-left tile masonry-brick" style="width:140px; margin-bottom:0px;">
+
+      <div ng-click="loadDetails(menu)" class="text-sm btn text-dark btn-lg bg-light lt btn-stroke {{colorArray[($index+1)%colorArray.length]}} text-center col-xs-12" style="padding-bottom:0px; margin-bottom:0px; margin-top:0px;">
+        
+              <div class="row text-center">
+                <i class="fa {{menu.menuIcon}} fa-2x" ></i>
+              </div>
+
+              <div class="row text-center">
+                <span class="block clear m-v-xs word-wrap">{{menu.MenuName}}</span>
+
+              <div class="row text-right" style="margin-bottom:0px;"  ng-show="{{menu.childMenuStructure.length}}">
+                <!-- <button class="btn btn-xs"> -->
+                  <i class="mdi-navigation-chevron-right text-2x"></i>
+                <!-- </button> -->
+                
+              </div>
+
         </div>
-        </span>
-        <span  ng-repeat="menu in userMenus" class="visible-xs col-xs-12" style="cursor: pointer;">
+
+        </div>       
+      </div>
+	</div>
+
+
+        <!-- <span  ng-repeat="menu in userMenus" class="visible-xs col-xs-12 p-xs" style="cursor: pointer;">
+
       <div ng-click="loadDetails(menu)" class="animated fadeInDown p-xs text-sm b bg-light lt">
           <i class="fa {{menu.menuIcon}} fa-2x pull-left col-sm-1 col-xs-2" style="margin-top: 2px;"></i>
           <span class="block clear text-left m-v-xs"><span class="text-lg block pull-left">{{menu.MenuName}}</span>
           <i class="fa fa-caret-right m-t-xs pull-right" ng-show="{{menu.childMenuStructure.length}}"></i>
           </span>
         </div>
-        </span>
-      </div>
-	</div>
+        </span> -->
+
+</div>
 </div>
