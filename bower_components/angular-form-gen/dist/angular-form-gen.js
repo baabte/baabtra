@@ -454,7 +454,7 @@ angular.module('fg').run(['$templateCache','courseElementFieldsManaging','fgConf
 
   //-------------date Field------------------//
 
-  $templateCache.put('angular-form-gen/field-templates/default/date.ng.html', ' <input type=\"text\" class=\"form-control m-b-lg floating-label\" xt-validate fg-custom-attributes   placement=\"bottom-right\" data-date-format=\"dd-MM-yyyy\" data-date-type=\"date\" data-autoclose=\"true\"  data-min-date=\"02/10/86\" bs-datepicker=\"\" autocomplete=\"off\"fg-field-input=\"\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\"placeholder=\"{{ field.schema.displayName }}\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-minlength=\"{{ field.schema.validation.minlength }}\" ng-maxlength=\"{{ field.schema.validation.maxlength }}\" ng-pattern=\"/{{ field.schema.validation.pattern }}/\" ng-disabled=\"isDisabled(field.schema)\"> ');
+  $templateCache.put('angular-form-gen/field-templates/default/date.ng.html', ' <input type=\"text\" class=\"form-control m-b-lg floating-label\" xt-validate fg-custom-attributes   placement=\"bottom-right\" data-date-format=\"dd-MM-yyyy\" data-date-type=\"date\" data-autoclose=\"true\" bs-datepicker=\"\" autocomplete=\"off\"fg-field-input=\"\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\"placeholder=\"{{ field.schema.displayName }}\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-minlength=\"{{ field.schema.validation.minlength }}\" ng-maxlength=\"{{ field.schema.validation.maxlength }}\" ng-pattern=\"/{{ field.schema.validation.pattern }}/\" ng-disabled=\"isDisabled(field.schema)\"> ');
 
    
 
