@@ -3,14 +3,9 @@
 	<div class="nav nav-tabs p m-v-md">
   		<div class="text-white b-2x">Question Group</div>
 	</div>
-	<div class="col-xs-12" ng-if="questionShow">
-			<form name="questionFrom" xtform no-validate>
-        	<question-field ng-model="question" multi-answer="true" ></question-field>
-        	</form>
-        	<div class="btn btn-primary" ng-disabled="questionFrom.$invalid" ng-click="addQuestion(question,index)">Add Question<div class="ripple-wrapper"></div>
-        	</div>
-    </div>
-	<div class="col-xs-12" ng-repeat="question in questionGroupModel track by $index">
+
+    <pre>{{placeindex}}</pre>
+    <div class="col-xs-12" ng-repeat="question in questionGroupModel track by $index">
 		
 		<div class="col-xs-12" >
 			<question-viewer data="{{fnFormatObj(question)}}" index="1" course-element="courseElement"></question-viewer>
@@ -20,5 +15,15 @@
 			<i class="pull-right mdi-av-playlist-add text-2x" data-placement="left" bs-dropdown="dropDown($index)"></i>		
 		</div>
 	</div>
+        	<div class="btn btn-primary" ng-click="questionShowActivate()">Add Question<div class="ripple-wrapper"></div>
+    <div class="col-xs-12" ng-if="questionShow">
+			<form name="questionFrom" xtform no-validate>
+        	<question-field ng-model="question" multi-answer="true" ></question-field>
+        	</form>
+        	<div class="btn btn-primary" ng-disabled="questionFrom.$invalid" ng-click="addQuestion(question,placeindex)">Add to group<div class="ripple-wrapper"></div>
+        	</div>     	
+    </div>
+	
+
 </div>
 </div>
