@@ -65,7 +65,7 @@ angular.module('baabtra').directive('addDynamicFields',['$sce','$templateCache',
 				$modal({scope: scope, backdrop:false, template: 'angularModules/common/directives/popup-addNewField.html', show: true});
   			};
 
-  			scope.addThisField = function(newField){
+  			scope.addThisField = function(newField, $hide){
   				if(angular.equals(newField.type,"video") || angular.equals(newField.type,"application")){
   					scope.btnName = "Uploading....";
             scope.enableButton = true;
@@ -75,6 +75,7 @@ angular.module('baabtra').directive('addDynamicFields',['$sce','$templateCache',
         			newField.value = bbConfig.BWS+'files/'+path+'/'+response.data.replace('"','').replace('"','');
         		  scope.btnName = "Add";
               scope.enableButton = false;
+              $hide();
             });
         		}
 
