@@ -22,8 +22,9 @@ else{
     if($rootScope.userinfo){$scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     home.FnLoadMenus($scope);
   }
-    
+  
 }
+
 if($rootScope.loggedIn==false){
   $state.go('login');
 }

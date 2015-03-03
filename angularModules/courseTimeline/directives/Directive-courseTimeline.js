@@ -25,11 +25,9 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
                         4:{id: "5",name: "Hour(s)",mFactor:1/60,show:true},
                         5:{id: "6",name: "Minute(s)",mFactor:1,show:true}};//mFactor is multiplication factor
 			//setting selected duration type as first object
-			
-			console.log(scope.syncData);
+
 			scope.$watch('syncData.selectedDuration',function(){
 				if(!angular.equals(scope.syncData.selectedDuration,undefined)){
-					console.log(scope.syncData);
 					scope.selectedDuration = scope.syncData.selectedDuration;
 					scope.changeDuration(scope.selectedDuration);
 				}

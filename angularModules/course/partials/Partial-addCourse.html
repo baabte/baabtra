@@ -4,7 +4,6 @@
 			<i class="fa fa-bullhorn text-2x p-h"></i>
 			<span class="font-bold hidden-xs">General Info</span>
 	</div>
-	<div></div>
 	<div class="col-xs-4 p bg-00C853 text-center" style="cursor: pointer;" ng-class="{'shadow-z-4':currentState=='home.main.addCourse.step2'}" ng-click="nextPart('home.main.addCourse.step2','b-04B45F')">
 		<i class="fa fa-clock-o text-2x p-h"></i>
 		<span class="font-bold hidden-xs">Duration & Fee Settings</span>
@@ -17,10 +16,11 @@
 </div>
 
 <!-- Steps .End -->
-	
+	<add-dynamic-fields ng-show="not" detail-fields="course.courseDetails">
+    </add-dynamic-fields>
 	
 <div class="p">
 	<!-- course stream line -->
-	<course-streamline preview-data="coursePreviewObject"></course-streamline>
+	<course-streamline  preview-data="coursePreviewObject"></course-streamline>
 </div>
  

@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('CoursedetailsCtrl',['$scope','$rootScope','commonService','addCourseService','$state',function($scope,$rootScope,commonService,addCourseService,$state){
+angular.module('baabtra').controller('CoursedetailsCtrl',['$scope','$rootScope','commonService','addCourseService','$state','$sce',function($scope,$rootScope,commonService,addCourseService,$state,$sce){
 
 
   /*login detils start*/
@@ -66,7 +66,21 @@ angular.module('baabtra').controller('CoursedetailsCtrl',['$scope','$rootScope',
     else{
     	$scope.feeDetails.amount = "FREE";
     }
+    var viewType = {"4":1440};
+
+    
+    angular.forEach($scope.course.courseTimeline,function(value, key){
+      console.log(key);
+      console.log(value);
+      console.log(viewType[$scope.course.selectedDuration]);
+    })
 
   });
+
+   $scope.trustSrc = function(src) {
+    if(!angular.equals(typeof src,"object")){
+      return $sce.trustAsResourceUrl(src);
+    }
+  }
 
 }]);

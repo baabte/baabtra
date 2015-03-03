@@ -75,18 +75,9 @@
   </div>
   <div class="row text-dark m-v">
     <div class="col-xs-10">
-      <div ng-repeat="feild in course.courseDetails">
-        <h2>{{feild.title}}</h2>
-        <div class="course-description" ng-bind-html="feild.value"></div>
-      </div>
-      <!-- <div ng-if="course.Description.length">
-        <h2>Course Description</h2>
-        <div class="course-description" ng-bind-html="course.Description"></div>
-      </div>
-      <div ng-if="course.Benefits.length>160">
-        <h2>Benfits Of The Course</h2>
-        <div class="course-description" ng-bind-html="course.Benefits"></div>
-      </div> -->
+      <!-- course details viewer -->
+      <course-detail-viewer course-details="course.courseDetails" editable="false">
+      </course-detail-viewer>
     </div>
     <div class="col-xs-12 col-sm-2 m-t">
        <div class="pull-right  text-right">
