@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('questionGroup',['$modal', function($modal) {
+angular.module('baabtra').directive('questionGroup',['$aside', function($aside) {
 	return {
 		restrict: 'E',
 		require:'ngModel',
@@ -12,12 +12,11 @@ angular.module('baabtra').directive('questionGroup',['$modal', function($modal) 
 			scope.questionGroupModel=[];//array to keep the 
 			scope.courseElement={index:1,tlPointInMinute:1000,Name:'Test'};
 			//dummy object created to view the question here
-
+			scope.questionShow="true";
 			
 		 scope.dropDown=function (index) {
 		 		scope.index=index;
 		    	var list=[];
-		    //if(!angular.equals(scope.answers[index].value,undefined)){
 		    	
 		    	list.push({text:"Remove",click:function() {
 		    		if(scope.questionGroupModel.length>=1){
@@ -27,12 +26,11 @@ angular.module('baabtra').directive('questionGroup',['$modal', function($modal) 
 
 		    list.push({text:"Insert before",click:function() {
 		    		scope.position='before';
-		    		scope.QuestionModalOpen();
 		    		// scope.questionGroupModel.splice(index,0,{});
 		    		}});
 		    list.push({text:"Insert after",click:function() {
 		    		scope.position='after';
-		    		scope.QuestionModalOpen();
+		    		// scope.QuestionModalOpen();
 		    		// scope.questionGroupModel.splice(index+1,0,{});
 		    		}});
 
@@ -40,13 +38,8 @@ angular.module('baabtra').directive('questionGroup',['$modal', function($modal) 
 		    };
 
 
-		    // Pre-fetch an external template populated with a custom scope
-            var questionModal = $modal({scope: scope, template: 'angularModules/questionRelated/questionGroup/directives/Modal-question.html', show: false});
-            // Show when some event occurs (use $promise property to ensure the template has been loaded)
-            scope.QuestionModalOpen = function() {
-              questionModal.$promise.then(questionModal.show);
-            };
-            scope.addQuestion =function(questionModel,index){
+
+          scope.addQuestion =function(questionModel,index){
             	if(angular.equals(scope.index,undefined)){
             	scope.questionGroupModel.push(questionModel);//must pass questionmodel instead of scope.questionmodel
             	scope.ngModel=scope.questionGroupModel;
@@ -62,15 +55,17 @@ angular.module('baabtra').directive('questionGroup',['$modal', function($modal) 
             		}
             		delete scope.index;//deleted to set the index back to default state
             	}
+            	delete scope.question;
+            	scope.questionShow=false;
+            	scope.questionShow=true;
 
             };
 
             scope.fnFormatObj=function (question) {
             	return JSON.stringify({value:question});
             };
-
-			scope.questionModel={"mark":{"markCriteria":[{}],"totalMark":10},"answer":[{"Name":"c","value":"Answer"}],"multiAnswer":true,"question":"<div class=\"line\" id=\"line-1\">This is Testing Question</div>","type":"objective","answerType":"singleAnswer","options":[{"Name":"a","value":"option a"},{"Name":"b","value":"option b"},{"Name":"c","value":"Answer"},{"Name":"d","value":"option d"},{"Name":"e"}]};
-
+            
 		}
+
 	};
 }]);
