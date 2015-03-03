@@ -1,12 +1,12 @@
 angular.module('baabtra').directive('percentIndicator', function() {
 	return {
 		restrict: 'EA',
-		scope:{totalValue:"=",obtainValue:"=",showPercentage:'='},
+		scope:{totalValue:"=",obtainValue:"=",showPercentage:'=',valueSuffix:'@'},
 		templateUrl: 'angularModules/common/directives/Directive-percentIndicator.html',
 		link: function(scope, element, attrs, ctrls) {
 
-			console.log(scope.totalValue);
-			console.log(scope.obtainValue);
+			// console.log(scope.totalValue);
+			// console.log(scope.obtainValue);
 			scope.$watch(function(){ return scope.totalValue+''+scope.obtainValue },function(){
 				if(isNaN(scope.totalValue*1)){
 					scope.totalValue=0;
