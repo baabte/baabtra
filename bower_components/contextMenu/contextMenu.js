@@ -29,19 +29,21 @@ angular.module('ui.bootstrap.contextMenu', [])
         });
 
         //creating a header for context menu
-        var $headerA = $('<span>');
+        var $headerA = $('<li>');
              $headerA.text($scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+" "+$scope.$parent.tlpoint);
-             $headerA.addClass('font-bold bg-'+options[state].colorClass+' p-xs col-xs-12');
+             $headerA.addClass('font-bold p-xs bg-'+options[state].colorClass );
              $ul.append($headerA);
              
             //creating context menu elements
         angular.forEach(options[state].courseElementlist, function (item, i) {
             var $li = $('<li>');
+
             if (angular.equals(item, null)) {
                 $li.addClass('divider');
             }
             else{
                 var $a = $('<a>');
+
                 $a.addClass('context-menu-icon');
                 $a.attr({ tabindex: '-1', href: '#' });
                 var $i = $('<i>');
@@ -83,10 +85,10 @@ angular.module('ui.bootstrap.contextMenu', [])
                               +'<div class="box-cell m-t">'
                                 +'<div class="box-inner col-xs-12">'
                                   +'<form xt-form novalidate class="form" name="courseElement" enctype="multipart/form-data">'
-                                   +'<div sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"></div>'
+                                   +'<div class="p" sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"></div>'
                                    +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData['+$scope.randomKey+'])" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
-                                   +'<button class="btn baab-btn pull-right m-v-lg" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="saveMyFormData($hide)" type="button" ng-disabled = "courseElement.$invalid">Add</button>'
-                                   +'<button class="btn baab-btn pull-left m-v-lg" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="createPreviewElement(\'tempCourseDocs\')" type="button" ng-disabled = "courseElement.$invalid">Preview</button>'
+                                   +'<button class="btn baab-btn pull-right m-v-lg btn-info" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="saveMyFormData($hide)" type="button" ng-disabled = "courseElement.$invalid">Add</button>'
+                                   +'<button class="btn baab-btn pull-left m-v-lg btn-info btn-material-green-A700" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="createPreviewElement(\'tempCourseDocs\')" type="button" ng-disabled = "courseElement.$invalid">Preview</button>'
                                   +'</form>'
                                   +'<div class="clearfix m-v-lg"><course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview></div>'
                         +'</div></div></div></div></div>');
@@ -101,6 +103,7 @@ angular.module('ui.bootstrap.contextMenu', [])
             }
             $ul.append($li);
         });
+
         $contextMenu.append($ul);
         var height = Math.max(
             document.body.scrollHeight, document.documentElement.scrollHeight,
@@ -138,11 +141,15 @@ angular.module('ui.bootstrap.contextMenu', [])
             return 0;
         }
         $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor-((1/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor))+1;
+
         $scope.ItsTimeToSaveDataToDB=false;
         $scope.weHaveGotAfile=false;
 
         //function for creating preview object
         $scope.createPreviewElement=function (path) {
+        $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor-((1/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor))+1;
+
+            console.log($scope.instance);
             $scope.ItsTimeToSaveDataToDB=false; // check for object built successfully or not
             $scope.weHaveGotAfile=false;
             var fieldsTraversedCount=0;

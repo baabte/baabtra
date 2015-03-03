@@ -11,7 +11,8 @@ angular.module('baabtra').directive('questionField',['courseElementFieldsManagin
 	return {
 		restrict: 'E',
 		scope: { // should take an input object to bind the output
-			question:'=ngModel'
+			question:'=ngModel',
+			multiAnswer:'='
 		},
 		templateUrl: 'angularModules/formGenFields/questionField/directives/Directive-questionField.html',
 		link: function(scope, element, attrs, fn) {
@@ -49,7 +50,16 @@ angular.module('baabtra').directive('questionField',['courseElementFieldsManagin
 
 			//we should create a duplicate copy of options object otherwise unwanted properties from multi select will go to database
 			scope.$watch('question.options',function () {
-				scope.optionsTemp=angular.copy(scope.question.options);
+				scope.optionsTemp=[];
+				angular.forEach(scope.question.options,function (option) {
+					if(option.value){
+						if(option.value!=""){
+							scope.optionsTemp.push(option);
+						}
+					}
+					//console.log(scope.question.options,option);
+				});
+				//scope.optionsTemp=angular.copy(scope.question.options);
 			},true);
 
 			//this is for managing object design according to expected answer type
@@ -67,6 +77,8 @@ angular.module('baabtra').directive('questionField',['courseElementFieldsManagin
 			if(!scope.question){
 				scope.question={};
 				scope.question.mark={};
+				scope.question.answer=[];
+				scope.question.multiAnswer=scope.multiAnswer;
 			}
 			// scope.question.type="objective";
 			// scope.question.answerType="singleAnswer";

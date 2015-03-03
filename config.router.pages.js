@@ -276,6 +276,19 @@
                 }
                 
               })
+
+              .state('home.main.course', {
+                url: '/course/:courseId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-courseDetails.html',
+                    controller:'CoursedetailsCtrl'
+                  }
+                }
+                
+              })
+
+
               .state('home.main.addCourse.step2', {
                 url: '/step2/:courseId',
                 views:{
@@ -387,7 +400,7 @@
                 
               })
               .state('home.main.viewCourse', {
-                url: '/viewCourse:id',
+                url: '/viewCourse/:courseId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/course/partials/Partial-viewCourse.html',
@@ -407,7 +420,7 @@
                 
               })
               .state('home.main.CandidateCourseDetails', {
-                url: '/CandidateCourseDetails:courseId',
+                url: '/CandidateCourseDetails/:courseId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/course/partials/Partial-candidateCourseDetail.html',
@@ -455,6 +468,16 @@
                 }
                 
               })
+              .state('home.main.userReport', {
+                url: '/userReport',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-userReport.html',
+                    controller: 'UserreportCtrl'
+                  }
+                }
+                
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'
@@ -465,7 +488,9 @@
               })
               .state('signup', {
                 url: '/signup',
-                templateUrl: 'views/pages/signup.html'
+                templateUrl: 'angularModules/signUp/partials/Partial-signUp.html',
+                controller: 'SignupCtrl'
+
               })
               .state('forgot-password', {
                 url: '/forgot-password',

@@ -1,4 +1,9 @@
-<select  ng-change="onCourseSelectionChanged(selection)" ng-options="course.Name for course in courselist" ng-model="selection"  class="form-control" >
-<option   value="">Select a Course</option>
+<div class="formgen-dropdown m-v-lg" >
+<select placeholder="Select a Course"  data-animation="am-fade-and-slide-top"  ng-change="onCourseSelectionChanged(selection)" ng-options="course.Name for course in courselist" ng-model="selection"  class="form-control"  data-html="true" bs-select>
 </select>
+</div>
 
+<!-- <div class="paper-dropdown">
+<select placeholder="Select a Course" data-animation="am-fade-and-slide-top" ng-change="onCourseSelectionChanged(selection)" ng-options="course.Name for course in courselist"  ng-model="selection" data-html="true" bs-select>
+</select>
+</div> -->

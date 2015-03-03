@@ -340,6 +340,9 @@ pre                             { margin-bottom:20px; }
   padding: 0px;
 }
 
+.no-margin{
+  margin: 0px!important;
+}
 .bg-baabtra{
   background: #045067!important;
 }
@@ -513,6 +516,7 @@ border-color: transparent transparent transparent #ff002f;
 }
 
 
+
 /*course view*/
 .course-box{
 box-shadow: 0 2px 2px rgba(0,0,0,.05);
@@ -531,6 +535,7 @@ overflow:hidden;
 
  
 }
+
 .baab-shadow{
   box-shadow: 0px 3px 7px 0px #424242;
 }
@@ -539,7 +544,6 @@ overflow:hidden;
 .change-avatar-btn:hover{
   background-color: red!important;
 }
-
 
 /*overriding form-group to introduce vertical margin*/
 .form-group{
@@ -567,3 +571,45 @@ select{
     word-wrap:break-word; 
 }
 
+
+/*formgen dropdown menu*/
+formgen-dropdown-menu > .dropdown{
+  position: absolute;
+}
+
+.formgen-dropdown > button ,.icon-paper-btn{
+  border: none!important;
+border-bottom: 1px solid #666666!important;
+cursor: pointer!important;
+width: 100%;
+text-align: left;
+}
+
+/*
+added by jihin
+for changing palceholder color*/
+.place-white::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #FFF;
+}
+.place-white:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #909;
+   opacity:  1;
+}
+.place-white::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #909;
+   opacity:  1;
+}
+.place-white:-ms-input-placeholder { /* Internet Explorer 10+ */
+   color:    #909;
+}
+/*for change palceholder color*/
+
+.line-through{
+  text-decoration: line-through;
+}
+.dropdown-menu .divider{
+  background-color: #cccccc!important;
+}
+.vertical-scroll{
+  max-height: 250px;overflow-x: hidden;overflow:auto;
+}

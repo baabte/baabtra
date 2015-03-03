@@ -1,7 +1,6 @@
 angular.module('baabtra').directive('descriptiveAnswer', function() {
 	return {
 		restrict: 'E',
-		replace: true,
 		scope: {
 			primary:'=',
 			secondary:'=',
@@ -12,12 +11,19 @@ angular.module('baabtra').directive('descriptiveAnswer', function() {
 		templateUrl: 'angularModules/questionRelated/descriptiveAnswer/directives/Directive-descriptiveAnswer.html',
 		link: function(scope, element, attrs, fn) {
 			scope.enteredAnswer={};
-			scope.primaryForm={};
-			scope.primaryForm.fields=[];
-			var primaryLoop=0;
-			for(primaryLoop;primaryLoop<scope.primary.length;primaryLoop++){
-				scope.primaryForm.fields.push(angular.fromJson(JSON.parse(scope.primary[primaryLoop].Debug)));
-			}
+			scope.enteredAnswer.primaryAnswer={};
+			scope.enteredAnswer.secondaryAnswer={};		
+
+			scope.$watch('enteredAnswer',function (oldval,newval) {
+
+				if(angular.equals(scope.enteredAnswer,undefined)){
+					return 0;
+				}
+		
+				scope.userAnswer[0]=angular.copy(scope.enteredAnswer);
+				
+			},true);
+
 
 		}
 	};

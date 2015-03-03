@@ -31,47 +31,123 @@
      </div>
      </div>
  -->
+ <script type="text/ng-template" id="nestedBranch.html">
+ <a ng-click="searchCoursesAvailable(branch.id)">{{branch.id}}</a>   
+      <ul class="dropdown-submenu" ng-if="branch.childrenObj" > 
+            <li ng-repeat="branch in branch.childrenObj" ng-include="'nestedBranch.html'"></li>
+
+     </ul>
+              
+</script>
+<script type="text/ng-template" id="nestedDomain.html">
+<a ng-click="searchCoursesAvailable(node._id)">{{node._id}}</a>
+                    <ul class="dropdown-submenu" ng-if="node.childrenObj" > 
+                          <li ng-repeat="node in node.childrenObj" ng-include="'nestedDomain.html'"> </li>
+                      </ul>
+</script>
 
   <div class="panel b-t b-00C853 bg-light dk">
     <div class="panel-heading font-bold text-white bg-00C853 p baab-shadow">Published Course</div>
-     <div class="m-t m-l">
-        <core-icon-button icon="menu" ng-click="showCourseFilter()"><span class="text-sm " style="position: relative;top: 3px;">Browse Course</span></core-icon-button>
-        <div class="pull-right m-r">
-                 <paper-input-decorator id="decorator" label="Search Course" floatinglabel="{{floatingLabel}}" class="pull-left no-padding" value="" layout="" vertical="">
-                      <input is="core-input" id="input" placeholder="Search Course" aria-label="Search Course" ng-model="searchCourse" ng-change="searchCoursesAvailable(searchCourse)">
-                 </paper-input-decorator>
+    <div class="col-xs-12">
+      
+       <div class="col-xs-12  col-sm-6 col-md-4 col-lg-4 ">
+        <div class="form-group">
+           <input class="form-control floating-label" id="focusedInput" type="text" ng-model="searchCourse" ng-change="searchCoursesAvailable(searchCourse)"  placeholder="Search for a course" >
+        </div>             
+       
+       </div>  
+        <div class="col-xs-6  col-sm-6 col-md-4 col-lg-4 text-center p">
+          <div class="btn btn-default btn-raised btn-sm" ng-click="showNavMenu=!showNavMenu; searchCourse=''">
+           <i class="mdi-navigation-menu"></i>
+          Browse Course
+         </div> 
+        </div>
+          <div class="col-xs-6  col-sm-6 col-md-4 col-lg-4  p">
+            <div class="col-sm-offset-6 ">
+             <div class="btn-group" style="margin-top: 4px;">
+               <button type="button" class="btn btn-xs btn-default" ng-click="prevOne()" title="Next"><i class="fa fa-fw fa-angle-left"></i><div class="ripple-wrapper"></div></button>
+              <button type="button" class="btn btn-xs btn-default" ng-click="nextOne()" title="Previous"><i class="fa fa-fw fa-angle-right"></i><div class="ripple-wrapper"></div></button>
+           </div> 
+                   
+     
+            </div> 
+          </div>  
 
-                 <!--  <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search"   class="pull-left p"  ></paper-icon-button>
- -->
-                </div> 
-     </div>
+    </div> 
+     <div class="col-xs-12" ng-if="showNavMenu"  ng-class="{'am-fade-and-slide-top ':showNavMenu,'am-fade-and-slide-top ':!showNavMenu}">
+       <div class="col-xs-6 col-ls-6 col-sm-8 col-xs-8 p" style="float:none;margin: 0 auto;">
+            <ul class="nav nav-pills nav-tabs">
+              <li class="dropdown" >
+               <a  data-toggle="dropdown" class="dropdown-toggle">Course Domain <b class="caret"></b></a>
+                <ul class="dropdown-menu vertical-scroll">  
+                 <li ng-repeat="node in domainTree" ng-include="'nestedDomain.html'" >
+                  </li>          
+                </ul>         
+              </li>
+
+              <li class="dropdown" >
+               <a data-toggle="dropdown" class="dropdown-toggle">Technologies <b class="caret"></b></a>
+                  <ul class="dropdown-menu vertical-scroll"> 
+                    <li ng-repeat="tech in technologies" ng-click="searchCoursesAvailable(tech)" ><a>{{tech}}</a>   
+                    </li>
+                   </ul> 
+             </li>
+              <li class="dropdown" >
+                 <a  data-toggle="dropdown" class="dropdown-toggle">Branches <b class="caret"></b></a>
+                  <ul class="dropdown-menu vertical-scroll"> 
+                     <li ng-repeat="branch in branchDetails" ng-include="'nestedBranch.html'"   >
+                    </li> 
+                  </ul>
+              </li>
+              <li class="dropdown" >
+                 <a  data-toggle="dropdown" class="dropdown-toggle">Mode of Course <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                     <li><a>Online</a></li>
+                     <li><a>Offline</a></li>
+                  </ul>  
+               </li>
+              <li class="dropdown" >
+               <a  data-toggle="dropdown" class="dropdown-toggle">Tags <b class="caret"></b></a>
+                  <ul class="dropdown-menu vertical-scroll" > 
+                    <li ng-repeat="tag in taggs" ng-click="searchCoursesAvailable(tag)" ><a>{{tag}}</a>   
+                    </li>
+                   </ul> 
+             </li>
+              <!-- <li><a>Course Duration</a></li> -->
+
+            </ul>
+       </div>   
+      </div>
       <div  class="panel-body">
           
-           <div class="col-xs-12" >
+           <div class="col-xs-12"  >
            <div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-           <div draggable ng-class="{'am-slide-left ':showCourseFilter}" masonry-tile class="tile col-xs-6 col-sm-4 col-md-3 col-lg-3 pull-left masonry-brick" ng-repeat="course in publishedCourses">            
+           <div masonry-tile class="tile col-xs-6 col-sm-4 col-md-3 col-lg-3 pull-left masonry-brick" ng-repeat="course in publishedCourses.courses">            
             <div class="panel course-box">
-                 <div class="panel-heading text-lt">
-                  <core-tooltip label="Delete Course" position="top" class="pull-right">
+
+            <div class="panel course-box" >
+
+                 <div class="p">
+
+                  <!-- <core-tooltip label="Delete Course" position="top" class="pull-right">
                     <core-icon-button icon="delete" class="pull-right text-muted" ng-click="deleteCourseDetails(course._id.$oid)"></core-icon-button>
                   </core-tooltip>
                    <core-tooltip label="Edit Course" position="top" class="pull-right">
                     <core-icon-button class=" text-muted" icon="create" ng-click="editCourse(course._id.$oid)"></core-icon-button>
-                   </core-tooltip> 
-                       <!-- <a href="" ng-click="editCourse(course._id.$oid)">
-                         <i class="fa fa-edit"></i>
-                       </a>
-                       <a href="" ng-click="deleteCourseDetails(course._id.$oid)">
-                         <i class="fa fa-trash"></i>
-                       </a> -->
+                   </core-tooltip>  -->
+                   <button ng-click="deleteCourseDetails(course._id.$oid)" class="btn btn-default pull-right no-margin"><i class="mdi-action-delete text-lg " ></i></button>
+
+                   <button ng-click="editCourse(course._id.$oid)" class="btn btn-default pull-right no-margin"><i class="mdi-image-edit text-lg" ></i></button>
+
+
                  </div>
-                 <div class="panel-body ">       
+                 <div class="panel-body " ng-click="viewCourseDetails(course._id.$oid)" style="cursor:pointer; cursor: hand;">       
                            
                                 <img ng-src="{{ course.courseImg }}" >
                             
                     
                            <div class="font-bold text-black p-v-xs m-h-sm">{{course.Name}}</div>
-                           <div class="text-black  course-description text-muted content-limiter "ng-bind-html="course.Description"></div>
+                           <div class="text-black  course-description text-muted content-limiter" ng-bind-html="course.courseDetails[0].value"></div>
                       
                  </div>
             </div>
@@ -79,8 +155,19 @@
            </div>
            </div>
           </div> 
-      </div>
+        <div class="col-sm-8"  ng-hide="publishedCourses.courses.length||notfoundCourse" >
+            <div id="alerts-container" class="animated fadeIn"  >
+                
+                 <div class="alert alert-dismissable alert-danger animated fadeIn">
+                 <button type="button" class="close" data-dismiss="alert">×</button>
+               <strong>Not Found!</strong> No Matching Courses Found.
+               </div>
+            </div>    
+        </div>       
   
+      </div>
+
+ 
 
   
 

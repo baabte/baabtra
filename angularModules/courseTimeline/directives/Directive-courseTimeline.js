@@ -1,7 +1,6 @@
-angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService','addCourseElementService','courseElementFieldsManaging', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService,addCourseElementService,courseElementFieldsManaging) {
+angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService','addCourseElementService','courseElementFieldsManaging','bbConfig', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService,addCourseElementService,courseElementFieldsManaging,bbConfig) {
 	return {
 		restrict: 'E', // to use as an element . Use 'A' to use as an attribute
-		replace: true,
 		scope: {
 		totalDuration:"=totalDuration",
 		callbackFunctions:"=callbackFunctions",
@@ -12,6 +11,8 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 		},
 		templateUrl: 'angularModules/courseTimeline/directives/Directive-courseTimeline.html',
 		link: function(scope, element, attrs, fn) {
+
+		scope.MURID = bbConfig.MURID;//mentee role id 
 
 		var courseElementFieldsResponse = courseElementFieldsManaging.fnGetCourseElementFields();
 			courseElementFieldsResponse.then(function(response){
@@ -24,7 +25,18 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
                         4:{id: "5",name: "Hour(s)",mFactor:1/60,show:true},
                         5:{id: "6",name: "Minute(s)",mFactor:1,show:true}};//mFactor is multiplication factor
 			//setting selected duration type as first object
-			scope.selectedDuration="4";
+			
+			console.log(scope.syncData);
+			scope.$watch('syncData.selectedDuration',function(){
+				if(!angular.equals(scope.syncData.selectedDuration,undefined)){
+					console.log(scope.syncData);
+					scope.selectedDuration = scope.syncData.selectedDuration;
+					scope.changeDuration(scope.selectedDuration);
+				}
+				else{
+					scope.selectedDuration="4";
+				}
+			});
 
 			scope.formData=new Object();//used to save datas from timeline
 
@@ -45,11 +57,10 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 
 
 			scope.buildTlObject = function(selectedDuration){//function for building timeline object
-				
+				var selectedDuration = selectedDuration;
 				scope.$watch(function() {return scope.syncData.courseTimeline}, function(){
-
 				if(!angular.equals(scope.syncData.courseTimeline,undefined)){
-					var name=scope.ddlBindObject[selectedDuration-1].name.replace('(s)','');
+					var name=scope.ddlBindObject[scope.selectedDuration-1].name.replace('(s)','');
 					var newTlPoint = 1;
 					scope.timeLineView = {};
 					var containerCount = 0;
@@ -60,7 +71,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 					}
 					else{
 						angular.forEach(scope.syncData.courseTimeline, function (crsElements, timePoint){
-							newTlPoint = Math.ceil(timePoint/(1/scope.ddlBindObject[selectedDuration-1].mFactor));
+							newTlPoint = Math.ceil(timePoint/(1/scope.ddlBindObject[scope.selectedDuration-1].mFactor));
 							if(angular.equals(scope.timeLineView[newTlPoint],undefined)){
 								scope.timeLineView[newTlPoint] = {};
 								}
@@ -85,8 +96,15 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 			  }, true);
 			}
 
+
 			//building the object for the first time
-			scope.buildTlObject(scope.selectedDuration);
+			var unbindFirstWatch=scope.$watch('syncData',function () {
+				if(!angular.equals(scope.syncData,undefined)){
+					scope.buildTlObject(scope.selectedDuration);
+					unbindFirstWatch();
+				}
+			});
+			
 
 
 			//function to change the appearance of the timeline whilst the change in the dropdownlist		 
@@ -94,10 +112,18 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 			scope.changeDuration=function(selectedDuration){
 				
 				if(!angular.equals(selectedDuration,undefined))
-				{
-					scope.buildTlObject(selectedDuration);//calling function for building timeline object
-					
+				{	
+					scope.syncData.selectedDuration = selectedDuration;
 					scope.selectedDuration=selectedDuration;
+					// scope.buildTlObject(selectedDuration);//calling function for building timeline object
+					var unbindFirstWatch=scope.$watch('syncData',function () {
+					if(!angular.equals(scope.syncData,undefined)){
+						scope.buildTlObject(selectedDuration);
+						unbindFirstWatch();
+					}
+					});
+					
+					
 				}
 				if(scope.durationIn.length<1){
 					scope.duration=scope.totalDuration;

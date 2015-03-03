@@ -1,20 +1,16 @@
       <div class="col-xs-12" >
         <div class="panel b-warning b-2x" >
-          <div class="panel-heading p-sm bg-warning" >
-            <a href="" class="text-md text-ellipsis"><i class="fa fa-globe fa-1x m-r"></i>Published Course</a>
+          <div class="panel-heading font-bold text-white bg-00C853 p baab-shadow" >
+            {{courseData.Name}}
           </div>
           <div class="panel-body" >
               <div class="col-xs-12 bg-light p">
-              <a title="{{courseData.Name}}" ><h2 class="text-danger">
-                             {{courseData.Name|uppercase}}
-                             </h2> 
-              </a>
               <span class="course-description" ng-bind-html="courseData.Description"></span>
               <div class="text-warning" ng-repeat="(key, val) in courseData.Duration.DurationDetails">
-              	Duration: {{ val+" "+ key}}
+                Duration: {{ val+" "+ key}}
               </div>
               <div class="col-xs-12 text-center">
-          				<button class="btn  btn-success b-3x baab-btn" ng-click="navigateToTimeline(courseData.fkCourseId)">Take me to this course</button>	
+                  <button class="btn  btn-success b-3x baab-btn" ng-click="navigateToTimeline(courseData.fkCourseId)">Take me to this course</button> 
               </div>
               </div>
            

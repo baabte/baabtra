@@ -3,6 +3,7 @@ angular.module('baabtra').service('userRegistrationService',['$http','$upload','
 
 //service function to register a user 
 this.FnRegisterUser=function(userRegister){
+  // console.log(userRegister);
     var result;
       var promise=$http({
            url: bbConfig.BWS+'RegisterUser/',

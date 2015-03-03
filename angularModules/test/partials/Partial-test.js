@@ -33,6 +33,10 @@ $scope.previewData=[{"type":"objective",
 "answer":[2],
 "mark":{"Answer":3},																																																							
 "submitType":"single"},];
+
+$scope.questionGroup=[];
+
+
 });																																																																								 																			
 
 

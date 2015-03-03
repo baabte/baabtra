@@ -7,7 +7,7 @@
           <h2>Complete your profile</h2>
           
           <div ng-hide="currentState=='home.main.userRegistration.step5'" id="status-buttons" class="text-center">
-              <a ui-sref-active="active" ng-class="{'active':status.selected === $index}" ng-repeat="i in formlist.formSchema "  ng-click="status.selected = $index" ><span>{{$index+1}}</span></a>
+              <a ui-sref-active="active" ng-class="{'active':status.selected === $index+1}" ng-repeat="i in formlist.formSchema "  ng-click="status.selected = $index+1" ><span>{{$index+1}}</span></a>
           </div>
          
       </div>
@@ -19,11 +19,11 @@
           </div>
 
 <!--  -->
-          <div ng-show="status.selected===0" class="col-xs-6 col-xs-offset-3">
+          <div ng-show="status.selected===1&&status.selected!==stepCount" class="col-xs-6 col-xs-offset-3">
               <a ng-click="status.selected = status.selected+1" ng-disabled="!userRegistrationForm.$valid" class="btn btn-block btn-info"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
           </div>
           <!-- ng-disabled="userRegistrationForm.$invalid" -->
-          <div ng-show="status.selected<formlist.formSteps&&status.selected>0">
+          <div ng-show="status.selected<stepCount&&status.selected>1">
            <div class="col-xs-4 col-xs-offset-2">
               <a ng-click="status.selected = status.selected-1" ng-disabled="userRegistrationForm.$invalid" class="btn btn-block btn-info"><span class="glyphicon glyphicon-circle-arrow-left"></span> Previous Section </a>
           </div>
@@ -33,7 +33,7 @@
           </div>
           <!-- ng-disabled="userRegistrationForm.$invalid" -->
 
-          <div ng-show="status.selected===formlist.formSteps" class="col-xs-12 text-center">
+          <div ng-show="status.selected===stepCount" class="col-xs-12 text-center">
             <span class="glyphicon glyphicon-heart"></span>
             <h3>Its Great You did it!</h3>
     
@@ -44,8 +44,20 @@
           </div>
 
         </form>
-          <!-- <pre>{{status.selected}}</pre> -->
-
+       <!--  <br>
+        <br>
+                <br>
+        <br> -->
+        <!-- <pre>Form Data {{allSync.FormData}}</pre> -->
+          <!-- <pre>eMail valid:invalid {{userRegistrationForm.eMail.$valid}} : {{userRegistrationForm.eMail.$invalid}}</pre>
+          <pre>dob valid:invalid {{userRegistrationForm.dob.$valid}} : {{userRegistrationForm.dob.$invalid}}</pre>
+          <pre>firstName valid:invalid {{userRegistrationForm.firstName.$valid}} : {{userRegistrationForm.firstName.$invalid}}</pre>
+          <pre>lastName valid:invalid {{userRegistrationForm.lastName.$valid}} : {{userRegistrationForm.lastName.$invalid}}</pre>
+          <pre>Branch valid:invalid {{userRegistrationForm.Branch.$valid}} : {{userRegistrationForm.Branch.$invalid}}</pre> -->
+          <!-- <pre>course valid:invalid {{userRegistrationForm.course.$valid}} : {{userRegistrationForm.course.$invalid}}</pre>
+          <pre>role valid:invalid {{userRegistrationForm.role.$valid}} : {{userRegistrationForm.role.$invalid}}</pre>
+           <pre>password valid:invalid {{userRegistrationForm.password.$valid}} : {{userRegistrationForm.password.$invalid}}</pre>
+ -->
           <!-- <pre>{{formlist.formSchema[status.selected].stepName}}</pre> -->
 
           <!-- <pre>{{status.selected}}</pre> -->

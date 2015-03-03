@@ -53,12 +53,14 @@ $scope.changeProfilePic = function(avatarImg){
       commonSrv.fnUploadProfilePic(avatarImg, $scope.rm_id);
 };
 
+
 $scope.cancelChangeProfilePic = function(){
   if(!$scope.undo){
     $scope.avatarSource = '';
     $rootScope.userinfo.ActiveUserData.roleMappingObj.avatar = existingAvatar;
   }
 }
+
 
 $scope.removeAvatar =function(elem){
   existingAvatar =  angular.copy($rootScope.userinfo.ActiveUserData.roleMappingObj.avatar);
