@@ -79,7 +79,7 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	 };
 
 	 this.fnCourseFileUpload = function (fileToBeUpload, pathToBeSave){ // functon that call web service to add a comapny role
-	 	var promise=$upload.upload({
+	 	var promise = $upload.upload({
            url: bbConfig.BWS+'CourseFileUpload/',
            file: fileToBeUpload,
            data: {'pathToBeSave':pathToBeSave},
@@ -87,13 +87,7 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
            withCredentials: false,
            contentType:'application/json',
            dataType:'json',
-           }).
-	 	success(function(data, status, headers, config) {
-	 			return data;
-               }).
-	 	error(function(data, status, headers, config) {
-	 		
-	 	});
+           })
 	 	return promise;
 	 };
 
