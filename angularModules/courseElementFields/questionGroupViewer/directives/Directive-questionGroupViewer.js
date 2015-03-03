@@ -7,7 +7,7 @@ angular.module('baabtra').directive('questionGroupViewer', function() {
 		},
 		templateUrl: 'angularModules/courseElementFields/questionGroupViewer/directives/Directive-questionGroupViewer.html',
 		link: function(scope, element, attrs, fn) {
-			alert();
+			
 
 
 		}
