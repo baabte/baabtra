@@ -1,7 +1,7 @@
-<div class="b-r">
+<div ng-class="{'b-r':!editable}">
 	<div class="form-group" ng-repeat="newField in courseDetails">
 	<div class="text-2x font-bold p-xs b-b" ng-class="{'text-md':editable}">{{newField.title}}
-		<a ng-if="newField.removable" href="" data-title="Delete this detail"  bs-tooltip data-placement="right" ng-click="removeThisDetails($index)">
+		<a ng-if="newField.removable && editable" href="" data-title="Delete this detail"  bs-tooltip data-placement="right" ng-click="removeThisDetails($index)">
 			<i class="mdi-action-delete text-lg" ></i>
 		</a>
 	</div>
@@ -9,7 +9,7 @@
 	<!-- descreption -->
 	<div class="row">
 		<div class="col-xs-12">
-			<div ng-if="newField.type == 'content' || newField.type == undefined" class="m-t" ng-include="newField.template"></div>
+			<div ng-if="(newField.type == 'content' || newField.type == undefined) && editable" class="m-t" ng-include="newField.template"></div>
 			<div  ng-if="(newField.type == 'content' || newField.type == undefined) && !editable" class="course-description" ng-bind-html="newField.value"></div>
 		</div>
 	</div>
