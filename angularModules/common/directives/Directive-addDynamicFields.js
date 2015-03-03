@@ -9,12 +9,14 @@ angular.module('baabtra').directive('addDynamicFields',['$sce','$templateCache',
 		link: function(scope, element, attrs, fn) {
 
 			 $templateCache.put('DynamicFields/popup.html','<div><input class=\"form-control\" type=\"text\"></div>');
-  		  $templateCache.put('DynamicFields/editor.html', '<div><ng-quill-editor name=\"{{detail.title}}\" ng-model=\"newField.value\"  toolbar=\"true\" link-tooltip=\"true\" image-tooltip=\"true\" toolbar-entries=\"font size bold list bullet italic underline strike align color background link image\" error-class=\"input-error\"></ng-quill-editor>');
+  		$templateCache.put('DynamicFields/editor.html', '<div><ng-quill-editor name=\"{{detail.title}}\" ng-model=\"newField.value\"  toolbar=\"true\" link-tooltip=\"true\" image-tooltip=\"true\" toolbar-entries=\"font size bold list bullet italic underline strike align color background link image\" error-class=\"input-error\"></ng-quill-editor>');
 			 $templateCache.put('DynamicFields/inputText.html','<input ng-model=\"detail.value\" class=\"form-control floating-label\" placeholder="\{{detail.title}}\" >');
 			 $templateCache.put('DynamicFields/video.html','<input type=\"text\" readonly=\"\" class=\"form-control floating-label\" placeholder=\"Please Choose a video\"><input type=\"file\" ng-file-select=\"onFileSelect($files, newField)\" ng-model=\"newField.value\" ng-multiple=\"false\" accept=\"video/*\" resetOnClick=\"true\">');
        $templateCache.put('DynamicFields/ppt.html','<input type=\"text\" readonly=\"\" class=\"form-control floating-label\" placeholder=\"Please Choose a ppt\"><input type=\"file\" ng-file-select=\"onFileSelect($files, newField)\" ng-model=\"newField.value\" ng-multiple=\"false\" accept=\"*.pdf,*.xml,*.doc\" resetOnClick=\"true\">');
 			
        scope.customDetailDropdown = [{value:"DynamicFields/editor.html",label:"Add a Description feild"},{value:"DynamicFields/video.html",label:"Add a video"},{value:"DynamicFields/ppt.html",label:"Add a ppt"}];
+       scope.btnName = "Add";
+       scope.enableButton = false;
 
        scope.addCustomDetail = function(selectedDetail){
         scope.newField.template = selectedDetail;
@@ -26,7 +28,6 @@ angular.module('baabtra').directive('addDynamicFields',['$sce','$templateCache',
             break;
           }
         }
-        console.log(scope.afterThisFieldSelected);
        }
 			//setting default fields in daynamic field	
 			if(!scope.detailFields.length){
@@ -65,14 +66,18 @@ angular.module('baabtra').directive('addDynamicFields',['$sce','$templateCache',
   			};
 
   			scope.addThisField = function(newField){
-          console.log(newField.type);
   				if(angular.equals(newField.type,"video") || angular.equals(newField.type,"application")){
-  					var path = "Course/"+newField.type;
+  					scope.btnName = "Uploading....";
+            scope.enableButton = true;
+            var path = "Course/"+newField.type;
   					var promise = addCourseService.fnCourseFileUpload(newField.value, path);
   					 promise.then(function(response){ // call back function for the fileupload
         			newField.value = bbConfig.BWS+'files/'+path+'/'+response.data.replace('"','').replace('"','');
-        		});
+        		  scope.btnName = "Add";
+              scope.enableButton = false;
+            });
         		}
+
   				scope.detailFields.splice(scope.afterThisFieldSelected+1,0,newField);
   			};
 

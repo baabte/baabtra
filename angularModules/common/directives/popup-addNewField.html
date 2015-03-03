@@ -6,11 +6,11 @@
       </div>
       <div class="modal-body">
         <div class="m-t form-group">
-          <label class="pull-left m-r m-t-xs">Type</label>
+          <label class="pull-left m-r m-t-xs w-xs">Type</label>
           <button type="button" class="form-control w" ng-model="selectedDetail" ng-change="addCustomDetail(selectedDetail)" data-html="1" ng-options="customDetail.value as customDetail.label for customDetail in customDetailDropdown" placeholder="Select a detail type" bs-select></button>
         </div>
         <div class="m-t form-group">
-          <label class="pull-left m-r m-t-xs">Add After</label>
+          <label class="pull-left m-r m-t-xs w-xs">Add After</label>
           <button type="button" class="form-control w" ng-model="afterThisFieldDefault" ng-change="fnAfterThisField(afterThisFieldDefault)" data-html="1" ng-options="detailField.title as detailField.title for detailField in detailFields" placeholder="Select a detail type" bs-select></button>
         </div>
 
@@ -20,8 +20,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-warning" ng-click="$hide();">Cancel</button>
-        <button type="button" class="btn btn-primary" ng-click="addThisField(newField);$hide();">Add</button>
+        <button type="button" class="btn btn-warning" ng-disabled="enableButton" ng-click="$hide();">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-disabled="enableButton || !newField.title.length" ng-click="addThisField(newField);$hide();">{{btnName}}</button>
       </div>
     </div>
   </div>
