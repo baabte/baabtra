@@ -10,7 +10,6 @@
 
   <section id="cd-timeline" class="cd-container">
     <div class="cd-timeline-block" ng-repeat="element in previewData.datas">
-
       <!-- course element icon -->
       <div class="cd-timeline-img text-center p-v" style="background:{{element.iconBackground}}; color:{{element.iconColor}};">
         <i class="fa {{element.Icon}} text-2x visible-lg"></i>
@@ -27,6 +26,7 @@
 
         <!-- course element details -->
         <div class="m-t-lg">
+          {{element}}
           <course-element-preview tl-position="previewData.tlSelectedPoint" preview-data="element"></course-element-preview >
         </div>
 

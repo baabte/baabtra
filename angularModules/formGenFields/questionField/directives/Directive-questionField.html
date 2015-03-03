@@ -1,16 +1,18 @@
-<div class="p-md m-v-md pull-left shadow-z-1 col-xs-12">
+<div class="p-md m-v-md  col-xs-12">
 
 
 
 <!-- style="background:#F3E5F5;border:1px solid #ff4081" class="p-sm"  -->
 
 
+<div class="shadow-z-1 pull-left col-xs-12 no-padding b" style="border:2px solid #009587;">
 
-<ul class="nav nav-tabs p m-v-md">
-  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='question'}" ng-click="selectedTab='question'"><a href="#">Question <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
-  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='answerType'}" ng-click="selectedTab='answerType'"><a href="#">Answer type <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
-  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='answers'}" ng-click="selectedTab='answers'"><a href="#">Answers <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
-  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='marks'}" ng-click="selectedTab='marks'"><a href="#">Marks</a></li>
+
+<ul class="nav nav-tabs p ">
+  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='question'}" ng-click="selectedTab='question'"><a href="#"><span class="text-lg font-bold">1.</span> Question <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
+  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='answerType'}" ng-click="selectedTab='answerType'"><a href="#"><span class="text-lg">2.</span> Answer type <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
+  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='answers'}" ng-click="selectedTab='answers'"><a href="#"><span class="text-lg">3.</span> Answers <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
+  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='marks'}" ng-click="selectedTab='marks'"><a href="#"><span class="text-lg">4.</span> Marks</a></li>
 </ul>
 
 
@@ -28,7 +30,7 @@
 
 
 
-				<div ng-show="selectedTab=='question'" >
+				<div ng-show="selectedTab=='question'" class="p-xs">
 				
       					<!-- <input class="form-control floating-label" type="text" placeholder="Question Title (optional)" name="questionTitle" ng-model="question.title"> -->
     		
@@ -40,14 +42,14 @@
 				</div>
 				<div class="col-xs-12 pull-left" ng-show="selectedTab=='answerType'" >
 
-						 <div class="radio radio-success pull-left">
+						 <div class="radio radio-success">
 				            <label>
 				              <input type="radio" required xt-validate ng-checked="question.type=='objective'" ng-change="questionTypeChange('objective')" value="objective"  ng-model="question.type"  name="questionType">
 				              Objective
 				            </label>
 				        </div>
 
-				        <div class="radio radio-success pull-left m-l" style="padding-top:15px;">
+				        <div class="radio radio-success">
 				            <label>
 				              <input type="radio" required xt-validate ng-change="questionTypeChange('descriptive')" ng-checked="question.type=='descriptive'" value="descriptive" ng-model="question.type"   name="questionType">
 				              Descriptive
@@ -57,14 +59,14 @@
 
 						<div class="col-xs-12 p" ng-if="question.type=='objective'">
 
-							<div class="radio radio-success pull-left">
+							<div class="radio radio-success">
 					            <label>
 					              <input type="radio" required xt-validate ng-checked="question.answerType=='singleAnswer'" value="singleAnswer"  ng-model="question.answerType"  name="answerType">
 					              Single Answer
 					            </label>
 					        </div>
 
-					        <div class="radio radio-success pull-left m-l" style="padding-top:15px;">
+					        <div class="radio radio-success">
 					            <label>
 					              <input type="radio" required xt-validate  ng-checked="question.answerType=='multiAnswer'" value="multiAnswer"  ng-model="question.answerType" name="answerType">
 					              Multi Answer
@@ -124,7 +126,7 @@
 				</div>
 
 
-				
+</div>			
 
 
 </div>
