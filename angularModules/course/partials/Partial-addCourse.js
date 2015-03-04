@@ -119,7 +119,15 @@ $scope.onRoleSelectionChanged = function(items) {
     }
   };
 
-commonSrv.FnLoadGlobalValues($scope,"");
+var globalValuesResponse = commonSrv.FnLoadGlobalValues("");
+globalValuesResponse.then(function(data){
+  var globalValues=angular.fromJson(JSON.parse(data.data));
+  $scope.globalValues = {};
+  angular.forEach(globalValues,function(value){
+    $scope.globalValues[value._id] = value.values.approved;
+  });
+});
+
 
 branchSrv.fnLoadBranch($scope,$scope.cmp_id);
 
@@ -220,10 +228,11 @@ var convertObjectName=function(menu,sub){
             };
 
 $scope.loadTechnologies = function(Query){
-    return $scope.globalValues[0].values.approved;
+
+    return $scope.globalValues.technologies;
 };
 $scope.loadTags =function(Query){
-    return $scope.globalValues[1].values.approved;
+    return $scope.globalValues.tags;
 };
     $scope.course.crmId = $scope.rm_id.$oid;
     $scope.course.companyId =  $scope.cmp_id.$oid;

@@ -21,14 +21,15 @@ courseDomainResponse.then(function(response){
   $scope.domainTree=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);//to get the course tree
 });
 
-commonSrv.FnLoadGlobalValues($scope,"");//to get technologies and tags
-//console.log($scope.globalValues[0]);
- $scope.$watch('globalValues', function(newVal, oldVal){
-    if (!angular.equals($scope.globalValues,undefined)) {
-       $scope.technologies= $scope.globalValues[0].values.approved;
-       $scope.taggs= $scope.globalValues[1].values.approved;
-    }
-
+var globalValuesResponse = commonSrv.FnLoadGlobalValues("");
+globalValuesResponse.then(function(data){
+  var globalValues=angular.fromJson(JSON.parse(data.data));
+  $scope.globalValues = {};
+  angular.forEach(globalValues,function(value){
+    $scope.globalValues[value._id] = value.values.approved;
+  });
+  $scope.technologies = $scope.globalValues.technologies;
+  $scope.taggs = $scope.globalValues.tags;
 });
 
 $scope.cmp_id=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;//to get the company id
@@ -111,7 +112,6 @@ searchInProgress=setTimeout(function(){
   //if(type=='Delivery.online'){
   //  type="'"+ type+ "'";
   //}
-  console.log(type);
 PublishedCourse.loadPublishedCourses($scope,searchKey,'',type);
 },400)
 
