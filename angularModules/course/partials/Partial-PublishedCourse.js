@@ -107,6 +107,7 @@ $scope.searchCoursesAvailable=function(searchKey,type){//for seaeching the avail
 	clearTimeout(searchInProgress);
 searchInProgress=setTimeout(function(){
   
+  //console.log(type);
 PublishedCourse.loadPublishedCourses($scope,searchKey,'',type);
 },500)
 
