@@ -32,7 +32,7 @@
      </div>
  -->
  <script type="text/ng-template" id="nestedBranch.html">
- <a ng-click="searchCoursesAvailable(branch.id)">{{branch.id}}</a>   
+ <a ng-click="searchCoursesAvailable(branch.id,'Branches')">{{branch.id}}</a>   
       <ul class="dropdown-submenu" ng-if="branch.childrenObj" > 
             <li ng-repeat="branch in branch.childrenObj" ng-include="'nestedBranch.html'"></li>
 
@@ -40,7 +40,7 @@
               
 </script>
 <script type="text/ng-template" id="nestedDomain.html">
-<a ng-click="searchCoursesAvailable(node._id)">{{node._id}}</a>
+<a ng-click="searchCoursesAvailable(node._id,'Domains')">{{node._id}}</a>
                     <ul class="dropdown-submenu" ng-if="node.childrenObj" > 
                           <li ng-repeat="node in node.childrenObj" ng-include="'nestedDomain.html'"> </li>
                       </ul>
@@ -51,8 +51,8 @@
     <div class="col-xs-12">
       
        <div class="col-xs-12  col-sm-6 col-md-4 col-lg-4 ">
-        <div class="form-group">
-           <input class="form-control floating-label" id="focusedInput" type="text" ng-model="searchCourse" ng-change="searchCoursesAvailable(searchCourse)"  placeholder="Search for a course" >
+        <div class="form-group col-lg-8">
+           <input class="form-control floating-label" id="focusedInput" type="text" ng-model="searchCourse" ng-change="searchCoursesAvailable(searchCourse, '')"  placeholder="Search for a course" >
         </div>             
        
        </div>  
@@ -64,7 +64,7 @@
         </div>
           <div class="col-xs-6  col-sm-6 col-md-4 col-lg-4  p">
             <div class="col-sm-offset-6 ">
-             <div class="btn-group" style="margin-top: 4px;">
+             <div class="btn-group" >
                <button type="button" class="btn btn-xs btn-default" ng-click="prevOne()" title="Next"><i class="fa fa-fw fa-angle-left"></i><div class="ripple-wrapper"></div></button>
               <button type="button" class="btn btn-xs btn-default" ng-click="nextOne()" title="Previous"><i class="fa fa-fw fa-angle-right"></i><div class="ripple-wrapper"></div></button>
            </div> 
@@ -88,7 +88,7 @@
               <li class="dropdown" >
                <a data-toggle="dropdown" class="dropdown-toggle">Technologies <b class="caret"></b></a>
                   <ul class="dropdown-menu vertical-scroll"> 
-                    <li ng-repeat="tech in technologies" ng-click="searchCoursesAvailable(tech)" ><a>{{tech}}</a>   
+                    <li ng-repeat="tech in technologies" ng-click="searchCoursesAvailable(tech,'Technologies')" ><a>{{tech}}</a>   
                     </li>
                    </ul> 
              </li>
@@ -102,14 +102,14 @@
               <li class="dropdown" >
                  <a  data-toggle="dropdown" class="dropdown-toggle">Mode of Course <b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                     <li><a>Online</a></li>
-                     <li><a>Offline</a></li>
+                     <li ng-click="searchCoursesAvailable('online','Delivery')" ><a>Online</a></li>
+                     <li ng-click="searchCoursesAvailable('offline','Delivery')"><a>Offline</a></li>
                   </ul>  
                </li>
               <li class="dropdown" >
                <a  data-toggle="dropdown" class="dropdown-toggle">Tags <b class="caret"></b></a>
                   <ul class="dropdown-menu vertical-scroll" > 
-                    <li ng-repeat="tag in taggs" ng-click="searchCoursesAvailable(tag)" ><a>{{tag}}</a>   
+                    <li ng-repeat="tag in taggs" ng-click="searchCoursesAvailable(tag,'Tags')" ><a>{{tag}}</a>   
                     </li>
                    </ul> 
              </li>

@@ -12,7 +12,7 @@ $scope.showNavMenu=false;
 $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 //if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId==2){
 	$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-	PublishedCourse.loadPublishedCourses($scope,'','');
+	PublishedCourse.loadPublishedCourses($scope,'','','');
 //}
 //$scope.showCourseFilter = false;
 var courseDomainResponse = addCourseDomainSrv.FnLoadDomain();
@@ -27,7 +27,6 @@ commonSrv.FnLoadGlobalValues($scope,"");//to get technologies and tags
     if (!angular.equals($scope.globalValues,undefined)) {
        $scope.technologies= $scope.globalValues[0].values.approved;
        $scope.taggs= $scope.globalValues[1].values.approved;
-       console.log($scope.technologies);
     }
 
 });
@@ -104,10 +103,16 @@ $scope.deleteCourseDetails = function(courseId){
 };
 var searchInProgress;
 $scope.activeLink=1;
-$scope.searchCoursesAvailable=function(searchKey){//for seaeching the available courses
+$scope.searchCoursesAvailable=function(searchKey,type){//for seaeching the available courses
 	clearTimeout(searchInProgress);
 searchInProgress=setTimeout(function(){
-PublishedCourse.loadPublishedCourses($scope,searchKey,"");
+  console.log(searchKey);
+  //console.log(type);
+  //if(type=='Delivery.online'){
+  //  type="'"+ type+ "'";
+  //}
+  console.log(type);
+PublishedCourse.loadPublishedCourses($scope,searchKey,'',type);
 },400)
 
 };
@@ -115,7 +120,7 @@ PublishedCourse.loadPublishedCourses($scope,searchKey,"");
 $scope.nextOne=function(){//event  for showing next 12 items
 	if ($scope.publishedCourses.courseCount>12) {	
 	  $scope.activeLink=$scope.activeLink+12;
-	  PublishedCourse.loadPublishedCourses($scope,"",$scope.activeLink-1);
+	  PublishedCourse.loadPublishedCourses($scope,'',$scope.activeLink-1,'');
 	}
 };
 
@@ -123,7 +128,7 @@ $scope.prevOne=function(){//event  for showing previous 12 items
   if($scope.activeLink>12)
    {	
    $scope.activeLink=$scope.activeLink-12;
-   PublishedCourse.loadPublishedCourses($scope,"",$scope.activeLink);
+   PublishedCourse.loadPublishedCourses($scope,'',$scope.activeLink,'');
    }
 }
 
