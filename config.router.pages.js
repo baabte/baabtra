@@ -478,6 +478,16 @@
                 }
                 
               })
+
+              .state('home.main.viewMyCourse', {
+                url: '/viewMyCourse/:courseMappingId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/candidateCourseRelated/candidateCourseView/partials/Partial-candidateCourseView.html',
+                    controller: 'viewCandidateCourseCtrl'
+                  }
+                }
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'

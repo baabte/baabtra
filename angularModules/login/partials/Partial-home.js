@@ -14,7 +14,11 @@ $rootScope.$watch('userinfo',function(){
       $rootScope.userinfo.ActiveUserData.roleMappingObj.avatar = '';
     }
     
-    home.FnLoadMenus($scope);//Load Menus for logged user
+    var response = home.FnLoadMenus($scope);//Load Menus for logged user
+    response.then(function(data){
+      $scope.userMenus = $scope.userMenusOrigin = angular.fromJson(JSON.parse(data.data)).menuStructure[0].regionMenuStructure;
+    });
+    
 }
 else{
     $rootScope.hide_when_root_empty=true;
