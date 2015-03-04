@@ -66,14 +66,6 @@ angular.module('baabtra').controller('CoursedetailsCtrl',['$scope','$rootScope',
     else{
     	$scope.feeDetails.amount = "FREE";
     }
-    var viewType = {"4":1440};
-
-    
-    angular.forEach($scope.course.courseTimeline,function(value, key){
-      console.log(key);
-      console.log(value);
-      console.log(viewType[$scope.course.selectedDuration]);
-    })
 
   });
 
