@@ -84,7 +84,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                             +'<div class="box-row">'
                               +'<div class="box-cell m-t">'
                                 +'<div class="box-inner col-xs-12">'
-                                  +'<form xt-form novalidate class="form" name="courseElement" enctype="multipart/form-data">'
+                                  +'<form xt-form novalidate class="form" name="courseElement" enctype="multipart/form-data">{{courseElement.$error}}'
                                    +'<div class="p" sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"></div>'
                                    +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData['+$scope.randomKey+'])" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
                                    +'<button class="btn baab-btn pull-right m-v-lg btn-info" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="saveMyFormData($hide)" type="button" ng-disabled = "courseElement.$invalid">Add</button>'

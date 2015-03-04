@@ -996,7 +996,7 @@ fg.factory('fgUtils', ["$templateCache", "$window", "fgConfig","courseElementFie
         var templateData = $templateCache.get(renderInfo.templateUrl);
         // Added by Akshath/Anoop to prerender custom attributes
         var beforeCustom = templateData.split(">");
-        beforeCustom[0] = beforeCustom[0] + ' fg-custom-attributes ';
+        //beforeCustom[0] = beforeCustom[0] + ' fg-custom-attributes ';
         templateData= beforeCustom.join('>');
 
          $templateCache.put(renderInfo.templateUrl,templateData);
