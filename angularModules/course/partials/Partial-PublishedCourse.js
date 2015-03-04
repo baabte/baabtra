@@ -106,14 +106,10 @@ $scope.activeLink=1;
 $scope.searchCoursesAvailable=function(searchKey,type){//for seaeching the available courses
 	clearTimeout(searchInProgress);
 searchInProgress=setTimeout(function(){
-  console.log(searchKey);
+  
   //console.log(type);
-  //if(type=='Delivery.online'){
-  //  type="'"+ type+ "'";
-  //}
-  console.log(type);
 PublishedCourse.loadPublishedCourses($scope,searchKey,'',type);
-},400)
+},500)
 
 };
 
