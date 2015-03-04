@@ -149,7 +149,6 @@ angular.module('ui.bootstrap.contextMenu', [])
         $scope.createPreviewElement=function (path) {
         $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor-((1/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor))+1;
 
-            console.log($scope.instance);
             $scope.ItsTimeToSaveDataToDB=false; // check for object built successfully or not
             $scope.weHaveGotAfile=false;
             var fieldsTraversedCount=0;
@@ -244,7 +243,6 @@ angular.module('ui.bootstrap.contextMenu', [])
               // below function will trigger only when the object is built
               var unbindWatchOnThis=$scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if($scope.ItsTimeToSaveDataToDB===true){
-                    console.log(courseObj);
                     addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);//saving to database
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once
                     $hide();

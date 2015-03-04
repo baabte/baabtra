@@ -14,8 +14,6 @@ angular.module('baabtra').directive('courseDetailViewer',['$sce','$alert', funct
 			scope.removeThisDetails = function(index){//for remove detail from the course
 				lastDeletedCourseDetail = scope.courseDetails[index];
 				indexOfDeletedCourseDetail = index;
-				console.log(indexOfDeletedCourseDetail);
-				console.log(lastDeletedCourseDetail);
 				$alert({scope: scope,container:'body',keyboard:true,animation:'am-fade-and-slide-top',template:'views/ui/angular-strap/alert.tpl.html',title:'Undo',content:'Course detail has been removed', placement: 'bottom-left', type: 'warning'});  
 				scope.courseDetails.splice(index,1);
 			};

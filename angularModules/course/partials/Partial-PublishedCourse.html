@@ -50,27 +50,27 @@
     <div class="panel-heading font-bold text-white bg-00C853 p baab-shadow">Published Course</div>
     <div class="col-xs-12">
       
-       <div class="col-xs-12  col-sm-6 col-md-4 col-lg-4 ">
+       <div class="col-xs-12  col-sm-4 col-md-4 col-lg-4 ">
         <div class="form-group col-lg-8">
            <input class="form-control floating-label" id="focusedInput" type="text" ng-model="searchCourse" ng-change="searchCoursesAvailable(searchCourse, '')"  placeholder="Search for a course" >
         </div>             
        
        </div>  
-        <div class="col-xs-6  col-sm-6 col-md-4 col-lg-4 text-center p">
+        <div class="col-xs-12  col-sm-4 col-md-4 col-lg-4 text-center p ">
           <div class="btn btn-default btn-raised btn-sm" ng-click="showNavMenu=!showNavMenu; searchCourse=''">
            <i class="mdi-navigation-menu"></i>
           Browse Course
          </div> 
         </div>
-          <div class="col-xs-6  col-sm-6 col-md-4 col-lg-4  p">
-            <div class="col-sm-offset-6 ">
-             <div class="btn-group" >
-               <button type="button" class="btn btn-xs btn-default" ng-click="prevOne()" title="Next"><i class="fa fa-fw fa-angle-left"></i><div class="ripple-wrapper"></div></button>
-              <button type="button" class="btn btn-xs btn-default" ng-click="nextOne()" title="Previous"><i class="fa fa-fw fa-angle-right"></i><div class="ripple-wrapper"></div></button>
+          <div class="col-xs-12  col-sm-4 col-md-4 col-lg-4  p text-center">
+            
+             <div class="btn-group col-sm-push-2 col-md-push-2 " >
+               <button type="button" class="btn btn-xs btn-default" ng-click="prevOne()" title="Previous"><i class="fa fa-fw fa-angle-left"></i><div class="ripple-wrapper"></div></button>
+              <button type="button" class="btn btn-xs btn-default" ng-click="nextOne()" title="Next"><i class="fa fa-fw fa-angle-right"></i><div class="ripple-wrapper"></div></button>
            </div> 
                    
      
-            </div> 
+            
           </div>  
 
     </div> 
