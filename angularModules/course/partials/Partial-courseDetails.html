@@ -75,9 +75,16 @@
   </div>
   <div class="row text-dark m-v">
     <div class="col-xs-10">
-      <!-- course details viewer -->
+
+      <!-- course summery - courseDetails -->
+      <div class="p-xs text-2x font-bold">Course Summary</div>
+      <course-summary class="b-r" ng-if="course.courseDetails" course-details="course.courseTimeline" summary-view-in="course.selectedDuration">
+      </course-summary>
+
+      <!-- course details viewer - courseDetails -->
       <course-detail-viewer course-details="course.courseDetails" editable="false">
       </course-detail-viewer>
+
     </div>
     <div class="col-xs-12 col-sm-2 m-t">
        <div class="pull-right  text-right">

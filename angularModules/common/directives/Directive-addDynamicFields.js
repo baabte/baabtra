@@ -9,7 +9,7 @@ angular.module('baabtra').directive('addDynamicFields',['$sce','$templateCache',
 		link: function(scope, element, attrs, fn) {
 
 			 $templateCache.put('DynamicFields/popup.html','<div><input class=\"form-control\" type=\"text\"></div>');
-  		$templateCache.put('DynamicFields/editor.html', '<div><ng-quill-editor name=\"{{detail.title}}\" ng-model=\"newField.value\"  toolbar=\"true\" link-tooltip=\"true\" image-tooltip=\"true\" toolbar-entries=\"font size bold list bullet italic underline strike align color background link image\" error-class=\"input-error\"></ng-quill-editor>');
+  		 $templateCache.put('DynamicFields/editor.html', '<div><ng-quill-editor name=\"{{detail.title}}\" ng-model=\"newField.value\"  toolbar=\"true\" link-tooltip=\"true\" image-tooltip=\"true\" toolbar-entries=\"font size bold list bullet italic underline strike align color background link image\" error-class=\"input-error\"></ng-quill-editor>');
 			 $templateCache.put('DynamicFields/inputText.html','<input ng-model=\"detail.value\" class=\"form-control floating-label\" placeholder="\{{detail.title}}\" >');
 			 $templateCache.put('DynamicFields/video.html','<input type=\"text\" readonly=\"\" class=\"form-control floating-label\" placeholder=\"Please Choose a video\"><input type=\"file\" ng-file-select=\"onFileSelect($files, newField)\" ng-model=\"newField.value\" ng-multiple=\"false\" accept=\"video/*\" resetOnClick=\"true\">');
        $templateCache.put('DynamicFields/ppt.html','<input type=\"text\" readonly=\"\" class=\"form-control floating-label\" placeholder=\"Please Choose a ppt\"><input type=\"file\" ng-file-select=\"onFileSelect($files, newField)\" ng-model=\"newField.value\" ng-multiple=\"false\" accept=\"*.pdf,*.xml,*.doc\" resetOnClick=\"true\">');
@@ -62,7 +62,7 @@ angular.module('baabtra').directive('addDynamicFields',['$sce','$templateCache',
   										removable:true};
         scope.selectedDetail = scope.newField.template;
 
-				$modal({scope: scope, backdrop:false, template: 'angularModules/common/directives/popup-addNewField.html', show: true});
+				$modal({scope: scope, backdrop:"static", template: 'angularModules/common/directives/popup-addNewField.html', show: true});
   			};
 
   			scope.addThisField = function(newField, $hide){
@@ -103,7 +103,7 @@ angular.module('baabtra').directive('addDynamicFields',['$sce','$templateCache',
   										 "click": 'this.addNewField(\"DynamicFields/video.html\",\"Course Video\");'
   										},
                       {"text": "<div class=\"m-l\"><i class=\"fa fa-fw fa-caret-right\"></i>&nbsp;Add A PPT</div>",
-                       "click": 'this.addNewField(\"DynamicFields/ppt.html\",\"Course Video\");'
+                       "click": 'this.addNewField(\"DynamicFields/ppt.html\",\"Course PPT\");'
                       },	
   										{"text": "<div class=\"m-l\"><i class=\"fa fa-fw fa-caret-right\"></i>&nbsp;Course Highlights</div>",
 										"click": 'this.addNewField(\"DynamicFields/editor.html\",\"Course highlights\");'
