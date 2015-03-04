@@ -1,0 +1,16 @@
+<div class="m-t">
+<div class="list-group">
+	<div class="text-muted">Courses related with <a href=""><span class="font-bold">{{relatedInfo}}</span></a></div>
+    <div class="list-group-item" ng-repeat="(key, course) in relatedCourses">
+        <div class="row-picture">
+            <img class="square img-responsive" src="{{course.courseImg}}" alt="icon">
+        </div>
+
+        <div class="row-content b-b">
+            <a href="" ng-click="viewCourseDetails(course._id.$oid)" class="text-light	"><div class="text-md font-bold">{{course.Name}}</div></a>
+            <p class="text-black  course-description text-muted content-limiter" ng-bind-html="course.courseDetails[0].value"></p>
+        </div>
+    </div>
+</div>
+
+</div>

@@ -74,10 +74,10 @@
     </div>
   </div>
   <div class="row text-dark m-v">
-    <div class="col-xs-10">
+    <div class="col-xs-12 col-sm-9">
 
       <!-- course details viewer - courseDetails -->
-      <course-detail-viewer course-details="course.courseDetails" editable="false">
+      <course-detail-viewer ng-if="course.courseDetails" course-details="course.courseDetails" editable="false">
       </course-detail-viewer>
 
       <!-- course summery - courseDetails -->
@@ -86,10 +86,18 @@
       </course-summary>
 
     </div>
-    <div class="col-xs-12 col-sm-2 m-t">
-       <div class="pull-right  text-right">
-              <i class="font-bold"> Provided By : {{companyDetails.companyName}}</i>
-      <img class="img-responsive img-thumbnail m-l pull-right" style="height:75px;" src="images/CompanyLogs/baabtra.png">
+    <div class="col-xs-12 col-sm-3 m-t">
+      <div class="row">
+        <div class="col-xs-12">
+        <div class="pull-right  text-right">
+          <i class="font-bold"> Provided By : {{companyDetails.companyName}}</i>
+          <img class="img-responsive img-thumbnail m-l pull-right" style="height:75px;" src="images/CompanyLogs/baabtra.png">
+        </div>
+        </div>
+      </div>
+      <div class="row">
+        <course-by-keywords ng-if="course.courseDetails" skip-this="true" keywords="course">
+        </course-by-keywords>
       </div>
     </div>
   </div>

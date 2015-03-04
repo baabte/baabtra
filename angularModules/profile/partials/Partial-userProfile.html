@@ -3,10 +3,10 @@
 </div> -->
 <div class="box bg-white" >
   <div class="col-md-3" >
-    <div style="background:url({{'images/'+profileData.profileImg}}) center center; background-size:cover" ng-mouseenter="showHideFotoDive()" ng-mouseleave="showHideFotoDive()">
+    <div style="background:url({{userinfo.ActiveUserData.roleMappingObj.avatar}}) center center; background-size:cover" ng-mouseenter="showHideFotoDive()" ng-mouseleave="showHideFotoDive()">
       <div class="p-lg bg-white-opacity text-center">
         <a href class="w-xs inline">
-          <img src="{{'images/'+profileData.profileImg}}" class="img-circle img-responsive">
+          <img src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" class="img-circle img-responsive">
         </a>
         <div class="m-b m-t-sm h4">
           <span class="text-black">{{capitalize(userinfo.ActiveUserData.username)}}</span>
@@ -16,11 +16,11 @@
           I am designing something.
         </p> -->
         
-        <div class="p-md">
+       <!--  <div class="p-md">
           <a href class="btn btn-sm btn-info m-b-xs p-h" ng-click="updateinfo()">update info</a>
-        </div>
+        </div> -->
       </div>
-      <div ng-class="{true:'bg-white-opacity',false:'bg-danger'}[updatepicmsg]" ng-click="updateProfilePicture()">
+      <div ng-class="{true:'bg-white-opacity',false:'bg-dark'}[updatepicmsg]" ng-click="manageProfile()">
         <i ng-class="{true:'text-xl p-md fa fa-camera',false:'text-lg p-md fa fa-camera'}[updatepicmsg]"></i><span class="font-bold" ng-hide="updatepicmsg">update profile picture</span>
 
       </div>
@@ -37,38 +37,48 @@
     </div>  -->     
     <div class="p bg-light">
       <p>About</p>
-      <p>Lorem ipsum dolor sit amet, consecteter adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet. </p>
-      <div class="m-v">
-        <a class="text-muted">
-          <i class="fa ui-icon fa-facebook"></i>
-        </a>
-        <a class="text-muted">
-          <i class="fa ui-icon fa-twitter"></i>
-        </a>
-        <a class="text-muted">
-          <i class="fa ui-icon fa-linkedin"></i>
-        </a>
+
+      <div ng-show="!profileData.profile.about" >
+     
+      <a editable-text="profileData.profile.about" e-required style="color:#acb7c0;font-style:normal" onMouseOver="this.style.color='#009587'" onMouseOut="this.style.color='#acb7c0'" onaftersave="updateUserProfileDatas('profile.about',$data)" ng-mouseover="onAboutMouseOver()"  ng-mouseenter="editAboutOpt()" ng-mouseleave="editAboutOpt()"> add about yourself.</a>
+      <i class="ti-pencil-alt pull-right p-xs" ng-show="showHideAbtPic"></i>
       </div>
+
+      <div ng-show="profileData.profile.about">
+     
+      <a editable-text="profileData.profile.about" e-required style="color:#acb7c0;font-style:" onMouseOver="this.style.color='#009587'" onMouseOut="this.style.color='#acb7c0'" onaftersave="updateUserProfileDatas('profile.about',$data)" ng-mouseenter="editAboutOpt('about')" ng-mouseleave="editAboutOpt('about')"> {{ profileData.profile.about}}.</a>
+      <i class="ti-pencil pull-right p-xs" ng-show="showHideAbtPic"></i>
+      </div>
+    
     </div>
     <div class="list-group no-radius no-border">
-      <span class="list-group-item">
-        <i class="p-h-xs fa fa-home"></i><span class="text-dark">Lives in </span><a class="text-primary-lt" href>{{capitalize(profileData.profile.Branch[0].location)}},India</a>
-      </span>
+      <div class="list-group-item" ng-show="!profileData.profile.location">
+        <i class="p-h-xs fa fa-home"></i><span class="text-dark">Lives in </span><a
+        ng-mouseenter="editAboutOpt('location')" ng-mouseleave="editAboutOpt('location')"  onaftersave="updateUserProfileDatas('profile.about',$data)"  class="text-primary-lt"  href>Add your location and country</a>
+       <i class="ti-pencil pull-right p-xs" ng-show="showHidelocationPic"></i>  
+      </div>
+      <!--  <span class="list-group-item" ng-show="!profileData.profile.location">
+        <i class="p-h-xs fa fa-home"></i><span class="text-dark">Lives in </span><a class="text-primary-lt" href>add location and country</a>
+      </span> -->
       <span class="list-group-item">
         <i class="p-h-xs ti-location-pin"></i><span class="text-dark">From </span><a class="text-primary-lt" href>{{capitalize(profileData.profile.Branch[0].location)}},India</a>
         <br>
-        <span class="text-light-dk p-sm">{{convertDate(profileData.profile.dob)}}</span>
+        <span ng-if="profileData.profile.dob" class="text-light-dk p-sm">{{convertDate(profileData.profile.dob)}}</span>
       </span>
       <!-- <a class="list-group-item">
         <span class="pull-right badge">564</span> Posts
       </a> -->
     </div>
   </div>
+
+<!-- you can start here......... -->
+
   <div class="col-md-9 bg-white b-l ">
-    <div class="p bg-light">
-      <div class="panel no-border no-margin">
+    <!-- <div class="p bg-light"  >
+    class="panel no-border no-margin"
+      <div class="panel no-margin"  style="border:solid">
         <form>
-          <textarea class="form-control no-border" rows="3" placeholder="Write something..."></textarea>
+          <textarea class="form-control no-border" rows="3" placeholder=" Write something..."></textarea>
         </form>
         <div class="lt p">
           <button class="btn btn-info pull-right btn-sm p-h font-bold">Post</button>
@@ -78,15 +88,15 @@
           </ul>
         </div>
       </div>
-    </div>
-    <div class="p-h bg-white b-b b-light">
+    </div> -->
+ <!--    <div class="p-h bg-white b-b b-light">
       <ul class="nav nav-lines nav-md b-info">
         <li class="active"><a href>Stream</a></li>
         <li><a href>Photos <span class="badge">3</span></a></li>
         <li><a href>Posts <span class="badge">9</span></a></li>
       </ul>
-    </div>
-    <div class="p-h-lg">      
+    </div> -->
+<!--     <div class="p-h-lg">      
       <div class="streamline b-l p-v m-l-xs m-b">
         <div>
           <a class="pull-left w-thumb-sm m-l-n m-t-xs m-r">
@@ -186,6 +196,9 @@
         </div>
 
       </div>
-    </div>
+    </div> -->
+
+
+
   </div>
 </div>

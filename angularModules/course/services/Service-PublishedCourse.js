@@ -1,7 +1,7 @@
 angular.module('baabtra').service('PublishedCourse',['$http','bbConfig','$rootScope',function PublishedCourse($http,bbConfig,$rootScope) {
 
 this.loadPublishedCourses=function($scope,searchKey,search_range,type){
-	 $http({
+	 var promise = $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'loadPublishedCourses/',
 	    data:JSON.stringify({"companyId":$scope.companyId,"searchKey":searchKey,"searchRange":search_range,"type":type}),
@@ -14,6 +14,7 @@ this.loadPublishedCourses=function($scope,searchKey,search_range,type){
 	 {
 
 	 });
+	 return promise;
 	
 };
 
