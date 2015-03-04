@@ -3,8 +3,15 @@
 	<div class="nav nav-tabs p m-v-md">
   		<div class="text-white b-2x">Question Group</div>
 	</div>
-	<form name="questionMarkField" xtform no-validate>
-	<input type="number" class="form-control floating-label" placeholder="Total Mark" name="totalMark" ng-model="totalMark">
+	<form name="questionMarkField" >
+	<div class="form-group" >
+	    <input type="number" class="form-control floating-label" placeholder="Total Mark" name="totalMark" xt-validate required ng-model="totalMark">
+	</div>
+	<div class="form-group" >
+        <input type="text" placeholder="Duration" class="form-control ng-pristine ng-valid ng-touched" size="5" ng-model="duration" data-time-format="HH:mm" data-time-type="number" data-min-time="00:00" data-max-time="" xt-validate required data-autoclose="1" name="duration" bs-timepicker="">
+      </div>
+       <div class="btn btn-primary" ng-disabled="questionMarkField.$invalid" ng-click="questionShowActivate()">Add Question<div class="ripple-wrapper"></div>
+    </div><pre>{{questionFrom.$invalid}}</pre>
 	</form>
     <div class="col-xs-12" ng-repeat="question in questionGroupModel track by $index">
 		
@@ -16,8 +23,7 @@
 			<i class="pull-right mdi-av-playlist-add text-2x" data-placement="left" bs-dropdown="dropDown($index)"></i>		
 		</div>
 	</div>
-    <button class="btn btn-primary" ng-disabled="questionMarkField.$invalid" ng-click="questionShowActivate()">Add Question<div class="ripple-wrapper"></div>
-    </button>
+  	
     <div class="col-xs-12" ng-if="questionShow">
 			<form name="questionFrom" xtform no-validate>
         	<question-field ng-model="questionModel" multi-answer="true"></question-field>
