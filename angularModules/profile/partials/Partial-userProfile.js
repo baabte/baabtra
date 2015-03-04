@@ -1,18 +1,17 @@
 angular.module('baabtra').controller('UserprofileCtrl',['$scope','$rootScope','userProfile','$state','commonService','$modal',function($scope,$rootScope,userProfile,$state,commonService,$modal){
 
 $scope.updatepicmsg=true;
+$scope.showHideAbtPic=false;
+$scopeshowHidelocationPic=false;
 if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       $rootScope.hide_when_root_empty=true;
       commonService.GetUserCredentials($scope);
 }
 $scope.userinfo =$rootScope.userinfo;
-var profile = userProfile.loadProfileData($scope.userinfo.ActiveUserData.roleMappingId.$oid);
+var profile = userProfile.loadProfileData($scope.userinfo.userLoginId);
 		profile.then(function (data) {
 			$scope.profileData = angular.fromJson(JSON.parse(data.data));
-			$rootScope.userinfo.profileData=$scope.profileData;
-			if(!$scope.profileData.profileImg){
-				$scope.profileData.profileImg="default.jpg";
-			}
+			console.log($scope.profileData.profile);
 		});
 
 
@@ -38,24 +37,25 @@ $scope.showHideFotoDive=function(){
 	$scope.updatepicmsg=$scope.updatepicmsg===false? true:false;
 };
 
-$scope.updateProfilePicture=function(){
-	$modal({ scope: $scope,
-              template: 'angularModules/login/partials/Partial-updateUserProfilePicture.html',
-              placement:'center',
-              show: true});	
-		
-};
+$scope.updateUserProfileDatas=function(field,newdata){
+	var profileUpdateConfirmation = userProfile.updateUserProfileData($scope.profileData._id.$oid,field,newdata);
+		profileUpdateConfirmation.then(function (data) {
+			if(data.status==200&&data.statusText=="OK"){
+				$scope.profileData.profile.about=newdata;
+			}
+		});
 
-var handleFileSelect=function(evt) {
-      var file=evt.currentTarget.files[0];
-      var reader = new FileReader();
-      reader.onload = function (evt) {
-        $scope.$apply(function($scope){
-          $scope.myImage=evt.target.result;
-        });
-      };
-      reader.readAsDataURL(file);
-    };
-angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
+};
+$scope.editAboutOpt=function(variable){
+	console.log(variable);
+	if(variable=='about'){
+		$scope.showHideAbtPic=$scope.showHideAbtPic===false? true:false;
+	}
+	else if(variable=='location'){
+
+	} 
+	
+
+};
 
 }]);
