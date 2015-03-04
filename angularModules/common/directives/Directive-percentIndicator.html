@@ -1,9 +1,15 @@
-<div>	
-	<div class="col-xs-12 m-b-lg">
-		<div class="btn {{markColour}}">{{obtainValueData}} / {{totalValueData}}</div>
-		<b class="badge {{markColour}} pull-right badge-lg m-v">{{percentage}}%</b>
+<div>
+<div class="col-xs-12 m-b-xs">
+	<div class="col-xs-6 m-b-xs">
+		<div class="{{textColour}} ">{{valueSuffix}} {{obtainValueData}}/{{totalValueData}}</div>
+	</div>		
+	<div class="col-xs-6 m-b-xs">
+		<div ng-if="showPercentage" class="badge {{badgeColour}} pull-right badge-md ">{{percentage}}%</div>
+	</div>
+	<div class="col-xs-12">
 		<div class="progress">
     		<div class="{{progressColour}}" style="width:{{percentage}}%"></div>
 		</div>
 	</div>
+</div>
 </div>

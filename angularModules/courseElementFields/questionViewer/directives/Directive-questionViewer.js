@@ -190,7 +190,7 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 
 	scope.createPrimaryAnswer=function (path) {
             scope.ItsTimeToSavePrimaryToDB=false; // check for object built successfully or not
-            scope.weHaveGotAsecondaryFile=false;
+            scope.weHaveGotAprimaryFile=false;
             var fieldsTraversedCount=0;
             var totalFields=scope.primaryForm.fields.length;
             var temp = {}; // temp object for storing each elements in a course element
@@ -212,7 +212,7 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
                                 temp[item.name].type=customProperty.text;
                                 if(angular.equals(customProperty.text,"doc-viewer")){ // if it is a file, it should be stored in server to show preview through
                                                                                       // google doc preview
-                                    scope.weHaveGotAsecondaryFile=true;
+                                    scope.weHaveGotAprimaryFile=true;
                                     var promise=addCourseService.fnCourseFileUpload(temp[item.name].value, path); // uploading file to the server
                                     promise.then(function(data){ // call back function for the fileupload
                                           temp[item.name].fileType = temp[item.name].value.type;
@@ -237,7 +237,7 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
                     else{
                         temp[item.name]=scope.userAnswer[0].primaryAnswer[item.name];
                     }
-                    if(!scope.weHaveGotAsecondaryFile&&(fieldsTraversedCount==totalFields)){
+                    if(!scope.weHaveGotAprimaryFile&&(fieldsTraversedCount==totalFields)){
                                     scope.ItsTimeToSavePrimaryToDB=true;
                                 }
 

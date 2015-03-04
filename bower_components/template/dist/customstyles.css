@@ -613,3 +613,8 @@ for changing palceholder color*/
 .vertical-scroll{
   max-height: 250px;overflow-x: hidden;overflow:auto;
 }
+.line{
+  font-size: 14px!important;
+  overflow: visible!important;
+  height: inherit!important;
+}

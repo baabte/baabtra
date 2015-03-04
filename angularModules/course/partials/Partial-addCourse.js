@@ -26,6 +26,7 @@ if(!angular.equals($state.params.courseId,"")){
     $scope.course = angular.fromJson(JSON.parse(course.data)).courseDetails;
 
     if(angular.equals($scope.course.courseDetails,undefined)){
+
       $scope.course.courseDetails = [{title:"Course Description",
                 value:"",
                 template:'DynamicFields/editor.html',
@@ -42,6 +43,7 @@ if(!angular.equals($state.params.courseId,"")){
     if(!angular.equals($scope.course.Duration.durationInMinutes, undefined)){
       $scope.totalCourseDuration = $scope.course.Duration.durationInMinutes;
     }
+
   });
 }
 else{
@@ -84,7 +86,6 @@ $scope.totalCourseDuration=0; // course duration in minutes
         $scope.tlPopOver.step3.courseElementlist=angular.fromJson(JSON.parse(data.data));
         $scope.tlPopOverEditObject = angular.fromJson(JSON.parse(data.data));
       });
-  
 
 $scope.currentState=$state.current.name;
 $scope.nextPart = function(state,borderClass){//for change step, when click tab
@@ -150,18 +151,9 @@ RoleMenuMappingSrv.FnGetRoles($scope, $scope.cmp_id, "", "");
 //     }
 // });
 
-var lastDeletedCourseDetail = "";//for store last deleted course detail for undo
-var indexOfDeletedCourseDetail = "";//for store index of last deleted course detail
-$scope.removeThisDetails = function(index){//for remove detail from the course
-  lastDeletedCourseDetail = $scope.course.courseDetails[index];
-  indexOfDeletedCourseDetail = index;
-  $alert({scope: $scope,container:'body',keyboard:true,animation:'am-fade-and-slide-top',template:'views/ui/angular-strap/alert.tpl.html',title:'Undo',content:'Course detail has been removed', placement: 'top-right', type: 'warning'});  
-  $scope.course.courseDetails.splice(index,1);
-};
 
-$scope.undo = function(){
-  $scope.course.courseDetails.splice(indexOfDeletedCourseDetail, 0, lastDeletedCourseDetail);
-};
+
+
 
 
 
@@ -260,7 +252,6 @@ $scope.completeStep1 = function(course){//created for build step1 object
 
     var courseToBeSave = angular.copy($scope.course);
     $scope.course.Tags = Tags;
-    $scope.course.Duration = {durationInMinutes : 525600,DurationDetails : {"Year(s)" : 1}};
     $scope.course.Technologies = Technologies;
     $scope.course.updatedDate = Date();
     
