@@ -1,6 +1,6 @@
 <div ng-class="{'b-r':!editable}">
 	<div class="form-group" ng-repeat="newField in courseDetails">
-	<div class="text-2x font-bold p-xs b-b" ng-class="{'text-md':editable}">{{newField.title}}
+	<div ng-if="newField.value.length" class="text-2x font-bold p-xs b-b" ng-class="{'text-md':editable}">{{newField.title}}
 		<a ng-if="newField.removable && editable" href="" data-title="Delete this detail"  bs-tooltip data-placement="right" ng-click="removeThisDetails($index)">
 			<i class="mdi-action-delete text-lg" ></i>
 		</a>
@@ -24,7 +24,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12 text-center">
-			<iframe ng-class="{'col-xs-6':!editable}"  ng-if="newField.type == 'application'" src="http://docs.google.com/gview?url={{trustSrc(newField.value)}}&amp;embedded=true" class="m-v col-xs-12"  frameborder="0"></iframe>
+			<iframe ng-class="{'col-xs-6':!editable}"  ng-if="newField.type == 'application'" ng-src="{{trustSrc('http://docs.google.com/gview?url='+newField.value+'&amp;embedded=true')}}" class="m-v col-xs-12" height="445"  frameborder="0"></iframe>
 		</div>
 	</div>
 

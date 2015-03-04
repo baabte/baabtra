@@ -84,7 +84,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                             +'<div class="box-row">'
                               +'<div class="box-cell m-t">'
                                 +'<div class="box-inner col-xs-12">'
-                                  +'<form xt-form novalidate class="form" name="courseElement" enctype="multipart/form-data">{{courseElement.$error}}'
+                                  +'<form xt-form novalidate class="form" name="courseElement" enctype="multipart/form-data">'
                                    +'<div class="p" sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"></div>'
                                    +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData['+$scope.randomKey+'])" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
                                    +'<button class="btn baab-btn pull-right m-v-lg btn-info" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="saveMyFormData($hide)" type="button" ng-disabled = "courseElement.$invalid">Add</button>'
@@ -149,7 +149,6 @@ angular.module('ui.bootstrap.contextMenu', [])
         $scope.createPreviewElement=function (path) {
         $scope.instance = $scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor-((1/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor))+1;
 
-            console.log($scope.instance);
             $scope.ItsTimeToSaveDataToDB=false; // check for object built successfully or not
             $scope.weHaveGotAfile=false;
             var fieldsTraversedCount=0;
@@ -244,7 +243,6 @@ angular.module('ui.bootstrap.contextMenu', [])
               // below function will trigger only when the object is built
               var unbindWatchOnThis=$scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if($scope.ItsTimeToSaveDataToDB===true){
-                    console.log(courseObj);
                     addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);//saving to database
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once
                     $hide();
