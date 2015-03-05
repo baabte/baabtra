@@ -5,10 +5,15 @@
 	</div>
 	<form name="questionMarkField" xtform no-validate>
 		<div class="col-xs-12">
-			<div class="col-xs-6  m-t-md">
+			<div class="col-xs-6  ">
 				<div class="form-group col-xs-12" >
 					<div class="col-md-12 col-xs-12 m-t-md">
-		    		<input type="number" class="form-control floating-label" placeholder="Total Mark" name="totalMark" xt-validate required ng-model="totalMark">
+		    		<input type="number" class="form-control floating-label" placeholder="Total Mark" name="mark.totalMark" xt-validate required ng-model="mark.totalMark">
+		    		</div>
+				</div>
+				<div class="form-group col-xs-12" >
+					<div class="col-md-12 col-xs-12 m-t-md">
+		    		<input type="number" class="form-control floating-label" placeholder="Qualifying Score" name="qualifyScore" xt-validate required ng-model="mark.qualifyScore">
 		    		</div>
 				</div>
 
@@ -22,7 +27,7 @@
 	      		</div>								
 	      	</div>
 
-	      	<div class="col-xs-6 m-t-md">
+	      	<div class="col-xs-6 ">
 	      		<div class="form-group col-xs-12 ">
 	                <label class=" control-label">Result Mode</label>
 	                    <div class="radio radio-primary">
@@ -71,7 +76,7 @@
 	</div>
 	 <div class="col-xs-12" ng-if="questionShow">
 			<form name="questionFrom" xtform no-validate>
-        		<question-field ng-model="questionModel" multi-answer="true"></question-field>
+        		<question-field ng-model="questionModel"></question-field>
         	     
         	     <div class="btn btn-warning" ng-click="questionShowDeactivate()">Discard<div class="ripple-wrapper"></div>
         		 </div>
