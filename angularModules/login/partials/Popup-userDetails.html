@@ -3,7 +3,7 @@
     <div class="modal-content">
        <form class="form-horizontal ng-pristine ng-valid" name="course_element_field" xt-form novalidate>
       <div class="modal-header">
-        <h4 class="modal-title text-primary">Change your avatar?</h4>
+        <h4 class="modal-title text-primary">Change your avatar ?</h4>
       </div>
       <div class="modal-body">
         <a ng-click="undoRemoveAvatar();" ng-if="undo" class="text-md text-ellipsis text-info pull-right"><i class="fa fa-undo"></i>&nbsp;Undo Remove Avatar</a>
@@ -53,7 +53,7 @@
 
       <div class="modal-footer">
         <button class="btn pull-left baab-btn btn-warning" type="button" ng-click="cancelChangeProfilePic();$hide();">Cancel</button>
-        <button class="btn pull-right baab-btn btn-info"  type="button" ng-click="changeProfilePic(userinfo.ActiveUserData.roleMappingObj.avatar);$hide();">Save</button>
+        <button class="btn pull-right baab-btn btn-info"  type="button" ng-click="changeProfilePic(userinfo.ActiveUserData.roleMappingObj.avatar,$hide)">{{btnName}}</button>
       </div>
       </form>
     </div>

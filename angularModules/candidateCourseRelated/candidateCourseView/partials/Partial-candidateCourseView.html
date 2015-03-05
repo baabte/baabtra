@@ -4,20 +4,39 @@
       
       <div class="panel-body">
 
-          <div  class="col-xs-12 col-sm-4 col-md-3 col-lg-3 pull-left">
-            <div class="btn-stroke btn-inbox-green  panel course-box text-center p">
-            	<i class="mdi-action-account-balance text-3x"></i>
-                 <div class="panel-body ">Take me to class room</div>
-            </div>
-          </div>
+          <!-- header container -->
+          <div>
 
-          <div  class="col-xs-12 col-sm-4 col-md-3 col-lg-3 pull-left">
-            <div class="btn-stroke btn-inbox-blue panel course-box text-center p">
-            	<i class="mdi-image-straighten text-3x"></i>
-                 <div class="panel-body ">View course timeline</div>
-            </div>
-          </div>
+            <div class="btn btn-material-deep-purple-200">View timeline</div>
+            <div class="btn btn-material-blue-200">View summary</div>
 
+            <div class="col-xs-6 col-sm-5 m-l-lg pull-right">
+                <percent-indicator show-percentage="true" total-value="total" obtain-value="obtained">
+                </percent-indicator>
+            </div>
+
+          </div>
+          <!-- header container end -->
+
+          <!-- body container -->
+          <div class="col-xs-12">
+
+            <!-- course element preview box  -->
+            <div class="col-xs-12 col-lg-10 col-sm-8 b">
+
+            </div>
+            <!-- course element preview box end  -->
+
+
+            <!-- chat box container -->
+            <div class="col-xs-12 col-lg-2 col-sm-4 b b-dark" >
+              <div ng-include="'views/partials/chat.html'"></div>
+
+            </div>
+            <!-- chat box container end -->
+
+          </div>
+          <!-- body container end  -->
 
       </div>
     </div>
