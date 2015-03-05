@@ -5,7 +5,8 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 		scope: {
 			data:'@',
 			index:'=',
-			courseElement:'='
+			courseElement:'=',
+			multiAnswer:'='
 		},
 		templateUrl: 'angularModules/courseElementFields/questionViewer/directives/Directive-questionViewer.html',
 		link: function(scope, element, attrs, fn) {
