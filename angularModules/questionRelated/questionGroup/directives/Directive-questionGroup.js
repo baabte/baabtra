@@ -14,6 +14,12 @@ angular.module('baabtra').directive('questionGroup',['$aside', function($aside) 
 			//dummy object created to view the question here
 			scope.questionShow=false;
 			scope.questionModel={mark:{}};
+			scope.duration={};
+			scope.duration.unit="minute(s)";
+			scope.units=['minute(s)','hour(s)'];
+			scope.totalMark={};
+			scope.resultMode={};
+			scope.questionView={};
 			
 		 scope.dropDown=function (index) {
 		    	var list=[];
@@ -47,6 +53,7 @@ angular.module('baabtra').directive('questionGroup',['$aside', function($aside) 
 
 		    scope.questionShowActivate =function(){
 		    	scope.questionShow=true;
+		    	console.log(scope.questionMarkField);
 		    };
 		     scope.questionShowDeactivate =function(){
 		    	scope.questionShow=false;
@@ -69,20 +76,46 @@ angular.module('baabtra').directive('questionGroup',['$aside', function($aside) 
 		    	}}
 		    },true);
 
+		     scope.$watch(function(){return scope.duration;},function(){
+		    	if(scope.duration.value<=0){
+		     		scope.duration.value=1;
+		     	}
+		     	
+		    	if(angular.equals(scope.duration.unit,'minute(s)')){
+		    		if(scope.duration.value>60){
+		    			scope.duration.value=60;
+		    		}
+		    		scope.actualDuration=scope.duration.value*60000;
+		    		
+		    	}
+		       	else if(angular.equals(scope.duration.unit,'hour(s)')){
+		       		
+		    		if(scope.duration.value>24){
+		    			scope.duration.value=24;		    			
+		    		}
+		    		scope.actualDuration=scope.duration.value*3600000;
+		    		
+		    	}
+
+		    },true);
+
           scope.addQuestion =function(questionModel,placeindex){
 
             	if(angular.equals(placeindex,undefined)){
             	scope.questionGroupModel.push(questionModel);//must pass questionmodel instead of scope.questionmodel
-            	scope.ngModel={totalMark:scope.totalMark,testModel:scope.questionGroupModel};
+            		
+            		scope.ngModel={mark:{totalMark:scope.totalMark},questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};
             	}
             	if(!angular.equals(placeindex,undefined)){
             		if(!angular.equals(scope.position,'before')){
             			scope.questionGroupModel.splice(placeindex+1,0,questionModel);
-            		scope.ngModel={totalMark:scope.totalMark,testModel:scope.questionGroupModel};
+            			
+            		scope.ngModel={mark:{totalMark:scope.totalMark},questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};            
             		}
             		else if(!angular.equals(placeindex,'after')){
 		    			scope.questionGroupModel.splice(placeindex,0,questionModel);
-            		scope.ngModel={totalMark:scope.totalMark,testModel:scope.questionGroupModel};
+		    		    
+            		scope.ngModel={mark:{totalMark:scope.totalMark},questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};
             		}
             	    delete scope.placeindex;//deleted to set the index back to default state
             	}

@@ -1,8 +1,9 @@
 <!--Created By:Jihin
 Created On:12/11/2014 -->
 
-<aside ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}"  id="aside" class="app-aside {{app.settings.asideColor}} text-lg fixedBc" ng-include="'views/aside.html'"  style="margin-top:20px;">
+<aside ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}"  id="aside" class="app-aside {{app.settings.asideColor}} text-lg fixedBc shadow-z-2" ng-include="'views/aside.html'"  style="margin-top:20px;">
 </aside>
+
 <div class="p-md" >
 	<div class="row" name="innercontent" ui-view>
     <div class="col-xs-12"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
