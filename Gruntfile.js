@@ -37,6 +37,7 @@ module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
+
     connect: {
       main: {
         options: {
@@ -233,7 +234,8 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-wiredep');  
+  grunt.loadNpmTasks('grunt-wiredep');
+
 
   grunt.registerTask('build',['jshint','clean:before','less','dom_munger','ngtemplates','cssmin','concat','ngmin:main','uglify:main','copy','htmlmin','ngmin:vendorjs','uglify:vendorjs', 'imagemin','clean:after']);
   grunt.registerTask('serve', ['dom_munger:read', 'wiredep','connect', 'watch']);
