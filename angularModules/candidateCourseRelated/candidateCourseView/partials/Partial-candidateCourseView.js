@@ -13,4 +13,27 @@ angular.module('baabtra').controller('viewCandidateCourseCtrl',
 			$scope.$digest();
 		},500);
 
+		$scope.PrevObj={
+                    "index" : 0,
+                    "elements" : [ 
+                        {
+                            "type" : "cours-element-title",
+                            "value" : "doc"
+                        }, 
+                        {
+                            "url" : "http://server.mb-test.in/files/courseDocs/alldbfunctions.js",
+                            "fileType" : "application/javascript",
+                            "type" : "doc-viewer",
+                            "value" : "http://docs.google.com/gview?url=http://server.mb-test.in/files/courseDocs/alldbfunctions.js&embedded=true"
+                        }
+                    ],
+                    "Name" : "Document",
+                    "iconColor" : "#ffffff",
+                    "tlPointInMinute" : 7201,
+                    "Icon" : "fa-file-text-o document",
+                    "order" : 1,
+                    "iconBackground" : "rgb(0, 128, 0)"
+                };
+                
+
 	}]);
