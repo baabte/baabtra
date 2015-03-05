@@ -37,6 +37,7 @@ if($rootScope.loggedIn==false){
 
  $scope.avatarSource = '';
  var existingAvatar = '';
+ $scope.btnName = "Change";
   $scope.handleFileSelect=function(evt) {
 
     if($scope.undo){
@@ -53,8 +54,13 @@ if($rootScope.loggedIn==false){
           reader.readAsDataURL(file);
   };
 
-$scope.changeProfilePic = function(avatarImg){
-      commonSrv.fnUploadProfilePic(avatarImg, $scope.rm_id);
+$scope.changeProfilePic = function(avatarImg, $hide){
+      $scope.btnName = "Uploading...";
+      var response = commonSrv.fnUploadProfilePic(avatarImg, $scope.rm_id);
+      response.then(function(data){
+        $scope.btnName = "Change";
+        $hide();
+      });
 };
 
 
@@ -82,7 +88,7 @@ $scope.undoRemoveAvatar = function(){
 
 $rootScope.manageProfile =function(){
   existingAvatar =  angular.copy($rootScope.userinfo.ActiveUserData.roleMappingObj.avatar);
-  $modal({scope: $scope, template: 'angularModules/login/partials/Popup-userDetails.html', placement:"center", show: true});
+  $modal({scope: $scope, backdrop:'static', template: 'angularModules/login/partials/Popup-userDetails.html', placement:"center", show: true});
  };
 
 

@@ -72,10 +72,7 @@
                         placeholder="Technologies covered (Optional, Recommended)"
                         replace-spaces-with-dashes="false" 
                         min-length="1">
-                        <auto-complete source="loadTechnologies($query) | filter:$query"
-                             min-length="0"
-                             debounce-delay="0"                             
-                        max-results="15"></auto-complete>
+                        <auto-complete source="loadTechnologies($query) | filter:$query" min-length="0" debounce-delay="0" max-results="15"></auto-complete>
                 </tags-input>
         <em class="text-muted text-E91E63">*Technologies help your course to be shown when people search courses under specific technologies</em>                
       </div>

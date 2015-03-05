@@ -6,7 +6,7 @@
 		</a>
 	</div>
 
-	<!-- descreption -->
+	<!-- descreption - courseDetailViewer -->
 	<div class="row">
 		<div class="col-xs-12">
 			<div ng-if="(newField.type == 'content' || newField.type == undefined) && editable" class="m-t" ng-include="newField.template"></div>
@@ -14,17 +14,19 @@
 		</div>
 	</div>
 
-	<!-- video viewer -->
+	<!-- video viewer - courseDetailViewer -->
 	<div class="row">
 		<div class="col-xs-12 text-center">
-			<video ng-if="newField.type == 'video'" class="m-t col-xs-12" ng-class="{'col-xs-6':!editable}" controls>
+			<video ng-if="newField.type == 'video'" class="m-t col-xs-12" ng-class="{'col-xs-12 col-sm-6':!editable}" controls>
 				<source ng-src="{{trustSrc(newField.value)}}" type="video/mp4">
 			</video>
 		</div>
 	</div>
+
+	<!-- document viewer - courseDetailViewer -->
 	<div class="row">
 		<div class="col-xs-12 text-center">
-			<iframe ng-class="{'col-xs-6':!editable}"  ng-if="newField.type == 'application'" ng-src="{{trustSrc('http://docs.google.com/gview?url='+newField.value+'&amp;embedded=true')}}" class="m-v col-xs-12" height="445"  frameborder="0"></iframe>
+			<iframe ng-class="{'col-xs-12 col-sm-6':!editable}"  ng-if="newField.type == 'application'" ng-src="{{trustSrc('http://docs.google.com/gview?url='+newField.value+'&amp;embedded=true')}}" class="m-v col-xs-12" height="445"  frameborder="0"></iframe>
 		</div>
 	</div>
 
