@@ -1625,7 +1625,7 @@ fg.directive('fgForm', ["fgFormCompileFn", function(fgFormCompileFn) {
     var noRender = $attrs.fgNoRender;
     
     if (noRender !== 'true') {
-      var renderTemplate = '<div xt-form novalidate fg-form-fields></div>';
+      var renderTemplate = '<form xt-form novalidate fg-form-fields></form>';
       $element.append(renderTemplate);
     }
     
