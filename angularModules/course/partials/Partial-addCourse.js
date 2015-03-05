@@ -96,8 +96,8 @@ $scope.nextPart = function(state,borderClass){//for change step, when click tab
     }
 };
 $scope.onDomainSelectionChanged = function(items) {
-    if(angular.equals($scope.course.Domains.indexOf(items[0]),-1)){
-      $scope.course.Domains.push(items[0]);
+    if(angular.equals($scope.course.Domains.indexOf(items[0].name),-1)){
+      $scope.course.Domains.push(items[0].name);
     }
   };
 
@@ -119,7 +119,15 @@ $scope.onRoleSelectionChanged = function(items) {
     }
   };
 
-commonSrv.FnLoadGlobalValues($scope,"");
+var globalValuesResponse = commonSrv.FnLoadGlobalValues("");
+globalValuesResponse.then(function(data){
+  var globalValues=angular.fromJson(JSON.parse(data.data));
+  $scope.globalValues = {};
+  angular.forEach(globalValues,function(value){
+    $scope.globalValues[value._id] = value.values.approved;
+  });
+});
+
 
 branchSrv.fnLoadBranch($scope,$scope.cmp_id);
 
@@ -220,10 +228,11 @@ var convertObjectName=function(menu,sub){
             };
 
 $scope.loadTechnologies = function(Query){
-    return $scope.globalValues[0].values.approved;
+
+    return $scope.globalValues.technologies;
 };
 $scope.loadTags =function(Query){
-    return $scope.globalValues[1].values.approved;
+    return $scope.globalValues.tags;
 };
     $scope.course.crmId = $scope.rm_id.$oid;
     $scope.course.companyId =  $scope.cmp_id.$oid;
@@ -250,7 +259,7 @@ $scope.completeStep1 = function(course){//created for build step1 object
     $scope.course.urmId = $scope.rm_id;
     $scope.course.Branches = $scope.selectedBranches;
 
-    var courseToBeSave = angular.copy($scope.course);
+    
     $scope.course.Tags = Tags;
     $scope.course.Technologies = Technologies;
     $scope.course.updatedDate = Date();
@@ -260,28 +269,12 @@ $scope.completeStep1 = function(course){//created for build step1 object
       $scope.course.activeFlag = 1;
       $scope.course.createdDate = Date();
     }
-
+    var courseToBeSave = angular.copy($scope.course);
     if (!angular.equals(courseToBeSave.Name, undefined)) {
-      var path='Course/courseImage';
-      if(!angular.equals(course.Img,undefined)){
-      var promise = addCourseService.fnCourseFileUpload(course.Img, path);
-       promise.then(function(data){ // call back function for the fileupload
-        courseToBeSave.courseImg = bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','');
-        $scope.ItsTimeToSaveDataToDB=true;
-      });
-     }
-     else{
-       $scope.ItsTimeToSaveDataToDB=true;
-     }
-       var unbindWatchOnThis=$scope.$watch('ItsTimeToSaveDataToDB',function(){
-        if($scope.ItsTimeToSaveDataToDB){
           delete courseToBeSave.Img;
           var toState='home.main.addCourse.step2';
           $alert({title: 'Done..!', content: 'Step 1 completed successfuly :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
           addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId, toState);//saving to database
-          unbindWatchOnThis(); // used to unbind this watch after triggering it once
-        }
-      });
     }
 /* Building courseDetails End */
 
@@ -331,12 +324,22 @@ $scope.paymentTypes=[{id: "1",name: "Before The Course"},
     }
   });
  
-$scope.completeStep2 = function(){
-
+$scope.completeStep2 = function(course){
+  var Technologies = [];
+  var Tags = [];
   if (!$scope.course.Fees.payment.oneTime) {
     delete $scope.course.Fees.payment.mode;
   }
   delete $scope.course._id;
+      angular.forEach(course.Technologies, function(technology){
+        Technologies.push(technology.text);
+    });
+
+    angular.forEach(course.Tags, function(tag){
+        Tags.push(tag.text);
+    });
+        $scope.course.Tags = Tags;
+    $scope.course.Technologies = Technologies;
   var courseToBeSave = angular.copy($scope.course);
   courseToBeSave.companyId = $scope.cmp_id;
   if(angular.equals(courseToBeSave.crmId.$oid,undefined)){

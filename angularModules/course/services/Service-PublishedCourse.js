@@ -14,8 +14,18 @@ this.loadPublishedCourses=function($scope,searchKey,lastId,type,firstId){
 	 {
 
 	 });
+	 
 	
 };
+
+this.courseByKeywords = function(companyId, searchKey){
+	var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'courseByKeywords/',
+	    data:{"companyId":companyId,"searchKey":searchKey}
+	 });
+	return promise;
+}
 
 
 	

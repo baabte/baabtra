@@ -86,12 +86,12 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
                 }
 
                 scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.selectedIndex] = scope.coursePreviewObj;
-                
+                // scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name]
 
                 // below function will trigger only when the object is built
               var unbindWatchOnThis=scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if(scope.ItsTimeToSaveDataToDB===true){
-                    var promise = addCourseService.editCourseTimelineElement(scope.$parent.courseId, scope.$parent.courseElement.Name, scope.instance,scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name], scope.$parent.$parent.rm_id);//saving to database
+                    var promise = addCourseService.editCourseTimelineElement(scope.$parent.courseId, scope.$parent.courseElement.Name, scope.instance,{index:scope.selectedIndex,element:scope.coursePreviewObj}, scope.$parent.$parent.rm_id);//saving to database
                     promise.then(function(response){
                         scope.$parent.syncData = angular.fromJson(JSON.parse(response.data))[0];
                     });
