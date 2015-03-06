@@ -1,8 +1,13 @@
 angular.module('baabtra').controller('viewCandidateCourseCtrl',
-	['$scope','$state',
-	function($scope,$state){
+	['$scope','$state','$rootScope','candidateCourseFullView',
+	function($scope,$state,$rootScope,CCFV){
+		var userLoginId=$rootScope.userinfo.userLoginId;
+		var courseMappingId=$state.params.courseMappingId;
+		var gotCurrentElement=CCFV.getCurrentElement(userLoginId,courseMappingId);
+		    gotCurrentElement.then(function (data) {
+		    	// body...
+		    });
 
-		$scope.courseMapping=$state.params.courseMappingId;
 		$scope.total=50;
 		$scope.obtained=3;
 		setInterval(function () {
@@ -34,6 +39,6 @@ angular.module('baabtra').controller('viewCandidateCourseCtrl',
                     "order" : 1,
                     "iconBackground" : "rgb(0, 128, 0)"
                 };
-                
+
 
 	}]);
