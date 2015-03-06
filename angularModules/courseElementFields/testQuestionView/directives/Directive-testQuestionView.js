@@ -46,18 +46,18 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 						if(scope.ItsTimeToSavePrimaryToDB && scope.ItsTimeToSaveSecondaryToDB){
 			// console.log('murid',courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
 
-							var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
-								promise.then(function (data) {
-									data=angular.fromJson(JSON.parse(data.data));
-									if(data.success){
-										scope.question.userAnswer=scope.answerToDb;
-										scope.dbAnswer=scope.answerToDb;
-										scope.question.markScored=scope.mark;
-										scope.question.evaluated=evStatus;
-										scope.question.dateOfSubmission=time;
-									}
-								});
-							
+							// var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
+							// 	promise.then(function (data) {
+							// 		data=angular.fromJson(JSON.parse(data.data));
+							// 		if(data.success){
+							// 			scope.question.userAnswer=scope.answerToDb;
+							// 			scope.dbAnswer=scope.answerToDb;
+							// 			scope.question.markScored=scope.mark;
+							// 			scope.question.evaluated=evStatus;
+							// 			scope.question.dateOfSubmission=time;
+							// 		}
+							// 	});
+							scope.questionResponse={userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time};
 
 
 							dbSaverUnbind();
@@ -68,17 +68,19 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 					
 				}
 				else{
-					var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
-						promise.then(function (data) {
-							data=angular.fromJson(JSON.parse(data.data));
-							if(data.success){
-								scope.question.userAnswer=scope.userAnswer;
-								scope.dbAnswer=scope.userAnswer;
-								scope.question.markScored=scope.mark;
-								scope.question.evaluated=evStatus;
-								scope.question.dateOfSubmission=time;
-							}
-						});	
+					// var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
+					// 	promise.then(function (data) {
+					// 		data=angular.fromJson(JSON.parse(data.data));
+					// 		if(data.success){
+					// 			scope.question.userAnswer=scope.userAnswer;
+					// 			scope.dbAnswer=scope.userAnswer;
+					// 			scope.question.markScored=scope.mark;
+					// 			scope.question.evaluated=evStatus;
+					// 			scope.question.dateOfSubmission=time;
+					// 		}
+					// 	});	
+					scope.questionResponse={userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time};
+						
 				}
 				
 			};
