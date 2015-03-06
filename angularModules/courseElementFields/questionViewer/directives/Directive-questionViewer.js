@@ -6,7 +6,8 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 			data:'@',
 			index:'=',
 			courseElement:'=',
-			multiAnswer:'='
+			multiAnswer:'=',
+			courseId:'='
 		},
 		templateUrl: 'angularModules/courseElementFields/questionViewer/directives/Directive-questionViewer.html',
 		link: function(scope, element, attrs, fn) {
@@ -24,7 +25,7 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 			//if user is mentee copying all required datas 
 			if(roleId===bbConfig.MURID){
 				userLoginId=$rootScope.userinfo.userLoginId;
-				courseId=$state.params.courseId;
+				courseId=scope.courseId;
 				scope.isMentee=true;
 			}
 

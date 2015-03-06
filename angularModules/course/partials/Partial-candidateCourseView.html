@@ -16,13 +16,16 @@
       </div>
       <div class="panel-body">
         <div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-          <div  masonry-tile class="tile col-xs-12 col-sm-4 col-md-3 col-lg-3 pull-left masonry-brick" ng-repeat="course in courses | filter:SearchCourse" ng-click="navigateToDetails(course._id.$oid)">
+          <div  masonry-tile class="tile col-xs-12 col-sm-4 col-md-3 col-lg-3 pull-left masonry-brick" ng-repeat="course in courses | filter:SearchCourse">
             <div class="panel course-box" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tooltip on top">
                  
-                 <div class="panel-body ">
+                 <div class="panel-body text-center">
                   <img ng-src="{{ course.courseImg }}" >
                     <div class="font-bold text-black p-v-xs m-h-sm">{{course.Name}}</div>
                     <div class="text-black  course-description text-muted content-limiter "ng-bind-html="course.Description"></div>
+                    <div>
+                      <div class="btn btn-material-blue-400" ng-click="navigateToClassroom(course._id.$oid)">Take me to classroom</div>
+                    </div>
                   </div>
             </div>
            </div>
