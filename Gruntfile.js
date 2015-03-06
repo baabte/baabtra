@@ -38,6 +38,23 @@ module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
 
+
+        nggettext_extract: {
+            pot: {  
+                files: {
+                    'po/template.pot': ['**/*.html']
+                }
+            },
+        },
+
+        nggettext_compile: {
+            all: {  
+                files: {
+                    'translations.js': ['po/*.po']
+                }
+            },
+        },
+
     connect: {
       main: {
         options: {
@@ -235,7 +252,7 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('grunt-wiredep');
-
+   grunt.loadNpmTasks('grunt-angular-gettext');   
 
   grunt.registerTask('build',['jshint','clean:before','less','dom_munger','ngtemplates','cssmin','concat','ngmin:main','uglify:main','copy','htmlmin','ngmin:vendorjs','uglify:vendorjs', 'imagemin','clean:after']);
   grunt.registerTask('serve', ['dom_munger:read', 'wiredep','connect', 'watch']);
