@@ -12,7 +12,7 @@ $scope.showNavMenu=false;
 $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 //if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId==2){
 	$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-	PublishedCourse.loadPublishedCourses($scope,'','','');
+	PublishedCourse.loadPublishedCourses($scope,'','','','');
 //}
 //$scope.showCourseFilter = false;
 var courseDomainResponse = addCourseDomainSrv.FnLoadDomain();
@@ -103,32 +103,29 @@ $scope.deleteCourseDetails = function(courseId){
 		
 };
 var searchInProgress;
-$scope.activeLink=1;
 $scope.searchCoursesAvailable=function(searchKey,type){//for seaeching the available courses
 	clearTimeout(searchInProgress);
 searchInProgress=setTimeout(function(){
-PublishedCourse.loadPublishedCourses($scope,searchKey,'',type);
+PublishedCourse.loadPublishedCourses($scope,searchKey,'',type,'');
+
 },500)
 
 };
-
+$scope.prevButtondisabled=true;
 $scope.nextOne=function(){//event  for showing next 12 items
-	if ($scope.publishedCourses.courseCount>12) {	
-	  $scope.activeLink=$scope.activeLink+12;
-	  PublishedCourse.loadPublishedCourses($scope,'',$scope.activeLink-1,'');
-	}
+	  $scope.prevButtondisabled=false;
+     console.log($scope.publishedCourses);
+	  PublishedCourse.loadPublishedCourses($scope,'',$scope.publishedCourses.lastId.$oid,'next',$scope.publishedCourses.firstId.$oid);
 };
 
 $scope.prevOne=function(){//event  for showing previous 12 items
-  if($scope.activeLink>12)
-   {	
-   $scope.activeLink=$scope.activeLink-12;
-   PublishedCourse.loadPublishedCourses($scope,'',$scope.activeLink,'');
-   }
+   
+   PublishedCourse.loadPublishedCourses($scope,'',$scope.publishedCourses.lastId.$oid,'prev',$scope.publishedCourses.firstId.$oid);
+  
 }
 
 $scope.viewCourseDetails = function(courseId){
-	$state.go("home.main.course",{courseId:courseId})
+	$state.go("home.main.course",{courseId:courseId});
 }
 
 }]);

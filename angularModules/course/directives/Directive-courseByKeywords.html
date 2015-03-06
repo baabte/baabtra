@@ -2,7 +2,7 @@
 <div class="text-center p-v" ng-if="relatedCourses == 0">
     <i class="fa fa-circle-o-notch fa-spin text-lg text-info"></i>
 </div>
-<div class="list-group" ng-if="relatedCourses.Technologies">
+<div class="list-group" ng-if="relatedCourses.Technologies.length > 1">
     <div class="text-dark font-bold">Users who viewed this course also viewed:</div>
     <div ng-if="Technology._id.$oid != keywords._id.$oid" class="list-group-item" ng-repeat="Technology in relatedCourses.Technologies">
         <a href="" class="w-thumb-md pull-left m-r"><img src="{{Technology.courseImg}}" class="img-responsive"></a>
@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<div class="list-group" ng-if="relatedCourses.Tags">
+<div class="list-group" ng-if="relatedCourses.Tags.length > 1">
     <div class="text-dark font-bold">Related Courses:</div>
     <div ng-if="Tag._id.$oid != keywords._id.$oid" class="list-group-item" ng-repeat="Tag in relatedCourses.Tags">
             <a href="" class="w-thumb-md pull-left m-r"><img src="{{Tag.courseImg}}" class="img-responsive"></a>
@@ -32,7 +32,7 @@
     </div>
 </div>
 
-<div class="list-group" ng-if="relatedCourses.Domains.length">
+<div class="list-group" ng-if="relatedCourses.Domains.length > 1">
     <div class="text-dark font-bold">Domains</div>
     <div ng-if="Domain._id.$oid != keywords._id.$oid" class="list-group-item" ng-repeat="Domain in relatedCourses.Domains">
             <a href="" class="w-thumb-md pull-left m-r"><img src="{{Domain.courseImg}}" class="img-responsive"></a>
