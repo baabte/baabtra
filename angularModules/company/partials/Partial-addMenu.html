@@ -1,3 +1,40 @@
+<<<<<<< HEAD
+<div class="p-h-md">
+  <div class="row">
+      <div class="panel panel-default">
+        <div class="bg-white p-sm b-b b-2x b-success " >
+          <h4 class="no-margin">Add your menu</h3>
+        </div>
+        <div class="panel-body">
+          <form name="menuDetails" role="form" class="menuDetails">
+          	
+              <div class="col-xs-12 col-sm-6">               
+                <input id="menuName" type="text" class="form-control" float-label placeholder="Menu Name" ng-model="menu.MenuName" required>
+              </div>
+           <div class="col-xs-12 col-sm-6">                
+                <input type="text" class="form-control" float-label placeholder="Menu Link" ng-model="menu.MenuLink">
+             </div>
+
+             <div class="col-sm-6 m-v">
+                <h4 class="no-margin m-t m-b text-E91E63">Actions</h4>
+                <div class="m-h-n">
+                <div class="col-xs-6 col-md-3">
+                <input type="text" class="form-control" float-label placeholder="Action Name" ng-model="menu.actionName">
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <input type="text" class="form-control" float-label placeholder="State Name" ng-model="menu.stateName">
+              </div>
+              <div class="col-xs-6 col-md-3" style="cursor: pointer;">
+                  <i ng-click="addActtion()" class="fa fa-plus-circle fa-2x"></i>
+              </div> 
+              </div>
+              </div>
+              <div class="col-lg-6">
+                <!-- <h4 class="no-margin m-b-md m-r">Menu Icon</h4>
+                <i class="ui-icon fa fa-user {{menu.menuIcon}} ui-iconnfo text-lg"></i>
+                <a ng-click="GetIcon()" class="">Change Icon</a> -->
+                <icon-chooser selected-icon="menu.menuIcon"></icon-chooser>
+=======
 <!-- outer container -->
 <div class="row">
 
@@ -76,6 +113,7 @@
             <div class="row">
               <div class="col-xs-12">
                 <a ng-click="loadMenu()" class="">Edit Existing Menus</a>
+>>>>>>> a3bc13194fa51295380037f7ae5843fab6d7e0f0
               </div>
             </div>
           </div>
