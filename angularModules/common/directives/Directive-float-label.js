@@ -3,8 +3,10 @@ angular.module('baabtra').directive('floatLabel', function() {
 		restrict: 'A',
 		link: function(scope, element, attrs, fn) {
 
+
             $(element).removeAttr("float-label");
 			
+
 			//wrap the element in a full width div			
 			$(element).wrap('<div class="col-xs-12 no-padding m-t-sm"></div>');
 
@@ -26,7 +28,7 @@ angular.module('baabtra').directive('floatLabel', function() {
 					label.hide();
 			}
 
-			
+
 
 			function bindValChangeWatch(){
 			
