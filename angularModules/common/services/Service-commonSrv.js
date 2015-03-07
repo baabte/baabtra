@@ -22,6 +22,18 @@ this.FnLoadGlobalValues=function(key)
     return promise;
    };
 
+   this.fnSaveAppSettings = function(companyId, appSettings, rmId){
+    var promise = $http({
+      url: bbConfig.BWS+'SaveAppSettings/',
+      data: {"companyId":companyId ,"appSettings":appSettings, "rmId":rmId},
+      method: "POST",
+      withCredentials: false,
+      contentType:"application/json",
+      dataType:"json",
+    });
+    return promise;
+   }
+
       // this.FnLoadExistingResellerUserData=function($scope, userEmail)
       // {
       //   $http({

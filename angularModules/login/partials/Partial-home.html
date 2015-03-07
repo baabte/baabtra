@@ -1,7 +1,7 @@
 <!--Created By:Jihin
 Created On:12/11/2014 -->
 
-<aside ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}"  id="aside" class="app-aside {{app.settings.asideColor}} text-lg fixedBc shadow-z-2" ng-include="'views/aside.html'"  style="margin-top:20px;">
+<aside id="aside" class="app-aside {{$root.userinfo.ActiveUserData.appSettings.asideColor}} text-lg fixedBc shadow-z-2" ng-include="'views/aside.html'"  style="margin-top:20px;" ng-class="{'btn-material-teal-900':$root.userinfo.ActiveUserData.appSettings.asideColor == undefined , 'animated fadeInDown':navBar,'ng-hide':!navBar}">
 </aside>
 
 <div class="p-md" >

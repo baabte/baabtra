@@ -1,5 +1,5 @@
   <!-- header -->
-  <header id="header" ng-include=" 'views/header.html' " ng-controller="header" class="shadow app-header navbar {{app.settings.headerColor}}" role="menu">
+  <header id="header" ng-include=" 'views/header.html' " ng-controller="header" class="shadow app-header navbar {{$root.userinfo.ActiveUserData.appSettings.headerColor}} " role="menu" ng-class="{'btn-material-grey-200':$root.userinfo.ActiveUserData.appSettings.headerColor == undefined}">
   </header>
   <!-- / header -->
   <!-- aside -->
@@ -9,6 +9,7 @@
   
   <!-- content -->
   <div id="content" ng-class="{'app-content':navBar}" role="main" ui-view>
+
   </div>
   <!-- / content -->
 
