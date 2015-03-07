@@ -1,0 +1,57 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">        
+        <h4 class="modal-title text-primary">Repeat</h4>
+      </div>
+      <div class="modal-body">
+       <div class="row"> 
+        <form class="form-repeat ng-pristine ng-valid" style="cursor: pointer;">
+           <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+               <label for="select" class="control-label">Repeats</label>
+                <select class="form-control" id="select" ng-model="Batch.repeatItem" ng-change="fnLoadsubItem(Batch.repeatItem)" ng-options="rpt.id as rpt.text for rpt in repeatArrays">
+                  <option selected="selected" value="" >select an option</option>
+                  <!-- <option ng-repeat = "repeatArray in repeatArrays"  value="{{repeatArray.id}}">{{repeatArray.text}}</option> -->  
+                </select>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-6">
+               <label for="select" class="control-label">Repeat every</label>
+                <select class="form-control" id="select" ng-model="Batch.row" >
+                  <option ng-repeat = "row in repeatEvery" value="{{row}}">{{row}}</option>  
+                </select> 
+                </div>
+                <div class="col-xs-6">
+                <label class="m-v">{{repeatType}}</label>
+                </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+             <label >Don't Starts On</label>
+               <div class= "row">
+                    <div class="col-xs-12">
+                     <div class="checkbox checkbox-inline no-margin"  ng-repeat="day in days" bs-tooltip data-title="{{day.id}}" ng-model="Batch.day" >
+                        <label >
+                            <input type="checkbox"value="day" >{{day.text}}
+                        </label>
+                      </div>
+                    </div>  
+                </div>       
+            </div> 
+            <div class="form-group">
+            <label > Starts On</label>
+             <input type="text" class="form-control" ng-model="Batch.startdate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="number" data-autoclose="true" data-min-date="today"  name="date2" bs-datepicker>
+            </div>   
+           </div>  
+        </form>
+       </div>    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="saveRepeatfn()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>

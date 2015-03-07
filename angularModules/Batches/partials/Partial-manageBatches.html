@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel">
+      <div class="panel-heading font-bold text-white bg-00C853 p baab-shadow">Manage Batches</div>
+      <div class="panel-body">
+        <div class="row">
+           <form name="batchAdd" xt-form no-validate class="ng-pristine ng-valid">
+              <div class="col-xs-12 col-sm-6">
+                  <div class="form-group">
+                   <label>Batch Name</label>
+                   <input class="form-control" ng-model="Batch.batchName" placeholder="Enter Batch Name">
+                  </div>
+                  <div class="form-group">
+                    <div class="radio radio-primary">
+                      <label>
+                          <input type="radio" name="optionsRadios" id="batchMode" value="onetime" ng-model="Batch.batchMode" checked>
+                          Onetime
+                      </label>
+                    </div>
+                    <div class="radio radio-primary">
+                      <label>
+                          <input type="radio" name="optionsRadios" id="repeat" value="repeat" ng-model="Batch.batchMode" ng-click="fnLoadPopupRepeat(Batch.batchMode)" checked>
+                          Repeat
+                      </label>
+                    </div>
+                    <em class="text-muted text-E91E63">&nbsp;(Please specifiy  the Mode of Batch)</em>    
+                  </div>
+                  <div class="form-group">   
+                      <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="Batch.batchType.offline" value="Batch.batchType.offline"> Offline
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                            <input type="checkbox"  ng-model="Batch.batchType.instructorLead" value="Batch.batchType.instructorLead" > Instructor Lead
+                        </label>
+                      </div>
+                    <em class="text-muted text-E91E63">&nbsp;(Please specifiy  the Type of Batch)</em>                
+                  </div>  
+              </div>
+
+           </form>
+        </div>
+      </div>
+      <div class="panel-footer">
+          <button class="btn btn-warning baab-btn" type="reset" ng-disabled="batchAdd.$pristine" >cancel</button>		
+	        <button class="btn btn-info baab-btn" ng-disabled="batchAdd.$invalid" >Add Batch</button>
+      </div>
+    </div>
+  </div>
+</div>

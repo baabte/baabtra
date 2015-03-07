@@ -287,8 +287,6 @@
                 }
                 
               })
-
-
               .state('home.main.addCourse.step2', {
                 url: '/step2/:courseId',
                 views:{
@@ -487,6 +485,16 @@
                     controller: 'viewCandidateCourseCtrl'
                   }
                 }
+              })
+               .state('home.main.batches', {
+                url: '/manageBatches',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-manageBatches.html',
+                    controller:'ManagebatchesCtrl'
+                  }
+                }
+                
               })
               .state('page.document', {
                 url: '/document',
