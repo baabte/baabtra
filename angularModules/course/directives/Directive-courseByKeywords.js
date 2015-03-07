@@ -9,27 +9,19 @@ angular.module('baabtra').directive('courseByKeywords',['PublishedCourse','$stat
 		templateUrl: 'angularModules/course/directives/Directive-courseByKeywords.html',
 		link: function(scope, element, attrs, fn) {
 			scope.companyId = scope.keywords.companyId.$oid;
-			scope.relatedCourses = [];
+			scope.relatedCourses = 0;
 			scope.relatedInfo = "";
-			angular.forEach(scope.keywords.Technologies,function(Technology){
-			
-			scope.relatedInfo = scope.relatedInfo + Technology.text + ',';
 
-			var relatedCourseResponse = PublishedCourse.loadPublishedCourses(scope,Technology.text,'',"Technologies");
+			var searchKey = {};
+			searchKey["Tags"] = scope.keywords.Tags;
+			searchKey["Technologies"] = scope.keywords.Technologies;
+			searchKey["Domains"] = scope.keywords.Domains;
+
+			
+			var relatedCourseResponse = PublishedCourse.courseByKeywords(scope.companyId, searchKey);
 			relatedCourseResponse.then(function(data){
-				var relatedCourses = angular.fromJson(JSON.parse(data.data)).courses;
-				if(scope.skipThis){
-					angular.forEach(relatedCourses, function(relatedCourse){
-						if(!angular.equals(relatedCourse._id.$oid,scope.keywords._id.$oid)){
-							scope.relatedCourses.push(relatedCourse);
-						}
-					});
-				}
-				else{
-					scope.relatedCourses = relatedCourses;
-				}
+				scope.relatedCourses = angular.fromJson(JSON.parse(data.data)).courses;
 			});
-		 });
 
 		scope.viewCourseDetails = function(courseId){
 			$state.go("home.main.course",{courseId:courseId})

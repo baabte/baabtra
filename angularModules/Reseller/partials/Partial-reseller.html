@@ -14,31 +14,33 @@
 		        	<!-- left half -->
 		        	<div class="col-xs-12">
 		        		<div class="form-group col-xs-12 col-sm-6">
-		        			<!-- Email -->              				
-                				<input type="text" xt-validate required name="eMail" class="form-control floating-label" placeholder="Email Address" ng-model="reseller.eMail" autocomplete="off"  ng-blur="LoadExistingUserData(reseller.eMail)" ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$/" indicate-val="email">                				
+		        			<!-- Email -->
+                				<div class="col-xs-12"><input id="emailAddress" float-label placeholder="Email Address" type="text" xt-validate required name="eMail" class="form-control" ng-model="reseller.eMail" autocomplete="off"  ng-blur="LoadExistingUserData(reseller.eMail)" ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$/" indicate-val="email">                				</div>
               			</div> 	
               				<!-- Password -->
-              			<div class="form-group col-xs-12 col-sm-6">              				
-                				<input type="password" xt-validate required name="password" class="form-control floating-label" ng-model="reseller.password" indicate-val="required" placeholder="password">
+              			<div class="form-group col-xs-12 col-sm-6">            				
+                				
+                				<div class="col-xs-12"><input id="password" float-label placeholder="Password" type="password" xt-validate required name="password" class="form-control" ng-model="reseller.password" indicate-val="required"></div>
               				</md-input-container>
             			</div>            			
             			
-            			<div class="form-group col-xs-12 col-sm-4">
-            				 <input type="text" xt-validate required name="contactPerson" class="form-control floating-label" ng-model="reseller.contactPerson" indicate-val="required" placeholder="Contact Person">
+            			<div class="form-group col-xs-12 col-sm-4">            				
+            				 <div class="col-xs-12"><input id="contactPerson" float-label placeholder="Contact Person" type="text" xt-validate required name="contactPerson" class="form-control" ng-model="reseller.contactPerson" indicate-val="required"></div>
             			</div>
 
-              			<div class="form-group col-xs-12 col-sm-4">
-			        			<input type="text" xt-validate required name="contactNumber" ng-pattern="/^(\+\d{1,3}[- ]?)?\d{10}$/" class="form-control floating-label" ng-model="reseller.contactNumber"  indicate-val="phone" placeholder="Contact Number" >
+              			<div class="form-group col-xs-12 col-sm-4">			        			
+			        			<div class="col-xs-12"><input id="contactNumber" float-label placeholder="Contact Number" type="text" xt-validate required name="contactNumber" ng-pattern="/^(\+\d{1,3}[- ]?)?\d{10}$/" class="form-control" ng-model="reseller.contactNumber"  indicate-val="phone"></div>
               			</div>             				
             			
 		        	
 		        		<!-- Address -->
-		        		<div class="form-group col-xs-12 col-sm-4">
-				        			<input type="number" class="form-control floating-label" xt-validate required name="commission" ui-validate=" '$value <= 100' " ng-model="reseller.commission" required  indicate-val="number" placeholder="% of commission">
+		        		<div class="form-group col-xs-12 col-sm-4">				        			
+				        			<div class="col-xs-12"><input id="commission" float-label placeholder="% of Commission" type="number" class="form-control" xt-validate required name="commission" ui-validate=" '$value <= 100' " ng-model="reseller.commission" required  indicate-val="number"></div>
 	              		</div>		        		
-			        	<div class="form-group col-xs-12 col-sm-12">
-			        			<textarea class="form-control floating-label" ng-model="reseller.address"  placeholder="address"></textarea>
-			        	
+			        	<div class="form-group col-xs-12 col-sm-12">			        				
+				        			<div class="col-xs-12">
+			        				<textarea id="address" float-label placeholder="Address" class="form-control" ng-model="reseller.address"></textarea>
+			        				</div>
 		        		</div>
 		        	</div>
 		        </div>
