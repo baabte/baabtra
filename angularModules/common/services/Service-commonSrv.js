@@ -1,4 +1,4 @@
-angular.module('baabtra').service('commonSrv',['$http','bbConfig',function commonSrv($http,bbConfig) {
+angular.module('baabtra').service('commonSrv',['$http','$upload','bbConfig',function commonSrv($http,$upload,bbConfig) {
 this.FnLoadGlobalValues=function(key)
       {
         var promise = $http({
@@ -33,6 +33,31 @@ this.FnLoadGlobalValues=function(key)
     });
     return promise;
    }
+
+   this.fnFileUpload = function (fileToBeUpload, pathToBeSave){ // functon that call web service to add a comapny role
+    var promise = $upload.upload({
+           url: bbConfig.BWS+'CourseFileUpload/',
+           file: fileToBeUpload,
+           data: {'pathToBeSave':pathToBeSave},
+           method: 'POST',
+           withCredentials: false,
+           contentType:'application/json',
+           dataType:'json',
+           })
+    return promise;
+   };
+
+   this.fnRemoveFileFromServer = function (pathToBeDelete){ // functon that call web service to add a comapny role
+    var promise = $upload.upload({
+           url: bbConfig.BWS+'fileRemove/',
+           data: {'pathToBeDelete':pathToBeDelete},
+           method: 'POST',
+           withCredentials: false,
+           contentType:'application/json',
+           dataType:'json',
+           })
+    return promise;
+   };
 
       // this.FnLoadExistingResellerUserData=function($scope, userEmail)
       // {

@@ -164,8 +164,9 @@ border-radius: 3px;
 }
 
 /*Body BG*/
-html{
-  background:url(../images/Mainbg/promo2.png) no-repeat center center fixed !important;
+.default-bg{
+  /*no-repeat center center fixed*/
+  background:#ffffff url(../images/Mainbg/promo2.png) no-repeat center center fixed;
   
   -webkit-background-size: cover !important;
   -moz-background-size: cover !important;

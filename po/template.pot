@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:41
+msgid "% of commission"
+msgstr ""
+
+#: angularModules/Reseller/partials/Partial-reseller.html:54
+msgid "Add Reseller"
+msgstr ""
+
+#: angularModules/Reseller/partials/Partial-reseller.html:6
+msgid "Add a reseller"
+msgstr ""
+
+#: angularModules/Reseller/partials/Partial-reseller.html:45
+msgid "Address"
+msgstr ""
+
+#: angularModules/Reseller/partials/Partial-reseller.html:29
+msgid "Contact Person"
+msgstr ""
+
+#: angularModules/Reseller/partials/Partial-reseller.html:18
+msgid "Email Address"
+msgstr ""
+
+#: angularModules/Reseller/partials/Partial-reseller.html:23
+msgid "Password"
+msgstr ""
+
+#: angularModules/Reseller/partials/Partial-reseller.html:34
+msgid "Phone Number"
+msgstr ""
+
+#: angularModules/Reseller/partials/Partial-reseller.html:53
+msgid "cancel"
+msgstr ""

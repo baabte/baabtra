@@ -12,8 +12,8 @@
  * Controller of the app
  */
 angular.module('baabtra')  
-  .controller('MainCtrl', ['$scope', '$translate', '$localStorage', '$window', '$rootScope', '$modal', 'commonSrv',
-    function (              $scope,   $translate,   $localStorage,   $window, $rootScope , $modal , commonSrv ) {
+  .controller('MainCtrl', ['$scope', '$translate', '$localStorage', '$window', '$rootScope', '$modal', 'commonSrv', 'bbConfig' ,
+    function (              $scope,   $translate,   $localStorage,   $window, $rootScope , $modal , commonSrv , bbConfig) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i) || !!navigator.userAgent.match(/Trident.*rv:11\./);
       // isIE && angular.element($window.document.body).addClass('ie');
@@ -68,7 +68,7 @@ angular.module('baabtra')
           "btn-material-amber","btn-material-amber-400","btn-material-amber-500","btn-material-amber-600","btn-material-amber-700","btn-material-amber-800","btn-material-amber-900","btn-material-amber-A100","btn-material-amber-A200","btn-material-amber-A400","btn-material-amber-A700",
           "btn-material-orange","btn-material-orange-400","btn-material-orange-500","btn-material-orange-600","btn-material-orange-700","btn-material-orange-800","btn-material-orange-900","btn-material-orange-A100","btn-material-orange-A200","btn-material-orange-A400","btn-material-orange-A700",
           "btn-material-deep-orange","btn-material-deep-orange-400","btn-material-deep-orange-500","btn-material-deep-orange-600","btn-material-deep-orange-700","btn-material-deep-orange-800","btn-material-deep-orange-900","btn-material-deep-orange-A100","btn-material-deep-orange-A200","btn-material-deep-orange-A400","btn-material-deep-orange-A700",
-          "btn-material-grey-200","btn-material-blue-grey-200","btn-material-grey-600","btn-material-brown-500","btn-material-blue-grey-600"
+          "btn-material-grey-200","btn-material-blue-grey-200","btn-material-grey-600","btn-material-blue-grey-900","btn-material-blue-grey-600"
         ],
         asideColor:[
           'bg-primary dk',
@@ -88,34 +88,51 @@ angular.module('baabtra')
 
       $scope.header ={} ;
       $scope.header.type = "Header";
+      $scope.roleId = bbConfig.CURID;
       $scope.appSettings = function(){
-        console.log($rootScope.userinfo);
         $modal({scope: $scope, placement:"center" ,backdrop:'static' , template: 'angularModules/common/popup/popup-appSettings.html', show: true});
       }
 
       var appSettings = {};
       $scope.setHeaderColor = function(color){
+        if(angular.equals($rootScope.userinfo.ActiveUserData.appSettings,null)){
+          $rootScope.userinfo.ActiveUserData.appSettings = {};
+        }
         if(angular.equals($scope.header.type,"Header")){
           $rootScope.userinfo.ActiveUserData.appSettings.headerColor = color;
         }
-        else{
+        else if(angular.equals($scope.header.type,"breadCrumb")){
           $rootScope.userinfo.ActiveUserData.appSettings.asideColor = color;
+        }
+        else{
+          $rootScope.userinfo.ActiveUserData.appSettings.backgroundColor = color;
         }
         appSettings.headerColor = $rootScope.userinfo.ActiveUserData.appSettings.headerColor;
         appSettings.asideColor = $rootScope.userinfo.ActiveUserData.appSettings.asideColor;
-        appSettings.backgroundImage = "";
+        appSettings.backgroundColor = $rootScope.userinfo.ActiveUserData.appSettings.backgroundColor;
+      };
+
+
+      $scope.backgroundImageChanged = function($file){
+        var oldBackgroundImage = $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage;
+        var fileRemoveResponse = commonSrv.fnRemoveFileFromServer(oldBackgroundImage);
+        var ImageUploadResponse = commonSrv.fnFileUpload($file[0],"backgroundImage");
+        ImageUploadResponse.then(function(response){
+          $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage = bbConfig.BWS+'files/backgroundImage/'+response.data.replace('"','').replace('"','');
+        });
       };
 
       $scope.saveAppSettings = function($hide){
         var rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
         if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,2)){
           var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-          console.log(appSettings);
-          commonSrv.fnSaveAppSettings(companyId, appSettings, rmId);
+          console.log($rootScope.userinfo.ActiveUserData.appSettings);
+          commonSrv.fnSaveAppSettings(companyId, $rootScope.userinfo.ActiveUserData.appSettings, rmId);
         }
         $hide();
 
-      }
+      };
+
       $scope.setAsideColor = function(color){
         $scope.app.settings.asideColor = color;
       };

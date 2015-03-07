@@ -14,7 +14,7 @@
 
       <!-- navbar collapse   ng-hide-->
       <!-- ng-class="{'show animated fadeIn' : app.navbarCollapse} add this to enable dynamic color change -->
-      <div class="navbar-collapse hidden-xs p-v-xs" ng-class="{'show animated fadeIn' : app.navbarCollapse}">
+      <div class="navbar-collapse hidden-xs" ng-class="{'p-v-xs':roleId != $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId}"  ng-class="{'show animated fadeIn' : app.navbarCollapse}">
         <!-- nav -->
 <!--         <ul class="nav navbar-nav navbar-left ">
           <li>
@@ -57,8 +57,8 @@
                 <div class="line b-b b-light m-h-xs"></div>                
               </div>
             </script>
-            <a class="no-padding-h" href ng-click="appSettings()" bs-tooltip data-title="Appliction Settings" data-type="success" data-placement="left">
-              <i class="glyphicon glyphicon-cog"></i>
+            <a ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" class="no-padding-h" href ng-click="appSettings()" bs-tooltip data-title="Customize theme" data-type="success" data-placement="left">
+              <i class="mdi-image-color-lens text-2x"></i>
               <span class="visible-xs-inline">Settings</span>
             </a>
           </li>
