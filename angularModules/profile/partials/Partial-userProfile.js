@@ -5,6 +5,10 @@ $scope.showHideAbtPic=false;
 $scope.showHidelocationPic=false;
 $scope.showHideDobAndPlacePic=false;
 $scope.selectedTab='AccountSettings';
+$scope.saveButton="save";
+$scope.nameicon=false;
+$scope.emailicon=false;
+$scope.toggle=true;
 if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       $rootScope.hide_when_root_empty=true;
       commonService.GetUserCredentials($scope);
@@ -13,7 +17,10 @@ $scope.userinfo =$rootScope.userinfo;
 var profile = userProfile.loadProfileData($scope.userinfo.userLoginId);
 		profile.then(function (data) {
 			$scope.profileData = angular.fromJson(JSON.parse(data.data));
-			console.log($scope.profileData.profile);
+			// console.log($scope.profileData.profile);
+			// $scope.profileData.profile.passwordRelatedData={};
+			// $scope.profileData.profile.passwordRelatedData.passwordChanges=["hai","hello"];
+			console.log($scope.profileData.profile.passwordRelatedData);
 		});
 
 
@@ -38,7 +45,6 @@ $scope.updateinfo=function(){
 $scope.showHideFotoDive=function(){
 	$scope.updatepicmsg=$scope.updatepicmsg===false? true:false;
 };
-
 $scope.updateUserProfileDatas=function(data){
 	// console.log($scope.profileData.profile);
 	var profileUpdateConfirmation = userProfile.updateUserProfileData($scope.profileData._id.$oid,$scope.profileData.profile);
@@ -49,7 +55,6 @@ $scope.updateUserProfileDatas=function(data){
 		});
 
 };
-
 $scope.editAboutOpt=function(variable){
 	if(variable=='about'){
 		$scope.showHideAbtPic=$scope.showHideAbtPic===false? true:false;
@@ -60,7 +65,12 @@ $scope.editAboutOpt=function(variable){
 	else if(variable=='DobAndPlace'){
 		$scope.showHideDobAndPlacePic=$scope.showHideDobAndPlacePic===false? true:false;
 	}
-	
+	else if(variable=='nameicon'){
+		$scope.nameicon=$scope.nameicon===false? true:false;
+	}
+	else if(variable=='emailicon'){
+		$scope.emailicon=$scope.emailicon===false? true:false;
+	}
 
 };
 
@@ -69,8 +79,9 @@ $scope.loadTabData=function(tab){
 		console.log($rootScope.userinfo.userLoginId);
 	}
 };
-$scope.hello=function(){
-alert("hai");
+$scope.hideNamediv=function(){
+// $scope.toggle=false;
+
 };
 
 //notification 

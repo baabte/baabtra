@@ -62,7 +62,6 @@ angular.module('baabtra')
    $linkedInProvider.set('appKey', '78jnfwsxzeqtdl').set('scope', "r_fullprofile r_network r_emailaddress").set('authorize', true);
   }])
   .constant('bbConfig',{ //used for storing enviornment variables
-
       "BWS": "http://127.0.0.1:8000/",//local
      //"BWS": "http://services.baabtra.com/",//server - production
      //"BWS": "http://server.mb-test.in/",//server-test

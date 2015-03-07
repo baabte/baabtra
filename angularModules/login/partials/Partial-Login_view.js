@@ -146,6 +146,7 @@ $scope.emailPattern = (function() {
 
 $scope.loginSuccessCallback=function(data){
 		$scope.logData=angular.fromJson(JSON.parse(data));
+    // console.log(data);
 		if($scope.logData.add_fb){
 			if($scope.logData.add_fb=="facebook"){
 				$scope.socialSiteName="facebook";
