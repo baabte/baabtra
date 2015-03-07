@@ -7,8 +7,11 @@
         </div>
 		<div ng-if="startTest">
 		<div  ng-repeat="question in dataValue.value.testModel.slice(start,stop)">
-				<test-question-view  data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" question-response="questionAnswer" course-element="courseElement"></test-question-view>
-			
+				<test-question-view  data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" question-response="questionAnswer[$index]" course-element="courseElement"></test-question-view>
+				<pre>{{questionAnswer[$index]}}</pre>
+				<pre>{{question}}</pre>
+
+
 		</div>
 
 		<div class="col-xs-12 text-center" ng-if="start==0&&noOfQuestions!=stop">
