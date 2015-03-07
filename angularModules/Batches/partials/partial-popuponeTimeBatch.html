@@ -1,0 +1,42 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form name="formOnetime" class=" ng-pristine ng-valid"  > 
+      <div class="modal-header">        
+        <h4 class="modal-title text-primary">Onetime</h4>
+      </div>
+      <div class="modal-body">
+       <div class="row"> 
+           <div class="col-xs-12 col-sm-12">
+            
+            <div class="form-group">
+             <label >Don't Start On</label>
+               <div class= "row">
+                    <div class="col-xs-12">
+                     <div class="checkbox checkbox-inline no-margin"  ng-repeat="day in days" bs-tooltip data-title="{{day.id}}" ng-model="Batch.day" >
+                        <label >
+                            <input type="checkbox"value="day" >{{day.text}}
+                        </label>
+                      </div>
+                    </div>  
+                </div>       
+            </div> 
+           
+            <div class="form-group">
+            <label > Starts On</label>
+             <input type="text" class="form-control" ng-model="Batch.startDate" required data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="number" data-autoclose="true" data-min-date="today"  name="date2" bs-datepicker>
+            </div>
+            <div class="form-group">
+            <label > Ends On</label>
+             <input type="text" class="form-control" ng-model="Batch.endDate" required data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="number" data-autoclose="true" data-min-date="today"  name="date1" bs-datepicker>
+            </div>   
+           </div>  
+       </div>    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="saveOnetimefn()"  ng-disabled="formOnetime.$invalid">Done</button>
+      </div>
+     </form> 
+    </div>
+  </div>
+</div>
