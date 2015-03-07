@@ -19,6 +19,9 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfi
 			var evStatus=0;
 			var isDescriptive=false;
 			scope.isMentee=false;
+			scope.start=0;
+			scope.questionAnswer=[];
+			
 
 			//if user is mentee copying all required datas 
 			if(roleId===bbConfig.MURID){
@@ -26,24 +29,47 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfi
 				courseId=$state.params.courseId;
 				scope.isMentee=true;
 			}
+			if(roleId===bbConfig.CURID){
+				scope.startTest=true;
+			}
 
 			scope.dataValue= JSON.parse(scope.data);
 			
 			scope.noOfQuestions=scope.dataValue.value.testModel.length;
-			
+			for (var i = 0; i < scope.noOfQuestions; i++) {
+				var obj={};
+				scope.questionAnswer.push(obj);
+			};
+
 			if(angular.equals(scope.dataValue.value.questionView.mode,'multiple')){
 				scope.questionPerPage=scope.dataValue.value.questionView.questionPerPage;
-				
+				scope.stop=scope.questionPerPage;
 			}
 			else{
 				scope.questionPerPage=scope.noOfQuestions;
+				scope.stop=scope.questionPerPage;
 			}
 
-			
+			scope.questionChangeNext=function(start,stop){
+				scope.start=stop;
+				scope.stop+=scope.questionPerPage;
+				if (scope.stop>scope.noOfQuestions) {
+					scope.stop=scope.noOfQuestions;
+				}
+			};
+			scope.questionChangePrevious=function(start,stop){
+				scope.stop=start;
+				scope.start-=scope.questionPerPage;
+				
+				if (scope.stop>scope.noOfQuestions) {
+					scope.stop=scope.noOfQuestions;
+				}
+			};
 
 			 scope.fnFormatObj=function (question) {
             	return JSON.stringify({value:question});
             };
+            
 
 
 		}

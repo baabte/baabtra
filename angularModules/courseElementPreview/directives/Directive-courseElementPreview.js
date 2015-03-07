@@ -4,7 +4,8 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 		replace: true,
 		scope: {
 			previewData:"=",
-			tlPosition:"@"
+			tlPosition:"@",
+			courseId:'='
 		},
 		templateUrl: 'angularModules/courseElementPreview/directives/Directive-courseElementPreview.html',
 		link: function(scope, element, attrs, fn) {
@@ -18,6 +19,7 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 							 		elementToBeCreated.attr('data',JSON.stringify(data));
 							 		elementToBeCreated.attr('course-element',JSON.stringify(scope.previewData));
 							 		elementToBeCreated.attr('index',key);
+							 		elementToBeCreated.attr('course-id','courseId');
 							 		$('#elementContent'+scope.rand).append(elementToBeCreated);
 							}
 					});

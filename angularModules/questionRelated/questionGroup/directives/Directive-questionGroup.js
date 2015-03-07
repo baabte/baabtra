@@ -29,6 +29,8 @@ angular.module('baabtra').directive('questionGroup',['$aside', function($aside) 
 			scope.questionView=scope.ngModel.questionView;
 			scope.questionShow=false;
 			scope.questionModel={mark:{}};
+			scope.courseElement={index:1,tlPointInMinute:1000,Name:'Test'};
+			scope.questionGroupModel=scope.ngModel.testModel;
 			}
 		 scope.dropDown=function (index) {
 		    	var list=[];
@@ -124,9 +126,17 @@ angular.module('baabtra').directive('questionGroup',['$aside', function($aside) 
 		    },true);
 
           scope.addQuestion =function(questionModel,placeindex){
-
+          	// console.log(questionModel);
+          	var tempArray=[];
+          	for(var key in questionModel.answer){
+          		var tempObj={};
+          		tempObj=questionModel.answer[key];
+          		tempArray.push(tempObj);
+          	}
+          	questionModel.answer=tempArray;
             	if(angular.equals(placeindex,undefined)){
             	scope.questionGroupModel.push(questionModel);//must pass questionmodel instead of scope.questionmodel
+            	// console.log(scope.questionGroupModel);
             		
             		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};
             	}//to add a question to a specific position 

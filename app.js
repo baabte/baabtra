@@ -51,10 +51,16 @@
         'ngImgCrop',
         'monospaced.qrcode',
         'masonry',
-        'googlechart'
+        'googlechart',
+        'gettext'
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';
 })
+
+//       .run(function(gettextCatalog){
+//   gettextCatalog.currentLanguage = 'ar';
+//   gettextCatalog.debug = true;
+// })
 
 
 
