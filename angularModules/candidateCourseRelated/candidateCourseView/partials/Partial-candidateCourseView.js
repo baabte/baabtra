@@ -21,10 +21,19 @@ angular.module('baabtra').controller('viewCandidateCourseCtrl',
 		 $scope.getElement=function (direction) {
 		 	var gotCurrentElement=CCFV.getCurrentElement(userLoginId,courseMappingId,direction);
 		    gotCurrentElement.then(function (data) {
+		    	
 		    	var dataElement=angular.fromJson(JSON.parse(data.data));
-		    	var selectedDuration=$scope.ddlBindObject[dataElement.selectedDuration-1];
-		    	var tlPointName=selectedDuration.name.replace('(s)',' ');
-		    	$scope.tlPointName=tlPointName+(Math.ceil(dataElement.tlPoint*selectedDuration.mFactor));
+		    	if(dataElement=="error"){
+					$state.go('home.main.CandidateCourseView');
+		    	}
+		    	if(dataElement.tlPoint==0){
+		    		$scope.tlPointNam='';
+		    	}
+		    	else{
+		    		var selectedDuration=$scope.ddlBindObject[dataElement.selectedDuration-1];
+			    	var tlPointName=selectedDuration.name.replace('(s)',' ');
+			    	$scope.tlPointName=tlPointName+(Math.ceil(dataElement.tlPoint*selectedDuration.mFactor));
+		    	}
 		    	$scope.PrevObj=dataElement.element;
 		    	$scope.courseId=dataElement.courseId;
 		    	$scope.lastViewedOrder=dataElement.lastViewedOrder;

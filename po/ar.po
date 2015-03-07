@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: baabtra.com\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Anoop <anoop@baabte.com>\n"
+"Language-Team: teamBaabtra\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:41
+msgid "% of commission"
+msgstr "٪ من عمولة"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:54
+msgid "Add Reseller"
+msgstr "إضافة موزع"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:6
+msgid "Add a reseller"
+msgstr "إضافة التجزئة"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:45
+msgid "Address"
+msgstr "عنوان البريد:"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:29
+msgid "Contact Person"
+msgstr "الشخص الذي يمكن الاتصال به"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:18
+msgid "Email Address"
+msgstr "عنوان البريد الإلكتروني"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:23
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:34
+msgid "Phone Number"
+msgstr "رقم الهاتف"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:53
+msgid "cancel"
+msgstr "ألغِ"

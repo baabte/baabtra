@@ -11,7 +11,11 @@ angular.module('baabtra').directive('docViewerFrame', ['$sce',function($sce) {
 			scope.trustSrc = function(src) {
 					return $sce.trustAsResourceUrl(src);
 				};
-			scope.newData=angular.fromJson(JSON.parse(scope.data));
+
+			scope.$watch('data',function () {
+				scope.newData=angular.fromJson(JSON.parse(scope.data));
+			},true);
+			
 
 		}
 	};
