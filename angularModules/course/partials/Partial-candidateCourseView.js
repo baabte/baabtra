@@ -13,6 +13,9 @@ $scope.navigateToDetails=function(courseId){
 	$state.go('home.main.CandidateCourseDetails',{courseId:courseId});
 	// $state.go('home.main.viewCourse',{courseId:courseId});
 };
+$scope.navigateToClassroom=function(courseMappingId){
+	$state.go('home.main.viewMyCourse',{courseMappingId:courseMappingId});
+};
 
 
 }]);

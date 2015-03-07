@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseService','$compile','questionAnsweringSrv','$rootScope','$state', function(bbConfig,addCourseService,$compile,questionAnsweringSrv,$rootScope,$state) {
+angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseService','$compile','questionAnsweringSrv','$rootScope','$state', function(bbConfig,addCourseService,$compile,questionAnsweringSrv,$rootScope,$state) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -7,9 +7,9 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 			index:'=',
 			courseElement:'=',
 			multiAnswer:'=',
-			courseId:'='
+			questionResponse:'='
 		},
-		templateUrl: 'angularModules/courseElementFields/questionViewer/directives/Directive-questionViewer.html',
+		templateUrl: 'angularModules/courseElementFields/testQuestionView/directives/Directive-testQuestionView.html',
 		link: function(scope, element, attrs, fn) {
 			var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId; // Role id of logged user
 			var userLoginId;
@@ -25,7 +25,7 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 			//if user is mentee copying all required datas 
 			if(roleId===bbConfig.MURID){
 				userLoginId=$rootScope.userinfo.userLoginId;
-				courseId=scope.courseId;
+				courseId=$state.params.courseId;
 				scope.isMentee=true;
 			}
 
@@ -46,18 +46,18 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 						if(scope.ItsTimeToSavePrimaryToDB && scope.ItsTimeToSaveSecondaryToDB){
 			// console.log('murid',courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
 
-							var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
-								promise.then(function (data) {
-									data=angular.fromJson(JSON.parse(data.data));
-									if(data.success){
-										scope.question.userAnswer=scope.answerToDb;
-										scope.dbAnswer=scope.answerToDb;
-										scope.question.markScored=scope.mark;
-										scope.question.evaluated=evStatus;
-										scope.question.dateOfSubmission=time;
-									}
-								});
-							
+							// var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
+							// 	promise.then(function (data) {
+							// 		data=angular.fromJson(JSON.parse(data.data));
+							// 		if(data.success){
+							// 			scope.question.userAnswer=scope.answerToDb;
+							// 			scope.dbAnswer=scope.answerToDb;
+							// 			scope.question.markScored=scope.mark;
+							// 			scope.question.evaluated=evStatus;
+							// 			scope.question.dateOfSubmission=time;
+							// 		}
+							// 	});
+							scope.questionResponse={userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time};
 
 
 							dbSaverUnbind();
@@ -68,17 +68,19 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 					
 				}
 				else{
-					var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
-						promise.then(function (data) {
-							data=angular.fromJson(JSON.parse(data.data));
-							if(data.success){
-								scope.question.userAnswer=scope.userAnswer;
-								scope.dbAnswer=scope.userAnswer;
-								scope.question.markScored=scope.mark;
-								scope.question.evaluated=evStatus;
-								scope.question.dateOfSubmission=time;
-							}
-						});	
+					// var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
+					// 	promise.then(function (data) {
+					// 		data=angular.fromJson(JSON.parse(data.data));
+					// 		if(data.success){
+					// 			scope.question.userAnswer=scope.userAnswer;
+					// 			scope.dbAnswer=scope.userAnswer;
+					// 			scope.question.markScored=scope.mark;
+					// 			scope.question.evaluated=evStatus;
+					// 			scope.question.dateOfSubmission=time;
+					// 		}
+					// 	});	
+					scope.questionResponse={userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time};
+						
 				}
 				
 			};

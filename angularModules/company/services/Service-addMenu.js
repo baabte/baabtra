@@ -24,26 +24,13 @@ this.addMenuDetails=function($scope){
 
 
   this.updateMenuDetails=function($scope,menu){
-  $http({
-    method: 'post',
-    url: bbConfig.BWS+'UpdateMenus/',
-    data:{'menu':menu,'rm_id':$scope.userRoleMappingId},
-    contentType:'application/json; charset=UTF-8',
-    }).
-    success(function(data, status, headers, config) { //success respond from server
-            $alert({title: 'Successfuly',
-                    type:'success',
-                    content: 'Updated...',
-                    animation:'am-fade',
-                    duration:'3',
-                    placement: 'top-right',
-                    template: 'views/ui/angular-strap/alert.tpl.html',
-                    show: true
-                  });
-          $scope.allMenus=angular.fromJson(JSON.parse(data));//Converting the result to json object
-        }).
-    error(function(data, status, headers, config) {
-    });
+    var promise = $http({
+      method: 'post',
+      url: bbConfig.BWS+'UpdateMenus/',
+      data:{'menu':menu},
+      contentType:'application/json; charset=UTF-8',
+      });
+    return promise;
   };
 
   this.FnGetAllMenus=function ($scope,type){//To Load All menus of loded user

@@ -1,20 +1,30 @@
 
 <div>
 	<div class="col-xs-12">
-		<div class="col-xs-12 text-center">
-			<div class="btn btn-warning" ng-hide="startTest==true" ng-click="startTest=true">Click to Start Test<div class="ripple-wrapper"></div>
+		<div ng-hide="startTest==true" class="col-xs-12 text-center">
+			<div class="btn btn-warning"  ng-click="startTest=true">Click to Start Test<div class="ripple-wrapper"></div>
          	</div>
         </div>
 		<div ng-if="startTest">
-		<div  ng-repeat="question in dataValue.value.testModel | limitTo:questionPerPage |limitTo:-questionPerPage">
-				<question-viewer data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" course-element="courseElement"></question-viewer>
+		<div  ng-repeat="question in dataValue.value.testModel.slice(start,stop)">
+				<test-question-view  data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" question-response="questionAnswer" course-element="courseElement"></test-question-view>
+			
 		</div>
-		<div class="col-xs-12 text-center" ng-if="questionPerPage!=noOfQuestions">
-			<div class="btn btn-info">Next<div class="ripple-wrapper"></div>
+
+		<div class="col-xs-12 text-center" ng-if="start==0&&noOfQuestions!=stop">
+			<div class="btn btn-info" ng-click="questionChangeNext(start,stop)">Next<div class="ripple-wrapper"></div>
          	</div>
         </div>
-        <div class="col-xs-12 text-center" ng-if="questionPerPage=noOfQuestions">
-			<div class="btn btn-info">Submit<div class="ripple-wrapper"></div>
+        <div class="col-xs-12 text-center" ng-if="start>0&&stop<noOfQuestions">
+        	<div class="btn btn-info " ng-click="questionChangePrevious(start,stop)">Previous<div class="ripple-wrapper"></div>
+         	</div>
+			<div class="btn btn-info" ng-click="questionChangeNext(start,stop)">Next<div class="ripple-wrapper"></div>
+         	</div>
+        </div>
+        <div class="col-xs-12 text-center" ng-if="noOfQuestions==stop">
+        	<div ng-if="dataValue.value.questionView.mode=='multiple'" class="btn btn-info pull-left" ng-click="questionChangePrevious(start,stop)">Previous<div class="ripple-wrapper"></div>
+         	</div>
+			<div ng-if="isMentee" class="btn btn-danger pull-right">Submit<div class="ripple-wrapper"></div>
          	</div>
         </div>
         </div>
