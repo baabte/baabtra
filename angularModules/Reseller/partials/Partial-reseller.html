@@ -3,7 +3,7 @@
 		<div class="bg-white">
 
 <div class="bg-white p-sm b-b b-2x b-success " >
-  <h4 class="no-margin">Add a reseller</h3>
+  <h4 class="no-margin" translate="{{'Add a reseller'|translate}}"></h3>
 </div>
 
 
@@ -15,39 +15,39 @@
 		        	<div class="col-xs-12">
 		        		<div class="form-group col-xs-12 col-sm-6">
 		        			<!-- Email -->
-                				<div class="col-xs-12"><input id="emailAddress" float-label placeholder="Email Address" type="text" xt-validate required name="eMail" class="form-control" ng-model="reseller.eMail" autocomplete="off"  ng-blur="LoadExistingUserData(reseller.eMail)" ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$/" indicate-val="email">                				</div>
+                				<div class="col-xs-12"><input id="emailAddress" float-label placeholder="{{'Email Address'|translate}}" type="text" xt-validate required name="eMail" class="form-control" ng-model="reseller.eMail" autocomplete="off"  ng-blur="LoadExistingUserData(reseller.eMail)" ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$/" indicate-val="email">                				</div>
               			</div> 	
               				<!-- Password -->
               			<div class="form-group col-xs-12 col-sm-6">            				
                 				
-                				<div class="col-xs-12"><input id="password" float-label placeholder="Password" type="password" xt-validate required name="password" class="form-control" ng-model="reseller.password" indicate-val="required"></div>
+                				<div class="col-xs-12"><input id="password" float-label placeholder="{{'Password'|translate}}" type="password" xt-validate required name="password" class="form-control" ng-model="reseller.password" indicate-val="required"></div>
               				</md-input-container>
             			</div>            			
             			
             			<div class="form-group col-xs-12 col-sm-4">            				
-            				 <div class="col-xs-12"><input id="contactPerson" float-label placeholder="Contact Person" type="text" xt-validate required name="contactPerson" class="form-control" ng-model="reseller.contactPerson" indicate-val="required"></div>
+            				 <div class="col-xs-12"><input id="contactPerson" float-label placeholder="{{'Contact Person'|translate}}" type="text" xt-validate required name="contactPerson" class="form-control" ng-model="reseller.contactPerson" indicate-val="required"></div>
             			</div>
 
               			<div class="form-group col-xs-12 col-sm-4">			        			
-			        			<div class="col-xs-12"><input id="contactNumber" float-label placeholder="Contact Number" type="text" xt-validate required name="contactNumber" ng-pattern="/^(\+\d{1,3}[- ]?)?\d{10}$/" class="form-control" ng-model="reseller.contactNumber"  indicate-val="phone"></div>
+			        			<div class="col-xs-12"><input id="contactNumber" float-label placeholder="{{'Contact Number'|translate}}" type="text" xt-validate required name="contactNumber" ng-pattern="/^(\+\d{1,3}[- ]?)?\d{10}$/" class="form-control" ng-model="reseller.contactNumber"  indicate-val="phone"></div>
               			</div>             				
             			
 		        	
 		        		<!-- Address -->
 		        		<div class="form-group col-xs-12 col-sm-4">				        			
-				        			<div class="col-xs-12"><input id="commission" float-label placeholder="% of Commission" type="number" class="form-control" xt-validate required name="commission" ui-validate=" '$value <= 100' " ng-model="reseller.commission" required  indicate-val="number"></div>
+				        			<div class="col-xs-12"><input id="commission" float-label placeholder="{{'% of Commission'|translate}}" type="number" class="form-control" xt-validate required name="commission" ui-validate=" '$value <= 100' " ng-model="reseller.commission" required  indicate-val="number"></div>
 	              		</div>		        		
 			        	<div class="form-group col-xs-12 col-sm-12">			        				
 				        			<div class="col-xs-12">
-			        				<textarea id="address" float-label placeholder="Address" class="form-control" ng-model="reseller.address"></textarea>
+			        				<textarea id="address" float-label placeholder="{{'Address'|translate}}" class="form-control" ng-model="reseller.address"></textarea>
 			        				</div>
 		        		</div>
 		        	</div>
 		        </div>
 
 		        <div class="panel-footer text-right" layout="row" layout-align="space-between end">
-		        	<button class="btn btn-warning baab-btn" type="reset" ng-disabled="resellerInfo.$pristine">cancel</button>		
-	            	<button class="btn btn-info baab-btn" ng-disabled="resellerInfo.$invalid" ng-click="insertResellerDetails(reseller)">Add Reseller</button>
+		        	<button class="btn btn-warning baab-btn" type="reset" ng-disabled="resellerInfo.$pristine" translate="{{'Cancel'|translate}}"></button>		
+	            	<button class="btn btn-info baab-btn" ng-disabled="resellerInfo.$invalid" ng-click="insertResellerDetails(reseller)" translate="{{'Add Reseller'|translate}}"></button>
 	          	</div>
           	</form>
 	    </div>

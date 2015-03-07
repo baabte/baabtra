@@ -57,6 +57,18 @@ this.FnLoadGlobalValues=function(key)
            dataType:'json',
            })
     return promise;
+    };
+    
+   this.getResultFromUrl = function (url){
+    var promise = $http({
+      url:url,
+      method: "GET",
+      withCredentials: false,
+      contentType:"application/json",
+      dataType:"json",
+      crossDomain : true,
+    });
+    return promise;
    };
 
       // this.FnLoadExistingResellerUserData=function($scope, userEmail)

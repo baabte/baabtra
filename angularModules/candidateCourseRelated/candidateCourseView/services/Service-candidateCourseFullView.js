@@ -1,3 +1,9 @@
+/*
+created By:Lijin
+date : 6-3-2015
+purpose: for getting current course element for full view
+*/
+
 angular.module('baabtra').service('candidateCourseFullView',['$http','bbConfig',
 function candidateCourseFullView($http,bbConfig) {
 

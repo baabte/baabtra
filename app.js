@@ -55,10 +55,12 @@
         'gettext'
       ]).run(function(editableOptions) {
   editableOptions.theme = 'bs3';
-}).run(function(gettextCatalog){
-  gettextCatalog.currentLanguage = 'ar';
-  gettextCatalog.debug = true;
 })
+
+//       .run(function(gettextCatalog){
+//   gettextCatalog.currentLanguage = 'ar';
+//   gettextCatalog.debug = true;
+// })
 
 
 
