@@ -162,8 +162,8 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 				//Creating directive elements according to type of question
 				var answerArea=$('#answers'+scope.randomKey);
 				if(scope.question.type=='objective'){
-					console.log(scope.question.options);
 					evStatus=1;
+					scope.questionResponse.evaluated=evStatus;
 					var optionsElem=$('<objective-options>');
 					    optionsElem.attr('options',"question.options");
 					    optionsElem.attr('answer-type',"question.answerType");
@@ -220,6 +220,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 						scope.secondaryForm.fields.push(debugVal);
 					}
 					evStatus=0;
+					scope.questionResponse.evaluated=evStatus;
 					var descriptiveElem=$('<descriptive-answer>');
 						descriptiveElem.attr('primary','primaryForm');
 						descriptiveElem.attr('secondary','secondaryForm');
