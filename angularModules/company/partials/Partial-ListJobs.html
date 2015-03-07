@@ -19,7 +19,7 @@
                           <i class="ti-search"></i>
                         </button>
                       </span>
-                      <input ng-model="modelSearch" type="text" class="form-control input-sm no-border" placeholder="Search Jobs...">
+                      <input ng-model="modelSearch" type="text" class="form-control input-sm no-border" placeholder="{{'Search Jobs...'|translate}}">
                     </div>
                   </div>
                   </div>
@@ -32,7 +32,7 @@
                       <a ng-click="editJobDetails(Job)" href="" class="text-muted m-r-xs" title="Edit Job"><i class="glyphicon glyphicon-edit text-lg"  ></i></a>
                     <a href="" class="text-muted" title="Hide Job" ng-click="hideJobDetails(Job._id.$oid,Job.activeFlag)"><i class="glyphicon text-lg" ng-class="{'glyphicon-eye-open':!Job.activeFlag,'glyphicon-eye-close':Job.activeFlag}"></i></a>
                     </div>
-        						<a href="" class="text-lg text-ellipsis" ng-click="ViewJobDetails(Job)" disabled>{{Job.jobTittle}}</a>
+        						<a href="" class="text-lg text-ellipsis" ng-click="ViewJobDetails(Job)" disabled g-translate>{{Job.jobTittle}}</a>
         					<div>
         					<div class="panel-body ng-hide p-sm">
         						
@@ -43,29 +43,29 @@
       									</div>
         								<div class="col-sm-2">
       									   <i class="glyphicon glyphicon-map-marker"></i>
-      									   <span>{{Job.Location}}</span>
+      									   <span g-translate>{{Job.Location}}</span>
       									</div>
     								</div>
     								<div class="form-group">
         								<div class="col-sm-3">
-      									   <label>Job Description</label>
+      									   <label translate="{{'Job Description'|tanslate}}"></label>
       									</div>
       									<div class="col-sm-9">
-      									   <label>{{Job.jobDescription | limitTo: 100}}...</label>
+      									   <label g-translate>{{Job.jobDescription | limitTo: 100}}...</label>
       									</div>
       								</div>
       								<div class="form-group">
         								<div class="col-sm-6">
       									   <i class="fa  fa-rupee"></i>
-      									   <span>{{Job.minSalary}}</span>
+      									   <span g-translate>{{Job.minSalary}}</span>
       									   <span>-</span>
-      									   <span>{{Job.maxSalary}}</span>
-      									   <span>P.A</span>
+      									   <span g-translate>{{Job.maxSalary}}</span>
+      									   <span g-translate>P.A</span>
       									</div>
         								<div class="col-sm-6">
         									<div class="pull-right">
-      									   <span>Posted On:</span>
-      									   <span>{{Job.createdDate | date:'dd-MM-yyyy'}}</span>
+      									   <span translate="{{'Posted On:'|translate}}"></span>
+      									   <span g-translate>{{Job.createdDate | date:'dd-MM-yyyy'}}</span>
       									   </div>
       									</div>
     								</div>

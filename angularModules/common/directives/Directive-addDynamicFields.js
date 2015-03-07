@@ -10,9 +10,9 @@ angular.module('baabtra').directive('addDynamicFields',['$sce','$templateCache',
 
 			 $templateCache.put('DynamicFields/popup.html','<div><input class=\"form-control\" type=\"text\"></div>');
   		 $templateCache.put('DynamicFields/editor.html', '<div><ng-quill-editor name=\"{{detail.title}}\" ng-model=\"newField.value\"  toolbar=\"true\" link-tooltip=\"true\" image-tooltip=\"true\" toolbar-entries=\"font size bold list bullet italic underline strike align color background link image\" error-class=\"input-error\"></ng-quill-editor>');
-			 $templateCache.put('DynamicFields/inputText.html','<input ng-model=\"detail.value\" class=\"form-control \" float-label placeholder="\{{detail.title}}\" >');
-			 $templateCache.put('DynamicFields/video.html','<input type=\"text\" readonly=\"\" class=\"form-control\" float-label placeholder=\"Please Choose a video\"><input type=\"file\" ng-file-select=\"onFileSelect($files, newField)\" ng-model=\"newField.value\" ng-multiple=\"false\" accept=\"video/*\" resetOnClick=\"true\">');
-       $templateCache.put('DynamicFields/ppt.html','<input type=\"text\" readonly=\"\" class=\"form-control\" float-label placeholder=\"Please Choose a ppt\"><input type=\"file\" ng-file-select=\"onFileSelect($files, newField)\" ng-model=\"newField.value\" ng-multiple=\"false\" accept=\"*.pdf,*.xml,*.doc\" resetOnClick=\"true\">');
+			 $templateCache.put('DynamicFields/inputText.html','<input g-translate ng-model=\"detail.value\" class=\"form-control \" float-label placeholder=\"{{detail.title}}\" >');
+			 $templateCache.put('DynamicFields/video.html','<input type=\"text\" readonly=\"\" class=\"form-control\" float-label placeholder=\"{{\'Please Choose a video\'|translate}}\"><input type=\"file\" ng-file-select=\"onFileSelect($files, newField)\" ng-model=\"newField.value\" ng-multiple=\"false\" accept=\"video/*\" resetOnClick=\"true\">');
+       $templateCache.put('DynamicFields/ppt.html','<input type=\"text\" readonly=\"\" class=\"form-control\" float-label placeholder=\"{{\'Please Choose a ppt\'|translate}}\"><input type=\"file\" ng-file-select=\"onFileSelect($files, newField)\" ng-model=\"newField.value\" ng-multiple=\"false\" accept=\"*.pdf,*.xml,*.doc\" resetOnClick=\"true\">');
 			
        scope.customDetailDropdown = [{value:"DynamicFields/editor.html",label:"Add a Description feild"},{value:"DynamicFields/video.html",label:"Add a video"},{value:"DynamicFields/ppt.html",label:"Add a ppt"}];
        scope.btnName = "Add";
