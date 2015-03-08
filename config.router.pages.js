@@ -478,6 +478,16 @@
                 }
                 
               })
+                 .state('home.main.viewUsers', {
+                url: '/viewUsers',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/user/partials/Partial-viewUsers.html',
+                    controller: 'ViewusersCtrl'
+                  }
+                }
+                
+              })
               .state('home.main.bulkEnrollment', {
                 url: '/bulkEnrollment',
                 views:{
