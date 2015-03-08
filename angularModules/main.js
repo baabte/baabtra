@@ -89,15 +89,26 @@ angular.module('baabtra')
       $scope.header ={} ;
       $scope.header.type = "Header";
       $scope.roleId = bbConfig.CURID;
+      var appSettings = "";
+      var companyId = "";
+      var rmId = "";
       $scope.appSettings = function(){
-        $modal({scope: $scope, placement:"center" ,backdrop:'static' , template: 'angularModules/common/popup/popup-appSettings.html', show: true});
-      }
-
-      var appSettings = {};
-      $scope.setHeaderColor = function(color){
+        console.log($rootScope.userinfo.ActiveUserData.appSettings);
+        companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+        rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+        //if not setting appsettings, create a null object for appSettings
         if(angular.equals($rootScope.userinfo.ActiveUserData.appSettings,null)){
           $rootScope.userinfo.ActiveUserData.appSettings = {};
         }
+
+        //take copy of of appsettings for get old state of app settings
+
+        appSettings = angular.copy($rootScope.userinfo.ActiveUserData.appSettings);
+        
+        $modal({scope: $scope, placement:"center" ,backdrop:'static' , template: 'angularModules/common/popup/popup-appSettings.html', show: true});
+      };
+
+      $scope.setHeaderColor = function(color){
         if(angular.equals($scope.header.type,"Header")){
           $rootScope.userinfo.ActiveUserData.appSettings.headerColor = color;
         }
@@ -107,30 +118,70 @@ angular.module('baabtra')
         else{
           $rootScope.userinfo.ActiveUserData.appSettings.backgroundColor = color;
         }
-        appSettings.headerColor = $rootScope.userinfo.ActiveUserData.appSettings.headerColor;
-        appSettings.asideColor = $rootScope.userinfo.ActiveUserData.appSettings.asideColor;
-        appSettings.backgroundColor = $rootScope.userinfo.ActiveUserData.appSettings.backgroundColor;
       };
 
 
       $scope.backgroundImageChanged = function($file){
-        var oldBackgroundImage = $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage;
-        var fileRemoveResponse = commonSrv.fnRemoveFileFromServer(oldBackgroundImage);
+        var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+        var rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+        if(!angular.equals($rootScope.userinfo.ActiveUserData.appSettings.backgroundImage,"")){
+          var oldBackgroundImage = $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage.split('(')[1].split(')')[0];
+          var fileRemoveResponse = commonSrv.fnRemoveFileFromServer(oldBackgroundImage);
+        }
         var ImageUploadResponse = commonSrv.fnFileUpload($file[0],"backgroundImage");
         ImageUploadResponse.then(function(response){
-          $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage = bbConfig.BWS+'files/backgroundImage/'+response.data.replace('"','').replace('"','');
+          $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage = 'url('+bbConfig.BWS+'files/backgroundImage/'+response.data.replace('"','').replace('"','') +')';
+          commonSrv.fnSaveAppSettings(companyId, $rootScope.userinfo.ActiveUserData.appSettings, rmId);
+
+        });
+      };
+
+      $scope.logoChanged = function($file){
+        if(!angular.equals($rootScope.userinfo.ActiveUserData.appSettings.logo,"")){
+          var oldLogo = $rootScope.userinfo.ActiveUserData.appSettings.logo;
+          var fileRemoveResponse = commonSrv.fnRemoveFileFromServer(oldLogo);
+        }
+        var LogoUploadResponse = commonSrv.fnFileUpload($file[0],"companyLogo");
+        LogoUploadResponse.then(function(response){
+          $rootScope.userinfo.ActiveUserData.appSettings.logo = bbConfig.BWS+'files/companyLogo/'+response.data.replace('"','').replace('"','');
+          appSettings.logo = bbConfig.BWS+'files/companyLogo/'+response.data.replace('"','').replace('"','');
+          commonSrv.fnSaveAppSettings(companyId, $rootScope.userinfo.ActiveUserData.appSettings, rmId);
         });
       };
 
       $scope.saveAppSettings = function($hide){
+        appSettings.headerColor = $rootScope.userinfo.ActiveUserData.appSettings.headerColor;
+        appSettings.asideColor = $rootScope.userinfo.ActiveUserData.appSettings.asideColor;
+        appSettings.backgroundColor = $rootScope.userinfo.ActiveUserData.appSettings.backgroundColor;
         var rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
         if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,2)){
           var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-          console.log($rootScope.userinfo.ActiveUserData.appSettings);
           commonSrv.fnSaveAppSettings(companyId, $rootScope.userinfo.ActiveUserData.appSettings, rmId);
         }
         $hide();
 
+      };
+
+      //function for remove background image
+      $scope.removeBackgroundImage = function(){
+        var imageToBeRemoved = $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage.split('(')[1].split(')')[0];
+        var fileRemoveResponse = commonSrv.fnRemoveFileFromServer(imageToBeRemoved);
+        $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage = "";
+        appSettings.backgroundImage = "";
+      };
+
+      //function for remove Logo
+      $scope.removeLogo = function(){
+        var logoToBeRemoved = $rootScope.userinfo.ActiveUserData.appSettings.logo;
+        var fileRemoveResponse = commonSrv.fnRemoveFileFromServer(logoToBeRemoved);
+        $rootScope.userinfo.ActiveUserData.appSettings.logo = "";
+        appSettings.logo = "";
+      };
+
+      //when click cancel button exicute this function and revert to previous theme
+      $scope.cancelAppSettings = function($hide){
+        $rootScope.userinfo.ActiveUserData.appSettings = angular.copy(appSettings);
+        $hide();
       };
 
       $scope.setAsideColor = function(color){
