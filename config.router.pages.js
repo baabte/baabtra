@@ -478,7 +478,16 @@
                 }
                 
               })
-
+              .state('home.main.bulkEnrollment', {
+                url: '/bulkEnrollment',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/user/partials/Partial-bulkEnrollment.html',
+                    controller: 'BulkenrollmentCtrl'
+                  }
+                }
+                
+              })
               .state('home.main.viewMyCourse', {
                 url: '/viewMyCourse/:courseMappingId',
                 views:{
