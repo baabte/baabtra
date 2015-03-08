@@ -5,9 +5,9 @@
           <img  ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length" ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" class="navbar-img img-circle pull-right m-t" style="margin-top: 0px;">
         </button>
         <!-- brand -->
-      <!--   <a class="navbar-brand text-lt">
-          <img src="images/Logo.png" class="img-responsive" style="max-height: 40px !important;">
-        </a> -->
+        <a bs-tooltip data-title="Click to change logo" data-placement="right" class="navbar-brand text-lt" ng-if="$root.userinfo.ActiveUserData.appSettings.logo" ng-click="appSettings()" style="width: auto;">
+          <img src="{{$root.userinfo.ActiveUserData.appSettings.logo}}" class="img-responsive" style="max-height: 40px !important;">
+        </a>
         <!-- / brand -->
       </div>
       <!-- / navbar header -->

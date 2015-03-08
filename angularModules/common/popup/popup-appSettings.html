@@ -39,9 +39,25 @@
               <div class="form-group">
                 <div class="row">
                   <label class="col-xs-3 control-label">Background image</label>
-                  <div class="col-xs-9">
+                  <div class="col-xs-7">
                     <input type="text" readonly="" class="form-control floating-label" placeholder="Browse background image...">
                     <input type="file" ng-file-select="backgroundImageChanged($files)">
+                  </div>
+                  <div class="col-xs-2" ng-if="$root.userinfo.ActiveUserData.appSettings.backgroundImage.length">
+                    <a href="" ng-click="removeBackgroundImage()"><i bs-tooltip data-title="Remove background image" data-placement="left" class="fa mdi-action-delete text-2x m-v-xs"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <label class="col-xs-3 control-label">Logo</label>
+                  <div class="col-xs-7">
+                    <input type="text" readonly="" class="form-control floating-label" placeholder="Browse logo...">
+                    <input type="file" ng-file-select="logoChanged($files)">
+                  </div>
+                  {{$root.userinfo.ActiveUserData.appSettings.log.length}}
+                  <div class="col-xs-2" ng-if="$root.userinfo.ActiveUserData.appSettings.logo.length">
+                    <a href="" ng-click="removeLogo()"><i bs-tooltip data-title="Remove logo" data-placement="left" class="fa mdi-action-delete text-2x m-v-xs"></i></a>
                   </div>
                 </div>
               </div>
@@ -50,7 +66,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-warning" ng-click="$hide()">Cancel</button>
+        <button type="button" class="btn btn-warning" ng-click="cancelAppSettings($hide)">Cancel</button>
         <button type="button" class="btn btn-primary" ng-click="saveAppSettings($hide)">Save</button>
       </div>
     </div>

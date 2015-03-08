@@ -167,7 +167,12 @@ border-radius: 3px;
 .default-bg{
   /*no-repeat center center fixed*/
   background:#ffffff url(../images/Mainbg/promo2.png) no-repeat center center fixed;
-  
+}
+
+.background-properties{
+  background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
   -webkit-background-size: cover !important;
   -moz-background-size: cover !important;
   -o-background-size: cover !important;
