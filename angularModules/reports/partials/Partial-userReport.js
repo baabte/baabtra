@@ -1,14 +1,20 @@
-angular.module('baabtra').controller('UserreportCtrl',['$scope','$filter',function($scope,$filter){
+angular.module('baabtra').controller('UserreportCtrl',['$scope','$filter','bulkEnrollment','$rootScope',function($scope,$filter,bulkEnrollment,$rootScope){
 
 //report list drop down values
 $scope.reportTypeList=[{'id':'rptEnroll','type':'user enrollment report'},{'id':'rptDetail','type':'Performance report'}];
 $scope.obj={};
-$scope.type={'id':'rptEnroll','type':'user enrollment report'};
 
-$scope.obj.rptEnroll = {
-  "type":"PieChart",	
+$scope.type={'id':'rptEnroll','type':'user enrollment report'};
+//getting the user role mapping id
+$rootScope.$watch('userinfo',function(){
+  $scope.userRegister={};
+    $scope.loggedusercrmid = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+    $scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+    bulkEnrollment.FnLoadReport($scope);
+    $scope.obj.rptEnroll = {
+  "type":"PieChart",  
   "displayed": true,
-  "data":{
+  /*"data":{
        "cols": [
       {
         "id": "month",
@@ -102,7 +108,7 @@ $scope.obj.rptEnroll = {
             "v": 6
           }
         ]
-      }]},
+      }]},*/
   "options": {
     "title": "Sales per month",
     "isStacked": "true",
@@ -126,8 +132,13 @@ $scope.obj.rptEnroll = {
   "formatters": {}
 };
 
+$scope.obj.rptEnroll.data={};
+$scope.obj.rptEnroll.data=$scope.data.data; //load from database
 
-$scope.obj.rptDetail = {
+}); //end rootmap watch
+
+
+$scope.obj.rptDetail = { //dummy object
   "type":"PieChart",	
   "displayed": true,
   "data":{
