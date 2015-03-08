@@ -1,23 +1,20 @@
       <!-- navbar header ng-class="{'box-shadow-inset dk':app.settings.headerShadow}"  -->
-      <div class="navbar-header p-v-xs bg-light">
+      <div class="navbar-header p-v-xs" ng-class="{'box-shadow-inset dk':app.settings.headerShadow}">
         <button class="pull-right visible-xs" bs-aside="aside" data-template="angularModules/login/partials/Partial-sm_User_Menu.html" data-placement="right" data-animation="am-slide-right aside-open-inner modal-open" data-container="body">
           <!-- <span class="visible-xs m-r pull-left">{{userinfo.ActiveUserData.username}}</span> -->
           <img  ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length" ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" class="navbar-img img-circle pull-right m-t" style="margin-top: 0px;">
         </button>
         <!-- brand -->
-        <a class="navbar-brand text-lt">
-          <!--<i class="pull-right ti-arrow-circle-down text-sm m-v-xs m-l-xs"></i>-->
-          <!-- <i class="glyphicon glyphicon-th-large text-md"></i> -->
+      <!--   <a class="navbar-brand text-lt">
           <img src="images/Logo.png" class="img-responsive" style="max-height: 40px !important;">
-          <span class="hidden-folded m-l-xs hide">{{app.name}}<sup class="text-xs font-thin"></sup></span>
-        </a>
+        </a> -->
         <!-- / brand -->
       </div>
       <!-- / navbar header -->
 
       <!-- navbar collapse   ng-hide-->
       <!-- ng-class="{'show animated fadeIn' : app.navbarCollapse} add this to enable dynamic color change -->
-      <div class="navbar-collapse bg-light hidden-xs p-v-xs" ng-class="{'show animated fadeIn' : app.navbarCollapse}">
+      <div class="navbar-collapse hidden-xs" ng-class="{'p-v-xs':roleId != $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId}"  ng-class="{'show animated fadeIn' : app.navbarCollapse}">
         <!-- nav -->
 <!--         <ul class="nav navbar-nav navbar-left ">
           <li>
@@ -45,7 +42,7 @@
 
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right m-r-n ">
-          <!-- <li>
+          <li>
             <script type="text/ng-template" id="settings">
               <div tabindex="-1" class="p dropdown-menu bg-white bg-inherit no-b-t no-margin w-sm" role="menu">                
                 <p class="clearfix">
@@ -58,29 +55,14 @@
                   </a>
                 </p>
                 <div class="line b-b b-light m-h-xs"></div>                
-                <div class="m-v-xs">
-                  <label class="ui-checks m-h-xs no-margin">
-                    <input type="checkbox" ng-model="app.settings.headerFixed"><i></i> Header fixed
-                  </label>
-                </div>
-                <div class="m-v-xs">
-                  <label class="ui-checks m-h-xs no-margin">
-                    <input type="checkbox" ng-model="app.settings.headerShadow"><i></i> Header shadow
-                  </label>
-                </div>
-                <div class="m-v-xs">
-                  <label class="ui-checks m-h-xs no-margin">
-                    <input type="checkbox" ng-model="app.settings.asideTop"><i></i> Aside top
-                  </label>
-                </div>
               </div>
             </script>
-            <a href bs-dropdown="dropdown" data-animation="am-collapse" data-template="settings">
-              <i class="glyphicon glyphicon-cog"></i>
+            <a ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" class="no-padding-h" href ng-click="appSettings()" bs-tooltip data-title="Customize theme" data-type="success" data-placement="left">
+              <i class="mdi-image-color-lens text-2x"></i>
               <span class="visible-xs-inline">Settings</span>
             </a>
           </li>
-          <li>
+<!--           <li>
             <a href 
               bs-aside="aside" 
               data-template="views/partials/aside.tpl.chat.html" 
@@ -92,12 +74,12 @@
               <b class="badge badge-xs bg-warning up">3</b>
               <span class="visible-xs-inline">Notifications</span>
             </a>
-          </li>
-          <li class="hidden-xs">
+          </li> -->
+          <!-- <li class="hidden-xs">
             <a href ui-fullscreen><i class="glyphicon glyphicon-resize-vertical"></i></a>
           </li> -->
           <li>            
-            <a href class="clear no-padding-h" style="color: #444;" bs-aside="aside" data-template="angularModules/login/partials/Partial-sm_User_Menu.html" data-placement="right" data-animation="am-slide-right aside-open-inner modal-open" data-container="body">
+            <a href class="clear no-padding-h" bs-aside="aside" data-template="angularModules/login/partials/Partial-sm_User_Menu.html" data-placement="right" data-animation="am-slide-right aside-open-inner modal-open" data-container="body">
               <qrcode ng-if="!userinfo.ActiveUserData.roleMappingObj.avatar.length" version="2" size="30" color="#4A148C" ng-click="$hide()" class="navbar-img  pull-right" data="{{userinfo.ActiveUserData.username}}" style="margin-left: -8px;"></qrcode>
               <img  ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length" ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" alt="..." class="navbar-img img-circle pull-right">
               <span class="m-l">{{userinfo.ActiveUserData.username}}</span>

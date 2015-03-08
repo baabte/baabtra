@@ -26,7 +26,10 @@ angular.module('baabtra').directive('docViewer',[ '$sce','$modal',function($sce,
 				//excel				
 				"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":{icon:"fa-file-excel-o", color:"green"},
 
-				"application/zip":{icon:"fa-file-archive-o", color:"#f4cb71"},
+				"application/javscript":{icon:"fa-file-archive-o", color:"#FFEE58"},
+				
+				"application/zip":{icon:"fa-file-code-o", color:"#f4cb71"},
+				
 				"application/rar":{icon:"fa-file-archive-o", color:"#f4cb71"},
 				"default":{icon:"fa-file-o", color:"#444444"}
 				

@@ -57,7 +57,7 @@
           </div>
         <div class="row m-t row-sm  p-v-md" ng-if="(course.Fees.free==0)">
             <div class="col-xs-6 col-md-3 animated fadeInDown">
-              <input class="form-control floating-label" type="number" ng-blur="fnTotalFeeChanged()" ng-model="course.Fees.totalAmount" placeholder="Total Amount" ui-validate="'$value >= 1'" required autocomplete="off">
+              <input class="form-control" float-label type="number" ng-blur="fnTotalFeeChanged()" ng-model="course.Fees.totalAmount" placeholder="Total Amount" ui-validate="'$value >= 1'" required autocomplete="off">
             </div>
             <div class="col-xs-2">
               <ui-select required ng-model="course.Fees.currency" theme="selectize" ng-disabled="disabled" style="width: 70px;">

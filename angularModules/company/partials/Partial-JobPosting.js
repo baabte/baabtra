@@ -2,7 +2,7 @@
 Created By  : Jihin
 Created Date:20/11/2014 
 */
-angular.module('baabtra').controller('JobpostingCtrl',['$scope','commonService','JobSrv','$alert',function ($scope,commonService,JobSrv,$alert){
+angular.module('baabtra').controller('JobpostingCtrl',['$rootScope','$scope','commonService','JobSrv','$alert',function ($rootScope,$scope,commonService,JobSrv,$alert){
 
 
 

@@ -1,17 +1,27 @@
+<style type="text/css">
+
+      .footer-bar-bottom{
+        position: fixed;
+        bottom:10px;
+      }
+
+
+</style>
+
 <div class="row">
   <div class="col-xs-12">
-    <div class="panel b-t b-03A9F4 bg-light dk">
+    <div class="panel b-t b-03A9F4 bg-white dk">
       
       <div class="panel-body">
 
           <!-- header container -->
-          <div>
+          <div class="b-b b-dark">
 
-            <div class="btn btn-material-deep-purple-200">View timeline</div>
-            <div class="btn btn-material-blue-200">View summary</div>
+            <div class="btn btn-material-deep-purple-400" ng-disabled="!courseId.$oid" ng-click="navigateToTimeline(courseId)">View timeline</div>
+            <div class="btn btn-material-blue-400" ng-click="navigateToSummary(courseId)">View summary</div>
 
-            <div class="col-xs-6 col-sm-5 m-l-lg pull-right">
-                <percent-indicator show-percentage="true" total-value="total" obtain-value="obtained">
+            <div class="col-xs-12 col-sm-5 m-l-lg pull-right">
+                <percent-indicator value-suffix="Your score is " show-percentage="true" total-value="totalMark" obtain-value="markScored">
                 </percent-indicator>
             </div>
 
@@ -19,18 +29,23 @@
           <!-- header container end -->
 
           <!-- body container -->
-          <div class="col-xs-12">
-
+          <div class="col-xs-12 p-v">
+            <div>
+              <div class="col-xs-12 btn btn-material-red-A400 font-bold" ng-if="!lastElement" >{{tlPointName}}</div>
+            </div>
             <!-- course element preview box  -->
             <div class="col-xs-12 col-lg-10 col-sm-8 b">
               <div class="col-xs-12">
-                <course-element-preview preview-data="PrevObj"></course-element-preview>
+                <course-element-full-view course-id="courseId.$oid" preview-data="PrevObj"></course-element-full-view>
+              </div>
+              <div ng-show="lastElement&&courseId.$oid" class="col-xs-12 p">
+                <div class="alert alert-dismissable alert-danger">
+                    <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
+                    <strong>Oh sorry..!</strong> There are no more meterials to show.
+                </div>
               </div>
 
-              <div class="col-xs-12">
-                <div class="btn btn-material-purple-A200" disabled>Previous</div>
-                <div class="btn btn-material-indigo-A400">Next</div>
-              </div>
+              
             </div>
             <!-- course element preview box end  -->
 
@@ -43,9 +58,16 @@
             <!-- chat box container end -->
 
           </div>
+          
           <!-- body container end  -->
 
       </div>
     </div>
   </div>
+
+<div class="col-xs-12 footer-bar-bottom">
+      <div class="btn btn-raised  btn-material-red-A200 mdi-navigation-chevron-left btn-fab" ng-disabled="lastViewedOrder==0" ng-click="getElement('previous')"></div>
+      <div class="btn btn-raised  btn-material-red-A200 mdi-navigation-chevron-right btn-fab pull-right" ng-disabled="lastElement" ng-click="getElement('next')"></div>
 </div>
+</div>
+

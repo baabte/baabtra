@@ -1,0 +1,161 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: baabtra.com\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Anoop <anoop@baabte.com>\n"
+"Language-Team: Teambaabtra\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:38
+msgid "% of Commission"
+msgstr "٪ لجنة"
+
+#: angularModules/company/partials/Partial-addMenu.html:35
+#, fuzzy
+msgid "Actions"
+msgstr "المكان"
+
+#: angularModules/Branches/aside/aside-newBranch.html:36
+#: angularModules/company/partials/Partial-addMenu.html:86
+msgid "Add"
+msgstr "أضف"
+
+#: angularModules/common/directives/popup-addNewField.html:13
+#, fuzzy
+msgid "Add After"
+msgstr "أضف تعليقًا"
+
+#: angularModules/company/partials/Partial-addMenu.html:12
+#, fuzzy
+msgid "Add Menu"
+msgstr "أضف تعليقًا"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:50
+msgid "Add Reseller"
+msgstr "إضافة"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:6
+msgid "Add a reseller"
+msgstr "إضافة التجزئة"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:42
+msgid "Address"
+msgstr "عنوان البريد"
+
+#: angularModules/Branches/aside/aside-newBranch.html:14
+msgid "Branch Name"
+msgstr "اسم الفرع"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:49
+#: angularModules/common/directives/popup-addNewField.html:23
+#: angularModules/company/partials/Partial-addMenu.html:84
+msgid "Cancel"
+msgstr "ألغِ"
+
+#: angularModules/company/partials/Partial-addMenu.html:52
+#, fuzzy
+msgid "Change icon"
+msgstr "غيّر لغة الواجهة"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:32
+msgid "Contact Number"
+msgstr "رقم الاتصال"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:28
+msgid "Contact Person"
+msgstr "الشخص الذي يمكن الاتصال به"
+
+#: angularModules/company/partials/Partial-addMenu.html:78
+#, fuzzy
+msgid "Edit Existing Menus"
+msgstr "تحرير &قواعد المرشح..."
+
+#: angularModules/Branches/aside/aside-newBranch.html:25
+msgid "Email"
+msgstr "البريد الإلكترونيّ"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:18
+msgid "Email Address"
+msgstr "عنوان البريد الإلكتروني"
+
+#: angularModules/company/partials/Partial-addMenu.html:37
+#, fuzzy
+msgid "Enter action name"
+msgstr "إدخال إسم المرشح"
+
+#: angularModules/company/partials/Partial-addMenu.html:28
+#, fuzzy
+msgid "Enter menu link"
+msgstr "حذف الرابط الترميزي"
+
+#: angularModules/company/partials/Partial-addMenu.html:21
+#, fuzzy
+msgid "Enter menu name"
+msgstr "إدخال إسم المرشح"
+
+#: angularModules/company/partials/Partial-addMenu.html:38
+#, fuzzy
+msgid "Enter state name"
+msgstr "إدخال إسم المرشح"
+
+#: angularModules/common/directives/popup-addNewField.html:19
+#, fuzzy
+msgid "Help text"
+msgstr "استبدال النصّ"
+
+#: angularModules/Branches/aside/aside-newBranch.html:18
+msgid "Location"
+msgstr "المكان"
+
+#: angularModules/Reseller/partials/Partial-reseller.html:23
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: angularModules/Branches/aside/aside-newBranch.html:29
+msgid "Phone"
+msgstr "هاتف"
+
+#: angularModules/billing/partials/Partial-billing_plans.html:13
+msgid "Plan Name"
+msgstr "اسم الخطة"
+
+#: angularModules/common/directives/Directive-roleLoader.html:2
+#, fuzzy
+msgid "Select Role"
+msgstr "حدّد الك&لّ"
+
+#: angularModules/common/directives/Directive-courseLoader.html:2
+msgid "Select a Course"
+msgstr "اختار دورة"
+
+#: angularModules/common/directives/popup-addNewField.html:10
+#: angularModules/common/directives/popup-addNewField.html:14
+#, fuzzy
+msgid "Select a detail type"
+msgstr "نوع الإرسال الإفتراضى:"
+
+#: angularModules/common/directives/popup-addNewField.html:17
+#, fuzzy
+msgid "Title"
+msgstr "العنوان:"
+
+#: angularModules/common/directives/popup-addNewField.html:9
+#, fuzzy
+msgid "Type"
+msgstr "النوع"
+
+#: angularModules/Branches/aside/aside-newBranch.html:35
+#: angularModules/company/partials/Partial-addMenu.html:85
+msgid "Update"
+msgstr "حفظ"
+
+#: angularModules/company/partials/Partial-addMenu.html:59
+#, fuzzy
+msgid "Visible to user"
+msgstr "يجب أن تحدد أسم مستخدم"

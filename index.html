@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="baabtra">
+<html lang="en" ng-app="baabtra" class="{{$root.userinfo.ActiveUserData.appSettings.backgroundColor}}" ng-class="{'default-bg':!$root.userinfo.ActiveUserData.appSettings.backgroundColor}" style = "background:#cccccc url({{$root.userinfo.ActiveUserData.appSettings.backgroundImage}}) no-repeat center center fixed;">
 <head>
   <meta charset="utf-8" />
   <title>Baabtra.com</title>
@@ -41,9 +41,6 @@
   <link rel="stylesheet" href="bower_components/ngHierarchicalSelector/dist/ng-hierarchical-selector.0.2.0.css" />
   <!-- endbower -->
   <!-- endbuild -->
-
-
-
 
 </head>
 
@@ -126,10 +123,12 @@
 <script src="bower_components/StreamLine/js/modernizr.js"></script>
 <script src="bower_components/ngHierarchicalSelector/dist/ng-hierarchical-selector.0.2.0.js"></script>
 <script src="bower_components/angular-google-chart/ng-google-chart.js"></script>
+<script src="bower_components/angular-gettext/dist/angular-gettext.js"></script>
 <!-- endbower -->
 
 
 <script src="app.js"></script>
+<script src="translations.js"></script>
 <script src="config.js"></script>
 <script src="config.router.js"></script>
 <script src="config.router.ui.js"></script>
@@ -271,8 +270,17 @@
   <script src="angularModules/course/directives/Directive-courseSummary.js"></script>
   <script src="angularModules/course/directives/Directive-courseByKeywords.js"></script>
   <script src="angularModules/candidateCourseRelated/candidateCourseView/services/Service-candidateCourseFullView.js"></script>
+<<<<<<< HEAD
   <script src="angularModules/user/partials/Partial-bulkEnrollment.js"></script>
   <script src="angularModules/user/services/Service-bulkEnrollment.js"></script>
+=======
+  <script src="angularModules/common/directives/Directive-float-label.js"></script>
+  <script src="angularModules/candidateCourseRelated/courseElementFullView/directives/Directive-courseElementFullView.js"></script>
+  <script src="angularModules/courseElementFields/docViewerFrame/directives/Directive-docViewerFrame.js"></script>
+  <script src="angularModules/courseElementFields/questionGroupViewer/services/Service-testRelated.js"></script>
+  <script src="angularModules/courseElementFields/testQuestionView/directives/Directive-testQuestionView.js"></script>
+  <script src="angularModules/common/directives/Directive-gTranslate.js"></script>
+>>>>>>> 402423de4664c01f4d1af8db32bcd54f4f8dbceb
   <!-- Add New Component JS Above -->
 <!-- endbuild -->
 </div>
