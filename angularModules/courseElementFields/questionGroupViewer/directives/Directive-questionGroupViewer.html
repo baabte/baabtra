@@ -5,11 +5,14 @@
 			<div class="btn btn-warning"  ng-click="startTest=true">Click to Start Test<div class="ripple-wrapper"></div>
          	</div>
         </div>
+
+        <pre>{{questionAnswer}}</pre>
+		
 		<div ng-if="startTest">
 		<div  ng-repeat="question in dataValue.value.testModel.slice(start,stop)">
-				<test-question-view  data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" question-response="questionAnswer[$index]" course-element="courseElement"></test-question-view>
-				<!-- <pre>{{questionAnswer[$index]}}</pre>
-				<pre>{{question}}</pre> -->
+				<test-question-view  data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" question-response="questionAnswer[start+$index]" course-element="courseElement"></test-question-view>
+				<pre>{{start+$index}}</pre>
+				
 
 
 		</div>

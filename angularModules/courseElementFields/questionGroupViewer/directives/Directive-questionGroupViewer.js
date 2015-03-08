@@ -35,12 +35,13 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfi
 
 			scope.dataValue= JSON.parse(scope.data);
 			
+			if (angular.equals(scope.questionAnswer.length,0)){
 			scope.noOfQuestions=scope.dataValue.value.testModel.length;
 			for (var i = 0; i < scope.noOfQuestions; i++) {
 				var obj={};
 				scope.questionAnswer.push(obj);
-			};
-
+			}
+			}
 			if(angular.equals(scope.dataValue.value.questionView.mode,'multiple')){
 				scope.questionPerPage=scope.dataValue.value.questionView.questionPerPage;
 				scope.stop=scope.questionPerPage;
