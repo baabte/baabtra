@@ -1,11 +1,11 @@
-<div class="col-md-12">
+<div class="col-md-12" ng-if="userList">
 	 <div class="panel b-t b-00C853 bg-light dk"><div class="panel-heading font-bold text-white bg-00C853 p baab-shadow">View Users</div>
 		
 		<div class="panel-body col-md-12 bg-white animated fadeInRight p-sm b-b-danger b-b-3x scrollable hover" style="max-height:560px;">
                       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" ng-repeat="user in userList">
                         <div class="box bg-light" style="cursor: pointer;" ng-click="userState(user._id.$oid)">
                           <div class="box-col col-xs-3 text-center dk img-responsive">
-                                       <qrcode version="4" size="100" color="#4A148C" ng-click="manageProfile();$hide()" class="pull-left m-r" data="{{user.username.userName}}"></qrcode>
+                            <img src="../images/user.ico">
                           </div>
                           <div class="box-col p b-b b-4x b-light" ng-class="{'b-success am-fade':userActive==user._id.$oid}">
                             <div>Course&nbsp;:<a href="" ng-click="viewCourseDetails(user.fkCourseId.$oid)"> {{user.Name}}</a></div>

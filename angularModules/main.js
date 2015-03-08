@@ -93,7 +93,6 @@ angular.module('baabtra')
       var companyId = "";
       var rmId = "";
       $scope.appSettings = function(){
-        console.log($rootScope.userinfo.ActiveUserData.appSettings);
         companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
         rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
         //if not setting appsettings, create a null object for appSettings
@@ -124,7 +123,7 @@ angular.module('baabtra')
       $scope.backgroundImageChanged = function($file){
         var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
         var rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
-        if(!angular.equals($rootScope.userinfo.ActiveUserData.appSettings.backgroundImage,"")){
+          if(!angular.equals($rootScope.userinfo.ActiveUserData.appSettings.backgroundImage,"")){
           var oldBackgroundImage = $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage.split('(')[1].split(')')[0];
           var fileRemoveResponse = commonSrv.fnRemoveFileFromServer(oldBackgroundImage);
         }
