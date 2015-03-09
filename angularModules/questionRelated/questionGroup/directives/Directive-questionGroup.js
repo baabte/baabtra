@@ -29,6 +29,8 @@ angular.module('baabtra').directive('questionGroup',['$aside', function($aside) 
 			scope.questionView=scope.ngModel.questionView;
 			scope.questionShow=false;
 			scope.questionModel={mark:{}};
+			scope.courseElement={index:1,tlPointInMinute:1000,Name:'Test'};
+			scope.questionGroupModel=scope.ngModel.testModel;
 			}
 		 scope.dropDown=function (index) {
 		    	var list=[];
