@@ -13,28 +13,31 @@
              <label >Don't Start On</label>
                <div class= "row">
                     <div class="col-xs-12">
-                     <div class="checkbox checkbox-inline no-margin"  ng-repeat="day in days" bs-tooltip data-title="{{day.id}}" ng-model="Batch.day" >
+                     <div class="checkbox checkbox-inline no-margin"  ng-repeat="day in days" bs-tooltip data-title="{{day.id}}" value="{{day.text}}" >
                         <label >
-                            <input type="checkbox"value="day" >{{day.text}}
+                            <input type="checkbox"value="day" ng-click="fnexcludeDaysOneTime(day.id)" ng-checked="excludedDaysOnetime.indexOf(day.id) > -1" >{{day.text}}
                         </label>
                       </div>
                     </div>  
                 </div>       
             </div> 
-           
+           <div class="row">
             <div class="form-group">
-            <label > Starts On</label>
-             <input type="text" class="form-control" ng-model="Batch.startDate" required data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="number" data-autoclose="true" data-min-date="today"  name="date2" bs-datepicker>
+             <input type="text" class="form-control" float-label ng-model="Batch.oneTime.startDate" required data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="number" data-autoclose="true" data-min-date="today"  name="date1" bs-datepicker placeholder="Starts On">
             </div>
+           </div>
+           <div class="row">
             <div class="form-group">
-            <label > Ends On</label>
-             <input type="text" class="form-control" ng-model="Batch.endDate" required data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="number" data-autoclose="true" data-min-date="today"  name="date1" bs-datepicker>
-            </div>   
+             <input type="text" class="form-control" float-label ng-model="Batch.oneTime.endDate" required data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="number" data-autoclose="true" data-min-date="today"  name="date2" bs-datepicker placeholder="Ends On">
+            </div>
+           </div>     
            </div>  
        </div>    
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-click="saveOnetimefn()"  ng-disabled="formOnetime.$invalid">Done</button>
+         <button type="reset" class="btn btn-primary"  ng-disabled="formOnetime.$pristine">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="saveOnetimefn($hide)"  ng-disabled="formOnetime.$invalid">Done</button>
+
       </div>
      </form> 
     </div>

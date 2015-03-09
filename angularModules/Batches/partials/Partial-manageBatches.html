@@ -6,10 +6,12 @@
       <div class="panel-body">
         <div class="row">
               <div class="col-xs-12 col-sm-6">
-                  <div class="form-group">
-                   <label>Batch Name</label>
-                   <input class="form-control" ng-model="Batch.batchName" placeholder="{{'Name of the Batch'|translate}}"  required>
+                <div class="row"> 
+                  <div class="form-group m-l">
+                  
+                   <input class="form-control no-padding " float-label   ng-model="Batch.batchName" placeholder="Name of the Batch" name="Batch Name" required>
                   </div>
+                </div>  
                   <div class="form-group">
                     <div class="radio radio-primary">
                       <label>
@@ -28,21 +30,26 @@
                   <div class="form-group">   
                       <div class="radio radio-primary">
                         <label>
-                            <input type="radio" name="optionsRadios" ng-model="Batch.batchType" value="offline" required> Offline
+                            <input type="radio" name="optionsType" ng-model="Batch.batchType" value="offline" required> Offline
                         </label>
                       </div>
                       <div class="radio radio-primary">
                         <label>
-                            <input type="radio"  ng-model="Batch.batchType" value="instructorLead" required > Instructor Lead
+                            <input type="radio"  ng-model="Batch.batchType" value="instructorLead" name="optionsType" required > Instructor Lead
                         </label>
                       </div>
                     <em class="text-muted text-E91E63">&nbsp;(Please specifiy  the Type of Batch)</em>                
+                  </div>
+                  <div class="row m-l">
+                  <div class="form-group ">
+                    
+                    <input type="number" float-label  ng-model="Batch.seats" class="form-control no-padding" placeholder="Number of seats" name="seats" required >
                   </div> 
-                  <div class="form-group">
-                    <label>Number Of Seats</label>
-                    <input type="number" ng-model="Batch.seats" class="form-control" placeholder="{{'Total number of seats'|translate}}" required >
                   </div> 
-                  <course-loader ng-model="Batches"></course-loader>
+                  <div class="row m-l"> 
+                    <course-loader ng-model="Batch.course" float-label placeholder="Courses" name="Courses"  ></course-loader>
+                  
+                 </div>
               </div>
               
           
@@ -50,7 +57,7 @@
       </div>
       <div class="panel-footer">
           <button class="btn btn-warning baab-btn" type="reset" ng-disabled="batchAdd.$pristine" >cancel</button>		
-	        <button class="btn btn-info baab-btn" ng-disabled="batchAdd.$invalid" >Add Batch</button>
+	        <button class="btn btn-info baab-btn" ng-disabled="batchAdd.$invalid" ng-click="saveBatch()" >Add Batch</button>
         </form>   
       </div>
     </div>

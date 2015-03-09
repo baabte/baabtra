@@ -1,15 +1,30 @@
-angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal',function($scope,$modal){
-    
-
-    //$scope.Batch = {};
-    //$scope.Batch.batchMode = "onetime";
+angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbConfig','$rootScope','$http','$state','commonService','addBatches',function($scope,$modal,bbConfig,$rootScope,$http,$state,commonService,addBatches){
+    if(!$rootScope.userinfo){
+    commonService.GetUserCredentials($scope);
+    $rootScope.hide_when_root_empty=false;
+    }
+    if(angular.equals($rootScope.loggedIn,false)){
+    $state.go('login');
+    }
+    $scope.Batch = {};
+    $scope.Batch.oneTime={};
+    $scope.Batch.repeats={};
+    $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+    $scope.cmp_id=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+    $scope.Batch.crmId = $scope.rm_id;
+    $scope.Batch.companyId =  $scope.cmp_id;
+    $scope.Batch.urmId = $scope.rm_id;
+    $scope.Batch.activeFlag=1;
+    $scope.Batch.createdDate = Date();
+    $scope.Batch.updatedDate = Date();
     $scope.fnLoadPopupRepeat=function(batchMode){
-      console.log(batchMode);
-      if(batchMode=="repeat"){
+      if(angular.equals(batchMode,"repeat")){
+            $scope.Batch.oneTime={};
          $modal({scope: $scope, template: 'angularModules/Batches/partials/partial-popupRepeatBatch.html',
           show: true
          });
       }else{
+           $scope.Batch.repeats={};
           $modal({scope: $scope, template: 'angularModules/Batches/partials/partial-popuponeTimeBatch.html',
           show: true
          });
@@ -23,10 +38,42 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal',func
    $scope.days=[{id:'Sunday',text:'S'},{id:'Monday',text:'M'},{id:'Tuesday',text:'T'},{id:'Wednesday',text:'W'},{id:'Thursday',text:'Th'},{id:'Friday',text:'F'},{id:'Saturday',text:'S'}];
    $scope.fnLoadsubItem=function(id){
    	console.log(id);
-   	$scope.repeatType=$scope.repeatTypeArray[id].text;
+   	$scope.Batch.repeats.repeatType=$scope.repeatTypeArray[id].text;
+    $scope.Batch.repeats.repeatTypeName=$scope.repeatArrays[id].text;
    } 
-   $scope.saveRepeatfn=function(){
-   	console.log($scope.Batch);
+   $scope.saveRepeatfn=function(hide){
+    hide();
    }
+   $scope.saveOnetimefn=function(hide){
+    hide();
+   }
+   $scope.saveBatch=function(){//for saving the Batch
+   var promise=addBatches.addNewBatches($scope.Batch)
+   promise.then(function(response){
+   console.log(response.data);
+   });
+   }
+  $scope.Batch.repeats.excludedDaysRepeat=[];
+   $scope.fnExcludedDays=function(id){
+       var idsel = $scope.Batch.repeats.excludedDaysRepeat.indexOf(id);
+        // is currently selected
+        if (idsel > -1) {
+           $scope.Batch.repeats.excludedDaysRepeat.splice(idsel, 1);
+        }else {// is newly selected
+           $scope.Batch.repeats.excludedDaysRepeat.push(id);
+        }
+   }
+   $scope.Batch.oneTime.excludedDaysOnetime=[];
+
+   $scope.fnexcludeDaysOneTime=function(id){
+    var idsel=$scope.Batch.oneTime.excludedDaysOnetime.indexOf(id);
+     if(idsel>-1){
+       $scope.Batch.oneTime.excludedDaysOnetime.splice(idsel, 1);
+     }else{
+       $scope.Batch.oneTime.excludedDaysOnetime.push(id);
+     }    
+   }
+
+   
 
 }]);
