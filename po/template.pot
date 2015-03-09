@@ -4,11 +4,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Project-Id-Version: \n"
 
-#: angularModules/Reseller/partials/Partial-reseller.html:41
-msgid "% of commission"
+#: angularModules/Reseller/partials/Partial-reseller.html:38
+msgid "% of Commission"
 msgstr ""
 
-#: angularModules/Reseller/partials/Partial-reseller.html:54
+#: angularModules/company/partials/Partial-addMenu.html:35
+msgid "Actions"
+msgstr ""
+
+#: angularModules/Branches/aside/aside-newBranch.html:36
+#: angularModules/company/partials/Partial-addMenu.html:86
+msgid "Add"
+msgstr ""
+
+#: angularModules/common/directives/popup-addNewField.html:13
+msgid "Add After"
+msgstr ""
+
+#: angularModules/company/partials/Partial-addMenu.html:12
+msgid "Add Menu"
+msgstr ""
+
+#: angularModules/Reseller/partials/Partial-reseller.html:50
 msgid "Add Reseller"
 msgstr ""
 
@@ -16,26 +33,106 @@ msgstr ""
 msgid "Add a reseller"
 msgstr ""
 
-#: angularModules/Reseller/partials/Partial-reseller.html:45
+#: angularModules/Reseller/partials/Partial-reseller.html:42
 msgid "Address"
 msgstr ""
 
-#: angularModules/Reseller/partials/Partial-reseller.html:29
+#: angularModules/Branches/aside/aside-newBranch.html:14
+msgid "Branch Name"
+msgstr ""
+
+#: angularModules/Reseller/partials/Partial-reseller.html:49
+#: angularModules/common/directives/popup-addNewField.html:23
+#: angularModules/company/partials/Partial-addMenu.html:84
+msgid "Cancel"
+msgstr ""
+
+#: angularModules/company/partials/Partial-addMenu.html:52
+msgid "Change icon"
+msgstr ""
+
+#: angularModules/Reseller/partials/Partial-reseller.html:32
+msgid "Contact Number"
+msgstr ""
+
+#: angularModules/Reseller/partials/Partial-reseller.html:28
 msgid "Contact Person"
+msgstr ""
+
+#: angularModules/company/partials/Partial-addMenu.html:78
+msgid "Edit Existing Menus"
+msgstr ""
+
+#: angularModules/Branches/aside/aside-newBranch.html:25
+msgid "Email"
 msgstr ""
 
 #: angularModules/Reseller/partials/Partial-reseller.html:18
 msgid "Email Address"
 msgstr ""
 
+#: angularModules/company/partials/Partial-addMenu.html:37
+msgid "Enter action name"
+msgstr ""
+
+#: angularModules/company/partials/Partial-addMenu.html:28
+msgid "Enter menu link"
+msgstr ""
+
+#: angularModules/company/partials/Partial-addMenu.html:21
+msgid "Enter menu name"
+msgstr ""
+
+#: angularModules/company/partials/Partial-addMenu.html:38
+msgid "Enter state name"
+msgstr ""
+
+#: angularModules/common/directives/popup-addNewField.html:19
+msgid "Help text"
+msgstr ""
+
+#: angularModules/Branches/aside/aside-newBranch.html:18
+msgid "Location"
+msgstr ""
+
 #: angularModules/Reseller/partials/Partial-reseller.html:23
 msgid "Password"
 msgstr ""
 
-#: angularModules/Reseller/partials/Partial-reseller.html:34
-msgid "Phone Number"
+#: angularModules/Branches/aside/aside-newBranch.html:29
+msgid "Phone"
 msgstr ""
 
-#: angularModules/Reseller/partials/Partial-reseller.html:53
-msgid "cancel"
+#: angularModules/billing/partials/Partial-billing_plans.html:13
+msgid "Plan Name"
+msgstr ""
+
+#: angularModules/common/directives/Directive-roleLoader.html:2
+msgid "Select Role"
+msgstr ""
+
+#: angularModules/common/directives/Directive-courseLoader.html:2
+msgid "Select a Course"
+msgstr ""
+
+#: angularModules/common/directives/popup-addNewField.html:10
+#: angularModules/common/directives/popup-addNewField.html:14
+msgid "Select a detail type"
+msgstr ""
+
+#: angularModules/common/directives/popup-addNewField.html:17
+msgid "Title"
+msgstr ""
+
+#: angularModules/common/directives/popup-addNewField.html:9
+msgid "Type"
+msgstr ""
+
+#: angularModules/Branches/aside/aside-newBranch.html:35
+#: angularModules/company/partials/Partial-addMenu.html:85
+msgid "Update"
+msgstr ""
+
+#: angularModules/company/partials/Partial-addMenu.html:59
+msgid "Visible to user"
 msgstr ""

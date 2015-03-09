@@ -11,6 +11,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 		},
 		templateUrl: 'angularModules/courseElementFields/testQuestionView/directives/Directive-testQuestionView.html',
 		link: function(scope, element, attrs, fn) {
+			// console.log(scope.questionResponse);
 			var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId; // Role id of logged user
 			var userLoginId;
 			var courseId;
@@ -57,7 +58,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 							// 			scope.question.dateOfSubmission=time;
 							// 		}
 							// 	});
-							scope.questionResponse={userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time};
+							// scope.questionResponse={userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time};
 
 
 							dbSaverUnbind();
@@ -79,12 +80,51 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 					// 			scope.question.dateOfSubmission=time;
 					// 		}
 					// 	});	
-					scope.questionResponse={userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time};
+					// scope.questionResponse={userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time};
 						
 				}
 				
 			};
 			
+
+
+
+
+			// scope.$watch('userAnswer',function (argument) {
+			// 	var time=(new Date()).getTime();
+				
+			// 	if(isDescriptive){
+			// 		scope.answerToDb=[];
+			// 		scope.answerToDb[0]={primaryAnswer:{},secondaryAnswer:{}};
+			// 		scope.createPrimaryAnswer('candidateAnswers');
+			// 		scope.createSecondaryAnswer('candidateAnswers');
+			// 		var dbSaverUnbind=scope.$watch(function() { return scope.ItsTimeToSavePrimaryToDB+''+scope.ItsTimeToSaveSecondaryToDB; },function(){
+
+			// 			if(scope.ItsTimeToSavePrimaryToDB && scope.ItsTimeToSaveSecondaryToDB){
+
+							
+			// 		scope.questionResponse={userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time};
+			// 		console.log(scope.questionResponse);
+
+			// 		dbSaverUnbind();
+
+			// 			}
+							
+			// 		});
+
+			// 	}
+			// 	else{
+
+			// 		scope.questionResponse={userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time};
+			// 		console.log(scope.questionResponse);					
+				
+			// 	}
+
+			// },true);
+
+
+
+
 
 			//this function is used to format the date from milliseconds
 			scope.convertDate=function (millisec) {
@@ -93,12 +133,13 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 			};
 
 
+
 			//For creating element with unique ID
 			scope.randomKey=Math.floor(Math.random()*1000000);
 
 			
 			//initializing mark
-			scope.mark=0;
+			scope.questionResponse.mark=0;
 
 			//this is to format the data attribute of this directive into JSON object
 			var unbind=scope.$watch('data',function (argument) {
@@ -115,18 +156,20 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 					}
 				
 
-						scope.userAnswer=[];
+						scope.questionResponse.userAnswer=[];
+
 				
 				//Creating directive elements according to type of question
 				var answerArea=$('#answers'+scope.randomKey);
 				if(scope.question.type=='objective'){
 					evStatus=1;
+					scope.questionResponse.evaluated=evStatus;
 					var optionsElem=$('<objective-options>');
 					    optionsElem.attr('options',"question.options");
 					    optionsElem.attr('answer-type',"question.answerType");
 					    optionsElem.attr('answer',"question.answer");
-					    optionsElem.attr('mark-scored','mark');
-					    optionsElem.attr('user-answer','userAnswer');
+					    optionsElem.attr('mark-scored','questionResponse.mark');
+					    optionsElem.attr('user-answer','questionResponse.userAnswer');
 					    optionsElem.attr('db-answer','dbAnswer');
 					    optionsElem.attr('mark-obj',JSON.stringify(scope.question.mark));
 					answerArea.html(optionsElem);
@@ -177,11 +220,12 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 						scope.secondaryForm.fields.push(debugVal);
 					}
 					evStatus=0;
+					scope.questionResponse.evaluated=evStatus;
 					var descriptiveElem=$('<descriptive-answer>');
 						descriptiveElem.attr('primary','primaryForm');
 						descriptiveElem.attr('secondary','secondaryForm');
-						descriptiveElem.attr('user-answer','userAnswer');
-						descriptiveElem.attr('mark-scored','mark');
+						descriptiveElem.attr('user-answer','questionResponse.userAnswer');
+						descriptiveElem.attr('mark-scored','questionResponse.mark');
 						descriptiveElem.attr('db-answer','dbAnswer');
 					answerArea.html(descriptiveElem);
 					$compile(descriptiveElem)(scope);
@@ -212,7 +256,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
                             // here we build object to store into db and to push into timeline
                             if(angular.equals(customProperty.value,'previewkey')){ // checking is there have a value for previewkey
                                 weHaveGotPreviewKey=true;
-                                temp[item.name].value=scope.userAnswer[0].primaryAnswer[item.name];
+                                temp[item.name].value=scope.questionResponse.userAnswer[0].primaryAnswer[item.name];
                                 temp[item.name].type=customProperty.text;
                                 if(angular.equals(customProperty.text,"doc-viewer")){ // if it is a file, it should be stored in server to show preview through
                                                                                       // google doc preview
@@ -230,7 +274,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
                             else{
 
                                 if((loopCounter==maxLoopValue)&&!weHaveGotPreviewKey){ // when count meets length of custom list and still
-                                    temp[item.name]=scope.userAnswer[0].primaryAnswer[item.name];
+                                    temp[item.name]=scope.questionResponse.userAnswer[0].primaryAnswer[item.name];
                                 }
 
                             }
@@ -239,7 +283,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
                         
                     }
                     else{
-                        temp[item.name]=scope.userAnswer[0].primaryAnswer[item.name];
+                        temp[item.name]=scope.questionResponse.userAnswer[0].primaryAnswer[item.name];
                     }
                     if(!scope.weHaveGotAprimaryFile&&(fieldsTraversedCount==totalFields)){
                                     scope.ItsTimeToSavePrimaryToDB=true;
@@ -272,7 +316,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
                             // here we build object to store into db and to push into timeline
                             if(angular.equals(customProperty.value,'previewkey')){ // checking is there have a value for previewkey
                                 weHaveGotPreviewKey=true;
-                                temp[item.name].value=scope.userAnswer[0].secondaryAnswer[item.name];
+                                temp[item.name].value=scope.questionResponse.userAnswer[0].secondaryAnswer[item.name];
                                 temp[item.name].type=customProperty.text;
                                 if(angular.equals(customProperty.text,"doc-viewer")){ // if it is a file, it should be stored in server to show preview through
                                                                                      // google doc preview
@@ -295,7 +339,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
                             else{
 
                                 if((loopCounter==maxLoopValue)&&!weHaveGotPreviewKey){ // when count meets length of custom list and still
-                                    temp[item.name]=scope.userAnswer[0].secondaryAnswer[item.name];
+                                    temp[item.name]=scope.questionResponse.userAnswer[0].secondaryAnswer[item.name];
                                 }
 
                             }
@@ -304,7 +348,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
                         
                     }
                     else{
-                        temp[item.name]=scope.userAnswer[0].secondaryAnswer[item.name];
+                        temp[item.name]=scope.questionResponse.userAnswer[0].secondaryAnswer[item.name];
                     }
                     if(!scope.weHaveGotASecondaryFile&&(fieldsTraversedCount==totalFields)){
                                     scope.ItsTimeToSaveSecondaryToDB=true;
