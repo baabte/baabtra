@@ -144,13 +144,13 @@
 
       <!-- course image -->
        <div class="form-group col-sm-6 no-padding" >
-
-         <input type="text" readonly="" class="form-control" float-label placeholder="Please choose a title image for the course...">
-        <input f-max-size="500" name="courseImg" type="file" fileupload-dir="course.Img" id="exampleInputFile" ng-model="course.courseImg" ng-multiple="false" accept="image/*" resetOnClick="true" data-placement="top" data-html="true" data-container="body" data-title="Please select an image to represent the course"  bs-tooltip>        
+        
+        <input type="text" readonly="" class="form-control floating-label" placeholder="Browse course image...">
+        <input type="file" ng-file-select="courseImageChanged($files)" data-placement="top" data-html="true" data-container="body" data-title="Please select an image to represent the course" bs-tooltip>        
         <!-- <em ng-if="!course.courseImg" class="text-E91E63">Please select an image to represent the course</em> -->
         
         <div ng-show="course.courseImg">
-          <img render-image img-to-render="course.courseImg" file-source = "courseImg"  ng-model="course.courseImg" class="img-responsive img-thumbnail w-sm m-xs" ng-src="{{course.courseImg}}" />
+          <img class="img-responsive img-thumbnail w-sm m-xs" ng-src="{{course.courseImg}}" />
         </div>
         
       </div>
