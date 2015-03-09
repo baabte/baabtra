@@ -119,6 +119,22 @@ $scope.onRoleSelectionChanged = function(items) {
     }
   };
 
+
+// function for change course image
+$scope.courseImageChanged = function($files){
+  console.log($scope.fileTobeUpload);
+  //this function remove old course image
+  if(!angular.equals($scope.course.courseImg,undefined)){
+    var fileRemoveResponse = commonSrv.fnRemoveFileFromServer($scope.course.courseImg);
+  }
+  //function for upload course Image  
+  var courseImageUploadResponse = commonSrv.fnFileUpload($files[0],"Course/courseImage");
+  courseImageUploadResponse.then(function(response){
+          $scope.course.courseImg = bbConfig.BWS+'files/Course/courseImage/'+response.data.replace('"','').replace('"','');
+        });
+};
+
+
 var globalValuesResponse = commonSrv.FnLoadGlobalValues("");
 globalValuesResponse.then(function(data){
   var globalValues=angular.fromJson(JSON.parse(data.data));
