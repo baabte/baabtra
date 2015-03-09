@@ -1,0 +1,27 @@
+<div class="col-md-12" ng-if="userList">
+	 <div class="panel b-t b-00C853 bg-light dk"><div class="panel-heading font-bold text-white bg-00C853 p baab-shadow">View Users</div>
+		
+		<div class="panel-body col-md-12 bg-white animated fadeInRight p-sm b-b-danger b-b-3x scrollable hover" style="max-height:560px;">
+                      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" ng-repeat="user in userList">
+                        <div class="box bg-light" style="cursor: pointer;" ng-click="userState(user._id.$oid)">
+                          <div class="box-col col-xs-3 text-center dk img-responsive">
+                            <img src="../images/user.ico">
+                          </div>
+                          <div class="box-col p b-b b-4x b-light" ng-class="{'b-success am-fade':userActive==user._id.$oid}">
+                            <div>Course&nbsp;:<a href="" ng-click="viewCourseDetails(user.fkCourseId.$oid)"> {{user.Name}}</a></div>
+                            <div class="pull-left ">Name&nbsp;&nbsp;&nbsp;: {{user.profile.profile.firstName}} {{user.profile.profile.lastName}}</div><br/>
+                            <div>Email&nbsp;&nbsp;&nbsp;: {{user.username.userName}}</div>
+                            <i class="fa pull-right text-xl text-success b-4x"></i> <!-- ng-class="{'fa-check':(userActive==user._id.$oid)&&!menudetails,'fa-check-circle':(userActive==user._id.$oid)&&menudetails}" -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+<!-- <div ng-repeat="users in userList | groupBy:'Name'">
+  <h3>{{users.Name}}</h3>
+  <ul>
+    <li ng-repeat="user in users">{{user.profile.profile.firstName}}</li>
+  </ul>
+</div> -->
+
+		<!-- end ngRepeat: tab in tabs -->
+</div></div>

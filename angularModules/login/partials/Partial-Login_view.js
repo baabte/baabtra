@@ -2,6 +2,10 @@
 
 angular.module('baabtra').controller('LoginViewCtrl',['$scope','$state','LoginService','localStorageService','$rootScope','commonService','$facebook','$modal', 'GooglePlus','$linkedIn',function($scope,$state,LoginService,localStorageService,$rootScope,commonService,$facebook,$modal,GooglePlus,$linkedIn){
 
+$rootScope.userinfo = {};
+$rootScope.userinfo.ActiveUserData = {};
+$rootScope.userinfo.ActiveUserData.appSettings = {};
+$rootScope.userinfo.ActiveUserData.appSettings.backgroundImage = '../bower_components/template/images/Mainbg/promo2.png';
 
 if(localStorageService.get('logDatas')){
 	if(localStorageService.get('logDatas').length){
@@ -146,6 +150,7 @@ $scope.emailPattern = (function() {
 
 $scope.loginSuccessCallback=function(data){
 		$scope.logData=angular.fromJson(JSON.parse(data));
+    // console.log(data);
 		if($scope.logData.add_fb){
 			if($scope.logData.add_fb=="facebook"){
 				$scope.socialSiteName="facebook";
