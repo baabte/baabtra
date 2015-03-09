@@ -26,7 +26,7 @@
         <div class="row">
             <div class="form-group">
               
-                  <input type="text" class="form-control" float-label ng-model="course.Name" name="courseName" xt-validate required placeholder="Name of the course">
+                  <input type="text" class="form-control" float-label ng-model="course.Name" name="courseName" xt-validate required placeholder="{{'Name of the course'|translate}}">
          
             </div>
         </div>
@@ -36,16 +36,17 @@
 
             <div class="checkbox">
               <label>
-                <input type="checkbox" ng-model="course.Delivery.online" value="course.Delivery.online" checked> Online
-              </label>
+
+                <input type="checkbox" ng-model="course.Delivery.online" value="course.Delivery.online" checked> 
+              </label><span translate="{{'Online'|translate}}"></span>
             </div>
 
             <div class="checkbox">
               <label>
-                <input type="checkbox" ng-model="course.Delivery.offline" value="course.Delivery.offline" checked> Offline
+                <input type="checkbox" ng-model="course.Delivery.offline" value="course.Delivery.offline" checked> <span translate="{{'Offline'translate}}"></span>
               </label>
             </div>        
-          <em class="text-muted text-E91E63">&nbsp;(Please specifiy  the mode of delivery of the course)</em>
+          <em class="text-muted text-E91E63" translate="{{'(Please specifiy  the mode of delivery of the course)'|translate}}"></em>
         </div>
       </div>
 
@@ -68,7 +69,7 @@
 
       <!-- Course domains -->
       <hierarchical-selector data="domains" multi-select="true" on-selection-changed="onDomainSelectionChanged(items)" selection="{{course.Domains}}"></hierarchical-selector>
-      <em class="text-muted text-E91E63">Please specify Domains applicable to your course (eg: Accounting, Hospitality etc.)</em>
+      <em class="text-muted text-E91E63" translate="{{'Please specify Domains applicable to your course (eg: Accounting, Hospitality etc.)'|translate}}"></em>
       <!-- Technologies -->
       <div class="form-group m-t-lg" >
                   <tags-input class="bootstrap"
@@ -78,7 +79,7 @@
                         min-length="1">
                         <auto-complete source="loadTechnologies($query) | filter:$query" min-length="0" debounce-delay="0" max-results="15"></auto-complete>
                 </tags-input>
-        <em class="text-muted text-E91E63">*Technologies help your course to be shown when people search courses under specific technologies</em>                
+        <em class="text-muted text-E91E63" translate="{{'*Technologies help your course to be shown when people search courses under specific technologies'|translate}}"</em>                
       </div>
 
       <!-- Tags -->
@@ -100,18 +101,18 @@
         <div class="radio radio-success pull-left">
             <label>
               <input type="radio" name="Branches" ng-click="specificBranches=false" id="inlineRadio1" checked>
-              All Branches
+              <span translate="{{'All Branches'|translate}}"></span>
             </label>
         </div>
 
         <div class="radio radio-success pull-left m-l" style="padding-top:15px;">
             <label>
               <input type="radio" name="Branches" ng-click="specificBranches=true" id="inlineRadio1" value="option1">
-              Specific Branches
+              <span translate="{{'Specific Branches'|translate}}"></span>
             </label>
         </div>
 
-        <em class="text-muted text-E91E63 col-xs-12">&nbsp;(Please specifiy  to which all branches this course is available)</em>
+        <em class="text-muted text-E91E63 col-xs-12" translate="{{'(Please specifiy  to which all branches this course is available)'|translate}}"></em>
         <div class="col-xs-12">
           <hierarchical-selector ng-if="specificBranches" data="branchDetails" multi-select="true" class="am-fade" on-selection-changed="onBranchSelectionChanged(items)"></hierarchical-selector>
         </div>
@@ -122,17 +123,17 @@
         <div class="radio radio-success pull-left m-l">
             <label>
               <input type="radio" name="Accessibility" ng-click="specificAccessibility=false" id="inlineRadio1" value="option1" checked>
-              Public
+              <span translate="{{'Public'|translate}}"></span>
             </label>
         </div>
         <div class="radio radio-success pull-left m-l" style="padding-top:15px;">
             <label>
               <input type="radio" name="Accessibility" ng-click="specificAccessibility=true" id="inlineRadio1" value="option1">
-              Private
+              <span translate="{{'Private'|translate}}"></span>
             </label>
         </div>
 
-        <em class="text-muted text-E91E63 col-xs-12">&nbsp;(Please specify who all in the selected branches has access to the course)</em>
+        <em class="text-muted text-E91E63 col-xs-12" translate="{{'(Please specify who all in the selected branches has access to the course)'|translate}}"></em>
 
         <div class="col-xs-12">
             <hierarchical-selector ng-if="specificAccessibility" ng-model="course.branchDetails" data="rolesDetails" multi-select="true" class="am-fade" on-selection-changed="selectedItem2 = onRoleSelectionChanged(items)"></hierarchical-selector>
@@ -144,13 +145,13 @@
 
       <!-- course image -->
        <div class="form-group col-sm-6 no-padding" >
-
-         <input type="text" readonly="" class="form-control" float-label placeholder="Please choose a title image for the course...">
-        <input f-max-size="500" name="courseImg" type="file" fileupload-dir="course.Img" id="exampleInputFile" ng-model="course.courseImg" ng-multiple="false" accept="image/*" resetOnClick="true" data-placement="top" data-html="true" data-container="body" data-title="Please select an image to represent the course"  bs-tooltip>        
+        
+        <input type="text" readonly="" class="form-control floating-label" placeholder="Browse course image...">
+        <input type="file" ng-file-select="courseImageChanged($files)" data-placement="top" data-html="true" data-container="body" data-title="{{'Please select an image to represent the course'|translate}}" bs-tooltip>        
         <!-- <em ng-if="!course.courseImg" class="text-E91E63">Please select an image to represent the course</em> -->
         
         <div ng-show="course.courseImg">
-          <img render-image img-to-render="course.courseImg" file-source = "courseImg"  ng-model="course.courseImg" class="img-responsive img-thumbnail w-sm m-xs" ng-src="{{course.courseImg}}" />
+          <img class="img-responsive img-thumbnail w-sm m-xs" ng-src="{{course.courseImg}}" />
         </div>
         
       </div>
@@ -164,7 +165,7 @@
 <div class="row">
   <div class="col-xs-12 m-b">
     <footer class="text-right">
-     <button type="submit" class="btn btn-info baab-btn" ng-disabled="acGenInfo.$invalid || !valid" disabled="disabled" ng-click="completeStep1(course);" >Next</button>
+     <button type="submit" class="btn btn-info baab-btn" ng-disabled="acGenInfo.$invalid || !valid" disabled="disabled" ng-click="completeStep1(course);"  translate="{{'Next'|translate}}"></button>
     </footer>   
   </div>
 </div>
