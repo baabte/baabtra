@@ -16,13 +16,26 @@ msgstr ""
 msgid "% of Commission"
 msgstr "٪ لجنة"
 
+#: angularModules/company/partials/Partial-company_registration.html:134
+#: angularModules/company/partials/Partial-company_registration.html:155
+#: angularModules/company/partials/Partial-company_registration.html:66
+#: angularModules/company/partials/Partial-company_registration.html:90
+msgid "<br>"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:38
+msgid ""
+"<input type=\"checkbox\" ng-model=\"course.Delivery.online\" value=\"course."
+"Delivery.online\" checked>"
+msgstr ""
+
 #: angularModules/company/partials/Partial-addMenu.html:35
 #, fuzzy
 msgid "Actions"
 msgstr "المكان"
 
 #: angularModules/Branches/aside/aside-newBranch.html:36
-#: angularModules/company/partials/Partial-addMenu.html:86
+#: angularModules/company/partials/Partial-addMenu.html:85
 msgid "Add"
 msgstr "أضف"
 
@@ -45,8 +58,14 @@ msgid "Add a reseller"
 msgstr "إضافة التجزئة"
 
 #: angularModules/Reseller/partials/Partial-reseller.html:42
+#: angularModules/company/partials/Partial-company_registration.html:122
 msgid "Address"
 msgstr "عنوان البريد"
+
+#: angularModules/company/partials/Partial-company_registration.html:48
+#, fuzzy
+msgid "Alternate E-mail Address"
+msgstr "عنوان البريد الإلكتروني"
 
 #: angularModules/Branches/aside/aside-newBranch.html:14
 msgid "Branch Name"
@@ -54,7 +73,7 @@ msgstr "اسم الفرع"
 
 #: angularModules/Reseller/partials/Partial-reseller.html:49
 #: angularModules/common/directives/popup-addNewField.html:23
-#: angularModules/company/partials/Partial-addMenu.html:84
+#: angularModules/company/partials/Partial-addMenu.html:83
 msgid "Cancel"
 msgstr "ألغِ"
 
@@ -63,6 +82,51 @@ msgstr "ألغِ"
 msgid "Change icon"
 msgstr "غيّر لغة الواجهة"
 
+#: angularModules/company/partials/Partial-userMenuMapping.html:64
+msgid "Company"
+msgstr ""
+
+#: angularModules/company/partials/Partial-company_registration.html:90
+#, fuzzy
+msgid "Company Addresss"
+msgstr "عنوان البريد الإلكتروني"
+
+#: angularModules/company/partials/Partial-userMenuMapping.html:10
+msgid "Company Admin"
+msgstr ""
+
+#: angularModules/company/partials/Partial-company_registration.html:44
+#, fuzzy
+msgid "Company Email Address"
+msgstr "عنوان البريد الإلكتروني"
+
+#: angularModules/company/partials/Partial-company_registration.html:21
+msgid "Company Info"
+msgstr ""
+
+#: angularModules/company/partials/Partial-company_registration.html:39
+#, fuzzy
+msgid "Company Name"
+msgstr "اسم الخطة"
+
+#: angularModules/company/partials/Partial-userMenuMapping.html:47
+msgid "Company User"
+msgstr ""
+
+#: angularModules/company/partials/Partial-userMenuMapping.html:16
+msgid "Company Users"
+msgstr ""
+
+#: angularModules/company/partials/Partial-company_registration.html:146
+#, fuzzy
+msgid "Confirm Password"
+msgstr "كلمة المرور"
+
+#: angularModules/company/partials/Partial-company_registration.html:66
+#, fuzzy
+msgid "Contact Details"
+msgstr "الشخص الذي يمكن الاتصال به"
+
 #: angularModules/Reseller/partials/Partial-reseller.html:32
 msgid "Contact Number"
 msgstr "رقم الاتصال"
@@ -70,6 +134,22 @@ msgstr "رقم الاتصال"
 #: angularModules/Reseller/partials/Partial-reseller.html:28
 msgid "Contact Person"
 msgstr "الشخص الذي يمكن الاتصال به"
+
+#: angularModules/company/partials/Partial-company_registration.html:97
+msgid "Country"
+msgstr ""
+
+#: angularModules/company/partials/Partial-userMenuMapping.html:141
+msgid "Create A Menu Group"
+msgstr ""
+
+#: angularModules/company/partials/Partial-userMenuMapping.html:140
+msgid "Current Menus"
+msgstr ""
+
+#: angularModules/company/partials/Partial-company_registration.html:111
+msgid "District"
+msgstr ""
 
 #: angularModules/company/partials/Partial-addMenu.html:78
 #, fuzzy
@@ -83,6 +163,15 @@ msgstr "البريد الإلكترونيّ"
 #: angularModules/Reseller/partials/Partial-reseller.html:18
 msgid "Email Address"
 msgstr "عنوان البريد الإلكتروني"
+
+#: angularModules/company/partials/Partial-manage_user_role.html:47
+#: angularModules/company/partials/Partial-manage_user_role.html:49
+msgid "Enter"
+msgstr ""
+
+#: angularModules/company/partials/Partial-manage_user_role.html:18
+msgid "Enter a description for the role"
+msgstr ""
 
 #: angularModules/company/partials/Partial-addMenu.html:37
 #, fuzzy
@@ -104,16 +193,93 @@ msgstr "إدخال إسم المرشح"
 msgid "Enter state name"
 msgstr "إدخال إسم المرشح"
 
+#: angularModules/company/partials/Partial-manage_user_role.html:33
+#, fuzzy
+msgid "Existing roles"
+msgstr "تحرير &قواعد المرشح..."
+
+#: angularModules/company/partials/Partial-company_registration.html:158
+msgid "Facebook url"
+msgstr ""
+
+#: angularModules/company/partials/Partial-company_registration.html:77
+msgid "Fax"
+msgstr ""
+
 #: angularModules/common/directives/popup-addNewField.html:19
 #, fuzzy
 msgid "Help text"
 msgstr "استبدال النصّ"
 
+#: angularModules/company/partials/Partial-JobPosting.html:15
+#, fuzzy
+msgid "Job  Title"
+msgstr "العنوان:"
+
+#: angularModules/company/partials/Partial-JobPosting.html:19
+#: angularModules/company/partials/Partial-editJobDetailsModal.html:18
+msgid "Job Description"
+msgstr ""
+
+#: angularModules/company/partials/Partial-editJobDetailsModal.html:14
+#, fuzzy
+msgid "Job Title"
+msgstr "العنوان:"
+
+#: angularModules/company/partials/Partial-company_registration.html:167
+msgid "LinkedIn url"
+msgstr ""
+
 #: angularModules/Branches/aside/aside-newBranch.html:18
+#: angularModules/company/partials/Partial-JobPosting.html:37
+#: angularModules/company/partials/Partial-editJobDetailsModal.html:35
 msgid "Location"
 msgstr "المكان"
 
+#: angularModules/company/partials/Partial-company_view.html:50
+msgid "Manage"
+msgstr ""
+
+#: angularModules/company/partials/Partial-manage_user_role.html:2
+msgid "Manage company roles"
+msgstr ""
+
+#: angularModules/company/partials/Partial-JobPosting.html:32
+msgid "Max Salary"
+msgstr ""
+
+#: angularModules/company/partials/Partial-editJobDetailsModal.html:30
+msgid "Maximum Salary"
+msgstr ""
+
+#: angularModules/company/partials/Partial-userMenuMapping.html:164
+msgid "Menu List"
+msgstr ""
+
+#: angularModules/company/partials/Partial-JobPosting.html:29
+#: angularModules/company/partials/Partial-editJobDetailsModal.html:27
+msgid "Minimum Salary"
+msgstr ""
+
+#: angularModules/company/partials/Partial-company_registration.html:74
+msgid "Mobile Number"
+msgstr ""
+
+#: angularModules/company/partials/Partial-manage_user_role.html:14
+msgid "Name of the role"
+msgstr ""
+
+#: angularModules/company/partials/Partial-company_view.html:83
+#: angularModules/company/partials/Partial-userMenuMapping.html:90
+msgid "Not Found!"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:38
+msgid "Online"
+msgstr "على الانترنت"
+
 #: angularModules/Reseller/partials/Partial-reseller.html:23
+#: angularModules/company/partials/Partial-company_registration.html:143
 msgid "Password"
 msgstr "كلمة المرور"
 
@@ -121,18 +287,88 @@ msgstr "كلمة المرور"
 msgid "Phone"
 msgstr "هاتف"
 
+#: angularModules/company/partials/Partial-company_registration.html:71
+#, fuzzy
+msgid "Phone Number"
+msgstr "رقم الاتصال"
+
 #: angularModules/billing/partials/Partial-billing_plans.html:13
 msgid "Plan Name"
 msgstr "اسم الخطة"
+
+#: angularModules/company/partials/Partial-company_registration.html:34
+msgid "Please choose a logo..."
+msgstr ""
+
+#: angularModules/company/partials/Partial-JobPosting.html:45
+msgid "Post Job"
+msgstr ""
+
+#: angularModules/company/partials/Partial-JobPosting.html:9
+msgid "Post a job"
+msgstr ""
+
+#: angularModules/company/partials/Partial-ListJobs.html:67
+msgid "Posted On:"
+msgstr ""
+
+#: angularModules/company/partials/Partial-JobPosting.html:22
+#: angularModules/company/partials/Partial-editJobDetailsModal.html:21
+msgid "Qualification"
+msgstr ""
+
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:45
+msgid "Question View"
+msgstr ""
+
+#: angularModules/company/partials/Partial-company_registration.html:184
+msgid "Register"
+msgstr ""
+
+#: angularModules/company/partials/Partial-company_registration.html:12
+msgid "Register a company"
+msgstr ""
+
+#: angularModules/company/partials/Partial-company_registration.html:5
+msgid "Registered Companies"
+msgstr ""
+
+#: angularModules/company/partials/Partial-userMenuMapping.html:157
+msgid "Save Changes"
+msgstr ""
+
+#: angularModules/company/partials/Partial-ListJobs.html:22
+msgid "Search Jobs..."
+msgstr ""
 
 #: angularModules/common/directives/Directive-roleLoader.html:2
 #, fuzzy
 msgid "Select Role"
 msgstr "حدّد الك&لّ"
 
+#: angularModules/company/partials/Partial-company_registration.html:98
+#, fuzzy
+msgid "Select a Country"
+msgstr "اختار دورة"
+
 #: angularModules/common/directives/Directive-courseLoader.html:2
 msgid "Select a Course"
 msgstr "اختار دورة"
+
+#: angularModules/company/partials/Partial-company_registration.html:112
+#, fuzzy
+msgid "Select a District"
+msgstr "نوع الإرسال الإفتراضى:"
+
+#: angularModules/company/partials/Partial-company_registration.html:53
+#, fuzzy
+msgid "Select a Sector"
+msgstr "اختار دورة"
+
+#: angularModules/company/partials/Partial-company_registration.html:105
+#, fuzzy
+msgid "Select a State"
+msgstr "نوع الإرسال الإفتراضى:"
 
 #: angularModules/common/directives/popup-addNewField.html:10
 #: angularModules/common/directives/popup-addNewField.html:14
@@ -140,10 +376,18 @@ msgstr "اختار دورة"
 msgid "Select a detail type"
 msgstr "نوع الإرسال الإفتراضى:"
 
+#: angularModules/company/partials/Partial-company_registration.html:104
+msgid "State"
+msgstr ""
+
 #: angularModules/common/directives/popup-addNewField.html:17
 #, fuzzy
 msgid "Title"
 msgstr "العنوان:"
+
+#: angularModules/company/partials/Partial-company_registration.html:164
+msgid "Twitter url"
+msgstr ""
 
 #: angularModules/common/directives/popup-addNewField.html:9
 #, fuzzy
@@ -151,11 +395,58 @@ msgid "Type"
 msgstr "النوع"
 
 #: angularModules/Branches/aside/aside-newBranch.html:35
-#: angularModules/company/partials/Partial-addMenu.html:85
+#: angularModules/company/partials/Partial-addMenu.html:84
 msgid "Update"
 msgstr "حفظ"
+
+#: angularModules/company/partials/Partial-editJobDetailsModal.html:43
+#, fuzzy
+msgid "Update Job"
+msgstr "حفظ"
+
+#: angularModules/user/partials/Partial-bulkEnrollment.html:10
+msgid "Upload your excel document"
+msgstr ""
+
+#: angularModules/company/partials/Partial-editJobDetailsModal.html:39
+msgid "Use"
+msgstr ""
+
+#: angularModules/company/partials/Partial-JobPosting.html:41
+msgid "Use commas to separate tags"
+msgstr ""
+
+#: angularModules/company/partials/Partial-userMenuMapping.html:79
+msgid "User"
+msgstr ""
+
+#: angularModules/company/partials/Partial-company_registration.html:139
+#, fuzzy
+msgid "User Name"
+msgstr "اسم الفرع"
 
 #: angularModules/company/partials/Partial-addMenu.html:59
 #, fuzzy
 msgid "Visible to user"
 msgstr "يجب أن تحدد أسم مستخدم"
+
+#: angularModules/company/partials/Partial-company_registration.html:80
+msgid "Website url"
+msgstr ""
+
+#: angularModules/company/partials/Partial-company_registration.html:118
+msgid "Zip  Code"
+msgstr ""
+
+#: angularModules/company/partials/Partial-manage_user_role.html:23
+#, fuzzy
+msgid "cancel"
+msgstr "ألغِ"
+
+#: angularModules/company/partials/Partial-company_registration.html:161
+msgid "gplus url"
+msgstr ""
+
+#: angularModules/company/partials/Partial-company_view.html:96
+msgid "show more.."
+msgstr ""

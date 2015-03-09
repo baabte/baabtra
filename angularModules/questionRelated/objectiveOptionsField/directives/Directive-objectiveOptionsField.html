@@ -2,7 +2,7 @@
 
 	<div class="col-xs-12">
 		<div class="paper-dropdown col-xs-12">
-		<select ng-change="changeNumberingType()" placeholder="Select numbering type" data-animation="am-fade-and-slide-top"  ng-model="selectedNumbering" ng-options="value.name for (key, value) in optionsArray" data-html="true" bs-select></select>
+		<select ng-change="changeNumberingType()" placeholder="{{'Select numbering type'|translate}}" data-animation="am-fade-and-slide-top"  ng-model="selectedNumbering" ng-options="value.name for (key, value) in optionsArray" data-html="true" bs-select></select>
 		</div>
 	</div>
 
@@ -17,7 +17,7 @@
 			</div>
 			<div class="col-xs-12 col-sm-6">
 		   
-        		<textarea class="form-control " float-label  name="optionWhy" placeholder="Why / Why not this answer (optional)" ng-model="answers[$index].why" rows="0" xt-validate style="width:100%;"></textarea>
+        		<textarea class="form-control " float-label  name="optionWhy" placeholder="{{'Why / Why not this answer (optional)'|translate}}" ng-model="answers[$index].why" rows="0" xt-validate style="width:100%;"></textarea>
      	
 			</div>
 			
