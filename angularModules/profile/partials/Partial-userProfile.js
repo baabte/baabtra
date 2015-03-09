@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('UserprofileCtrl',['$scope','$rootScope','userProfile','$state','commonService','$modal','$alert',function($scope,$rootScope,userProfile,$state,commonService,$modal,$alert){
+angular.module('baabtra').controller('UserprofileCtrl',['$scope','$rootScope','userProfile','$state','commonService','$modal','$alert','$stateParams',function($scope,$rootScope,userProfile,$state,commonService,$modal,$alert,$stateParams){
 
 $scope.updatepicmsg=true;
 $scope.showHideAbtPic=false;
@@ -14,7 +14,15 @@ if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       commonService.GetUserCredentials($scope);
 }
 $scope.userinfo =$rootScope.userinfo;
-var profile = userProfile.loadProfileData($scope.userinfo.userLoginId);
+var profile; 
+if(!angular.equals($stateParams.userId,undefined)){
+	profile = userProfile.loadProfileData($stateParams.userId);
+}
+else{
+	profile = userProfile.loadProfileData($scope.userinfo.userLoginId);
+}
+
+
 		profile.then(function (data) {
 			$scope.profileData = angular.fromJson(JSON.parse(data.data));
 			// console.log($scope.profileData.profile);

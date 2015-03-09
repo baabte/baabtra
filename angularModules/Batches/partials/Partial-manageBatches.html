@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel">
+     <form name="batchAdd" xt-form  class="ng-pristine ng-valid"> 
+      <div class="panel-heading font-bold text-white bg-00C853 p baab-shadow">Manage Batches</div>
+      <div class="panel-body">
+        <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                <div class="row"> 
+                  <div class="form-group m-l">
+                  
+                   <input class="form-control no-padding " float-label   ng-model="Batch.batchName" placeholder="Name of the Batch" name="Batch Name" required>
+                  </div>
+                </div>  
+                  <div class="form-group">
+                    <div class="radio radio-primary">
+                      <label>
+                          <input type="radio" name="optionsRadios" id="batchMode" value="onetime" ng-model="Batch.batchMode" ng-change="fnLoadPopupRepeat(Batch.batchMode)" required >
+                          Onetime
+                      </label>
+                    </div>
+                    <div class="radio radio-primary">
+                      <label>
+                          <input type="radio" name="optionsRadios" id="repeat" value="repeat" ng-model="Batch.batchMode" ng-change="fnLoadPopupRepeat(Batch.batchMode)" required >
+                          Repeat
+                      </label>
+                    </div>
+                    <em class="text-muted text-E91E63">&nbsp;(Please specifiy  the Mode of Batch)</em>    
+                  </div>
+                  <div class="form-group">   
+                      <div class="radio radio-primary">
+                        <label>
+                            <input type="radio" name="optionsType" ng-model="Batch.batchType" value="offline" required> Offline
+                        </label>
+                      </div>
+                      <div class="radio radio-primary">
+                        <label>
+                            <input type="radio"  ng-model="Batch.batchType" value="instructorLead" name="optionsType" required > Instructor Lead
+                        </label>
+                      </div>
+                    <em class="text-muted text-E91E63">&nbsp;(Please specifiy  the Type of Batch)</em>                
+                  </div>
+                  <div class="row m-l">
+                  <div class="form-group ">
+                    
+                    <input type="number" float-label  ng-model="Batch.seats" class="form-control no-padding" placeholder="Number of seats" name="seats" required >
+                  </div> 
+                  </div> 
+                  <div class="row m-l"> 
+                    <course-loader ng-model="Batch.course" float-label placeholder="Courses" name="Courses"  ></course-loader>
+                  
+                 </div>
+              </div>
+              
+          
+        </div>
+      </div>
+      <div class="panel-footer">
+          <button class="btn btn-warning baab-btn" type="reset" ng-disabled="batchAdd.$pristine" >cancel</button>		
+	        <button class="btn btn-info baab-btn" ng-disabled="batchAdd.$invalid" ng-click="saveBatch()" >Add Batch</button>
+        </form>   
+      </div>
+    </div>
+  </div>
+</div>

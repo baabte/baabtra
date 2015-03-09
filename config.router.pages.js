@@ -287,8 +287,6 @@
                 }
                 
               })
-
-
               .state('home.main.addCourse.step2', {
                 url: '/step2/:courseId',
                 views:{
@@ -430,7 +428,7 @@
                 
               })
               .state('home.main.userProfile', {
-                url: '/userProfile',
+                url: '/userProfile/:userId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/profile/partials/Partial-userProfile.html',
@@ -506,6 +504,16 @@
                     controller: 'viewCandidateCourseCtrl'
                   }
                 }
+              })
+               .state('home.main.batches', {
+                url: '/manageBatches',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-manageBatches.html',
+                    controller:'ManagebatchesCtrl'
+                  }
+                }
+                
               })
               .state('page.document', {
                 url: '/document',

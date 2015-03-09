@@ -79,7 +79,7 @@ angular.module('baabtra')
 					      	  
 					      	  //setting the corresponding title(tooltiop)
 					      	  scope.title = 'This exceeds the maximum file size limit of ' + attrs.fMaxSize + 'Kb';
-					      	  console.log(scope.title);
+					      	  
 					      	  // adding a danger class to the control
 					          elem.addClass('bg-danger lt'); 
 
