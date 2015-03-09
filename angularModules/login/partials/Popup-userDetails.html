@@ -3,10 +3,10 @@
     <div class="modal-content">
        <form class="form-horizontal ng-pristine ng-valid" name="course_element_field" xt-form novalidate>
       <div class="modal-header">
-        <h4 class="modal-title text-primary">Change your avatar ?</h4>
+        <h4 class="modal-title text-primary" translate="{{'Change your avatar ?'|translate}}"></h4>
       </div>
       <div class="modal-body">
-        <a ng-click="undoRemoveAvatar();" ng-if="undo" class="text-md text-ellipsis text-info pull-right"><i class="fa fa-undo"></i>&nbsp;Undo Remove Avatar</a>
+        <a ng-click="undoRemoveAvatar();" ng-if="undo" class="text-md text-ellipsis text-info pull-right"><i class="fa fa-undo"></i>&nbsp;<span translate="{{'Undo Remove Avatar'|translate}}"></span></a>
       	<!-- <qrcode version="2" size="80" color="#4A148C" ng-click="$hide()" data="{{userinfo.ActiveUserData.username}}"></qrcode>
       	<div class="form-file">
 			<input type="file">
@@ -19,7 +19,7 @@
             <img ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length"  class="w img-circle"  ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" />
             <br>
             <button type="button" class="btn btn-addon btn-light m-r-xs m-t-xs pull-right" ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length && !undo" ng-click="removeAvatar(this);">
-                <i class="fa fa-trash"></i>Remove my avatar
+                <i class="fa fa-trash"></i><span translate="{{'Remove my avatar'|translate}}"></span>
               </button>
               <!-- <button type="button" ng-if="undo" class="btn btn-addon btn-light m-r-xs m-t-xs pull-right w" ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length" ng-click="undoRemoveAvatar();">
                 <i class="fa fa-undo"></i>Undo
@@ -35,7 +35,7 @@
             <i class="fa fa-cloud-upload pull-left text-2x"></i>
           </div>
           <div class="col-xs-11">
-            <input type="text" readonly="" class="btn form-control m-v-md" float-label placeholder="Upload your new picture" style="border-bottom:none;">
+            <input type="text" readonly="" class="btn form-control m-v-md" float-label placeholder="{{'Upload your new picture'|translate}}" style="border-bottom:none;">
             <input type="file" ng-model="avatar" fileupload-dir="avatarImg" name="avatar" f-max-size="500" ng-multiple="false" accept="image/*" id="avatarInput" onchange="angular.element(this).scope().handleFileSelect(angular.element(this))" > 
           </div>        
         </div>
@@ -52,7 +52,7 @@
                 
 
       <div class="modal-footer">
-        <button class="btn pull-left baab-btn btn-warning" type="button" ng-click="cancelChangeProfilePic();$hide();">Cancel</button>
+        <button class="btn pull-left baab-btn btn-warning" type="button" ng-click="cancelChangeProfilePic();$hide();"  translate="{{'Cancel'|translate}}"></button>
         <button class="btn pull-right baab-btn btn-info"  type="button" ng-click="changeProfilePic(userinfo.ActiveUserData.roleMappingObj.avatar,$hide)">{{btnName}}</button>
       </div>
       </form>

@@ -4,26 +4,26 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">        
-        <h4 class="modal-title text-dark">Enter baabtra.com account info for  {{socialSiteName}} Login</h4>
+        <h4 class="modal-title text-dark"><span translate="{{'Enter baabtra.com account info for'|translate}}"></span>  {{socialSiteName}} <span translate="{{'Login'|translate}}"></span></h4>
       </div>
       <div class="modal-body">
 <div class="box">
 
         <div class=" m-t-lg font-bold text-dark ">            
-      <div data-placement="top" data-type="info" data-html="true" data-animation="am-fade-and-scale" class="text-u-c">
-          Log In<hr>
+      <div data-placement="top" data-type="info" data-html="true" data-animation="am-fade-and-scale" class="text-u-c" translate="{{'Log In'|translate}}">
+          <hr>
       </div>
        <div data-placement="top" data-type="info" data-html="true" data-animation="am-fade-and-scale" bs-tooltip="PriceConfigTT"  class="w-xl">
-         <input type="text" class="form-control" float-label" placeholder="baabtra username" >
+         <input type="text" class="form-control" float-label" placeholder="{{'baabtra username'|translate}}" >
       </div>
       <br>
       <div data-placement="top" data-type="info" data-html="true" data-animation="am-fade-and-scale" class="w-xl">
-         <input type="text" class="form-control" float-label" placeholder="baabtra password">
+         <input type="text" class="form-control" float-label" placeholder="{{'baabtra password'|translate}}">
       </div>
     <br>        
      <div data-placement="top" data-type="info" data-html="true" data-animation="am-fade-and-scale" class="w-xl">
-          <button type="button" ng-click="addSocialLoginToExistingUser();" class="btn btn-warning baab-btn">log in</button>
-          <p class="text-xs" ng-click="$hide();"><a ui-sref="forgot-password" >Forgot password?</a></p>
+          <button type="button" ng-click="addSocialLoginToExistingUser();" class="btn btn-warning baab-btn" translate="{{'log in'|translate}}"></button>
+          <p class="text-xs" ng-click="$hide();"><a ui-sref="forgot-password" translate="{{'Forgot password?'|translate}}"></a></p>
       </div>
     </div>
   

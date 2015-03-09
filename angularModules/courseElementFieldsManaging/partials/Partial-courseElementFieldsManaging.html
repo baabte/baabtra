@@ -2,18 +2,18 @@
 <div class="row">
 	<div class="panel b-t b-9C27B0">
 		<form name="Manage_course_element_fields" xt-form novalidate>
-			<div class="panel-heading font-bold text-white bg-9C27B0 p baab-shadow">Manage Course Element Fields</div>
+			<div class="panel-heading font-bold text-white bg-9C27B0 p baab-shadow" translate="{{'Manage Course Element Fields'|translate}}"></div>
 			<div class="panel-body p-v-lg">
 				<div class="col-md-6 col-lg-2">
 					
-						<input class="form-control " float-label ng-model="element.DispalyName" name="DispalyName" required xt-validate placeholder="Name to be displayed for the field">
+						<input class="form-control " float-label ng-model="element.DispalyName" name="DispalyName" required xt-validate placeholder="{{'Name to be displayed for the field'|translate}}">
 				
 				</div>
 
 				<!-- Name -->
 				<div class="col-md-6 col-lg-2">
 					
-						<input name="Name" ng-model="element.Name" required xt-validate class="form-control " float-label placeholder="Actual name of the field">
+						<input name="Name" ng-model="element.Name" required xt-validate class="form-control " float-label placeholder="{{'Actual name of the field'|translate}}">
 					
 				</div>
 
@@ -21,7 +21,8 @@
 				<div class="col-xs-12 col-sm-4 col-lg-2">
 					<div class="togglebutton">
 	                    <label>
-	                        <input type="checkbox" ng-click="element.canAdd=!element.canAdd" ng-checked="element.canAdd" ng-value="element.canAdd"> Can be added by the user
+	                        <input type="checkbox" ng-click="element.canAdd=!element.canAdd" ng-checked="element.canAdd" ng-value="element.canAdd"> 
+	                        <span translate="{{'Can be added by the user'|translate}}"></span>
 	                    </label>
                 	</div>
 				</div>
@@ -30,7 +31,8 @@
 				<div class="col-xs-12 col-sm-4 col-lg-2">
 					<div class="togglebutton">
 	                    <label>
-	                        <input type="checkbox" ng-click="element.canBeAnAnswer=!element.canBeAnAnswer" ng-checked="element.canBeAnAnswer" ng-value="element.canBeAnAnswer"> Can be an answer
+	                        <input type="checkbox" ng-click="element.canBeAnAnswer=!element.canBeAnAnswer" ng-checked="element.canBeAnAnswer" ng-value="element.canBeAnAnswer"> 
+	                        <span translate="{{'Can be an answer'|translate}}"></span>
 	                    </label>
                 	</div>				
 				</div>
@@ -38,7 +40,7 @@
 				<!-- palette Name -->
 				<div class="col-xs-6 col-sm-4 col-lg-2 m-v-n">
 					
-					<select placeholder="Select palette" data-animation="am-fade-and-slide-top"  ng-model="element.paletteName" ng-options="value.name as value.name for (key, value) in palette" data-html="true" bs-select></select>
+					<select placeholder="{{'Select palette'|translate}}" data-animation="am-fade-and-slide-top"  ng-model="element.paletteName" ng-options="value.name as value.name for (key, value) in palette" data-html="true" bs-select></select>
 				
 				</div>
 
@@ -50,27 +52,27 @@
 				<!-- Default template -->
 				<div class="col-xs-12 m-v-lg">
 				
-							<textarea ng-model="element.DefaultTemplate" name="DefaultTemplate" required xt-validate rows="0" placeholder="Default Template" class="form-control " float-label></textarea>
+							<textarea ng-model="element.DefaultTemplate" name="DefaultTemplate" required xt-validate rows="0" placeholder="{{'Default Template'|translate}}" class="form-control " float-label></textarea>
 				
 				</div>
 
 				<!-- Properties template -->
 				<div class="col-xs-12 m-v-lg">					
-							<textarea ng-model="element.PropertiesTemplate" name="PropertiesTemplate" required xt-validate placeholder="Properties Template" class="form-control " float-label></textarea>
+							<textarea ng-model="element.PropertiesTemplate" name="PropertiesTemplate" required xt-validate placeholder="{{'Properties Template'|translate}}" class="form-control " float-label></textarea>
 				
 				</div>
 
 				<!-- Debug -->
 				<div class="col-xs-12 m-v-lg">
 				
-							<textarea ng-model="element.Debug" name="PropertiesTemplate" required xt-validate placeholder="Debug" class="form-control " float-label></textarea>
+							<textarea ng-model="element.Debug" name="PropertiesTemplate" required xt-validate placeholder="{{'Debug'|translate}}" class="form-control " float-label></textarea>
 						
 				</div>
 
 			</div>
 			<div class="panel-footer">
-				<button class="btn btn-warning baab-btn" ng-disabled="Manage_course_element_fields.$pristine" ng-class="{'bg-warning':!Manage_course_element_fields.$pristine}" type="button">Cancel</button>
-				<button class="btn btn-info baab-btn pull-right"  ng-disabled="Manage_course_element_fields.$invalid" ng-class="{'bg-info':!Manage_course_element_fields.$invalid}" disabled="disabled" type="button" ng-click="saveCourseElementFields()">Save</button>
+				<button class="btn btn-warning baab-btn" ng-disabled="Manage_course_element_fields.$pristine" ng-class="{'bg-warning':!Manage_course_element_fields.$pristine}" type="button" translate="{{'Cancel'|translate}}"></button>
+				<button class="btn btn-info baab-btn pull-right"  ng-disabled="Manage_course_element_fields.$invalid" ng-class="{'bg-info':!Manage_course_element_fields.$invalid}" disabled="disabled" type="button" ng-click="saveCourseElementFields()" translate="{{'Save'|translate}}"></button>
 			</div>
 		</form>
 	</div>
