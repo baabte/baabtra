@@ -2,34 +2,34 @@
 
 	<div class="panel b-light">
         <div class="panel-heading m-b b-light">
-          <strong>Course Elements</strong>
+          <strong translate="{{'Course Elements'|translate'}}"></strong>
         </div>
         <div class="panel-body">
 <form name="course_element_form" class="form-validation" enctype= "multipart/form-data"  xt-form novalidate>
             <div class="col-md-7 form-group">
 			       <div class="col-md-7 form-group">              
 
-              <input type="text" ng-model="courseElement.Name"class="form-control" float-label id="definput" xt-validate required placeholder="Enter a name for the course element" name="Name" >
+              <input type="text" ng-model="courseElement.Name"class="form-control" float-label id="definput" xt-validate required placeholder="{{'Enter a name for the course element'|translate}}" name="Name" >
              
             </div>	
            
             <div class="col-md-7 form-group">          
 
-              <input type="text" ng-model="courseElement.menuDisplayName"class="form-control" float-label xt-validate required id="definput" placeholder="Enter a Display Name for the course element" name="Name" >
+              <input type="text" ng-model="courseElement.menuDisplayName"class="form-control" float-label xt-validate required id="definput" placeholder="{{'Enter a Display Name for the course element'|translate}}" name="Name" >
              
             </div>
             <div class="col-md-7 form-group">
              <div class="col-xs-3 m-t ">
-                <h4 class="no-margin m-b-md m-r">Icon</h4>
+                <h4 class="no-margin m-b-md m-r" translate="{{'Icon'|translate}}"></h4>
                 <i class="iconCustomBg ui-icon fa {{courseElement.menuIcon}} b-white text-lg b-2x bg-info" style="Background-color: {{courseElement.iconBackground}}!important; color: {{courseElement.iconColor}}!important;border-radius: 12px;"></i>
                 <p></p>
-                <a ng-click="GetIcon()" class="m-v-xs">Change Icon</a>
+                <a ng-click="GetIcon()" class="m-v-xs" translate="{{'Change Icon'|translate}}"></a>
               </div>
               <div class="col-xs-3 m-t">
-                <h4 class="no-margin m-b-md m-r">Colour</h4>
+                <h4 class="no-margin m-b-md m-r" translate="{{'Colour'|translate}}"></h4>
              <spectrum-colorpicker ng-model="courseElement.iconColor" options="{showPalette:true}"></spectrum-colorpicker></div> 
              <div class="col-xs-3 m-t">
-                <h4 class="no-margin m-b-md m-r">Background</h4>
+                <h4 class="no-margin m-b-md m-r" translate="{{'Background'|translate}}"></h4>
              <spectrum-colorpicker ng-model="courseElement.iconBackground" options="{showPalette:true}"></spectrum-colorpicker></div>   
             </div>	
 
@@ -64,9 +64,8 @@
 <!-- Nestable Elements added by ANoop/Lijin to include elements inside elements -->
 <div class="row-fluid">
   <div class="col-xs-12">
-    <label  class="font-bold" for="definpu">Nestable Elements</label><br>
-    <em class="text-muted">
-      Here you can select elemets which the user should be able to nest with the currently adding course element
+    <label  class="font-bold" for="definpu" translate="{{'Nestable Elements'|translate}}"></label><br>
+    <em class="text-muted" translate="{{'Here you can select elemets which the user should be able to nest with the currently adding course element'|translate}}">
     </em><br>
       <div multi-selectable input-model="nestableElementlist" output-model="courseElement.nestableElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="ticked" helper-elements="all none reset filter">
       </div>
@@ -83,17 +82,15 @@
 
          
       <div class="col-md-4 font-bold form-group">
-             <a ng-show="EditCourseElementText" ng-click="updateCourseElementsFetch(course_element_form)" >
-            Edit Exsisting Course Element
+             <a ng-show="EditCourseElementText" ng-click="updateCourseElementsFetch(course_element_form)" translate="{{'Edit Exsisting Course Element'|translate}}">
             </a>
-            <a ng-show="AddCourseElementText" ng-click="AddCourseElementsText(course_element_form)" >
-            Add New Course Element 
+            <a ng-show="AddCourseElementText" ng-click="AddCourseElementsText(course_element_form)"  translate="{{'Add New Course Element'|translate}}"> 
             </a>
 
             <div ng-show="AddCourseElementText" class=" m-t-lg">
               <div class="font-bold" > 
                 <!-- data-placement="top" data-type="info" data-html="true" data-animation="am-fade-and-scale" bs-tooltip="FeatureConfigTT" -->
-              Course Elements<hr>
+              <span translate="{{'Course Elements'|translate}}"></span><hr>
               </div>
               <div class=" list-group  bg-inherit">
               <div class="animated flipInX">
@@ -118,9 +115,9 @@
  
  <div class="col-md-12 form-group">
              
-             <button ng-show="courseElementSavebtn" class="btn btn-info pull-right baab-btn" ng-click="saveCourseElement(course_element_form)" ng-disabled="course_element_form.$invalid||courseElement.schema.fields[0]==undefined||(sel.exitCriteria.exitCriteriaConfig!=undefined&&courseElement.exitCriteria.config==undefined)">Save Course Element</button>
+             <button ng-show="courseElementSavebtn" class="btn btn-info pull-right baab-btn" ng-click="saveCourseElement(course_element_form)" ng-disabled="course_element_form.$invalid||courseElement.schema.fields[0]==undefined||(sel.exitCriteria.exitCriteriaConfig!=undefined&&courseElement.exitCriteria.config==undefined)" translate="{{'Save Course Element'|translate}}"></button>
 
-             <button ng-show="courseElementUpdatebtn" class="btn btn-info pull-right baab-btn" ng-click="saveCourseElement(course_element_form)" ng-disabled="course_element_form.$invalid||courseElement.schema.fields[0]==undefined||(sel.exitCriteria.exitCriteriaConfig!=undefined&&courseElement.exitCriteria.config==undefined)">Update Course Element</button>
+             <button ng-show="courseElementUpdatebtn" class="btn btn-info pull-right baab-btn" ng-click="saveCourseElement(course_element_form)" ng-disabled="course_element_form.$invalid||courseElement.schema.fields[0]==undefined||(sel.exitCriteria.exitCriteriaConfig!=undefined&&courseElement.exitCriteria.config==undefined)" translate="{{'Update Course Element'|translate}}"></button>
 
 </div>
 

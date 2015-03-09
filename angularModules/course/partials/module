@@ -9,9 +9,9 @@
           <form role="form" class="ng-pristine ng-valid">
             <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="{{'Enter email'|translate}}">
             </div>
-            <button type="submit" class="btn btn-default m-b">Add</button>
+            <button type="submit" class="btn btn-default m-b" translate="{{'Add'|translate}}"></button>
           </form>
         </div>
       </div>

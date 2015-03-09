@@ -7,7 +7,7 @@
 				</div>
 				<div class="m-l m-r w-sm pull-left">
 					<ui-select ng-model="types.selected" theme="selectize" ng-disabled="$index != addeddurationTypes.length-1 " >
-						<ui-select-match placeholder="Duration type" value="{{$select.selected.name}}">{{$select.selected.name}}</ui-select-match>
+						<ui-select-match placeholder="{{'Duration type'|translate}}" value="{{$select.selected.name}}">{{$select.selected.name}}</ui-select-match>
 						<ui-select-choices repeat="duration in durationTypes | filter: $select.search">
 	                	<span ng-bind-html="duration.name | highlight: $select.search"></span>
 	            	</ui-select-choices>

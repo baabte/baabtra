@@ -9,10 +9,10 @@
 
 
 <ul class="nav nav-tabs p ">
-  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='question'}" ng-click="selectedTab='question'"><a href="#"><span class="text-lg font-bold">1.</span> Question <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
-  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='answerType'}" ng-click="selectedTab='answerType'"><a href="#"><span class="text-lg">2.</span> Answer type <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
-  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='answers'}" ng-click="selectedTab='answers'"><a href="#"><span class="text-lg">3.</span> Answers <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
-  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='marks'}" ng-click="selectedTab='marks'"><a href="#"><span class="text-lg">4.</span> Marks</a></li>
+  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='question'}" ng-click="selectedTab='question'"><a href="#"><span class="text-lg font-bold">1. </span><span translate="{{'Question'|translate}}"></span> <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
+  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='answerType'}" ng-click="selectedTab='answerType'"><a href="#"><span class="text-lg">2. </span><span translate="{{'Answer  type '|translate}}"></span><div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
+  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='answers'}" ng-click="selectedTab='answers'"><a href="#"><span class="text-lg">3. </span><span translate="{{'Answers'|translate}}"></span> <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
+  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='marks'}" ng-click="selectedTab='marks'"><a href="#"><span class="text-lg">4. </span><span translate="{{'Marks'|translate}}"></span></a></li>
 </ul>
 
 
@@ -35,7 +35,7 @@
       					<!-- <input class="form-control" float-label type="text" placeholder="Question Title (optional)" name="questionTitle" ng-model="question.title"> -->
     		
     					<div class="m-v-lg">
-	    					<em class="text-muted">Question</em>
+	    					<em class="text-muted" translate="{{'Question'|translate}}"></em>
 	      					 <ng-quill-editor name="questionDesc" ng-model="question.question"  toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" required xt-validate editor-required="true" error-class="input-error"></ng-quill-editor>
 	      				</div>
 	    			
@@ -45,14 +45,14 @@
 						 <div class="radio radio-success">
 				            <label>
 				              <input type="radio" required xt-validate ng-checked="question.type=='objective'" ng-change="questionTypeChange('objective')" value="objective"  ng-model="question.type"  name="questionType">
-				              Objective
+				              <span translate="{{'Objective'|translate}}"></span>
 				            </label>
 				        </div>
 
 				        <div class="radio radio-success">
 				            <label>
 				              <input type="radio" required xt-validate ng-change="questionTypeChange('descriptive')" ng-checked="question.type=='descriptive'" value="descriptive" ng-model="question.type"   name="questionType">
-				              Descriptive
+				              <span translate="{{'Descriptive'|translate}}"></span>
 				            </label>
 				        </div>
 
@@ -62,14 +62,14 @@
 							<div class="radio radio-success">
 					            <label>
 					              <input type="radio" required xt-validate ng-checked="question.answerType=='singleAnswer'" value="singleAnswer"  ng-model="question.answerType"  name="answerType">
-					              Single Answer
+					              <span translate="{{'Single Answer'|translate}}"></span>
 					            </label>
 					        </div>
 
 					        <div class="radio radio-success">
 					            <label>
 					              <input type="radio" required xt-validate  ng-checked="question.answerType=='multiAnswer'" value="multiAnswer"  ng-model="question.answerType" name="answerType">
-					              Multi Answer
+					              <span translate="{{'Multi Answer'|translate}}"></span>
 					            </label>
 					        </div>
 
@@ -96,14 +96,14 @@
 							
 	      					<div ng-if="question.type=='objective'&&question.answerType=='singleAnswer'" class="col-xs-12 m-v-lg">
 								<div class="paper-dropdown">
-								<select required xt-validate placeholder="Select an answer" data-animation="am-fade-and-slide-top"  ng-model="question.answer[0]" ng-options="value.Name for (key, value) in optionsTemp" data-html="true" bs-select></select>
+								<select required xt-validate placeholder="{{'Select an answer'|translate}}" data-animation="am-fade-and-slide-top"  ng-model="question.answer[0]" ng-options="value.Name for (key, value) in optionsTemp" data-html="true" bs-select></select>
 								</div>
 							</div>
 
 							<div ng-if="question.type=='descriptive'" class="col-xs-12 m-v-lg">
 								<div class="p-v-sm">
-									Primary answer template:<br>
-									<em>(Primary answer template will be shown to the candidate when he tries to answer this question.)</em>
+									<span translate="{{'Primary answer template:'|translate}}"></span><br>
+									<em translate="{{'(Primary answer template will be shown to the candidate when he tries to answer this question.)'|translate}}"></em>
 									<!-- <div class="paper-dropdown">
 										<select  placeholder="Select a primary answer field"  ng-model="question.primaryAnswer" required xt-validate ng-options="value.Name for (key, value) in answerTypes" data-html="true" bs-select></select>
 		      						</div> -->
@@ -114,8 +114,8 @@
 									
 								</div>
 								<div ng-if="question.type=='descriptive'" class="p-v-sm">
-									Embeddable fields:<br>
-									<em>(Embeddable fields can be added to the answer template by the candidate if needed.)</em>
+									<span translate="{{'Embeddable fields:'|translate}}"></span><br>
+									<em translate="{{'(Embeddable fields can be added to the answer template by the candidate if needed.)'|translate}}"></em>
 									<div  multi-selectable ng-if="answerTypesSecond" input-model="answerTypesSecond" required xt-validate output-model="question.secondaryAnswer" button-label="Name" item-label="Name" tick-property="ticked" helper-elements="all none reset filter">
 		      						</div>
 		      					</div>
