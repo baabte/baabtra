@@ -21,6 +21,7 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfi
 			scope.isMentee=false;
 			scope.start=0;
 			scope.questionAnswer=[];
+			scope.totalMark=scope.courseElement.elements[outerIndex].value.mark;
 			
 			
 			//if user is mentee copying all required datas 
@@ -30,6 +31,11 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfi
 				scope.isMentee=true;
 				if(scope.courseElement.testStartTime){
 					scope.startTest=true;
+				}
+				if(scope.courseElement.dateOfSubmission){
+					// console.log(scope.courseElement);
+					scope.isMentee=false;
+				 	scope.examFinished=true;
 				}
 			}
 			if(roleId===bbConfig.CURID){
@@ -67,31 +73,39 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfi
 
 				 var result=angular.fromJson(JSON.parse(data.data));
 				 scope.startTest=true;
+				 scope.examFinished=true;
 				// console.log(result);
 				});
 
 			};
 
 			scope.submitTest=function(){
+				console.log(scope.questionAnswer);
 				var time=(new Date()).getTime();
-				var SubmitTestObj={courseMappingId:courseMappingId,userLoginId:userLoginId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex,userAnswers:scope.questionAnswer};
+				var totalMarkScored=0;
+				for(var index in scope.questionAnswer){
+					totalMarkScored+=scope.questionAnswer[index].markScored;
+				}
+
 				
+				var SubmitTestObj={courseMappingId:courseMappingId,userLoginId:userLoginId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex,totalMarkScored:totalMarkScored,timeObj:{key:'dateOfSubmission',value:time},userAnswers:scope.questionAnswer};
 				
+				console.clear();
+				console.log(SubmitTestObj);
 
-				// var FnSubmitTestCallBack= testRelated.FnSubmitTest(SubmitTestObj);
+				var FnSubmitTestCallBack= testRelated.FnSubmitTest(SubmitTestObj);
 
-				// FnSubmitTestCallBack.then(function(data){
-
-				//  var result=angular.fromJson(JSON.parse(data.data));
-				//  scope.startTest=true;
-				// console.log(result);
-				// });
+				FnSubmitTestCallBack.then(function(data){
+					scope.isMentee=false;
+				 var result=angular.fromJson(JSON.parse(data.data));
+				console.log(result);
+				});
 
 
 			};
 
 			// for (var i = 0; i < 10; i++) {
-				
+
 			// 	var time=(new Date()).getTime();
 			// 	console.log(time);
 			// 	};
