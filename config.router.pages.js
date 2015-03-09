@@ -428,7 +428,7 @@
                 
               })
               .state('home.main.userProfile', {
-                url: '/userProfile',
+                url: '/userProfile/:userId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/profile/partials/Partial-userProfile.html',

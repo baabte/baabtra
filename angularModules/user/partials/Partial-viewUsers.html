@@ -1,21 +1,50 @@
-<div class="col-md-12" ng-if="userList">
+<div class="col-md-12" ng-if="userObj.userList">
 	 <div class="panel b-t b-00C853 bg-light dk"><div class="panel-heading font-bold text-white bg-00C853 p baab-shadow">View Users</div>
 		
-		<div class="panel-body col-md-12 bg-white animated fadeInRight p-sm b-b-danger b-b-3x scrollable hover" style="max-height:560px;">
-                      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" ng-repeat="user in userList">
-                        <div class="box bg-light" style="cursor: pointer;" ng-click="userState(user._id.$oid)">
-                          <div class="box-col col-xs-3 text-center dk img-responsive">
-                            <img src="../images/user.ico">
-                          </div>
-                          <div class="box-col p b-b b-4x b-light" ng-class="{'b-success am-fade':userActive==user._id.$oid}">
-                            <div>Course&nbsp;:<a href="" ng-click="viewCourseDetails(user.fkCourseId.$oid)"> {{user.Name}}</a></div>
-                            <div class="pull-left ">Name&nbsp;&nbsp;&nbsp;: {{user.profile.profile.firstName}} {{user.profile.profile.lastName}}</div><br/>
-                            <div>Email&nbsp;&nbsp;&nbsp;: {{user.username.userName}}</div>
-                            <i class="fa pull-right text-xl text-success b-4x"></i> <!-- ng-class="{'fa-check':(userActive==user._id.$oid)&&!menudetails,'fa-check-circle':(userActive==user._id.$oid)&&menudetails}" -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+		<div class="panel-body col-xs-12 bg-white animated fadeInRight p-sm b-b-danger b-b-3x">
+		<div class="row"><div class="col-xs-12 col-sm-4 col-md-4 col-lg-4  p text-center pull-right">
+            
+             <div class="btn-group col-sm-push-2 col-md-push-2">
+               <button type="button" class="btn btn-success btn-xs" ng-click="prevOne()" title="Previous" ng-disabled="prevButtondisabled"><i class="fa fa-fw fa-angle-left"></i><div class="ripple-wrapper"></div></button>
+              <button type="button" class="btn btn-success btn-xs" ng-click="nextOne()" ng-disabled="userObj.userList.length<9" title="Next"><i class="fa fa-fw fa-angle-right"></i><div class="ripple-wrapper"></div></button>
+           </div> 
+                </div></div>
+          <div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
+            <div masonry-tile class="tile col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" ng-repeat="user in userObj.userList">
+
+            <div class="shadow-z-2 set-full-height" style="cursor: pointer;" ng-click="userState(user._id.$oid)">
+
+            	<div class="row">
+            		<div class="col-xs-12">
+            			<div set-parent-height class="col-xs-3 random-background-color text-center h-full" style="display:table-cell;">
+            				 <i class="mdi-action-perm-contact-cal text-4x"></i><br/>
+            			</div>
+            			<div class="col-xs-9" style="display:table-cell;">
+            				<div class="row">
+		            				<div class="p b-4x b-light text-1x" ng-class="{'b-success am-fade':userActive==user._id.$oid}">
+		                            
+		                            <div class="pull-left font-bold">{{user.profile.profile.firstName}} {{user.profile.profile.lastName}}</div><br/>
+		                            <div ><i>{{user.username.userName}}</i> <i class="fa pull-right text-xl text-success b-4x"></i></div>
+		                            <p></p>
+		                            <div>Course : {{user.Name}}</div>
+		                            <i class="fa pull-right text-xl text-success b-4x"></i> <!-- ng-class="{'fa-check':(userActive==user._id.$oid)&&!menudetails,'fa-check-circle':(userActive==user._id.$oid)&&menudetails}" -->
+		                          </div>
+            				</div>
+
+            				<div class="row">
+            					<div class="col-xs-12 text-right">
+				                   <button ng-click="viewCourseDetails(user.fkCourseId.$oid)" class="btn pull-right no-margin"><i class="mdi-social-school text-lg "></i></button>
+
+				                   <button ng-click="viewProfile(user.fkUserLoginId.$oid)" class="btn pull-right no-margin"><i class="mdi-action-account-box text-lg"></i><div class="ripple-wrapper"></div></button>
+
+                 				</div>
+            				</div>	
+
+            			</div>
+            		</div>
+            	</div>       
+                 </div>
+            </div>
 <!-- <div ng-repeat="users in userList | groupBy:'Name'">
   <h3>{{users.Name}}</h3>
   <ul>
