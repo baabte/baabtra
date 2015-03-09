@@ -122,7 +122,6 @@ $scope.onRoleSelectionChanged = function(items) {
 
 // function for change course image
 $scope.courseImageChanged = function($files){
-  console.log($scope.fileTobeUpload);
   //this function remove old course image
   if(!angular.equals($scope.course.courseImg,undefined)){
     var fileRemoveResponse = commonSrv.fnRemoveFileFromServer($scope.course.courseImg);
