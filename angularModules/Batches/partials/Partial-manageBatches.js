@@ -101,7 +101,11 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
    console.log(id);
   }
   $scope.fnLoadMoreOptions =function(id){
-    console.log(id);
+      var existingCourses= addBatches.loadExistingCoursesUnderBatch(id)
+        existingCourses.then(function(response){
+        $scope.existingCourses=angular.fromJson(JSON.parse(response.data));
+        console.log($scope.existingCourses);
+       });
       $modal({scope: $scope, template: 'angularModules/Batches/partials/partial-popUpOptions.html',
           show: true
          });

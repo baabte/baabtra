@@ -1,12 +1,3 @@
-<div class="formgen-dropdown m-v-lg" >
-
-<div class="col-xs-12">
-<!-- <select  placeholder="Select a Batch"  data-animation="am-fade-and-slide-top"  ng-options="row in batchElements.result" ng-model="ngModel"  class="form-control"  data-html="true" bs-select>
-</select>
- -->
-<select class="form-control" id="select" ng-model="ngModel" >
-	 <option selected="selected" value="" required >select a Batch</option>
-	<option ng-repeat = "row in batchElements.result" value="{{row}}">{{row.batchName}}</option>  
-	</select>
-</div>
+<div>
+	<div ng-show="batchElements" multi-selectable input-model="batchElements" output-model="ngModel" button-label="Name" item-label="Name" tick-property="ticked" helper-elements="all none reset filter" default-label="Please Select batches"></div>
 </div>
