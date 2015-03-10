@@ -1,30 +1,46 @@
-<div class="tab-container col-md-12"> <div class="panel b-t b-00C853 bg-light dk"><div class="panel-heading font-bold text-white bg-00C853 p baab-shadow" translate="{{'User Report'|translate}}"></div>
-<div class="panel-body col-md-12 bg-white animated fadeInRight p-sm b-b-danger b-b-3x"  >
-	
+<div class="tab-container col-xs-12 pull-left">
+<div class="panel b-t b-00C853 bg-light dk">
+<div class="panel-heading font-bold text-white bg-00C853 p baab-shadow" translate="{{'Feedback Report'|translate}}"></div>
+<div class="panel-body col-xs-12 bg-white p-sm b-b-danger b-b-3x"> <!-- animated fadeInRight -->
+	<div class="row">
 	<div class="col-sm-4 col-md-4" style="padding-left: 0px">
-		 <form name="Form_Adding_form" ng-submit="AddCompanyRole()" class="form-validation" role="form" xt-form novalidate>
+		<form name="Form_Adding_form" ng-submit="AddCompanyRole()" class="form-validation" role="form" xt-form novalidate>
 
-	<div class="form-group col-sm-5">
-          <select class="form-control" float-label placeholder="{{'Chart type'|translate}}" xt-validate name="chartType" data-bv-field="Chart Type" id="chartType" ng-model="obj[type.id].type" >
+		<div class="form-group col-sm-5">
+          <select class="form-control" float-label placeholder="{{'Chart type'|translate}}" xt-validate name="chartType" data-bv-field="Chart Type" id="chartType" ng-model="chartType" >
                  
-      			        <option value="AreaChart" selected="selected">AreaChart</option>
-      			        <option value="PieChart">PieChart</option>
-      			        <option value="ColumnChart">ColumnChart</option>
-      			        <option value="LineChart">LineChart</option>
-      			        <option value="Table">Table</option>
-      			        <option value="BarChart">BarChart</option>
+      			        <option value="AreaChart" selected="selected" translate="{{'AreaChart'|translate}}"></option>
+      			        <option value="PieChart" translate="{{'PieChart'|translate}}"></option>
+      			        <option value="ColumnChart" translate="{{'ColumnChart'|translate}}"></option>
+      			        <option value="LineChart" translate="{{'LineChart'|translate}}"></option>
+      			        <option value="Table" translate="{{'Table'|translate}}"></option>
+      			        <option value="BarChart" translate="{{'BarChart'|translate}}"></option>
                 </select>
           </div> 
-    </form>
-	</div>
-  	<dv class="row">
-  	<div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-  		<div masonry-tile class="tile col-xs-12 col-sm-6 col-md-6 panel-default" ng-repeat="report in reportList">
-    		<div google-chart chart="report.chart" style="{{cssStyle}}">
+    	</form>
+
+	</div></div>
+  	
+  	<!-- <div masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'> -->
+  		<div class="col-xs-12 col-sm-6 col-md-6 p-sm" ng-repeat="report in reportList">
+    		<div class="shadow-z-1" style="cursor: pointer;">
+
+    		 <div class="row">
+    		 	<label class="m-sm col-xs-12">
+    					Q: Rate us?
+				</label>
+    		 </div>
+    		
+    		 <div class="row">
+    				<div class="pull-left col-xs-12 img-responsive" google-chart chart="report.chart">
+  					</div>
+  				</div>
+  			</div>
   		</div>
-  	</dv>
+  	<!-- </div> -->
   	</div>
+
 </div>
 </div>
-</div>
-</div>
+
+

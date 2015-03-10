@@ -486,6 +486,16 @@
                 }
                 
               })
+             .state('home.main.feedbackReport', {
+                url: '/feedbackReport',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-feedbackReport.html',
+                    controller: 'FeedbackreportCtrl'
+                  }
+                }
+                
+              })
                  .state('home.main.viewUsers', {
                 url: '/viewUsers',
                 views:{
