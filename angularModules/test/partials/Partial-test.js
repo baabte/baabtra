@@ -36,6 +36,9 @@ $scope.previewData=[{"type":"objective",
 
 $scope.questionGroup={};
 
+$scope.feedbackModel={};
+
+$scope.feedbackFormModel={};
 
 });																																																																								 																			
 

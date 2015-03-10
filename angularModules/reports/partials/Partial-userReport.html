@@ -22,22 +22,26 @@
     <!--  <input type="checkbox" class="checkbox" ng-model="strict" placeholder="Equality"><br>
  -->
     			<div class="form-group col-sm-5">                                  
-               <select  class="form-control" float-label placeholder="{{'Report type'|translate}}" xt-validate name="rptType" data-bv-field="Report Types" ng-model="type" ng-change="test(type)" ng-options="rptType.type for rptType in reportTypeList"  required>
+               <select  class="form-control" float-label placeholder="{{'Report type'|translate}}" xt-validate name="rptType" data-bv-field="Report Types" ng-model="type" ng-options="rptType.type for rptType in reportTypeList"  required>
                <option value="">Select a report type</option> 
                <!--  <option value="other">Other</option>         -->                 
                 </select>
                 </div><div class="form-group col-sm-5">
                 <select class="form-control" float-label placeholder="{{'Chart type'|translate}}" xt-validate name="chartType" data-bv-field="Chart Type" id="chartType" ng-model="obj[type.id].type" >
                  
-			        <option value="AreaChart" selected="selected">AreaChart</option>
-			        <option value="PieChart">PieChart</option>
-			        <option value="ColumnChart">ColumnChart</option>
-			        <option value="LineChart">LineChart</option>
-			        <option value="Table">Table</option>
-			        <option value="BarChart">BarChart</option>
-			    </select></div> 
-		 </form>
-	</div><div class="col-sm-8 col-md-8 panel-default"><div google-chart chart="obj[type.id]" style="{{cssStyle}}"></div>
+      			        <option value="AreaChart" selected="selected">AreaChart</option>
+      			        <option value="PieChart">PieChart</option>
+      			        <option value="ColumnChart">ColumnChart</option>
+      			        <option value="LineChart">LineChart</option>
+      			        <option value="Table">Table</option>
+      			        <option value="BarChart">BarChart</option>
+                </select>
+          </div> 
+    </form>
+	</div>
+  <div class="col-sm-8 col-md-8 panel-default">
+    <div google-chart chart="obj[type.id]" style="{{cssStyle}}">
+  </div>
 </div>
 </div>
 </div>
