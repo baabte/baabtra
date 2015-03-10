@@ -16,35 +16,31 @@ angular.module('baabtra').controller('CreatefeedbackCtrl',['$scope', '$rootScope
   $scope.cmp_id = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   /*login detils ends*/
 
-  //other datas
-  $scope.data = {};
-  $scope.data.companyRoles = "";
-  $scope.data.feedbackAboutDropdown = [{"value":"course","label":"<i class=\"fa mdi-social-public text-md\"></i> Course"},
-  									   {"value":"mentee","label":"<i class=\"fa mdi-social-person text-md\"></i> Mentee"},
-  									   {"value":"company","label":"<i class=\"fa mdi-social-domain text-md\"></i> Company"},
-  									   {"value":"batch","label":"<i class=\"fa mdi-social-group-add text-md\"></i> Batch"},
-  									   {"value":"appliction","label":"<i class=\"fa mdi-social-group-add text-md\"></i> Appliction"}];
-
-  // bulding form object
+  //bulding form object
   $scope.myForm = {};
   $scope.myForm.formAccessTo = "Public";
 
-  //for load roles under company
-  $scope.loadCompanyRoles = function(){
+  //other datas
+  $scope.data = {};
+  $scope.data.companyRoles = "";
+  $scope.data.feedbackAboutDropdown = [{value:"course",label:"Course"},
+  									   {value:"mentee",label:"Mentee"},
+  									   {value:"company",label:"Company"},
+  									   {value:"batch",label:"Batch"},
+  									   {value:"appliction",label:"Appliction"}];
 
-  	//checking allready loaded the roles 
-  	if(!$scope.data.companyRoles.length){
-  		var roleLoadResponse = RoleMenuMappingSrv.FnGetRoles($scope, $scope.cmp_id, "", "");
+  var roleLoadResponse = RoleMenuMappingSrv.FnGetRoles($scope, $scope.cmp_id, "", "");
   		roleLoadResponse.then(function(response){
   			$scope.data.companyRoles = angular.fromJson(JSON.parse(response.data)).roles;
   			angular.forEach($scope.data.companyRoles, function(role){
+  				$scope.data.feedbackAboutDropdown.push({value:role._id.$oid,label:role.roleName});
   				role.text = role.roleName;
   				delete role.roleName;
   			});
   		});
-  	}
-  };
 
-
+  	$scope.feedbackTypeChanged = function(){
+  		console.log($scope.data.selectedIconFeedbackAbout);
+  	};
 
 }]);

@@ -1,36 +1,3 @@
-<!--       <div class="col-xs-12" >
-        <div class="panel b-info b-2x" >
-          <div class="panel-heading p-sm bg-info" >
-            <a href="" class="text-md text-ellipsis"><i class="fa fa-globe fa-1x m-r"></i>Published Course</a>
-          </div>
-                <div class="panel-body p" >
-
-                  <div class="col-xs-12 col-sm-6 col-md-4 b p" ng-repeat="course in publishedCourses" >
-                   <div  class="pull-right">
-                            <a href="" ng-click="editCourse(course._id.$oid)"><i class="fa fa-edit"></i></a>
-                            <a href="" ng-click="deleteCourseDetails(course._id.$oid)"><i class="fa fa-trash"></i></a>
-                    </div>
-                    <div class="row" >
-                   
-                      <div class="col-xs-3 hidden-xs">                    
-                          <img src='{{course.courseImg}}' class="img-responsive" >
-
-                      </div>
-                       <div class="col-xs-8">
-                          <div >
-                             <a title="{{course.Name}}" ng-click="navigateToCourse(course._id.$oid)" ><h2>
-                             {{course.Name |uppercase| limitTo : 10}}{{course.Name.length > 10 ? '...' : ''}}
-                             </h2> 
-                             </a>
-
-                          </div> 
-                      </div> 
-                    </div>                
-              </div>
-        </div>
-     </div>
-     </div>
- -->
  <script type="text/ng-template" id="nestedBranch.html">
  <a ng-click="searchCoursesAvailable(branch.id,'Branches')">{{branch.id}}</a>   
       <ul class="dropdown-submenu" ng-if="branch.childrenObj" > 
