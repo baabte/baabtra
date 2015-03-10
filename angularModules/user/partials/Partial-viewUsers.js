@@ -14,7 +14,7 @@ $scope.userState = function(userId){
 
 $scope.fnLoadCompnayUsersCallback=function(userObj){
 	$scope.userObj=userObj;
-	console.log($scope.userObj);
+	// console.log($scope.userObj);
 };
 
 $scope.viewCourseDetails = function(courseId){
