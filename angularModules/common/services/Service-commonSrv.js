@@ -34,6 +34,18 @@ this.FnLoadGlobalValues=function(key)
     return promise;
    }
 
+   this.fnLoadMentees = function(companyId){
+    var promise = $http({
+      url: bbConfig.BWS+'loadMentees/',
+      data: {"companyId":companyId},
+      method: "POST",
+      withCredentials: false,
+      contentType:"application/json",
+      dataType:"json",
+    });
+    return promise;
+   }
+
    this.fnFileUpload = function (fileToBeUpload, pathToBeSave){ // functon that call web service to add a comapny role
     var promise = $upload.upload({
            url: bbConfig.BWS+'CourseFileUpload/',

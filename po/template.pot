@@ -8,6 +8,42 @@ msgstr ""
 msgid "% of Commission"
 msgstr ""
 
+#: angularModules/formGenFields/questionField/directives/Directive-questionField.html:118
+msgid "(Embeddable fields can be added to the answer template by the candidate if needed.)"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:49
+msgid "(Please specifiy  the mode of delivery of the course)"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:115
+msgid "(Please specifiy  to which all branches this course is available)"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep2.html:54
+msgid "(Please specify the type of the Course)"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:136
+msgid "(Please specify who all in the selected branches has access to the course)"
+msgstr ""
+
+#: angularModules/formGenFields/questionField/directives/Directive-questionField.html:106
+msgid "(Primary answer template will be shown to the candidate when he tries to answer this question.)"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:82
+msgid "*Technologies help your course to be shown when people search courses under specific technologies"
+msgstr ""
+
+#: angularModules/course/partials/Partial-PublishedCourse.html:103
+#: angularModules/course/partials/Partial-PublishedCourse.html:110
+#: angularModules/course/partials/Partial-PublishedCourse.html:81
+#: angularModules/course/partials/Partial-PublishedCourse.html:89
+#: angularModules/course/partials/Partial-PublishedCourse.html:96
+msgid "<b class=\"caret\"></b>"
+msgstr ""
+
 #: angularModules/company/partials/Partial-company_registration.html:134
 #: angularModules/company/partials/Partial-company_registration.html:155
 #: angularModules/company/partials/Partial-company_registration.html:66
@@ -15,16 +51,121 @@ msgstr ""
 msgid "<br>"
 msgstr ""
 
-#: angularModules/course/partials/addCourseStep1.html:38
-msgid "<input type=\"checkbox\" ng-model=\"course.Delivery.online\" value=\"course.Delivery.online\" checked>"
+#: angularModules/profile/partials/Partial-userProfile.html:161
+#: angularModules/profile/partials/Partial-userProfile.html:162
+#: angularModules/profile/partials/Partial-userProfile.html:163
+msgid "<div class=\"col-xs-1 pull-right\"><i class=\"text-lg mdi-hardware-keyboard-arrow-right\"></i></div>"
+msgstr ""
+
+#: angularModules/course/partials/Partial-draftedCourses.html:4
+msgid ""
+"<div class=\"col-xs-2 pull-right\">\n"
+"          <div class=\"input-group\">\n"
+"            <span class=\"input-group-btn\" style=\"position: relative;top: -6px;left: 5px;\">\n"
+"              <button type=\"submit\" class=\"btn btn-sm no-bg btn-icon no-shadow no-padder\">\n"
+"                <i class=\"fa fa-search text-white text-md\"></i>\n"
+"              </button>\n"
+"            </span>\n"
+"            <input type=\"text\" class=\"form-control m-b text-white place-white\" ng-model=\"SearchCourse\" placeholder=\"{{'Search Course'|translate}}\">\n"
+"          </div>\n"
+"          <!-- <input type=\"text\" class=\"form-control m-b text-white place-white\" placeholder=\"Search Course\"> -->\n"
+"          </div>"
+msgstr ""
+
+#: angularModules/login/partials/Partial-updateUserProfilePicture.html:7
+msgid ""
+"<div class=\"modal-body\">\n"
+"        <div class=\"box\">\n"
+"\n"
+"          <div class=\" m-t-lg font-bold text-dark \">            \n"
+"     <!--  <div data-placement=\"top\" data-type=\"info\" data-html=\"true\" data-animation=\"am-fade-and-scale\" class=\"text-u-c\">\n"
+"          Log In<hr>\n"
+"      </div>\n"
+"       <div data-placement=\"top\" data-type=\"info\" data-html=\"true\" data-animation=\"am-fade-and-scale\" bs-tooltip=\"PriceConfigTT\"  class=\"w-xl\">\n"
+"         <input type=\"text\" class=\"form-control\" placeholder=\"baabra username\" >\n"
+"      </div>\n"
+"      <br>\n"
+"      <div data-placement=\"top\" data-type=\"info\" data-html=\"true\" data-animation=\"am-fade-and-scale\" class=\"w-xl\">\n"
+"         <input type=\"text\" class=\"form-control\" placeholder=\"baabra password\">\n"
+"      </div>\n"
+"    <br>        \n"
+"     <div data-placement=\"top\" data-type=\"info\" data-html=\"true\" data-animation=\"am-fade-and-scale\" class=\"w-xl\">\n"
+"          <button type=\"button\" ng-click=\"addSocialLoginToExistingUser();\" class=\"btn btn-primary\">log in</button>\n"
+"          <p class=\"text-xs\" ng-click=\"$hide();\"><a ui-sref=\"forgot-password\" >Forgot password?</a></p>\n"
+"        </div> -->\n"
+"\n"
+"\n"
+"        <!-- <form name=\"updateProfilepicForm\">\n"
+"          <div class=\"form-group col-sm-6 no-padding\" >\n"
+"            <input  f-max-size=\"500\" name=\"profilepic\" type=\"file\" fileupload-dir=\"profilepic\" id=\"exampleInputFile\" ng-model=\"profilepic\" ng-multiple=\"false\" accept=\"image/*\" resetOnClick=\"true\" data-placement=\"top\" data-html=\"true\" data-container=\"body\"  bs-tooltip>\n"
+"            <div >\n"
+"              <img render-image image=\"profilepic\" file-source = \"profilepic\"  ng-model=\"profilepic\" class=\"img-responsive img-thumbnail w-sm m-xs\" ng-src=\"{{profilepic}}\" />\n"
+"            </div>\n"
+"\n"
+"          </div>\n"
+"        </form> -->\n"
+"        <div translate=\"{{'Select an image file:'|translate}}\"> <input type=\"file\" id=\"fileInput\"></div>\n"
+"          <div class=\"cropArea\">\n"
+"          <img-crop image=\"myImage\" result-image=\"myCroppedImage\"></img-crop>\n"
+"          </div>\n"
+"          <div translate=\"{{'Cropped Image:'|translate}}\"></div>\n"
+"          <div><img ng-src=\"{{myCroppedImage}}\"></div>\n"
+"        </div>\n"
+"\n"
+"    </div>\n"
+"  </div>"
+msgstr ""
+
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:75
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:81
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:83
+msgid "<div class=\"ripple-wrapper\"></div>"
+msgstr ""
+
+#: angularModules/login/partials/Partial-addSocialInfo.html:13
+#: angularModules/user/partials/step1_UserInfo.html:29
+#: angularModules/user/partials/step1_UserInfo.html:5
+#: angularModules/user/partials/step1_UserInfo.html:98
+#: angularModules/user/partials/step2_UserInfo.html:3
+#: angularModules/user/partials/step2_UserInfo.html:45
+#: angularModules/user/partials/step3_SocialProfile.html:2
+#: angularModules/user/partials/step3_SocialProfile.html:72
+#: angularModules/user/partials/step4_OfficeAdmin.html:2
+msgid "<hr>"
+msgstr ""
+
+#: angularModules/login/partials/Partial-updateUserProfilePicture.html:39
+msgid "<input type=\"file\" id=\"fileInput\">"
+msgstr ""
+
+#: angularModules/form/partials/selectForm.html:69
+msgid "<span class=\"glyphicon glyphicon-circle-arrow-right\"></span>"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:24
+msgid "About"
+msgstr ""
+
+#: angularModules/user/partials/step2_UserInfo.html:45
+msgid "Academic Details"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:162
+#: angularModules/profile/partials/Partial-userProfile.html:175
+msgid "Account Settings"
 msgstr ""
 
 #: angularModules/company/partials/Partial-addMenu.html:35
 msgid "Actions"
 msgstr ""
 
+#: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:16
+msgid "Actual name of the field"
+msgstr ""
+
 #: angularModules/Branches/aside/aside-newBranch.html:36
 #: angularModules/company/partials/Partial-addMenu.html:85
+#: angularModules/user/partials/step3_SocialProfile.html:32
 msgid "Add"
 msgstr ""
 
@@ -32,42 +173,151 @@ msgstr ""
 msgid "Add After"
 msgstr ""
 
+#: angularModules/course/partials/Partial-addSubDomain.html:18
+msgid "Add Domain"
+msgstr ""
+
 #: angularModules/company/partials/Partial-addMenu.html:12
 msgid "Add Menu"
+msgstr ""
+
+#: angularModules/course/partials/Partial-addCourseElement.html:87
+msgid "Add New Course Element"
+msgstr ""
+
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:75
+msgid "Add Question"
 msgstr ""
 
 #: angularModules/Reseller/partials/Partial-reseller.html:50
 msgid "Add Reseller"
 msgstr ""
 
+#: angularModules/course/partials/Partial-addSubDomain.html:11
+msgid "Add a Domain"
+msgstr ""
+
 #: angularModules/Reseller/partials/Partial-reseller.html:6
 msgid "Add a reseller"
 msgstr ""
 
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:83
+msgid "Add to Test"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:59
+msgid "Add your location and country"
+msgstr ""
+
 #: angularModules/Reseller/partials/Partial-reseller.html:42
 #: angularModules/company/partials/Partial-company_registration.html:122
+#: angularModules/user/partials/step2_UserInfo.html:41
 msgid "Address"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:104
+msgid "All Branches"
+msgstr ""
+
+#: angularModules/feature/partials/Partial-feature_config.html:114
+msgid "Allowed  values"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:48
 msgid "Alternate E-mail Address"
 msgstr ""
 
+#: angularModules/formGenFields/questionField/directives/Directive-questionField.html:13
+msgid "Answer  type"
+msgstr ""
+
+#: angularModules/formGenFields/questionField/directives/Directive-questionField.html:14
+msgid "Answers"
+msgstr ""
+
+#: angularModules/form/partials/customizeForm.html:10
+msgid "Back"
+msgstr ""
+
+#: angularModules/course/partials/Partial-addCourseElement.html:32
+msgid "Background"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:111
+#: angularModules/profile/partials/Partial-userProfile.html:134
+msgid "Birth place"
+msgstr ""
+
+#: angularModules/user/partials/step1_UserInfo.html:36
+msgid "Birthdate (dd-mm-yyyy)"
+msgstr ""
+
 #: angularModules/Branches/aside/aside-newBranch.html:14
 msgid "Branch Name"
+msgstr ""
+
+#: angularModules/course/partials/Partial-PublishedCourse.html:96
+msgid "Branches"
+msgstr ""
+
+#: angularModules/course/partials/Partial-PublishedCourse.html:62
+msgid "Browse Course"
+msgstr ""
+
+#: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:25
+msgid "Can be added by the user"
+msgstr ""
+
+#: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:35
+msgid "Can be an answer"
 msgstr ""
 
 #: angularModules/Reseller/partials/Partial-reseller.html:49
 #: angularModules/common/directives/popup-addNewField.html:23
 #: angularModules/company/partials/Partial-addMenu.html:83
+#: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:74
+#: angularModules/courseElementFieldsManaging/partials/Popup-addCourseElementField.html:17
+#: angularModules/login/partials/Popup-userDetails.html:55
+#: angularModules/profile/partials/Partial-userProfile.html:120
+#: angularModules/profile/partials/Partial-userProfile.html:143
+#: angularModules/profile/partials/Partial-userProfile.html:224
+#: angularModules/profile/partials/Partial-userProfile.html:246
+#: angularModules/profile/partials/Partial-userProfile.html:64
+#: angularModules/profile/partials/Partial-userProfile.html:94
 msgid "Cancel"
+msgstr ""
+
+#: angularModules/course/partials/Partial-addCourseElement.html:26
+msgid "Change Icon"
 msgstr ""
 
 #: angularModules/company/partials/Partial-addMenu.html:52
 msgid "Change icon"
 msgstr ""
 
+#: angularModules/login/partials/Popup-userDetails.html:6
+msgid "Change your avatar ?"
+msgstr ""
+
+#: angularModules/reports/partials/Partial-userReport.html:30
+msgid "Chart type"
+msgstr ""
+
+#: angularModules/company/partials/iconPage.html:13
+msgid "Choose Your Icon"
+msgstr ""
+
+#: angularModules/course/partials/Partial-addCourseElement.html:29
+msgid "Colour"
+msgstr ""
+
+#: angularModules/user/partials/step4_OfficeAdmin.html:24
+msgid "Comment"
+msgstr ""
+
 #: angularModules/company/partials/Partial-userMenuMapping.html:64
+#: angularModules/user/partials/step3_SocialProfile.html:44
+#: angularModules/user/partials/step3_SocialProfile.html:8
 msgid "Company"
 msgstr ""
 
@@ -100,11 +350,20 @@ msgid "Company Users"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:146
+#: angularModules/user/partials/step1_UserInfo.html:19
 msgid "Confirm Password"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:66
 msgid "Contact Details"
+msgstr ""
+
+#: angularModules/user/partials/step2_UserInfo.html:3
+msgid "Contact Info"
+msgstr ""
+
+#: angularModules/user/partials/step2_UserInfo.html:10
+msgid "Contact No"
 msgstr ""
 
 #: angularModules/Reseller/partials/Partial-reseller.html:32
@@ -115,24 +374,124 @@ msgstr ""
 msgid "Contact Person"
 msgstr ""
 
+#: angularModules/login/partials/addUserEmail.html:14
+msgid "Continue"
+msgstr ""
+
 #: angularModules/company/partials/Partial-company_registration.html:97
+#: angularModules/profile/partials/Partial-userProfile.html:53
+#: angularModules/profile/partials/Partial-userProfile.html:84
+#: angularModules/user/partials/step2_UserInfo.html:15
 msgid "Country"
+msgstr ""
+
+#: angularModules/course/partials/Partial-PublishedCourse.html:81
+msgid "Course Domain"
+msgstr ""
+
+#: angularModules/course/partials/Partial-addCourseElement.html:93
+msgid "Course Elements"
 msgstr ""
 
 #: angularModules/company/partials/Partial-userMenuMapping.html:141
 msgid "Create A Menu Group"
 msgstr ""
 
+#: angularModules/form/partials/createStepModel.html:8
+msgid "Create Step"
+msgstr ""
+
+#: angularModules/login/partials/Partial-updateUserProfilePicture.html:43
+msgid "Cropped Image:"
+msgstr ""
+
 #: angularModules/company/partials/Partial-userMenuMapping.html:140
 msgid "Current Menus"
 msgstr ""
 
+#: angularModules/feature/partials/Partial-feature_config.html:126
+msgid "Custom attribute name"
+msgstr ""
+
+#: angularModules/feature/partials/Partial-feature_config.html:131
+msgid "Custom attribute value"
+msgstr ""
+
+#: angularModules/user/partials/step4_OfficeAdmin.html:9
+msgid "Date of Joining"
+msgstr ""
+
+#: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:68
+msgid "Debug"
+msgstr ""
+
+#: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:55
+msgid "Default Template"
+msgstr ""
+
+#: angularModules/formGenFields/questionField/directives/Directive-questionField.html:55
+msgid "Descriptive"
+msgstr ""
+
+#: angularModules/user/partials/step3_SocialProfile.html:12
+#: angularModules/user/partials/step3_SocialProfile.html:45
+msgid "Designation"
+msgstr ""
+
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:81
+msgid "Discard"
+msgstr ""
+
+#: angularModules/courseElementFieldsManaging/partials/Popup-addCourseElementField.html:12
+msgid "Dispaly Name"
+msgstr ""
+
 #: angularModules/company/partials/Partial-company_registration.html:111
+#: angularModules/profile/partials/Partial-userProfile.html:48
+#: angularModules/profile/partials/Partial-userProfile.html:79
+#: angularModules/user/partials/step2_UserInfo.html:29
 msgid "District"
+msgstr ""
+
+#: angularModules/courseElementFieldsManaging/partials/Popup-addCourseElementField.html:6
+msgid "Do you have a label for this {{debugObject.displayName}}?"
+msgstr ""
+
+#: angularModules/course/partials/Partial-addSubDomain.html:16
+msgid "Domain Name"
+msgstr ""
+
+#: angularModules/course/partials/Partial-draftedCourses.html:5
+msgid "Drafted Courses"
+msgstr ""
+
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:22
+msgid "Duration"
+msgstr ""
+
+#: angularModules/durationSelector/directives/Directive-durationSelector.html:10
+msgid "Duration type"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:202
+msgid "E-mail"
+msgstr ""
+
+#: angularModules/user/partials/step1_UserInfo.html:10
+msgid "E-mail address"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:184
+#: angularModules/profile/partials/Partial-userProfile.html:205
+msgid "Edit"
 msgstr ""
 
 #: angularModules/company/partials/Partial-addMenu.html:78
 msgid "Edit Existing Menus"
+msgstr ""
+
+#: angularModules/course/partials/Partial-addCourseElement.html:85
+msgid "Edit Exsisting Course Element"
 msgstr ""
 
 #: angularModules/Branches/aside/aside-newBranch.html:25
@@ -143,17 +502,37 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
+#: angularModules/formGenFields/questionField/directives/Directive-questionField.html:117
+msgid "Embeddable fields:"
+msgstr ""
+
 #: angularModules/company/partials/Partial-manage_user_role.html:47
 #: angularModules/company/partials/Partial-manage_user_role.html:49
 msgid "Enter"
+msgstr ""
+
+#: angularModules/form/partials/createStepModel.html:15
+msgid "Enter New Step Name"
+msgstr ""
+
+#: angularModules/course/partials/Partial-addCourseElement.html:18
+msgid "Enter a Display Name for the course element"
 msgstr ""
 
 #: angularModules/company/partials/Partial-manage_user_role.html:18
 msgid "Enter a description for the role"
 msgstr ""
 
+#: angularModules/course/partials/Partial-addCourseElement.html:12
+msgid "Enter a name for the course element"
+msgstr ""
+
 #: angularModules/company/partials/Partial-addMenu.html:37
 msgid "Enter action name"
+msgstr ""
+
+#: angularModules/login/partials/Partial-addSocialInfo.html:7
+msgid "Enter baabtra.com account info for"
 msgstr ""
 
 #: angularModules/company/partials/Partial-addMenu.html:28
@@ -168,8 +547,16 @@ msgstr ""
 msgid "Enter state name"
 msgstr ""
 
+#: angularModules/login/partials/addUserEmail.html:11
+msgid "Enter your Email"
+msgstr ""
+
 #: angularModules/company/partials/Partial-manage_user_role.html:33
 msgid "Existing roles"
+msgstr ""
+
+#: angularModules/user/partials/step3_SocialProfile.html:77
+msgid "Facebook profile url"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:158
@@ -180,8 +567,89 @@ msgstr ""
 msgid "Fax"
 msgstr ""
 
+#: angularModules/user/partials/step1_UserInfo.html:61
+msgid "Female"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:189
+#: angularModules/user/partials/step1_UserInfo.html:41
+msgid "First Name"
+msgstr ""
+
+#: angularModules/login/partials/Partial-Login_view.html:44
+#: angularModules/login/partials/Partial-addSocialInfo.html:26
+msgid "Forgot password?"
+msgstr ""
+
+#: angularModules/form/partials/selectForm.html:30
+msgid "Form"
+msgstr ""
+
+#: angularModules/form/partials/selectForm.html:35
+msgid "Form Display Name"
+msgstr ""
+
+#: angularModules/form/partials/selectForm.html:27
+msgid "Form Name"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep2.html:44
+msgid "Free"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:114
+#: angularModules/profile/partials/Partial-userProfile.html:137
+#: angularModules/user/partials/step3_SocialProfile.html:16
+#: angularModules/user/partials/step3_SocialProfile.html:46
+msgid "From"
+msgstr ""
+
+#: angularModules/user/partials/step1_UserInfo.html:51
+msgid "Gender"
+msgstr ""
+
+#: angularModules/user/partials/step3_SocialProfile.html:83
+msgid "Google+ profile url"
+msgstr ""
+
+#: angularModules/user/partials/step1_UserInfo.html:98
+msgid "Guardian Details"
+msgstr ""
+
+#: angularModules/user/partials/step1_UserInfo.html:114
+msgid "Guardian E-mail"
+msgstr ""
+
+#: angularModules/user/partials/step1_UserInfo.html:121
+msgid "Guardian Mobile Number"
+msgstr ""
+
+#: angularModules/user/partials/step1_UserInfo.html:105
+msgid "Guardian Name"
+msgstr ""
+
 #: angularModules/common/directives/popup-addNewField.html:19
 msgid "Help text"
+msgstr ""
+
+#: angularModules/course/partials/Partial-addCourseElement.html:68
+msgid "Here you can select elemets which the user should be able to nest with the currently adding course element"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:161
+msgid "Home"
+msgstr ""
+
+#: angularModules/course/partials/Partial-addCourseElement.html:23
+msgid "Icon"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep2.html:87
+msgid "Installments"
+msgstr ""
+
+#: angularModules/user/partials/step4_OfficeAdmin.html:38
+msgid "Its Great You did it!"
 msgstr ""
 
 #: angularModules/company/partials/Partial-JobPosting.html:15
@@ -197,8 +665,30 @@ msgstr ""
 msgid "Job Title"
 msgstr ""
 
+#: angularModules/feature/partials/Partial-feature_config.html:91
+msgid "Label for the piece of detail"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:190
+#: angularModules/user/partials/step1_UserInfo.html:45
+msgid "Last Name"
+msgstr ""
+
+#: angularModules/user/partials/step3_SocialProfile.html:94
+msgid "LinkedIn profile url"
+msgstr ""
+
 #: angularModules/company/partials/Partial-company_registration.html:167
 msgid "LinkedIn url"
+msgstr ""
+
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:35
+msgid "Live Result"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:58
+#: angularModules/profile/partials/Partial-userProfile.html:89
+msgid "Lives in"
 msgstr ""
 
 #: angularModules/Branches/aside/aside-newBranch.html:18
@@ -207,12 +697,48 @@ msgstr ""
 msgid "Location"
 msgstr ""
 
+#: angularModules/login/partials/Partial-addSocialInfo.html:13
+msgid "Log In"
+msgstr ""
+
+#: angularModules/login/partials/Partial-addSocialInfo.html:7
+msgid "Login"
+msgstr ""
+
+#: angularModules/user/partials/step1_UserInfo.html:55
+msgid "Male"
+msgstr ""
+
 #: angularModules/company/partials/Partial-company_view.html:50
 msgid "Manage"
 msgstr ""
 
+#: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:5
+msgid "Manage Course Element Fields"
+msgstr ""
+
 #: angularModules/company/partials/Partial-manage_user_role.html:2
 msgid "Manage company roles"
+msgstr ""
+
+#: angularModules/user/partials/step1_UserInfo.html:70
+msgid "Marital Status"
+msgstr ""
+
+#: angularModules/questionRelated/markFieldsInput/directives/Directive-markFieldsInput.html:17
+msgid "Mark"
+msgstr ""
+
+#: angularModules/questionRelated/markFieldsInput/directives/Directive-markFieldsInput.html:7
+msgid "Mark Criteria"
+msgstr ""
+
+#: angularModules/formGenFields/questionField/directives/Directive-questionField.html:15
+msgid "Marks"
+msgstr ""
+
+#: angularModules/user/partials/step1_UserInfo.html:74
+msgid "Married"
 msgstr ""
 
 #: angularModules/company/partials/Partial-JobPosting.html:32
@@ -227,31 +753,129 @@ msgstr ""
 msgid "Menu List"
 msgstr ""
 
+#: angularModules/feature/partials/Partial-feature_config.html:36
+msgid "Min. No. of units"
+msgstr ""
+
 #: angularModules/company/partials/Partial-JobPosting.html:29
 #: angularModules/company/partials/Partial-editJobDetailsModal.html:27
 msgid "Minimum Salary"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:74
+#: angularModules/profile/partials/Partial-userProfile.html:217
+#: angularModules/profile/partials/Partial-userProfile.html:238
+#: angularModules/profile/partials/Partial-userProfile.html:239
 msgid "Mobile Number"
+msgstr ""
+
+#: angularModules/course/partials/Partial-PublishedCourse.html:103
+msgid "Mode of Course"
+msgstr ""
+
+#: angularModules/formGenFields/questionField/directives/Directive-questionField.html:72
+msgid "Multi Answer"
+msgstr ""
+
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:53
+msgid "Multiple Page"
+msgstr ""
+
+#: angularModules/course/partials/Partial-candidateCourseView.html:5
+msgid "My Courses"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:181
+msgid "Name"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:29
+msgid "Name of the course"
+msgstr ""
+
+#: angularModules/feature/partials/Partial-feature_config.html:15
+msgid "Name of the feature"
 msgstr ""
 
 #: angularModules/company/partials/Partial-manage_user_role.html:14
 msgid "Name of the role"
 msgstr ""
 
+#: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:9
+msgid "Name to be displayed for the field"
+msgstr ""
+
+#: angularModules/course/partials/Partial-addCourseElement.html:67
+msgid "Nestable Elements"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:168
+msgid "Next"
+msgstr ""
+
+#: angularModules/form/partials/selectForm.html:69
+#: angularModules/user/partials/step1_UserInfo.html:133
+#: angularModules/user/partials/step2_UserInfo.html:77
+#: angularModules/user/partials/step3_SocialProfile.html:108
+msgid "Next Section"
+msgstr ""
+
+#: angularModules/feature/partials/Partial-feature_config.html:30
+msgid "No. of units"
+msgstr ""
+
 #: angularModules/company/partials/Partial-company_view.html:83
 #: angularModules/company/partials/Partial-userMenuMapping.html:90
+#: angularModules/course/partials/Partial-PublishedCourse.html:157
 msgid "Not Found!"
 msgstr ""
 
-#: angularModules/course/partials/addCourseStep1.html:38
+#: angularModules/formGenFields/questionField/directives/Directive-questionField.html:48
+msgid "Objective"
+msgstr ""
+
+#: angularModules/user/partials/step4_OfficeAdmin.html:2
+msgid "Office Admin"
+msgstr ""
+
+#: angularModules/course/partials/Partial-PublishedCourse.html:106
+msgid "Offline"
+msgstr ""
+
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:40
+msgid "On Submit"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep2.html:80
+msgid "Onetime"
+msgstr ""
+
+#: angularModules/course/partials/Partial-PublishedCourse.html:105
+#: angularModules/course/partials/addCourseStep1.html:41
 msgid "Online"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep2.html:51
+msgid "Paid"
+msgstr ""
+
+#: angularModules/user/partials/step2_UserInfo.html:62
+msgid "Pass out"
 msgstr ""
 
 #: angularModules/Reseller/partials/Partial-reseller.html:23
 #: angularModules/company/partials/Partial-company_registration.html:143
+#: angularModules/login/partials/Partial-Login_view.html:32
+#: angularModules/user/partials/step1_UserInfo.html:15
 msgid "Password"
+msgstr ""
+
+#: angularModules/user/partials/step2_UserInfo.html:66
+msgid "Percentage"
+msgstr ""
+
+#: angularModules/user/partials/step1_UserInfo.html:29
+msgid "Personal Info"
 msgstr ""
 
 #: angularModules/Branches/aside/aside-newBranch.html:29
@@ -270,6 +894,18 @@ msgstr ""
 msgid "Please choose a logo..."
 msgstr ""
 
+#: angularModules/course/partials/addCourseStep1.html:150
+msgid "Please select an image to represent the course"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:72
+msgid "Please specify Domains applicable to your course (eg: Accounting, Hospitality etc.)"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep2.html:101
+msgid "Please specify the payment type"
+msgstr ""
+
 #: angularModules/company/partials/Partial-JobPosting.html:45
 msgid "Post Job"
 msgstr ""
@@ -282,16 +918,72 @@ msgstr ""
 msgid "Posted On:"
 msgstr ""
 
+#: angularModules/user/partials/step2_UserInfo.html:72
+#: angularModules/user/partials/step3_SocialProfile.html:103
+msgid "Previous Section"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:210
+msgid "Primary Email"
+msgstr ""
+
+#: angularModules/formGenFields/questionField/directives/Directive-questionField.html:105
+msgid "Primary answer template:"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:164
+msgid "Privacy"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:132
+msgid "Private"
+msgstr ""
+
+#: angularModules/user/partials/step3_SocialProfile.html:2
+msgid "Professional Experience"
+msgstr ""
+
+#: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:61
+msgid "Properties Template"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:126
+msgid "Public"
+msgstr ""
+
+#: angularModules/course/partials/Partial-PublishedCourse.html:50
+msgid "Published Course"
+msgstr ""
+
 #: angularModules/company/partials/Partial-JobPosting.html:22
 #: angularModules/company/partials/Partial-editJobDetailsModal.html:21
+#: angularModules/user/partials/step2_UserInfo.html:50
 msgid "Qualification"
+msgstr ""
+
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:16
+msgid "Qualifying Score"
+msgstr ""
+
+#: angularModules/formGenFields/questionField/directives/Directive-questionField.html:12
+#: angularModules/formGenFields/questionField/directives/Directive-questionField.html:38
+msgid "Question"
+msgstr ""
+
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:4
+msgid "Question Group"
 msgstr ""
 
 #: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:45
 msgid "Question View"
 msgstr ""
 
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:57
+msgid "Questions per page"
+msgstr ""
+
 #: angularModules/company/partials/Partial-company_registration.html:184
+#: angularModules/user/partials/Partial-bulkEnrollment.html:12
 msgid "Register"
 msgstr ""
 
@@ -303,15 +995,71 @@ msgstr ""
 msgid "Registered Companies"
 msgstr ""
 
+#: angularModules/login/partials/Popup-userDetails.html:22
+msgid "Remove my avatar"
+msgstr ""
+
+#: angularModules/reports/partials/Partial-userReport.html:25
+msgid "Report type"
+msgstr ""
+
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:32
+msgid "Result Mode"
+msgstr ""
+
+#: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:75
+#: angularModules/courseElementFieldsManaging/partials/Popup-addCourseElementField.html:18
+#: angularModules/form/partials/customizeForm.html:12
+#: angularModules/profile/partials/Partial-userProfile.html:118
+#: angularModules/profile/partials/Partial-userProfile.html:141
+#: angularModules/profile/partials/Partial-userProfile.html:222
+#: angularModules/profile/partials/Partial-userProfile.html:244
+#: angularModules/profile/partials/Partial-userProfile.html:62
+#: angularModules/profile/partials/Partial-userProfile.html:92
+msgid "Save"
+msgstr ""
+
 #: angularModules/company/partials/Partial-userMenuMapping.html:157
 msgid "Save Changes"
+msgstr ""
+
+#: angularModules/course/partials/Partial-addCourseElement.html:118
+msgid "Save Course Element"
+msgstr ""
+
+#: angularModules/course/partials/Partial-candidateCourseView.html:13
+#: angularModules/course/partials/Partial-draftedCourses.html:13
+msgid "Search Course"
 msgstr ""
 
 #: angularModules/company/partials/Partial-ListJobs.html:22
 msgid "Search Jobs..."
 msgstr ""
 
+#: angularModules/course/partials/Partial-PublishedCourse.html:55
+msgid "Search for a course"
+msgstr ""
+
+#: angularModules/company/partials/iconPage.html:10
+msgid "Search..."
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:214
+#: angularModules/profile/partials/Partial-userProfile.html:232
+#: angularModules/profile/partials/Partial-userProfile.html:233
+msgid "Secondary Email"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:163
+msgid "Security"
+msgstr ""
+
+#: angularModules/user/partials/step4_OfficeAdmin.html:15
+msgid "Select Branch"
+msgstr ""
+
 #: angularModules/common/directives/Directive-roleLoader.html:2
+#: angularModules/form/partials/selectForm.html:53
 msgid "Select Role"
 msgstr ""
 
@@ -340,12 +1088,118 @@ msgstr ""
 msgid "Select a detail type"
 msgstr ""
 
+#: angularModules/course/partials/addCourseStep2.html:94
+msgid "Select a payment type"
+msgstr ""
+
+#: angularModules/formGenFields/questionField/directives/Directive-questionField.html:99
+msgid "Select an answer"
+msgstr ""
+
+#: angularModules/login/partials/Partial-updateUserProfilePicture.html:39
+msgid "Select an image file:"
+msgstr ""
+
+#: angularModules/questionRelated/objectiveOptionsField/directives/Directive-objectiveOptionsField.html:5
+msgid "Select numbering type"
+msgstr ""
+
+#: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:43
+msgid "Select palette"
+msgstr ""
+
+#: angularModules/form/partials/customizeForm.html:18
+msgid "Selected Step Name"
+msgstr ""
+
+#: angularModules/login/partials/Partial-Login_view.html:9
+msgid "Sign in to"
+msgstr ""
+
+#: angularModules/login/partials/Partial-Login_view.html:14
+msgid "Sign in with facebook"
+msgstr ""
+
+#: angularModules/login/partials/Partial-Login_view.html:19
+msgid "Sign in with linkedin"
+msgstr ""
+
+#: angularModules/login/partials/Partial-Login_view.html:45
+msgid "SignUp"
+msgstr ""
+
+#: angularModules/user/partials/step1_UserInfo.html:80
+msgid "Single"
+msgstr ""
+
+#: angularModules/formGenFields/questionField/directives/Directive-questionField.html:65
+msgid "Single Answer"
+msgstr ""
+
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:48
+msgid "Single Page"
+msgstr ""
+
+#: angularModules/user/partials/step3_SocialProfile.html:72
+msgid "Social Profiles"
+msgstr ""
+
+#: angularModules/user/partials/step2_UserInfo.html:54
+msgid "Specialization"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:111
+msgid "Specific Branches"
+msgstr ""
+
 #: angularModules/company/partials/Partial-company_registration.html:104
+#: angularModules/user/partials/step2_UserInfo.html:21
 msgid "State"
+msgstr ""
+
+#: angularModules/user/partials/step4_OfficeAdmin.html:40
+msgid "Submit"
+msgstr ""
+
+#: angularModules/course/partials/Partial-PublishedCourse.html:110
+msgid "Tags"
+msgstr ""
+
+#: angularModules/course/partials/Partial-candidateCourseView.html:28
+msgid "Take me to classroom"
+msgstr ""
+
+#: angularModules/course/partials/Partial-PublishedCourse.html:89
+msgid "Technologies"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep2.html:111
+msgid "The time line below represents the total duration of the course."
 msgstr ""
 
 #: angularModules/common/directives/popup-addNewField.html:17
 msgid "Title"
+msgstr ""
+
+#: angularModules/user/partials/step3_SocialProfile.html:21
+#: angularModules/user/partials/step3_SocialProfile.html:47
+msgid "To"
+msgstr ""
+
+#: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:11
+msgid "Total  Mark"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep2.html:60
+msgid "Total Amount"
+msgstr ""
+
+#: angularModules/questionRelated/markFieldsInput/directives/Directive-markFieldsInput.html:3
+msgid "Total Marks"
+msgstr ""
+
+#: angularModules/user/partials/step3_SocialProfile.html:89
+msgid "Twitter profile url"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:164
@@ -356,9 +1210,21 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
+#: angularModules/login/partials/Popup-userDetails.html:9
+msgid "Undo Remove Avatar"
+msgstr ""
+
+#: angularModules/user/partials/step2_UserInfo.html:58
+msgid "University"
+msgstr ""
+
 #: angularModules/Branches/aside/aside-newBranch.html:35
 #: angularModules/company/partials/Partial-addMenu.html:84
 msgid "Update"
+msgstr ""
+
+#: angularModules/course/partials/Partial-addCourseElement.html:120
+msgid "Update Course Element"
 msgstr ""
 
 #: angularModules/company/partials/Partial-editJobDetailsModal.html:43
@@ -367,6 +1233,10 @@ msgstr ""
 
 #: angularModules/user/partials/Partial-bulkEnrollment.html:10
 msgid "Upload your excel document"
+msgstr ""
+
+#: angularModules/login/partials/Popup-userDetails.html:38
+msgid "Upload your new picture"
 msgstr ""
 
 #: angularModules/company/partials/Partial-editJobDetailsModal.html:39
@@ -381,8 +1251,29 @@ msgstr ""
 msgid "User"
 msgstr ""
 
+#: angularModules/user/partials/step1_UserInfo.html:5
+msgid "User Credentials"
+msgstr ""
+
+#: angularModules/form/partials/selectForm.html:6
+msgid "User Customizable Form List"
+msgstr ""
+
 #: angularModules/company/partials/Partial-company_registration.html:139
 msgid "User Name"
+msgstr ""
+
+#: angularModules/reports/partials/Partial-userReport.html:1
+#: angularModules/user/partials/Partial-bulkEnrollment.html:2
+msgid "User Report"
+msgstr ""
+
+#: angularModules/login/partials/Partial-Login_view.html:28
+msgid "Username"
+msgstr ""
+
+#: angularModules/feature/partials/Partial-feature_config.html:105
+msgid "Validation"
 msgstr ""
 
 #: angularModules/company/partials/Partial-addMenu.html:59
@@ -393,18 +1284,67 @@ msgstr ""
 msgid "Website url"
 msgstr ""
 
+#: angularModules/questionRelated/objectiveOptionsField/directives/Directive-objectiveOptionsField.html:20
+msgid "Why / Why not this answer (optional)"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep2.html:113
+msgid "You can click on any point in the timeline and add a payment check point. A payment check point means an intermediate point of time during the course where the candidate has to pay a certain amount as part of the installments. If you set an arcade mode on this the candidate will not be able to advance without making the specified payment. (Payment check points can also be added while adding course materials)"
+msgstr ""
+
 #: angularModules/company/partials/Partial-company_registration.html:118
 msgid "Zip  Code"
 msgstr ""
 
+#: angularModules/user/partials/step2_UserInfo.html:36
+msgid "Zip Code"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:28
+msgid "add about yourself."
+msgstr ""
+
+#: angularModules/login/partials/Partial-addSocialInfo.html:21
+msgid "baabtra password"
+msgstr ""
+
+#: angularModules/login/partials/Partial-addSocialInfo.html:17
+msgid "baabtra username"
+msgstr ""
+
 #: angularModules/company/partials/Partial-manage_user_role.html:23
+#: angularModules/profile/partials/Partial-userProfile.html:193
 msgid "cancel"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:220
+msgid "change secondary email and mobile number"
+msgstr ""
+
+#: angularModules/feature/partials/Partial-feature_config.html:20
+msgid "description"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:161
 msgid "gplus url"
 msgstr ""
 
+#: angularModules/login/partials/Partial-addSocialInfo.html:25
+msgid "log in"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:114
+msgid "place and Birth date"
+msgstr ""
+
+#: angularModules/feature/partials/Partial-feature_config.html:25
+msgid "price"
+msgstr ""
+
 #: angularModules/company/partials/Partial-company_view.html:96
 msgid "show more.."
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:19
+msgid "update profile picture"
 msgstr ""
