@@ -16,16 +16,16 @@
         </div> -->
       </div>
       <div ng-class="{true:'bg-white-opacity',false:'bg-dark'}[updatepicmsg]" ng-click="manageProfile()">
-        <i ng-class="{true:'text-xl p-md fa fa-camera',false:'text-lg p-md fa fa-camera'}[updatepicmsg]"></i><span class="font-bold" ng-hide="updatepicmsg">update profile picture</span>
+        <i ng-class="{true:'text-xl p-md fa fa-camera',false:'text-lg p-md fa fa-camera'}[updatepicmsg]"></i><span class="font-bold" ng-hide="updatepicmsg" translate="{{'update profile picture'|translate}}"></span>
 
       </div>
     </div>  
     <div class="p bg-light " >
-      <p>About</p>
+      <p translate="{{'About'|translate}}"></p>
 
       <div ng-show="!profileData.profile.about" >
      
-      <a editable-text="profileData.profile.about" e-required style="color:#acb7c0;font-style:normal" onMouseOver="this.style.color='#009587'" onMouseOut="this.style.color='#acb7c0'" onaftersave="updateUserProfileDatas()"   ng-mouseenter="editAboutOpt('about')" ng-mouseleave="editAboutOpt('about')"> add about yourself.</a>
+      <a editable-text="profileData.profile.about" e-required style="color:#acb7c0;font-style:normal" onMouseOver="this.style.color='#009587'" onMouseOut="this.style.color='#acb7c0'" onaftersave="updateUserProfileDatas()"   ng-mouseenter="editAboutOpt('about')" ng-mouseleave="editAboutOpt('about')" translate="{{'add about yourself.'|translate}}"> </a>
       <i class="ti-pencil-alt pull-right p-xs" ng-show="showHideAbtPic"></i>
       </div>
 
@@ -45,24 +45,24 @@
 
 
           <div>
-          <span editable-text="profileData.profile.location.district" e-name="district" e-placeholder="District">
+          <span editable-text="profileData.profile.location.district" e-name="district" e-placeholder="{{'District'|translate}}">
                {{profileData.profile.location.district}} 
               </span>
             </div>
             <div>
-              <span editable-text="profileData.profile.location.country" e-name="country" e-placeholder="Country">
+              <span editable-text="profileData.profile.location.country" e-name="country" e-placeholder="{{'Country'|translate}}">
                {{profileData.profile.location.country}} 
               </span>
             </div>
 
-            <i ng-show="!editLocation.$visible" class="p-h-xs fa fa-home"></i><span ng-show="!editLocation.$visible" class="text-dark">Lives in </span><a
-            ng-mouseenter="editAboutOpt('location')" ng-mouseleave="editAboutOpt('location')"   ng-click="editLocation.$show()" ng-show="!editLocation.$visible"  class="text-primary-lt"  href>Add your location and country</a>
+            <i ng-show="!editLocation.$visible" class="p-h-xs fa fa-home"></i><span ng-show="!editLocation.$visible" class="text-dark" translate="{{'Lives in'|translate}}"> </span><a
+            ng-mouseenter="editAboutOpt('location')" ng-mouseleave="editAboutOpt('location')"   ng-click="editLocation.$show()" ng-show="!editLocation.$visible"  class="text-primary-lt"  href translate="{{'Add your location and country'|translate}}"></a>
             <i class="ti-pencil pull-right p-xs" ng-show="showHidelocationPic"></i>  
             <span ng-show="editLocation.$visible">
-                   <button type="submit" class="btn btn-primary" ng-disabled="editLocation.$waiting">
-                    Save</button>
-                    <button type="button" class="btn btn-default" ng-disabled="editLocation.$waiting" ng-click="editLocation.$cancel()">
-                   Cancel</button>
+                   <button type="submit" class="btn btn-primary" ng-disabled="editLocation.$waiting" translate="{{'Save'|translate}}">
+                    </button>
+                    <button type="button" class="btn btn-default" ng-disabled="editLocation.$waiting" ng-click="editLocation.$cancel()" translate="{{'Cancel'|translate}}">
+                   </button>
             </span>
 
 
@@ -76,23 +76,23 @@
 
         <form editable-form name="editLocationSecond" onaftersave="updateUserProfileDatas()">
           <div ng-show="editLocationSecond.$visible">
-          <span editable-text="profileData.profile.location.district" e-name="district" e-placeholder="District">
+          <span editable-text="profileData.profile.location.district" e-name="district" e-placeholder="{{'District'|translate}}">
                {{profileData.profile.location.district}} 
               </span>
           </div>
           <div ng-show="editLocationSecond.$visible">
-              <span editable-text="profileData.profile.location.country" e-name="country" e-placeholder="Country">
+              <span editable-text="profileData.profile.location.country" e-name="country" e-placeholder="{{'Country'|translate}}">
                {{profileData.profile.location.country}} 
               </span>
           </div>
 
-        <span ng-show="!editLocationSecond.$visible"><i class="p-h-xs fa fa-home"></i><span class="text-dark">Lives in </span></span><a class="text-primary-lt" ng-mouseenter="editAboutOpt('location')" ng-mouseleave="editAboutOpt('location')" ng-click="editLocationSecond.$show()" ng-show="!editLocationSecond.$visible" href>{{profileData.profile.location.district}},{{profileData.profile.location.country}}</a>
+        <span ng-show="!editLocationSecond.$visible"><i class="p-h-xs fa fa-home"></i><span class="text-dark" translate="{{'Lives in'|translate}}"></span></span><a class="text-primary-lt" ng-mouseenter="editAboutOpt('location')" ng-mouseleave="editAboutOpt('location')" ng-click="editLocationSecond.$show()" ng-show="!editLocationSecond.$visible" href>{{profileData.profile.location.district}},{{profileData.profile.location.country}}</a>
          <i class="ti-pencil pull-right p-xs" ng-show="showHidelocationPic"></i>
          <span ng-show="editLocationSecond.$visible">
-                   <button type="submit" class="btn btn-primary" ng-disabled="editLocationSecond.$waiting">
-                    Save</button>
-                    <button type="button" class="btn btn-default" ng-disabled="editLocationSecond.$waiting" ng-click="editLocationSecond.$cancel()">
-                   Cancel</button>
+                   <button type="submit" class="btn btn-primary" ng-disabled="editLocationSecond.$waiting" translate="{{'Save'|translate}}">
+                    </button>
+                    <button type="button" class="btn btn-default" ng-disabled="editLocationSecond.$waiting" ng-click="editLocationSecond.$cancel()" translate="{{'Cancel'|translate}}">
+                   </button>
         </span>
 
         </form>
@@ -108,17 +108,17 @@
         <input type="text" class="form-control ng-pristine ng-valid ng-touched" ng-model="profileData.profile.dob" data-date-format="dd-MM-yyyy" data-date-type="iso" data-autoclose="true" data-placement="top"  data-max-date="today" name="date2" bs-datepicker="">
       </div>
        <div ng-show="DobAndPlaceForm.$visible">
-        <span editable-text="profileData.profile.location.place" e-name="place" e-placeholder="Birth place"> {{profileData.profile.location.place}}  
+        <span editable-text="profileData.profile.location.place" e-name="place" e-placeholder="{{'Birth place'|translate}}"> {{profileData.profile.location.place}}  
         </span>
       </div>
-        <span ng-show="!DobAndPlaceForm.$visible"><i class="p-h-xs ti-location-pin"></i><span class="text-dark">From </span></span><a ng-mouseenter="editAboutOpt('DobAndPlace')" ng-mouseleave="editAboutOpt('DobAndPlace')"  class="text-primary-lt" ng-click="DobAndPlaceForm.$show()" ng-show="!DobAndPlaceForm.$visible" href>place and Birth date</a>
+        <span ng-show="!DobAndPlaceForm.$visible"><i class="p-h-xs ti-location-pin"></i><span class="text-dark" translate="{{'From'|translate}}"> </span></span><a ng-mouseenter="editAboutOpt('DobAndPlace')" ng-mouseleave="editAboutOpt('DobAndPlace')"  class="text-primary-lt" ng-click="DobAndPlaceForm.$show()" ng-show="!DobAndPlaceForm.$visible" href translate="{{'place and Birth date'|translate}}"></a>
         <i class="ti-pencil pull-right p-xs" ng-show="showHideDobAndPlacePic"></i> 
         <!-- <span ng-if="profileData.profile.dob" class="text-light-dk p-sm">{{convertDate(profileData.profile.dob)}}</span> -->
         <span ng-show="DobAndPlaceForm.$visible">
-                   <button type="submit" class="btn btn-primary" ng-disabled="DobAndPlaceForm.$waiting">
-                    Save</button>
-                    <button type="button" class="btn btn-default" ng-disabled="DobAndPlaceForm.$waiting" ng-click="DobAndPlaceForm.$cancel()">
-                   Cancel</button>
+                   <button type="submit" class="btn btn-primary" ng-disabled="DobAndPlaceForm.$waiting" translate="{{'Save'|translate}}">
+                    </button>
+                    <button type="button" class="btn btn-default" ng-disabled="DobAndPlaceForm.$waiting" ng-click="DobAndPlaceForm.$cancel()" translate="{{'Cancel'|translate}}">
+                   </button>
         </span>
   </form>
   </span>
@@ -131,17 +131,17 @@
         <input type="text" class="form-control ng-pristine ng-valid ng-touched" ng-model="profileData.profile.dob" data-date-format="dd-MM-yyyy" data-date-type="iso" data-autoclose="true" data-placement="top"  data-max-date="today" name="date2" bs-datepicker="">
       </div>
        <div ng-show="DobAndPlaceFormSecond.$visible">
-        <span editable-text="profileData.profile.location.place" e-name="place" e-placeholder="Birth place"> {{profileData.profile.location.place}}  
+        <span editable-text="profileData.profile.location.place" e-name="place" e-placeholder="{{'Birth place'|translate}}"> {{profileData.profile.location.place}}  
         </span>
       </div>
-        <span ng-show="!DobAndPlaceFormSecond.$visible"><i class="p-h-xs ti-location-pin"></i><span class="text-dark">From </span></span><a ng-mouseenter="editAboutOpt('DobAndPlace')" ng-mouseleave="editAboutOpt('DobAndPlace')"  class="text-primary-lt" ng-click="DobAndPlaceFormSecond.$show()" ng-show="!DobAndPlaceFormSecond.$visible" href> {{profileData.profile.location.place}},{{profileData.profile.location.country}}</a>
+        <span ng-show="!DobAndPlaceFormSecond.$visible"><i class="p-h-xs ti-location-pin"></i><span class="text-dark" translate="{{'From'|translate}}"> </span></span><a ng-mouseenter="editAboutOpt('DobAndPlace')" ng-mouseleave="editAboutOpt('DobAndPlace')"  class="text-primary-lt" ng-click="DobAndPlaceFormSecond.$show()" ng-show="!DobAndPlaceFormSecond.$visible" href> {{profileData.profile.location.place}},{{profileData.profile.location.country}}</a>
         <br><span class="text-light-dk p-sm" ng-show="!DobAndPlaceFormSecond.$visible" style="padding-left:23px">{{convertDate(profileData.profile.dob)}}</span>
         <i class="ti-pencil pull-right p-xs" ng-show="showHideDobAndPlacePic"></i> 
         <span ng-show="DobAndPlaceFormSecond.$visible">
-                   <button type="submit" class="btn btn-primary" ng-disabled="DobAndPlaceFormSecond.$waiting">
-                    Save</button>
-                    <button type="button" class="btn btn-default" ng-disabled="DobAndPlaceFormSecond.$waiting" ng-click="DobAndPlaceFormSecond.$cancel()">
-                   Cancel</button>
+                   <button type="submit" class="btn btn-primary" ng-disabled="DobAndPlaceFormSecond.$waiting" translate="{{'Save'|translate}}">
+                    </button>
+                    <button type="button" class="btn btn-default" ng-disabled="DobAndPlaceFormSecond.$waiting" ng-click="DobAndPlaceFormSecond.$cancel()" translate="{{'Cancel'|translate}}">
+                   </button>
         </span>
   </form>
   </span>
@@ -158,10 +158,10 @@
 
 
       <ul class="nav nav-tabs p " >
-        <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='home'}" ng-click="selectedTab='home'"><a href="#"> Home <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
-        <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='AccountSettings'}" ng-click="selectedTab='AccountSettings';loadTabData('AccountSettings')"><a href="#"> Account Settings <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
-        <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='security'}" ng-click="selectedTab='security'"><a href="#"> Security <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
-        <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='Privacy'}" ng-click="selectedTab='Privacy'"><a href="#">Privacy</a></li>
+        <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='home'}" ng-click="selectedTab='home'"><a href="#" translate="{{'Home'|translate}}">  <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
+        <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='AccountSettings'}" ng-click="selectedTab='AccountSettings';loadTabData('AccountSettings')"><a href="#" translate="{{'Account Settings'|translate}}">  <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
+        <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='security'}" ng-click="selectedTab='security'"><a href="#" translate="{{'Security'|translate}}">  <div class="col-xs-1 pull-right"><i  class="text-lg mdi-hardware-keyboard-arrow-right"></i></div></a></li>
+        <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='Privacy'}" ng-click="selectedTab='Privacy'"><a href="#" translate="{{'Privacy'|translate}}"></a></li>
       </ul>
 
 
@@ -172,25 +172,25 @@
               </div>
               <div class="col-xs-12 pull-left" ng-show="selectedTab=='AccountSettings'" ng-model="test" bs-collapse="" >
 
-                      <div class="w-full p-md bg-light lt m-b-xs m-t-xs font-bold" >
-                       Account Settings
+                      <div class="w-full p-md bg-light lt m-b-xs m-t-xs font-bold" translate="{{'Account Settings'|translate}}">
+                       
                        </div>
            <!--These divs are for edit username  -->
                 <div  class="m-b-xs ng-scope " ng-mouseenter="editAboutOpt('nameicon')" ng-mouseleave="editAboutOpt('nameicon')">
                        <div class="panel-body p-sm bg-light lt " bs-collapse-toggle="" data-toggle="collapse" >
-                            <div  class="col-xs-3" >Name</div>
-                            <div  class="col-xs-6" >{{profileData.profile.firstName}} {{profileData.profile.lastName}}</div>
+                            <div  class="col-xs-3" translate="{{'Name'|translate}}"></div>
+                            <div  class="col-xs-6">{{profileData.profile.firstName}} {{profileData.profile.lastName}}</div>
                             <div  class="col-xs-2 text-right" ><i class="ti-pencil" ng-show="nameicon"></i></div>
-                            <div class="col-xs-1 "><a class="p-h-xs" href="">Edit</a></div>
+                            <div class="col-xs-1 "><a class="p-h-xs" href="" translate="{{'Edit'|translate}}"></a></div>
                        </div> 
                        <div class="panel-body p-sm in b p-sm" bs-collapse-target="" >
                        <div class="col-xs-5">
                        <form name="nameForm" class="form-validation" ng-submit="updateUserProfileDatas()" xt-form novalidate>
-                            <div class="m-t"><input ng-model="profileData.profile.firstName" placeholder="First Name" class="form-control" type="text" xt-validate required ng-minlength="1" name="firstName"></div>
-                            <div class="m-t"><input ng-model="profileData.profile.lastName"  placeholder="Last Name" class="form-control" type="text" xt-validate required ng-minlength="1" name="lastName"></div>
+                            <div class="m-t"><input ng-model="profileData.profile.firstName" placeholder="{{'First Name'|translate}}" class="form-control" type="text" xt-validate required ng-minlength="1" name="firstName"></div>
+                            <div class="m-t"><input ng-model="profileData.profile.lastName"  placeholder="{{'Last Name'|translate}}" class="form-control" type="text" xt-validate required ng-minlength="1" name="lastName"></div>
                              
                      
-                             <div  class="m-t" type="submit"><button ng-disabled="nameForm.$invalid" class="btn btn-info" >{{saveButton}}</button> <button class="btn btn-white" type="button">cancel</button></div>
+                             <div  class="m-t" type="submit"><button ng-disabled="nameForm.$invalid" class="btn btn-info" >{{saveButton}}</button> <button class="btn btn-white" type="button" translate="{{'cancel'|translate}}"></button></div>
                        </form>
                        </div>
                        </div>
@@ -199,52 +199,52 @@
            <!-- thse divs are for edit email-->
            <div class="m-b-xs ng-scope" ng-mouseenter="editAboutOpt('emailicon')" ng-mouseleave="editAboutOpt('emailicon')">
                        <div class="panel-body p-sm bg-light lt" bs-collapse-toggle="" data-toggle="collapse">
-                            <div  class="col-xs-3" >E-mail</div>
+                            <div  class="col-xs-3" translate="{{'E-mail'|translate}}"></div>
                             <div  class="col-xs-6" >{{userinfo.ActiveUserData.eMail}}</div>
                             <div  class="col-xs-2 text-right" ><i class="ti-pencil" ng-show="emailicon"></i></div>
-                            <div class="col-xs-1 text-left"><a class="p-h-xs" href="">Edit</a>
+                            <div class="col-xs-1 text-left"><a class="p-h-xs" href="" translate="{{'Edit'|translate}}"></a>
                             </div>
                        </div> 
                        <div class="panel-body p-sm in b dk p-sm " bs-collapse-target="">
                        
-                       <div class="col-xs-12 m-b-xs "><span class="font-bold">Primary Email </span>: <span class="p-h-xs">{{userinfo.ActiveUserData.eMail}}</span></div>
+                       <div class="col-xs-12 m-b-xs "><span class="font-bold" translate="{{'Primary Email'|translate}}"> </span>: <span class="p-h-xs">{{userinfo.ActiveUserData.eMail}}</span></div>
                        <div class="col-xs-5" >
                        <!-- x edit form for secondary email -->
                        <form ng-show="!profileData.profile.secondaryEmail" editable-form name="editSecEmail" onaftersave="updateUserProfileDatas()">
-                        <span  editable-email="profileData.profile.secondaryEmail" e-name="secondaryEmail" e-placeholder="Secondary Email">
+                        <span  editable-email="profileData.profile.secondaryEmail" e-name="secondaryEmail" e-placeholder="{{'Secondary Email'|translate}}">
                         {{profileData.profile.secondaryEmail}} 
                        </span>
-                    <span  editable-text="profileData.profile.mobileNumber" e-name="mobileNumber" e-placeholder="Mobile Number">
+                    <span  editable-text="profileData.profile.mobileNumber" e-name="mobileNumber" e-placeholder="{{'Mobile Number'|translate}}">
                      {{profileData.profile.mobileNumber}} 
                     </span>
-                    <a editable-form href="" onaftersave="updateUserProfileDatas()" ng-click="editSecEmail.$show()" ng-show="!editSecEmail.$visible">change secondary email and mobile number</a>
+                    <a editable-form href="" onaftersave="updateUserProfileDatas()" ng-click="editSecEmail.$show()" ng-show="!editSecEmail.$visible" translate="{{'change secondary email and mobile number'|translate}}"></a>
                       <span ng-show="editSecEmail.$visible">
-                           <button type="submit" class="btn btn-primary" ng-disabled="editSecEmail.$waiting">
-                            Save</button>
-                            <button type="button" class="btn btn-default" ng-disabled="editSecEmail.$waiting" ng-click="editSecEmail.$cancel()">
-                           Cancel</button>
+                           <button type="submit" class="btn btn-primary" ng-disabled="editSecEmail.$waiting" translate="{{'Save'|translate}}">
+                            </button>
+                            <button type="button" class="btn btn-default" ng-disabled="editSecEmail.$waiting" ng-click="editSecEmail.$cancel()" translate="{{'Cancel'|translate}}">
+                           </button>
                     </span>
 
                          
                        </form>
                         <form ng-show="profileData.profile.secondaryEmail" editable-form name="editSecEmailUpdate" onaftersave="updateUserProfileDatas()">
                         <div>
-                        <span  editable-email="profileData.profile.secondaryEmail" e-name="secondaryEmailUpdate" e-placeholder="Secondary Email">
-                        Secondary Email :{{profileData.profile.secondaryEmail}} 
+                        <span  editable-email="profileData.profile.secondaryEmail" e-name="secondaryEmailUpdate" e-placeholder="{{'Secondary Email'|translate}}">
+                        <span translate="{{'Secondary Email'|translate}}"></span> :{{profileData.profile.secondaryEmail}} 
                          </span>
                         </div>
                       
                        <div>
-                    <span  editable-text="profileData.profile.mobileNumber" e-name="mobileNumberUpdate" e-placeholder="Mobile Number">
-                    Mobile Number :{{profileData.profile.mobileNumber}} 
+                    <span  editable-text="profileData.profile.mobileNumber" e-name="mobileNumberUpdate" e-placeholder="{{'Mobile Number'|translate}}">
+                    <span translate="{{'Mobile Number'|translate}}"></span> :{{profileData.profile.mobileNumber}} 
                     </span>
                     </div>
                     <a editable-form href="" onaftersave="updateUserProfileDatas()" ng-click="editSecEmailUpdate.$show()" ng-show="!editSecEmailUpdate.$visible">Edit</a>
                       <span ng-show="editSecEmailUpdate.$visible">
-                           <button type="submit"  class="btn btn-primary" ng-disabled="editSecEmailUpdate.$waiting">
-                            Save</button>
-                            <button type="button" class="btn btn-default" ng-disabled="editSecEmailUpdate.$waiting" ng-click="editSecEmailUpdate.$cancel()">
-                           Cancel</button>
+                           <button type="submit"  class="btn btn-primary" ng-disabled="editSecEmailUpdate.$waiting" translate="{{'Save'|translate}}">
+                            </button>
+                            <button type="button" class="btn btn-default" ng-disabled="editSecEmailUpdate.$waiting" ng-click="editSecEmailUpdate.$cancel()" translate="{{'Cancel'|translate}}">
+                           </button>
                     </span>
 
                          

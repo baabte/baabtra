@@ -70,7 +70,7 @@
        <div class="col-xs-6 col-ls-6 col-sm-8 col-xs-8 p" style="float:none;margin: 0 auto;">
             <ul class="nav nav-pills nav-tabs">
               <li class="dropdown" >
-               <a  data-toggle="dropdown" class="dropdown-toggle">Course Domain <b class="caret"></b></a>
+               <a  data-toggle="dropdown" class="dropdown-toggle" translate="{{'Course Domain'|translate}}"> <b class="caret"></b></a>
                 <ul class="dropdown-menu vertical-scroll">  
                  <li ng-repeat="node in domainTree" ng-include="'nestedDomain.html'" >
                   </li>          
@@ -78,28 +78,28 @@
               </li>
 
               <li class="dropdown" >
-               <a data-toggle="dropdown" class="dropdown-toggle">Technologies <b class="caret"></b></a>
+               <a data-toggle="dropdown" class="dropdown-toggle" translate="{{'Technologies'|translate}}"> <b class="caret"></b></a>
                   <ul class="dropdown-menu vertical-scroll"> 
                     <li ng-repeat="tech in technologies" ng-click="searchCoursesAvailable(tech,'Technologies')" ><a>{{tech}}</a>   
                     </li>
                    </ul> 
              </li>
               <li class="dropdown" >
-                 <a  data-toggle="dropdown" class="dropdown-toggle">Branches <b class="caret"></b></a>
+                 <a  data-toggle="dropdown" class="dropdown-toggle" translate="{{'Branches'|translate}}"> <b class="caret"></b></a>
                   <ul class="dropdown-menu vertical-scroll"> 
                      <li ng-repeat="branch in branchDetails" ng-include="'nestedBranch.html'"   >
                     </li> 
                   </ul>
               </li>
               <li class="dropdown" >
-                 <a  data-toggle="dropdown" class="dropdown-toggle">Mode of Course <b class="caret"></b></a>
+                 <a  data-toggle="dropdown" class="dropdown-toggle" translate="{{'Mode of Course'|translate}}"> <b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                     <li ng-click="searchCoursesAvailable('online','Delivery')" ><a>Online</a></li>
-                     <li ng-click="searchCoursesAvailable('offline','Delivery')"><a>Offline</a></li>
+                     <li ng-click="searchCoursesAvailable('online','Delivery')" ><a translate="{{'Online'|translate}}"></a></li>
+                     <li ng-click="searchCoursesAvailable('offline','Delivery')"><a translate="{{'Offline'|translate}}"></a></li>
                   </ul>  
                </li>
               <li class="dropdown" >
-               <a  data-toggle="dropdown" class="dropdown-toggle">Tags <b class="caret"></b></a>
+               <a  data-toggle="dropdown" class="dropdown-toggle" translate="{{'Tags'|translate}}"> <b class="caret"></b></a>
                   <ul class="dropdown-menu vertical-scroll" > 
                     <li ng-repeat="tag in taggs" ng-click="searchCoursesAvailable(tag,'Tags')" ><a>{{tag}}</a>   
                     </li>
@@ -149,7 +149,7 @@
                 
                  <div class="alert alert-dismissable alert-danger animated fadeIn">
                  <button type="button" class="close" data-dismiss="alert">×</button>
-               <strong>Not Found!</strong> No Matching Courses Found.
+               <strong translate="{{'Not Found!'|translate}}"></strong><span translate="{{'No Matching Courses Found.'|translate}}"></span>
                </div>
             </div>    
         </div>       

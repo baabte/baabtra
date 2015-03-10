@@ -8,8 +8,11 @@ angular.module('baabtra').directive('courseLoader',['addCourseService','$rootSco
 		templateUrl: 'angularModules/common/directives/Directive-courseLoader.html',
 		link: function(scope, element, attrs, ctrls) {
 
-
-
+			scope.multi = false;
+		
+			if(!angular.equals(attrs.multiSelect,undefined)){
+				scope.multi = true;
+			}
 			
 		//------------------------------------------
 
@@ -26,29 +29,20 @@ angular.module('baabtra').directive('courseLoader',['addCourseService','$rootSco
 			FetchCourseListCallBack.then(function(data){
 
 			 scope.courselist=angular.fromJson(JSON.parse(data.data));
-			// console.log($scope.courselist);        
+			 for(var index in scope.courselist){
+			 	scope.courselist[index]._id=scope.courselist[index]._id.$oid;
+			 }
+			       
 
 			});
 
 			// ctrls.$setValidity('courseLoader',false);
 
 
-			scope.onCourseSelectionChanged = function(course){
-				// if(angular.equals(course,null)){
-				// 	// scope.ngModel=course;
-					ctrls.$setValidity('courseLoader',false);
+			scope.onCourseSelectionChanged = function(course){				
 
-									
-				//}
-				if(!angular.equals(course,null)){
-					if(!angular.equals(course._id.$oid,undefined)){
-					course._id=course._id.$oid;
-					}
 					scope.ngModel=course;
-					ctrls.$setValidity('courseLoader',true);
-					
-				}
-				
+					ctrls.$setValidity('courseLoader',true);				
 			};
         
 

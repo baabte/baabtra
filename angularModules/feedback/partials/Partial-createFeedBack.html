@@ -56,11 +56,11 @@
 						<div class="col-xs-12">
 							<div class="form-group m-t">
 								<div class="col-xs-2 control-label m-v text-muted">Feedback about</div>
-								<div class="col-xs-4">
-									<button type="button" class="btn btn-default" ng-model="selectedIcon" data-html="1" ng-options="feedbackAbout.value as feedbackAbout.label for feedbackAbout in data.feedbackAboutDropdown" bs-select placeholder="choose an option">
+								<div class="col-xs-2">
+									<button type="button" class="btn btn-default no-margin" ng-model="selectedIcon" data-html="1" ng-options="feedbackAbout.value as feedbackAbout.label for feedbackAbout in data.feedbackAboutDropdown" bs-select placeholder="choose an option">
 									Action <span class="caret"></span>
 								</div>
-								<div class="col-xs-6">
+								<div class="col-xs-6 no-margin">
 									  <course-loader ng-model="data.course" multi-select="multi" ></course-loader>
 								</div>
 							</div>

@@ -647,3 +647,7 @@ max-width: 100%;
 height: auto;
 display: block;
 }
+.checkBoxContainer{
+    max-height: 200px;
+  overflow-y: scroll;
+}
