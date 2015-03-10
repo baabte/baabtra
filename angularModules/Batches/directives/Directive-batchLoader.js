@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope', function(addBatches,$rootScope) {
+angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope', function (addBatches,$rootScope) {
 	return {
 		restrict: 'E',
 		require:'ngModel',
@@ -7,25 +7,22 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope', fu
 		},
 		templateUrl: 'angularModules/Batches/directives/Directive-batchLoader.html',
 		link: function(scope, element, attrs, fn) {
-              scope.multi = false;
-		
-			if(!angular.equals(attrs.multiSelect,undefined)){
-				scope.multi = true;
-			}
-          var companyId='';
+
+			var companyId='';
 			if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
 			  companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
 			}
 
-		//console.log(companyId);
-      var promise=addBatches.loadBatches(companyId)
-      promise.then(function(response){
-        scope.batchElements = angular.fromJson(JSON.parse(response.data));
-       for(var index in scope.batchElements.result){
-       	       //console.log(scope.batchEelements);
-			 	 scope.batchElements.result[index]._id=scope.batchElements.result[index]._id.$oid;
-	    }
-      });  
+      		var promise = addBatches.loadBatches(companyId)
+      		promise.then(function(response){
+      			console.log(angular.fromJson(JSON.parse(response.data)));
+        	var batchElements = angular.fromJson(JSON.parse(response.data)).result;
+      		angular.forEach(batchElements, function(batch){
+      			batch.Name = batch.batchName;
+      			batch._id = batch._id.$oid;
+      		})
+      		scope.batchElements = batchElements;
+      	});  
  	  
 	  }	
 	};

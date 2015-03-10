@@ -28,7 +28,7 @@ angular.module('baabtra').directive('courseLoader',['addCourseService','$rootSco
 
 			FetchCourseListCallBack.then(function(data){
 
-			 scope.courselist=angular.fromJson(JSON.parse(data.data));
+			 scope.courselist = angular.fromJson(JSON.parse(data.data));
 			 for(var index in scope.courselist){
 			 	scope.courselist[index]._id=scope.courselist[index]._id.$oid;
 			 }
@@ -40,7 +40,6 @@ angular.module('baabtra').directive('courseLoader',['addCourseService','$rootSco
 
 
 			scope.onCourseSelectionChanged = function(course){				
-
 					scope.ngModel=course;
 					ctrls.$setValidity('courseLoader',true);				
 			};

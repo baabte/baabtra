@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('CreatefeedbackCtrl',['$scope', '$rootScope', 'commonService', 'RoleMenuMappingSrv', function ($scope, $rootScope, commonService, RoleMenuMappingSrv){
+angular.module('baabtra').controller('CreatefeedbackCtrl',['$scope', '$rootScope', '$state', 'commonService', 'commonSrv', function ($scope, $rootScope, $state, commonService, commonSrv){
 	
 
  /*login detils start*/
@@ -28,19 +28,27 @@ angular.module('baabtra').controller('CreatefeedbackCtrl',['$scope', '$rootScope
   									   {value:"company",label:"Company"},
   									   {value:"batch",label:"Batch"},
   									   {value:"appliction",label:"Appliction"}];
-
-  var roleLoadResponse = RoleMenuMappingSrv.FnGetRoles($scope, $scope.cmp_id, "", "");
-  		roleLoadResponse.then(function(response){
-  			$scope.data.companyRoles = angular.fromJson(JSON.parse(response.data)).roles;
-  			angular.forEach($scope.data.companyRoles, function(role){
-  				$scope.data.feedbackAboutDropdown.push({value:role._id.$oid,label:role.roleName});
-  				role.text = role.roleName;
-  				delete role.roleName;
-  			});
+ 	var rolesLoadResponse = commonSrv.fnLoadRoleUnderCompany($scope.cmp_id);
+  	rolesLoadResponse.then(function(response){
+  		$scope.data.companyRoles = angular.fromJson(JSON.parse(response.data));
+  		angular.forEach($scope.data.companyRoles, function(role){
+  			$scope.data.feedbackAboutDropdown.push({value:role.roleName,label:role.roleName});
+  			role.text = role.roleName;
+  			delete role.roleName;
   		});
+  	});
 
-  	$scope.feedbackTypeChanged = function(){
-  		console.log($scope.data.selectedIconFeedbackAbout);
+
+  	$scope.createFeedbackForm = function(){
+  		$scope.myForm.feedbackAbout = {};
+  		$scope.myForm.feedbackAbout.type = $scope.data.selectedFeedbackAbout;
+  		$scope.myForm.feedbackAbout.feedbackOn = [];
+  		angular.forEach($scope.data.course,function(course){
+  			$scope.myForm.feedbackAbout.feedbackOn.push(course._id);
+  		});
+  		$scope.myForm.questions = {};
+  		$scope.myForm.rmId = $scope.rm_id;
+  		console.log($scope.myForm);
   	};
 
 }]);
