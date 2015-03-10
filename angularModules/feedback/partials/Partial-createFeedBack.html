@@ -57,11 +57,18 @@
 							<div class="form-group m-t">
 								<div class="col-xs-2 control-label m-v text-muted">Feedback about</div>
 								<div class="col-xs-2">
-									<button type="button" class="btn btn-default no-margin" ng-model="selectedIcon" data-html="1" ng-options="feedbackAbout.value as feedbackAbout.label for feedbackAbout in data.feedbackAboutDropdown" bs-select placeholder="choose an option">
+
+									<!-- feedback about -->
+									<button type="button" class="btn btn-default no-margin" ng-change="feedbackTypeChanged()" ng-model="data.selectedIconFeedbackAbout" data-html="1" ng-options="feedbackAbout.value as feedbackAbout.label for feedbackAbout in data.feedbackAboutDropdown" bs-select placeholder="choose an option">
 									Action <span class="caret"></span>
 								</div>
 								<div class="col-xs-6 no-margin">
-									  <course-loader ng-model="data.course" multi-select="multi" ></course-loader>
+									  <!-- course loader -->
+									  <course-loader ng-show="data.selectedIconFeedbackAbout =='course'" ng-model="data.course" multi-select="multi" ></course-loader>
+
+									  <!-- mentee loader -->
+									  <mentee-loder ng-model="data.mentees" ng-show="data.selectedIconFeedbackAbout =='mentee'">
+									  </mentee-loder>
 								</div>
 							</div>
 						</div>
