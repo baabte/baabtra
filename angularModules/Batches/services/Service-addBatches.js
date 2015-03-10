@@ -16,4 +16,13 @@ angular.module('baabtra').service('addBatches',['$http','bbConfig','$rootScope',
 	 });
 	return promise;
  }
+ this.loadExistingCoursesUnderBatch=function(id){
+    var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'loadExistingCoursesUnderBatch/',
+	    data:{"id":id}
+	 });
+	return promise;
+
+ }
 }]);

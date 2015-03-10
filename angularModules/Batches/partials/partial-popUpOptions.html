@@ -3,32 +3,25 @@
     <div class="modal-content">
       <form name="formOnetime" class=" ng-pristine ng-valid"  > 
       <div class="modal-header">        
-        <h4 class="modal-title text-primary">More Options</h4>
+        <h4 class="modal-title text-primary" translate="{{'Add this batch under the courses'|translate}}"></h4>
       </div>
       <div class="modal-body">
        <div class="row"> 
            <div class="col-xs-12 col-sm-12">
                <div class="form-group">   
-                      <div class="radio radio-primary radio-inline no-margin ">
-                        <label>
-                            <input type="radio" name="optionadd" ng-model="batchselType" value="users" required ng-click="fnLoadCourses()"> Add Users to this batch
-                        </label>
-                      </div>
-                      <div class="radio radio-primary radio-inline no-margin">
-                        <label>
-                            <input type="radio"  ng-model="batchselType" value="courses" name="optionadd" required ng-lick="fnLoadUsers()" > Add Courses to this Batch
-                        </label>
-                      </div>
-                      <div class="form-group" ng-show="batchselType=='courses'" >
-                        <course-loader ng-model="Batch.newCourses" multi-select="multi" required >
-                      </div>
+                    <div class="row m-l">
+                      <div class="form-group" >
+                        <course-loader ng-model="Batch.newCourse" multi-select="multi" required   >
+                      </course-loader>{{Batch.newCourse}}
+                      </div> 
+                    </div>
                   </div>
            </div>  
        </div>    
       </div>
       <div class="modal-footer">
-         <button type="reset" class="btn btn-primary"  ng-disabled="formOnetime.$pristine">Cancel</button>
-        <button type="button" class="btn btn-primary" ng-click="savepopUpfn($hide)"  ng-disabled="formOnetime.$invalid">Save</button>
+         <button type="reset" class="btn btn-primary"  ng-disabled="formOnetime.$pristine" translate="{{'Cancel'| translate}}"></button>
+        <button type="button" class="btn btn-primary" ng-click="savepopUpfn($hide)"  ng-disabled="formOnetime.$invalid" translate="{{'Save'|translate}}"></button>
 
       </div>
      </form> 
