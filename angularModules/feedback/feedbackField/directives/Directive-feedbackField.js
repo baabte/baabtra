@@ -7,6 +7,7 @@ angular.module('baabtra').directive('feedbackField',function() {
 		},
 		templateUrl: 'angularModules/feedback/feedbackField/directives/Directive-feedbackField.html',
 		link: function(scope, element, attrs, fn) {
+			console.log(scope.feedback)
 			//setting default tab
 			scope.selectedTab='question';
 			//output plain text from html
@@ -18,7 +19,6 @@ angular.module('baabtra').directive('feedbackField',function() {
 			};
 
 
-			scope.answerTypes=[];
 			// var gotCourseElements=srvCrs.fnGetCourseElementFields();
 			// gotCourseElements.then(function (data) {
 			// 	var courseElems=angular.fromJson(JSON.parse(data.data));
@@ -49,7 +49,6 @@ angular.module('baabtra').directive('feedbackField',function() {
 			if(!scope.feedback){
 				scope.feedback={};
 				scope.feedback.type='objective';
-				scope.feedback.multiAnswer=scope.multiAnswer;
 			}
 			// scope.question.type="objective";
 			// scope.question.answerType="singleAnswer";

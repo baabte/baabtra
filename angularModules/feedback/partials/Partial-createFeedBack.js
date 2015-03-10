@@ -18,6 +18,7 @@ angular.module('baabtra').controller('CreatefeedbackCtrl',['$scope', '$rootScope
 
   //bulding form object
   $scope.myForm = {};
+  $scope.myForm.questions = {};
   $scope.myForm.formAccessTo = "Public";
 
   //other datas
@@ -46,7 +47,6 @@ angular.module('baabtra').controller('CreatefeedbackCtrl',['$scope', '$rootScope
   		angular.forEach($scope.data.course,function(course){
   			$scope.myForm.feedbackAbout.feedbackOn.push(course._id);
   		});
-  		$scope.myForm.questions = {};
   		$scope.myForm.rmId = $scope.rm_id;
   		console.log($scope.myForm);
   	};

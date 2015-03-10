@@ -13,38 +13,9 @@ angular.module('baabtra').directive('feedbackCreator', function() {
 			scope.feedbackFormModel=[];//array to keep the feddbackModel
 			}
 
-			scope.feedbackShow=false;
-			scope.feddbackModel={};
+			scope.feedbackShow=true;
 
-		 scope.dropDown=function (index) {
-		    	var list=[];
-		    	
-		    	list.push({text:"Remove",click:function() {
-		    		scope.placeindex=index;
-		    		if(scope.questionGroupModel.length>=1){
-			    		scope.questionGroupModel.splice(index,1); //removes that object if 
-		    			if(angular.equals(index,0)){
-		    				scope.questionShow=true;
-		    			}
-		    		}
-		    		}});
-
-		    list.push({text:"Insert before",click:function() {
-		    		scope.placeindex=index;
-		    		scope.position='before';
-		    		scope.questionShow=true;
-		    		// scope.questionGroupModel.splice(index,0,{});
-		    		}});
-		    list.push({text:"Insert after",click:function() {
-		    		scope.placeindex=index;
-		    		scope.position='after';
-		    		scope.questionShow=true;
-		    		// scope.QuestionModalOpen();
-		    		// scope.questionGroupModel.splice(index+1,0,{});
-		    		}});
-
-		    	return list;
-		    };
+		 
 
 		    scope.feedbackShowActivate =function(){
 		    	scope.feedbackShow=true;
@@ -64,7 +35,7 @@ angular.module('baabtra').directive('feedbackCreator', function() {
           	
             	scope.feedbackFormModel.push(feedbackModel);//must pass questionmodel instead of scope.questionmodel
             	
-            	scope.feedbackModel={};//questionmodel reset to default
+            	delete scope.feedbackModel;//questionmodel reset to default
             	scope.feedbackShow=false;//question field hidden after adding question
             };
 
