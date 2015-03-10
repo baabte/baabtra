@@ -1,7 +1,9 @@
 angular.module('baabtra').controller('UserreportCtrl',['$scope','$filter','bulkEnrollment','$rootScope','commonService','$state',function($scope,$filter,bulkEnrollment,$rootScope,commonService,$state){
 
 //report list drop down values
-$scope.reportTypeList=[{'id':'rptEnroll','type':'user enrollment report'},{'id':'rptDetail','type':'Performance report'}];
+$scope.reportTypeList=[ {'id':'rptEnroll','type':'user enrollment report'},
+                        {'id':'rptDetail','type':'Performance report'},
+                        {'id':'rptFeedback','type':'Feedback report'} ];
 $scope.obj={};
 
 $scope.type={'id':'rptEnroll','type':'user enrollment report'};
@@ -27,36 +29,32 @@ $scope.type={'id':'rptEnroll','type':'user enrollment report'};
     loadReportResponse.then(function(response){
       $scope.data = angular.fromJson(JSON.parse(response.data)).data;
       $scope.obj.rptEnroll = {
-  "type":"PieChart",  
-  "displayed": true,
-  "data":$scope.data,
-  "options": {
-    "title": "Sales per month",
-    "isStacked": "true",
-    "fill": 20,
-    "displayExactValues": true,
-    "vAxis": {
-      "title": "Sales unit",
-      "gridlines": {
-        "count": null
-      }
-    },
-    "hAxis": {
-      "title": "Date"
-    },
-    "tooltip": {
-      "isHtml": true
-    },
-    'width':800,
-   'height':400
-  },
-  "formatters": {}
-};
+          "type":"PieChart",  
+          "displayed": true,
+          "data":$scope.data,
+          "options": {
+            "title": "Sales per month",
+            "isStacked": "true",
+            "fill": 20,
+            "displayExactValues": true,
+            "vAxis": {
+              "title": "Sales unit",
+              "gridlines": {
+                "count": null
+              }
+            },
+            "hAxis": {
+              "title": "Date"
+            },
+            "tooltip": {
+              "isHtml": true
+            },
+            'width':800,
+           'height':400
+          },
+          "formatters": {}
+        };
     });
-
-    $scope.test = function(value){
-      console.log($scope.data);
-    };
     
 
 // $scope.obj.rptEnroll.data={};

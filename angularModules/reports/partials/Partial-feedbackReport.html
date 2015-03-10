@@ -1,0 +1,30 @@
+<div class="tab-container col-md-12"> <div class="panel b-t b-00C853 bg-light dk"><div class="panel-heading font-bold text-white bg-00C853 p baab-shadow" translate="{{'User Report'|translate}}"></div>
+<div class="panel-body col-md-12 bg-white animated fadeInRight p-sm b-b-danger b-b-3x"  >
+	
+	<div class="col-sm-4 col-md-4" style="padding-left: 0px">
+		 <form name="Form_Adding_form" ng-submit="AddCompanyRole()" class="form-validation" role="form" xt-form novalidate>
+
+	<div class="form-group col-sm-5">
+          <select class="form-control" float-label placeholder="{{'Chart type'|translate}}" xt-validate name="chartType" data-bv-field="Chart Type" id="chartType" ng-model="obj[type.id].type" >
+                 
+      			        <option value="AreaChart" selected="selected">AreaChart</option>
+      			        <option value="PieChart">PieChart</option>
+      			        <option value="ColumnChart">ColumnChart</option>
+      			        <option value="LineChart">LineChart</option>
+      			        <option value="Table">Table</option>
+      			        <option value="BarChart">BarChart</option>
+                </select>
+          </div> 
+    </form>
+	</div>
+  	<dv class="row">
+  	<div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
+  		<div masonry-tile class="tile col-xs-12 col-sm-6 col-md-6 panel-default" ng-repeat="report in reportList">
+    		<div google-chart chart="report.chart" style="{{cssStyle}}">
+  		</div>
+  	</dv>
+  	</div>
+</div>
+</div>
+</div>
+</div>
