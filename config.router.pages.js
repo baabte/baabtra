@@ -466,12 +466,32 @@
                 }
                 
               })
+              .state('home.main.Createfeedback', {
+                url: '/Createfeedback',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/feedback/partials/Partial-createFeedBack.html',
+                    controller: 'CreatefeedbackCtrl'
+                  }
+                }
+                
+              })
               .state('home.main.userReport', {
                 url: '/userReport',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/reports/partials/Partial-userReport.html',
                     controller: 'UserreportCtrl'
+                  }
+                }
+                
+              })
+             .state('home.main.feedbackReport', {
+                url: '/feedbackReport',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-feedbackReport.html',
+                    controller: 'FeedbackreportCtrl'
                   }
                 }
                 

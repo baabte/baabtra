@@ -10,7 +10,7 @@
                 <div class="row"> 
                   <div class="form-group m-l">
                   
-                   <input class="form-control no-padding " float-label   ng-model="Batch.batchName" placeholder="Name of the Batch" name="Batch Name" required>
+                   <input class="form-control no-padding " float-label   ng-model="Batch.batchName" placeholder="{{'Name of the Batch'|translate}}" name="Batch Name" required>
                   </div>
                 </div>  
                   <div class="form-group">
@@ -41,16 +41,25 @@
                       </div>
                     <em class="text-muted text-E91E63">&nbsp;(Please specifiy  the Type of Batch)</em>                
                   </div>
+                  <div class="row m-l" ng-show="Batch.batchType=='offline'">
+                  <div class="form-group">
+                     <label>Start Time</label>
+                      <input type="text" class="form-control " length="3" ng-model="Batch.offline.startTime" data-time-format="HH:mm" data-time-type="date" data-autoclose="1" name="timerstart" bs-timepicker="">
+                  </div>
+                  <div class="form-group">
+                     <label>End Time</label>
+                      <input type="text" class="form-control " length="3" ng-model="Batch.offline.endTime" data-time-format="HH:mm" data-time-type="date" data-autoclose="1" name="timerend" bs-timepicker="">
+                  </div>
+                 </div> 
                   <div class="row m-l">
                   <div class="form-group ">
                     
-                    <input type="number" float-label  ng-model="Batch.seats" class="form-control no-padding" placeholder="Number of seats" name="seats" required >
+                    <input type="number" float-label  ng-model="Batch.seats" class="form-control no-padding" placeholder="{{'Number of seats'|translate}}" name="seats" required >
                   </div> 
                   </div> 
                   <div class="row m-l"> 
-                    <course-loader ng-model="Batch.course" multi-select="multi"  >
-                  </course-loader>
-                  
+                    <course-loader ng-model="Batch.course" multi-select="multi" required >
+                    </course-loader>
                  </div>
               </div>
              <div class="col-xs-12 col-sm-6 p" ng-click="fnLoadBatches()">
@@ -58,11 +67,10 @@
                  View  Batches
                  </a>
                 <div class="row p">
-                  <div class=" list-group  bg-inherit">
+                  <div class=" list-group  bg-inherit"  >
                    
-                        <div class="list-group-item" ng-repeat="batch in batchEelements.result">
-                   
-                    <span class="pull-right text-muted" style="cursor:pointer;"><i class=" fa fa-edit"></i> <i  class="glyphicon glyphicon-trash" style="cursor:pointer;"></i></span>
+                  <div class="list-group-item p" ng-repeat="batch in batchEelements.result">                  
+                    <span class="pull-right" style="cursor:pointer;"><i class=" fa mdi-navigation-more-vert" title="More options" ng-click="fnLoadMoreOptions(batch._id.$oid)" ></i></span>
                      {{batch.batchName}}
                         </div>
                        

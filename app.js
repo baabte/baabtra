@@ -57,7 +57,7 @@
   editableOptions.theme = 'bs3';
 })
 
-//       .run(function(gettextCatalog){
+//.run(function(gettextCatalog){
 //   gettextCatalog.currentLanguage = 'ar';
 //   gettextCatalog.debug = true;
 // })
