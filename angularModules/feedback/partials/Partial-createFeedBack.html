@@ -10,7 +10,7 @@
 			<div class="panel-body">
 				<form name="feedbackForm">
 					<div class="row">
-
+						
 						<!-- Feedback title -->
 						<div class="col-xs-12 col-sm-6">
 							<input type="text" class="form-control" placeholder="{{'Feedback title'|translate}}" ng-model="myForm.title" float-label>
@@ -30,7 +30,7 @@
 						<!-- form access  -->
 						<div class="col-xs-12">
 							<div class="form-group m-t">
-								<div class="col-xs-2 control-label m-v text-muted"><b class="font-normal" translate="{{'Access type'|translate}}"></b></div>
+								<div class="col-xs-2 control-label m-v text-muted"><b class="font-normal" translate="{{'To'|translate}}"></b></div>
 								<div class="col-xs-11 col-md-3 m-v">
 									<div class="radio radio-inline radio-primary no-margin">
 										<label>
@@ -39,7 +39,7 @@
 									</div>
 									<div class="radio radio-inline radio-primary">
 										<label>
-											<input type="radio" name="formAccessTo" ng-model="myForm.formAccessTo" value="Private" ng-change="loadCompanyRoles()">
+											<input type="radio" name="formAccessTo" ng-model="myForm.formAccessTo" value="Private">
 											<b class="font-normal" translate="{{'Private'|translate}}"></b>
 										</label>
 									</div>

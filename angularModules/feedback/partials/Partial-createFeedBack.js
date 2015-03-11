@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('CreatefeedbackCtrl',['$scope', '$rootScope', '$state', 'commonService', 'commonSrv', function ($scope, $rootScope, $state, commonService, commonSrv){
+angular.module('baabtra').controller('CreatefeedbackCtrl',['$scope', '$rootScope', '$state', 'commonService', 'commonSrv', 'createFeedback', function ($scope, $rootScope, $state, commonService, commonSrv ,createFeedback){
 	
 
  /*login detils start*/
@@ -42,13 +42,24 @@ angular.module('baabtra').controller('CreatefeedbackCtrl',['$scope', '$rootScope
 
   	$scope.createFeedbackForm = function(){
   		$scope.myForm.feedbackAbout = {};
+  		$scope.myForm.companyId = $scope.cmp_id;
+  		$scope.myForm.validUntil = $scope.myForm.validUntil.toISOString();
+
+  		$scope.myForm.activeFlag = 1;
+
   		$scope.myForm.feedbackAbout.type = $scope.data.selectedFeedbackAbout;
   		$scope.myForm.feedbackAbout.feedbackOn = [];
   		angular.forEach($scope.data.course,function(course){
   			$scope.myForm.feedbackAbout.feedbackOn.push(course._id);
   		});
+
   		$scope.myForm.rmId = $scope.rm_id;
   		console.log($scope.myForm);
+  		var feedbackFormResponse = createFeedback.fnSaveFeedbackForm($scope.myForm);
+  		feedbackFormResponse.then(function(response){
+  			console.log(angular.fromJson(JSON.parse(response.data)));
+  			$scope.myForm = {};
+  		});
   	};
 
 }]);

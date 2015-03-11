@@ -476,6 +476,17 @@
                 }
                 
               })
+
+              .state('home.main.viewFeedbackRequest', {
+                url: '/viewFeedbackRequest',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/feedback/partials/Partial-viewFeedback.html',
+                    controller: 'ViewfeedbackCtrl'
+                  }
+                }
+              })
+
               .state('home.main.userReport', {
                 url: '/userReport',
                 views:{
@@ -487,11 +498,21 @@
                 
               })
              .state('home.main.feedbackReport', {
-                url: '/feedbackReport',
+                url: '/feedbackReport/:feedbackId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/reports/partials/Partial-feedbackReport.html',
                     controller: 'FeedbackreportCtrl'
+                  }
+                }
+                
+              })
+             .state('home.main.feedbackList', {
+                url: '/feedbackList',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-feedbackReportList.html',
+                    controller: 'FeedbackreportlistCtrl'
                   }
                 }
                 
