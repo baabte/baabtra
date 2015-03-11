@@ -41,14 +41,18 @@
             <div class="radio radio-success pull-left">
                 <label>
                   <input type="radio" ng-model="course.Fees.free" ng-value="true" ng-change="course.Fees.totalAmount = ''">
+
                   <b class="font-normal" translate="{{'Free'|translate}}"></b>                 
+
                 </label>
             </div>
 
             <div class="radio radio-success pull-left m-l" style="padding-top:15px;">
                 <label>
                   <input type="radio" ng-model="course.Fees.free" ng-value="false">
+
                   <b class="font-normal" translate="{{'Paid'|translate}}"></b>                 
+
                 </label>
             </div>           
             <em class="text-muted text-00C853 col-xs-12" translate="{{'(Please specify the type of the Course)'|translate}}"></em>
@@ -77,14 +81,18 @@
                 <div class="radio radio-success pull-left">
                   <label>
                     <input type="radio" ng-model="course.Fees.payment.oneTime" ng-value="true">
+
                     <b class="font-normal" translate="{{'Onetime'|translate}}"></b>           
+
                   </label>
                 </div>
 
                 <div class="radio radio-success pull-left" style="padding-top:15px;">
                     <label>
                       <input type="radio" ng-model="course.Fees.payment.oneTime" ng-value="false">
+
                       <b class="font-normal" translate="{{'Installments'|translate}}"></b>    
+
                     </label>
                 </div>
               </div>
@@ -120,7 +128,7 @@
 <div class="row">
   <div class="col-xs-12 m-b">
     <footer class="text-right">
-     <button  type="submit" class="btn btn-info baab-btn" ng-disabled="generalInfo.$invalid || !totalCourseDuration" disabled="disabled" ng-click="completeStep2(course);"  translate="'Next'|translate}}"></button>
+     <button  type="submit" class="btn btn-info baab-btn" ng-disabled="generalInfo.$invalid || !totalCourseDuration" disabled="disabled" ng-click="completeStep2(course);"  translate="{{'Next'|translate}}"></button>
     </footer>   
   </div>
 </div>
