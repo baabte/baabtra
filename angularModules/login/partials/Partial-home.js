@@ -182,6 +182,7 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
           }
           angular.forEach(menu[sub].actions,function(action){
             if (angular.equals(action.stateName,state)) {
+
               $rootScope.menuExist=true;
               path_obj.push(menu[sub]);
               $scope.navBar=true;
