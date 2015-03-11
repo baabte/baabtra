@@ -8,4 +8,14 @@ angular.module('baabtra').service('viewFeedback', ['$http', 'bbConfig', function
 	 	});
 		return promise;
 	}
+
+	this.fnLoadFeedbackRequestDetails = function(companyId, feedbackId){
+		var promise = $http({
+	 		method: 'POST',
+	    	url: bbConfig.BWS+'LoadFeedbackRequestDetails/',
+	    	data:{companyId:companyId, feedbackId:feedbackId}
+	 	});
+		return promise;
+	}
+
 }]);

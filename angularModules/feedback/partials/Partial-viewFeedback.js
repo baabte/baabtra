@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('ViewfeedbackCtrl', ['$scope', '$rootScope', 'commonService', 'viewFeedback', function ($scope, $rootScope, commonService, viewFeedback){
+angular.module('baabtra').controller('ViewfeedbackCtrl', ['$scope', '$rootScope', '$state', 'commonService', 'viewFeedback', function ($scope, $rootScope, $state, commonService, viewFeedback){
 
  /*login detils start*/
   if(!$rootScope.userinfo){
@@ -22,13 +22,16 @@ angular.module('baabtra').controller('ViewfeedbackCtrl', ['$scope', '$rootScope'
   var FeedbackRequestsResponse  = viewFeedback.fnViewFeedbackRequests($scope.rm_id,$scope.cmp_id)
   FeedbackRequestsResponse.then(function(response){
   	$scope.data.feedbackRequests = angular.fromJson(JSON.parse(response.data));
-  	
-  	$scope.feedbackResponse = [];
-  	for(var i in $scope.data.feedbackRequests.questions){
-		tempObj={};
-		$scope.feedbackResponse.push(tempObj);
-	}
+    console.log($scope.data.feedbackRequests);
+    $scope.data.feedbackRequestsCount = $scope.data.feedbackRequests.length;
+  	$scope.feedbackResponse = [{}];
   
   });
+  $scope.openThisRequest = "";
+  $scope.changeRequest = function(feedBackId){
+    
+    $state.go('home.main.viewDetails',{feedBackId:feedBackId});
+    //$scope.openThisRequest = requestId;
+  };
 
 }]);
