@@ -476,6 +476,17 @@
                 }
                 
               })
+
+              .state('home.main.viewFeedback', {
+                url: '/viewFeedback',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/feedback/partials/Partial-viewFeedback.html',
+                    controller: 'ViewfeedbackCtrl'
+                  }
+                }
+              })
+
               .state('home.main.userReport', {
                 url: '/userReport',
                 views:{
