@@ -18,9 +18,11 @@
 
 <!-- <feedback-creator ng-model="feedbackFormModel"></feedback-creator> -->
 <pre>{{feedbackFormModel}}</pre>
-<div ng-repeat="feedback in feedbackFormModel">
-<feedback-viewer feedback-form="feedback" feedback-response="feedbackResponse[$index]"></feedback-viewer>
-</div>
+
+<feedback-viewer ng-if="feedbackFormModel" feedback-form="feedbackFormModel" feedback-response="feedbackResponse"></feedback-viewer>
+
+
 <pre>{{feedbackResponse}}</pre>
+
 </div>
 

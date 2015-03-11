@@ -477,6 +477,16 @@
                 
               })
 
+              .state('home.main.viewDetails', {
+                url: '/viewFeedbackDetails/:feedBackId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/feedback/partials/Partial-feedbackDetails.html',
+                    controller: 'FeedbackdetailsCtrl'
+                  }
+                }
+              })
+
               .state('home.main.viewFeedbackRequest', {
                 url: '/viewFeedbackRequest',
                 views:{
