@@ -18,7 +18,28 @@ angular.module('baabtra').controller('FeedbackdetailsCtrl',['$scope', '$rootScop
   $scope.data.feedbackResponse = [];
 	var FeedbackRequestDetailsResponse = viewFeedback.fnLoadFeedbackRequestDetails($scope.cmp_id, $state.params.feedBackId);
 	FeedbackRequestDetailsResponse.then(function(response){
-		$scope.data.feedBackDetails = angular.fromJson(JSON.parse(response.data));
+		$scope.data.feedBackDetails = angular.fromJson(JSON.parse(response.data))[0];
 	});
+
+	$scope.submitMyResponse = function(){
+		var responseObject = [];
+		for(var questionsCount = 0;questionsCount < $scope.data.feedBackDetails.questions.length; questionsCount++){
+			responseObject[questionsCount] = [];
+			var options = $scope.data.feedBackDetails.questions[questionsCount].options;
+			var userResponse = $scope.data.feedbackResponse[questionsCount].userResponse;
+			angular.forEach(userResponse,function(value){
+				angular.forEach(options,function(option){
+					if(angular.equals(option.Name,value)){
+						responseObject[questionsCount].push(option.value);
+					}
+				});
+			});
+		}
+		console.log(responseObject);
+		var saveUserFeedbackResponse = viewFeedback.fnSaveUserFeedback($state.params.feedBackId ,responseObject, $scope.rm_id);
+				saveUserFeedbackResponse.then(function(response){
+					//console.log(angular.fromJson(JSON.parse(response.data)));
+				});
+	};
 
 }]);

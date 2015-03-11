@@ -44,6 +44,7 @@ angular.module('baabtra').controller('CreatefeedbackCtrl',['$scope', '$rootScope
   		$scope.myForm.feedbackAbout = {};
   		$scope.myForm.companyId = $scope.cmp_id;
   		$scope.myForm.validUntil = $scope.myForm.validUntil.toISOString();
+      $scope.myForm.responseCount = 0;
 
   		$scope.myForm.activeFlag = 1;
 
@@ -54,10 +55,8 @@ angular.module('baabtra').controller('CreatefeedbackCtrl',['$scope', '$rootScope
   		});
 
   		$scope.myForm.rmId = $scope.rm_id;
-  		console.log($scope.myForm);
   		var feedbackFormResponse = createFeedback.fnSaveFeedbackForm($scope.myForm);
   		feedbackFormResponse.then(function(response){
-  			console.log(angular.fromJson(JSON.parse(response.data)));
   			$scope.myForm = {};
   		});
   	};
