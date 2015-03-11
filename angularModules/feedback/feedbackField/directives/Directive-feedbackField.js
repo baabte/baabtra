@@ -7,7 +7,6 @@ angular.module('baabtra').directive('feedbackField',function() {
 		},
 		templateUrl: 'angularModules/feedback/feedbackField/directives/Directive-feedbackField.html',
 		link: function(scope, element, attrs, fn) {
-			console.log(scope.feedback)
 			//setting default tab
 			scope.selectedTab='question';
 			//output plain text from html

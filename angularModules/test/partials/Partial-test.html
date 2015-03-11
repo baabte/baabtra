@@ -13,10 +13,14 @@
 <!-- <feedback-field ng-model="feedbackModel"></feedback-field> -->
 <!-- {{feedbackModel}} -->
 
-<feedback-creator ng-model="feedbackFormModel"></feedback-creator>
-<!-- {{feedbackFormModel}} -->
 
 
 
+<!-- <feedback-creator ng-model="feedbackFormModel"></feedback-creator> -->
+<pre>{{feedbackFormModel}}</pre>
+<div ng-repeat="feedback in feedbackFormModel">
+<feedback-viewer feedback-form="feedback" feedback-response="feedbackResponse[$index]"></feedback-viewer>
+</div>
+<pre>{{feedbackResponse}}</pre>
 </div>
 
