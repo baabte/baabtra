@@ -15,6 +15,7 @@ angular.module('baabtra').controller('FeedbackdetailsCtrl',['$scope', '$rootScop
   $scope.cmp_id = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   /*login detils ends*/
   $scope.data = {};
+  $scope.data.feedbackResponse = [];
 	var FeedbackRequestDetailsResponse = viewFeedback.fnLoadFeedbackRequestDetails($scope.cmp_id, $state.params.feedBackId);
 	FeedbackRequestDetailsResponse.then(function(response){
 		$scope.data.feedBackDetails = angular.fromJson(JSON.parse(response.data));

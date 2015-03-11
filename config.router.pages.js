@@ -508,11 +508,21 @@
                 
               })
              .state('home.main.feedbackReport', {
-                url: '/feedbackReport',
+                url: '/feedbackReport/:feedbackId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/reports/partials/Partial-feedbackReport.html',
                     controller: 'FeedbackreportCtrl'
+                  }
+                }
+                
+              })
+             .state('home.main.feedbackList', {
+                url: '/feedbackList',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-feedbackReportList.html',
+                    controller: 'FeedbackreportlistCtrl'
                   }
                 }
                 
