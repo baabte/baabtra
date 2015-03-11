@@ -10,7 +10,7 @@
     		 <div class="row">
     		 	<div class="col-xs-12">
     		 		<span class="col-xs-12 b-b b-light p">
-					<b style="font-size:24;font-weight:bold; text-decoration:underline;color: #ff4081;">Q:</b> Rate us?
+					<b style="font-size:24;font-weight:bold; text-decoration:underline;color: #ff4081;">Q:</b> <p ng-bind-html="report.question"></p>
 					</span>
 				</div>
     		 </div>
@@ -19,20 +19,21 @@
 
 			            <!-- <label>Single select:&nbsp;</label> -->
 							<button type="button" class="btn btn-info" ng-model="report.chart.type" data-html="1" ng-options="chart.value as chart.label for chart in chartTypes" bs-select>
-  								Action <span class="caret"></span>
+  								Action <span class="caret"></span>{{report.chart.type}}
 							</button>
 
           			</div> 
     		</div>
     		 <div class="row">
     				
-    				<div class="pull-left col-xs-12">{{report.chart}}
-    					<div class="img-responsive" google-chart chart="report.chart">
+    				<div class="pull-left col-xs-12"  ng-init="chart.type=report.data">
+    					<div class="img-responsive" google-chart chart="chart">
   						</div>
   					</div>
   				</div>
+  				</form>
   			</div>
-  		</form>
+  		
   	</div>
 <!-- </div> -->
   	</div>
