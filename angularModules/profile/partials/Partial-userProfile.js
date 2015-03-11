@@ -9,33 +9,50 @@ $scope.saveButton="save";
 $scope.nameicon=false;
 $scope.emailicon=false;
 $scope.toggle=true;
+$scope.pwdicon=false;
+$scope.lange=false;
+$scope.availlangualges=[{"language":"English(en)","langCode":"en"},{"language":"Arabic(ar)","langCode":"ar"}];
+$scope.languageActiveOrNot=true;
+
 if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       $rootScope.hide_when_root_empty=true;
       commonService.GetUserCredentials($scope);
 }
 $scope.userinfo =$rootScope.userinfo;
 var profile; 
-if(!angular.equals($stateParams.userId,undefined)){
+if(!angular.equals($stateParams.userId,"")){
 	profile = userProfile.loadProfileData($stateParams.userId);
+
 }
 else{
 	profile = userProfile.loadProfileData($scope.userinfo.userLoginId);
+
 }
-
-
-		profile.then(function (data) {
+profile.then(function (data) {
 			$scope.profileData = angular.fromJson(JSON.parse(data.data));
-			// console.log($scope.profileData.profile);
+			console.log($scope.profileData.profile);
 			// $scope.profileData.profile.passwordRelatedData={};
 			// $scope.profileData.profile.passwordRelatedData.passwordChanges=["hai","hello"];
-			console.log($scope.profileData.profile.passwordRelatedData);
-		});
+			// console.log($scope.profileData.profile.passwordRelatedData);
+			if(!$scope.profileData.profile.Preferedlanguage){
+				$scope.profileData.profile.Preferedlanguage=$scope.availlangualges[0];
+				$scope.oldLang=$scope.availlangualges[0].langCode;	
+			}
+			else{
+
+				if($scope.profileData.profile.Preferedlanguage.langCode=="en"){
+					$scope.profileData.profile.Preferedlanguage=$scope.availlangualges[0];
+
+				}
+				else{
+					$scope.profileData.profile.Preferedlanguage=$scope.availlangualges[1];
+				}
+				$scope.oldLang=$scope.profileData.profile.Preferedlanguage.langCode;
+			}
+
+});
 
 
-$scope.capitalize=function(str){
-	// return str.replace(/\b./g, function(m){ return m.toUpperCase(); });
-	return str;
-};
 
 $scope.convertDate=function(date){
 	var date=new Date(date);
@@ -79,18 +96,44 @@ $scope.editAboutOpt=function(variable){
 	else if(variable=='emailicon'){
 		$scope.emailicon=$scope.emailicon===false? true:false;
 	}
-
-};
-
-$scope.loadTabData=function(tab){
-	if(tab=='AccountSettings'){
-		console.log($rootScope.userinfo.userLoginId);
+	else if(variable=='pwdicon'){
+		$scope.pwdicon=$scope.pwdicon===false?true:false;
 	}
-};
-$scope.hideNamediv=function(){
-// $scope.toggle=false;
+	else if(variable=='lange'){
+		$scope.lange=$scope.lange===false?true:false;
+	}
 
 };
+
+// $scope.loadTabData=function(tab){
+// 	if(tab=='AccountSettings'){
+// 		console.log($rootScope.userinfo.userLoginId);
+// 	}
+// };
+$scope.passwordChangeFrequency=function(){
+		if($scope.profileData.profile.passwordChanges)
+		{
+			return "changed last week";
+		}
+		else{
+			return "never changed";
+		}
+
+};
+$scope.checkPasswordMatch=function(){
+	$scope.changePwd.retypedPassword.$invalid= $scope.newPassword !== $scope.retypedPassword;
+};
+
+$scope.$watch(function(scope) { return scope.profileData.profile.Preferedlanguage.langCode },
+              function(newValue, oldValue) {
+                  if($scope.oldLang!=newValue){
+                  		$scope.languageActiveOrNot=false;
+                  }
+                  else{
+                  		$scope.languageActiveOrNot=true;
+                  }
+              }
+  );
 
 //notification 
 $scope.notifications=function(title,message,type){
