@@ -14,11 +14,17 @@ angular.module('baabtra').directive('percentIndicator', function() {
 				if(isNaN(scope.obtainValue*1)){
 					scope.obtainValue=0;
 				}
+				if(angular.equals(scope.totalValue,0)||angular.equals(scope.obtainValue,0)){
+					scope.percentage=0;
+					scope.totalValueData=scope.totalValue;
+			    	scope.obtainValueData=scope.obtainValue;
+				}
+				else{
 				// if(!isNaN(scope.totalValue*1)&&!isNaN(scope.obtainValue*1)){
 					scope.totalValueData=scope.totalValue*1;
 			    	scope.obtainValueData=scope.obtainValue*1;
 			    	scope.percentage=Math.floor((scope.obtainValueData/scope.totalValueData)*100);
-					
+					}
 					if(scope.percentage==100){
 						scope.textColour='text-success';
 						scope.badgeColour='btn-success';

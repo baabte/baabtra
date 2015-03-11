@@ -1,133 +1,67 @@
-angular.module('baabtra').controller('UserreportCtrl',['$scope','$filter',function($scope,$filter){
+angular.module('baabtra').controller('UserreportCtrl',['$scope','$filter','bulkEnrollment','$rootScope','commonService','$state',function($scope,$filter,bulkEnrollment,$rootScope,commonService,$state){
 
 //report list drop down values
-$scope.reportTypeList=[{'id':'rptEnroll','type':'user enrollment report'},{'id':'rptDetail','type':'Performance report'}];
+$scope.reportTypeList=[ {'id':'rptEnroll','type':'user enrollment report'},
+                        {'id':'rptDetail','type':'Performance report'};
 $scope.obj={};
+
 $scope.type={'id':'rptEnroll','type':'user enrollment report'};
+//getting the user role mapping id
+      /*login detils start*/
+  if(!$rootScope.userinfo){
+    commonService.GetUserCredentials($scope);
+    $rootScope.hide_when_root_empty=false;
+  }
+  
+  if(angular.equals($rootScope.loggedIn,false)){
+    $state.go('login');
+  }
 
-$scope.obj.rptEnroll = {
-  "type":"PieChart",	
-  "displayed": true,
-  "data":{
-       "cols": [
-      {
-        "id": "month",
-        "label": "Month",
-        "type": "string",
-        "p": {}
-      },
-      {
-        "id": "php-id",
-        "label": "PHP",
-        "type": "number",
-        "p": {}
-      },
-      {
-        "id": "dotnet-id",
-        "label": ".Net",
-        "type": "number",
-        "p": {}
-      },
-      {
-        "id": "python-id",
-        "label": "Python",
-        "type": "number",
-        "p": {}
-      },
-      {
-        "id": "sqlserver-id",
-        "label": "Sql server",
-        "type": "number"
-      }
-    ], 
-        "rows": [
-     
-            {
-        "c": [
-          {
-            "v": "January"
+  $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+  $scope.roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
+  $scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+  /*login detils ends*/
+    
+    $scope.userRegister={};
+    var loadReportResponse = bulkEnrollment.FnLoadReport($scope.companyId);
+    loadReportResponse.then(function(response){
+      $scope.data = angular.fromJson(JSON.parse(response.data)).data;
+      $scope.obj.rptEnroll = {
+          "type":"PieChart",  
+          "displayed": true,
+          "data":$scope.data,
+          "options": {
+            "title": "Sales per month",
+            "isStacked": "true",
+            "fill": 20,
+            "displayExactValues": true,
+            "vAxis": {
+              "title": "Sales unit",
+              "gridlines": {
+                "count": null
+              }
+            },
+            "hAxis": {
+              "title": "Date"
+            },
+            "tooltip": {
+              "isHtml": true
+            },
+            'width':800,
+           'height':400
           },
-          {
-            "v": 19,
-            "f": "42 enrollment"
-          },
-          {
-            "v": 12,
-            "f": "Ony 12 enrollment"
-          },
-          {
-            "v": 7,
-            "f": "7 enrollment"
-          },
-          {
-            "v": 4
-          }
-        ]
-      },
-      {
-        "c": [
-          {
-            "v": "February"
-          },
-          {
-            "v": 13
-          },
-          {
-            "v": 1,
-            "f": "1 unit (Out of stock this month)"
-          },
-          {
-            "v": 12
-          },
-          {
-            "v": 2
-          }
-        ]
-      },
-      {
-        "c": [
-          {
-            "v": "March"
-          },
-          {
-            "v": 24
-          },
-          {
-            "v": 5
-          },
-          {
-            "v": 11
-          },
-          {
-            "v": 6
-          }
-        ]
-      }]},
-  "options": {
-    "title": "Sales per month",
-    "isStacked": "true",
-    "fill": 20,
-    "displayExactValues": true,
-    "vAxis": {
-      "title": "Sales unit",
-      "gridlines": {
-        "count": null
-      }
-    },
-    "hAxis": {
-      "title": "Date"
-    },
-    "tooltip": {
-      "isHtml": true
-    },
-    'width':800,
-   'height':400
-  },
-  "formatters": {}
-};
+          "formatters": {}
+        };
+    });
+    
+
+// $scope.obj.rptEnroll.data={};
+// $scope.obj.rptEnroll.data=$scope.data.data; //load from database
+
+// }); //end rootmap watch
 
 
-$scope.obj.rptDetail = {
+$scope.obj.rptDetail = { //dummy object
   "type":"PieChart",	
   "displayed": true,
   "data":{

@@ -1,15 +1,19 @@
 
 <div>
 	<div class="col-xs-12">
+		<!-- <percent-indicator ng-if="examFinished" show-percentage="true" total-value="totalMark" obtain-value="" ng-model="form"></percent-indicator> -->
 		<div ng-hide="startTest==true" class="col-xs-12 text-center">
-			<div class="btn btn-warning"  ng-click="startTest=true">Click to Start Test<div class="ripple-wrapper"></div>
+			<div class="btn btn-warning"  ng-click="startTimer()">Click to Start Test<div class="ripple-wrapper"></div>
          	</div>
         </div>
+
+        <!-- <pre>{{questionAnswer}}</pre> -->
+		
 		<div ng-if="startTest">
 		<div  ng-repeat="question in dataValue.value.testModel.slice(start,stop)">
-				<test-question-view  data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" question-response="questionAnswer[$index]" course-element="courseElement"></test-question-view>
-				<!-- <pre>{{questionAnswer[$index]}}</pre>
-				<pre>{{question}}</pre> -->
+				<test-question-view  data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" question-response="questionAnswer[start+$index]" course-element="courseElement"></test-question-view>
+				<!-- <pre>{{start+$index}}</pre> -->
+				
 
 
 		</div>
@@ -27,7 +31,7 @@
         <div class="col-xs-12 text-center" ng-if="noOfQuestions==stop">
         	<div ng-if="dataValue.value.questionView.mode=='multiple'" class="btn btn-info pull-left" ng-click="questionChangePrevious(start,stop)">Previous<div class="ripple-wrapper"></div>
          	</div>
-			<div ng-if="isMentee" class="btn btn-danger pull-right">Submit<div class="ripple-wrapper"></div>
+			<div ng-if="isMentee" class="btn btn-danger pull-right" ng-click="submitTest()">Submit<div class="ripple-wrapper"></div>
          	</div>
         </div>
         </div>

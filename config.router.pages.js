@@ -287,8 +287,6 @@
                 }
                 
               })
-
-
               .state('home.main.addCourse.step2', {
                 url: '/step2/:courseId',
                 views:{
@@ -430,7 +428,7 @@
                 
               })
               .state('home.main.userProfile', {
-                url: '/userProfile',
+                url: '/userProfile/:userId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/profile/partials/Partial-userProfile.html',
@@ -468,6 +466,27 @@
                 }
                 
               })
+              .state('home.main.Createfeedback', {
+                url: '/Createfeedback',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/feedback/partials/Partial-createFeedBack.html',
+                    controller: 'CreatefeedbackCtrl'
+                  }
+                }
+                
+              })
+
+              .state('home.main.viewFeedbackRequest', {
+                url: '/viewFeedbackRequest',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/feedback/partials/Partial-viewFeedback.html',
+                    controller: 'ViewfeedbackCtrl'
+                  }
+                }
+              })
+
               .state('home.main.userReport', {
                 url: '/userReport',
                 views:{
@@ -478,7 +497,46 @@
                 }
                 
               })
-
+             .state('home.main.feedbackReport', {
+                url: '/feedbackReport/:feedbackId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-feedbackReport.html',
+                    controller: 'FeedbackreportCtrl'
+                  }
+                }
+                
+              })
+             .state('home.main.feedbackList', {
+                url: '/feedbackList',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-feedbackReportList.html',
+                    controller: 'FeedbackreportlistCtrl'
+                  }
+                }
+                
+              })
+                 .state('home.main.viewUsers', {
+                url: '/viewUsers',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/user/partials/Partial-viewUsers.html',
+                    controller: 'ViewusersCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.bulkEnrollment', {
+                url: '/bulkEnrollment',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/user/partials/Partial-bulkEnrollment.html',
+                    controller: 'BulkenrollmentCtrl'
+                  }
+                }
+                
+              })
               .state('home.main.viewMyCourse', {
                 url: '/viewMyCourse/:courseMappingId',
                 views:{
@@ -487,6 +545,16 @@
                     controller: 'viewCandidateCourseCtrl'
                   }
                 }
+              })
+               .state('home.main.batches', {
+                url: '/manageBatches',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-manageBatches.html',
+                    controller:'ManagebatchesCtrl'
+                  }
+                }
+                
               })
               .state('page.document', {
                 url: '/document',

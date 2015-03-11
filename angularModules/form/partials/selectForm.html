@@ -2,8 +2,9 @@
       <div class="panel b-a">
         <div class="panel-body">
 	        <div class="col-xs-12 col-md-6" >
-	        	<div class="font-bold">
-	        		User Customizable Form List <hr>
+	        	<div class="font-bold" > 
+              <span translate="{{'User Customizable Form List'|translate}}"></span>
+              <hr>
 	        	</div>
 					<div class="list-group">              
 	             	 <a href ng-click="fnselectForm(form);status.formSelect = $index"  class="list-group-item animated flipInX" ng-repeat="form in formlist" >{{form.formName}} <i ng-show="status.formSelect==$index" class="pull-right fa fa-check-circle text-primary"></i></a>
@@ -23,15 +24,15 @@
         <div ng-show="formNameFieldActive" class="form-group ">
     		
     		
-         <input type="text"class="form-control" float-label msg-pattern="enter a valid form name (used to fetch the form )" ng-pattern="AlfaPattern" placeholder="Form Name"  xt-validate required name="formName"  ng-model="customForm.formName">
+         <input type="text"class="form-control" float-label msg-pattern="enter a valid form name (used to fetch the form )" ng-pattern="AlfaPattern" placeholder="{{'Form Name'|translate}}"  xt-validate required name="formName"  ng-model="customForm.formName">
         </div>
         <!-- <div ng-hide="formNameFieldActive" class="form-group ">
-         <input type="text"class="form-control" placeholder="Form Name" readonly xt-validate required name="formName"  ng-model="customForm.formName">
+         <input type="text"class="form-control" placeholder="{{'Form'|translate}} Name" readonly xt-validate required name="formName"  ng-model="customForm.formName">
         </div> -->
         <!-- {{formNameFieldActive}} -->
         
         <div class="form-group ">
-         <input type="text"class="form-control" float-label msg-pattern="Enter the Form Display Name"placeholder="Form Display Name" xt-validate required name="formDisplayName"  ng-model="customForm.formDisplayName" indicate-val="required">
+         <input type="text"class="form-control" float-label msg-pattern="Enter the Form Display Name"placeholder="{{'Form Display Name'|translate}}" xt-validate required name="formDisplayName"  ng-model="customForm.formDisplayName" indicate-val="required">
         </div>
        
         <!-- <div class="row-fluid form-group">
@@ -49,7 +50,7 @@
 
        <div ng-hide="formNameFieldActive" class=" m-v-lg">
           <div class="formgen-dropdown">
-          <select placeholder="Select Role" data-animation="am-fade-and-slide-top" ng-change="fnroleChange(customForm.roleSchema)" ng-model="customForm.roleSchema" ng-options="value.Name for (key, value) in rolelist" data-html="true"  bs-select></select>
+          <select placeholder="{{'Select Role'|translate}}" data-animation="am-fade-and-slide-top" ng-change="fnroleChange(customForm.roleSchema)" ng-model="customForm.roleSchema" ng-options="value.Name for (key, value) in rolelist" data-html="true"  bs-select></select>
           </div>
         </div> 
 
@@ -65,7 +66,9 @@
 
 	        
 				<div ng-show="selectFormcheck" class="col-xs-6 col-xs-12 col-md-offset-3 col-xs-offset-3">
-        			<a ui-sref="home.main.formCustomizer.SelectStep" ng-click="animation=next" class="btn btn-block btn-info" ng-disabled="formCustomizer.$invalid"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
+        			<a ui-sref="home.main.formCustomizer.SelectStep" ng-click="animation=next" class="btn btn-block btn-info" ng-disabled="formCustomizer.$invalid" >
+              <b class="font-normal" translate="{{'Next Section'|translate}}"></b>
+               <span class="glyphicon glyphicon-circle-arrow-right"></span>
         			</a>
     			</div>
 

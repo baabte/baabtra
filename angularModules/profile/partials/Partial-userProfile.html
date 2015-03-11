@@ -1,5 +1,5 @@
 <div class="p-h-md p-v bg-white box-shadow pos-rlt" >
-  <h3 class="no-margin">Profile</h3>
+  <h3 class="no-margin" translate="{{'Profile'|translate}}"></h3>
 </div>
 <div class="box bg-white" >
   <div class="col-md-3" >
@@ -16,7 +16,7 @@
         </div> -->
       </div>
       <div ng-class="{true:'bg-white-opacity',false:'bg-dark'}[updatepicmsg]" ng-click="manageProfile()">
-        <i ng-class="{true:'text-xl p-md fa fa-camera',false:'text-lg p-md fa fa-camera'}[updatepicmsg]"></i><span class="font-bold" ng-hide="updatepicmsg">update profile picture</span>
+        <i ng-class="{true:'text-xl p-md fa fa-camera',false:'text-lg p-md fa fa-camera'}[updatepicmsg]"></i><span class="font-bold" ng-hide="updatepicmsg" translate="{{'update profile picture'|translate}}"></span>
 
       </div>
     </div>  
@@ -25,7 +25,7 @@
 
       <div ng-show="!profileData.profile.about" >
      
-      <a editable-text="profileData.profile.about" e-required style="color:#acb7c0;font-style:normal" onMouseOver="this.style.color='#009587'" onMouseOut="this.style.color='#acb7c0'" onaftersave="updateUserProfileDatas()"   ng-mouseenter="editAboutOpt('about')" ng-mouseleave="editAboutOpt('about')"> add about yourself.</a>
+      <a editable-text="profileData.profile.about" e-required style="color:#acb7c0;font-style:normal" onMouseOver="this.style.color='#009587'" onMouseOut="this.style.color='#acb7c0'" onaftersave="updateUserProfileDatas()"   ng-mouseenter="editAboutOpt('about')" ng-mouseleave="editAboutOpt('about')" > add about yourself.</a>
       <i class="ti-pencil pull-right p-xs" ng-show="showHideAbtPic"></i>
       </div>
 
@@ -45,7 +45,7 @@
 
 
           <div>
-          <span editable-text="profileData.profile.location.district" e-name="district" e-placeholder="District">
+          <span editable-text="profileData.profile.location.district" e-name="district" e-placeholder="District" >
                {{profileData.profile.location.district}} 
               </span>
             </div>
@@ -76,12 +76,12 @@
 
         <form editable-form name="editLocationSecond" onaftersave="updateUserProfileDatas()">
           <div ng-show="editLocationSecond.$visible">
-          <span editable-text="profileData.profile.location.district" e-name="district" e-placeholder="District">
+          <span editable-text="profileData.profile.location.district" e-name="district" e-placeholder="{{'District'|translate}}">
                {{profileData.profile.location.district}} 
               </span>
           </div>
           <div ng-show="editLocationSecond.$visible">
-              <span editable-text="profileData.profile.location.country" e-name="country" e-placeholder="Country">
+              <span editable-text="profileData.profile.location.country" e-name="country" e-placeholder="{{'Country'|translate}}">
                {{profileData.profile.location.country}} 
               </span>
           </div>

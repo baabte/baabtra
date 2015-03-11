@@ -1,0 +1,23 @@
+<div class="col-xs-12">
+	<div class="row">
+		<div class="panel">
+			<div class="font-bold text-white btn-material-blue-A400 p baab-shadow">
+				Your feedback requests
+			</div>
+			<div class="panel-body">
+				<ul class="list-group">
+	        		<li class="list-group-item bg-white" ng-repeat="feedbackRequest in data.feedbackRequests" ng-click="openThisRequest = feedbackRequest._id.$oid">
+	          			<a href="" class="pull-left w-thumb m-r b-b b-b-2x b-success"><img src="images/a1.jpg" class="img-responsive"></a>
+	          			<div class="clear">
+	            			<a href="" class="font-bold block">{{feedbackRequest._id.$oid}}</a>
+	            			{{feedbackRequest.description}}
+	          			</div>
+	          			<div ng-if="feedbackRequest._id.$oid == openThisRequest" ng-repeat="question in feedbackRequest.questions" class="animated fadeInDown">
+	          				<feedback-viewer feedback-form="question" feedback-response="feedbackResponse[$index]"></feedback-viewer>
+	          			</div>
+	        		</li>
+      			</ul>
+			</div>
+		</div>
+	</div>
+</div>

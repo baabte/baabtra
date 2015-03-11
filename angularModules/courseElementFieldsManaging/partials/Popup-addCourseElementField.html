@@ -3,19 +3,22 @@
     <div class="modal-content">
        <form class="form-horizontal ng-pristine ng-valid" name="course_element_field" xt-form novalidate>
       <div class="modal-header">
-        <h4 class="modal-title text-primary">Do you have a label for this {{debugObject.displayName}}?</h4>
+        <h4 class="modal-title text-primary">
+        <b class="font-normal" translate="{{'Do you have a label for this'|translate}}"></b>
+       <b class="font-normal"> {{debugObject.displayName}}?</b>
+      </h4>
       </div>
       <div class="modal-body">
        
 
         <!-- Dispaly Name -->
-          <input class="form-control" float-label placeholder="Dispaly Name"  ng-model="DispalyName">
+          <input class="form-control" float-label placeholder="{{'Dispaly Name'|translate}}"  ng-model="DispalyName">
         
         
       </div>
       <div class="modal-footer">
-        <button class="pull-left baab-btn btn btn-warning" ng-disabled="Manage_course_element_fields.$invalid" disabled="disabled" ng-click="$hide()" type="button">Cancel</button>
-        <button class="pull-right baab-btn btn btn-info"  ng-disabled="course_element_field.$invalid" ng-class="{'text-info':!course_element_field.$invalid}" disabled="disabled" type="button" ng-click="myOtherModal.fnaddCourseElement(DispalyName);$hide();">Save</button>
+        <button class="pull-left baab-btn btn btn-warning" ng-disabled="Manage_course_element_fields.$invalid" disabled="disabled" ng-click="$hide()" type="button" translate="{{'Cancel'|translate}}"></button>
+        <button class="pull-right baab-btn btn btn-info"  ng-disabled="course_element_field.$invalid" ng-class="{'text-info':!course_element_field.$invalid}" disabled="disabled" type="button" ng-click="myOtherModal.fnaddCourseElement(DispalyName);$hide();" translate="{{'Save'|translate}}"></button>
       </div>
       </form>
     </div>
