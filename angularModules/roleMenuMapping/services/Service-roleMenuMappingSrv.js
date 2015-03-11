@@ -48,7 +48,7 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
 
       this.FnGetRoles=function ($scope,cmp_id,range,roleVal)//To Load The Roles based on company
       {
-        $http({
+        var promise = $http({
           method: 'post',
           url: bbConfig.BWS+'GetAllRoles/',
           data: {"rm_id":$scope.roleId,"cmp_id":cmp_id,"range":range,"roleVal":roleVal},
@@ -72,7 +72,8 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
         error(function(data, status, headers, config) {
           // called asynchronously if an error occurs
           // or server returns response with an error status.
-        }); 
+        });
+        return promise;
       };
       this.FnGetRoleMenus=function ($scope,id,type)//To Load existing menus of selected role
       {

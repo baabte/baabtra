@@ -617,6 +617,14 @@ for changing palceholder color*/
 .dropdown-menu .divider{
   background-color: #cccccc!important;
 }
+
+.select.dropdown-menu{
+  max-height: 160px;
+  overflow: auto;
+}
+
+
+
 .vertical-scroll{
   max-height: 250px;overflow-x: hidden;overflow:auto;
 }
@@ -646,4 +654,8 @@ transition: all .2s ease-in-out;
 max-width: 100%;
 height: auto;
 display: block;
+}
+.checkBoxContainer{
+    max-height: 200px;
+  overflow-y: scroll;
 }

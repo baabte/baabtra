@@ -6,9 +6,23 @@
 
 <!-- <percent-indicator total-value="100" obtain-value="100" ng-model="form"></percent-indicator> -->
 
-<question-group ng-model="questionGroup"></question-group>
-<pre>QuestionGroup:{{questionGroup}}</pre>
+<!-- <question-group ng-model="questionGroup"></question-group> -->
+<!-- <pre>QuestionGroup:{{questionGroup}}</pre> -->
 
+
+<!-- <feedback-field ng-model="feedbackModel"></feedback-field> -->
+<!-- {{feedbackModel}} -->
+
+
+
+
+<!-- <feedback-creator ng-model="feedbackFormModel"></feedback-creator> -->
+<pre>{{feedbackFormModel}}</pre>
+
+<feedback-viewer ng-if="feedbackFormModel" feedback-form="feedbackFormModel" feedback-response="feedbackResponse"></feedback-viewer>
+
+
+<pre>{{feedbackResponse}}</pre>
 
 </div>
 

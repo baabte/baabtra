@@ -3,22 +3,22 @@
     <div class="modal-content">
       <form name="formRepeat" class=" ng-pristine ng-valid"> 
       <div class="modal-header">        
-        <h4 class="modal-title text-primary">Repeat</h4>
+        <h4 class="modal-title text-primary" translate="{{'Repeat'|translate}}"></h4>
       </div>
       <div class="modal-body">
        <div class="row"> 
            <div class="col-xs-12 col-sm-12">
             <div class="form-group">
-               <label for="select" class="control-label">Repeats</label>
-                <select class="form-control" id="select" ng-model="Batch.repeats.repeatType" ng-change="fnLoadsubItem(Batch.repeats.repeatType)" ng-options="rpt.id as rpt.text for rpt in repeatArrays" required  value="{{rpt}}">
-                  <option selected="selected" value="" required >select an option</option>
+               <label for="select" class="control-label" translate="{{'Repeats'|translate}}"></label>
+                <select class="form-control" id="select" ng-model="repeatName" ng-change="fnLoadsubItem(repeatName)" ng-options="rpt.id as rpt.text for rpt in repeatArrays" required  value="{{rpt}}">
+                  <option selected="selected" value="" required  >select an option</option>
                   <!-- <option ng-repeat = "repeatArray in repeatArrays"  value="{{repeatArray.id}}">{{repeatArray.text}}</option> -->  
                 </select>
             </div>
             <div class="form-group">
               <div class="row">
                 <div class="col-xs-6">
-               <label for="select" class="control-label">Repeat every</label>
+               <label for="select" class="control-label" translate="{{'Repeat every'|translate}}" ></label>
                 <select class="form-control" id="select" ng-model="Batch.repeats.every" >
                    <option selected="selected" value="" required >select an option</option>
                   <option ng-repeat = "row in repeatEvery" value="{{row}}">{{row}}</option>  
@@ -31,7 +31,7 @@
             </div>
             
             <div class="form-group">
-             <label >Don't Start On</label>
+             <label translate="{{'Dont Start On'|translate}}" ></label>
                <div class= "row">
                     <div class="col-xs-12">
                      <div class="checkbox checkbox-inline no-margin"  ng-repeat="day in days" bs-tooltip data-title="{{day.id}}"  value="{{day.text}}"  >
@@ -44,12 +44,12 @@
             </div> 
            <div class="row">
             <div class="form-group">
-             <input type="text" class="form-control" float-label ng-model="Batch.repeats.startDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="number" data-autoclose="true" data-min-date="today"  name="date1" bs-datepicker required placeholder="Starts On">
+             <input type="text" class="form-control" float-label ng-model="Batch.repeats.startDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="number" data-autoclose="true" data-min-date="today"  name="date1" bs-datepicker required placeholder="{{'Starts On'|translate}}">
             </div>
            </div>
            <div class="row">
             <div class="form-group">
-             <input type="text" class="form-control" float-label ng-model="Batch.repeats.endDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="number" data-autoclose="true" data-min-date="today"  name="date2" bs-datepicker required placeholder="Ends On">
+             <input type="text" class="form-control" float-label ng-model="Batch.repeats.endDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="number" data-autoclose="true" data-min-date="today"  name="date2" bs-datepicker required placeholder="{{'Ends On'|translate}}">
             </div> 
            </div>    
            </div>  
@@ -57,8 +57,8 @@
        </div>    
       </div>
       <div class="modal-footer">
-         <button type="reset" class="btn btn-primary"  ng-disabled=" formRepeat.$pristine">Cancel</button>
-        <button type="button" class="btn btn-primary" ng-click="saveRepeatfn($hide)" ng-disabled="formRepeat.$invalid" >Done</button>
+         <button type="reset" class="btn btn-primary"  ng-disabled=" formRepeat.$pristine" translate="{{'Cancel'|translate}}" ></button>
+        <button type="button" class="btn btn-primary" ng-click="savepopUpfn($hide)" ng-disabled="formRepeat.$invalid" translate="{{'Done'|translate}}" ></button>
 
       </div>
       </form> 

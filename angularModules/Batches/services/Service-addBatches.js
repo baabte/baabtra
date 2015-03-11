@@ -8,4 +8,21 @@ angular.module('baabtra').service('addBatches',['$http','bbConfig','$rootScope',
 	 });
 	return promise;
  }	
+ this.loadBatches=function(cmpId){
+ 	var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'loadBatches/',
+	    data:{"cmpId":cmpId}
+	 });
+	return promise;
+ }
+ this.loadExistingCoursesUnderBatch=function(id){
+    var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'loadExistingCoursesUnderBatch/',
+	    data:{"id":id}
+	 });
+	return promise;
+
+ }
 }]);

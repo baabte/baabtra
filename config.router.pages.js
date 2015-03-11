@@ -466,12 +466,63 @@
                 }
                 
               })
+              .state('home.main.Createfeedback', {
+                url: '/Createfeedback',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/feedback/partials/Partial-createFeedBack.html',
+                    controller: 'CreatefeedbackCtrl'
+                  }
+                }
+                
+              })
+
+              .state('home.main.viewDetails', {
+                url: '/viewFeedbackDetails/:feedBackId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/feedback/partials/Partial-feedbackDetails.html',
+                    controller: 'FeedbackdetailsCtrl'
+                  }
+                }
+              })
+
+              .state('home.main.viewFeedbackRequest', {
+                url: '/viewFeedbackRequest',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/feedback/partials/Partial-viewFeedback.html',
+                    controller: 'ViewfeedbackCtrl'
+                  }
+                }
+              })
+
               .state('home.main.userReport', {
                 url: '/userReport',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/reports/partials/Partial-userReport.html',
                     controller: 'UserreportCtrl'
+                  }
+                }
+                
+              })
+             .state('home.main.feedbackReport', {
+                url: '/feedbackReport/:feedbackId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-feedbackReport.html',
+                    controller: 'FeedbackreportCtrl'
+                  }
+                }
+                
+              })
+             .state('home.main.feedbackList', {
+                url: '/feedbackList',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-feedbackReportList.html',
+                    controller: 'FeedbackreportlistCtrl'
                   }
                 }
                 

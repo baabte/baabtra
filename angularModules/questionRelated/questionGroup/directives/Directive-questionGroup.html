@@ -1,25 +1,25 @@
 <div>
 <div class=" col-xs-12">
 	<div class="nav nav-tabs p m-v-md">
-  		<div class="text-white b-2x">Question Group</div>
+  		<div class="text-white b-2x" translate="{{'Question Group'| translate}}"></div>
 	</div>
 	<form name="questionMarkField" xtform no-validate>
 		<div class="col-xs-12">
 			<div class="col-xs-6  ">
 				<div class="form-group col-xs-12" >
 
-		    		<input type="number" class="form-control " float-label placeholder="Total Mark" name="mark.totalMark" xt-validate required ng-model="mark.totalMark">
+		    		<input type="number" class="form-control " float-label placeholder="{{'Total  Mark'|translate}}" name="mark.totalMark" xt-validate required ng-model="mark.totalMark">
 		    		
 				</div>
 				<div class="form-group col-xs-12" >
 					
-		    		<input type="number" class="form-control " float-label placeholder="Qualifying Score" name="qualifyScore" xt-validate required ng-model="mark.qualifyScore">
+		    		<input type="number" class="form-control " float-label placeholder="{{'Qualifying Score'|translate}}" name="qualifyScore" xt-validate required ng-model="mark.qualifyScore">
 		    		
 				</div>
 
 				<div class="form-group col-xs-12" >
 	      			<div class="col-md-6 col-xs-12 m-t-md">
-	      			<input type="number" class="form-control " float-label placeholder="Duration" name="duration" xt-validate required ng-model="duration.value">  
+	      			<input type="number" class="form-control " float-label placeholder="{{'Duration'|translate}}" name="duration" xt-validate required ng-model="duration.value">  
 	      			</div>
 	      			<div class="paper-dropdown col-md-6 col-xs-12 m-t-lg">
 						<select placeholder="" xt-validate required data-animation="am-fade-and-slide-top" ng-options="unit for unit in units" name="unit" ng-model="duration.unit"  class="form-control" data-html="true" bs-select></select>
@@ -29,32 +29,37 @@
 
 	      	<div class="col-xs-6 ">
 	      		<div class="form-group col-xs-12 ">
-	                <label class=" control-label">Result Mode</label>
+	                <label class=" control-label"  translate="{{'Result Mode'| translate}}"></label>
 	                    <div class="radio radio-primary">
 	                        <label>
-	                           <input type="radio" ng-model="resultMode" xt-validate required name="resultMode" id="resultMode" value="live"><span class="circle"></span><span class="check"></span>Live Result
+	                           <input type="radio" ng-model="resultMode" xt-validate required name="resultMode" id="resultMode" value="live"><span class="circle"></span><span class="check"></span>
+	                            <b class="font-normal" translate="{{'Live Result'|translate}}"></b>
 	                        </label>
 	                    </div>
 	                    <div class="radio radio-primary">
 	                        <label>
-	                           <input type="radio" ng-model="resultMode" xt-validate required name="resultMode" id="resultMode" value="submit"><span class="circle"></span><span class="check"></span>On Submit
+	                           <input type="radio" ng-model="resultMode" xt-validate required name="resultMode" id="resultMode" value="submit"><span class="circle"></span><span class="check"></span>
+	                           <b class="font-normal" translate="{{'On Submit'|translate}}"></b>
 	                        </label>
 	                    </div>	                                            
 	            </div>
 	      		<div class="form-group col-xs-12 ">
-	                <label class=" control-label">Question View</label>
+	                <label class=" control-label" translate="{{'Question View'| translate}}"></label>
 	                <div class="radio radio-primary">
 	                    <label>
-	                    	<input type="radio" ng-model="questionView.mode" xt-validate required name="questionView" id="questionView" value="single"><span class="circle"></span><span class="check"></span>Single Page 
+	                    	<input type="radio" ng-model="questionView.mode" xt-validate required name="questionView" id="questionView" value="single"><span class="circle"></span><span class="check"></span>
+	                    	<b class="font-normal" translate="{{'Single Page'|translate}}"></b>
+
 	                    </label>
 	                </div>
 	                <div class="radio radio-primary">
 	                    <label>
-	                        <input type="radio" ng-model="questionView.mode" xt-validate required name="questionView" id="questionView" value="multiple"><span class="circle"></span><span class="check"></span>Multiple Page 
+	                        <input type="radio" ng-model="questionView.mode" xt-validate required name="questionView" id="questionView" value="multiple"><span class="circle"></span><span class="check"></span>
+	                        <b class="font-normal" translate="{{'Multiple Page'|translate}}"></b>
 	                    </label>
 	                </div>
 	                <div class="form-group" ng-if="questionView.mode=='multiple'">
-		    			<input type="number" class="form-control " float-label placeholder="Questions per page" name="questionPerPage" xt-validate required ng-model="questionView.questionPerPage">
+		    			<input type="number" class="form-control " float-label placeholder="{{'Questions per page'|translate}}" name="questionPerPage" xt-validate required ng-model="questionView.questionPerPage">
 					</div>                               
 	            </div>		    			                                    
 	      	</div>
@@ -72,15 +77,21 @@
 			<i class="pull-right mdi-av-playlist-add text-2x" data-placement="left" bs-dropdown="dropDown($index)"></i>		
 		</div>
 	</div>
-	<div class="btn btn-primary" ng-disabled="questionMarkField.$invalid" ng-click="questionShowActivate()">Add Question<div class="ripple-wrapper"></div>
+	<div class="btn btn-primary" ng-disabled="questionMarkField.$invalid" ng-click="questionShowActivate()">
+		<span translate="{{'Add Question' | translate}}"></span>
+		<div class="ripple-wrapper"></div>
 	</div>
 	 <div class="col-xs-12" ng-if="questionShow">
 			<form name="questionFrom" xtform no-validate>
         		<question-field ng-model="questionModel"></question-field>
         	     
-        	     <div class="btn btn-warning" ng-click="questionShowDeactivate()">Discard<div class="ripple-wrapper"></div>
+        	     <div class="btn btn-warning" ng-click="questionShowDeactivate()" >
+        	     	<span translate="{{'Discard' | translate}}"></span>
+        	     	<div class="ripple-wrapper"></div>
         		 </div>
-        		<div class="btn btn-primary" ng-disabled="questionFrom.$invalid" ng-click="addQuestion(questionModel,placeindex)">Add to Test<div class="ripple-wrapper"></div>
+        		<div class="btn btn-primary" ng-disabled="questionFrom.$invalid" ng-click="addQuestion(questionModel,placeindex)">
+        			<span translate="{{'Add to Test' | translate}}"></span>
+        			<div class="ripple-wrapper"></div>
         		</div>
         	</form>
 
