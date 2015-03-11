@@ -1,11 +1,9 @@
 angular.module('baabtra').controller('FeedbackreportCtrl',['$scope','$rootScope','$stateParams','feedbackList',function($scope,$rootScope,$stateParams,feedbackList){
-$scope.chartType="PieChart";
 
 $scope.chart = { //dummy object
   "type":"PieChart",	
-    
   "options": {
-    "title": "Perfomance per technology",
+    "title": "",
     "tooltip": {
       "isHtml": true
     },
@@ -13,24 +11,6 @@ $scope.chart = { //dummy object
    'height':400
   }
 };
-/*"data": [
-    [
-      "Component",
-      "cost"
-    ],
-    [
-      "Software",
-      50000
-    ],
-    [
-      "Hardware",
-      80000
-    ],
-    [
-      "Services",
-      20000
-    ]
-  ],*/
 //$scope.reportList=[{"chart":$scope.chart3},{"chart":$scope.chart3},{"chart":$scope.chart3}];
 //to check login info to get the user details
 if(!$rootScope.userinfo){
@@ -42,16 +22,20 @@ if(!$rootScope.userinfo){
     $state.go('login');
   }
 
-//$rootScope.$watch('userinfo',function(){
-    //$scope.loggedusercrmid = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
-    //$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-    //viewUsers.fnLoadCompnayUsers($scope,'','initial',''); 
-//});
 //checking for feedbackId to load the feedback report
 if(!angular.equals($stateParams.feedbackId,undefined)){
 	var feedbackResponse = feedbackList.fnLoadFeedbackReport($stateParams.feedbackId);
 		feedbackResponse.then(function(response){ //getting the promise of feedback response
 			$scope.reportList=angular.fromJson(JSON.parse(response.data));
+			$scope.feedbackList=[];
+			angular.forEach($scope.reportList,function(value, key){ //forech to build the new object for loading the feedback report
+				var obj={};
+				obj.question=value.question;
+				$scope.chart.data=value.data;
+				$scope.chart.options.title=value.question.replace(/<\/?[^>]+>/gi, ''); //to replace html tags
+				obj.chart=$scope.chart;
+				$scope.feedbackList.push(obj);
+			});
 	});
 }
 //chart type object
