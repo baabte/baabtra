@@ -477,8 +477,8 @@
                 
               })
 
-              .state('home.main.viewFeedback', {
-                url: '/viewFeedback',
+              .state('home.main.viewFeedbackRequest', {
+                url: '/viewFeedbackRequest',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/feedback/partials/Partial-viewFeedback.html',

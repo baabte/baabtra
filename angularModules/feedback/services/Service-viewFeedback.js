@@ -1,6 +1,11 @@
-angular.module('baabtra').factory('viewFeedback',function() {
+angular.module('baabtra').service('viewFeedback', ['$http', 'bbConfig', function ($http, bbConfig) {
 
-	var viewFeedback = {};
-
-	return viewFeedback;
-});
+	this.fnViewFeedbackRequests = function(rmId, companyId){
+		var promise = $http({
+	 		method: 'POST',
+	    	url: bbConfig.BWS+'viewFeedbackRequests/',
+	    	data:{rmId:rmId, companyId:companyId}
+	 	});
+		return promise;
+	}
+}]);

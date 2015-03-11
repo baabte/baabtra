@@ -18,7 +18,6 @@ $scope.type={'id':'rptEnroll','type':'user enrollment report'};
     $state.go('login');
   }
 
-  $scope.coursePreviewObject={};
   $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
   $scope.roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
   $scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;

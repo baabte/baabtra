@@ -22,7 +22,7 @@
 
 					<button class="btn btn-warning baab-btn"  ng-class = "{'bg-warning':!Form_Adding_form.$pristine}" type="reset" role="button" ng-disabled="Form_Adding_form.$pristine" translate="{{'cancel'|translate}}"></button>	
 
-					<button class="btn btn-info baab-btn" ng-disabled="Form_Adding_form.$invalid || progress" type="submit" style="" ng-click="AddCompanyRole()" g-translate>{{btnRoleAdd}} </button>
+					<button class="btn btn-info baab-btn" ng-disabled="Form_Adding_form.$invalid || progress" type="submit" style="" ng-click="AddCompanyRole()">{{btnRoleAdd}} </button>
 		        </div>		        
 			
 		 </form>
@@ -44,9 +44,9 @@
 		
 		<div>		
 			<div class="p r-2x b-l-success text-1x font-bold b-l-5x inline clear">
-	  			<a href="" class="Rolelink" editable-text="roleData.roleName" onaftersave="updateUserRole('roleName',roleData,$data)"  e-required e-placeholder="{{'Enter'|translate}} role" g-translate> {{roleData.roleName}} </a>
+	  			<a href="" class="Rolelink" editable-text="roleData.roleName" onaftersave="updateUserRole('roleName',roleData,$data)"  e-required e-placeholder="{{'Enter'|translate}} role" > {{roleData.roleName}} </a>
 	  		</div>
-  			<small class="clear pull-none-sm text-dk p r-1x "><a href="" class="RoleDesc " style="color:#777777;" editable-text="roleData.roleDescription" onaftersave="updateUserRole('roleDescription',roleData,$data)" e-required e-placeholder="{{'Enter'|translate}} role description" g-translate>{{roleData.roleDescription}}</a> </small>
+  			<small class="clear pull-none-sm text-dk p r-1x "><a href="" class="RoleDesc " style="color:#777777;" editable-text="roleData.roleDescription" onaftersave="updateUserRole('roleDescription',roleData,$data)" e-required e-placeholder="{{'Enter'|translate}} role description" >{{roleData.roleDescription}}</a> </small>
   		</div>
 
 	</div>

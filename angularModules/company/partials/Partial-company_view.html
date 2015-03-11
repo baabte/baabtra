@@ -3,7 +3,7 @@
   <div class="row">
       <div class="col-xs-12">
         <span class="pull-right">
-        <a class="btn btn-warning baab-btn" ng-href="#/home/main/company/registration">Register a new Company</a>
+        <a class="btn btn-warning baab-btn" ng-href="#/home/main/company/registration" translate="{{'Register a new Company'|translate}}"></a>
         </span>
       </div>
     </div>
@@ -12,14 +12,14 @@
   <div class="panel panel-default"> 
 
   <div class="bg-white p-sm b-b b-2x b-success " >
-  <h4 class="no-margin">Registered Companies</h3>
+  <h4 class="no-margin" translate="{{'Registered Companies'|translate}}"></h3>
 </div>  
  
     <div class="panel-heading bg-white">
       <div class="col-sm-4">
       <div class="input-group m-v-md">
                       
-                      <input g-translate ng-model="CompanySearch" type="text" class="form-control input col-md-2 no-border well" float-label placeholder="{{placeholderVal}}...">
+                      <input  ng-model="CompanySearch" type="text" class="form-control input col-md-2 no-border well" float-label placeholder="{{placeholderVal}}...">
                       <span class="input-group-btn">
                         <button ng-click="searchCompany(CompanySearch)" class="btn btn-sm bg-white btn-icon no-shadow no-padder">
                           <i class="glyphicon glyphicon-search text-xl"></i>
@@ -45,7 +45,7 @@
               <img src="images/a0.jpg" class="img-circle img-responsive">
               </a>
               <div class="m-b m-t-sm h3">
-                <span class="text-black" g-translate>{{company.companyName}}</span>
+                <span class="text-black" >{{company.companyName}}</span>
               </div>
               <a ng-href="#home/main/company/manage/company-info/{{companyId}}" class="btn btn-sm btn-info m-b p-h" ng-click="manageCompany(company._id.$oid)" translate="{{'Manage'|translate}}"></a>
             </div>
@@ -81,7 +81,7 @@
                               <div class="alert ng-scope am-fade alert-button bg-danger lt" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
                                 <button type="button" class="close ng-scope" ng-click="$hide()">×</button><!-- end ngIf: dismissable --> 
                                 <strong class="ng-binding" translate="{{'Not Found!'|translate}}"></strong>&nbsp;
-                                <span class="ng-binding" g-translate>{{WarringMessage}}</span>
+                                <span class="ng-binding" >{{WarringMessage}}</span>
                               </div>
                             </div>
                           </div>
