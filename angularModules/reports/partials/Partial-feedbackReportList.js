@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('FeedbackreportlistCtrl',function($scope){
+angular.module('baabtra').controller('FeedbackreportlistCtrl',['$scope',function($scope){
 
 
-});
+}]);
