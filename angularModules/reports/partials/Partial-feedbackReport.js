@@ -1,7 +1,7 @@
-angular.module('baabtra').controller('FeedbackreportCtrl',['$scope',function($scope){
+angular.module('baabtra').controller('FeedbackreportCtrl',['$scope','$rootScope',function($scope,$rootScope){
 $scope.chartType="PieChart";
 $scope.chart1 = { //dummy object
-  "type":$scope.chartType,	
+  "type":"PieChart",	
   "displayed": true,
   "data":{
        "cols": [
@@ -121,7 +121,7 @@ $scope.chart1 = { //dummy object
   "formatters": {}
 };
 $scope.chart2 = { //dummy object
-  "type":$scope.chartType,	
+  "type":"PieChart",	
   "displayed": true,
   "data":{
        "cols": [
@@ -241,7 +241,7 @@ $scope.chart2 = { //dummy object
   "formatters": {}
 };
 $scope.chart3 = { //dummy object
-  "type":$scope.chartType,	
+  "type":"PieChart",	
   "displayed": true,
   "data":{
        "cols": [
@@ -361,4 +361,20 @@ $scope.chart3 = { //dummy object
   "formatters": {}
 };
 $scope.reportList=[{"chart":$scope.chart1},{"chart":$scope.chart2},{"chart":$scope.chart3}];
+//to check login info to get the user details
+if(!$rootScope.userinfo){
+    //commonService.GetUserCredentials($scope);
+    $rootScope.hide_when_root_empty=false;
+  }
+  
+  if(angular.equals($rootScope.loggedIn,false)){
+    $state.go('login');
+  }
+
+$rootScope.$watch('userinfo',function(){
+    $scope.loggedusercrmid = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+    $scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+    viewUsers.fnLoadCompnayUsers($scope,'','initial',''); 
+});
+$scope.chartTypes = [{"value":"PieChart","label":"PieChart"},{"value":"AreaChart","label":"Area Chart"},{"value":"ColumnChart","label":"Column Chart"},{"value":"LineChart","label":"Line Chart"},{"value":"Table","label":"Table"},{"value":"BarChart","label":"Bar Chart"}];
 }]);

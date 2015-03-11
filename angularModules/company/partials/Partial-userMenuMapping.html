@@ -28,7 +28,7 @@
                         <button type="submit" class="btn btn-sm bg-white btn-icon no-shadow no-padder"><i class="ti-search"></i>
                         </button>
                       </span>
-                      <input g-translate ng-model="modelSearch" type="text" class="form-control input-sm no-border" placeholder="{{placeholderVal}}...">
+                      <input  ng-model="modelSearch" type="text" class="form-control input-sm no-border" placeholder="{{placeholderVal}}...">
                     </div>
                   </div>
                 </div>
@@ -43,7 +43,7 @@
                             <img src="images/a0.jpg" class="w-xs m-r pull-left">
                           </div>
                           <div class="box-col p b-b b-4x b-light" ng-class="{'b-success am-fade':companyState==company._id.$oid}">
-                            <a href="" g-translate>{{company.companyName}}</a>
+                            <a href="" >{{company.companyName}}</a>
                             <div class="pull-left " translate="{{'Company User'|translate}}"></div>
                             <i class="fa pull-right text-xl text-success b-4x" ng-class="{'fa-spinner fa-spin':(companyState==company._id.$oid)&&!menudetails,'fa-check-circle':(companyState==company._id.$oid)&&menudetails}"></i>
                           </div>
@@ -60,7 +60,7 @@
                                   <img src="images/a0.jpg" class="w-xs m-r pull-left" >
                                 </div>
                                 <div class="box-col p b-b b-4x b-light" ng-class="{'b-success am-fade':companyState==company._id.$oid}">
-                                  <a href="" g-translate>{{company.companyName}}</a><br>
+                                  <a href="" >{{company.companyName}}</a><br>
                                   <div class="pull-left" translate="{{'Company'|translate}}"></div>
                                   <i class="fa  pull-right text-xl text-success b-4x b-info" ng-class="{'fa-check-circle am-fade':companyState==company._id.$oid}"></i>
                                 </div>
@@ -75,7 +75,7 @@
                                     <img src="images/a0.jpg" class="w-xs m-r pull-left" >
                                   </div>
                                   <div class="box-col p b-b b-4x b-light" ng-class="{'b-success am-fade':UserState==user.value.fkUserRoleMappingId.$oid}">
-                                    <a g-translate>{{user.value.name}}</a><br>
+                                    <a >{{user.value.name}}</a><br>
                                     <div class="pull-left" translate="{{'User'|translate}}"></div>
                                     <i class="fa  pull-right text-xl text-success b-4x b-info" ng-class="{'fa-check-circle am-fade':UserState==user.value.fkUserRoleMappingId.$oid}"></i>
                                   </div>
@@ -88,7 +88,7 @@
                                     <div class="alert ng-scope am-fade alert-button bg-danger lt" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
                                       <button type="button" class="close ng-scope" ng-click="$hide()">×</button><!-- end ngIf: dismissable --> 
                                       <strong class="ng-binding" translate="{{'Not Found!'|translate}}"></strong>&nbsp;
-                                      <span class="ng-binding" g-translate>{{WarringMessage}}</span>
+                                      <span class="ng-binding" >{{WarringMessage}}</span>
                                     </div>
                                 </div>
                               </div>
