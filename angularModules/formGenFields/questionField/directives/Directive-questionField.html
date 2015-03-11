@@ -45,14 +45,14 @@
 						 <div class="radio radio-success">
 				            <label>
 				              <input type="radio" required xt-validate ng-checked="question.type=='objective'" ng-change="questionTypeChange('objective')" value="objective"  ng-model="question.type"  name="questionType">
-				              <span translate="{{'Objective'|translate}}"></span>
+				              <b class="font-normal" translate="{{'Objective'|translate}}"></b>
 				            </label>
 				        </div>
 
 				        <div class="radio radio-success">
 				            <label>
 				              <input type="radio" required xt-validate ng-change="questionTypeChange('descriptive')" ng-checked="question.type=='descriptive'" value="descriptive" ng-model="question.type"   name="questionType">
-				              <span translate="{{'Descriptive'|translate}}"></span>
+				              <b class="font-normal" translate="{{'Descriptive'|translate}}"></b>				              
 				            </label>
 				        </div>
 
@@ -62,14 +62,15 @@
 							<div class="radio radio-success">
 					            <label>
 					              <input type="radio" required xt-validate ng-checked="question.answerType=='singleAnswer'" value="singleAnswer"  ng-model="question.answerType"  name="answerType">
-					              <span translate="{{'Single Answer'|translate}}"></span>
+					              <b class="font-normal" translate="{{'Single Answer'|translate}}"></b>					             
 					            </label>
 					        </div>
 
 					        <div class="radio radio-success">
 					            <label>
 					              <input type="radio" required xt-validate  ng-checked="question.answerType=='multiAnswer'" value="multiAnswer"  ng-model="question.answerType" name="answerType">
-					              <span translate="{{'Multi Answer'|translate}}"></span>
+					              <b class="font-normal" translate="{{'Multi Answer'|translate}}"></b>
+					              
 					            </label>
 					        </div>
 

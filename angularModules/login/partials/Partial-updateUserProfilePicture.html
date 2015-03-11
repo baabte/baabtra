@@ -4,8 +4,8 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">        
-        <h4 class="modal-title text-dark" translate="{{'Update Profile Picture</h4>
-      </div>'|translate}}">
+        <h4 class="modal-title text-dark" translate="{{'Update Profile Picture'|translate}}"></h4>
+      </div>
       <div class="modal-body" >
         <div class="box">
 
@@ -36,7 +36,9 @@
 
           </div>
         </form> -->
-        <div translate="{{'Select an image file:'|translate}}"> <input type="file" id="fileInput" /></div>
+        <div> 
+          <span translate="{{'Select an image file:'|translate}}"></span>
+          <input type="file" id="fileInput" /></div>
           <div class="cropArea">
           <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
           </div>

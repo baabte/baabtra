@@ -32,12 +32,14 @@
 	                <label class=" control-label"  translate="{{'Result Mode'| translate}}"></label>
 	                    <div class="radio radio-primary">
 	                        <label>
-	                           <input type="radio" ng-model="resultMode" xt-validate required name="resultMode" id="resultMode" value="live"><span class="circle"></span><span class="check"></span><span translate="{{'Live Result'| translate}}"></span>
+	                           <input type="radio" ng-model="resultMode" xt-validate required name="resultMode" id="resultMode" value="live"><span class="circle"></span><span class="check"></span>
+	                            <b class="font-normal" translate="{{'Live Result'|translate}}"></b>
 	                        </label>
 	                    </div>
 	                    <div class="radio radio-primary">
 	                        <label>
-	                           <input type="radio" ng-model="resultMode" xt-validate required name="resultMode" id="resultMode" value="submit"><span class="circle"></span><span class="check"></span><span translate="{{'On Submit'| translate}}"></span>
+	                           <input type="radio" ng-model="resultMode" xt-validate required name="resultMode" id="resultMode" value="submit"><span class="circle"></span><span class="check"></span>
+	                           <b class="font-normal" translate="{{'On Submit'|translate}}"></b>
 	                        </label>
 	                    </div>	                                            
 	            </div>
@@ -45,12 +47,15 @@
 	                <label class=" control-label" translate="{{'Question View'| translate}}"></label>
 	                <div class="radio radio-primary">
 	                    <label>
-	                    	<input type="radio" ng-model="questionView.mode" xt-validate required name="questionView" id="questionView" value="single"><span class="circle"></span><span class="check"></span><span translate="{{'Single Page'| translate}}"></span> 
+	                    	<input type="radio" ng-model="questionView.mode" xt-validate required name="questionView" id="questionView" value="single"><span class="circle"></span><span class="check"></span>
+	                    	<b class="font-normal" translate="{{'Single Page'|translate}}"></b>
+
 	                    </label>
 	                </div>
 	                <div class="radio radio-primary">
 	                    <label>
-	                        <input type="radio" ng-model="questionView.mode" xt-validate required name="questionView" id="questionView" value="multiple"><span class="circle"></span><span class="check"></span><span translate="{{'Multiple Page'| translate}}"> </span>
+	                        <input type="radio" ng-model="questionView.mode" xt-validate required name="questionView" id="questionView" value="multiple"><span class="circle"></span><span class="check"></span>
+	                        <b class="font-normal" translate="{{'Multiple Page'|translate}}"></b>
 	                    </label>
 	                </div>
 	                <div class="form-group" ng-if="questionView.mode=='multiple'">
@@ -72,15 +77,21 @@
 			<i class="pull-right mdi-av-playlist-add text-2x" data-placement="left" bs-dropdown="dropDown($index)"></i>		
 		</div>
 	</div>
-	<div class="btn btn-primary" ng-disabled="questionMarkField.$invalid" ng-click="questionShowActivate()" translate="{{'Add Question' | translate}}"><div class="ripple-wrapper"></div>
+	<div class="btn btn-primary" ng-disabled="questionMarkField.$invalid" ng-click="questionShowActivate()">
+		<span translate="{{'Add Question' | translate}}"></span>
+		<div class="ripple-wrapper"></div>
 	</div>
 	 <div class="col-xs-12" ng-if="questionShow">
 			<form name="questionFrom" xtform no-validate>
         		<question-field ng-model="questionModel"></question-field>
         	     
-        	     <div class="btn btn-warning" ng-click="questionShowDeactivate()" translate="{{'Discard' | translate}}"><div class="ripple-wrapper"></div>
+        	     <div class="btn btn-warning" ng-click="questionShowDeactivate()" >
+        	     	<span translate="{{'Discard' | translate}}"></span>
+        	     	<div class="ripple-wrapper"></div>
         		 </div>
-        		<div class="btn btn-primary" ng-disabled="questionFrom.$invalid" ng-click="addQuestion(questionModel,placeindex)" translate="{{'Add to Test' | translate}}"><div class="ripple-wrapper"></div>
+        		<div class="btn btn-primary" ng-disabled="questionFrom.$invalid" ng-click="addQuestion(questionModel,placeindex)">
+        			<span translate="{{'Add to Test' | translate}}"></span>
+        			<div class="ripple-wrapper"></div>
         		</div>
         	</form>
 
