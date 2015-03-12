@@ -7,8 +7,10 @@ angular.module('baabtra').directive('floatLabel', function() {
             $(element).removeAttr("float-label");
 			
 
-			//wrap the element in a full width div			
-			$(element).wrap('<div class="col-xs-12 no-padding m-t-sm"></div>');
+			//wrap the element in a full width div
+			if(angular.equals(attrs.wrapperless,undefined))	{		
+				$(element).wrap('<div class="col-xs-12 no-padding m-t-sm"></div>');
+			}
 
 			//hiding the label if the textbox has no value
 			var html = $('<div class="col-xs-12 no-padding">');
@@ -71,8 +73,7 @@ angular.module('baabtra').directive('floatLabel', function() {
 					label.hide();
 					bindValChangeWatch();
 				}
-				else{
-					console.clear();				
+				else{						
 					label.html(attrs.placeholder);
 					label.show();
 				}

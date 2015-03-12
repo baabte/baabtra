@@ -16,15 +16,13 @@ angular.module('baabtra').controller('ViewfeedbackCtrl', ['$scope', '$rootScope'
   /*login detils ends*/
 
   $scope.data = {};
-
+  $scope.data.feedbackType = 'Pending';
 
 
   var FeedbackRequestsResponse  = viewFeedback.fnViewFeedbackRequests($scope.rm_id,$scope.cmp_id)
   FeedbackRequestsResponse.then(function(response){
   	$scope.data.feedbackRequests = angular.fromJson(JSON.parse(response.data));
-    $scope.data.feedbackRequestsCount = $scope.data.feedbackRequests.length;
-  	$scope.feedbackResponse = [{}];
-  
+    console.log($scope.data.feedbackRequests);
   });
   $scope.openThisRequest = "";
   $scope.changeRequest = function(feedBackId){
