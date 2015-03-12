@@ -659,3 +659,10 @@ display: block;
     max-height: 200px;
   overflow-y: scroll;
 }
+
+.baab-list-item:hover{
+  background-color: #EEEEEE!important;
+  cursor: pointer;
+  color: black;
+  border-radius: 5px!important;
+}
