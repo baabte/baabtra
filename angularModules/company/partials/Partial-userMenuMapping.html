@@ -2,39 +2,58 @@
   <div class="col-sm-12">
     <div class="panel b-light">
       <div class="panel-body p-sm bg-light lt">
-        <div class="bs-example" append-source="">
+        <!-- <div class="bs-example" append-source=""> -->
           <div class="tab-container ng-scope ng-valid ng-dirty">
-              <ul class="nav nav-tabs" role="tablist">
+<div class="navbar navbar-inverse">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="javascript:void(0)" translate="{{'Users'|translate}}"></a>
+    </div>
+    <div class="navbar-collapse collapse navbar-inverse-collapse">
+                    <ul class="nav navbar-nav" role="tablist">
 
-                <li ng-class="{'active':!comapanyUser,'ng-hide':roleId==2}" class="ng-scope ng-h" ng-click="getCompanyAdmin()">
-                  <a role="tab" data-toggle="tab" data-index="0"  class="ng-binding" translate="{{'Company Admin'|translate}}"></a>
-                </li>
+                      <li ng-class="{'active':!comapanyUser,'ng-hide':roleId==2}" class="ng-scope ng-h" ng-click="getCompanyAdmin()">
+                        <a role="tab" data-toggle="tab" data-index="0"  class="ng-binding" translate="{{'Company Admin'|translate}}"></a>
+                      </li>
 
-                <li  ng-class="{'active':comapanyUser,'ng-hide':roleId==2}" class="ng-scope" ng-click="getCompanyUser()">
-                  <a href="" role="tab" data-toggle="tab" data-index="1"  class="ng-binding">
-                    <i class="ui-icon fa fa-arrow-left ui-iconnfo text-md bg-info" style="cursor: pointer;" ng-show="ModelUserBox && roleId==1" ng-click="getCompanyAdmin()"></i>
-                    <span translate="{{'Company Users'|translate}}"></span>
-                  </a>
-                </li>
+                      <li  ng-class="{'active':comapanyUser,'ng-hide':roleId==2}" class="ng-scope" ng-click="getCompanyUser()">
+                        <a href="" role="tab" data-toggle="tab" data-index="1"  class="ng-binding">
+                          <i class="ui-icon fa fa-arrow-left ui-iconnfo text-md bg-info" style="cursor: pointer;" ng-show="ModelUserBox && roleId==1" ng-click="getCompanyAdmin()"></i>
+                          <span translate="{{'Company Users'|translate}}"></span>
+                        </a>
+                      </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
 
-                <div class="pull-right">
-                  <div class="btn-group" style="margin-top: 4px;">
-                    <button type="button" class="btn btn-xs btn-default" ng-click="prev_one()"><i class="fa fa-fw fa-angle-left"></i></button>
-                    <button type="button" class="btn btn-xs btn-default" ng-click="next_one()"><i class="fa fa-fw fa-angle-right"></i></button>
-                  </div>
-                  <div class="pull-right hidden-xs w">
-                    <div class="input-group">
-                      <span class="input-group-btn">
-                        <button type="submit" class="btn btn-sm bg-white btn-icon no-shadow no-padder"><i class="ti-search"></i>
-                        </button>
-                      </span>
-                      <input  ng-model="modelSearch" type="text" class="form-control input-sm no-border" placeholder="{{placeholderVal}}...">
-                    </div>
-                  </div>
-                </div>
-              </ul>
+                       <li> 
+                      </li>
+                    <li> </li>
 
+                    </ul>
+              </div>
+              </div> 
               <div class="tab-content">
+              <div class="row">
+                <div class="col-xs-12">
+ 
+                      <div class="col-xs-6">
+                        <form class="pull-left">
+                         <!--  <input  ng-model="modelSearch" type="text" class="form-control input-sm no-border" placeholder="{{placeholderVal}}..."> -->
+                         <input type="text" ng-model="modelSearch" class="form-control col-xs-8" placeholder="{{'Search'|translate}}">
+                        </form></div>
+                      <div class="col-xs-6">
+                        <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-material-grey-50" ng-click="prev_one()"><i class="fa fa-fw fa-angle-left"></i></button>
+                        <button type="button" class="btn btn-material-grey-50" ng-click="next_one()"><i class="fa fa-fw fa-angle-right"></i></button>
+                        
+                      </div>  </div>
+                    </div>
+              
+              </div> 
                   <div title="To Level Roles" ng-class="{'active':!comapanyUser,'ng-hide':roleId==2}" class="ng-binding ng-scope tab-pane am-fade">
                     <div class="row">
                       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" ng-repeat="company in companyDetails">
@@ -68,16 +87,19 @@
                         </div>
                     </div>
                   </div><!-- end ngRepeat: tab in tabs --><!-- end ngRepeat: tab in tabs -->
-                                <div class="row" ng-show="ModelUserBox">
+                       
+                       <div class="row" ng-show="ModelUserBox">
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-sm"  ng-repeat="user in UserList">
-                          <div class="box bg-light" style="cursor: pointer;" ng-click="getUserMenu(user.value.fkUserRoleMappingId.$oid,user.value.fkRoleId)">
-                                  <div class="box-col w-xs text-center dk">
-                                    <img src="images/a0.jpg" class="w-xs m-r pull-left" >
+                          <div class="box bg-light" style="cursor: pointer;" ng-click="getUserMenu(user._id.$oid,user.fkRoleId)">
+                                  <div class="box-col w-xs text-center dk" ng-switch on="user.avatar">
+
+                                    <img src='images/user.ico'  ng-if="!user.avatar.length"/>
+                                    <img src='{{user.avatar}}' ng-if="user.avatar.length" />
                                   </div>
-                                  <div class="box-col p b-b b-4x b-light" ng-class="{'b-success am-fade':UserState==user.value.fkUserRoleMappingId.$oid}">
-                                    <a >{{user.value.name}}</a><br>
+                                  <div class="box-col p b-b b-4x b-light" ng-class="{'b-success am-fade':UserState==user._id.$oid}">
+                                    <a >{{user.name}}</a><br>
                                     <div class="pull-left" translate="{{'User'|translate}}"></div>
-                                    <i class="fa  pull-right text-xl text-success b-4x b-info" ng-class="{'fa-check-circle am-fade':UserState==user.value.fkUserRoleMappingId.$oid}"></i>
+                                    <i class="fa  pull-right text-xl text-success b-4x b-info" ng-class="{'fa-check-circle am-fade':UserState==user._id.$oid}"></i>
                                   </div>
                               </div>
                           </div>
@@ -177,7 +199,7 @@
         </div>
       </div>
     </div>
-  </div>
+<!--   </div> -->
           </div>
           </div>
       </div>
