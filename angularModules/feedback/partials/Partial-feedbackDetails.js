@@ -22,11 +22,11 @@ angular.module('baabtra').controller('FeedbackdetailsCtrl',['$scope', '$rootScop
 		
 		if(!angular.equals($scope.data.feedBackDetails.userResponse,undefined)){
 
-			console.log($scope.data.feedBackDetails.userResponse);
+			//console.log($scope.data.feedBackDetails.userResponse);
 		}
 		else{
-			console.log($scope.data.feedBackDetails.questions);
-			console.log("Not Answerd");
+			//console.log($scope.data.feedBackDetails.questions);
+			//console.log("Not Answerd");
 		}
 		
 	});
@@ -52,7 +52,7 @@ angular.module('baabtra').controller('FeedbackdetailsCtrl',['$scope', '$rootScop
 
 		var saveUserFeedbackResponse = viewFeedback.fnSaveUserFeedback($state.params.feedBackId ,response, $scope.rm_id);
 				saveUserFeedbackResponse.then(function(response){
-					 $alert({title: 'Success!', content: 'Feedback submited successfuly...', placement: 'top', type: 'success', show: true});
+					 $alert({title: 'Success!', content: 'Feedback submited successfuly...', placement: 'top-right', duration:3, type: 'success', show: true});
 					 $state.go('home.main.viewFeedbackRequest');
 				});
 	};
