@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('FeedbackdetailsCtrl',['$scope', '$rootScope', '$state', 'commonService', 'viewFeedback', function($scope, $rootScope, $state, commonService, viewFeedback){
+angular.module('baabtra').controller('FeedbackdetailsCtrl',['$scope', '$rootScope', '$state', '$alert', 'commonService', 'viewFeedback', function($scope, $rootScope, $state, $alert, commonService, viewFeedback){
 
  /*login detils start*/
   if(!$rootScope.userinfo){
@@ -16,29 +16,44 @@ angular.module('baabtra').controller('FeedbackdetailsCtrl',['$scope', '$rootScop
   /*login detils ends*/
   $scope.data = {};
   $scope.data.feedbackResponse = [];
-	var FeedbackRequestDetailsResponse = viewFeedback.fnLoadFeedbackRequestDetails($scope.cmp_id, $state.params.feedBackId);
+	var FeedbackRequestDetailsResponse = viewFeedback.fnLoadFeedbackRequestDetails($scope.cmp_id, $state.params.feedBackId, $scope.rm_id);
 	FeedbackRequestDetailsResponse.then(function(response){
-		$scope.data.feedBackDetails = angular.fromJson(JSON.parse(response.data))[0];
+		$scope.data.feedBackDetails = angular.fromJson(JSON.parse(response.data));
+		
+		if(!angular.equals($scope.data.feedBackDetails.userResponse,undefined)){
+
+			console.log($scope.data.feedBackDetails.userResponse);
+		}
+		else{
+			console.log($scope.data.feedBackDetails.questions);
+			console.log("Not Answerd");
+		}
+		
 	});
 
 	$scope.submitMyResponse = function(){
-		var responseObject = [];
+		var response = {};
+		response.userResponse = {};
+		response.userResponse.rmId = angular.copy($scope.rm_id);
+		response.userResponse.response = angular.copy($scope.data.feedbackResponse);
+		response.responseObject = [];
 		for(var questionsCount = 0;questionsCount < $scope.data.feedBackDetails.questions.length; questionsCount++){
-			responseObject[questionsCount] = [];
-			var options = $scope.data.feedBackDetails.questions[questionsCount].options;
-			var userResponse = $scope.data.feedbackResponse[questionsCount].userResponse;
+			response.responseObject[questionsCount] = [];
+			var options = angular.copy($scope.data.feedBackDetails.questions[questionsCount].options);
+			var userResponse = angular.copy($scope.data.feedbackResponse[questionsCount].userResponse);
 			angular.forEach(userResponse,function(value){
 				angular.forEach(options,function(option){
 					if(angular.equals(option.Name,value)){
-						responseObject[questionsCount].push(option.value);
+						response.responseObject[questionsCount].push(option.value);
 					}
 				});
 			});
 		}
-		console.log(responseObject);
-		var saveUserFeedbackResponse = viewFeedback.fnSaveUserFeedback($state.params.feedBackId ,responseObject, $scope.rm_id);
+
+		var saveUserFeedbackResponse = viewFeedback.fnSaveUserFeedback($state.params.feedBackId ,response, $scope.rm_id);
 				saveUserFeedbackResponse.then(function(response){
-					//console.log(angular.fromJson(JSON.parse(response.data)));
+					 $alert({title: 'Success!', content: 'Feedback submited successfuly...', placement: 'top', type: 'success', show: true});
+					 $state.go('home.main.viewFeedbackRequest');
 				});
 	};
 

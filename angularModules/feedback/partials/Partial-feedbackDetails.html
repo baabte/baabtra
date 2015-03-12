@@ -1,8 +1,11 @@
-<div class="col-xs-12">
+<div class="col-xs-12" ng-if="data.feedBackDetails">
 	<div class="row bg-white" >
 		<div class="col-xs-12">
-			<feedback-viewer ng-if="data.feedBackDetails" feedback-form="data.feedBackDetails.questions" feedback-response="data.feedbackResponse"></feedback-viewer>
-			<button class="btn btn-material-blue-A700 pull-right" ng-click="submitMyResponse()">Submit
+			<!-- feedback viwer -->
+			<feedback-viewer ng-if="data.feedBackDetails" feedback-form="data.feedBackDetails.questions" user-response="data.feedBackDetails.userResponse[0].response" feedback-response="data.feedbackResponse"></feedback-viewer>
+
+			<!-- submit feedback -->
+			<button ng-if="!data.feedBackDetails.userResponse" class="btn btn-material-blue-A700 pull-right" ng-click="submitMyResponse()">Submit
 				<div class="ripple-wrapper"></div>
 			</button>
 		</div>
