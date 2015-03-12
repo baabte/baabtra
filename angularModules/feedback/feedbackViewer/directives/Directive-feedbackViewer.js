@@ -10,7 +10,7 @@ angular.module('baabtra').directive('feedbackViewer',['$rootScope','bbConfig','$
 		templateUrl: 'angularModules/feedback/feedbackViewer/directives/Directive-feedbackViewer.html',
 		link: function(scope, element, attrs, fn){
 
-		
+		// console.log(scope.feedbackForm);
 		//creating the array to keep the user response 
 		
 			for(var index in scope.feedbackForm){

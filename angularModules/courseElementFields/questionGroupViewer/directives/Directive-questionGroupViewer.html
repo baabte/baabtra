@@ -1,7 +1,8 @@
 
 <div>
 	<div class="col-xs-12">
-		<!-- <percent-indicator ng-if="examFinished" show-percentage="true" total-value="totalMark" obtain-value="" ng-model="form"></percent-indicator> -->
+		<percent-indicator ng-if="examFinished" show-percentage="true" total-value="" obtain-value="" ng-model="form"></percent-indicator>
+		
 		<div ng-hide="startTest==true" class="col-xs-12 text-center">
 			<div class="btn btn-warning"  ng-click="startTimer()">Click to Start Test<div class="ripple-wrapper"></div>
          	</div>
@@ -12,8 +13,8 @@
 		<div ng-if="startTest">
 		<div  ng-repeat="question in dataValue.value.testModel.slice(start,stop)">
 				<test-question-view  data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" question-response="questionAnswer[start+$index]" course-element="courseElement"></test-question-view>
-				{{question}}
-				<div ng-if="question">
+				<!-- {{question}} -->
+				<div ng-if="question.type">
 
 				</div>
 				<div ng-if="">
