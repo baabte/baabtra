@@ -82,7 +82,7 @@
             <a href class="clear no-padding-h" bs-aside="aside" data-template="angularModules/login/partials/Partial-sm_User_Menu.html" data-placement="right" data-animation="am-slide-right aside-open-inner modal-open" data-container="body">
               <qrcode ng-if="!userinfo.ActiveUserData.roleMappingObj.avatar.length" version="2" size="30" color="#4A148C" ng-click="$hide()" class="navbar-img  pull-right" data="{{userinfo.ActiveUserData.username}}" style="margin-left: -8px;"></qrcode>
               <img  ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length" ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" alt="..." class="navbar-img img-circle pull-right">
-              <span class="m-l">{{userinfo.ActiveUserData.username}}</span>
+              <span class="m-l m-r">{{userinfo.ActiveUserData.username}}</span>
               <b class="fa fa-caret-left m-h-xs m-r-xs"></b>
             </a>
           </li>
