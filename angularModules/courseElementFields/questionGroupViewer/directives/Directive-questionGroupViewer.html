@@ -12,7 +12,13 @@
 		<div ng-if="startTest">
 		<div  ng-repeat="question in dataValue.value.testModel.slice(start,stop)">
 				<test-question-view  data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" question-response="questionAnswer[start+$index]" course-element="courseElement"></test-question-view>
-				<!-- <pre>{{start+$index}}</pre> -->
+				{{question}}
+				<div ng-if="question">
+
+				</div>
+				<div ng-if="">
+
+				</div>
 				
 
 
