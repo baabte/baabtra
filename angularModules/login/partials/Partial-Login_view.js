@@ -150,23 +150,11 @@ $scope.emailPattern = (function() {
 
 $scope.loginSuccessCallback=function(data){
 		$scope.logData=angular.fromJson(JSON.parse(data));
-    // console.log(data);
-		if($scope.logData.add_fb){
-			if($scope.logData.add_fb=="facebook"){
-				$scope.socialSiteName="facebook";
-			$modal({ scope: $scope,
-              template: 'angularModules/login/partials/Partial-addSocialInfo.html',
-              placement:'center',
-              show: true});	
-			}
-
-		}else{
-
-
-				if($scope.logData.result==='true') {
+			if($scope.logData.result==='true') {
 			   	  var logdata=$scope.logData.ActiveUserDataId.$oid.concat($scope.logData.userLoginId);
 			  	  localStorageService.add('logDatas',logdata);
 			  	  $rootScope.userinfo=$scope.logData;//if login is ok put it in the login info variable.
+            console.log($rootScope.userinfo);
             $rootScope.loggedIn=true;//if login is ok ,changin the variable in rootscope.
 				  $state.go('home.main');//routing to home after success login by user
 				  $scope.login_or_not='login Success'; 
@@ -182,7 +170,7 @@ $scope.loginSuccessCallback=function(data){
 			      $scope.login_frequency++;  
             $scope.isLoggedIn = true;
 			    }
-	    }
+	   
 	}; 
 
 $scope.Show_hide_val_msg=function(){

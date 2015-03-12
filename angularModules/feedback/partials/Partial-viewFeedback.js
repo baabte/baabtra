@@ -22,14 +22,12 @@ angular.module('baabtra').controller('ViewfeedbackCtrl', ['$scope', '$rootScope'
   var FeedbackRequestsResponse  = viewFeedback.fnViewFeedbackRequests($scope.rm_id,$scope.cmp_id)
   FeedbackRequestsResponse.then(function(response){
   	$scope.data.feedbackRequests = angular.fromJson(JSON.parse(response.data));
-    console.log($scope.data.feedbackRequests);
     $scope.data.feedbackRequestsCount = $scope.data.feedbackRequests.length;
   	$scope.feedbackResponse = [{}];
   
   });
   $scope.openThisRequest = "";
   $scope.changeRequest = function(feedBackId){
-    
     $state.go('home.main.viewDetails',{feedBackId:feedBackId});
     //$scope.openThisRequest = requestId;
   };
