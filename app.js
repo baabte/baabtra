@@ -52,7 +52,8 @@
         'monospaced.qrcode',
         'masonry',
         'googlechart',
-        'gettext'
+        'gettext',
+        'timer'
       ])
 
 .run(function(editableOptions) {

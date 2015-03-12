@@ -66,34 +66,12 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 						scope.dbAnswer=scope.question.userAnswer;
 					}
 				
-						if(angular.equals(scope.questionResponse.userAnswer,undefined)){
+					
 			 				scope.questionResponse.userAnswer=[];		
-			 				// console.log('new to question');		
-						}
-						else{
-							// console.log(scope.questionResponse);
-						}
-						
-
 				
 				//Creating directive elements according to type of question
 				var answerArea=$('#answers'+scope.randomKey);
-				if(scope.question.type=='objective'){
-					evStatus=1;
-					scope.questionResponse.evaluated=evStatus;
-					var optionsElem=$('<objective-options>');
-					    optionsElem.attr('options',"question.options");
-					    optionsElem.attr('answer-type',"question.answerType");
-					    optionsElem.attr('answer',"question.answer");
-					    optionsElem.attr('mark-scored','questionResponse.markScored');
-					    optionsElem.attr('user-answer','questionResponse.userAnswer');
-					    optionsElem.attr('db-answer','dbAnswer');
-					    optionsElem.attr('mark-obj',JSON.stringify(scope.question.mark));
-					answerArea.html(optionsElem);
-					$compile(optionsElem)(scope);
-					
-				}
-				else if(scope.question.type=='descriptive'){
+			 if(scope.question.type=='descriptive'){
 					isDescriptive=true;
 
 					scope.primaryForm={};

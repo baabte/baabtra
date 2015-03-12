@@ -10,7 +10,6 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfi
 		templateUrl: 'angularModules/courseElementFields/questionGroupViewer/directives/Directive-questionGroupViewer.html',
 		link: function(scope, element, attrs, fn) {
 			var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId; // Role id of logged user
-			
 			var userLoginId;
 			var courseMappingId;
 			var innerIndex=scope.index;
@@ -44,19 +43,14 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfi
 			}
 
 			scope.dataValue= JSON.parse(scope.data);
-			// console.log(scope.dataValue);
+			// console.log(scope.isMentee);
 			
 
 			if (angular.equals(scope.questionAnswer.length,0)){
-			scope.noOfQuestions=scope.dataValue.value.testModel.length;
-			for (var i = 0; i < scope.noOfQuestions; i++) {
-				var obj={};
-				scope.questionAnswer.push(obj);
+			for(var index in scope.dataValue.value.testModel){
+				var tempObj={userResponse:[]};
+				scope.questionAnswer.push(tempObj);
 			}
-			// for(var index in dataValue.value.testModel){
-			// 	var tempObj={userResponse:[]};
-			// 	scope.questionAnswer.push(tempObj);
-			// }
 			}
 			if(angular.equals(scope.dataValue.value.questionView.mode,'multiple')){
 				scope.questionPerPage=scope.dataValue.value.questionView.questionPerPage;
