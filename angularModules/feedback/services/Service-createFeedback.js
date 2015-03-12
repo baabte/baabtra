@@ -1,6 +1,12 @@
-angular.module('baabtra').factory('createFeedback',function() {
+angular.module('baabtra').service('createFeedback', ['$http', 'bbConfig', function ($http, bbConfig) {
 
-	var createFeedback = {};
+	this.fnSaveFeedbackForm = function(feedbackForm){
+		var promise = $http({
+	 		method: 'POST',
+	    	url: bbConfig.BWS+'saveFeedbackForm/',
+	    	data:{feedbackForm: feedbackForm}
+	 	});
+		return promise;
+	}
 
-	return createFeedback;
-});
+}]);

@@ -13,9 +13,16 @@
 <!-- <feedback-field ng-model="feedbackModel"></feedback-field> -->
 <!-- {{feedbackModel}} -->
 
-<feedback-creator ng-model="feedbackFormModel"></feedback-creator>
-<!-- {{feedbackFormModel}} -->
 
+
+
+<feedback-creator ng-model="feedbackFormModel"></feedback-creator>
+<pre>{{feedbackFormModel}}</pre>
+
+<feedback-viewer ng-if="feedbackFormModel" feedback-form="feedbackFormModel" feedback-response="feedbackResponse" user-response="userFeedBack"></feedback-viewer>
+
+
+<pre>{{feedbackResponse}}</pre>
 
 
 </div>

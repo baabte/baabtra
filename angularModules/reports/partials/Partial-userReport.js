@@ -2,8 +2,7 @@ angular.module('baabtra').controller('UserreportCtrl',['$scope','$filter','bulkE
 
 //report list drop down values
 $scope.reportTypeList=[ {'id':'rptEnroll','type':'user enrollment report'},
-                        {'id':'rptDetail','type':'Performance report'},
-                        {'id':'rptFeedback','type':'Feedback report'} ];
+                        {'id':'rptDetail','type':'Performance report'}];
 $scope.obj={};
 
 $scope.type={'id':'rptEnroll','type':'user enrollment report'};

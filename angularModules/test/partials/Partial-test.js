@@ -38,7 +38,15 @@ $scope.questionGroup={};
 
 $scope.feedbackModel={};
 
-$scope.feedbackFormModel={};
+// $scope.feedbackFormModel={};
+$scope.feedbackResponse=[];
+
+$scope.userFeedBack=[{"userResponse":["a"]},{"userResponse":["a","c"]}];
+
+$scope.feedbackFormModel=[{"type":"objective","options":[{"Name":"a","value":"sdasd"},{"Name":"b","value":"asd"},{"Name":"c","value":"asd"}],"question":"<div class=\"line\" id=\"line-1\">asdsa</div>","answerType":"singleAnswer","data":[["Answer","User Response"],["sdasd",0],["asd",0],["asd",0]]},{"type":"objective","options":[{"Name":"a","value":"djfkj"},{"Name":"b","value":"sdfjkj"},{"Name":"c","value":"wuierui"},{"Name":"d","value":"dcvmn"}],"question":"<div class=\"line\" id=\"line-8\">sjdfkj</div>","answerType":"multiAnswer","data":[["Answer","User Response"],["djfkj",0],["sdfjkj",0],["wuierui",0],["dcvmn",0]]}];
+
+
+
 
 });																																																																								 																			
 
