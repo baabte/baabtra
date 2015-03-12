@@ -16,7 +16,7 @@ angular.module('baabtra').controller('ViewfeedbackCtrl', ['$scope', '$rootScope'
   /*login detils ends*/
 
   $scope.data = {};
-
+  $scope.data.feedbackType = 'Pending';
 
 
   var FeedbackRequestsResponse  = viewFeedback.fnViewFeedbackRequests($scope.rm_id,$scope.cmp_id)
