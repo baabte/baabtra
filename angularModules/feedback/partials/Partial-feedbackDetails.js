@@ -22,11 +22,11 @@ angular.module('baabtra').controller('FeedbackdetailsCtrl',['$scope', '$rootScop
 		
 		if(!angular.equals($scope.data.feedBackDetails.userResponse,undefined)){
 
-			console.log($scope.data.feedBackDetails.userResponse);
+			//console.log($scope.data.feedBackDetails.userResponse);
 		}
 		else{
-			console.log($scope.data.feedBackDetails.questions);
-			console.log("Not Answerd");
+			//console.log($scope.data.feedBackDetails.questions);
+			//console.log("Not Answerd");
 		}
 		
 	});
