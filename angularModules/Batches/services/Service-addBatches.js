@@ -25,4 +25,21 @@ angular.module('baabtra').service('addBatches',['$http','bbConfig','$rootScope',
 	return promise;
 
  }
+
+ this.addCoursesToBatch =function(batch){
+ 	   var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'addCoursesToBatch/',
+	    data:{"batch":batch[0]}
+	 });
+	return promise;
+ }
+ this.loadCourseRelatedBatches=function(cmpId,coursId){
+ 	var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'loadCourseRelatedBatches/',
+	    data:{"cmpId":cmpId,"courseId":coursId}
+	 });
+	return promise;
+ }
 }]);

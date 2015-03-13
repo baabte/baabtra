@@ -4,7 +4,7 @@
      <form name="batchAdd" xt-form  class="ng-pristine ng-valid"> 
       <div class="panel-heading font-bold text-white bg-00C853 p baab-shadow" translate="{{'Add Batch Template'|translate}}"></div>
       <div class="panel-body">
-        <div class="row">
+        <div class="row m-l">
               <div class="col-xs-12 col-sm-6">
                 
                 <div class="row"> 
@@ -29,49 +29,114 @@
                     <em class="text-muted text-E91E63" translate="{{'(Please specifiy  the Mode of Batch)'|translate}}">&nbsp;</em>    
                   </div>
                   <div class="form-group">   
-                      <div class="radio radio-primary">
+                      <div class="checkbox ">
                         <label>
-                            <input type="radio" name="optionsType" ng-model="Batch.batchType" value="offline" required> <b class="font-normal" translate= "{{' Offline'|translate}}"></b>
+                            <input type="checkbox"  ng-model="Batch.offline" value="offline" > <b class="font-normal"  translate= "{{' Offline'|translate}}"></b>
                         </label>
                       </div>
-                      <div class="radio radio-primary">
+                      <div class="checkbox">
                         <label>
-                            <input type="radio"  ng-model="Batch.batchType" value="instructorLead" name="optionsType" required ><b class="font-normal" translate= "{{' Instructor Lead'|translate}}"></b> 
+                            <input type="checkbox"  ng-model="Batch.instructorLead" value="instructorLead" ><b class="font-normal"  translate= "{{' Instructor Lead'|translate}}"></b> 
                         </label>
                       </div>
                     <em class="text-muted text-E91E63" translate="{{'(Please specifiy  the Type of Batch)'|translate}}">&nbsp;</em>                
                   </div>
-                  <div class="row m-l" ng-show="Batch.batchType=='offline'">
+                  <div class="row">
+                    <div class="col-xs-12">
                   <div class="form-group">
                      <label translate="{{'Start Time'|translate}}"></label>
-                      <input type="text" class="form-control " length="5" ng-model="Batch.offline.startTime" data-time-format="HH:mm" data-time-type="date" data-autoclose="1" name="timerstart" bs-timepicker="">
+                      <input type="text" class="form-control " length="5" ng-model="Batch.startTime" data-time-format="HH:mm" data-time-type="date" data-autoclose="1" name="timerstart" bs-timepicker="">
                   </div>
                   <div class="form-group">
                      <label translate="{{'End Time'|translate}}"></label>
-                      <input type="text" class="form-control " length="5" ng-model="Batch.offline.endTime" data-time-format="HH:mm" data-time-type="date" data-autoclose="1" name="timerend" bs-timepicker="">
+                      <input type="text" class="form-control " length="5" ng-model="Batch.endTime" data-time-format="HH:mm" data-time-type="date" data-autoclose="1" name="timerend" bs-timepicker="">
+                  </div>
                   </div>
                  </div> 
-                  <div class="row m-l">
-                  <div class="form-group ">
-                    
-                    <input type="number" float-label  ng-model="Batch.seats" class="form-control no-padding" placeholder="{{'Number of seats'|translate}}" name="seats" required >
+                 
+                   <div class="row">
+                    <div class="col-xs-12">
+                      <div class="form-group">
+                       <input type="text" class="form-control" float-label ng-model="Batch.startDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="date" data-autoclose="true" data-min-date="today"  name="date1" bs-datepicker required placeholder="{{'Batch Starts On'|translate}}">
+                      </div>
+                     </div> 
+                    </div>
+
+                   <div class="row">
+                    <div class="col-xs-12">
+                      <div class="form-group">
+                       <input type="text" class="form-control" float-label ng-model="Batch.endDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="date" data-autoclose="true" data-min-date="today"  name="date2" bs-datepicker required placeholder="{{'Batch Ends On'|translate}}">
+                      </div>
+                     </div> 
+                    </div>
+                     <div class="row">
+                   <div class="col-xs-12 ">
+                     <div class="form-group ">
+                        <label translate="{{'Start taking admissions before'|translate}}"></label> 
+                        <div class="row">
+                          <div class="col-xs-6 ">
+                            <select class="form-control" id="select" ng-model="Batch.Admission.onBefore" required>
+                           <option selected="selected" value="" required >select an option</option>
+                            <option ng-repeat = "row in repeatEvery" value="{{row}}">{{row}}</option>  
+                             </select>
+                          </div>
+                          <div class="col-xs-6">
+                            <select class="form-control" id="select" ng-model="Batch.Admission.beforeType" required ng-options="rpt.text as rpt.text for rpt in repeatTypeArray" required  value="{{rpt}}" >
+                             <option selected="selected" value="" required  >select an option</option> 
+                            </select>
+                          </div>
+                         </div> 
+                      </div> 
+                   </div>   
+                  </div>
+                 
+                    <div class="row">
+                   <div class="col-xs-12 ">
+                     <div class="form-group ">
+                        <label translate="{{'Stop taking admissions  after'|translate}}"></label> 
+                        <div class="row">
+                          <div class="col-xs-6 ">
+                            <select class="form-control" id="select" ng-model="Batch.Admission.onAfter" required>
+                           <option selected="selected" value="" required >select an option</option>
+                            <option ng-repeat = "row in repeatEvery" value="{{row}}">{{row}}</option>  
+                             </select>
+                          </div>
+                          <div class="col-xs-6">
+                            <select class="form-control" id="select" ng-model="Batch.Admission.afterType" required ng-options="rpt.text as rpt.text for rpt in repeatTypeArray" required  value="{{rpt}}" >
+                             <option selected="selected" value="" required   >select an option</option> 
+                            </select>
+                          </div>
+                         </div> 
+                      </div> 
+                   </div>   
+                  </div>
+                 
+                  <div class="row">
+                   <div class="col-xs-12"> 
+                      <div class="form-group ">
+                        
+                        <input type="number" float-label  ng-model="Batch.seats" class="form-control no-padding" placeholder="{{'Number of seats'|translate}}" name="seats" required >
+                      </div> 
+                   </div> 
                   </div> 
-                  </div> 
-                  <div class="row m-l"> 
+                  <div class="row"> 
                     <div class="form-group m-l " > 
                     <div class="row">
-                      <div class="col-xs-12"  data-title="Add this Batch Under" bs-tooltip >
-                          <course-loader ng-Model="Batch.course" multi-select="multi" required >
+                      <div class="col-xs-12">
+                       <em class="pull-left p text-E91E63"> Add this batch under the courses</em> 
+                      <div class="col-xs-6"  data-title="Add this Batch Under" bs-tooltip >
+                          <course-loader ng-model="Batch.course" multi-select="multi" required >
                           </course-loader>
                       </div>
+                     </div>
                   </div>
                    </div> 
                  </div>
               </div>
              <div class="col-xs-12 col-sm-6 p" ng-click="fnLoadBatches()">
-                 <a class="text-lg text-success">
-                View  Batches
-                 </a>
+                 <span class="text-sm m-v btn btn-info text-success"><i class=" fa mdi-social-group-add "></i>
+                  <span class="m-sm" translate="{{'View  Batches'|translate}}"></span>
+                 </span>
                 <div class="row p">
                   <div class=" list-group  bg-inherit"  >
                    
