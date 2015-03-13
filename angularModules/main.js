@@ -124,11 +124,14 @@ angular.module('baabtra')
         var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
         var rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
           if(!angular.equals($rootScope.userinfo.ActiveUserData.appSettings.backgroundImage,"")){
-          var oldBackgroundImage = $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage.split('(')[1].split(')')[0];
-          var fileRemoveResponse = commonSrv.fnRemoveFileFromServer(oldBackgroundImage);
+            if(!angular.equals($rootScope.userinfo.ActiveUserData.appSettings.backgroundImage,undefined)){
+              var oldBackgroundImage = $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage.split('(')[1].split(')')[0];
+            }
+            var fileRemoveResponse = commonSrv.fnRemoveFileFromServer(oldBackgroundImage);
         }
         var ImageUploadResponse = commonSrv.fnFileUpload($file[0],"backgroundImage");
         ImageUploadResponse.then(function(response){
+
           $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage = 'url('+bbConfig.BWS+'files/backgroundImage/'+response.data.replace('"','').replace('"','') +')';
           commonSrv.fnSaveAppSettings(companyId, $rootScope.userinfo.ActiveUserData.appSettings, rmId);
 
