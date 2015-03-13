@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('CreatefeedbackCtrl',['$scope', '$rootScope', '$state', 'commonService', 'commonSrv', 'createFeedback', function ($scope, $rootScope, $state, commonService, commonSrv ,createFeedback){
+angular.module('baabtra').controller('CreatefeedbackCtrl',['$scope', '$rootScope', '$state', '$alert', 'commonService', 'commonSrv', 'createFeedback', function ($scope, $rootScope, $state, $alert, commonService, commonSrv ,createFeedback){
 	
 
  /*login detils start*/
@@ -57,6 +57,7 @@ angular.module('baabtra').controller('CreatefeedbackCtrl',['$scope', '$rootScope
   		$scope.myForm.rmId = $scope.rm_id;
   		var feedbackFormResponse = createFeedback.fnSaveFeedbackForm($scope.myForm);
   		feedbackFormResponse.then(function(response){
+        $alert({title: 'Success!', content: 'Feedback form created successfuly...', placement: 'top-right', duration:3, type: 'success', show: true});
   			$scope.myForm = {};
   		});
   	};

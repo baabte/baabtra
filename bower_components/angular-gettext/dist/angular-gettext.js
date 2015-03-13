@@ -176,24 +176,37 @@ angular.module('gettext').directive('translate', ["gettextCatalog", "$parse", "$
             return {
                 post: function (scope, element, attrs) {
                     var countFn = $parse(attrs.translateN);
-                    var pluralScope = null;
+                    var pluralScope = null;                
 
-                    function update() {
-                        // Fetch correct translated string.
+                    //added by anoop to handle dynamic data, but these dynamic data must have a translation in translations.js
+                    if(!angular.equals(attrs.textToTranslate, undefined)){
+                        msgid = attrs.textToTranslate;
+                    }
+
+
+
+                    function update() {                        // Fetch correct translated string.
                         var translated;
+
                         if (translatePlural) {
                             scope = pluralScope || (pluralScope = scope.$new());
                             scope.$count = countFn(scope);
                             translated = gettextCatalog.getPlural(scope.$count, msgid, translatePlural, null, translateContext);
-                        } else {
+                        } else {                           
                             translated = gettextCatalog.getString(msgid,  null, translateContext);
                         }
+
+                     
+                        
+                        // addedby anoop to clear the double html issue
+                        $(element).html("");
+
 
                         // Swap in the translation
                         var newWrapper = angular.element('<span>' + translated + '</span>');
                         $compile(newWrapper.contents())(scope);
                         var oldContents = element.contents();
-                        var newContents = newWrapper.contents();
+                        var newContents = newWrapper.contents();                       
                         $animate.enter(newContents, element);
                         $animate.leave(oldContents);
                     }

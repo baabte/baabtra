@@ -41,7 +41,7 @@ angular.module('baabtra').directive('feedbackCreator', function() {
           	}
           		// feedbackModel.data=feedbackModel.options;
             	scope.feedbackFormModel.push(feedbackModel);//must pass questionmodel instead of scope.questionmodel
-            	console.log(scope.feedbackFormModel);
+            	// console.log(scope.feedbackFormModel);
             	delete scope.feedbackModel;//questionmodel reset to default
             	scope.feedbackShow=false;//question field hidden after adding question
             };
