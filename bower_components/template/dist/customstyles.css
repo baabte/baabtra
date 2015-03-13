@@ -170,6 +170,7 @@ border-radius: 3px;
 }
 
 .background-properties{
+  background-color: #E0E0E0;
   background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center; 

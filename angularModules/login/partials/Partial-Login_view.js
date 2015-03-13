@@ -2,10 +2,10 @@
 
 angular.module('baabtra').controller('LoginViewCtrl',['$scope','$state','LoginService','localStorageService','$rootScope','commonService','$facebook','$modal', 'GooglePlus','$linkedIn',function($scope,$state,LoginService,localStorageService,$rootScope,commonService,$facebook,$modal,GooglePlus,$linkedIn){
 
-$rootScope.userinfo = {};
-$rootScope.userinfo.ActiveUserData = {};
-$rootScope.userinfo.ActiveUserData.appSettings = {};
-$rootScope.userinfo.ActiveUserData.appSettings.backgroundImage = '../bower_components/template/images/Mainbg/promo2.png';
+// $rootScope.userinfo = {};
+// $rootScope.userinfo.ActiveUserData = {};
+// $rootScope.userinfo.ActiveUserData.appSettings = {};
+// $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage = '../bower_components/template/images/Mainbg/promo2.png';
 
 if(localStorageService.get('logDatas')){
 	if(localStorageService.get('logDatas').length){

@@ -2,10 +2,10 @@
 	<div class="row bg-white">
 		<ul class="nav nav-tabs btn-material-indigo-A400 p-xs baab-shadow" style="border-bottom: #3d5afe 1px solid;">
       				<li class="active" ng-if="data.feedbackRequests.pendingFeedback.length" ng-click="data.feedbackType = 'Pending'" ng-class="{'b-b b-2x b-white':data.feedbackType == 'Pending'}"><a href="#Pending" data-toggle="tab">Pending<b class="badge bg-danger up">{{data.feedbackRequests.pendingFeedback.length}}</b></a></li>
-      				<li ng-if="data.feedbackRequests.submitedFeedback.length" ng-click="data.feedbackType = 'Submited'" ng-class="{'b-b b-2x b-white':data.feedbackType == 'Submited'}"><a href="#Submited" data-toggle="tab">Submited</a></li>
+      				<li ng-if="data.feedbackRequests.submitedFeedback.length" ng-click="data.feedbackType = 'Submited'" ng-class="{'b-b b-2x b-white':(data.feedbackType == 'Submited') || !data.feedbackRequests.pendingFeedback.length}"><a href="#Submited" data-toggle="tab">Submited</a></li>
       			</ul>
       			<div id="myTabContent" class="tab-content">
-      				<div class="tab-pane fade active in p" id="Pending">
+      				<div class="tab-pane fade  p" id="Pending" ng-class="{'active in':data.feedbackRequests.pendingFeedback.length}">
       					<ul class="list-group scrollable hover" style="max-height: 550px;">
 	        		<li class="list-group-item baab-list-item col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="feedbackRequest in data.feedbackRequests.pendingFeedback">
 	          			<a href="" class="pull-left w-thumb m-r b-l b-l-2x b-success"><img src="images/CompanyLogs/company.png" class="img-responsive"></a>
@@ -20,7 +20,7 @@
 	        		</li>
       			</ul>
       				</div>
-      				<div class="tab-pane fade p" id="Submited">
+      				<div class="tab-pane fade p" id="Submited" ng-class="{'active in':!data.feedbackRequests.pendingFeedback.length}">
       					<ul class="list-group scrollable hover" style="max-height: 550px;">
 	        		<li class="list-group-item baab-list-item col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="feedbackRequest in data.feedbackRequests.submitedFeedback">
 	          			<a href="" class="pull-left w-thumb m-r b-l b-l-2x b-success"><img src="images/CompanyLogs/company.png" class="img-responsive"></a>
