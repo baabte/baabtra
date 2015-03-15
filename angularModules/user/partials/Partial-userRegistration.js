@@ -123,7 +123,10 @@ var mandatoryData={};
     }
   }
 
-
+ //delete $scope.allSync.batch.course;
+ //$scope.allSync.batch.startDate=$scope.allSync.batch.startDate.toISOString();
+ $scope.allSync.FormData.batch=$scope.allSync.batch;
+ delete $scope.allSync.batch;
   $scope.userRegister=$scope.allSync.FormData;
   $scope.userRegister.mandatoryData=mandatoryData;
   $scope.userRegister.loggedusercrmid=loggedusercrmid;
@@ -133,7 +136,7 @@ var mandatoryData={};
   // console.log($scope.userRegister);
   delete  $scope.userRegister.role.formSchema;
   delete  $scope.userRegister.role.formSteps;
-// console.log($scope.userRegister);
+ console.log($scope.userRegister);
   var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
 
 
