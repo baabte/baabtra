@@ -243,6 +243,15 @@ angular.module('ui.bootstrap.contextMenu', [])
               // below function will trigger only when the object is built
               var unbindWatchOnThis=$scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if($scope.ItsTimeToSaveDataToDB===true){
+                    //---by arun to create unique code 
+                    // console.log(courseObj.key);
+                     var time=new Date().valueOf();//date in millisecs11
+                     var hashids = new Hashids(courseObj.key,8);//
+                     var code = hashids.encode(time);  
+                     courseObj[courseObj.key].code=code;
+                     // console.log(courseObj);
+                    //--- end by arun to create unique code 
+
                     addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);//saving to database
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once
                     $hide();

@@ -2,7 +2,8 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form name="formRepeat" class=" ng-pristine ng-valid"> 
-      <div class="modal-header">        
+      <div class="modal-header">  
+        <button type="button" class="close" ng-click="$hide()">×</button> 
         <h4 class="modal-title text-primary" translate="{{'Repeat'|translate}}"></h4>
       </div>
       <div class="modal-body">
@@ -10,8 +11,8 @@
            <div class="col-xs-12 col-sm-12">
             <div class="form-group">
                <label for="select" class="control-label" translate="{{'Repeats'|translate}}"></label>
-                <select class="form-control" id="select" ng-model="repeatName" ng-change="fnLoadsubItem(repeatName)" ng-options="rpt.id as rpt.text for rpt in repeatArrays" required  value="{{rpt}}">
-                  <option selected="selected" value="" required  >select an option</option>
+                <select class="form-control" id="select" ng-model="Batch.repeatName" ng-change="fnLoadsubItem(Batch.repeatName)" ng-options="rpt.id as rpt.text for rpt in repeatArrays" required  value="{{rpt}}" required>
+                  <option selected="selected" value=""   >select an option</option>
                   <!-- <option ng-repeat = "repeatArray in repeatArrays"  value="{{repeatArray.id}}">{{repeatArray.text}}</option> -->  
                 </select>
             </div>
@@ -19,13 +20,13 @@
               <div class="row">
                 <div class="col-xs-6">
                <label for="select" class="control-label" translate="{{'Repeat every'|translate}}" ></label>
-                <select class="form-control" id="select" ng-model="Batch.repeats.every" >
-                   <option selected="selected" value="" required >select an option</option>
+                <select class="form-control" id="select" ng-model="Batch.repeats.every" ng-click="fnCalcDays(Batch.repeats.every)" required>
+                   <option selected="selected" value=""  >select an option</option>
                   <option ng-repeat = "row in repeatEvery" value="{{row}}">{{row}}</option>  
                 </select> 
                 </div>
                 <div class="col-xs-6">
-                <label class="m-v" ng-model="repeatType">{{Batch.repeats.repeatType}}</label>
+                <label class="m-v" >{{Batch.repeats.repeatType}}</label>
                 </div>
                 </div>
             </div>
@@ -42,16 +43,16 @@
                     </div>  
                 </div>       
             </div> 
-           <div class="row">
+          <!--  <div class="row">
             <div class="form-group">
-             <input type="text" class="form-control" float-label ng-model="Batch.repeats.startDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="number" data-autoclose="true" data-min-date="today"  name="date1" bs-datepicker required placeholder="{{'Starts On'|translate}}">
+             <input type="text" class="form-control" float-label ng-model="Batch.repeats.startDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="date" data-autoclose="true" data-min-date="today"  name="date1" bs-datepicker required placeholder="{{'Starts On'|translate}}">
             </div>
-           </div>
-           <div class="row">
+           </div> -->
+           <!-- <div class="row">
             <div class="form-group">
-             <input type="text" class="form-control" float-label ng-model="Batch.repeats.endDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="number" data-autoclose="true" data-min-date="today"  name="date2" bs-datepicker required placeholder="{{'Ends On'|translate}}">
+             <input type="text" class="form-control" float-label ng-model="Batch.repeats.endDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="date" data-autoclose="true" data-min-date="today"  name="date2" bs-datepicker required placeholder="{{'Ends On'|translate}}">
             </div> 
-           </div>    
+           </div>   -->  
            </div>  
        
        </div>    
