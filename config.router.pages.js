@@ -566,6 +566,16 @@
                 }
                 
               })
+               .state('home.main.viewBatches', {
+                url: '/viewBatches',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-viewBatches.html',
+                    controller:'ViewbatchesCtrl'
+                  }
+                }
+                
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'
