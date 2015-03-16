@@ -1,31 +1,22 @@
 angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConfig', function userMenuMappingSrv($http,$alert,bbConfig) {
     var thisService=this;
     // To load the existing company users.
-    this.FnGetCompanyDetails=function($scope,prefix,nvType)
+    this.FnGetCompanyDetails=function($scope,range,prefix)
     {
-
       $http({ //headers: {'Content-Type': 'application/json; charset=utf-8'},
             method: 'post',
             url: bbConfig.BWS+'FnGetCompanyDetails/',
-            data: JSON.stringify({'roleId':$scope.roleId,'companyId':$scope.companyId,'firstId':$scope.firstId,'type':nvType,'lastId':$scope.lastId,"searchText":prefix}),
+            data: JSON.stringify({'roleId':$scope.roleId,'companyId':$scope.companyId,'range':range,'prefix':prefix}),
             contentType:'application/json; charset=UTF-8',
            }).
               success(function(data, status, headers, config) { //success respond from server
                 var result=angular.fromJson(JSON.parse(data));
                 $scope.companyDetails=result.company_details;
-
-                if(angular.equals($scope.roleId,1)){
-                $scope.firstId=result.firstId.$oid;
-                $scope.lastId=result.lastId.$oid;
-                }else{
-                  $scope.firstId='';
-                  $scope.lastId='';
-                }
-                //$scope.companyCount=result.company_count;
+                $scope.companyCount=result.company_count;
                 if($scope.ShowNoDataFound){
                   $scope.ShowNoDataFound=false;
                 }
-                if (angular.equals($scope.companyDetails.length,0)) {
+                if (!$scope.companyCount) {
                   $scope.WarringMessage="No Matching User Found";
                   $scope.ShowNoDataFound=true;
                 }
@@ -47,14 +38,14 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConf
            }).
               success(function(data, status, headers, config) {
                 var result=angular.fromJson(JSON.parse(data)); //response from server
-	                if (result!=='') {
+                  if (result!=='') {
                     $scope.ExMenus = result.data;
-console.log($scope.ExMenus );
-	                   $scope.CurrentFkUserRoleMappingId=result.urmId.$oid;
 
-	                $scope.menuRegionId=$scope.ExMenus[0].menuStructure[0].fkmenuRegionId.$oid;
-	                $scope.tree1 = $scope.ExMenus[0].menuStructure[0].regionMenuStructure;
-	                 
+                     $scope.CurrentFkUserRoleMappingId=result.urmId.$oid;
+
+                  $scope.menuRegionId=$scope.ExMenus[0].menuStructure[0].fkmenuRegionId.$oid;
+                  $scope.tree1 = $scope.ExMenus[0].menuStructure[0].regionMenuStructure;
+                   
             var changeObjIdOfMenu=function(menu,sub){
               if(sub==null){
                 sub=0;
@@ -68,7 +59,7 @@ console.log($scope.ExMenus );
               changeObjIdOfMenu(menu,++sub);
             };
             changeObjIdOfMenu($scope.tree1,null);
-	           $scope.menudetails=true;
+             $scope.menudetails=true;
           }
               thisService.FnLoadMenuItems4AUMMapping($scope,$scope.roleId);
                 }).
@@ -153,12 +144,11 @@ this.FnSaveUserMenu=function ($scope){ //function to save the user menus.
              });    
     };
 
-        this.FnLoadUsers=function ($scope,companyId,type){
-
+        this.FnLoadUsers=function ($scope,companyId,range,search_key){
     $http({
 
            url: bbConfig.BWS+'LoadUsers/',
-           data: JSON.stringify({'companyId': companyId,'firstId':$scope.firstId,'type':type,'lastId':$scope.lastId,"searchText":''}),
+           data: JSON.stringify({'companyId': companyId,'prefix': search_key,'range':range}),
            method: 'POST',
            withCredentials: false,
            contentType:'application/json',
@@ -167,21 +157,19 @@ this.FnSaveUserMenu=function ($scope){ //function to save the user menus.
               success(function(data, status, headers, config) {     //success respond from server
                 
                 var result = angular.fromJson(JSON.parse(data)); 
-
-                $scope.UserList=result.userList;                   //filer the user list from respond data
-                //$scope.user_count=result.user_count;
+                console.log(result);   //setting the respond into a  variable
+                $scope.UserList=result.data;                   //filer the user list from respond data
+                $scope.user_count=result.user_count;
                 if($scope.ShowNoDataFound){
                   $scope.ShowNoDataFound=false;
                 }
-                $scope.firstId=result.firstId.$oid;
-                $scope.lastId=result.lastId.$oid;
-                if (angular.equals($scope.UserList.length,0)) {
+                if (!$scope.user_count) {
                   $scope.WarringMessage="No Matching User Found";
                   $scope.ShowNoDataFound=true;
                 }
                 if ($scope.UserList.length>0) {
-					           $scope.ModelUserBox=true;
-                  }//filer the user list from respond data
+          $scope.ModelUserBox=true;
+        }//filer the user list from respond data
               }).
               error(function(data, status, headers, config) {
                 // called asynchronously if an error occurs

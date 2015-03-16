@@ -22,6 +22,14 @@ msgid ""
 "needed.)"
 msgstr "(يمكن إضافة حقل مضمن إلى قالب جواب من المرشح، إذا لزم الأمر)"
 
+#: angularModules/Batches/partials/Partial-manageBatches.html:30
+msgid "(Please specifiy  the Mode of Batch)"
+msgstr "(يرجى تحديد الوضع الدفعي)"
+
+#: angularModules/Batches/partials/Partial-manageBatches.html:45
+msgid "(Please specifiy  the Type of Batch)"
+msgstr "(يرجى تحديد نوع دفعة)"
+
 #: angularModules/course/partials/addCourseStep1.html:53
 msgid "(Please specifiy  the mode of delivery of the course)"
 msgstr "(الرجاء تحديد كيف سيتم تسليم هذا بالطبع)"
@@ -30,7 +38,7 @@ msgstr "(الرجاء تحديد كيف سيتم تسليم هذا بالطبع)
 msgid "(Please specifiy  to which all branches this course is available)"
 msgstr "(الفروع التي هذه الدورة متاحة)"
 
-#: angularModules/course/partials/addCourseStep2.html:54
+#: angularModules/course/partials/addCourseStep2.html:58
 msgid "(Please specify the type of the Course)"
 msgstr "الرجاء تحديد نوع الدورة التدريبية"
 
@@ -74,6 +82,10 @@ msgstr "حول"
 msgid "Academic Details"
 msgstr "تفاصيل الأكاديمية"
 
+#: angularModules/feedback/partials/Partial-createFeedBack.html:33
+msgid "Access type"
+msgstr "نوع الوصول"
+
 #: angularModules/profile/partials/Partial-userProfile.html:162
 #: angularModules/profile/partials/Partial-userProfile.html:175
 msgid "Account Settings"
@@ -97,14 +109,21 @@ msgstr "أضف"
 msgid "Add After"
 msgstr "إضافة بعد"
 
+#: angularModules/Batches/partials/Partial-manageBatches.html:5
+msgid "Add Batch Template"
+msgstr "إضافة قالب دفعة"
+
 #: angularModules/course/partials/Partial-addSubDomain.html:18
 msgid "Add Domain"
 msgstr "إضافة المجال"
 
 #: po/translate/translate.html:8
-#, fuzzy
 msgid "Add Exit Criteria"
-msgstr "حالة إغلاق التّرحيل: %d"
+msgstr "إضافة معايير الخروج"
+
+#: angularModules/feedback/feedbackCreator/directives/Directive-feedbackCreator.html:3
+msgid "Add Feedback Question"
+msgstr "إضافة سؤال"
 
 #: angularModules/company/partials/Partial-addMenu.html:12
 msgid "Add Menu"
@@ -124,14 +143,12 @@ msgid "Add Reseller"
 msgstr "إضافة"
 
 #: po/translate/translate.html:6
-#, fuzzy
 msgid "Add a Course Domain"
-msgstr "إضافة مواد مسار جديد"
+msgstr "إضافة المجال"
 
 #: po/translate/translate.html:5
-#, fuzzy
 msgid "Add a Course Element"
-msgstr "إضافة مواد مسار جديد"
+msgstr "إضافة قالب مادي بالطبع"
 
 #: angularModules/course/partials/Partial-addSubDomain.html:11
 msgid "Add a Domain"
@@ -140,6 +157,14 @@ msgstr "إضافة المجال"
 #: angularModules/Reseller/partials/Partial-reseller.html:6
 msgid "Add a reseller"
 msgstr "إضافة التجزئة"
+
+#: angularModules/Batches/partials/partial-popUpOptions.html:6
+msgid "Add this batch under the courses"
+msgstr "إضافة هذه المجموعة للدورات التالية"
+
+#: angularModules/feedback/feedbackCreator/directives/Directive-feedbackCreator.html:17
+msgid "Add to Feedback"
+msgstr "إضافة"
 
 #: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:93
 msgid "Add to Test"
@@ -197,13 +222,13 @@ msgstr "تاريخ الولادة"
 msgid "Branch Name"
 msgstr "اسم الفرع"
 
-#: angularModules/course/partials/Partial-PublishedCourse.html:91
+#: angularModules/course/partials/Partial-PublishedCourse.html:58
 msgid "Branches"
 msgstr "فروع"
 
 #: po/translate/translate.html:24
 msgid "Bulk Enrollment"
-msgstr ""
+msgstr "الالتحاق السائبة"
 
 #: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:25
 msgid "Can be added by the user"
@@ -213,11 +238,15 @@ msgstr "يمكن أن تضاف من قبل المستخدم"
 msgid "Can be an answer"
 msgstr "هذا يمكن أن يكون جوابا"
 
+#: angularModules/Batches/partials/partial-popUpOptions.html:23
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:60
+#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:38
 #: angularModules/Reseller/partials/Partial-reseller.html:49
 #: angularModules/common/directives/popup-addNewField.html:23
 #: angularModules/company/partials/Partial-addMenu.html:83
 #: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:74
 #: angularModules/courseElementFieldsManaging/partials/Popup-addCourseElementField.html:20
+#: angularModules/feedback/partials/Partial-createFeedBack.html:87
 #: angularModules/login/partials/Popup-userDetails.html:55
 #: angularModules/profile/partials/Partial-userProfile.html:120
 #: angularModules/profile/partials/Partial-userProfile.html:143
@@ -229,9 +258,8 @@ msgid "Cancel"
 msgstr "ألغِ"
 
 #: po/translate/translate.html:15
-#, fuzzy
 msgid "Candidate Course Details"
-msgstr "حفظ"
+msgstr "مرشح تفاصيل الدورة"
 
 #: angularModules/course/partials/Partial-addCourseElement.html:26
 msgid "Change Icon"
@@ -404,54 +432,50 @@ msgstr "البلد"
 #: po/translate/translate.html:239 po/translate/translate.html:240
 #: po/translate/translate.html:241 po/translate/translate.html:242
 #: po/translate/translate.html:243 po/translate/translate.html:244
-#: po/translate/translate.html:28 po/translate/translate.html:29
-#: po/translate/translate.html:30 po/translate/translate.html:31
-#: po/translate/translate.html:32 po/translate/translate.html:33
-#: po/translate/translate.html:34 po/translate/translate.html:35
-#: po/translate/translate.html:36 po/translate/translate.html:37
-#: po/translate/translate.html:38 po/translate/translate.html:39
-#: po/translate/translate.html:40 po/translate/translate.html:41
-#: po/translate/translate.html:42 po/translate/translate.html:43
-#: po/translate/translate.html:44 po/translate/translate.html:45
-#: po/translate/translate.html:46 po/translate/translate.html:47
-#: po/translate/translate.html:48 po/translate/translate.html:49
-#: po/translate/translate.html:50 po/translate/translate.html:51
-#: po/translate/translate.html:52 po/translate/translate.html:53
-#: po/translate/translate.html:54 po/translate/translate.html:55
-#: po/translate/translate.html:56 po/translate/translate.html:57
-#: po/translate/translate.html:58 po/translate/translate.html:59
-#: po/translate/translate.html:60 po/translate/translate.html:61
-#: po/translate/translate.html:62 po/translate/translate.html:63
-#: po/translate/translate.html:64 po/translate/translate.html:65
-#: po/translate/translate.html:66 po/translate/translate.html:67
-#: po/translate/translate.html:68 po/translate/translate.html:69
-#: po/translate/translate.html:70 po/translate/translate.html:71
-#: po/translate/translate.html:72 po/translate/translate.html:73
-#: po/translate/translate.html:74 po/translate/translate.html:75
-#: po/translate/translate.html:76 po/translate/translate.html:77
-#: po/translate/translate.html:78 po/translate/translate.html:79
-#: po/translate/translate.html:80 po/translate/translate.html:81
-#: po/translate/translate.html:82 po/translate/translate.html:83
-#: po/translate/translate.html:84 po/translate/translate.html:85
-#: po/translate/translate.html:86 po/translate/translate.html:87
-#: po/translate/translate.html:88 po/translate/translate.html:89
-#: po/translate/translate.html:90 po/translate/translate.html:91
-#: po/translate/translate.html:92 po/translate/translate.html:93
-#: po/translate/translate.html:94 po/translate/translate.html:95
-#: po/translate/translate.html:96 po/translate/translate.html:97
-#: po/translate/translate.html:98 po/translate/translate.html:99
-#, fuzzy
+#: po/translate/translate.html:33 po/translate/translate.html:34
+#: po/translate/translate.html:35 po/translate/translate.html:36
+#: po/translate/translate.html:37 po/translate/translate.html:38
+#: po/translate/translate.html:39 po/translate/translate.html:40
+#: po/translate/translate.html:41 po/translate/translate.html:42
+#: po/translate/translate.html:43 po/translate/translate.html:44
+#: po/translate/translate.html:45 po/translate/translate.html:46
+#: po/translate/translate.html:47 po/translate/translate.html:48
+#: po/translate/translate.html:49 po/translate/translate.html:50
+#: po/translate/translate.html:51 po/translate/translate.html:52
+#: po/translate/translate.html:53 po/translate/translate.html:54
+#: po/translate/translate.html:55 po/translate/translate.html:56
+#: po/translate/translate.html:57 po/translate/translate.html:58
+#: po/translate/translate.html:59 po/translate/translate.html:60
+#: po/translate/translate.html:61 po/translate/translate.html:62
+#: po/translate/translate.html:63 po/translate/translate.html:64
+#: po/translate/translate.html:65 po/translate/translate.html:66
+#: po/translate/translate.html:67 po/translate/translate.html:68
+#: po/translate/translate.html:69 po/translate/translate.html:70
+#: po/translate/translate.html:71 po/translate/translate.html:72
+#: po/translate/translate.html:73 po/translate/translate.html:74
+#: po/translate/translate.html:75 po/translate/translate.html:76
+#: po/translate/translate.html:77 po/translate/translate.html:78
+#: po/translate/translate.html:79 po/translate/translate.html:80
+#: po/translate/translate.html:81 po/translate/translate.html:82
+#: po/translate/translate.html:83 po/translate/translate.html:84
+#: po/translate/translate.html:85 po/translate/translate.html:86
+#: po/translate/translate.html:87 po/translate/translate.html:88
+#: po/translate/translate.html:89 po/translate/translate.html:90
+#: po/translate/translate.html:91 po/translate/translate.html:92
+#: po/translate/translate.html:93 po/translate/translate.html:94
+#: po/translate/translate.html:95 po/translate/translate.html:96
+#: po/translate/translate.html:97 po/translate/translate.html:98
+#: po/translate/translate.html:99
 msgid "Course"
-msgstr "اختار دورة"
+msgstr "تدريب"
 
-#: angularModules/course/partials/Partial-PublishedCourse.html:74
+#: angularModules/course/partials/Partial-PublishedCourse.html:41
 msgid "Course Domain"
 msgstr "بالطبع المجال"
 
 #: po/translate/translate.html:11
-#, fuzzy
 msgid "Course Drafts"
-msgstr "اختار دورة"
+msgstr "الدورات غير منشورة"
 
 #: angularModules/course/partials/Partial-addCourseElement.html:93
 msgid "Course Elements"
@@ -465,10 +489,17 @@ msgstr "إنشاء مجموعة من القوائم"
 msgid "Create Step"
 msgstr "إنشاء الخطوة"
 
+#: angularModules/feedback/partials/Partial-createFeedBack.html:8
+msgid "Create a feedback"
+msgstr "إنشاء نموذج الملاحظات"
+
 #: po/translate/translate.html:26
-#, fuzzy
 msgid "Create a feedback form"
-msgstr "اسم عرض النموذج"
+msgstr "إنشاء نموذج الملاحظات"
+
+#: angularModules/feedback/partials/Partial-createFeedBack.html:88
+msgid "Create feedback"
+msgstr "إنشاء نموذج الملاحظات"
 
 #: angularModules/login/partials/Partial-updateUserProfilePicture.html:45
 msgid "Cropped Image:"
@@ -487,9 +518,8 @@ msgid "Custom attribute value"
 msgstr "قيمة السمة المخصصة"
 
 #: po/translate/translate.html:14
-#, fuzzy
 msgid "Customize Forms"
-msgstr "صيغ الجموع:"
+msgstr "تخصيص النماذج"
 
 #: angularModules/user/partials/step4_OfficeAdmin.html:9
 msgid "Date of Joining"
@@ -512,6 +542,7 @@ msgstr "وصفي"
 msgid "Designation"
 msgstr "تعيين"
 
+#: angularModules/feedback/feedbackCreator/directives/Directive-feedbackCreator.html:12
 #: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:89
 msgid "Discard"
 msgstr "نبذ"
@@ -535,7 +566,18 @@ msgstr "هل لديك تسمية لهذا"
 msgid "Domain Name"
 msgstr "اسم المجال"
 
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:61
+#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:39
+msgid "Done"
+msgstr "موافق"
+
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:34
+#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:13
+msgid "Dont Start On"
+msgstr "لا أميل تبدأ يوم"
+
 #: angularModules/course/partials/Partial-draftedCourses.html:5
+#: po/translate/translate.html:32
 msgid "Drafted Courses"
 msgstr "المسودات بالطبع"
 
@@ -579,6 +621,15 @@ msgstr "عنوان البريد الإلكتروني"
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:118
 msgid "Embeddable fields:"
 msgstr "حقول [امبدبل]"
+
+#: angularModules/Batches/partials/Partial-manageBatches.html:54
+msgid "End Time"
+msgstr "وقت الانتهاء"
+
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:52
+#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:31
+msgid "Ends On"
+msgstr "تاريخ الانتهاء"
 
 #: angularModules/company/partials/Partial-manage_user_role.html:47
 #: angularModules/company/partials/Partial-manage_user_role.html:49
@@ -650,14 +701,29 @@ msgid "Fax"
 msgstr "فاكس"
 
 #: po/translate/translate.html:17
-#, fuzzy
 msgid "Feature Configuration"
-msgstr "تهيئة الحزمة"
+msgstr "تكوين ميزة"
 
+#: angularModules/reports/partials/Partial-feedbackReportList.html:2
+msgid "Feedback List"
+msgstr "اعرض فندق التغذية المرتدة"
+
+#: angularModules/reports/partials/Partial-feedbackReport.html:3
 #: po/translate/translate.html:27
-#, fuzzy
 msgid "Feedback Report"
-msgstr "بلغ عن _علّة"
+msgstr "تقارير بشأن التغذية المرتدة"
+
+#: angularModules/feedback/partials/Partial-createFeedBack.html:58
+msgid "Feedback about"
+msgstr "ول"
+
+#: angularModules/feedback/partials/Partial-createFeedBack.html:26
+msgid "Feedback description"
+msgstr "وصف"
+
+#: angularModules/feedback/partials/Partial-createFeedBack.html:16
+msgid "Feedback title"
+msgstr "اسم التغذية المرتدة"
 
 #: angularModules/user/partials/step1_UserInfo.html:61
 msgid "Female"
@@ -689,7 +755,7 @@ msgstr "اسم عرض النموذج"
 msgid "Form Name"
 msgstr "الاسم من شكل"
 
-#: angularModules/course/partials/addCourseStep2.html:44
+#: angularModules/course/partials/addCourseStep2.html:45
 msgid "Free"
 msgstr "حر"
 
@@ -744,9 +810,13 @@ msgstr "منزل"
 msgid "Icon"
 msgstr "أيقونة"
 
-#: angularModules/course/partials/addCourseStep2.html:87
+#: angularModules/course/partials/addCourseStep2.html:94
 msgid "Installments"
 msgstr "على أقساط"
+
+#: angularModules/Batches/partials/Partial-manageBatches.html:41
+msgid "Instructor Lead"
+msgstr "مدرب يؤدي بالطبع"
 
 #: angularModules/user/partials/step4_OfficeAdmin.html:38
 msgid "Its Great You did it!"
@@ -801,6 +871,10 @@ msgstr "المكان"
 msgid "Log In"
 msgstr "تسجيل الدخول"
 
+#: angularModules/login/partials/Partial-sm_User_Menu.html:39
+msgid "LogOut"
+msgstr "تسجيل الخروج"
+
 #: angularModules/login/partials/Partial-addSocialInfo.html:7
 msgid "Login"
 msgstr "تسجيل الدخول"
@@ -814,46 +888,52 @@ msgid "Manage"
 msgstr "تحرير معلومات عن الشركة"
 
 #: po/translate/translate.html:7
-#, fuzzy
 msgid "Manage Branches"
-msgstr "فروع محددة"
+msgstr "إدارة الفروع"
 
 #: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:5
 msgid "Manage Course Element Fields"
 msgstr "تحرير الحقول للمواد الدراسية"
 
+#: po/translate/translate.html:29
+msgid "Manage Courses"
+msgstr "دورات تدريبية"
+
+#: po/translate/translate.html:28
+msgid "Manage Job"
+msgstr "إدارة الوظائف"
+
+#: po/translate/translate.html:1
+msgid "Manage Menu"
+msgstr "مدير القائمة"
+
 #: po/translate/translate.html:2
-#, fuzzy
 msgid "Manage Menu for Roles"
-msgstr "تحرير أدوار الشركة"
+msgstr "القائمة تحرير لأدوار"
 
 #: po/translate/translate.html:4
 msgid "Manage Menu for Users"
-msgstr ""
-
-#: po/translate/translate.html:1
-#, fuzzy
-msgid "Manage Menus"
-msgstr "القوائم الحالية"
+msgstr "تعيين قائمة المستخدم"
 
 #: po/translate/translate.html:20
-#, fuzzy
 msgid "Manage Plan"
-msgstr "اسم الخطة"
+msgstr "تعديل خطط"
+
+#: po/translate/translate.html:31
+msgid "Manage Users"
+msgstr "إدارة المستخدمين"
 
 #: po/translate/translate.html:23
-#, fuzzy
 msgid "Manage batches"
-msgstr "إ&دارة العناوين المفضلة..."
+msgstr "تحرير دفعات"
 
 #: angularModules/company/partials/Partial-manage_user_role.html:2
 msgid "Manage company roles"
 msgstr "تحرير أدوار الشركة"
 
 #: po/translate/translate.html:22
-#, fuzzy
 msgid "Manage course element Fields"
-msgstr "تحرير الحقول للمواد الدراسية"
+msgstr "تحرير المواد بالطبع إدخال الحقول"
 
 #: angularModules/user/partials/step1_UserInfo.html:70
 msgid "Marital Status"
@@ -903,10 +983,11 @@ msgstr "الحد الأدنى للراتب"
 msgid "Mobile Number"
 msgstr "رقم الهاتف المحمول"
 
-#: angularModules/course/partials/Partial-PublishedCourse.html:99
+#: angularModules/course/partials/Partial-PublishedCourse.html:66
 msgid "Mode of Course"
 msgstr "النمط الدراسي"
 
+#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:43
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:72
 msgid "Multi Answer"
 msgstr "إجابات متعددة"
@@ -948,6 +1029,7 @@ msgid "Nestable Elements"
 msgstr "عناصر Nestable"
 
 #: angularModules/course/partials/addCourseStep1.html:176
+#: angularModules/course/partials/addCourseStep2.html:131
 msgid "Next"
 msgstr "التالى"
 
@@ -958,7 +1040,7 @@ msgstr "التالى"
 msgid "Next Section"
 msgstr "القسم التالي"
 
-#: angularModules/course/partials/Partial-PublishedCourse.html:157
+#: angularModules/course/partials/Partial-PublishedCourse.html:124
 msgid "No Matching Courses Found."
 msgstr "لا توجد مقررات دراسية مطابقة تم العثور عليها"
 
@@ -968,14 +1050,15 @@ msgstr "عدد الوحدات"
 
 #: angularModules/company/partials/Partial-company_view.html:83
 #: angularModules/company/partials/Partial-userMenuMapping.html:90
-#: angularModules/course/partials/Partial-PublishedCourse.html:157
+#: angularModules/course/partials/Partial-PublishedCourse.html:124
 msgid "Not Found!"
 msgstr "لم يتم العثور على!"
 
-#: angularModules/Batches/partials/Partial-manageBatches.html:47
+#: angularModules/Batches/partials/Partial-manageBatches.html:61
 msgid "Number of seats"
 msgstr "عدد المقاعد"
 
+#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:26
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:48
 msgid "Objective"
 msgstr "نوع موضوعي"
@@ -984,7 +1067,8 @@ msgstr "نوع موضوعي"
 msgid "Office Admin"
 msgstr "مكتب المشرف"
 
-#: angularModules/course/partials/Partial-PublishedCourse.html:102
+#: angularModules/Batches/partials/Partial-manageBatches.html:36
+#: angularModules/course/partials/Partial-PublishedCourse.html:69
 #: angularModules/course/partials/addCourseStep1.html:48
 #: angularModules/course/partials/addCourseStep1.html:49
 msgid "Offline"
@@ -994,16 +1078,18 @@ msgstr "غير متصل"
 msgid "On Submit"
 msgstr "عندما أكملت"
 
-#: angularModules/course/partials/addCourseStep2.html:80
+#: angularModules/Batches/partials/Partial-manageBatches.html:19
+#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:6
+#: angularModules/course/partials/addCourseStep2.html:85
 msgid "Onetime"
 msgstr "مرة واحدة"
 
-#: angularModules/course/partials/Partial-PublishedCourse.html:101
+#: angularModules/course/partials/Partial-PublishedCourse.html:68
 #: angularModules/course/partials/addCourseStep1.html:41
 msgid "Online"
 msgstr "على الانترنت"
 
-#: angularModules/course/partials/addCourseStep2.html:51
+#: angularModules/course/partials/addCourseStep2.html:54
 msgid "Paid"
 msgstr "مدفوع"
 
@@ -1042,6 +1128,10 @@ msgstr "اسم الخطة"
 msgid "Please choose a logo..."
 msgstr "الرجاء اختيار شعار"
 
+#: angularModules/Batches/partials/Partial-manageBatches.html:83
+msgid "Please click this link for adding batch to existing Courses"
+msgstr "الرجاء النقر فوق هذا الارتباط لإضافة دفعة إلى الدورات الحالية"
+
 #: angularModules/course/partials/addCourseStep1.html:158
 msgid "Please select an image to represent the course"
 msgstr "يرجى تحديد صورة لتمثيل بالطبع"
@@ -1054,14 +1144,13 @@ msgstr ""
 "يرجى تحديد المجالات المطبقة على (على سبيل المثال: المحاسبة الضيافة وما إلى "
 "ذلك)"
 
-#: angularModules/course/partials/addCourseStep2.html:101
+#: angularModules/course/partials/addCourseStep2.html:109
 msgid "Please specify the payment type"
 msgstr "يرجى تحديد نوع الدفع"
 
 #: po/translate/translate.html:12
-#, fuzzy
 msgid "Post A Job"
-msgstr "نشر شاغر الوظيفة"
+msgstr "نشر ألف وظيفة شاغرة"
 
 #: angularModules/company/partials/Partial-JobPosting.html:45
 msgid "Post Job"
@@ -1094,6 +1183,7 @@ msgstr "خصوصية"
 
 #: angularModules/course/partials/addCourseStep1.html:139
 #: angularModules/course/partials/addCourseStep1.html:140
+#: angularModules/feedback/partials/Partial-createFeedBack.html:43
 msgid "Private"
 msgstr "الوصول الخاص"
 
@@ -1101,24 +1191,27 @@ msgstr "الوصول الخاص"
 msgid "Professional Experience"
 msgstr "الخبرة المهنية"
 
+#: angularModules/login/partials/Partial-sm_User_Menu.html:23
+msgid "Profile"
+msgstr "الملف الشخصي"
+
 #: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:61
 msgid "Properties Template"
 msgstr "قالب الملكية"
 
 #: angularModules/course/partials/addCourseStep1.html:132
 #: angularModules/course/partials/addCourseStep1.html:133
+#: angularModules/feedback/partials/Partial-createFeedBack.html:37
 msgid "Public"
 msgstr "الوصول العام"
 
 #: po/translate/translate.html:3
-#, fuzzy
 msgid "Publish a Course"
-msgstr "اختار دورة"
+msgstr "إضافة دورة تدريبية"
 
 #: po/translate/translate.html:19
-#, fuzzy
 msgid "Published Courses"
-msgstr "بلدي الدورات"
+msgstr "الدورات المنشورة"
 
 #: angularModules/company/partials/Partial-JobPosting.html:22
 #: angularModules/company/partials/Partial-editJobDetailsModal.html:21
@@ -1130,6 +1223,8 @@ msgstr "المؤهل"
 msgid "Qualifying Score"
 msgstr "المؤهلة نقاط"
 
+#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:16
+#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:7
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:12
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:38
 msgid "Question"
@@ -1147,14 +1242,14 @@ msgstr "تظهر أسئلة على"
 msgid "Questions per page"
 msgstr "الأسئلة لكل صفحة"
 
-#: po/translate/translate.html:21
-msgid "REGISTER COMPANY"
-msgstr "تسجيل الشركة"
-
 #: angularModules/company/partials/Partial-company_registration.html:191
 #: angularModules/user/partials/Partial-bulkEnrollment.html:12
 msgid "Register"
 msgstr "تسجل"
+
+#: po/translate/translate.html:21
+msgid "Register Company"
+msgstr "تسجيل الشركة"
 
 #: angularModules/company/partials/Partial-company_registration.html:12
 msgid "Register a company"
@@ -1173,14 +1268,36 @@ msgstr "الشركات المسجلة"
 msgid "Remove my avatar"
 msgstr "إزالة بلدي بس"
 
+#: angularModules/Batches/partials/Partial-manageBatches.html:25
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:6
+msgid "Repeat"
+msgstr "كرر"
+
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:21
+msgid "Repeat every"
+msgstr "تكرار في كل"
+
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:12
+msgid "Repeats"
+msgstr "يكرر"
+
 #: angularModules/reports/partials/Partial-userReport.html:25
 msgid "Report type"
 msgstr "نوع التقرير"
+
+#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:9
+msgid "Response"
+msgstr "استجابة"
+
+#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:8
+msgid "Response  type"
+msgstr "نوع الاستجابة"
 
 #: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:32
 msgid "Result Mode"
 msgstr "وضع النتيجة"
 
+#: angularModules/Batches/partials/partial-popUpOptions.html:24
 #: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:75
 #: angularModules/courseElementFieldsManaging/partials/Popup-addCourseElementField.html:21
 #: angularModules/form/partials/customizeForm.html:12
@@ -1258,7 +1375,7 @@ msgstr "اختر الدولة"
 msgid "Select a detail type"
 msgstr "اختر نوع التفاصيل"
 
-#: angularModules/course/partials/addCourseStep2.html:94
+#: angularModules/course/partials/addCourseStep2.html:102
 msgid "Select a payment type"
 msgstr "اختر نوع الدفع"
 
@@ -1277,6 +1394,10 @@ msgstr "حدد نوع الترقيم"
 #: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:43
 msgid "Select palette"
 msgstr "حدد نوع الإدخال"
+
+#: angularModules/feedback/partials/Partial-createFeedBack.html:48
+msgid "Select roles"
+msgstr "اختر الأدوار"
 
 #: angularModules/form/partials/customizeForm.html:18
 msgid "Selected Step Name"
@@ -1310,6 +1431,7 @@ msgstr "سجل"
 msgid "Single"
 msgstr "وحيد"
 
+#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:36
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:65
 msgid "Single Answer"
 msgstr "إجابة واحدة"
@@ -1330,6 +1452,15 @@ msgstr "تخصص"
 msgid "Specific Branches"
 msgstr "فروع محددة"
 
+#: angularModules/Batches/partials/Partial-manageBatches.html:50
+msgid "Start Time"
+msgstr "وقت البدء"
+
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:47
+#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:26
+msgid "Starts On"
+msgstr "تاريخ بدء"
+
 #: angularModules/company/partials/Partial-company_registration.html:107
 #: angularModules/user/partials/step2_UserInfo.html:21
 msgid "State"
@@ -1339,7 +1470,7 @@ msgstr "الدولة"
 msgid "Submit"
 msgstr "حفظ"
 
-#: angularModules/course/partials/Partial-PublishedCourse.html:107
+#: angularModules/course/partials/Partial-PublishedCourse.html:74
 msgid "Tags"
 msgstr "العلامات"
 
@@ -1347,11 +1478,11 @@ msgstr "العلامات"
 msgid "Take me to classroom"
 msgstr "يأخذني إلى غرفة الصف"
 
-#: angularModules/course/partials/Partial-PublishedCourse.html:83
+#: angularModules/course/partials/Partial-PublishedCourse.html:50
 msgid "Technologies"
 msgstr "تكنولوجيا"
 
-#: angularModules/course/partials/addCourseStep2.html:111
+#: angularModules/course/partials/addCourseStep2.html:119
 msgid "The time line below represents the total duration of the course."
 msgstr "خط الزمن أدناه يمثل المدة الإجمالية من مسار"
 
@@ -1368,7 +1499,7 @@ msgstr "إلى"
 msgid "Total  Mark"
 msgstr "مجموع العلامات"
 
-#: angularModules/course/partials/addCourseStep2.html:60
+#: angularModules/course/partials/addCourseStep2.html:64
 msgid "Total Amount"
 msgstr "المبلغ الإجمالي"
 
@@ -1439,16 +1570,15 @@ msgstr "مسوغات المستخدم"
 
 #: angularModules/form/partials/selectForm.html:6
 msgid "User Customizable Form List"
-msgstr ""
+msgstr "العضو تخصيص أشكال"
 
 #: angularModules/company/partials/Partial-company_registration.html:144
 msgid "User Name"
 msgstr "اسم المستخدم"
 
 #: po/translate/translate.html:9
-#, fuzzy
 msgid "User Registration"
-msgstr "%s - مستخدم الملقم"
+msgstr "تسجيل المستخدم"
 
 #: angularModules/reports/partials/Partial-userReport.html:1
 #: angularModules/user/partials/Partial-bulkEnrollment.html:2
@@ -1456,27 +1586,29 @@ msgid "User Report"
 msgstr "تقارير المستعمل"
 
 #: po/translate/translate.html:18
-#, fuzzy
 msgid "User Reports"
-msgstr "%s - مستخدم الملقم"
+msgstr "تقارير المستعمل"
 
 #: angularModules/login/partials/Partial-Login_view.html:28
 msgid "Username"
 msgstr "اسم المستخدم"
+
+#: angularModules/feedback/partials/Partial-createFeedBack.html:21
+msgid "Valid until"
+msgstr "صالحة حتى"
 
 #: angularModules/feature/partials/Partial-feature_config.html:105
 msgid "Validation"
 msgstr "التحقق من صحة"
 
 #: po/translate/translate.html:13
-#, fuzzy
 msgid "View Jobs"
-msgstr "البحث عن وظائف..."
+msgstr "عرض الوظائف"
 
+#: angularModules/user/partials/Partial-viewUsers.html:2
 #: po/translate/translate.html:25
-#, fuzzy
 msgid "View Users"
-msgstr "المستخدمين تحت الشركة"
+msgstr "عرض المستخدمين"
 
 #: angularModules/company/partials/Partial-addMenu.html:59
 msgid "Visible to user"
@@ -1486,11 +1618,11 @@ msgstr "مرئية للمستخدم"
 msgid "Website url"
 msgstr "رابط الموقع"
 
-#: angularModules/questionRelated/objectiveOptionsField/directives/Directive-objectiveOptionsField.html:20
+#: angularModules/questionRelated/objectiveOptionsField/directives/Directive-objectiveOptionsField.html:15
 msgid "Why / Why not this answer (optional)"
 msgstr "لماذا / لماذا لا هذا الجواب (اختياري)"
 
-#: angularModules/course/partials/addCourseStep2.html:113
+#: angularModules/course/partials/addCourseStep2.html:121
 msgid ""
 "You can click on any point in the timeline and add a payment check point. A "
 "payment check point means an intermediate point of time during the course "
@@ -1534,7 +1666,6 @@ msgid "back to sign in"
 msgstr "ارجع إلى تسجيل الدخول"
 
 #: angularModules/company/partials/Partial-manage_user_role.html:23
-#: angularModules/company/partials/Partial-manage_user_role.html:25
 #: angularModules/profile/partials/Partial-userProfile.html:193
 msgid "cancel"
 msgstr "ألغِ"
@@ -1542,6 +1673,10 @@ msgstr "ألغِ"
 #: angularModules/profile/partials/Partial-userProfile.html:220
 msgid "change secondary email and mobile number"
 msgstr "تغيير البريد الإلكتروني الثانوي ورقم الجوال"
+
+#: angularModules/feedback/partials/Partial-createFeedBack.html:62
+msgid "choose an option"
+msgstr "اختر خيار"
 
 #: angularModules/feature/partials/Partial-feature_config.html:20
 msgid "description"
@@ -1554,6 +1689,10 @@ msgstr "GPLUS رابط"
 #: angularModules/login/partials/Partial-addSocialInfo.html:25
 msgid "log in"
 msgstr "تسجيل الدخول"
+
+#: po/translate/translate.html:30
+msgid "manage Roles"
+msgstr "إدارة الأدوار"
 
 #: angularModules/profile/partials/Partial-userProfile.html:114
 msgid "place and Birth date"
@@ -1571,16 +1710,20 @@ msgstr "عرض المزيد .."
 msgid "update profile picture"
 msgstr "تحديث صورة الملف الشخصي"
 
-#: angularModules/company/partials/Partial-manage_user_role.html:25
-msgid "{{btnRoleAdd}}"
-msgstr ""
-
 #: angularModules/login/partials/Partial-home.html:19
 #, fuzzy
 msgid "{{menu.MenuName}}"
 msgstr "قائمة بالروابط القائمة"
 
-#~ msgid "Register Company"
+#: views/partials/aside.nav.pages.html:14
+#, fuzzy
+msgid "{{path.MenuName}}"
+msgstr "المسار الأساس:"
+
+#~ msgid "MANAGE MENU"
+#~ msgstr "قائمة تحرير"
+
+#~ msgid "REGISTER COMPANY"
 #~ msgstr "تسجيل الشركة"
 
 #, fuzzy
