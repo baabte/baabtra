@@ -52,6 +52,8 @@ angular.module('baabtra').controller('FeedbackdetailsCtrl',['$scope', '$rootScop
 
 		var saveUserFeedbackResponse = viewFeedback.fnSaveUserFeedback($state.params.feedBackId ,response, $scope.rm_id);
 				saveUserFeedbackResponse.then(function(response){
+					 $rootScope.data.userNotification = angular.fromJson(JSON.parse(response.data));
+          			 $rootScope.data.userNotification.notification = $rootScope.data.userNotification.notification.reverse()
 					 $alert({title: 'Success!', content: 'Feedback submited successfuly...', placement: 'top-right', duration:3, type: 'success', show: true});
 					 $state.go('home.main.viewFeedbackRequest');
 				});

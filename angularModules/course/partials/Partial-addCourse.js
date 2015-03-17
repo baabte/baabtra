@@ -249,6 +249,10 @@ $scope.loadTechnologies = function(Query){
 $scope.loadTags =function(Query){
     return $scope.globalValues.tags;
 };
+
+$scope.loadDesignation = function (Query) {
+  return $scope.globalValues.Designation;
+};
     $scope.course.crmId = $scope.rm_id.$oid;
     $scope.course.companyId =  $scope.cmp_id.$oid;
     $scope.course.urmId = $scope.rm_id.$oid;
