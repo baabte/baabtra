@@ -1,20 +1,20 @@
 angular.module('baabtra').service('viewBatches',['bbConfig','$http',function(bbConfig,$http) {
 
 //function to load the batches
- this.viewBatchesForManage=function($scope){
+ this.viewBatchesForManage=function($scope,firstId,type,lastId,searchKey){
  	var promise = $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'fnLoadBatchesForView/',
-	    data:{"companyId":$scope.companyId}
+	    data:{"companyId":$scope.companyId,"firstId":firstId,"type":type,"lastId":lastId,"searchKey":searchKey}
 	 });
 	return promise;
  };	
 
- this.viewMenteesForManage=function($scope){
+ this.viewMenteesForManage=function($scope,firstId,type,lastId,searchKey){
  	var promise = $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'fnLoadMenteesForView/',
-	    data:{"companyId":$scope.companyId,"firstId":$scope.batchObj.mfirstId,"type":$scope.batchObj.mtype,"lastId":$scope.batchObj.mlastId}
+	    data:{"companyId":$scope.companyId,"firstId":firstId,"type":type,"lastId":lastId,"searchKey":searchKey}
 	 });
 	return promise;
  }	

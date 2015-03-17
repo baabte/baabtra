@@ -12,37 +12,30 @@ angular.module('baabtra').directive('batchView',['$filter', function($filter) {
 			scope.$watch('batch',function(){
 
 				scope.actions = [
-				  {
-				    "text": "<i class=\"fa fa-download\"></i>&nbsp;View mentees",
-				    "click": "fnViewMentees()"
-				  },
-				  {
-				    "text": "<i class=\"fa fa-globe\"></i>&nbsp;Mark attendance",
-				     "click": "fnMarkAttendance()"
-				  },
-				  {
-				    "text": "<i class=\"fa fa-external-link\"></i>&nbsp;Assign a course material",
-				    "click": "fnAssignMaterial()"
-				   
-				  },
-				  {
-				    "text": "<i class=\"fa fa-external-link\"></i>&nbsp;Evalute",
-				    "click": "fnEvaluate()"
-				   
-				  }/*,
-				  {
-				    "divider": true
-				  },
-				  {
-				    "text": "Separated link",
-				    "href": "#separatedLink"
-				  }*/
+				{
+				"text": "<i class=\"fa fa-users\"></i>&nbsp;View mentees",
+				"click": "fnViewMentees()"
+				},
+				{
+				"text": "<i class=\"fa fa-globe\"></i>&nbsp;Mark attendance",
+				 "click": "fnMarkAttendance()"
+				},
+				{
+				"text": "<i class=\"fa fa-paperclip\"></i>&nbsp;Assign a course material",
+				"click": "fnAssignMaterial()"
+
+				},
+				{
+				"text": "<i class=\"fa fa-external-link\"></i>&nbsp;Evalute",
+				"click": "fnEvaluate()"
+
+				}
 				];
 
 				if(scope.batch.batchMode=="onetime"){
-					scope.description = '<div class="text-xs">Starting date '+$filter('date')(scope.batch.batch.startDate)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />Duration:'+scope.batch.batch.seats+'days</div>';
+					scope.description = '<div class="text-xs">Starting date '+$filter('date')(scope.batch.startDate.startDate)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />Duration:'+scope.batch.seats+'days</div>';
 				}else{
-					scope.description = '<div class="text-xs">Starting date '+$filter('date')(scope.batch.batch.startDate)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />Duration: Repeats each '+scope.batch.batch.repeats.repeatsAfter+'days</div>';
+					scope.description = '<div class="text-xs">Starting date '+$filter('date')(scope.batch.startDate.startDate)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />Duration: Repeats each '+scope.batch.repeats.repeatsAfter+'days</div>';
 				}
 			});
 

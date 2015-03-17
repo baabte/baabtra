@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('menteeView', function() {
+angular.module('baabtra').directive('menteeView',['$state', function($state) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -11,15 +11,19 @@ angular.module('baabtra').directive('menteeView', function() {
 
 			scope.actions = [
 			{
-			"text": "<i class=\"fa fa-download\"></i>&nbsp;View mentees",
-			"click": "fnViewMentees()"
+			"text": "<i class=\"fa fa-user\"></i>&nbsp;View profile",
+			 "click": "fnViewProfile()"
+			},
+			{
+			"text": "<i class=\"fa fa-globe\"></i>&nbsp;View course",
+			 "click": "fnViewCourse()"
 			},
 			{
 			"text": "<i class=\"fa fa-globe\"></i>&nbsp;Mark attendance",
 			 "click": "fnMarkAttendance()"
 			},
 			{
-			"text": "<i class=\"fa fa-external-link\"></i>&nbsp;Assign a course material",
+			"text": "<i class=\"fa fa-paperclip\"></i>&nbsp;Assign a course material",
 			"click": "fnAssignMaterial()"
 
 			},
@@ -27,15 +31,23 @@ angular.module('baabtra').directive('menteeView', function() {
 			"text": "<i class=\"fa fa-external-link\"></i>&nbsp;Evalute",
 			"click": "fnEvaluate()"
 
-			}/*,
-			{
-			"divider": true
-			},
-			{
-			"text": "Separated link",
-			"href": "#separatedLink"
-			}*/
+			}
 			];
+
+			//function to view the profile
+			scope.fnViewProfile=function(){
+				$state.go("home.main.userProfile",{userId:scope.menteeObj.fkUserLoginId.$oid});
+			};
+
+			//function to view course
+			scope.fnViewCourse=function(){
+				$state.go("home.main.course",{courseId:scope.menteeObj.fkCourseId.$oid});
+			};
+
+			//function to view course
+			scope.fnAssignMaterial=function(){
+				$state.go("home.main.assignCourseMaterial",{userId:scope.menteeObj.fkUserRoleMappingId.$oid});
+			};
 		}
 	};
-});
+}]);

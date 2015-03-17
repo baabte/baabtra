@@ -9,7 +9,7 @@
 				            <span class="icon-bar"></span>
 				            <span class="icon-bar"></span>
 				        </button>
-				        <a class="navbar-brand" href="javascript:void(0)" translate="{{'View Batches'|translate}}"></a>
+				        <a class="navbar-brand" href="" translate="{{'View Batches'|translate}}"></a>
 				    </div>
 				    <div class="navbar-collapse collapse navbar-inverse-collapse">
 	                    <ul class="nav navbar-nav" role="tablist">
@@ -36,12 +36,12 @@
 		                    <div class="col-xs-6">
 		                        <form class="pull-left">
 		                         <!--  <input  ng-model="modelSearch" type="text" class="form-control input-sm no-border" placeholder="{{placeholderVal}}..."> -->
-		                         <input type="text" ng-model="modelSearch" class="form-control col-xs-8" placeholder="{{'Search'|translate}}">
+		                         <input type="text" ng-model="searchText" ng-change="fnSearchBatchMentee(searchText)" class="form-control col-xs-8" placeholder="{{'Search'|translate}}">
 		                        </form></div>
 		                      <div class="col-xs-6">
 		                        <div class="btn-group pull-right">
-		                        	<button type="button" class="btn btn-material-green-200" ng-click="prev_one()"><i class="fa fa-fw fa-angle-left"></i></button>
-		                       		<button type="button" class="btn btn-material-green-200" ng-click="next_one()"><i class="fa fa-fw fa-angle-right"></i></button>
+		                        	<button type="button" ng-disabled="prevButtonDesabled"  class="btn btn-material-green-200" ng-click="pagination('prev')"><i class="fa fa-fw fa-angle-left"></i></button>
+		                       		<button type="button" ng-disabled="nextButtonDesabled" class="btn btn-material-green-200" ng-click="pagination('next')"><i class="fa fa-fw fa-angle-right"></i></button>
 		                        
 		                    	</div>
 		                      </div>
@@ -49,16 +49,27 @@
               		</div>
               		<div class="row"><!--Directive to load batches -->
               		   <div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-							<div masonry-tile class="tile col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" ng-show="activeTab" ng-repeat="batch in batchObj.batchList">
+							<div masonry-tile class="tile col-lg-3 col-md-4 col-sm-6 col-xs-12 p-sm" ng-if="activeTab=='true'" ng-repeat="batch in batchObj.batchList">
 	            				<batch-view batch="batch" action-flag="true"> 
 	            				</batch-view>
 	            			</div>
-	            			<div masonry-tile class="tile col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" ng-hide="activeTab" ng-repeat="mentee in batchObj.menteeList">
+	            			<div masonry-tile class="tile col-lg-3 col-md-4 col-sm-6 col-xs-12 p-sm" ng-if="activeTab=='false'" ng-repeat="mentee in batchObj.menteeList">
 	            				<mentee-view mentee-obj="mentee" action-flag="true"> <!--Directive to load batches -->
 	            				</mentee-view>
 	            			</div>
+
 	            		</div>
+	            		<!-- <div class="">
+						<div class="list-group bg-primary bg-inherit">
+										        <a href="" class="list-group-item">
+										          <span class="pull-right text-muted"></span>
+										          Consectetur adipiscing elit.
+										        </a>
+									        </div>
+
+						</div> -->
 	            	</div>
+
 	            	<!-- <div class="row">
 	            		<div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}' ng-hide="activeTab">
             				
@@ -66,10 +77,6 @@
 	            	</div> -->
 	            </div>
 		<!-- </div> -->
-	</div>
-	<div class="row">
-		
-
 	</div>
 
 </div>
