@@ -1,0 +1,14 @@
+<ul class="dropdown-menu b-white shadow-z-1 w-lg"  style="max-height: 297px;
+  overflow-y: auto;">
+  <li class="baab-list-item" ui-sref="home.main.viewDetails({feedBackId:notification.typeId.$oid})" ng-repeat="notification in $root.data.userNotification.notification">
+    <div class="p-xs" ng-class="{'b-b':$index+1 <  $root.data.userNotification.notification.length}">
+      <div class="">
+        <a href="" class="pull-left w-thumb m-r"><img src="images/CompanyLogs/company.png" class="img-responsive"></a>
+      </div>
+      <div>
+        <div>Feedback on {{notification.message}}</div>
+        <div class="text-muted text-xs text-right">{{notification.date.$date |  date:"MM/dd/yyyy 'at' h:mma"}}</div>
+      </div>
+    </div>
+  </li>
+</ul>

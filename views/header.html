@@ -43,6 +43,13 @@
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right m-r-n ">
           <li>
+            <a href=""  data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
+              <i class="fa fa-bell text-lg m-v-xs" ></i>
+              <b class="badge bg-danger up" ng-if="$root.data.userNotification.notification.length > 0">{{$root.data.userNotification.notification.length}}</b>
+
+            </a>
+          </li>
+          <li>
             <script type="text/ng-template" id="settings">
               <div tabindex="-1" class="p dropdown-menu bg-white bg-inherit no-b-t no-margin w-sm" role="menu">                
                 <p class="clearfix">
@@ -62,6 +69,7 @@
               <span class="visible-xs-inline" translate="{{'Settings'|translate}}"></span>
             </a>
           </li>
+          
 <!--           <li>
             <a href 
               bs-aside="aside" 

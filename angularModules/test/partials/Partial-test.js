@@ -47,7 +47,7 @@ $scope.feedbackFormModel=[{"type":"objective","options":[{"Name":"a","value":"sd
 
  var time=(new Date()).valueOf();
        var hashids = new Hashids("test");
-        $scope.code = hashids.encode(time);   
+       $scope.code = hashids.encode(time);   
 console.log($scope.code);
 
 });																																																																								 																			
