@@ -7,8 +7,16 @@ angular.module('baabtra').controller('AssigncoursematerialCtrl',['$scope','$root
 		loadCourseDDl=assignCourseMaterial.loadCourses4AssigningCourseMaterial($scope,$stateParams.userId);
 		loadCourseDDl.then(function(response){ //promise for batch load
 			$scope.courseObj.courseList=angular.fromJson(JSON.parse(response.data));
-			console.log($scope.courseObj.courseList);
+			
 		});
 	});
+
+	$scope.loadCourseMaterials=function(){
+		loadCourseMater=assignCourseMaterial.loadCourses4AssigningCourseMaterial($scope,$stateParams.userId);
+		loadCourseDDl.then(function(response){ //promise for batch load
+			$scope.courseObj.courseList=angular.fromJson(JSON.parse(response.data));
+			
+		});
+	};
 
 }]);
