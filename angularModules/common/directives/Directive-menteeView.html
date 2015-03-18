@@ -1,0 +1,31 @@
+
+<div class="shadow-z-2 set-full-height" style="cursor: pointer;">
+
+	<div class="row">
+		<div class="col-xs-12">
+			<div set-parent-height class="col-xs-3 random-background-color text-center h-full" style="display:table-cell;">
+				 <i class="mdi-action-perm-contact-cal text-4x"></i><br/>
+			</div>
+			<div class="col-xs-9" style="display:table-cell;">
+				<div class="row">
+        				<div class="p b-4x b-light text-1x">
+                        
+                        <div class="pull-left font-bold">{{menteeObj.profile.profile.firstName}} {{menteeObj.profile.profile.lastName}}</div><br/>
+                        <div ><i>{{menteeObj.username.userName}}</i> <i class="fa pull-right text-xl text-success b-4x"></i></div>
+                        <p></p>
+                        <div>Course : {{menteeObj.Name}}</div>
+                        <i class="fa pull-right text-xl text-success b-4x"></i> <!-- ng-class="{'fa-check':(userActive==user._id.$oid)&&!menudetails,'fa-check-circle':(userActive==user._id.$oid)&&menudetails}" -->
+                      </div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12 text-right" ng-if="actionFlag">
+	                   <a href="" html="true" data-placement="left" bs-dropdown="actions" class="pull-right no-margin"><i class="mdi-action-list text-xl"></i><div class="ripple-wrapper"></div></a>
+
+     				</div>
+				</div>	
+
+			</div>
+		</div>
+	</div>       
+</div>
