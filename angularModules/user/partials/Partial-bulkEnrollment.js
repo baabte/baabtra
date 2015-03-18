@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('BulkenrollmentCtrl',['$scope','bulkEnrollment','$rootScope',function($scope,bulkEnrollment,$rootScope){
+angular.module('baabtra').controller('BulkenrollmentCtrl',['$scope','bulkEnrollment','$rootScope','$alert','$state',function($scope,bulkEnrollment,$rootScope,$alert,$state){
 
 $scope.batch={};
 //getting the user role mapping id
@@ -39,13 +39,21 @@ $scope.fnBulkEnroll=function(){
 
 } 
 //-----------------
- //$scope.userRegister.role={};
+ $scope.userRegister.role={};
  //console.log($scope.course);
  //console.log($scope.batch);
  $scope.userRegister.course=$scope.course; 
- // $scope.userRegister.role.roleId=3; 
+ $scope.userRegister.batchId =$scope.batchId;
+  $scope.userRegister.role.roleId=3; 
 	$scope.userRegister.batch=$scope.batch; 
-	bulkEnrollment.fnSaveBulkEnroll($scope);
+	var promise= bulkEnrollment.fnSaveBulkEnroll($scope);
+   promise.then(function(response){
+    if(response.data){
+    $alert({title: 'Done..!', content: 'Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
+     $state.go('home.main');
+
+    }
+   });
 
 };
 
