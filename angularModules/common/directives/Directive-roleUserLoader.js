@@ -4,11 +4,16 @@ angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv'
 		require:'ngModel',
 		scope: {
 			ngModel:"=",
-			roleId:"="
+			roleId:"=",
+			selectionType:"="
 		},
 		templateUrl: 'angularModules/common/directives/Directive-roleUserLoader.html',
 		link: function(scope, element, attrs, fn) {
-
+			
+			if(angular.equals(scope.selectionType,1)){
+				console.log(scope.selectionType);
+				scope.selectionType = "single";
+			};
 			var companyId='';
 			if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
 			  companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
