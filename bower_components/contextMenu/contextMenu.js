@@ -71,6 +71,11 @@ angular.module('ui.bootstrap.contextMenu', [])
                          $scope.itemTemplate = item.courseElementTemplate;
                          //elements that comes under this element
                          $scope.subElements = item.nestableElements;
+                         $scope.attendenceTrack=item.attendenceTrack;
+                         if(angular.equals($scope.attendenceTrack,undefined)){
+                            $scope.attendenceTrack=false;
+                         }
+
                          //clearing data in preview object that is previously created
                          $scope.coursePreviewObj={};
                          $templateCache.put('course-element-popup.html','<div style="padding: 0px;" class="aside" role="dialog">'
@@ -81,9 +86,20 @@ angular.module('ui.bootstrap.contextMenu', [])
                               +item.menuDisplayName
                               +'<div style="margin-top: -5px;" class="pull-right m-r p-xs  bg-white text-'+options[state].colorClass+'">'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+" "+$scope.$parent.tlpoint
                             +'</div></div>'
+                             +'<div class="form-group col-xs-12">'
+                             //+'test' to be edit by arun 
+                                +'<label  class="font-bold" for="definpu" >Attendence Tracking</label><br>'
+                                    +'<em class="text-muted" >Enable this feature to activate attendence tracking on this course element</em><br>'
+                                        +'<div class="togglebutton">'
+                                            +'<label>'
+                                                +'<input ng-model="attendenceTrack" class="toggle" type="checkbox">'
+                                                    +'</label>'
+                                                     +'</div></div>'
+                            //+'test' to be edit by arun 
                             +'<div class="box-row">'
                               +'<div class="box-cell m-t">'
                                 +'<div class="box-inner col-xs-12">'
+
                                   +'<form xt-form novalidate class="form" name="courseElement" enctype="multipart/form-data">'
                                    +'<div class="p" sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"></div>'
                                    +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData['+$scope.randomKey+'])" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
@@ -239,7 +255,11 @@ angular.module('ui.bootstrap.contextMenu', [])
 
               $scope.syncData.courseTimeline[$scope.instance][$scope.item.Name].push($scope.coursePreviewObj);
 
+              //adding attendence tack to timeline arun
 
+               courseObj[courseObj.key].attendenceTrack=$scope.attendenceTrack;
+              
+              //end adding attendence track
               // below function will trigger only when the object is built
               var unbindWatchOnThis=$scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if($scope.ItsTimeToSaveDataToDB===true){
