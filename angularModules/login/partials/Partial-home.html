@@ -7,7 +7,7 @@ Created On:12/11/2014 -->
 <div class="p-md" >
 	<div class="row" name="innercontent" ui-view>
     <div class="col-xs-12"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-      <div ng-if="menu.canView || (menu.canView == undefined)" masonry-tile   ng-repeat="menu in userMenus" class="text-center p-xs pull-left tile masonry-brick" style="width:140px; margin-bottom:0px;">
+      <div ng-if="menu.canView || (menu.canView == undefined)" masonry-tile  ng-repeat="menu in userMenus" class="text-center p-xs pull-left tile masonry-brick" style="width:140px; margin-bottom:0px;">
 
       <div ng-click="loadDetails(menu)" class="text-sm btn text-dark btn-lg bg-light lt btn-stroke {{colorArray[($index+1)%colorArray.length]}} text-center col-xs-12" style="padding-bottom:0px; margin-bottom:0px; margin-top:0px;">
         

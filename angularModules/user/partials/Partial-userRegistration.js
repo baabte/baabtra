@@ -122,21 +122,39 @@ var mandatoryData={};
       }
     }
   }
-
- //delete $scope.allSync.batch.course;
- //$scope.allSync.batch.startDate=$scope.allSync.batch.startDate.toISOString();
- $scope.allSync.FormData.batch=$scope.allSync.batch;
+  console.log($scope.allSync.batch.length);
+ if ($scope.allSync.batch.length>0) { 
+ delete $scope.allSync.batch[0].course;
+ $scope.allSync.FormData.batchId=$scope.allSync.batch[0]._id 
+ delete $scope.allSync.batch[0]._id;
+ delete $scope.allSync.batch[0].companyId;
+ delete $scope.allSync.batch[0].updatedDate;
+ delete $scope.allSync.batch[0].createddDate;
+ delete $scope.allSync.batch[0].crmId;
+ delete $scope.allSync.batch[0].urmId;
+ $scope.allSync.batch[0].startDate=new Date($scope.allSync.batch[0].startDate).toISOString();
+ $scope.allSync.batch[0].endDate=new Date($scope.allSync.batch[0].endDate.$date).toISOString();
+ $scope.allSync.batch[0].enrollmentAfter=new Date($scope.allSync.batch[0].enrollmentAfter.$date).toISOString();
+ $scope.allSync.batch[0].enrollmentBefore=new Date($scope.allSync.batch[0].enrollmentBefore.$date).toISOString();
+ $scope.allSync.FormData.batch=$scope.allSync.batch[0];
  delete $scope.allSync.batch;
+         var time=(new Date()).valueOf();
+         hashids = new Hashids("this is a batch id");
+         $scope.allSync.FormData.batch.batchCode = hashids.encode(time); 
+
+} 
+   
+         
   $scope.userRegister=$scope.allSync.FormData;
   $scope.userRegister.mandatoryData=mandatoryData;
   $scope.userRegister.loggedusercrmid=loggedusercrmid;
   $scope.userRegister.companyId=companyId;
 
   //service call for user registration
-  // console.log($scope.userRegister);
+  //console.log($scope.userRegister);
   delete  $scope.userRegister.role.formSchema;
   delete  $scope.userRegister.role.formSteps;
- console.log($scope.userRegister);
+ //console.log($scope.userRegister);
   var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
 
 
