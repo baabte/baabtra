@@ -47,8 +47,9 @@ $scope.feedbackFormModel=[{"type":"objective","options":[{"Name":"a","value":"sd
 
  var time=(new Date()).valueOf();
        var hashids = new Hashids("test");
-        $scope.code = hashids.encode(time);   
+       $scope.code = hashids.encode(time);   
 
 $scope.userCourseId="54fd205fd4f9075d40a105cf";
+
 
 });																																																																								 																			

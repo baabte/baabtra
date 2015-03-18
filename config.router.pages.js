@@ -566,6 +566,26 @@
                 }
                 
               })
+               .state('home.main.viewBatches', {
+                url: '/viewBatches',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-viewBatches.html',
+                    controller:'ViewbatchesCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.assignCourseMaterial', {
+                url: '/assignCourseMaterial/:userId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-assignCourseMaterial.html',
+                    controller:'AssigncoursematerialCtrl'
+                  }
+                }
+                
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'

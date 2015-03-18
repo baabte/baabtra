@@ -1,11 +1,10 @@
 angular.module('baabtra').service('bulkEnrollment',['bbConfig','$upload','$http',function(bbConfig,$upload,$http) {
 	//service function for uploading the doc for bulk enrolment
 	this.fnSaveBulkEnroll=function($scope){
-
 		var promise= $upload.upload({
 				url: bbConfig.BWS+'fnBulkEnroll/',
 				file: $scope.excelDoc,
-				data:  $scope.userRegister,
+				data: $scope.userRegister,
 				method: 'POST',
 				withCredentials: false,
 				contentType:'application/json',
@@ -13,6 +12,7 @@ angular.module('baabtra').service('bulkEnrollment',['bbConfig','$upload','$http'
 
 			}).
 			success(function( data, status, headers, config) {
+				console.log(data);
 				return data;
 			}).
 			error(function(data, status, headers, config) {

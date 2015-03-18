@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state','$scope','$localStorage','localStorageService','home','$dropdown','commonService','$modal','addCourseService','bbConfig','commonSrv',function ($browser,$rootScope,$state,$scope,$localStorage,localStorageService,home,$dropdown,commonService,$modal,addCourseService,bbConfig,commonSrv){
+angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state','$scope','$localStorage','localStorageService','home','$dropdown','commonService','$modal','addCourseService','bbConfig','commonSrv','notification',function ($browser,$rootScope,$state,$scope,$localStorage,localStorageService,home,$dropdown,commonService,$modal,addCourseService,bbConfig,commonSrv,notification){
 
 // Global variables for validating fileupload control
 $rootScope.valid=true;
@@ -13,10 +13,22 @@ $rootScope.$watch('userinfo',function(){
       $rootScope.userinfo.ActiveUserData.roleMappingObj.avatar = '';
     }
     
-    var response = home.FnLoadMenus($scope);//Load Menus for logged user
-    response.then(function(data){
-      $scope.userMenus = $scope.userMenusOrigin = angular.fromJson(JSON.parse(data.data)).menuStructure[0].regionMenuStructure;
-    });
+    if(angular.equals($scope.userMenus,undefined)){
+      var response = home.FnLoadMenus($scope);//Load Menus for logged user
+      response.then(function(data){
+        $scope.userMenus = $scope.userMenusOrigin = angular.fromJson(JSON.parse(data.data)).menuStructure[0].regionMenuStructure;
+        
+        // calling service for geting user notification
+        var userNotificationResponse = notification.fnLoadUserNotification($scope.rm_id);
+        userNotificationResponse.then(function(response){
+          $rootScope.data = {};
+          $rootScope.data.userNotification = angular.fromJson(JSON.parse(response.data));
+          console.log($rootScope.data.userNotification);
+          $rootScope.data.userNotification.notification = $rootScope.data.userNotification.notification.reverse();
+        });
+
+      });
+    }
     
 }
 else{

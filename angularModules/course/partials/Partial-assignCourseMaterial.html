@@ -1,0 +1,22 @@
+<div class="col-md-12">
+
+<div class="row"><div class="tab-container col-md-12">
+	 <div class="panel b-t b-00C853 bg-light dk"><div class="panel-heading font-bold text-white bg-00C853 p baab-shadow" translate="{{'Assign Course Material'|translate}}"></div>
+		
+		<div class="panel-body col-xs-12 bg-white p-sm b-b-danger b-b-3x">
+		<form name="bulkEnrollmentForm" class="form-validation ng-pristine ng-invalid ng-invalid-required" role="form" xt-form="" novalidate="">
+			<div class="col-xs-6">
+				<button type="button" class="btn btn-info" ng-model="selectedCourse" data-html="1" ng-options="course.fkCourseId.$oid as course.Name for course in courseObj.courseList" bs-select>
+  								Action <span class="caret"></span>
+				</button>
+			</div>
+			<div class="col-xs-6">
+
+			</div>
+         <!--    <div class="col-xs-12"><button class="btn btn-success mdi-av-recent-actors" ng-disabled="bulkEnrollmentForm.$invalid" ng-click="fnAssignCourseMaterial()" translate="Register" disabled="disabled">Register</button></div> -->
+            </form>
+		</div>
+	</div>
+</div>
+</div>
+</div>
