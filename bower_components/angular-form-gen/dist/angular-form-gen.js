@@ -286,7 +286,12 @@ fg.config(["fgConfigProvider", "FgField", function (fgConfigProvider, FgField) {
       }),
       new FgField('batchLoader',{
         displayName: "Batch"
+      }),
+      new FgField('roleUserLoader',{
+        displayName: "Evaluator"
       })]
+
+      
       //,
       // 'Course element fields': [
       // new FgField('youtubevideo',{ // added by lijin for course elements
@@ -503,6 +508,17 @@ $templateCache.put('angular-form-gen/field-templates/default/courseLoader.ng.htm
 
 
 // ----------- Batch loader ends here -----------
+
+// ----------- Evaluator loader -----------
+
+  $templateCache.put('angular-form-gen/field-templates/default/roleUserLoader.ng.html', '<role-user-loader fg-custom-attributes  fg-field-input=\"\" type=\"text\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\"placeholder=\"{{ field.schema.displayName }}\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-disabled=\"isDisabled(field.schema)\"></role-user-loader>');
+
+
+  $templateCache.put('angular-form-gen/field-templates/properties/roleUserLoader.ng.html', '<div fg-tabs-pane=\"Properties\"><div fg-property-field-common=\"{ fieldname: true, displayname: true, placeholder: true, tooltip: true }\"></div><div fg-property-field-value=\"\"><span class=\"\" name=\"fieldValue\" ng-model=\"field.value\" ng-minlength=\"{{ field.validation.minlength }}\" strip-br=\"false\" no-line-breaks=\"true\" select-non-editable=\"true\" ng-maxlength=\"{{ field.validation.maxlength }}\" ng-pattern=\"//{{ field.validation.pattern }}\"></div></div></div><div fg-tabs-pane=\"Validation\"><div fg-property-field-validation=\"{ required: true, minlength: true, maxlength: true, pattern: true }\"></div></div><div fg-tabs-pane=\"Custom Attributes\"><div fg-property-field-custom=\"\"></div></div>');
+
+
+// ----------- Evaluator loader ends here -----------
+
 
 
 }]);

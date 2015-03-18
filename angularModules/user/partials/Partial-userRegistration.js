@@ -122,7 +122,6 @@ var mandatoryData={};
       }
     }
   }
-  console.log($scope.allSync.batch.length);
  if ($scope.allSync.batch.length>0) { 
  delete $scope.allSync.batch[0].course;
  $scope.allSync.FormData.batchId=$scope.allSync.batch[0]._id 
@@ -151,7 +150,7 @@ var mandatoryData={};
   $scope.userRegister.companyId=companyId;
 
   //service call for user registration
-  //console.log($scope.userRegister);
+  console.log($scope.userRegister);
   delete  $scope.userRegister.role.formSchema;
   delete  $scope.userRegister.role.formSteps;
  //console.log($scope.userRegister);
