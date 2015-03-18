@@ -119,5 +119,13 @@ this.FnLoadGlobalValues=function(key)
     return promise;
    };
 
+ this.loadCourseMaterial=function(courseId,userId){ //to load the course materials under specific course
+  var promise = $http({
+    method: 'POST',
+      url: bbConfig.BWS+'fnloadCourseMaterial4multiSelect/',
+      data:{"courseId":courseId,"urmId":userId}
+   });
+  return promise;
+ }; 
 
 }]);

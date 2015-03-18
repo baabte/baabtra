@@ -5,15 +5,25 @@
 		
 		<div class="panel-body col-xs-12 bg-white p-sm b-b-danger b-b-3x">
 		<form name="bulkEnrollmentForm" class="form-validation ng-pristine ng-invalid ng-invalid-required" role="form" xt-form="" novalidate="">
-			<div class="col-xs-6">
+			<div class="col-xs-4">
 				<button type="button" class="btn btn-info" ng-model="selectedCourse" data-html="1" ng-options="course.fkCourseId.$oid as course.Name for course in courseObj.courseList" bs-select>
-  								Action <span class="caret"></span>
+  					Action <span class="caret"></span>
 				</button>
-			</div>
-			<div class="col-xs-6">
 
 			</div>
-         <!--    <div class="col-xs-12"><button class="btn btn-success mdi-av-recent-actors" ng-disabled="bulkEnrollmentForm.$invalid" ng-click="fnAssignCourseMaterial()" translate="Register" disabled="disabled">Register</button></div> -->
+			<div class="col-xs-4">
+				<course-multi-select ng-model="courseObj.courseMaterials" course-id="selectedCourse" user-id="urmId">
+				</course-multi-select>
+
+			</div>
+			<div class="col-xs-4"><button class="btn btn-success" ng-disabled="!courseObj.courseMaterials.length" ng-click="fnAssignCourseMaterial()" translate="{{'Assign'|translate}}" disabled="disabled"></button></div>
+			<!-- course element details -->
+			 <div class="col-xs-12">
+				
+        		<div class="m-t-lg" data-ng-repeat="course in courseObj.courseMaterials">
+          			<course-element-preview course-id="selectedCourse" preview-data="course.elem"></course-element-preview>
+        		</div>
+			</div> 
             </form>
 		</div>
 	</div>
