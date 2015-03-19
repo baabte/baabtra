@@ -7,21 +7,34 @@ angular.module('baabtra').controller('AssigncoursematerialCtrl',['$scope','$root
 		loadCourseDDl=assignCourseMaterial.loadCourses4AssigningCourseMaterial($scope,$stateParams.userId);
 		$scope.urmId=$stateParams.userId;
 		loadCourseDDl.then(function(response){ //promise for batch load
-			$scope.courseObj.courseList=angular.fromJson(JSON.parse(response.data));
-			
+			$scope.courseObj.courseList=angular.fromJson(JSON.parse(response.data)).courseList;
+			$scope.courseObj.existCourseObj=angular.fromJson(JSON.parse(response.data)).courseObj;
 		});
 	});
 
 	$scope.assignCourseMaterial2timeline=function(){
-		$scope.courseObj.courseTimeline={};
+
 		angular.forEach($scope.courseObj.courseMaterials,function(element){
-				$scope.courseObj.courseTimeline[element.key]=element.courseElem;
+				$scope.courseObj.existCourseObj.courseTimeline[element.key]=element.courseElem;
+				
+				for(keyNew in element.elemOrder){
+					if(element.elemOrder[keyNew].indexOf(element.key+'.')==0){
+						$scope.courseObj.existCourseObj.elementOrder[keyNew]=element.elemOrder[keyNew];
+						//$scope.courseObj.courseMaterials.courseObj.elementOrder[keyNew]=element.elemOrder[keyNew];
+					}
+					
+				}
 		});
-		console.log($scope.courseObj.courseTimeline);
+		//console.log($scope.courseObj.courseMaterials);
 		assignResponse=assignCourseMaterial.assignCourseMaterial2timeline($scope);
 		assignResponse.then(function(response){ //promise for batch load
-			//$scope.courseObj.courseMaterialList=angular.fromJson(JSON.parse(response.data));
+			if(angular.fromJson(JSON.parse(response.data))=='success'){
+				$alert({title: "Success", content: 'Sucessfully Added course material to user Timeline' , placement: 'top-right',duration:3, type: 'info'});
+			}
 		});
 	};
+
+	
+
 
 }]);
