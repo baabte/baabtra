@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('BulkenrollmentCtrl',['$scope','bulkEnrollment','$rootScope','$alert','$state',function($scope,bulkEnrollment,$rootScope,$alert,$state){
+angular.module('baabtra').controller('BulkenrollmentCtrl',['$scope','bulkEnrollment','$rootScope','$alert','$state','$modal',function($scope,bulkEnrollment,$rootScope,$alert,$state,$modal){
 
 $scope.batch={};
 //getting the user role mapping id
@@ -42,6 +42,7 @@ $scope.fnBulkEnroll=function(){
  $scope.userRegister.role={};
  //console.log($scope.course);
  //console.log($scope.batch);
+ $scope.userRegister.evaluator= $scope.evaluator;
  $scope.userRegister.course=$scope.course; 
  $scope.userRegister.batchId =$scope.batchId;
   $scope.userRegister.role.roleId=3; 
@@ -49,12 +50,35 @@ $scope.fnBulkEnroll=function(){
 	var promise= bulkEnrollment.fnSaveBulkEnroll($scope);
    promise.then(function(response){
     if(response.data){
-    $alert({title: 'Done..!', content: 'Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
-     $state.go('home.main');
-
+      $scope.res= angular.fromJson(JSON.parse(response.data));
+        
+      if(angular.equals($scope.res.data,1)){
+        $modal({scope: $scope, template: 'angularModules/user/partials/partial-popupBulkUpload.html',
+          show: true
+         });
+      }else{
+        $alert({title: 'Done..!', content: 'Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
+        $state.go('home.main'); 
+      }
     }
    });
 
 };
+
+$scope.fnUploaddetails=function(seats,row,hide){
+$scope.userRegister.seats=seats;
+$scope.userRegister.row=row;
+//console.log($scope.userRegister);
+var promise= bulkEnrollment.fnBulkEnrolluptoavailable($scope);
+//hide();
+promise.then(function(response){
+if(response.data){
+  console.log(response.data);
+  hide();
+   $alert({title: 'Done..!', content: 'Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
+   $state.go('home.main'); 
+}
+});
+}
 
 }]);

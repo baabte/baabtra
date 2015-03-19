@@ -465,6 +465,15 @@
                   }
                 }
               })
+              .state('home.main.evaluation', {
+                url: '/evaluation',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/evaluation/partials/Partial-evaluationViewer.html',
+                    controller: 'EvaluationviewerCtrl'
+                  }
+                }
+              })
               .state('home.main.courseElementFieldsManaging', {
                 url: '/courseElementFieldsManaging',
                 views:{
