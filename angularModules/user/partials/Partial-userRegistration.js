@@ -150,12 +150,11 @@ var mandatoryData={};
   $scope.userRegister.companyId=companyId;
 
   //service call for user registration
-  console.log($scope.userRegister);
+ // console.log($scope.userRegister);
   delete  $scope.userRegister.role.formSchema;
   delete  $scope.userRegister.role.formSteps;
  //console.log($scope.userRegister);
   var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
-
 
 fnRegisterUserCallBack.then(function(data){
 

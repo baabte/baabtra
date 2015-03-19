@@ -42,6 +42,7 @@ $scope.fnBulkEnroll=function(){
  $scope.userRegister.role={};
  //console.log($scope.course);
  //console.log($scope.batch);
+ $scope.userRegister.evaluator= $scope.evaluator;
  $scope.userRegister.course=$scope.course; 
  $scope.userRegister.batchId =$scope.batchId;
   $scope.userRegister.role.roleId=3; 
