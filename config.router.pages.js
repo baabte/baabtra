@@ -595,6 +595,16 @@
                 }
                 
               })
+              .state('home.main.emailSms', {
+                url: '/emailSms',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.html',
+                    controller:'EmailsmsconfigCtrl'
+                  }
+                }
+                
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'
