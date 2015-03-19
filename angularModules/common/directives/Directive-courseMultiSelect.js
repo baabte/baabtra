@@ -34,6 +34,7 @@ angular.module('baabtra').directive('courseMultiSelect',['$rootScope','commonSrv
                        	scope.summaryViewIn = summaryViewTypes[scope.course.selectedDuration-1]; //getting the selected duration
 						scope.summaryDetails = [];	
 						angular.forEach(scope.course.courseTimeline, function(elements, key){
+							console.log(key);
 							if(angular.equals(scope.summaryDetails[Math.ceil(key*scope.summaryViewIn.mFactor)],undefined)){
 								//scope.summaryDetails[Math.ceil(key*scope.summaryViewIn.mFactor)] = [];
 							}
@@ -41,7 +42,7 @@ angular.module('baabtra').directive('courseMultiSelect',['$rootScope','commonSrv
 								if(angular.equals(typeof element,"object")){
 									angular.forEach(element, function(elem){
 										if(!angular.equals(elem.Name,"Payment_checkpoint")){
-											scope.summaryDetails.push({code:elem.code, Name:elem.elements[0].value,elem:elem,courseElem:elements}); //[Math.ceil(key*scope.summaryViewIn.mFactor)]
+											scope.summaryDetails.push({code:elem.code, Name:elem.elements[0].value,elem:elem,courseElem:elements,key:key}); //[Math.ceil(key*scope.summaryViewIn.mFactor)]
 										
 										}
 									})
