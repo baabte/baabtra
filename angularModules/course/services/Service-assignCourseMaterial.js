@@ -14,7 +14,7 @@ angular.module('baabtra').service('assignCourseMaterial',['$http','bbConfig',fun
  	var promise = $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'fnAssignCourseMaterial2timeline/',
-	    data:{"courseId":$scope.selectedCourse,"urmId":$scope.urmId,"courseObj":$scope.courseObj.courseTimeline}
+	    data:{"courseId":$scope.selectedCourse,"urmId":$scope.urmId,"courseObj":$scope.courseObj.existCourseObj}
 	 });
 	return promise;
  };	

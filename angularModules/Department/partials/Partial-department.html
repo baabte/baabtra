@@ -1,18 +1,18 @@
 <script type="text/ng-template" id="nodes_renderer.html">
-    <div ui-tree-handle class="tree-node tree-node-content" id="{{node.departmentId}}">
-        {{node.departmentId}}
+    <div ui-tree-handle data-nodrag class="tree-node tree-node-content bg-light dk" id="{{node._id}}">
+        <span data-nodrag class="m-l">{{node._id}}</span>
         <div class="pull-right m-l">
 
         	<!-- for add department -->
-        	<a href="" class="icon-grey"  data-nodrag ng-click="addNewDepartment(this)" data-placement="left" bs-tooltip data-title="Add a department under this"><i class="ti  ti-layers-alt" ></i>
+        	<a href="" class="icon-grey"  data-nodrag ng-click="addNewDepartment(node)" data-placement="left" bs-tooltip data-title="Add a department under this"><i class="ti  ti-layers-alt" ></i>
         	</a>
 
         	<!-- for edit department-->
-        	<a href="" class="icon-grey  m-h-xs" data-nodrag ng-click="editDepartment(this)" data-placement="left" bs-tooltip data-title="Edit department"><i class="fa fa-edit" ></i>
+        	<a href="" class="icon-grey  m-h-xs" ng-if="node.parent" data-nodrag ng-click="editDepartment(node)" data-placement="left" bs-tooltip data-title="Edit department"><i class="fa fa-edit" ></i>
         	</a>
 
-        	<!-- for remove department ng-if="node.parent" -->
-        	<a href="" class="icon-grey m-r-xs"  data-nodrag ng-click="removeDepartment(this)" data-placement="left" bs-tooltip data-title="Remove department"><i class="fa fa-trash-o" ></i>
+        	<!-- for remove department  -->
+        	<a href="" class="icon-grey m-r-xs" ng-if="node.parent" data-nodrag ng-click="removeDepartment(node)" data-placement="left" bs-tooltip data-title="Remove department"><i class="fa fa-trash-o" ></i>
         	</a>
         </div>
     </div>
@@ -29,10 +29,11 @@
 				Departments under {{$state.params.branchId}}
 			</div>
 			<div class="panel-body">
-				<div class="bg-white text-center ">
-					<div class="row" ui-tree="treeOptions">
-						<ol ui-tree-nodes="" ng-model="data.departments"  data-horizontal="">
-	            			<li  ng-repeat="node in data.departments" class="list-group list-group-gap" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+				<div class="bg-white text-center">
+					<div ng-if="data.departmentsTree" class="row" ui-tree="treeOptions">
+
+						<ol ui-tree-nodes="" ng-model="data.departmentsTree"  data-horizontal="">
+	            			<li  ng-repeat="node in data.departmentsTree" class="list-group list-group-gap" ui-tree-node ng-include="'nodes_renderer.html'"></li>
 	          			</ol>
 					</div>
 				</div>
