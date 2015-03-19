@@ -13,7 +13,7 @@
                         <div class="pull-left font-bold">{{menteeObj.profile.profile.firstName}} {{menteeObj.profile.profile.lastName}}</div><br/>
                         <div ><i>{{menteeObj.username.userName}}</i> <i class="fa pull-right text-xl text-success b-4x"></i></div>
                         <p></p>
-                        <div>Course : {{menteeObj.Name}}</div>
+                        <div ng-if="menteeObj.Name">Course : {{menteeObj.Name}}</div>
                         <i class="fa pull-right text-xl text-success b-4x"></i> <!-- ng-class="{'fa-check':(userActive==user._id.$oid)&&!menudetails,'fa-check-circle':(userActive==user._id.$oid)&&menudetails}" -->
                       </div>
 				</div>
