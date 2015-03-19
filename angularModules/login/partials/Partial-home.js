@@ -23,8 +23,9 @@ $rootScope.$watch('userinfo',function(){
         userNotificationResponse.then(function(response){
           $rootScope.data = {};
           $rootScope.data.userNotification = angular.fromJson(JSON.parse(response.data));
-          console.log($rootScope.data.userNotification);
-          $rootScope.data.userNotification.notification = $rootScope.data.userNotification.notification.reverse();
+          if(!angular.equals($rootScope.data.userNotification,null)){
+            $rootScope.data.userNotification.notification = $rootScope.data.userNotification.notification.reverse();
+          }
         });
 
       });

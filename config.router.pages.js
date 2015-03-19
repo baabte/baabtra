@@ -147,6 +147,15 @@
                    }
                 }
               })
+              .state('home.main.department', {
+                url: '/department/:branchId',
+                 views:{
+                  'innercontent':{
+                templateUrl: 'angularModules/Department/partials/Partial-department.html',
+                controller:'DepartmentCtrl'
+                   }
+                }
+              })
               .state('home.main.roleMenuMapping', {
                 url: '/roleMenuMapping',
                 views:{

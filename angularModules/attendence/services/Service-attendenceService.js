@@ -9,11 +9,11 @@ this.courseElementsFetch = function(userCourseMappingId){
 	return promise;
 };
 
-this.markAttendence = function(userCourseMappingId){
+this.markAttendence = function(userCourseMappingId,tlpoint,userCourseElementType,innerIndex,attendence){
 	var promise = $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'MarkAttendence/',
-	    data:{userCourseMappingId:userCourseMappingId}
+	    data:{userCourseMappingId:userCourseMappingId,tlpoint:tlpoint,userCourseElementType:userCourseElementType,innerIndex:innerIndex,attendence:attendence}
 	 });
 	return promise;
 };
