@@ -70,6 +70,7 @@ $scope.$watch('branches',function (newValue,oldValue){
     jsPlumb.detachEveryConnection();
     //buildBranchTree(findRoots($scope.branches,null),null);
     $scope.branchTree=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.branches,null),null);
+    console.log($scope.branchTree);
     $scope.drawLines($scope.branchTree);
   }
   });
