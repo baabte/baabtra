@@ -13,6 +13,11 @@ angular.module('baabtra').controller('AssigncoursematerialCtrl',['$scope','$root
 	});
 
 	$scope.assignCourseMaterial2timeline=function(){
+		$scope.courseObj.courseTimeline={};
+		angular.forEach($scope.courseObj.courseMaterials,function(element){
+				$scope.courseObj.courseTimeline[element.key]=element.courseElem;
+		});
+		console.log($scope.courseObj.courseTimeline);
 		assignResponse=assignCourseMaterial.assignCourseMaterial2timeline($scope);
 		assignResponse.then(function(response){ //promise for batch load
 			//$scope.courseObj.courseMaterialList=angular.fromJson(JSON.parse(response.data));
