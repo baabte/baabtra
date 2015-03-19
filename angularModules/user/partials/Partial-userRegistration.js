@@ -122,7 +122,7 @@ var mandatoryData={};
       }
     }
   }
- if ($scope.allSync.batch.length>0) { 
+ if(!angular.equals($scope.allSync.batch,undefined)&&($scope.allSync.batch.length>0)) { 
  delete $scope.allSync.batch[0].course;
  $scope.allSync.FormData.batchId=$scope.allSync.batch[0]._id 
  delete $scope.allSync.batch[0]._id;
