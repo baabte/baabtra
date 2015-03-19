@@ -601,6 +601,16 @@
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-batchAssignment.html',
                     controller:'BatchassignmentCtrl'
+                    }
+                }
+                
+              })
+              .state('home.main.emailSms', {
+                url: '/emailSms',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.html',
+                    controller:'EmailsmsconfigCtrl'
                   }
                 }
                 

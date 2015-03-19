@@ -53,7 +53,8 @@
         'masonry',
         'googlechart',
         'gettext',
-        'timer'
+        'timer',
+        'internationalPhoneNumber'
       ])
 
 .run(function(editableOptions) {
