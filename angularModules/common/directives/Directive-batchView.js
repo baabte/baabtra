@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('batchView',['$filter', function($filter) {
+angular.module('baabtra').directive('batchView',['$filter','$state', function($filter,$state) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -37,7 +37,14 @@ angular.module('baabtra').directive('batchView',['$filter', function($filter) {
 				}else{
 					scope.description = '<div class="text-xs">Starting date '+$filter('date')(scope.batch.startDate.startDate)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />Duration: Repeats each '+scope.batch.repeats.repeatsAfter+'days</div>';
 				}
-			});
+
+				//function to add course materials
+				scope.fnAssignMaterial=function(){
+					$state.go("home.main.batchAssignment",{batchId:scope.batch.batchId.$oid});
+				};
+
+
+				});
 
 
 		}

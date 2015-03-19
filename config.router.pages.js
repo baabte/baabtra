@@ -595,6 +595,16 @@
                 }
                 
               })
+              .state('home.main.batchAssignment', {
+                url: '/batchAssignment/:batchId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-batchAssignment.html',
+                    controller:'BatchassignmentCtrl'
+                  }
+                }
+                
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'

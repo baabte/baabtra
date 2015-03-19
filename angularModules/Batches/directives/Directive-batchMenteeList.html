@@ -1,0 +1,9 @@
+<ul class="list-group">
+        <li class="list-group-item" ng-repeat="user in userList">
+          <a href="" class="pull-left w-thumb m-r b-b b-b-2x b-success"><img src="images/user.ico" class="img-responsive"></a>
+          <div class="clear">
+            <a href="" class="font-bold block">{{user.profile.profile.firstName}} {{user.profile.profile.lastName}}</a>
+            {{user.userName.userName}}
+          </div>
+        </li>
+</ul>
