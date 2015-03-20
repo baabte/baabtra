@@ -32,15 +32,15 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 				}
 				];
 
-				if(scope.batch.batchMode=="onetime"){
+				/*if(scope.batch.batchMode=="onetime"){
 					scope.description = '<div class="text-xs">Starting date '+$filter('date')(scope.batch.startDate.startDate)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />Duration:'+scope.batch.seats+'days</div>';
 				}else{
 					scope.description = '<div class="text-xs">Starting date '+$filter('date')(scope.batch.startDate.startDate)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />Duration: Repeats each '+scope.batch.repeats.repeatsAfter+'days</div>';
-				}
+				}*/
 
 				//function to add course materials
 				scope.fnAssignMaterial=function(){
-					$state.go("home.main.batchAssignment",{batchId:scope.batch.batchId.$oid});
+					$state.go("home.main.batchAssignment",{batchMappingId:scope.batch._id.$oid});
 				};
 
 

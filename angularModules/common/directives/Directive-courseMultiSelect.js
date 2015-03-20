@@ -6,7 +6,8 @@ angular.module('baabtra').directive('courseMultiSelect',['$rootScope','commonSrv
 		scope: {
 			ngModel : "=",
 			courseId: "=",
-			userId:"="
+			userId:"=",
+			batchMappingId:"="
 		},
 		templateUrl: 'angularModules/common/directives/Directive-courseMultiSelect.html',
 		link: function(scope, element, attrs, fn) {
@@ -14,8 +15,27 @@ angular.module('baabtra').directive('courseMultiSelect',['$rootScope','commonSrv
 			if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
 				companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
 			}
-			scope.$watch('courseId',function(){
-					var courseMaterialResponse = commonSrv.loadCourseMaterial(scope.courseId,scope.userId);
+
+			if(angular.equals(scope.batchMappingId,undefined)){
+				scope.$watch('courseId',function(){
+					scope.loadMaterials();
+				}); //watch end
+			}
+			else{
+
+				scope.$watch('batchMappingId',function(){
+					scope.loadMaterials();
+				}); //watch end
+			}
+
+			scope.loadMaterials=function(){
+				var courseMaterialResponse
+					if(angular.equals(scope.batchMappingId,undefined)){
+						courseMaterialResponse = commonSrv.loadCourseMaterial(scope.courseId,scope.userId);
+					}else{
+						courseMaterialResponse = commonSrv.loadCourseMaterial4Batch(scope.batchMappingId);
+					}
+					
 					courseMaterialResponse.then(function(response){
 						scope.course = angular.fromJson(JSON.parse(response.data));
 						//console.log(scope.course.courseTimeline)
@@ -38,11 +58,15 @@ angular.module('baabtra').directive('courseMultiSelect',['$rootScope','commonSrv
 							if(angular.equals(scope.summaryDetails[Math.ceil(key*scope.summaryViewIn.mFactor)],undefined)){
 								//scope.summaryDetails[Math.ceil(key*scope.summaryViewIn.mFactor)] = [];
 							}
-							angular.forEach(elements, function(element){
+							angular.forEach(elements, function(element,key2){
 								if(angular.equals(typeof element,"object")){
-									angular.forEach(element, function(elem){
+									angular.forEach(element, function(elem,key3){
 										if(!angular.equals(elem.Name,"Payment_checkpoint")){
-											scope.summaryDetails.push({code:elem.code, Name:elem.elements[0].value,elem:elem,courseElem:elements,key:key,elemOrder:scope.course.elementOrder}); //[Math.ceil(key*scope.summaryViewIn.mFactor)]
+											var structureArr=[]
+											structureArr.push(key);
+											structureArr.push(key2);
+											structureArr.push(key3);
+											scope.summaryDetails.push({code:elem.code, Name:elem.elements[0].value,courseElem:elem,key:key,elemOrder:scope.course.elementOrder,structureArr:structureArr}); //[Math.ceil(key*scope.summaryViewIn.mFactor)]
 										
 										}
 									})
@@ -51,8 +75,7 @@ angular.module('baabtra').directive('courseMultiSelect',['$rootScope','commonSrv
 						});
 						
 					}); //promise ends
-			}); //watch end
-
+			};
 
 		}
 	};
