@@ -1,0 +1,21 @@
+<div class="col-md-12">
+	<div class="row bg-white">
+		<div class="btn-material-green-A700 p font-bold baab-shadow">Heading</div>
+		<div class="col-xs-12">
+			<div style="cursor:pointer;"  class="m-v">
+				<div class="p-sm b-b" ng-repeat="mentee in data.menteesList" ng-mouseenter="mouseEnter = true" ng-mouseleave="mouseEnter = false" ng-class="{'btn-material-grey-300':mouseEnter}">
+					<span>{{mentee.profile.firstName}} {{mentee.profile.lastName}}</span>
+					<span>{{mentee.profile.eMail}}</span>
+					<span class="pull-right">
+						<a class="m-l-xs" href="" bs-tooltip data-title="Approve Jihin" data-placement="left">
+							<i class="fa fa-check-circle text-lg text-light"></i>
+						</a>
+						<a class="m-l-xs" href="" bs-tooltip data-title="Reject Jihin" data-placement="left">
+							<i class="fa fa-ban text-lg text-light"></i>
+						</a>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

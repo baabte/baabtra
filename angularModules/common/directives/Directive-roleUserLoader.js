@@ -38,7 +38,16 @@ angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv'
 					scope.ngModel.push({ticked:item.ticked,roleMappingId:item.roleMappingId.$oid,Name:item.Name});
 				}
 				else{
-					scope.ngModel.push({ticked:item.ticked,roleMappingId:item.roleMappingId,Name:item.Name});
+					if(item != null){
+
+						if(item.ticked){
+							scope.ngModel.push({ticked:item.ticked,roleMappingId:item.roleMappingId.$oid,Name:item.Name});
+						}
+						else{
+							scope.ngModel.splice(scope.ngModel.indexOf(item.Name),1);
+						}
+					}
+					
 				}
 			};
 		}
