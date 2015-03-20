@@ -172,6 +172,7 @@
       <div class="col-xs-12">
           <div class="form-group">
             <label>Evaluator</label>
+            {{course.evaluator}}
             <role-user-loader ng-if="course" role-id="3" placeholder-value="Please select a person" selection-type="2" ng-model="course.evaluator">
             </role-user-loader>
           </div>

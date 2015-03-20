@@ -24,6 +24,11 @@ if(!angular.equals($state.params.courseId,"")){
   var promise = addCourseService.fnLoadCourseDetails($scope, $scope.courseId);
   promise.then(function(course){
     $scope.course = angular.fromJson(JSON.parse(course.data)).courseDetails;
+    if(!angular.equals($scope.course.evaluator,undefined)){
+      angular.forEach($scope.course.evaluator,function(evaluator){
+        evaluator.roleMappingId = evaluator.roleMappingId.$oid;
+      });
+    }
 
     if(angular.equals($scope.course.courseDetails,undefined)){
 

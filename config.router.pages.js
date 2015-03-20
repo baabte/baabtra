@@ -406,6 +406,18 @@
                 }
                 
               })
+
+                .state('home.main.approveMentees', {
+                url: '/approveMentees',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/user/partials/Partial-viewUsersForApprove.html',
+                    controller: 'ViewusersforapproveCtrl'
+                  }
+                }
+                
+              })
+
               .state('home.main.viewCourse', {
                 url: '/viewCourse/:courseId',
                 views:{
