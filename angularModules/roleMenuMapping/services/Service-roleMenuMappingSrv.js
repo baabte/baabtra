@@ -91,12 +91,10 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
         success(function(data, status, headers, config) {
           $scope.menus = angular.fromJson(JSON.parse(data));//Converting the result to json object
            console.log($scope.menus);
-          if($scope.menus.menuStructure.length){//Checking, the selected role have existing menus
+          if(!angular.equals($scope.menus,null)){//Checking, the selected role have existing menus $scope.menus.menuStructure.length
             $scope.tree1 =$scope.menus.menuStructure[0].regionMenuStructure;//Setting exsting menus of selected role to current menu list
              
               changeObjIdOfMenu($scope.tree1,null);
-
-          
           }
           else//If no existing role found
           {
@@ -212,6 +210,8 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
           contentType   : 'application/json; charset=UTF-8',
         }).
         success(function(data, status, headers, config) {
+          
+
           if (data=="Insert")
           {
             $alert({title: 'Success!', type:'success', content: 'Menus Insert Successfuly..',animation:'am-fade',duration:'3', placement: 'top-right', template: 'views/ui/angular-strap/alert.tpl.html', show: true});

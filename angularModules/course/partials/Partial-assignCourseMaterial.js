@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('AssigncoursematerialCtrl',['$scope','$rootScope','assignCourseMaterial','$stateParams',function($scope,$rootScope,assignCourseMaterial,$stateParams){
+angular.module('baabtra').controller('AssigncoursematerialCtrl',['$scope','$rootScope','assignCourseMaterial','$stateParams','$alert',function($scope,$rootScope,assignCourseMaterial,$stateParams,$alert){
 
 	$scope.courseObj={};
 	$rootScope.$watch('userinfo',function(){

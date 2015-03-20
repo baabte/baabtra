@@ -595,6 +595,16 @@
                 }
                 
               })
+              .state('home.main.batchAssignment', {
+                url: '/batchAssignment/:batchId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-batchAssignment.html',
+                    controller:'BatchassignmentCtrl'
+                    }
+                }
+                
+              })
               .state('home.main.emailSms', {
                 url: '/emailSms',
                 views:{
