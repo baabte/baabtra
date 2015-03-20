@@ -5,8 +5,8 @@ $scope.batch={};
 $rootScope.$watch('userinfo',function(){
 	$scope.userRegister={};
     $scope.userRegister.loggedusercrmid = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
-    $scope.userRegister.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-     
+    //$scope.userRegister.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+    $scope.userRegister.companyId = "54978cc57525614f6e3e710b";
      //$scope.userRegister.role={};
       //$scope.userRegister.role.roleId=3;
     //console.log($scope.urmId,$scope.companyId);
@@ -19,7 +19,7 @@ $scope.fnBulkEnroll=function(){
 //-----------------
   if (typeof $scope.batch[0]!= "undefined") { 
  delete $scope.batch[0].course;
- $scope.batchId=$scope.batch[0]._id 
+ $scope.batchId=$scope.batch[0]._id;
  delete $scope.batch[0]._id;
  delete $scope.batch[0].companyId;
  delete $scope.batch[0].updatedDate;
@@ -46,7 +46,8 @@ $scope.fnBulkEnroll=function(){
  $scope.userRegister.course=$scope.course; 
  $scope.userRegister.batchId =$scope.batchId;
   $scope.userRegister.role.roleId=3; 
-	$scope.userRegister.batch=$scope.batch; 
+	$scope.userRegister.batch=$scope.batch;
+  console.log($scope.userRegister); 
 	var promise= bulkEnrollment.fnSaveBulkEnroll($scope);
    promise.then(function(response){
     if(response.data){
