@@ -7,7 +7,9 @@
     return {
       restrict: 'A',
       require: '^ngModel',
-      scope: true,
+      scope: {
+        ngModel:"="
+      },
       link: function(scope, element, attrs, ctrl) {
         var handleWhatsSupposedToBeAnArray, options, read;
         read = function() {
@@ -32,6 +34,7 @@
           utilsScript: ""
         };
         angular.forEach(options, function(value, key) {
+         
           var option;
           option = eval("attrs." + key);
           if (angular.isDefined(option)) {

@@ -15,9 +15,10 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
    //      }
    //   }, true); 
   
-			var companyId='';
+			var companyId = "54978cc57525614f6e3e710b";    
 			if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
-			  companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
+			  companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+        		
 			}
        var courseId;
        var courseType;

@@ -5,8 +5,8 @@
     	   <div class="panel-heading font-bold text-white bg-00C853 p baab-shadow" translate="{{'Email& Sms template Configuration'|translate}}"></div>
            <div class="panel-body">
            	<div class="row m-l">
-           		<input type="text" international-phone-number  ng-model="phone" preferred-countries="in">{{phone}}
-            </div>		
+           		<input type="text" class="form-control" international-phone-number preferred-countries="pl, de" ng-model="phone" default-country="in">
+            </div>
            </div>	
             <div class="panel-footer">
 	          <button class="btn btn-warning baab-btn" type="reset" ng-disabled="emailSms.$pristine" >cancel</button>		
