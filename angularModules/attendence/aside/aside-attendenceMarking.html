@@ -5,8 +5,7 @@
         <button type="button" class="close" ng-click="$hide()">
         	<i class=" fa fa-close"></i>
         </button>
-        <h3 class="aside-title" >
-        	Mark Attendence
+        <h3 class="aside-title" translate="{{'Mark Attendence'|translate}}">
         </h3>
       </div>
       <div class="aside-body">
@@ -15,17 +14,18 @@
         		<div  class="list-group-item " ng-repeat="courseElement in courseElementlist">
 	        		
 	        			<div class="pull-left">
-	        				<i class="fa fa-calendar"></i> Day{{courseElement.tlpoint}}
+	        				<i class="fa fa-calendar"></i> Day {{changeminutes2day(courseElement.tlpoint)}}
 	        			</div>
 	        			<br>
-	          			<div class="font-bold">
-	          				{{courseElement.userCourseElementType}}
+	          			<div class="font-bold" translate="{{courseElement.userCourseElementType |translate}}">
+	          		
 	          			</div>
-	          				<div class="checkbox">
-	        					<label>
-	            					<input ng-model="courseElement.courseElement.attendence" ng-change="fnMarkAttendence(courseElement)" type="checkbox">
-	        					</label>
-							</div>
+	          				
+                    <div class="pull-right checkbox" style="margin-top: -35px">
+	        					  <label>
+	            					  <input ng-model="courseElement.courseElement.attendence" ng-change="fnMarkAttendence(courseElement)" type="checkbox">
+	        					  </label>
+							      </div>
 				
         		</div>
             </div>

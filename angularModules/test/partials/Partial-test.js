@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('TestCtrl',function($scope){
+angular.module('baabtra').controller('TestCtrl',['$scope','$rootScope',function ($scope,$rootScope){
 
 $scope.previewData=[{"type":"objective",
 "answerType":"singleAnswer",
@@ -51,5 +51,5 @@ $scope.feedbackFormModel=[{"type":"objective","options":[{"Name":"a","value":"sd
 
 $scope.userCourseId="55095e71d4f9075d40a10c22";
 
-
-});																																																																								 																			
+console.log($rootScope.userinfo);
+}]);																																																																								 																			

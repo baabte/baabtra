@@ -19,7 +19,7 @@ angular.module('baabtra').directive('attendenceMarker',['attendenceService','$as
               courseElementAside.show();
             });
 		});
-
+		//marking attendence function will triger on click
 		scope.fnMarkAttendence=function(courseElement){	
 				console.log(courseElement.courseElement.attendence);
 			var markAttendencePromise=attendenceService.markAttendence(scope.userCourseId,courseElement.tlpoint,courseElement.userCourseElementType,courseElement.innerIndex,courseElement.courseElement.attendence);
@@ -28,7 +28,11 @@ angular.module('baabtra').directive('attendenceMarker',['attendenceService','$as
 			console.log(result);
 
 			});
-		
+		};
+		//converting back to day
+		scope.changeminutes2day=function(minutes) {
+			var day= Math.ceil((minutes/60)/24);
+			return day;
 		};
 
 

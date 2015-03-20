@@ -10,6 +10,9 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
             scope.instance = scope.selectedTpoint;
             scope.attendenceTrack=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].attendenceTrack;
             var code=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
+            scope.temp={};
+            scope.temp.evaluator=[{"ticked":true,"roleMappingId":{},"Name":"demo mentor"}];
+            //scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
              if(angular.equals(code,undefined)){
                         var time=new Date().valueOf();//date in millisecs11
                         var key=[scope.instance]+'.'+[scope.$parent.courseElement.Name];

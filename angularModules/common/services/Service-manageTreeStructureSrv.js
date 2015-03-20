@@ -22,7 +22,7 @@ this.findRoots = function(branch,index){
       branchTree=[];
       index=0;
     }
-    if (branch[index].parent ==null){
+    if (branch[index].parent == null){
       branchTree.push(branch[index]);
     }
     branch[index].childrenObj=[];

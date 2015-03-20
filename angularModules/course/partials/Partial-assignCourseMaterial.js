@@ -9,6 +9,7 @@ angular.module('baabtra').controller('AssigncoursematerialCtrl',['$scope','$root
 		loadCourseDDl.then(function(response){ //promise for batch load
 			$scope.courseObj.courseList=angular.fromJson(JSON.parse(response.data)).courseList;
 			$scope.courseObj.existCourseObj=angular.fromJson(JSON.parse(response.data)).courseObj;
+			$scope.courseObj.profile=angular.fromJson(JSON.parse(response.data)).profile;
 		});
 	});
 
