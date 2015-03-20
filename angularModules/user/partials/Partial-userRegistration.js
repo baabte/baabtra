@@ -159,9 +159,9 @@ var mandatoryData={};
 fnRegisterUserCallBack.then(function(data){
 
  var result=angular.fromJson(JSON.parse(data.data));
-      var senderId="BAABTR";
-      var smsKey="10069q0x6jqk4pp61r5";
-    var sendNotification=userRegistrationService.fnSendEmailSmsNotification("919746645067","vineeth@baabte.com",senderId,smsKey)
+      //var senderId="BAABTR";
+      //var smsKey="10069q0x6jqk4pp61r5";
+    //var sendNotification=userRegistrationService.fnSendEmailSmsNotification("919567102617","vineeth@baabte.com",senderId,smsKey)
      $scope.notifications('Yaay..!','Registered Successfully','success');   
      $state.go('home.main');
    

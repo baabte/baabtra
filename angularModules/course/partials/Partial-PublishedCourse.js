@@ -30,6 +30,8 @@ globalValuesResponse.then(function(data){
   });
   $scope.technologies = $scope.globalValues.technologies;
   $scope.taggs = $scope.globalValues.tags;
+  $scope.Designation =$scope.globalValues.Designation
+
 });
 
 $scope.data = {};
