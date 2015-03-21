@@ -636,6 +636,26 @@
                 }
                 
               })
+              .state('home.main.batchAttendance', {
+                url: '/batchAttendance/:batchMappingId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-batchAttendance.html',
+                    controller:'BatchattendanceCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.menteeAttendance', {
+                url: '/menteeAttendance/:userId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-menteeAttendance.html',
+                    controller:'MenteeattendanceCtrl'
+                  }
+                }
+                
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'

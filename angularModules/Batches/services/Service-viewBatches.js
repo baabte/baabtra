@@ -39,5 +39,14 @@ angular.module('baabtra').service('viewBatches',['bbConfig','$http',function(bbC
 	return promise;
  };	
 
+	this.loadCoursesMaterials4menteeAtt=function($scope){
+
+		var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'fnloadCoursesMaterials4menteeAtt/',
+	    data:{"courseId":$scope.selectedCourse,"urmId":$scope.urmId}
+	 });
+	return promise;
+	};	
 
 }]);

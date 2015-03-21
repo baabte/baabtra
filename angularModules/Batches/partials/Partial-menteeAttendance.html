@@ -1,0 +1,90 @@
+<div class="col-md-12">
+
+<div class="row"><div class="tab-container col-md-12">
+	 <div class="panel b-t b-00C853 bg-light dk"><div class="panel-heading font-bold text-white bg-00C853 p baab-shadow" translate="{{'Mark attendance for mentee '|translate}}"></div>
+		
+		<div class="panel-body col-xs-12 bg-white p-sm b-b-danger b-b-3x">
+		<form name="bulkEnrollmentForm" class="form-validation ng-pristine ng-invalid ng-invalid-required" role="form" xt-form="" novalidate="">
+			<div class="row m-t"><div class="col-xs-12 col-sm-4 col-md-6"><mentee-view mentee-obj="menteeObj.profile" action-flag="false"></mentee-view></div></div>
+			<hr /><div class="row m-t"><div class="col-xs-12 col-sm-4 col-md-4">
+				<button type="button" class="btn btn-info" ng-model="selectedCourse" data-html="1" ng-options="course.fkCourseId.$oid as course.Name for course in menteeObj.courseList" bs-select selected>
+  					Action <span class="caret"></span>
+				</button>
+
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-6">
+				<div class="formgen-dropdown m-xs" >
+					<div multi-selectable  ng-show="menteeObj.userCourseElementlist.length" input-model="menteeObj.userCourseElementlist" output-model="menteeObj.selectedCourseMaterial" button-label="Name" item-label="Name"  tick-property="ticked" helper-elements="all none reset filter" default-label="Please select a course material">	
+					</div>  <!-- on-item-click="onItemClick(data)" -->
+					<div ng-if="menteeObj.userCourseElementlist.length==0" class="animated fadeIn">
+						<!-- <i class="fa fa-spiner fa-spin text-lg text-info"></i> -->
+				        <div class="alert ng-scope am-fade alert-button bg-danger lt text-white no-margin" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
+				        
+				          <strong class="ng-binding" translate="{{'Not Found!'|translate}}"></strong>&nbsp;
+				          <span translate="{{'Already all course material under the course has been added to this user time line'|translate}}"></span>
+				        </div>
+
+					</div>
+					<div ng-if="status==false" class="animated fadeIn">
+						<!-- <i class="fa fa-spiner fa-spin text-lg text-info"></i> -->
+				        <div class="alert ng-scope am-fade alert-button bg-danger lt text-white no-margin" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
+				        
+				          <strong class="ng-binding" translate="{{'Not Found!'|translate}}"></strong>&nbsp;
+				          <span translate="{{'There is no any course materials added in the batch of this mentee.'|translate}}"></span>
+				        </div>
+
+					</div>
+			</div>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-2"><div  class="list-group-item">
+	        		
+	        			<div class="pull-left">
+	        				<i class="fa fa-calendar"></i> Day {{changeminutes2day(courseElement.tlpoint)}}
+	        			</div>
+	        			<br>
+	          			<div class="font-bold" translate="{{courseElement.userCourseElementType |translate}}">
+	          		
+	          			</div>
+	          				
+                    <div class="pull-right checkbox" style="margin-top: -35px">
+	        					  <label>
+	            					  <input ng-model="menteeObj.selectedCourseMaterial.courseElement.courseElement.attendence" ng-change="fnMarkAttendence(courseElement)" type="checkbox">
+	        					  </label>
+							      </div>
+				
+        		</div></div>
+			</div>
+			<!-- course element details -->
+			 <div class="col-xs-12">
+				<div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
+									
+        		<div masonry-tile class="tile m-t-lg col-xs-12 col-sm-6 col-md-6" data-ng-repeat="course in menteeObj.selectedCourseMaterial">
+          			<course-element-preview  preview-data="course.courseElement"></course-element-preview>
+        		</div>
+        	
+        		</div>
+			</div> 
+            </form>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+<!-- 
+        		<div  class="list-group-item " ng-repeat="courseElement in courseElementlist">
+	        		
+	        			<div class="pull-left">
+	        				<i class="fa fa-calendar"></i> Day {{changeminutes2day(courseElement.tlpoint)}}
+	        			</div>
+	        			<br>
+	          			<div class="font-bold" translate="{{courseElement.userCourseElementType |translate}}">
+	          		
+	          			</div>
+	          				
+                    <div class="pull-right checkbox" style="margin-top: -35px">
+	        					  <label>
+	            					  <input ng-model="courseElement.courseElement.attendence" ng-change="fnMarkAttendence(courseElement)" type="checkbox">
+	        					  </label>
+							      </div>
+				
+        		</div> -->

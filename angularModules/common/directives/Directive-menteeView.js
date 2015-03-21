@@ -19,7 +19,7 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 			 "click": "fnViewCourse()"
 			},
 			{
-			"text": "<i class=\"fa fa-globe\"></i>&nbsp;Mark attendance",
+			"text": "<i class=\"fa fa-hand-o-up\"></i>&nbsp;Mark attendance",
 			 "click": "fnMarkAttendance()"
 			},
 			{
@@ -47,6 +47,11 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 			//function to view course
 			scope.fnAssignMaterial=function(){
 				$state.go("home.main.assignCourseMaterial",{userId:scope.menteeObj.fkUserRoleMappingId.$oid});
+			};
+
+			//function to view course
+			scope.fnMarkAttendance=function(){
+				$state.go("home.main.menteeAttendance",{userId:scope.menteeObj.fkUserRoleMappingId.$oid});
 			};
 		}
 	};
