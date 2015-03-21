@@ -19,4 +19,14 @@ angular.module('baabtra').service('viewBatches',['bbConfig','$http',function(bbC
 	return promise;
  }	
 
+  this.loadBatchMentees=function($scope,batchId){
+  	alert('in');
+ 	var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'fnloadBatchDetails4assignment/',
+	    data:{"companyId":$scope.companyId,"batchId":batchId}
+	 });
+	return promise;
+ };	
+
 }]);

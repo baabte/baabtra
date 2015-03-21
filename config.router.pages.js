@@ -406,6 +406,18 @@
                 }
                 
               })
+
+                .state('home.main.approveMentees', {
+                url: '/approveMentees',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/user/partials/Partial-viewUsersForApprove.html',
+                    controller: 'ViewusersforapproveCtrl'
+                  }
+                }
+                
+              })
+
               .state('home.main.viewCourse', {
                 url: '/viewCourse/:courseId',
                 views:{
@@ -601,6 +613,16 @@
                     templateUrl: 'angularModules/course/partials/Partial-assignCourseMaterial.html',
                     controller:'AssigncoursematerialCtrl'
                   }
+                }
+                
+              })
+              .state('home.main.batchAssignment', {
+                url: '/batchAssignment/:batchId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-batchAssignment.html',
+                    controller:'BatchassignmentCtrl'
+                    }
                 }
                 
               })

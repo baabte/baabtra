@@ -10,9 +10,16 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
             scope.instance = scope.selectedTpoint;
             scope.attendenceTrack=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].attendenceTrack;
             var code=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
-            scope.temp={};
-            scope.temp.evaluator=[{"ticked":true,"roleMappingId":{},"Name":"demo mentor"}];
+            scope.evaluator=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].evaluator;
             //scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
+             if(angular.equals(scope.evaluator,undefined)){
+                scope.evaluator=[];
+             }
+             else{
+                for(var index in scope.evaluator){
+                    scope.evaluator[index].roleMappingId=scope.evaluator[index].roleMappingId.$oid;
+                }
+             }
              if(angular.equals(code,undefined)){
                         var time=new Date().valueOf();//date in millisecs11
                         var key=[scope.instance]+'.'+[scope.$parent.courseElement.Name];
@@ -103,8 +110,8 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
               var unbindWatchOnThis=scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if(scope.ItsTimeToSaveDataToDB===true){
                      scope.coursePreviewObj.attendenceTrack=scope.attendenceTrack; // attendece track
-                     scope.coursePreviewObj.code=code; // attendece track
-                     if(angular.equals(code,undefined))
+                     scope.coursePreviewObj.code=code; // code backto object
+                     scope.coursePreviewObj.evaluator=scope.evaluator; //adding evaluator to course element
                      if(scope.coursePreviewObj.datas){
                         delete scope.coursePreviewObj.datas;
                      }

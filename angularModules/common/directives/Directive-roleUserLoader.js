@@ -11,10 +11,12 @@ angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv'
 		templateUrl: 'angularModules/common/directives/Directive-roleUserLoader.html',
 		link: function(scope, element, attrs, fn) {
 			
-			var companyId='';
+			var companyId = "54978cc57525614f6e3e710b";
 			if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
 			  companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
+			  
 			}
+			
 			if(angular.equals(scope.usersUnderRoles,undefined)){
 				var roleUserResponse = commonSrv.fnLoadUsersUnderRole("54e1780103e38dc70f5efb96",companyId);
 				roleUserResponse.then(function(response){
@@ -36,7 +38,16 @@ angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv'
 					scope.ngModel.push({ticked:item.ticked,roleMappingId:item.roleMappingId.$oid,Name:item.Name});
 				}
 				else{
-					scope.ngModel.push({ticked:item.ticked,roleMappingId:item.roleMappingId,Name:item.Name});
+					if(item != null){
+
+						if(item.ticked){
+							scope.ngModel.push({ticked:item.ticked,roleMappingId:item.roleMappingId.$oid,Name:item.Name});
+						}
+						else{
+							scope.ngModel.splice(scope.ngModel.indexOf(item.Name),1);
+						}
+					}
+					
 				}
 			};
 		}
