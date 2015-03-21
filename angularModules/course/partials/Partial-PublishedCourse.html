@@ -77,6 +77,14 @@
                     </li>
                    </ul> 
              </li>
+             <li class="dropdown" >
+               <a  data-toggle="dropdown" class="dropdown-toggle" >
+               <span translate="{{'Designation'|translate}}"></span> <b class="caret"></b></a>
+                  <ul class="dropdown-menu vertical-scroll" > 
+                    <li ng-repeat="desig in Designation" ng-click="searchCoursesAvailable(desig,'Designation')" ><a>{{desig}}</a>   
+                    </li>
+                   </ul> 
+             </li>
               <!-- <li><a>Course Duration</a></li> -->
 
             </ul>

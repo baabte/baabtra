@@ -47,7 +47,6 @@ $scope.fnBulkEnroll=function(){
  $scope.userRegister.batchId =$scope.batchId;
   $scope.userRegister.role.roleId=3; 
 	$scope.userRegister.batch=$scope.batch;
-  console.log($scope.userRegister); 
 	var promise= bulkEnrollment.fnSaveBulkEnroll($scope);
    promise.then(function(response){
     if(response.data){
@@ -80,6 +79,6 @@ if(response.data){
    $state.go('home.main'); 
 }
 });
-}
+};
 
 }]);

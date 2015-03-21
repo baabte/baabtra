@@ -54,7 +54,8 @@
         'googlechart',
         'gettext',
         'timer',
-        'internationalPhoneNumber'
+        'internationalPhoneNumber',
+        'checklist-model'
       ])
 
 .run(function(editableOptions) {

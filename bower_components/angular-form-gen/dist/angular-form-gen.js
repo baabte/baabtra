@@ -292,6 +292,9 @@ fg.config(["fgConfigProvider", "FgField", function (fgConfigProvider, FgField) {
       }),
       new FgField('number', {
         validation: { maxlength: 15 /* to prevent > Number.MAX_VALUE */ }
+         }),
+      new FgField('internationalPhoneNumber',{
+        displayName: "PhoneNumber"
       })]
 
       
@@ -521,6 +524,15 @@ $templateCache.put('angular-form-gen/field-templates/default/courseLoader.ng.htm
 
 
 // ----------- Evaluator loader ends here -----------
+// ----------- Phone number selector -----------
+
+  $templateCache.put('angular-form-gen/field-templates/default/internationalPhoneNumber.ng.html', '<input  fg-custom-attributes international-phone-number fg-field-input=\"\" type=\"text\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\"placeholder=\"{{ field.schema.displayName }}\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-disabled=\"isDisabled(field.schema)\">');
+
+
+  $templateCache.put('angular-form-gen/field-templates/properties/internationalPhoneNumber.ng.html', '<div fg-tabs-pane=\"Properties\"><div fg-property-field-common=\"{ fieldname: true, displayname: true, placeholder: true, tooltip: true }\"></div><div fg-property-field-value=\"\"><span class=\"\" name=\"fieldValue\" ng-model=\"field.value\" ng-minlength=\"{{ field.validation.minlength }}\" strip-br=\"false\" no-line-breaks=\"true\" select-non-editable=\"true\" ng-maxlength=\"{{ field.validation.maxlength }}\" ng-pattern=\"//{{ field.validation.pattern }}\"></div></div></div><div fg-tabs-pane=\"Validation\"><div fg-property-field-validation=\"{ required: true, minlength: true, maxlength: true, pattern: true }\"></div></div><div fg-tabs-pane=\"Custom Attributes\"><div fg-property-field-custom=\"\"></div></div>');
+
+
+// ----------- Phone number selector ends here -----------
 
 // ----------- numberField loader -----------
  $templateCache.put('angular-form-gen/field-templates/default/numberField.ng.html', ' <input xt-validate fg-custom-attributes  class=\"form-control m-b-lg\" float-label wrapperless = "true" fg-field-input=\"\" fg-input-number=\"\" type=\"text\" id=\"{{ field.$_id }}\" title=\"{{ field.schema.tooltip }}\" tabindex=\"{{ tabIndex }}\" min=\"{{ field.schema.validation.min }}\" max=\"{{ field.schema.validation.max }}\" ng-model=\"form.data[field.schema.name]\" ng-required=\"field.schema.validation.required\" ng-minlength=\"{{ field.schema.validation.minlength }}\" ng-maxlength=\"{{ field.schema.validation.maxlength }}\"placeholder=\"{{ field.schema.displayName }}\" ng-pattern=\"{{ field.schema.validation.pattern }}\" ng-disabled=\"isDisabled(field.schema)\"> ');

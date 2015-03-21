@@ -1,9 +1,25 @@
-<ul class="list-group">
-        <li class="list-group-item" ng-repeat="user in userList">
-          <a href="" class="pull-left w-thumb m-r b-b b-b-2x b-success"><img src="images/user.ico" class="img-responsive"></a>
-          <div class="clear">
-            <a href="" class="font-bold block">{{user.profile.profile.firstName}} {{user.profile.profile.lastName}}</a>
-            {{user.userName.userName}}
-          </div>
-        </li>
-</ul>
+<div class="box-row"> 
+	<div class="box-cell">
+		<div class="box-inner">
+			<div class="list-group list-group-sm b no-margin border top scrollable" style="max-height:400px;">
+				<div class="list-group-item" ng-repeat="user in userList">
+				  <a href="" class="w-thumb-md pull-left m-r"><img src="images/user.ico" class="img-responsive"></a>
+					  <div class="clear m-b-sm">
+					   <!--  <span class="pull-right text-muted text-xs">
+					      12:30 PM -->
+					      <label class="ui-checks m-l-sm pull-right"><input type="checkbox" checklist-model="userObj.users" checklist-value="user.fkUserRoleMappingId.$oid" ng-click="click()"><i></i></label>
+					    <!-- </span> -->
+					    <div>{{user.profile.profile.firstName}} {{user.profile.profile.lastName}}</div>
+					    <small class="text-muted">{{user.userName.userName}}</small> 
+					  </div>
+				  <!-- <small class="text-muted">One of the best things to happen in web development over the past few years has been the variety of tools</small> -->
+				</div>
+
+			</div>
+			<div class="m-t">
+			<a href="" ng-click="checkAll()" class="btn btn-primary btn-xs m-r" translate="{{'Check all'|translate}}"></a>
+			<a href="" ng-click="uncheckAll()" class="btn btn-primary btn-xs m-r" translate="{{'Uncheck all'|translate}}"></a>
+			</div>
+		</div>
+	</div>
+</div>

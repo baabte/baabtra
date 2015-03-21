@@ -617,7 +617,7 @@
                 
               })
               .state('home.main.batchAssignment', {
-                url: '/batchAssignment/:batchId',
+                url: '/batchAssignment/:batchMappingId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-batchAssignment.html',

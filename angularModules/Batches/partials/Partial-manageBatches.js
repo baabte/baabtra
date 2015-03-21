@@ -57,9 +57,7 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
     $scope.Batch.urmId = $scope.rm_id;
     $scope.Batch.activeFlag=1;
     //console.log( $scope.Batch.startDate);
-    $scope.Batch.startDate=$scope.Batch.startDate.toISOString(); 
-
-    
+    $scope.Batch.startDate=$scope.Batch.startDate.toISOString();    
     $scope.Batch.endDate=$scope.Batch.endDate.toISOString();  
     $scope.Batch.createdDate = Date();
     $scope.Batch.updatedDate = Date();
