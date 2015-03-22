@@ -64,7 +64,7 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
           if(batch.batchMode=="onetime"){
            batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Duration:'+batch.duration+'days</div>';
            }else{
-            batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Duration:'+batch.repeats.repeatsAfter+'days</div>';
+            batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Repeats After:'+batch.repeats.every +" "+ batch.repeats.repeatType +'</div>';
             }
            })
 

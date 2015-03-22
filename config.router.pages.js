@@ -467,6 +467,16 @@
                   }
                 }
                 
+              }) 
+               .state('home.main.globalSettings', {
+                url: '/globalSettings',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/globalSettings/partials/Partial-globalSettings.html',
+                    controller: 'GlobalsettingsCtrl'
+                  }
+                }
+                
               })
               .state('home.main.test', {
                 url: '/test',
