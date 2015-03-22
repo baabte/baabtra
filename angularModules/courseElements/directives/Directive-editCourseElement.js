@@ -8,17 +8,35 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
 			var randomKey=Math.floor(Math.random()*100000,1000);
 			//scope.instance = scope.selectedTpoint/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor-((1/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor))+1;
             scope.instance = scope.selectedTpoint;
+            scope.attendenceTrack=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].attendenceTrack;
+            var code=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
+            scope.evaluator=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].evaluator;
+            //scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
+             if(angular.equals(scope.evaluator,undefined)){
+                scope.evaluator=[];
+             }
+             else{
+                for(var index in scope.evaluator){
+                    scope.evaluator[index].roleMappingId=scope.evaluator[index].roleMappingId.$oid;
+                }
+             }
+             if(angular.equals(code,undefined)){
+                        var time=new Date().valueOf();//date in millisecs11
+                        var key=[scope.instance]+'.'+[scope.$parent.courseElement.Name];
+                        var hashids = new Hashids(key,8);
+                        var code = hashids.encode(time);
+                     }
             scope.createPreviewElement = function(path){
 				scope.ItsTimeToSaveDataToDB=false; // check for object built successfully or not
 				scope.weHaveGotAfile=false;
             	var fieldsTraversedCount=0;
             	var totalFields = scope.$parent.courseElement.courseElementTemplate.fields.length;
-
             	var temp = {}; // temp object for storing each elements in a course element
             	scope.coursePreviewObj.elements=[]; // array for storing elements
             	scope.coursePreviewObj.Name=scope.$parent.courseElement.Name; // course element name
             	scope.coursePreviewObj.Icon=scope.$parent.courseElement.Icon; // course element icon
             	scope.coursePreviewObj.iconBackground=scope.$parent.courseElement.iconBackground; // icon bg colour
+               
             	scope.coursePreviewObj.iconColor=scope.$parent.courseElement.iconColor; //icon colour
 
             	angular.forEach(scope.$parent.courseElement.courseElementTemplate.fields,function(item){ // looping through item template
@@ -91,9 +109,17 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
                 // below function will trigger only when the object is built
               var unbindWatchOnThis=scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if(scope.ItsTimeToSaveDataToDB===true){
+                     scope.coursePreviewObj.attendenceTrack=scope.attendenceTrack; // attendece track
+                     scope.coursePreviewObj.code=code; // code backto object
+                     scope.coursePreviewObj.evaluator=scope.evaluator; //adding evaluator to course element
+                     if(scope.coursePreviewObj.datas){
+                        delete scope.coursePreviewObj.datas;
+                     }
+
                     var promise = addCourseService.editCourseTimelineElement(scope.$parent.courseId, scope.$parent.courseElement.Name, scope.instance,{index:scope.selectedIndex,element:scope.coursePreviewObj}, scope.$parent.$parent.rm_id);//saving to database
                     promise.then(function(response){
                         scope.$parent.syncData = angular.fromJson(JSON.parse(response.data))[0];
+
                     });
 
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once

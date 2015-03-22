@@ -159,7 +159,7 @@ var mandatoryData={};
 fnRegisterUserCallBack.then(function(data){
 
  var result=angular.fromJson(JSON.parse(data.data));
- console.log(result);
+ //console.log(result);
 //       //var senderId="BAABTR";
 //       //var smsKey="10069q0x6jqk4pp61r5";
 //     //var sendNotification=userRegistrationService.fnSendEmailSmsNotification("919567102617","vineeth@baabte.com",senderId,smsKey)
@@ -168,9 +168,9 @@ fnRegisterUserCallBack.then(function(data){
    
         
  });
-console.log( $scope.userRegister);
-console.log($rootScope.userinfo.ActiveUserData.eMail);
-console.log($scope.userRegister.mandatoryData.eMail);
+//console.log( $scope.userRegister);
+//console.log($rootScope.userinfo.ActiveUserData.eMail);
+//console.log($scope.userRegister.mandatoryData.eMail);
 };
 
 

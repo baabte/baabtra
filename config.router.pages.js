@@ -477,6 +477,15 @@
                   }
                 }
               })
+              .state('home.main.evaluation', {
+                url: '/evaluation',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/evaluation/partials/Partial-evaluationViewer.html',
+                    controller: 'EvaluationviewerCtrl'
+                  }
+                }
+              })
               .state('home.main.courseElementFieldsManaging', {
                 url: '/courseElementFieldsManaging',
                 views:{
@@ -608,7 +617,7 @@
                 
               })
               .state('home.main.batchAssignment', {
-                url: '/batchAssignment/:batchId',
+                url: '/batchAssignment/:batchMappingId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-batchAssignment.html',
@@ -623,6 +632,26 @@
                   'innercontent':{
                     templateUrl: 'angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.html',
                     controller:'EmailsmsconfigCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.batchAttendance', {
+                url: '/batchAttendance/:batchMappingId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-batchAttendance.html',
+                    controller:'BatchattendanceCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.menteeAttendance', {
+                url: '/menteeAttendance/:userId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-menteeAttendance.html',
+                    controller:'MenteeattendanceCtrl'
                   }
                 }
                 

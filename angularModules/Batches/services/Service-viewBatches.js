@@ -19,14 +19,34 @@ angular.module('baabtra').service('viewBatches',['bbConfig','$http',function(bbC
 	return promise;
  }	
 
-  this.loadBatchMentees=function($scope,batchId){
-  	alert('in');
+  this.loadBatchMentees=function($scope,batchMappingId){
+
  	var promise = $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'fnloadBatchDetails4assignment/',
-	    data:{"companyId":$scope.companyId,"batchId":batchId}
+	    data:{"companyId":$scope.companyId,"batchMappingId":batchMappingId}
 	 });
 	return promise;
  };	
+
+  this.assignCourseMaterials4Batch=function($scope){
+
+ 	var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'fnAssignCourseMaterials4Batch/',
+	    data:{"batchMappingId":$scope.batchMappingId,"courseObj":$scope.batchObj.batchDetails,"companyId":$scope.companyId}
+	 });
+	return promise;
+ };	
+
+	this.loadCoursesMaterials4menteeAtt=function($scope){
+
+		var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'fnloadCoursesMaterials4menteeAtt/',
+	    data:{"courseId":$scope.selectedCourse,"urmId":$scope.urmId}
+	 });
+	return promise;
+	};	
 
 }]);

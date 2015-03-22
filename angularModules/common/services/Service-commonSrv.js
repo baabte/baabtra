@@ -128,4 +128,14 @@ this.FnLoadGlobalValues=function(key)
   return promise;
  }; 
 
+ this.loadCourseMaterial4Batch=function(batchMappingId){ //to load the course materials under specific course
+  var promise = $http({
+    method: 'POST',
+      url: bbConfig.BWS+'fnloadCourseMaterial4Batch/',
+      data:{"batchMappingId":batchMappingId}
+   });
+  return promise;
+ }; 
+
+
 }]);
