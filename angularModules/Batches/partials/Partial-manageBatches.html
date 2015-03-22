@@ -38,7 +38,7 @@
                       </div>
                       <div class="checkbox">
                         <label>
-                            <input type="checkbox"  ng-model="Batch.instructorLead" value="instructorLead" ><b class="font-normal"  translate= "{{' Instructor Lead'|translate}}"></b> 
+                            <input type="checkbox"  ng-model="Batch.instructorLead" value="instructorLead" ><b class="font-normal"  translate= "{{' Online Instructor Lead'|translate}}"></b> 
                         </label>
                       </div>
                     <em class="text-muted text-E91E63">
@@ -162,8 +162,9 @@
       <div class="panel-footer">
           <button class="btn btn-warning baab-btn" type="reset" ng-disabled="batchAdd.$pristine" >cancel</button>		
 	        <button class="btn btn-info baab-btn" ng-disabled="batchAdd.$invalid" ng-click="saveBatch()" >Add Batch</button>
+       </div>    
         </form>   
-      </div>
+     
     </div>
   </div>
 </div>

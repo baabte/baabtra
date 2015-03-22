@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('TestCtrl',function($scope){
+angular.module('baabtra').controller('TestCtrl',['$scope','$rootScope',function ($scope,$rootScope){
 
 $scope.previewData=[{"type":"objective",
 "answerType":"singleAnswer",
@@ -47,7 +47,9 @@ $scope.feedbackFormModel=[{"type":"objective","options":[{"Name":"a","value":"sd
 
  var time=(new Date()).valueOf();
        var hashids = new Hashids("test");
-        $scope.code = hashids.encode(time);   
-console.log($scope.code);
+       $scope.code = hashids.encode(time);   
 
-});																																																																								 																			
+$scope.userCourseId="550d0e45d4f9075d40a10eb6";
+
+console.log($rootScope.userinfo);
+}]);																																																																								 																			

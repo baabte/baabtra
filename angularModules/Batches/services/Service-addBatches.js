@@ -34,11 +34,11 @@ angular.module('baabtra').service('addBatches',['$http','bbConfig','$rootScope',
 	 });
 	return promise;
  }
- this.loadCourseRelatedBatches=function(cmpId,coursId,joinDate){
+ this.loadCourseRelatedBatches=function(cmpId,coursId,joinDate,courseType){
  	var promise = $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'loadCourseRelatedBatches/',
-	    data:{"cmpId":cmpId,"courseId":coursId,"joinDate":joinDate}
+	    data:{"cmpId":cmpId,"courseId":coursId,"joinDate":joinDate,"courseType":courseType}
 	 });
 	return promise;
  }

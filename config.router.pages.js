@@ -147,6 +147,15 @@
                    }
                 }
               })
+              .state('home.main.department', {
+                url: '/department/:branchId',
+                 views:{
+                  'innercontent':{
+                templateUrl: 'angularModules/Department/partials/Partial-department.html',
+                controller:'DepartmentCtrl'
+                   }
+                }
+              })
               .state('home.main.roleMenuMapping', {
                 url: '/roleMenuMapping',
                 views:{
@@ -397,6 +406,18 @@
                 }
                 
               })
+
+                .state('home.main.approveMentees', {
+                url: '/approveMentees',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/user/partials/Partial-viewUsersForApprove.html',
+                    controller: 'ViewusersforapproveCtrl'
+                  }
+                }
+                
+              })
+
               .state('home.main.viewCourse', {
                 url: '/viewCourse/:courseId',
                 views:{
@@ -463,6 +484,15 @@
                   'innercontent':{
                     templateUrl: 'angularModules/test/partials/Partial-test.html',
                     controller: 'TestCtrl'
+                  }
+                }
+              })
+              .state('home.main.evaluation', {
+                url: '/evaluation',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/evaluation/partials/Partial-evaluationViewer.html',
+                    controller: 'EvaluationviewerCtrl'
                   }
                 }
               })
@@ -572,6 +602,66 @@
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-manageBatches.html',
                     controller:'ManagebatchesCtrl'
+                  }
+                }
+                
+              })
+               .state('home.main.viewBatches', {
+                url: '/viewBatches',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-viewBatches.html',
+                    controller:'ViewbatchesCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.assignCourseMaterial', {
+                url: '/assignCourseMaterial/:userId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-assignCourseMaterial.html',
+                    controller:'AssigncoursematerialCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.batchAssignment', {
+                url: '/batchAssignment/:batchMappingId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-batchAssignment.html',
+                    controller:'BatchassignmentCtrl'
+                    }
+                }
+                
+              })
+              .state('home.main.emailSms', {
+                url: '/emailSms',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.html',
+                    controller:'EmailsmsconfigCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.batchAttendance', {
+                url: '/batchAttendance/:batchMappingId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-batchAttendance.html',
+                    controller:'BatchattendanceCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.menteeAttendance', {
+                url: '/menteeAttendance/:userId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-menteeAttendance.html',
+                    controller:'MenteeattendanceCtrl'
                   }
                 }
                 

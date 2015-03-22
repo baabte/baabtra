@@ -53,7 +53,9 @@
         'masonry',
         'googlechart',
         'gettext',
-        'timer'
+        'timer',
+        'internationalPhoneNumber',
+        'checklist-model'
       ])
 
 .run(function(editableOptions) {

@@ -19083,14 +19083,14 @@ legend {
   color: inherit;
 }
 @media (max-width: 767px) {
-  .navbar .navbar-nav .open .dropdown-menu > .dropdown-header {
+/*  .navbar .navbar-nav .open .dropdown-menu > .dropdown-header {
     border: 0;
     color: inherit;
-  }
-  .navbar .navbar-nav .open .dropdown-menu .divider {
+  }*/
+  /*.navbar .navbar-nav .open .dropdown-menu .divider {
     border-bottom: 1px solid;
     opacity: 0.08;
-  }
+  }*/
   .navbar .navbar-nav .open .dropdown-menu > li > a {
     color: inherit;
   }
@@ -25048,7 +25048,7 @@ fieldset[disabled] .navbar .btn-link:focus {
     padding-bottom: 15px;
   }
 }
-.dropdown-menu {
+/*.dropdown-menu {
   border: 0;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
@@ -25063,7 +25063,7 @@ fieldset[disabled] .navbar .btn-link:focus {
   background-color: transparent;
   color: #009587;
 }
-.dropdown-menu li a:hover,
+*/.dropdown-menu li a:hover,
 .dropdown-menu-default li a:hover {
   color: #009587;
 }
@@ -30427,40 +30427,42 @@ fieldset[disabled] .navbar .btn-link:focus {
 .nav-tabs > li.disabled > a:hover {
   color: rgba(255, 255, 255, 0.5);
 }
-.popover,
+/*commented by jihin*/
+/*.popover,
 .tooltip-inner {
   background: #323232;
   color: #FFF;
   border-radius: 2px;
-}
+}*/
 .tooltip,
 .tooltip.in {
   opacity: 1;
 }
-.popover.left .arrow:after,
+/*commented by jihin*/
+/*.popover.left .arrow:after,
 .tooltip.left .arrow:after,
 .popover.left .tooltip-arrow,
 .tooltip.left .tooltip-arrow {
   border-left-color: #323232;
-}
-.popover.right .arrow:after,
+}*/
+/*.popover.right .arrow:after,
 .tooltip.right .arrow:after,
 .popover.right .tooltip-arrow,
 .tooltip.right .tooltip-arrow {
   border-right-color: #323232;
-}
-.popover.top .arrow:after,
+}*/
+/*.popover.top .arrow:after,
 .tooltip.top .arrow:after,
 .popover.top .tooltip-arrow,
 .tooltip.top .tooltip-arrow {
   border-top-color: #323232;
-}
-.popover.bottom .arrow:after,
+}*/
+/*.popover.bottom .arrow:after,
 .tooltip.bottom .arrow:after,
 .popover.bottom .tooltip-arrow,
 .tooltip.bottom .tooltip-arrow {
   border-bottom-color: #323232;
-}
+}*/
 .mdi,
 icon {
   line-height: inherit;
