@@ -2,7 +2,8 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form name="formOnetime" class=" ng-pristine ng-valid"  > 
-      <div class="modal-header">        
+      <div class="modal-header"> 
+        <button type="button" class="close" ng-click="$hide()">×</button>   
         <h4 class="modal-title text-primary" translate="{{'Onetime'|translate}}"></h4>
       </div>
       <div class="modal-body">
@@ -21,16 +22,16 @@
                     </div>  
                 </div>       
             </div> 
-           <div class="row">
+          <!--  <div class="row">
             <div class="form-group">
-             <input type="text" class="form-control" float-label ng-model="Batch.oneTime.startDate" required data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="number" data-autoclose="true" data-min-date="today"  name="date1" bs-datepicker placeholder="{{'Starts On'|translate}}">
+             <input type="text" class="form-control" float-label ng-model="Batch.oneTime.startDate" required data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="date" data-autoclose="true" data-min-date="today"  name="date1" bs-datepicker placeholder="{{'Starts On'|translate}}">
             </div>
-           </div>
-           <div class="row">
+           </div> -->
+           <!-- <div class="row">
             <div class="form-group">
-             <input type="text" class="form-control" float-label ng-model="Batch.oneTime.endDate" required data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="number" data-autoclose="true" data-min-date="today"  name="date2" bs-datepicker placeholder="{{'Ends On'|translate}}">
+             <input type="text" class="form-control" float-label ng-model="Batch.oneTime.endDate" required data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="date" data-autoclose="true" data-min-date="today"  name="date2" bs-datepicker placeholder="{{'Ends On'|translate}}">
             </div>
-           </div>     
+           </div>  -->    
            </div>  
        </div>    
       </div>

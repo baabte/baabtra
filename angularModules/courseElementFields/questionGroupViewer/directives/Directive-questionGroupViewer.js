@@ -43,14 +43,13 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfi
 			}
 
 			scope.dataValue= JSON.parse(scope.data);
-			// console.log(scope.dataValue);
+			// console.log(scope.isMentee);
 			
 
 			if (angular.equals(scope.questionAnswer.length,0)){
-			scope.noOfQuestions=scope.dataValue.value.testModel.length;
-			for (var i = 0; i < scope.noOfQuestions; i++) {
-				var obj={};
-				scope.questionAnswer.push(obj);
+			for(var index in scope.dataValue.value.testModel){
+				var tempObj={userResponse:[]};
+				scope.questionAnswer.push(tempObj);
 			}
 			}
 			if(angular.equals(scope.dataValue.value.questionView.mode,'multiple')){
@@ -80,7 +79,7 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfi
 			};
 
 			scope.submitTest=function(){
-				console.log(scope.questionAnswer);
+				// console.log(scope.questionAnswer);
 				var time=(new Date()).getTime();
 				var totalMarkScored=0;
 				for(var index in scope.questionAnswer){
@@ -90,26 +89,21 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfi
 				
 				var SubmitTestObj={courseMappingId:courseMappingId,userLoginId:userLoginId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex,totalMarkScored:totalMarkScored,timeObj:{key:'dateOfSubmission',value:time},userAnswers:scope.questionAnswer};
 				
-				console.clear();
-				console.log(SubmitTestObj);
+				// console.clear();
+				// console.log(SubmitTestObj);
 
 				var FnSubmitTestCallBack= testRelated.FnSubmitTest(SubmitTestObj);
 
 				FnSubmitTestCallBack.then(function(data){
 					scope.isMentee=false;
 				 var result=angular.fromJson(JSON.parse(data.data));
-				console.log(result);
+				// console.log(result);
 				});
 
 
 			};
 
-			// for (var i = 0; i < 10; i++) {
-
-			// 	var time=(new Date()).getTime();
-			// 	console.log(time);
-			// 	};
-
+			
 			//this function is used to format the date from milliseconds
 			scope.convertDate=function (millisec) {
 				var date=new Date(millisec);

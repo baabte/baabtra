@@ -33,7 +33,7 @@ if(!angular.equals($stateParams.feedbackId,undefined)){
 				obj.question=value.question;
 				$scope.chart.data=value.data;
 				$scope.chart.options.title=value.question.replace(/<\/?[^>]+>/gi, ''); //to replace html tags
-				obj.chart=$scope.chart;
+				obj.chart=angular.copy($scope.chart); //to copy the object
 				$scope.feedbackList.push(obj);
 			});
 	});

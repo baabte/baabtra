@@ -178,5 +178,5 @@ $scope.notifications=function(title,message,type){
      // Notify(message, 'top-right', '2000', type, symbol, true); \
      $alert({title: title, content: message , placement: 'top-right',duration:3, type: type});// calling notification message function
     };
-console.log(bbConfig.MURID);
+
 }]);

@@ -191,7 +191,7 @@
                             <div class="m-t"><input ng-model="profileData.profile.lastName"  placeholder="Last Name" class="form-control" type="text" xt-validate required ng-minlength="1" name="lastName"></div>
                              
                      
-                             <div  class="m-t" type="submit"><button ng-disabled="nameForm.$invalid" class="btn btn-info" >{{saveButton}}</button> <button class="btn btn-white" type="button" ng-click="fullname==true?fullname=false:fullname=true">cancel</button></div>
+                             <div  class="m-t" ><button type="submit" ng-disabled="nameForm.$invalid" class="btn btn-info" >{{saveButton}}</button> <button class="btn btn-white" type="button" ng-click="fullname==true?fullname=false:fullname=true">cancel</button></div>
                        </form>
                        </div>
                        </div>
@@ -319,15 +319,6 @@
 
                        </div>
                        </div>
-      
-          <!-- end of language settind -->
-
-
-
-
-
-
-
 
               </div>     
               <div class="col-xs-12 pull-left" ng-show="selectedTab=='security'">

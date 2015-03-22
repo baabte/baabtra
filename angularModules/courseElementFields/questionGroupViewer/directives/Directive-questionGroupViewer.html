@@ -1,18 +1,32 @@
 
 <div>
 	<div class="col-xs-12">
-		<!-- <percent-indicator ng-if="examFinished" show-percentage="true" total-value="totalMark" obtain-value="" ng-model="form"></percent-indicator> -->
+		<percent-indicator ng-if="examFinished" show-percentage="true" total-value="dataValue.value.mark.totalMark" obtain-value="courseElement.markScored" ng-model="form"></percent-indicator>
+
 		<div ng-hide="startTest==true" class="col-xs-12 text-center">
 			<div class="btn btn-warning"  ng-click="startTimer()">Click to Start Test<div class="ripple-wrapper"></div>
          	</div>
         </div>
-
-        <!-- <pre>{{questionAnswer}}</pre> -->
-		
 		<div ng-if="startTest">
 		<div  ng-repeat="question in dataValue.value.testModel.slice(start,stop)">
-				<test-question-view  data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" question-response="questionAnswer[start+$index]" course-element="courseElement"></test-question-view>
-				<!-- <pre>{{start+$index}}</pre> -->
+				<!-- <test-question-view  data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" question-response="questionAnswer[start+$index]" course-element="courseElement"></test-question-view> -->
+				
+				<div ng-if="question.type=='objective'">
+					<div class="col-xs-12">
+						<div class="col-xs-1 course-description ">
+							<i class=" line fa fa-question pull-left" style="font-size:24;font-weight:bold; text-decoration:underline; margin-top:13px;color: #ff4081;"></i>
+						</div>
+						<div class="col-xs-11 course-description no-padding" ng-bind-html="question.question">
+						</div>
+					</div>
+					<objective-options options="question.options" answer-type="question.answerType" answer="question.options" mark-scored="markScored" user-answer="questionAnswer[start+$index].userResponse" db-answer="question.userAnswer" mark-obj="JSON.stringify(scope.question.mark)">
+					</objective-options>
+				</div>
+				
+				<div ng-if="question.type=='descriptive'">
+					<test-question-view  data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" question-response="questionAnswer[start+$index]" course-element="courseElement"></test-question-view>
+
+				</div>
 				
 
 
@@ -33,6 +47,7 @@
          	</div>
 			<div ng-if="isMentee" class="btn btn-danger pull-right" ng-click="submitTest()">Submit<div class="ripple-wrapper"></div>
          	</div>
+
         </div>
         </div>
 		

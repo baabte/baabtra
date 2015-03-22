@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-show="$root.userinfo" ng-app="baabtra" class="background-properties {{$root.userinfo.ActiveUserData.appSettings.backgroundColor}}" ng-class="{'default-bg':!$root.userinfo.ActiveUserData.appSettings.backgroundColor}" style = "background-image:{{$root.userinfo.ActiveUserData.appSettings.backgroundImage}};">
+<html lang="en" ng-app="baabtra" class="background-properties {{$root.userinfo.ActiveUserData.appSettings.backgroundColor}}" style = "background-image:{{$root.userinfo.ActiveUserData.appSettings.backgroundImage}};" ng-class="{'default-bg':!$root.userinfo.ActiveUserData.appSettings.backgroundColor}" >
 <head>
   <meta charset="utf-8" />
   <title>Baabtra.com</title>
@@ -132,6 +132,10 @@
 <script src="bower_components/angular-google-chart/ng-google-chart.js"></script>
 <script src="bower_components/angular-gettext/dist/angular-gettext.js"></script>
 <script src="bower_components/hashids/lib/hashids.min.js"></script>
+<script src="bower_components/momentjs/moment.js"></script>
+<script src="bower_components/humanize-duration/humanize-duration.js"></script>
+<script src="bower_components/angular-mocks/angular-mocks.js"></script>
+<script src="bower_components/angular-timer/dist/angular-timer.js"></script>
 <!-- endbower -->
 
 
@@ -278,6 +282,7 @@
   <script src="angularModules/course/directives/Directive-courseSummary.js"></script>
   <script src="angularModules/course/directives/Directive-courseByKeywords.js"></script>
   <script src="angularModules/Batches/partials/Partial-manageBatches.js"></script>
+  <script src="angularModules/Batches/directives/Directive-batchLoader.js"></script>
   <script src="angularModules/candidateCourseRelated/candidateCourseView/services/Service-candidateCourseFullView.js"></script>
     <script src="angularModules/common/directives/Directive-float-label.js"></script>
   <script src="angularModules/candidateCourseRelated/courseElementFullView/directives/Directive-courseElementFullView.js"></script>
@@ -294,21 +299,23 @@
   <script src="angularModules/feedback/feedbackField/directives/Directive-feedbackField.js"></script>
   <script src="angularModules/feedback/feedbackViewer/directives/Directive-feedbackViewer.js"></script>
   <script src="angularModules/common/directives/Directive-setParentHeight.js"></script>
-  <script src="angularModules/Batches/directives/Directive-batchLoader.js"></script>
   <script src="angularModules/feedback/partials/Partial-createFeedBack.js"></script>
+
   <script src="angularModules/common/directives/Directive-menteeLoder.js"></script>
   <script src="angularModules/feedback/services/Service-createFeedback.js"></script>
   <script src="angularModules/reports/partials/Partial-feedbackReport.js"></script>
   <script src="angularModules/reports/partials/Partial-feedbackReport.js"></script>
   <script src="angularModules/feedback/partials/Partial-viewFeedback.js"></script>
   <script src="angularModules/feedback/services/Service-viewFeedback.js"></script>
-
   <script src="angularModules/reports/partials/Partial-feedbackReportList.js"></script>
   <script src="angularModules/feedback/partials/Partial-feedbackDetails.js"></script>
-
   <script src="angularModules/reports/services/Service-feedbackList.js"></script>
   <script src="angularModules/globalSettings/partials/Partial-globalSettings.js"></script>
+  <script src="angularModules/globalSettings/services/Service-globalSettings.js"></script>
   <!-- Add New Component JS Above -->
+    <script src="angularModules/common/directives/Directive-notificationCard.js"></script>
+    <script src="angularModules/common/directives/Directive-userCard.js"></script>
+    <!-- Add New Component JS Above -->
 <!-- endbuild -->
 </div>
 
