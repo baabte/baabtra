@@ -153,21 +153,24 @@ var mandatoryData={};
  // console.log($scope.userRegister);
   delete  $scope.userRegister.role.formSchema;
   delete  $scope.userRegister.role.formSteps;
- //console.log($scope.userRegister.phone);
+//  //console.log($scope.userRegister.phone);
   var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
 
 fnRegisterUserCallBack.then(function(data){
 
  var result=angular.fromJson(JSON.parse(data.data));
-      //var senderId="BAABTR";
-      //var smsKey="10069q0x6jqk4pp61r5";
-    //var sendNotification=userRegistrationService.fnSendEmailSmsNotification("919567102617","vineeth@baabte.com",senderId,smsKey)
-     $scope.notifications('Yaay..!','Registered Successfully','success');   
-     $state.go('home.main');
+ console.log(result);
+//       //var senderId="BAABTR";
+//       //var smsKey="10069q0x6jqk4pp61r5";
+//     //var sendNotification=userRegistrationService.fnSendEmailSmsNotification("919567102617","vineeth@baabte.com",senderId,smsKey)
+      $scope.notifications('Yaay..!','Registered Successfully','success');   
+      $state.go('home.main');
    
         
-});
-
+ });
+console.log( $scope.userRegister);
+console.log($rootScope.userinfo.ActiveUserData.eMail);
+console.log($scope.userRegister.mandatoryData.eMail);
 };
 
 
