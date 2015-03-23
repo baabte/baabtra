@@ -54,6 +54,8 @@ $scope.evalId1="550e9857d4f9075d40a10f4c.2881.test.0";
 $scope.evalId2="550e9857d4f9075d40a10f4c.8641.test.0";
 $scope.evalId3="550e9857d4f9075d40a10f4c.11521.Test1.0";
 
+$scope.evalatorId="550aaf7fd4f9075d40a10d4d";
+
 
 console.log($rootScope.userinfo);
 

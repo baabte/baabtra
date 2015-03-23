@@ -3,6 +3,7 @@
         {{evaluationobj.elements[0].value}} Evaluation
     </div>
 	<div class="panel-body">
+		<form name="evaluationForm" xtForm>
         <div ng-if="evaluationobj.elements[1].type=='question-group-viewer'">
          	<div ng-repeat="answeredquestion in evaluationobj.elements[1].value.testModel">
          		<div class="col-xs-12 ">
@@ -48,14 +49,15 @@
 								<div class="col-xs-12 font-bold">
 								 Total Mark : {{answeredquestion.mark.totalMark}}
 								</div>
-								<div class="col-xs-12 font-bold">
-									<input type="text" msg-pattern="Enter Step Name (Minimum 1)" placeholder="{{' Marks '|translate}}" xt-validate required class="form-control" float-label name="stepName" ng-minlength="1" ng-model="customForm.formSchema[status.selected].stepName" >
 
+								<div class="col-xs-12 ">
+									<input type="number" placeholder="{{' Mark Scored '|translate}}" xt-validate required class="form-control" float-label name="markScored" ng-minlength="1" ng-model="answeredquestion.markScored" >
 								</div>
+
 							</div>
 						</div>					
 					</div>
-
+					
 				</div>
 			</div>		
         </div>
@@ -101,13 +103,15 @@
 								Total Mark : {{evaluationobj.elements[1].value.mark.totalMark}}
 							</div>
 							<div class="col-xs-12 font-bold">
-
+								<input type="number" placeholder="{{' Mark Scored '|translate}}" xt-validate required class="form-control" float-label name="markScored" ng-minlength="1" ng-model="evaluationobj.elements[1].value.markScored" >
 							</div>
 						</div>
 					</div>					
 				</div>
-
+				
 			</div>
-         </div>
+        </div>
+       </form>
     </div>
+    <div class="btn btn-info pull-right" ng-click="fnEvaluate(evaluationobj)" translate="{{'Save Evaluation'| translate}}" ng-disabled="evaluationForm.$invalid"></div>
 </div>
