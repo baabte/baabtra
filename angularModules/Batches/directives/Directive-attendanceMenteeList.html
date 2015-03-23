@@ -1,23 +1,28 @@
-            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 p-sm" data-ng-repeat="user in timeLineObj.userList">
+        
+<div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 p-sm" data-ng-repeat="user in timeLineObj.userList | filter:searchText">
 
-				<div class="shadow-z-2 set-full-height" style="cursor: pointer;" >
+				<div class="shadow-z-2 fl-parent-height" style="cursor: pointer;" >
 <!-- ng-if="timeLineObj.courseElement.excludeList.indexOf(user.fkUserRoleMappingId.$oid)==-1" -->
 					<div class="row">
 						<div class="col-xs-12">
-							<div set-parent-height class="col-xs-3 random-background-color text-center h-full" style="display:table-cell;">
+							<div set-parent-height  parent-cl-name="'fl-parent-height'" class="col-xs-3 random-background-color text-center h-full" style="display:table-cell;">
 								 <i class="mdi-action-perm-contact-cal text-3x"></i><br/>
 							</div>
 							<div class="col-xs-9" style="display:table-cell;">
 								<div class="row">
-										<div class="p b-1x b-light text-1x col-xs-12">
-							  				<small>Mark attendance<label class="ui-checks pull-left"><input ng-model="timeLineObj.courseElement.courseElement.attendence" ng-change="fnMarkAttendence(user)" type="checkbox" ><i></i></label></small>
-							  			</div>
-				        				<div class="b-4x b-light col-xs-12">
+										<!--for batchAttendance-->
+										<div class="b-1x b-light text-1x col-xs-12 m-t-sm" ng-if="pageType=='batchAttendance'">
+							  				<small translate="{{'Mark attendance'|translate}}"></small><label class="ui-checks pull-left"><input ng-model="user.attendance" ng-change="fnMarkAttendence(user)" type="checkbox" ><i></i></label>
+							  			<!-- 	<label>
+	            					  			<input ng-model="user.attendance" ng-change="fnMarkAttendence(user)" type="checkbox">
+	        					  			</label> -->
+							  			</div><!--for batchAttendance ends-->
+				        				<div class="b-4x m-t-xs b-light col-xs-12">
 				                        <small>
 				                        <div class="pull-left font-bold text-ellipsis">{{user.profile.profile.firstName}} {{user.profile.profile.lastName}}</div><br/>
 				                        <div ><i>{{user.userName.userName}}</i> 
 				                        <i class="fa pull-right text-xl text-success b-2x"></i></div>
-				  						<div class="m-t">
+				  						<div class="m-t-xs m-b-sm">
 											<i class="fa fa-calendar text-1x"></i> Day {{changeminutes2day(timeLineObj.tlpoint)}}
 										<br>
 							  			<div class="font-bold">
@@ -27,7 +32,11 @@
 										</div>
 										</small>
 				                        </div>
-				                       
+				                        <!--for batchEvaluation-->
+				                       <div ng-if="pageType=='batchEvaluation'" class="b-1x b-light text-1x col-xs-12">
+							  				<button ng-click="fnEvaluate(user._id.$oid)" class="btn btn-info btn-xs" translate="{{'Evaluate'|translate}}"></button>
+							  			</div><!--for batchEvaluation ends-->
+
 				                        
 								</div>
 							</div>

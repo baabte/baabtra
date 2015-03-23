@@ -4,7 +4,8 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 		replace: true,
 		scope: {
 			menteeObj:"=",
-			actionFlag:"="
+			actionFlag:"=",
+			shadow:"="
 		},
 		templateUrl: 'angularModules/common/directives/Directive-menteeView.html',
 		link: function(scope, element, attrs, fn) {
@@ -28,7 +29,7 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 
 			},
 			{
-			"text": "<i class=\"fa fa-external-link\"></i>&nbsp;Evalute",
+			"text": "<i class=\"fa fa-check\"></i>&nbsp;Evalute",
 			"click": "fnEvaluate()"
 
 			}
@@ -52,6 +53,11 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 			//function to view course
 			scope.fnMarkAttendance=function(){
 				$state.go("home.main.menteeAttendance",{userId:scope.menteeObj.fkUserRoleMappingId.$oid});
+			};
+
+			//function to evaluate course materials
+			scope.fnEvaluate=function(){
+				$state.go("home.main.menteeEvaluation",{userId:scope.menteeObj.fkUserRoleMappingId.$oid});
 			};
 		}
 	};

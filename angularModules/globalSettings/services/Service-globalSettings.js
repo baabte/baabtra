@@ -77,9 +77,9 @@ this.removeExistingEvaluator=function (data){ // sending a parameter only for te
     return promise;
 };
 
-this.removeItemFormAgroup=function (data){ // sending a parameter only for test
+this.removeItemFromAgroup=function (data){ // sending a parameter only for test
     var promise=$http({
-         	url: bbConfig.BWS+'removeItemFormAgroup/',
+         	url: bbConfig.BWS+'removeItemFromAgroup/',
            data: JSON.stringify({"data":data}), //it will filter roles under a comapany
            method: "POST",
            withCredentials: false,
@@ -95,7 +95,7 @@ this.removeItemFormAgroup=function (data){ // sending a parameter only for test
     return promise;
 };
 
-this.updateExistingPrefix=function (data){ // sending a parameter only for test
+this.updateExistingPrefix=function (data){ // 
     var promise=$http({
          	url: bbConfig.BWS+'updateExistingPrefix/',
            data: JSON.stringify({"data":data}), //it will filter roles under a comapany
@@ -112,6 +112,44 @@ this.updateExistingPrefix=function (data){ // sending a parameter only for test
          }); 
     return promise;
 };
+
+
+this.setSupervisors=function (data){ // 
+    var promise=$http({
+         	url: bbConfig.BWS+'setSupervisors/',
+           data: JSON.stringify({"data":data}), //it will filter roles under a comapany
+           method: "POST",
+           withCredentials: false,
+           contentType:"application/json",
+           dataType:"json",
+       }).
+         success(function(data, status, headers, config) { 
+          return data;                   
+             }).
+         error(function(data, status, headers, config) {
+         	
+         }); 
+    return promise;
+};
+
+this.removeExistingSupervisors=function (data){ // 
+    var promise=$http({
+         	url: bbConfig.BWS+'removeExistingSupervisors/',
+           data: JSON.stringify({"data":data}), //it will filter roles under a comapany
+           method: "POST",
+           withCredentials: false,
+           contentType:"application/json",
+           dataType:"json",
+       }).
+         success(function(data, status, headers, config) { 
+          return data;                   
+             }).
+         error(function(data, status, headers, config) {
+         	
+         }); 
+    return promise;
+};
+
 
 
 }]);
