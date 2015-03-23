@@ -50,6 +50,11 @@ $scope.feedbackFormModel=[{"type":"objective","options":[{"Name":"a","value":"sd
        $scope.code = hashids.encode(time);   
 
 $scope.userCourseId="55095e71d4f9075d40a10c22";
+$scope.evalId1="550e9857d4f9075d40a10f4c.2881.test.0";
+$scope.evalId2="550e9857d4f9075d40a10f4c.8641.test.0";
+$scope.evalId3="550e9857d4f9075d40a10f4c.11521.Test1.0";
+
 
 console.log($rootScope.userinfo);
+
 }]);																																																																								 																			

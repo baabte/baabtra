@@ -62,7 +62,6 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 			
 				{
 					if(scope.question.userAnswer){
-
 						scope.dbAnswer=scope.question.userAnswer;
 					}
 				
@@ -95,7 +94,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 								}
 							}
 						}
-
+						console.log(debugVal);
 						scope.primaryForm.fields.push(debugVal);
 					}
 

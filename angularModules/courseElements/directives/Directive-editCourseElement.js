@@ -14,11 +14,16 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
             //scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
              if(angular.equals(scope.evaluator,undefined)){
                 scope.evaluator=[];
+                console.log("no evalutor");
              }
              else{
+                console.log("evalutor");
+                console.log(angular.copy(scope.evaluator))
                 for(var index in scope.evaluator){
                     scope.evaluator[index].roleMappingId=scope.evaluator[index].roleMappingId.$oid;
                 }
+                console.log(scope.evaluator)
+
              }
              if(angular.equals(code,undefined)){
                         var time=new Date().valueOf();//date in millisecs11
