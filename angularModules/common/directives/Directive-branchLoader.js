@@ -48,7 +48,7 @@ angular.module('baabtra').directive('branchLoader',['branchSrv','manageTreeStruc
 
 			var companyId='';
 			if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
-			  companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
+			  companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
 			}
 			$scope.onBranchSelectionChanged = function(items){
 				$scope.ngModel=items;

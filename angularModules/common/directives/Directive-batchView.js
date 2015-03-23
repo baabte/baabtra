@@ -32,12 +32,17 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 				}
 				];
 				
-				if(scope.batch.batchMode=="onetime"){
-					scope.description = '<div class="text-xs">Starting date '+$filter('date')(scope.batch.startDate.$date)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />End date: '+$filter('date')(scope.batch.endDate.$date)+'</div>';
+				/*if(scope.batch.batchMode=="onetime"){
+					scope.description = 'Starting date '+$filter('date')(scope.batch.startDate.$date)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />End date: '+$filter('date')(scope.batch.endDate.$date);
 				}else{
 					var days=scope.batch.repeats.every;
-					scope.description = '<div class="text-xs">Starting date '+$filter('date')(scope.batch.startDate.$date)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />Duration: Repeats each '+days+' months</div>';
-				}
+					scope.description = 'Starting date '+$filter('date')(scope.batch.startDate.$date)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />Duration: Repeats each '+days+' months';
+				}*/
+
+				scope.dateConvertion=function(date){
+					return $filter('date')(date);
+				};
+
 
 				//function to add course materials
 				scope.fnAssignMaterial=function(){

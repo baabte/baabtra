@@ -29,7 +29,7 @@ angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv'
 					scope.usersUnderRoles = angular.copy(usersUnderRoles);
 				});
 			}
-			scope.onItemClick = function(item){
+			scope.onItemClick = function(item,index){
 				if(angular.equals(scope.ngModel,undefined)){
 					scope.ngModel = [];
 				}
