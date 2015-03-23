@@ -12,7 +12,6 @@ angular.module('baabtra').directive('menteeLoder',['$rootScope', 'commonSrv', fu
 			if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
 			  companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
 			}
-			
 			if(angular.equals(scope.mentessList,undefined)){
 				var menteesResponse = commonSrv.fnLoadMentees(companyId);
 				menteesResponse.then(function(response){

@@ -122,28 +122,60 @@ var mandatoryData={};
       }
     }
   }
+ if(!angular.equals($scope.allSync.batch,undefined)&&($scope.allSync.batch.length>0)) { 
+ delete $scope.allSync.batch[0].course;
+ $scope.allSync.FormData.batchId=$scope.allSync.batch[0]._id 
+ delete $scope.allSync.batch[0]._id;
+ delete $scope.allSync.batch[0].companyId;
+ delete $scope.allSync.batch[0].updatedDate;
+ delete $scope.allSync.batch[0].createddDate;
+ delete $scope.allSync.batch[0].crmId;
+ delete $scope.allSync.batch[0].urmId;
+ $scope.allSync.batch[0].startDate=new Date($scope.allSync.batch[0].startDate).toISOString();
+ $scope.allSync.batch[0].endDate=new Date($scope.allSync.batch[0].endDate).toISOString();
+ $scope.allSync.batch[0].enrollmentAfter=new Date($scope.allSync.batch[0].enrollmentAfter.$date).toISOString();
+ $scope.allSync.batch[0].enrollmentBefore=new Date($scope.allSync.batch[0].enrollmentBefore.$date).toISOString();
+ $scope.allSync.FormData.batch=$scope.allSync.batch[0];
+ delete $scope.allSync.batch;
+         var time=(new Date()).valueOf();
+         hashids = new Hashids("this is a batch id");
+         $scope.allSync.FormData.batch.batchCode = hashids.encode(time); 
 
-
+} 
+   
+         
   $scope.userRegister=$scope.allSync.FormData;
   $scope.userRegister.mandatoryData=mandatoryData;
   $scope.userRegister.loggedusercrmid=loggedusercrmid;
   $scope.userRegister.companyId=companyId;
 
   //service call for user registration
-  // console.log($scope.userRegister);
+ // console.log($scope.userRegister);
   delete  $scope.userRegister.role.formSchema;
   delete  $scope.userRegister.role.formSteps;
-// console.log($scope.userRegister);
-  var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
-
+//  //console.log($scope.userRegister.phone);
+var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
 
 fnRegisterUserCallBack.then(function(data){
 
  var result=angular.fromJson(JSON.parse(data.data));
-
-     $scope.notifications('Yaay..!','Registered Successfully','success');   
-     $state.go('home.main');
-});
+ console.log(result.evaluatorEmailLIst);
+//       //var senderId="BAABTR";
+//       //var smsKey="10069q0x6jqk4pp61r5";
+$scope.notifications('Yaay..!','Registered Successfully','success');   
+      $state.go('home.main');
+   
+  var  userEmail  = $rootScope.userinfo.ActiveUserData.eMail;
+  var  username   = $rootScope.userinfo.ActiveUserData.username;
+  var menteeEmail = $scope.userRegister.mandatoryData.eMail;
+  var menteeName  = $scope.userRegister.mandatoryData.firstName;
+  var companyName = $rootScope.userinfo.ActiveUserData.username;
+  var companyLogo = $rootScope.userinfo.ActiveUserData.appSettings.logo;
+//var sendNotification=userRegistrationService.fnSendEmailSmsNotification("919567102617","vineeth@baabte.com",senderId,smsKey)
+  var sendNotification=userRegistrationService.fnSendEmailSmsNotification(userEmail,username,menteeEmail,menteeName,result.evaluatorEmailLIst,companyName,companyLogo);
+     
+        
+ });
 
 };
 

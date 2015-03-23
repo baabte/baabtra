@@ -54,6 +54,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                 $span.addClass('font-normal m-l');
                 $a.append($span);
 
+                 
 
                 $li.on('click', function ($event) {
                     $event.preventDefault();
@@ -71,6 +72,18 @@ angular.module('ui.bootstrap.contextMenu', [])
                          $scope.itemTemplate = item.courseElementTemplate;
                          //elements that comes under this element
                          $scope.subElements = item.nestableElements;
+                         $scope.attendenceTrack=item.attendenceTrack;
+                         if(angular.equals($scope.attendenceTrack,undefined)){
+                            $scope.attendenceTrack=false;
+                         }
+                         console.log($scope.item.Name);
+                         if(!angular.equals($scope.item.Name,"Payment_checkpoint")){
+                         $scope.evaluator=angular.copy($scope.$parent.$parent.$parent.syncData.evaluator);
+
+                         }else{
+                           $scope.evaluator=[];
+                         }
+                        
                          //clearing data in preview object that is previously created
                          $scope.coursePreviewObj={};
                          $templateCache.put('course-element-popup.html','<div style="padding: 0px;" class="aside" role="dialog">'
@@ -82,8 +95,25 @@ angular.module('ui.bootstrap.contextMenu', [])
                               +'<div style="margin-top: -5px;" class="pull-right m-r p-xs  bg-white text-'+options[state].colorClass+'">'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+" "+$scope.$parent.tlpoint
                             +'</div></div>'
                             +'<div class="box-row">'
+                             +'<div class="form-group col-xs-6">'
+                             //+'test' to be edit by arun 
+                                +'<label  class="font-bold" for="definpu" >Attendence Tracking</label><br>'
+                                  +'<em class="text-muted" >Enable this feature to activate attendence tracking on this course element</em><br>'
+                                    +'<div class="togglebutton">'
+                                      +'<label>'
+                                        +'<input ng-model="attendenceTrack" class="toggle" type="checkbox">'
+                                        +'</label>'
+                                          +'</div></div>'
+                                          +'<div class="form-group col-xs-6 m-t-md">'
+                                          +'<label class="font-bold">Evaluator</label>'
+                                          +'<role-user-loader role-id="3" placeholder-value="Please select a person" selection-type="2" ng-model="evaluator"></role-user-loader>'
+                                          +'</div>'
+                                        +'</div>'
+                                    
+                            +'<div class="box-row">'
                               +'<div class="box-cell m-t">'
                                 +'<div class="box-inner col-xs-12">'
+
                                   +'<form xt-form novalidate class="form" name="courseElement" enctype="multipart/form-data">'
                                    +'<div class="p" sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"></div>'
                                    +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData['+$scope.randomKey+'])" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
@@ -239,10 +269,28 @@ angular.module('ui.bootstrap.contextMenu', [])
 
               $scope.syncData.courseTimeline[$scope.instance][$scope.item.Name].push($scope.coursePreviewObj);
 
+              //adding attendence tack to timeline arun
 
+               courseObj[courseObj.key].attendenceTrack=$scope.attendenceTrack;
+              
+              //end adding attendence track
+              //adding attendence tack to timeline arun
+
+               courseObj[courseObj.key].evaluator=$scope.evaluator;
+              
+              //end adding attendence track
               // below function will trigger only when the object is built
               var unbindWatchOnThis=$scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if($scope.ItsTimeToSaveDataToDB===true){
+                    //---by arun to create unique code 
+                    // console.log(courseObj.key);
+                     var time=new Date().valueOf();//date in millisecs11
+                     var hashids = new Hashids(courseObj.key,8);//
+                     var code = hashids.encode(time);  
+                     courseObj[courseObj.key].code=code;
+                     // console.log(courseObj);
+                    //--- end by arun to create unique code 
+
                     addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);//saving to database
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once
                     $hide();

@@ -24,6 +24,14 @@ this.FnRegisterUser=function(userRegister){
       return promise;
    };
 
+this.fnSendEmailSmsNotification=function(userEmail,userName,menteeEmail,menteeName,evaluatorEmailLIst,companyName,companyLogo){
+  var promise = $http({
+    method: 'POST',
+      url: bbConfig.BWS+'sendEmailSmsNotification/',
+      data:{"userEmail":userEmail,"userName":userName,"menteeEmail":menteeEmail,"menteeName":menteeName,"evaluatorEmailLIst":evaluatorEmailLIst,"companyName":companyName,"companyLogo":companyLogo}
+   });
+  return promise;
+ }
 
  //   //service function to fetch all details of an exsisting user 
  //   this.FnFetchUserDetails=function(formData){

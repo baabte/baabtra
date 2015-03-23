@@ -58,6 +58,30 @@ this.FnLoadGlobalValues=function(key)
     return promise;
    };
 
+   this.fnLoadUsersUnderRole = function(roleId, companyId){
+    var promise = $http({
+      url: bbConfig.BWS+'LoadUsersUnderRole/',
+      data: {roleId:roleId, companyId:companyId},
+      method: "POST",
+      withCredentials: false,
+      contentType:"application/json",
+      dataType:"json",
+    });
+    return promise;
+   };
+
+   this.fnLoadUserCardDetails = function(rmId){
+    var promise = $http({
+      url: bbConfig.BWS+'LoadUserCardDetails/',
+      data: {"rmId":rmId},
+      method: "POST",
+      withCredentials: false,
+      contentType:"application/json",
+      dataType:"json",
+    });
+    return promise;
+   };
+
    this.fnFileUpload = function (fileToBeUpload, pathToBeSave){ // functon that call web service to add a comapny role
     var promise = $upload.upload({
            url: bbConfig.BWS+'CourseFileUpload/',
@@ -94,6 +118,24 @@ this.FnLoadGlobalValues=function(key)
     });
     return promise;
    };
+
+ this.loadCourseMaterial=function(courseId,userId){ //to load the course materials under specific course
+  var promise = $http({
+    method: 'POST',
+      url: bbConfig.BWS+'fnloadCourseMaterial4multiSelect/',
+      data:{"courseId":courseId,"urmId":userId}
+   });
+  return promise;
+ }; 
+
+ this.loadCourseMaterial4Batch=function(batchMappingId){ //to load the course materials under specific course
+  var promise = $http({
+    method: 'POST',
+      url: bbConfig.BWS+'fnloadCourseMaterial4Batch/',
+      data:{"batchMappingId":batchMappingId}
+   });
+  return promise;
+ }; 
 
 
 }]);

@@ -1,10 +1,19 @@
      <script type="text/ng-template" id="nodes_renderer.html">
-          <div ui-tree-handle class="tree-node tree-node-content list-group-item" id="{{node._id}}">{{node.$root}}
+          <div ui-tree-handle class="tree-node tree-node-content" id="{{node._id}}">{{node.$root}}
             {{node._id}}&nbsp; &nbsp;
-            <a href="" class="icon-grey pull-right m-l-xs" ng-if="node.parent" data-nodrag ng-click="removeBranch(this)"><i class="fa fa-trash" ></i></a>
-            <a href="" class="icon-grey pull-right m-h-xs" ng-if="node.parent" data-nodrag ng-click="editBranch(this)"><i class="fa fa-edit" ></i></a>
+            <div class="pull-right">
+              <div class="pull-left m-r">
+                <a href="" class="icon-grey m-l-xs" ng-if="node.parent" data-nodrag ng-click="editBranch(this)" bs-tooltip data-title="Click to edit branch" data-placement="left"><i class="fa fa-edit" ></i></a>
+                <a href="" class="icon-grey m-l-xs" ng-if="node.parent" data-nodrag ng-click="removeBranch(this)"  bs-tooltip data-title="Click to remove branch" data-placement="left"><i class="fa fa-trash-o" ></i></a>
+              </div>
+              <div class="pull-left">
+                <a href="" bs-tooltip data-title="Click to add branch" data-placement="left" class="icon-grey" data-nodrag ng-click="newSubItem(this)"><i class="fa fa-code-fork" ></i></a>
+                <span class="b-l b-primary"></span>
+                <a class="icon-grey m-l-xs" ui-sref="home.main.department({branchId:node._id})" data-nodrag  bs-tooltip data-title="Click to add department" data-placement="left"><i class="ti  ti-layers-alt"></i></a>
+              </div>
+            </div>
             
-            <a href="" class="icon-grey pull-right m-r-xs" data-nodrag ng-click="newSubItem(this)"><i class="fa fa-plus" ></i></a>
+
           </div>
           <ol ui-tree-nodes="" ng-model="node.childrenObj" style="padding-left:0px;" ng-class="{hidden: collapsed}" data-horizontal="">
             <li ng-repeat="node in node.childrenObj track by $index" class="text-center" ui-tree-node ng-include="'nodes_renderer.html'">
@@ -15,8 +24,7 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="panel panel-default">
-        <div class="panel-heading bg-white">
-          <h4 class="modal-title text-primary">Branches</h4>
+        <div class="panel-heading font-bold text-white bg-00C853 p baab-shadow">Manage branches / departments
         </div>
         <div class="panel-body text-center">
         <div ng-show="branches.length" ui-tree="tree1NodesOptions" style="margin-top:-50px;" id="tree-root" >
@@ -26,5 +34,6 @@
         </div>
         </div>
         </div>
-                </div>
+    </div>
+  </div>
       

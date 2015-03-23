@@ -2,10 +2,10 @@
 
 angular.module('baabtra').controller('LoginViewCtrl',['$scope','$state','LoginService','localStorageService','$rootScope','commonService','$facebook','$modal', 'GooglePlus','$linkedIn',function($scope,$state,LoginService,localStorageService,$rootScope,commonService,$facebook,$modal,GooglePlus,$linkedIn){
 
-$rootScope.userinfo = {};
-$rootScope.userinfo.ActiveUserData = {};
-$rootScope.userinfo.ActiveUserData.appSettings = {};
-$rootScope.userinfo.ActiveUserData.appSettings.backgroundImage = '../bower_components/template/images/Mainbg/promo2.png';
+// $rootScope.userinfo = {};
+// $rootScope.userinfo.ActiveUserData = {};
+// $rootScope.userinfo.ActiveUserData.appSettings = {};
+// $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage = '../bower_components/template/images/Mainbg/promo2.png';
 
 if(localStorageService.get('logDatas')){
 	if(localStorageService.get('logDatas').length){
@@ -154,7 +154,7 @@ $scope.loginSuccessCallback=function(data){
 			   	  var logdata=$scope.logData.ActiveUserDataId.$oid.concat($scope.logData.userLoginId);
 			  	  localStorageService.add('logDatas',logdata);
 			  	  $rootScope.userinfo=$scope.logData;//if login is ok put it in the login info variable.
-            console.log($rootScope.userinfo);
+            // console.log($rootScope.userinfo);
             $rootScope.loggedIn=true;//if login is ok ,changin the variable in rootscope.
 				  $state.go('home.main');//routing to home after success login by user
 				  $scope.login_or_not='login Success'; 

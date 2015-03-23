@@ -98,7 +98,24 @@
                              debounce-delay="0"                             
                         max-results="15"></auto-complete>
                 </tags-input>
+                <em class="text-muted text-E91E63" translate="{{'*Tags help your course to be shown when people search courses by tags'|translate}}"></em>  
       </div>
+
+      <!-- Designation -->
+       <div class="form-group" >
+              <tags-input  ng-class="{'no-border':course.designation.length}" class="bootstrap"
+                        ng-model="course.designation"
+                        placeholder="Designation (Optional, Recommended)"
+                        replace-spaces-with-dashes="false" 
+                        min-length="1">
+                        <auto-complete source="loadDesignation($query) | filter:$query"
+                             min-length="0"
+                             debounce-delay="0"                             
+                        max-results="15"></auto-complete>
+                </tags-input>
+                <em class="text-muted text-E91E63" translate="{{'*Designation help your course to be shown when people search courses by Designation'|translate}}"></em>  
+      </div>
+
         <!-- Availability -->
       <div class="form-group" >
 
@@ -149,8 +166,17 @@
 
       </div>
 
-      <!-- Availability -->
 
+      <!-- Evaluator -->
+      <div class="row">
+      <div class="col-xs-12">
+          <div class="form-group">
+            <label>Evaluator</label>
+            <role-user-loader ng-if="course" role-id="3" placeholder-value="Please select a person" selection-type="2" ng-model="course.evaluator">
+            </role-user-loader>
+          </div>
+        </div>
+      </div>
       <!-- course image -->
        <div class="form-group col-sm-6 no-padding" >
         

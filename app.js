@@ -53,7 +53,10 @@
         'masonry',
         'googlechart',
         'gettext',
-        'timer'
+        'timer',
+        'internationalPhoneNumber',
+        'checklist-model',
+        'angular-flipclock'
       ])
 
 .run(function(editableOptions) {

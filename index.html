@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-show="$root.userinfo" ng-app="baabtra" class="background-properties {{$root.userinfo.ActiveUserData.appSettings.backgroundColor}}" ng-class="{'default-bg':!$root.userinfo.ActiveUserData.appSettings.backgroundColor}" style = "background-image:{{$root.userinfo.ActiveUserData.appSettings.backgroundImage}};">
+<html lang="en" ng-app="baabtra" class="background-properties {{$root.userinfo.ActiveUserData.appSettings.backgroundColor}}" style = "background-image:{{$root.userinfo.ActiveUserData.appSettings.backgroundImage}};" ng-class="{'default-bg':!$root.userinfo.ActiveUserData.appSettings.backgroundColor}" >
 <head>
   <meta charset="utf-8" />
   <title>Baabtra.com</title>
@@ -39,6 +39,8 @@
   <link rel="stylesheet" href="bower_components/ngImgCrop/compile/minified/ng-img-crop.css" />
   <link rel="stylesheet" href="bower_components/StreamLine/css/style.css" />
   <link rel="stylesheet" href="bower_components/ngHierarchicalSelector/dist/ng-hierarchical-selector.0.2.0.css" />
+  <link rel="stylesheet" href="bower_components/intl-tel-input/build/css/intlTelInput.css" />
+  <link rel="stylesheet" href="bower_components/FlipClock/compiled/flipclock.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -136,6 +138,13 @@
 <script src="bower_components/humanize-duration/humanize-duration.js"></script>
 <script src="bower_components/angular-mocks/angular-mocks.js"></script>
 <script src="bower_components/angular-timer/dist/angular-timer.js"></script>
+<script src="bower_components/intl-tel-input/build/js/intlTelInput.min.js"></script>
+<script src="bower_components/intl-tel-input/lib/libphonenumber/build/utils.js"></script>
+<script src="bower_components/international-phone-number/releases/international-phone-number.js"></script>
+<script src="bower_components/checklist-model/checklist-model.js"></script>
+<script src="bower_components/FlipClock/compiled/flipclock.js"></script>
+<script src="bower_components/angularjs/angular.js"></script>
+<script src="bower_components/angular-flipclock/angular-flipclock.js"></script>
 <!-- endbower -->
 
 
@@ -282,6 +291,7 @@
   <script src="angularModules/course/directives/Directive-courseSummary.js"></script>
   <script src="angularModules/course/directives/Directive-courseByKeywords.js"></script>
   <script src="angularModules/Batches/partials/Partial-manageBatches.js"></script>
+  <script src="angularModules/Batches/directives/Directive-batchLoader.js"></script>
   <script src="angularModules/candidateCourseRelated/candidateCourseView/services/Service-candidateCourseFullView.js"></script>
     <script src="angularModules/common/directives/Directive-float-label.js"></script>
   <script src="angularModules/candidateCourseRelated/courseElementFullView/directives/Directive-courseElementFullView.js"></script>
@@ -309,7 +319,43 @@
   <script src="angularModules/reports/partials/Partial-feedbackReportList.js"></script>
   <script src="angularModules/feedback/partials/Partial-feedbackDetails.js"></script>
   <script src="angularModules/reports/services/Service-feedbackList.js"></script>
+  <script src="angularModules/globalSettings/partials/Partial-globalSettings.js"></script>
+  <script src="angularModules/globalSettings/services/Service-globalSettings.js"></script>
+  <script src="angularModules/Batches/partials/Partial-menteeEvaluation.js"></script>
+  <script src="angularModules/Batches/partials/Partial-batchEvaluation.js"></script>
+  <!-- Add New Component JS Above -->
     <script src="angularModules/common/directives/Directive-notificationCard.js"></script>
+    <script src="angularModules/common/directives/Directive-userCard.js"></script>
+    <script src="angularModules/Batches/partials/Partial-viewBatches.js"></script>
+    <script src="angularModules/common/directives/Directive-batchView.js"></script>
+    <script src="angularModules/Batches/services/Service-viewBatches.js"></script>
+    <script src="angularModules/common/directives/Directive-menteeView.js"></script>
+    <script src="angularModules/course/partials/Partial-assignCourseMaterial.js"></script>
+    <script src="angularModules/course/services/Service-assignCourseMaterial.js"></script>
+    <script src="angularModules/Notification/partials/Partial-notification.js"></script>
+    <script src="angularModules/Notification/services/Service-notification.js"></script>
+    <script src="angularModules/common/directives/Directive-roleUserLoader.js"></script>
+    <script src="angularModules/attendence/directives/attendenceMarker/directives/Directive-attendenceMarker.js"></script>
+    <script src="angularModules/attendence/services/Service-attendenceService.js"></script>
+    <script src="angularModules/common/directives/Directive-courseMultiSelect.js"></script>
+    <script src="angularModules/Department/partials/Partial-department.js"></script>
+    <script src="angularModules/Department/services/Service-department.js"></script>
+    <script src="angularModules/evaluation/partials/Partial-evaluationViewer.js"></script>
+    <script src="angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.js"></script>
+    <script src="angularModules/evaluation/services/Service-evaluationService.js"></script>
+    <script src="angularModules/Batches/partials/Partial-batchAssignment.js"></script>
+    <script src="angularModules/Batches/directives/Directive-batchMenteeList.js"></script>
+    <script src="angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.js"></script>
+    <script src="angularModules/user/partials/Partial-viewUsersForApprove.js"></script>
+    <script src="angularModules/user/services/Service-viewUsersForApprove.js"></script>
+    <script src="angularModules/evaluation/directives/Directive-evaluationLoader.js"></script>
+    <script src="angularModules/Nomination/partials/Partial-nomination.js"></script>
+    <script src="angularModules/Nomination/services/Service-nomination.js"></script>
+    <script src="angularModules/emailSmsConfig/services/Service-emailSmsConfig.js"></script>
+    <script src="angularModules/Batches/partials/Partial-menteeAttendance.js"></script>
+    <script src="angularModules/Batches/partials/Partial-batchAttendance.js"></script>
+    <script src="angularModules/Batches/directives/Directive-attendanceMenteeList.js"></script>
+
     <!-- Add New Component JS Above -->
 <!-- endbuild -->
 </div>

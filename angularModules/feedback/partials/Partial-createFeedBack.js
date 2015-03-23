@@ -45,8 +45,11 @@ angular.module('baabtra').controller('CreatefeedbackCtrl',['$scope', '$rootScope
   		$scope.myForm.companyId = $scope.cmp_id;
   		$scope.myForm.validUntil = $scope.myForm.validUntil.toISOString();
       $scope.myForm.responseCount = 0;
-
-  		$scope.myForm.activeFlag = 1;
+      
+      // var hashids = new Hashids("feedback form");
+      // $scope.myForm.fromID = hashids.encode(time);  
+  		
+      $scope.myForm.activeFlag = 1;
 
   		$scope.myForm.feedbackAbout.type = $scope.data.selectedFeedbackAbout;
   		$scope.myForm.feedbackAbout.feedbackOn = [];

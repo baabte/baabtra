@@ -12,8 +12,8 @@
  * Controller of the app
  */
 angular.module('baabtra')  
-  .controller('MainCtrl', ['$scope', '$translate', '$localStorage', '$window', '$rootScope', '$modal', 'commonSrv', 'bbConfig' ,
-    function (              $scope,   $translate,   $localStorage,   $window, $rootScope , $modal , commonSrv , bbConfig) {
+  .controller('MainCtrl', ['$scope', '$translate', '$localStorage', '$window', '$rootScope', '$modal', 'commonSrv', 'bbConfig', '$state' ,
+    function (              $scope,   $translate,   $localStorage,   $window, $rootScope , $modal , commonSrv , bbConfig, $state) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i) || !!navigator.userAgent.match(/Trident.*rv:11\./);
       // isIE && angular.element($window.document.body).addClass('ie');
@@ -92,6 +92,8 @@ angular.module('baabtra')
       var appSettings = "";
       var companyId = "";
       var rmId = "";
+      // $scope.roleid=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
+      // console.log($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId);
       $scope.appSettings = function(){
         companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
         rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
@@ -124,11 +126,14 @@ angular.module('baabtra')
         var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
         var rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
           if(!angular.equals($rootScope.userinfo.ActiveUserData.appSettings.backgroundImage,"")){
-          var oldBackgroundImage = $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage.split('(')[1].split(')')[0];
-          var fileRemoveResponse = commonSrv.fnRemoveFileFromServer(oldBackgroundImage);
+            if(!angular.equals($rootScope.userinfo.ActiveUserData.appSettings.backgroundImage,undefined)){
+              var oldBackgroundImage = $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage.split('(')[1].split(')')[0];
+            }
+            var fileRemoveResponse = commonSrv.fnRemoveFileFromServer(oldBackgroundImage);
         }
         var ImageUploadResponse = commonSrv.fnFileUpload($file[0],"backgroundImage");
         ImageUploadResponse.then(function(response){
+
           $rootScope.userinfo.ActiveUserData.appSettings.backgroundImage = 'url('+bbConfig.BWS+'files/backgroundImage/'+response.data.replace('"','').replace('"','') +')';
           commonSrv.fnSaveAppSettings(companyId, $rootScope.userinfo.ActiveUserData.appSettings, rmId);
 
@@ -175,6 +180,11 @@ angular.module('baabtra')
         var fileRemoveResponse = commonSrv.fnRemoveFileFromServer(logoToBeRemoved);
         $rootScope.userinfo.ActiveUserData.appSettings.logo = "";
         appSettings.logo = "";
+      };
+
+      //when click settings button on top of the header
+      $scope.redirectToGlobalSettings=function(){
+            $state.go('home.main.globalSettings');
       };
 
       //when click cancel button exicute this function and revert to previous theme

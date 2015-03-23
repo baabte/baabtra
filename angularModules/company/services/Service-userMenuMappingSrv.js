@@ -38,14 +38,14 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConf
            }).
               success(function(data, status, headers, config) {
                 var result=angular.fromJson(JSON.parse(data)); //response from server
-	                if (result!=='') {
+                  if (result!=='') {
                     $scope.ExMenus = result.data;
 
-	                   $scope.CurrentFkUserRoleMappingId=result.urmId.$oid;
+                     $scope.CurrentFkUserRoleMappingId=result.urmId.$oid;
 
-	                $scope.menuRegionId=$scope.ExMenus[0].menuStructure[0].fkmenuRegionId.$oid;
-	                $scope.tree1 = $scope.ExMenus[0].menuStructure[0].regionMenuStructure;
-	                 
+                  $scope.menuRegionId=$scope.ExMenus[0].menuStructure[0].fkmenuRegionId.$oid;
+                  $scope.tree1 = $scope.ExMenus[0].menuStructure[0].regionMenuStructure;
+                   
             var changeObjIdOfMenu=function(menu,sub){
               if(sub==null){
                 sub=0;
@@ -59,7 +59,7 @@ angular.module('baabtra').service('userMenuMappingSrv',['$http','$alert','bbConf
               changeObjIdOfMenu(menu,++sub);
             };
             changeObjIdOfMenu($scope.tree1,null);
-	           $scope.menudetails=true;
+             $scope.menudetails=true;
           }
               thisService.FnLoadMenuItems4AUMMapping($scope,$scope.roleId);
                 }).
@@ -168,7 +168,7 @@ this.FnSaveUserMenu=function ($scope){ //function to save the user menus.
                   $scope.ShowNoDataFound=true;
                 }
                 if ($scope.UserList.length>0) {
-					$scope.ModelUserBox=true;
+          $scope.ModelUserBox=true;
         }//filer the user list from respond data
               }).
               error(function(data, status, headers, config) {
