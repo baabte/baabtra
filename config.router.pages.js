@@ -676,6 +676,26 @@
                 }
                 
               })
+              .state('home.main.menteeEvaluation', {
+                url: '/menteeEvaluation/:userId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-menteeEvaluation.html',
+                    controller:'MenteeevaluationCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.batchEvaluation', {
+                url: '/batchEvaluation/:batchMappingId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-batchEvaluation.html',
+                    controller:'BatchevaluationCtrl'
+                  }
+                }
+                
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'

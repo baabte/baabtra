@@ -12,10 +12,10 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 			scope.$watch('batch',function(){
 
 				scope.actions = [
-				{
+				/*{
 				"text": "<i class=\"fa fa-users\"></i>&nbsp;View mentees",
 				"click": "fnViewMentees()"
-				},
+				},*/
 				{
 				"text": "<i class=\"fa fa-hand-o-up\"></i>&nbsp;Mark attendance",
 				 "click": "fnMarkAttendance()"
@@ -26,7 +26,7 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 
 				},
 				{
-				"text": "<i class=\"fa fa-external-link\"></i>&nbsp;Evalute",
+				"text": "<i class=\"fa fa-check\"></i>&nbsp;Evalute",
 				"click": "fnEvaluate()"
 
 				}
@@ -54,6 +54,10 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 					$state.go("home.main.batchAttendance",{batchMappingId:scope.batch._id.$oid});
 				};
 
+				//function to load evaluation partial based on batchMappingId
+				scope.fnEvaluate=function(){
+					$state.go("home.main.batchEvaluation",{batchMappingId:scope.batch._id.$oid});
+				};
 
 
 				});

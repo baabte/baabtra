@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('BatchattendanceCtrl',['$scope','$rootScope','viewBatches','$stateParams','$alert',function($scope,$rootScope,viewBatches,$stateParams,$alert){
+angular.module('baabtra').controller('BatchevaluationCtrl',['$scope','$rootScope','viewBatches','$stateParams','$alert',function($scope,$rootScope,viewBatches,$stateParams,$alert){
 
 	$scope.batchObj={}; //mainObject
 	$rootScope.$watch('userinfo',function(){ //watch for getting the basic details from rootscope

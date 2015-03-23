@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="tab-container col-xs-12">
 		 	<div class="panel b-t b-00C853 bg-light dk">
-		 		<div class="panel-heading font-bold text-white bg-00C853 p baab-shadow" translate="{{'Batch Attendance'|translate}}">
+		 		<div class="panel-heading font-bold text-white bg-00C853 p baab-shadow" translate="{{'Batch Evaluation'|translate}}">
 		 		
 		 		</div>
 				
@@ -67,7 +67,7 @@
 														<!--directive to load mentee list of selected batch-->
 									
 								<div class="row col-xs-12 m-t"><label floating-label translate="{{'User List'|translate}}"></label></div>
-									<div class="row col-xs-12 m-b" ng-show="batchObj.selectedCourseMaterial[0].userList.length">
+									<div class="row col-xs-12 m-b" ng-if="batchObj.selectedCourseMaterial[0].userList.length">
 									<form class="pull-right">
 
 		                         		<div class="form-control-wrapper"><input type="text" ng-model="searchText" class="form-control col-xs-8 ng-pristine ng-valid empty" placeholder="Search"><span class="material-input"></span></div>
@@ -75,7 +75,7 @@
 		                        </div>
 		                        <div class="row col-xs-12">
 
-											<attendance-mentee-list page-type="'batchAttendance'" time-line-obj="batchObj.selectedCourseMaterial[0]" search-text="searchText" ng-model="batchObj.selectedList"> </attendance-mentee-list>
+											<attendance-mentee-list evalutor-id="loggedusercrmid" page-type="'batchEvaluation'" time-line-obj="batchObj.selectedCourseMaterial[0]" search-text="searchText" ng-model="batchObj.selectedList"> </attendance-mentee-list>
 											<!-- <div class="text-center" ng-if="!batchObj.selectedCourseMaterial[0]">
 												<i class="fa fa-spinner fa-spin"></i>
 											</div> -->
