@@ -15,7 +15,6 @@ angular.module('baabtra').directive('setParentHeight', function() {
 			else{
 				height=$(element).parents().find('.set-full-height').height();
 			}
-			alert(height);
 			$(element).height(height);
 		}
 	};
