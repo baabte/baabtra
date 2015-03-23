@@ -55,7 +55,8 @@
         'gettext',
         'timer',
         'internationalPhoneNumber',
-        'checklist-model'
+        'checklist-model',
+        'angular-flipclock'
       ])
 
 .run(function(editableOptions) {

@@ -667,7 +667,7 @@ display: block;
   color: black;
 }
 
-@media screen {
+/*@media screen {
     #printf {
         display: none;
     }
@@ -684,5 +684,4 @@ display: block;
         left:0;
         top:0;
     }
-}
-  
+}*/
