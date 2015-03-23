@@ -1,25 +1,41 @@
-angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state','$scope','$localStorage','localStorageService','home','$dropdown','commonService','$modal','addCourseService','bbConfig','commonSrv',function ($browser,$rootScope,$state,$scope,$localStorage,localStorageService,home,$dropdown,commonService,$modal,addCourseService,bbConfig,commonSrv){
+angular.module('baabtra').controller('HomeCtrl',['$browser','$rootScope','$state','$scope','$localStorage','localStorageService','home','$dropdown','commonService','$modal','addCourseService','bbConfig','commonSrv','notification',function ($browser,$rootScope,$state,$scope,$localStorage,localStorageService,home,$dropdown,commonService,$modal,addCourseService,bbConfig,commonSrv,notification){
 
 // Global variables for validating fileupload control
 $rootScope.valid=true;
 $rootScope.errTooltip = "Please choose an image to be shown for the course";
 // End. Global variables for validating fileupload control
 
+
 $rootScope.$watch('userinfo',function(){
   if($rootScope.userinfo){
+    
     $scope.rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.userinfo = $rootScope.userinfo;
     if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.avatar,undefined)){
       $rootScope.userinfo.ActiveUserData.roleMappingObj.avatar = '';
     }
     
-    var response = home.FnLoadMenus($scope);//Load Menus for logged user
-    response.then(function(data){
-      $scope.userMenus = $scope.userMenusOrigin = angular.fromJson(JSON.parse(data.data)).menuStructure[0].regionMenuStructure;
-    });
+    if(angular.equals($scope.userMenus,undefined)){
+      var response = home.FnLoadMenus($scope);//Load Menus for logged user
+      response.then(function(data){
+        $scope.userMenus = $scope.userMenusOrigin = angular.fromJson(JSON.parse(data.data)).menuStructure[0].regionMenuStructure;
+        
+        // calling service for geting user notification
+        var userNotificationResponse = notification.fnLoadUserNotification($scope.rm_id);
+        userNotificationResponse.then(function(response){
+          $rootScope.data = {};
+          $rootScope.data.userNotification = angular.fromJson(JSON.parse(response.data));
+          if(!angular.equals($rootScope.data.userNotification,null)){
+            $rootScope.data.userNotification.notification = $rootScope.data.userNotification.notification.reverse();
+          }
+        });
+
+      });
+    }
     
 }
 else{
+
     $rootScope.hide_when_root_empty=true;
     commonService.GetUserCredentials($scope);
     if($rootScope.userinfo){$scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;

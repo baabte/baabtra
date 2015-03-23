@@ -35,14 +35,14 @@ $scope.createGroupModal = function(){
 if(angular.equals($scope.roleId,1))
 {
   $scope.companyId="";
-	userMenuMappingSrv.FnGetCompanyDetails($scope,'','');
+  userMenuMappingSrv.FnGetCompanyDetails($scope,'','');
 }
 else if(angular.equals($scope.roleId,2))
 {
-	$scope.companyState=$scope.companyId;//company id
-	$scope.comapanyUser=true;
-	$scope.SearchType="User";
-	userMenuMappingSrv.FnLoadUsers($scope,$scope.companyState,'','');
+  $scope.companyState=$scope.companyId;//company id
+  $scope.comapanyUser=true;
+  $scope.SearchType="User";
+  userMenuMappingSrv.FnLoadUsers($scope,$scope.companyState,'','');
 }
 
     $scope.getCompanyAdmin=function(){
@@ -80,35 +80,35 @@ else if(angular.equals($scope.roleId,2))
           }
         }
       });
-	$scope.next_one = function() {
-		if($scope.companyCount>6 && angular.equals($scope.SearchType,"Company")){
-			$scope.range=$scope.range+6;
-			userMenuMappingSrv.FnGetCompanyDetails($scope,$scope.range-1,CurNewValue);
-		}
-		else if( $scope.user_count>8 && angular.equals($scope.SearchType,"User")){
-			$scope.range=$scope.range+8;
-			userMenuMappingSrv.FnLoadUsers($scope,$scope.companyState,$scope.range-1,CurNewValue);
-		}
-	};
-	$scope.prev_one = function() {//To get Previous page
-		if($scope.range>6 && angular.equals($scope.SearchType,"Company")){
-			$scope.range=$scope.range-6;
-			userMenuMappingSrv.FnGetCompanyDetails($scope,$scope.range-1,CurNewValue);
-		}
-		else if($scope.range>8 && angular.equals($scope.SearchType,"User")){
-			$scope.range=$scope.range-8;
-			userMenuMappingSrv.FnLoadUsers($scope,$scope.companyState,$scope.range-1,CurNewValue);
-		}
-	};
-	$scope.getMenus = function(cmp_id){
+  $scope.next_one = function() {
+    if($scope.companyCount>6 && angular.equals($scope.SearchType,"Company")){
+      $scope.range=$scope.range+6;
+      userMenuMappingSrv.FnGetCompanyDetails($scope,$scope.range-1,CurNewValue);
+    }
+    else if( $scope.user_count>8 && angular.equals($scope.SearchType,"User")){
+      $scope.range=$scope.range+8;
+      userMenuMappingSrv.FnLoadUsers($scope,$scope.companyState,$scope.range-1,CurNewValue);
+    }
+  };
+  $scope.prev_one = function() {//To get Previous page
+    if($scope.range>6 && angular.equals($scope.SearchType,"Company")){
+      $scope.range=$scope.range-6;
+      userMenuMappingSrv.FnGetCompanyDetails($scope,$scope.range-1,CurNewValue);
+    }
+    else if($scope.range>8 && angular.equals($scope.SearchType,"User")){
+      $scope.range=$scope.range-8;
+      userMenuMappingSrv.FnLoadUsers($scope,$scope.companyState,$scope.range-1,CurNewValue);
+    }
+  };
+  $scope.getMenus = function(cmp_id){
    $scope.menudetails=false;
-		$scope.companyState=cmp_id;
-		userMenuMappingSrv.FnLoadExMenuItems4AUMMapping($scope,'',2,cmp_id);
-	};
-	$scope.FnAddUserMenu=function(){
-	    userMenuMappingSrv.FnSaveUserMenu($scope);
-	};
-	$scope.tree1NodesOptions = { 
+    $scope.companyState=cmp_id;
+    userMenuMappingSrv.FnLoadExMenuItems4AUMMapping($scope,'',2,cmp_id);
+  };
+  $scope.FnAddUserMenu=function(){
+      userMenuMappingSrv.FnSaveUserMenu($scope);
+  };
+  $scope.tree1NodesOptions = { 
       dragStart:function(sourceNodeScope, destNodesScope, destIndex) {
         MeusStatus=true;
         tree1dragStartStatus=true;

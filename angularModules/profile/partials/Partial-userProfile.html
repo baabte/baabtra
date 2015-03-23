@@ -3,10 +3,11 @@
 </div>
 <div class="box bg-white" >
   <div class="col-md-3" >
-    <div style="background:url({{userinfo.ActiveUserData.roleMappingObj.avatar}}) center center; background-size:cover;" ng-mouseenter="showHideFotoDive()" ng-mouseleave="showHideFotoDive()">
+    <div style="background:url({{$stateParams.userId && profileData.ProfilePic  || userinfo.ActiveUserData.roleMappingObj.avatar}}) center center; background-size:cover; " ng-mouseenter="showHideFotoDive()" ng-mouseleave="showHideFotoDive()">
       <div class="p-lg bg-white-opacity text-center">
         <a href class="w-sm inline ">
-          <img src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" class="img-circle img-responsive">
+          <img ng-src="{{$stateParams.userId && profileData.ProfilePic  || userinfo.ActiveUserData.roleMappingObj.avatar}}" class="img-circle img-responsive">
+         
         </a>
         <div class="m-b m-t-sm h4">
           <span class="text-black">{{profileData.profile.firstName}} {{profileData.profile.lastName}}</span>
@@ -15,7 +16,7 @@
           <a href class="btn btn-sm btn-info m-b-xs p-h" ng-click="updateinfo()">update info</a>
         </div> -->
       </div>
-      <div ng-class="{true:'bg-white-opacity',false:'bg-dark'}[updatepicmsg]" ng-click="manageProfile()">
+      <div ng-if="!$stateParams.userId" ng-class="{true:'bg-white-opacity',false:'bg-dark'}[updatepicmsg]" ng-click="manageProfile()">
         <i ng-class="{true:'text-xl p-md fa fa-camera',false:'text-lg p-md fa fa-camera'}[updatepicmsg]"></i><span class="font-bold" ng-hide="updatepicmsg" translate="{{'update profile picture'|translate}}"></span>
 
       </div>
@@ -190,7 +191,7 @@
                             <div class="m-t"><input ng-model="profileData.profile.lastName"  placeholder="Last Name" class="form-control" type="text" xt-validate required ng-minlength="1" name="lastName"></div>
                              
                      
-                             <div  class="m-t" type="submit"><button ng-disabled="nameForm.$invalid" class="btn btn-info" >{{saveButton}}</button> <button class="btn btn-white" type="button" ng-click="fullname==true?fullname=false:fullname=true">cancel</button></div>
+                             <div  class="m-t" ><button type="submit" ng-disabled="nameForm.$invalid" class="btn btn-info" >{{saveButton}}</button> <button class="btn btn-white" type="button" ng-click="fullname==true?fullname=false:fullname=true">cancel</button></div>
                        </form>
                        </div>
                        </div>
@@ -200,7 +201,7 @@
            <div class="m-b-xs ng-scope" ng-mouseenter="editAboutOpt('emailicon')" ng-mouseleave="editAboutOpt('emailicon')">
                        <div ng-click="secemailandmob=true" class="panel-body p-sm bg-light lt" bs-collapse-toggle="" data-toggle="collapse">
                             <div  class="col-xs-3" >E-mail</div>
-                            <div  class="col-xs-6" >{{userinfo.ActiveUserData.eMail}}</div>
+                            <div  class="col-xs-6" >{{profileData.email}}</div>
                             <div  class="col-xs-2 text-right" ><i class="ti-pencil" ng-show="emailicon"></i></div>
                             <div class="col-xs-1 text-left"><a class="p-h-xs" href="">Edit</a>
                             </div>
@@ -262,18 +263,18 @@
                <div class="m-b-xs ng-scope " ng-mouseenter="editAboutOpt('pwdicon')" ng-mouseleave="editAboutOpt('pwdicon')">
                        <div ng-click="changepassword=true" class="panel-body p-sm bg-light lt " bs-collapse-toggle="" data-toggle="collapse" >
                             <div  class="col-xs-3" >Password</div>
-                            <div  class="col-xs-6" >{{passwordChangeFrequency()}}</div>
+                            <div  class="col-xs-6" >last Changed : {{passwordChangeFrequency | date:'medium'}}</div>
                             <div  class="col-xs-2 text-right" ><i class="ti-pencil" ng-show="pwdicon"></i></div>
                             <div class="col-xs-1 "><a class="p-h-xs" href="">Edit</a></div>
                        </div> 
                        <div  ng-show="changepassword" class="panel-body p-sm in b p-sm " bs-collapse-target="" >
                        <div class="col-xs-5">
                        <form name="changePwd" class="form-validation" ng-submit="changePassword()" xt-form novalidate>
-                            <div class="m-t"><input ng-model="currentPassword" placeholder="Current password" class="form-control" type="text" xt-validate required ng-minlength="1" name="currentPassword"></div>
-                            <div class="m-t"><input ng-model="newPassword"  placeholder="New Password" class="form-control" type="text" xt-validate required ng-minlength="5" name="newPassword" ng-change="checkPasswordMatch()">
+                            <div class="m-t"><input ng-model="currentPassword" placeholder="Current password" class="form-control" type="password" xt-validate required ng-minlength="1" name="currentPassword"></div>
+                            <div class="m-t"><input ng-model="newPassword"  placeholder="New Password" class="form-control" type="password" xt-validate required ng-minlength="5" name="newPassword" ng-change="checkPasswordMatch()">
                             </div>
                             <div class="m-t">
-                            <input ng-model="retypedPassword"   placeholder="Retype Password" class="form-control" type="text" xt-validate ui-validate=" '$value==currentPassword' " required ui-validate-watch=" 'currentPassword' " name="retypedPassword">
+                            <input ng-model="retypedPassword"   placeholder="Retype Password" class="form-control" type="password" xt-validate ui-validate=" '$value==newPassword' " required ui-validate-watch=" 'newPassword' " name="retypedPassword">
                             </div>
                             <div class="m-t text-danger" ng-show="retypedPassword!=newPassword && retypedPassword">
                              <label>Password mis-match found!</label>
@@ -318,15 +319,6 @@
 
                        </div>
                        </div>
-      
-          <!-- end of language settind -->
-
-
-
-
-
-
-
 
               </div>     
               <div class="col-xs-12 pull-left" ng-show="selectedTab=='security'">

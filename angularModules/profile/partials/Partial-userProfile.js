@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('UserprofileCtrl',['$scope','$rootScope','userProfile','$state','commonService','$modal','$alert','$stateParams',function($scope,$rootScope,userProfile,$state,commonService,$modal,$alert,$stateParams){
+angular.module('baabtra').controller('UserprofileCtrl',['$scope','$rootScope','userProfile','$state','commonService','$modal','$alert','$stateParams','bbConfig',function($scope,$rootScope,userProfile,$state,commonService,$modal,$alert,$stateParams,bbConfig){
 
 $scope.updatepicmsg=true;
 $scope.showHideAbtPic=false;
@@ -21,6 +21,7 @@ if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
 $scope.userinfo =$rootScope.userinfo;
 var profile; 
 if(!angular.equals($stateParams.userId,"")){
+	console.log($stateParams.userId);
 	profile = userProfile.loadProfileData($stateParams.userId);
 
 }
@@ -30,7 +31,7 @@ else{
 }
 profile.then(function (data) {
 			$scope.profileData = angular.fromJson(JSON.parse(data.data));
-			console.log($scope.profileData.profile);
+			console.log($scope.profileData);
 			// $scope.profileData.profile.passwordRelatedData={};
 			// $scope.profileData.profile.passwordRelatedData.passwordChanges=["hai","hello"];
 			// console.log($scope.profileData.profile.passwordRelatedData);
@@ -48,6 +49,19 @@ profile.then(function (data) {
 					$scope.profileData.profile.Preferedlanguage=$scope.availlangualges[1];
 				}
 				$scope.oldLang=$scope.profileData.profile.Preferedlanguage.langCode;
+			}
+			if(!angular.equals($scope.profileData.passwordChanges,undefined))
+			{
+				// alert("hai");
+				// var date = new Date();
+				// var nowdate = date.toISOString();
+				//  ts = nowdate.Subtract($scope.profileData.profile.passwordChanges.$date);
+				// // console.log($scope.profileData.profile.passwordChanges.$date);
+				// console.log(ts);
+				$scope.passwordChangeFrequency=$scope.profileData.passwordChanges.$date;
+			}
+			else{
+				$scope.passwordChangeFrequency="never changed";
 			}
 
 });
@@ -110,16 +124,29 @@ $scope.editAboutOpt=function(variable){
 // 		console.log($rootScope.userinfo.userLoginId);
 // 	}
 // };
-$scope.passwordChangeFrequency=function(){
-		if($scope.profileData.profile.passwordChanges)
-		{
-			return "changed last week";
-		}
-		else{
-			return "never changed";
-		}
+$scope.changePassword=function(){
 
+	var changePwdObj = userProfile.changeUserPassword($scope.userinfo.userLoginId,$scope.currentPassword,$scope.newPassword);
+		changePwdObj.then(function (data) {
+			if(data.status==200&&data.statusText=="OK"){
+				var response=angular.fromJson(JSON.parse(data.data));
+				if(angular.equals(response.response,"success")){
+					$scope.profileData.profile.passwordChanges=response.changedate;
+					console.log($scope.profileData.profile.passwordChanges);
+					$scope.notifications("Success","Password Changed","success");
+					$scope.currentPassword=$scope.retypedPassword=$scope.newPassword="";
+					$scope.changePwd.$setPristine();
+				}
+				else{
+					$scope.notifications("Warning","Incorrect Password","warning");
+					$scope.currentPassword="";
+				}
+			}
+		});
+	
 };
+
+
 $scope.checkPasswordMatch=function(){
 	$scope.changePwd.retypedPassword.$invalid= $scope.newPassword !== $scope.retypedPassword;
 };
@@ -133,6 +160,17 @@ $scope.$watch(function(scope) { return scope.profileData.profile.Preferedlanguag
                   		$scope.languageActiveOrNot=true;
                   }
               }
+  );
+
+
+ $scope.$watch(function(scope) { return scope.profileData.profile.passwordChanges },
+              function(newValue, oldValue) {
+                  if(angular.equals(response.response,undefined)){
+                  		date=new Date($scope.profileData.profile.passwordChanges.$date)
+						var diff = new Date(date).toString();
+						$scope.passwordChangeFrequency="Last Changed in".concat(diff);
+                  }
+   				}
   );
 
 //notification 
