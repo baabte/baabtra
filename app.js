@@ -71,5 +71,10 @@
   $.material.init();
 
 
+ $scope.$on('$stateChangeStart', function(next, current) { 
+   alert('... you could trigger something here ...');
+ });
+
+
 }());
 
