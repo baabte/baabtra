@@ -1,7 +1,7 @@
 angular.module('baabtra').controller('AssigncoursematerialCtrl',['$scope','$rootScope','assignCourseMaterial','$stateParams','$alert',function($scope,$rootScope,assignCourseMaterial,$stateParams,$alert){
 
-	$scope.courseObj={};
-	$rootScope.$watch('userinfo',function(){
+	$scope.courseObj={}; //main object
+	$rootScope.$watch('userinfo',function(){ //to load the urmid and company id from userinfo object which present in rootscope.
 		$scope.loggedusercrmid = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 		$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 		loadCourseDDl=assignCourseMaterial.loadCourses4AssigningCourseMaterial($scope,$stateParams.userId);
@@ -54,7 +54,7 @@ angular.module('baabtra').controller('AssigncoursematerialCtrl',['$scope','$root
 				}
 		});
 
-		//console.log($scope.courseObj.courseMaterials);
+		//response to the assign course material
 		assignResponse=assignCourseMaterial.assignCourseMaterial2timeline($scope);
 		assignResponse.then(function(response){ //promise for batch load
 			if(angular.fromJson(JSON.parse(response.data))=='success'){

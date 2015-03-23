@@ -9,10 +9,6 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 		},
 		templateUrl: 'angularModules/common/directives/Directive-batchView.html',
 		link: function(scope, element, attrs, fn) {
-			//if(angular.equals(scope.shadow,undefined)){
-			scope.shadow=true;
-			//}
-
 			scope.$watch('batch',function(){
 
 				scope.actions = [
@@ -21,7 +17,7 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 				"click": "fnViewMentees()"
 				},
 				{
-				"text": "<i class=\"fa fa-globe\"></i>&nbsp;Mark attendance",
+				"text": "<i class=\"fa fa-hand-o-up\"></i>&nbsp;Mark attendance",
 				 "click": "fnMarkAttendance()"
 				},
 				{
@@ -36,17 +32,23 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 				}
 				];
 				
-					if(scope.batch.batchMode=="onetime"){
-						scope.description = '<div class="text-xs">Starting date '+$filter('date')(scope.batch.startDate.$date)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />End date: '+$filter('date')(scope.batch.endDate.$date)+'</div>';
-					}else{
-						var days=scope.batch.repeats.every;
-						scope.description = '<div class="text-xs">Starting date '+$filter('date')(scope.batch.startDate.$date)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />Duration: Repeats each '+days+' months</div>';
-					}
+				if(scope.batch.batchMode=="onetime"){
+					scope.description = '<div class="text-xs">Starting date '+$filter('date')(scope.batch.startDate.$date)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />End date: '+$filter('date')(scope.batch.endDate.$date)+'</div>';
+				}else{
+					var days=scope.batch.repeats.every;
+					scope.description = '<div class="text-xs">Starting date '+$filter('date')(scope.batch.startDate.$date)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />Duration: Repeats each '+days+' months</div>';
+				}
 
-					//function to add course materials
-					scope.fnAssignMaterial=function(){
-						$state.go("home.main.batchAssignment",{batchMappingId:scope.batch._id.$oid});
-					};
+				//function to add course materials
+				scope.fnAssignMaterial=function(){
+					$state.go("home.main.batchAssignment",{batchMappingId:scope.batch._id.$oid});
+				};
+
+				//function to load the mark the batch attendance 
+				scope.fnMarkAttendance=function(){
+					$state.go("home.main.batchAttendance",{batchMappingId:scope.batch._id.$oid});
+				};
+
 
 
 				});

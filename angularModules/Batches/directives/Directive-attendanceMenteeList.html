@@ -1,0 +1,21 @@
+
+<div  class="list-group-item shadow-z-1" data-ng-repeat="user in timeLineObj.userList" ng-if="timeLineObj.courseElement.excludeList.indexOf(user.fkUserRoleMappingId.$oid)==-1">
+			<div class="col-xs-4 pull-left">{{user.profile.profile.firstName}}
+			<div>{{user.userName.userName}}</div>
+			</div>
+			<div class="col-xs-4">
+				<i class="fa fa-calendar text-1x"></i> Day {{changeminutes2day(timeLineObj.tlpoint)}}
+			<br>
+  			<div class="font-bold">
+  				{{timeLineObj.userCourseElementType}}
+  			</div>
+			</div>
+			
+  				
+         <div class="pull-right">
+<!-- 		  <label class="ui-checks m-l-sm">
+			  <input ng-model="courseElement.courseElement.attendence" ng-change="fnMarkAttendence(courseElement)" type="checkbox">
+		  </label> -->
+		    <label class="ui-checks m-l-sm pull-right text-2x"><input ng-model="timeLineObj.courseElement.courseElement.attendence" ng-change="fnMarkAttendence(user)" type="checkbox" ><i></i></label>
+		</div>
+</div>

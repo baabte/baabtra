@@ -51,6 +51,7 @@
 
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right m-r-n ">
+          <li >
           <li>
             <a href=""  data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
               <i class="fa fa-bell text-lg m-v-xs" ></i>
@@ -78,6 +79,7 @@
               <span class="visible-xs-inline" translate="{{'Settings'|translate}}"></span>
             </a>
           </li>
+         <!--  <li>
           
 <!--           <li>
             <a href 
@@ -92,6 +94,18 @@
               <span class="visible-xs-inline">Notifications</span>
             </a>
           </li> -->
+          <!-- button for gloabal settings -->
+          <!-- ng-if="bbConfig.CURID==userinfo.ActiveUserData.roleMappingObj.fkRoleId" -->
+         
+            <li ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId">
+             
+            <a href >
+              <i class="ti-settings text-lg" ng-click="redirectToGlobalSettings()"></i>
+              <!-- <b class="badge badge-xs bg-warning up">3</b> -->
+    <!--           <span class="visible-xs-inline">Notifications</span> -->
+            </a>
+          </li>
+          <!--end button for gloabal settings -->
           <!-- <li class="hidden-xs">
             <a href ui-fullscreen><i class="glyphicon glyphicon-resize-vertical"></i></a>
           </li> -->
