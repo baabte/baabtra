@@ -2,9 +2,9 @@
   <div class="aside-dialog">
     <div class="aside-content">
       <div class="aside-header">
-        <button type="button" class="close" ng-click="$hide()">
+        <div class="btn pull-right" ng-click="$hide()">
         	<i class=" fa fa-close"></i>
-        </button>
+        </div>
         <h3 class="aside-title" translate="{{'Mark Attendence'|translate}}">
         </h3>
       </div>
@@ -17,8 +17,8 @@
 	        				<i class="fa fa-calendar"></i> Day {{changeminutes2day(courseElement.tlpoint)}}
 	        			</div>
 	        			<br>
-	          			<div class="font-bold" translate="{{courseElement.userCourseElementType |translate}}">
-	          		
+	          			<div class="font-bold">
+	          		{{courseElement.userCourseElementType}}
 	          			</div>
 	          				
                     <div class="pull-right checkbox" style="margin-top: -35px">

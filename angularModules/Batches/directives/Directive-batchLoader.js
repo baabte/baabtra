@@ -56,11 +56,15 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
           //  console.log(angular.fromJson(JSON.parse(response.data)));
           scope.batchElements = angular.fromJson(JSON.parse(response.data));
            angular.forEach(scope.batchElements, function(batch){
-          //  //console.log(batch);
           //consoel.log(batch.batchName);
             batch.Name = batch.batchName;
             batch._id = batch._id.$oid;
-            batch.startDate=batch.startDate.$date;
+            batch.startDate=batch.start.$date;
+            batch.seats=batch.seat;
+            batch.endDate=batch.end.$date;
+            delete batch.start;
+            delete batch.seat;
+            delete batch.end
           if(batch.batchMode=="onetime"){
            batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Duration:'+batch.duration+'days</div>';
            }else{

@@ -11,12 +11,7 @@ if($rootScope.loggedIn===false){
 
 console.log($rootScope.userinfo.ActiveUserData.roleMappingId.$oid);
 
-var evaluationFetchPromise=evaluationService.evaluationFetch();
-evaluationFetchPromise.then(function(data){
-		    scope.evaluationlist=angular.fromJson(JSON.parse(data.data));
-			console.log(scope.evaluationlist);
-			
-		});
+
 
 
 }]);

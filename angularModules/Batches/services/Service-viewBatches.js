@@ -44,7 +44,27 @@ angular.module('baabtra').service('viewBatches',['bbConfig','$http',function(bbC
 		var promise = $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'fnloadCoursesMaterials4menteeAtt/',
-	    data:{"courseId":$scope.selectedCourse,"urmId":$scope.urmId}
+	    data:{"userCourseId":$scope.selectedCourse,"urmId":$scope.urmId}
+	 });
+	return promise;
+	};	
+	
+	this.loadCourseMaterials4batchAtt=function($scope){
+		
+		var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'fnloadCourseMaterials4batchAtt/',
+	    data:{"batchMappingId":$scope.batchMappingId}
+	 });
+	return promise;
+	};	
+
+	this.loadMentees4batchAtt=function($scope,bathObj){
+		
+		var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'fnloadMentees4batchAtt/',
+	    data:{"batchMappingId":$scope.batchMappingId,"batchObj":batchObj}
 	 });
 	return promise;
 	};	

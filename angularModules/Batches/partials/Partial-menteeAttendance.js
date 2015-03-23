@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('MenteeattendanceCtrl',['$scope','$rootScope','viewBatches','$stateParams','$alert','assignCourseMaterial',function($scope,$rootScope,viewBatches,$stateParams,$alert,assignCourseMaterial){
+angular.module('baabtra').controller('MenteeattendanceCtrl',['$scope','$rootScope','viewBatches','$stateParams','$alert','assignCourseMaterial','attendenceService',function($scope,$rootScope,viewBatches,$stateParams,$alert,assignCourseMaterial,attendenceService){
 
 	$scope.menteeObj={};
 	$rootScope.$watch('userinfo',function(){
@@ -13,20 +13,40 @@ angular.module('baabtra').controller('MenteeattendanceCtrl',['$scope','$rootScop
 		});
 	});
 
+	//function to watch the selected course change
 	$scope.$watch('selectedCourse',function(){
-		loadCourseMaterialsDDl=viewBatches.loadCoursesMaterials4menteeAtt($scope);
-		loadCourseMaterialsDDl.then(function(response){ //promise for batch load
-			var outcomeObj=angular.fromJson(JSON.parse(response.data));
-			if(!angular.equals(outcomeObj,'notfound')){
-				$scope.menteeObj.userCourseList=outcomeObj.userCourseList;
-				$scope.menteeObj.userCourseElementlist=outcomeObj.userCourseElementlist;
-				$scope.status=true;
-			}
-			else{
-				$scope.status=false;
-			}
-			//$scope.menteeObj.profile=angular.fromJson(JSON.parse(response.data)).profile;
-		});
+		if(!angular.equals($scope.selectedCourse,undefined)){
+			loadCourseMaterialsDDl=viewBatches.loadCoursesMaterials4menteeAtt($scope);
+			loadCourseMaterialsDDl.then(function(response){ //promise for batch load
+				var outcomeObj=angular.fromJson(JSON.parse(response.data));
+				if(!angular.equals(outcomeObj,'notfound')){
+					$scope.menteeObj.userCourseList=outcomeObj.userCourseList;
+					$scope.menteeObj.userCourseElementlist=outcomeObj.userCourseElementlist;
+					$scope.status=true;
+				}
+				else{
+					$scope.status=false;
+				}
+				//$scope.menteeObj.profile=angular.fromJson(JSON.parse(response.data)).profile;
+			});
+		}
 	});
+
+	//marking attendence function will triger on click
+		$scope.fnMarkAttendence=function(courseElement){	
+			var markAttendencePromise=attendenceService.markAttendence($scope.selectedCourse,courseElement.tlpoint,courseElement.userCourseElementType,courseElement.innerIndex,courseElement.courseElement.attendence);
+			markAttendencePromise.then(function(data){
+		    var result=angular.fromJson(JSON.parse(data.data));
+		    	if(angular.equals(result,'attendence marked')){
+		    		$alert({title: "Success", content: 'Done!!' , placement: 'top-right',duration:3, type: 'info'});
+		    	}
+			});
+		};
+		//converting back to day
+		$scope.changeminutes2day=function(minutes) {
+			var day= Math.ceil((minutes/60)/24);
+			return day;
+		};
+
 
 }]);

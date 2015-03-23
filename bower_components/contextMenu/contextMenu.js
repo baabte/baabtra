@@ -54,6 +54,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                 $span.addClass('font-normal m-l');
                 $a.append($span);
 
+                 
 
                 $li.on('click', function ($event) {
                     $event.preventDefault();
@@ -75,7 +76,14 @@ angular.module('ui.bootstrap.contextMenu', [])
                          if(angular.equals($scope.attendenceTrack,undefined)){
                             $scope.attendenceTrack=false;
                          }
-                         $scope.evaluator=[];
+                         console.log($scope.item.Name);
+                         if(!angular.equals($scope.item.Name,"Payment_checkpoint")){
+                         $scope.evaluator=angular.copy($scope.$parent.$parent.$parent.syncData.evaluator);
+
+                         }else{
+                           $scope.evaluator=[];
+                         }
+                        
                          //clearing data in preview object that is previously created
                          $scope.coursePreviewObj={};
                          $templateCache.put('course-element-popup.html','<div style="padding: 0px;" class="aside" role="dialog">'

@@ -5,8 +5,8 @@ $scope.batch={};
 $rootScope.$watch('userinfo',function(){
 	$scope.userRegister={};
     $scope.userRegister.loggedusercrmid = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
-    //$scope.userRegister.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-    $scope.userRegister.companyId = "54978cc57525614f6e3e710b";
+    $scope.userRegister.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+    //$scope.userRegister.companyId = "54978cc57525614f6e3e710b";
      //$scope.userRegister.role={};
       //$scope.userRegister.role.roleId=3;
     //console.log($scope.urmId,$scope.companyId);
