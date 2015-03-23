@@ -588,7 +588,7 @@
                 
               })
               .state('home.main.nominateEmployee', {
-                url: '/nominateEmployee',
+                url: '/nominateEmployee/:ofId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Nomination/partials/Partial-nomination.html',
