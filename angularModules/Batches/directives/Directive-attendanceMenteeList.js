@@ -5,7 +5,8 @@ angular.module('baabtra').directive('attendanceMenteeList',['attendenceService',
 		required:"ngModel",
 		scope: {
 			exclusionList:"=",
-			timeLineObj:"="
+			timeLineObj:"=",
+			searchText:"="
 		},
 		templateUrl: 'angularModules/Batches/directives/Directive-attendanceMenteeList.html',
 		link: function(scope, element, attrs, fn) {
