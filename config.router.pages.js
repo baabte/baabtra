@@ -577,6 +577,16 @@
                 }
                 
               })
+              .state('home.main.nominateEmployee', {
+                url: '/nominateEmployee',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Nomination/partials/Partial-nomination.html',
+                    controller: 'NominationCtrl'
+                  }
+                }
+                
+              })
               .state('home.main.viewMyCourse', {
                 url: '/viewMyCourse/:courseMappingId',
                 views:{

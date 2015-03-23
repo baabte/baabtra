@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+
+    <div class="panel">
+  
+      <div class="text-center panel-heading bg-white">
+          <div>Request for trainee</div>
+          <div id="status-buttons" class="text-center">
+              <a class="font-bold" ng-class="{active:status.selected == $index+1}" ui-sref-active="active"  ng-repeat="i in formlist.formSchema" style="line-height: 20px;" ng-click="status.selected = $index+1"><span>{{$index+1}}</span></a>
+          </div>
+         
+      </div>
+
+      <div class="panel-body">
+        <form  name="userRegistrationForm" ng-submit="fnUserRegister()" class="form" xt-form editable-form novalidate>
+          <div fg-form fg-form-data="allSync.FormData" form-data="allSync.FormData" sync-data="allSync" fg-schema="formlist.formSchema[status.selected].stepFormSchema">
+          </div>
+
+
+          <div  class="col-xs-6 col-xs-offset-3">
+              <a ng-click="status.selected = status.selected+1" ng-disabled="!userRegistrationForm.$valid" class="btn btn-block btn-info"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+          </div>
+          <!-- ng-disabled="userRegistrationForm.$invalid" -->
+          <div ng-show="status.selected<stepCount&&status.selected>1">
+           <div class="col-xs-4 col-xs-offset-2">
+              <a ng-click="status.selected = status.selected-1" ng-disabled="userRegistrationForm.$invalid" class="btn btn-block btn-info"><span class="glyphicon glyphicon-circle-arrow-left"></span> Previous Section </a>
+          </div>
+          <div class="col-xs-4 ">
+              <a ng-click="status.selected = status.selected+1" ng-disabled="userRegistrationForm.$invalid" class="btn btn-block btn-info" > Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+          </div>
+          </div>
+          <!-- ng-disabled="userRegistrationForm.$invalid" -->
+
+          <div ng-show="status.selected===stepCount" class="col-xs-12 text-center">
+    
+            <button ng-disabled="userRegistrationForm.$invalid" type="submit" class="btn btn-danger baab-btn">Submit</button>
+          </div>
+
+        </form>
+
+      </div>
+
+  	
+    </div>	
+ 
+  </div>
+</div>
+
+
