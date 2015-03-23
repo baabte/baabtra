@@ -8,8 +8,8 @@ angular.module('baabtra').controller('ViewbatchesCtrl',['$scope','viewBatches','
 		loadBatchPromise=viewBatches.viewBatchesForManage($scope,$scope.batchObj.bfirstId,'initial',$scope.batchObj.blastId,'');
 		loadBatchPromise.then(function(response){ //promise for batch load
 			$scope.batchObj.batchList=angular.fromJson(JSON.parse(response.data)).batchList;
-			$scope.batchObj.bfirstId=angular.fromJson(JSON.parse(response.data)).firstId;
-			$scope.batchObj.blastId=angular.fromJson(JSON.parse(response.data)).lastId;
+			$scope.batchObj.bfirstId=angular.fromJson(JSON.parse(response.data)).firstId.$oid;
+			$scope.batchObj.blastId=angular.fromJson(JSON.parse(response.data)).lastId.$oid;
 			
 		});
 	});
@@ -24,8 +24,8 @@ angular.module('baabtra').controller('ViewbatchesCtrl',['$scope','viewBatches','
 			loadBatchPromise=viewBatches.viewBatchesForManage($scope,$scope.batchObj.bfirstId,'initial',$scope.batchObj.blastId,'');
 			loadBatchPromise.then(function(response){ //promise for batch load
 				$scope.batchObj.batchList=angular.fromJson(JSON.parse(response.data)).batchList;
-				$scope.batchObj.bfirstId=angular.fromJson(JSON.parse(response.data)).firstId;
-				$scope.batchObj.blastId=angular.fromJson(JSON.parse(response.data)).lastId;
+				$scope.batchObj.bfirstId=angular.fromJson(JSON.parse(response.data)).firstId.$oid;
+				$scope.batchObj.blastId=angular.fromJson(JSON.parse(response.data)).lastId.$oid;
 				
 			});
 		}
@@ -61,8 +61,8 @@ angular.module('baabtra').controller('ViewbatchesCtrl',['$scope','viewBatches','
 			loadMenteePromise=viewBatches.viewMenteesForManage($scope,$scope.batchObj.bfirstId,'initial',$scope.batchObj.blastId,'');
 			loadMenteePromise.then(function(response){ //promise for mentee load
 				$scope.batchObj.menteeList=angular.fromJson(JSON.parse(response.data)).userList;
-				$scope.batchObj.mfirstId=angular.fromJson(JSON.parse(response.data)).firstId;
-				$scope.batchObj.mlastId=angular.fromJson(JSON.parse(response.data)).lastId;
+				$scope.batchObj.mfirstId=angular.fromJson(JSON.parse(response.data)).firstId.$oid;
+				$scope.batchObj.mlastId=angular.fromJson(JSON.parse(response.data)).lastId.$oid;
 				
 			});
 		}
@@ -78,16 +78,16 @@ angular.module('baabtra').controller('ViewbatchesCtrl',['$scope','viewBatches','
 				loadMenteePromise=viewBatches.viewMenteesForManage($scope,$scope.batchObj.bfirstId,'initial',$scope.batchObj.blastId,searchKey);
 				loadMenteePromise.then(function(response){ //promise for batch load
 					$scope.batchObj.menteeList=angular.fromJson(JSON.parse(response.data)).userList;
-					$scope.batchObj.mfirstId=angular.fromJson(JSON.parse(response.data)).firstId;
-					$scope.batchObj.mlastId=angular.fromJson(JSON.parse(response.data)).lastId;
-					console.log($scope.batchObj);
+					$scope.batchObj.mfirstId=angular.fromJson(JSON.parse(response.data)).firstId.$oid;
+					$scope.batchObj.mlastId=angular.fromJson(JSON.parse(response.data)).lastId.$oid;
+					
 				});
 			}else{
 				loadBatchPromise=viewBatches.viewBatchesForManage($scope,$scope.batchObj.bfirstId,'initial',$scope.batchObj.blastId,searchKey);
 				loadBatchPromise.then(function(response){ //promise for mentee load
 					$scope.batchObj.batchList=angular.fromJson(JSON.parse(response.data)).batchList;
-					$scope.batchObj.bfirstId=angular.fromJson(JSON.parse(response.data)).firstId;
-					$scope.batchObj.blastId=angular.fromJson(JSON.parse(response.data)).lastId;
+					$scope.batchObj.bfirstId=angular.fromJson(JSON.parse(response.data)).firstId.$oid;
+					$scope.batchObj.blastId=angular.fromJson(JSON.parse(response.data)).lastId.$oid;
 					
 				});
 			}
@@ -103,8 +103,8 @@ angular.module('baabtra').controller('ViewbatchesCtrl',['$scope','viewBatches','
 			loadBatchPromise=viewBatches.viewBatchesForManage($scope,$scope.batchObj.bfirstId,type,$scope.batchObj.blastId,'');
 			loadBatchPromise.then(function(response){ //promise for batch load
 				$scope.batchObj.batchList=angular.fromJson(JSON.parse(response.data)).batchList;
-				$scope.batchObj.bfirstId=angular.fromJson(JSON.parse(response.data)).firstId;
-				$scope.batchObj.blastId=angular.fromJson(JSON.parse(response.data)).lastId;
+				$scope.batchObj.bfirstId=angular.fromJson(JSON.parse(response.data)).firstId.$oid;
+				$scope.batchObj.blastId=angular.fromJson(JSON.parse(response.data)).lastId.$oid;
 			});
 		}else{ //activeTab false means the second tab is active
 			$scope.prevButtonDesabled=false;
@@ -112,8 +112,8 @@ angular.module('baabtra').controller('ViewbatchesCtrl',['$scope','viewBatches','
 			loadMenteePromise=viewBatches.viewMenteesForManage($scope,$scope.batchObj.mfirstId,type,$scope.batchObj.mlastId,'');
 			loadMenteePromise.then(function(response){ //promise for mentee load
 				$scope.batchObj.menteeList=angular.fromJson(JSON.parse(response.data)).userList;
-				$scope.batchObj.mfirstId=angular.fromJson(JSON.parse(response.data)).firstId;
-				$scope.batchObj.mlastId=angular.fromJson(JSON.parse(response.data)).lastId;
+				$scope.batchObj.mfirstId=angular.fromJson(JSON.parse(response.data)).firstId.$oid;
+				$scope.batchObj.mlastId=angular.fromJson(JSON.parse(response.data)).lastId.$oid;
 			});
 
 		}

@@ -467,6 +467,16 @@
                   }
                 }
                 
+              }) 
+               .state('home.main.globalSettings', {
+                url: '/globalSettings',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/globalSettings/partials/Partial-globalSettings.html',
+                    controller: 'GlobalsettingsCtrl'
+                  }
+                }
+                
               })
               .state('home.main.test', {
                 url: '/test',
@@ -632,6 +642,26 @@
                   'innercontent':{
                     templateUrl: 'angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.html',
                     controller:'EmailsmsconfigCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.batchAttendance', {
+                url: '/batchAttendance/:batchMappingId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-batchAttendance.html',
+                    controller:'BatchattendanceCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.menteeAttendance', {
+                url: '/menteeAttendance/:userId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-menteeAttendance.html',
+                    controller:'MenteeattendanceCtrl'
                   }
                 }
                 

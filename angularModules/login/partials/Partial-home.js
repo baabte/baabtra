@@ -5,8 +5,10 @@ $rootScope.valid=true;
 $rootScope.errTooltip = "Please choose an image to be shown for the course";
 // End. Global variables for validating fileupload control
 
+
 $rootScope.$watch('userinfo',function(){
   if($rootScope.userinfo){
+    
     $scope.rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.userinfo = $rootScope.userinfo;
     if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.avatar,undefined)){
@@ -33,6 +35,7 @@ $rootScope.$watch('userinfo',function(){
     
 }
 else{
+
     $rootScope.hide_when_root_empty=true;
     commonService.GetUserCredentials($scope);
     if($rootScope.userinfo){$scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
