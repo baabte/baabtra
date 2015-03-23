@@ -6,6 +6,7 @@ angular.module('angular-flipclock', [])
       restrict: 'E',
       link: function(scope, element, attr) {
 
+     
         var optionKeys = [
           'autostart', //(boolean) If this is set to false, the clock will not auto start. The default value is true.
           'countdown', //(boolean) If this is set to true, the clock will count down instead of up. The default value is false.
