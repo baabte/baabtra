@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfig','$state','testRelated',function($rootScope,bbConfig,$state,testRelated) {
+angular.module('baabtra').directive('questionGroupViewer',['$rootScope','$modal','bbConfig','$state','testRelated',function($rootScope,$modal,bbConfig,$state,testRelated) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -22,6 +22,9 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfi
 			scope.start=0;
 			scope.questionAnswer=[];
 			scope.totalMark=scope.courseElement.elements[outerIndex].value.mark;
+			scope.examFinished=false;
+			scope.timeObj={};
+			scope.startSubmit=false;
 			
 			
 			//if user is mentee copying all required datas 
@@ -36,6 +39,7 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfi
 					// console.log(scope.courseElement);
 					scope.isMentee=false;
 				 	scope.examFinished=true;
+
 				}
 			}
 			if(roleId===bbConfig.CURID){
@@ -70,15 +74,79 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfi
 
 				FnSaveTestStartTimeCallBack.then(function(data){
 
-				 var result=angular.fromJson(JSON.parse(data.data));
-				 scope.startTest=true;
-				 scope.examFinished=true;
-				// console.log(result);
+					 var result=angular.fromJson(JSON.parse(data.data));
+					 scope.startTest=true;
+
+					scope.countdown();
+					scope.timerFunction();							
+				
 				});
 
 			};
 
+
+			// Pre-fetch an external template populated with a custom scope
+            var timeOutModal = $modal({scope: scope, template: 'angularModules/courseElementFields/questionGroupViewer/Modal/timeOutModal.html', show: false,placement:'center'});
+            // Show when some event occurs (use $promise property to ensure the template has been loaded)
+            scope.timeOutModalshowModal = function() {
+              timeOutModal.$promise.then(timeOutModal.show);
+            };
+         
+			
+			// Pre-fetch an external template populated with a custom scope
+            var submitModal = $modal({scope: scope, template: 'angularModules/courseElementFields/questionGroupViewer/Modal/submitModal.html', show: false,placement:'center'});
+            // Show when some event occurs (use $promise property to ensure the template has been loaded)
+
+            scope.submitModalshowModal = function() {
+              submitModal.$promise.then(submitModal.show);
+            };
+            
+         
+            scope.countdown=function(){
+
+            	var FnTestTimeReCheckCallBack= testRelated.FnTestTimeReCheck({courseMappingId:courseMappingId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex});
+
+				FnTestTimeReCheckCallBack.then(function(data){
+				scope.timeObj=angular.fromJson(JSON.parse(data.data));
+
+				scope.countDownTime=(scope.timeObj.startTime+scope.timeObj.timeDetails.actualDuration)-(new Date()).getTime();
+				scope.countDownTime=Math.ceil(scope.countDownTime/1000);
+				});
+
+            };
+
+			scope.timerFunction=function(){
+				setInterval(function(){
+				 if(angular.equals(scope.examFinished,false)&&angular.equals(scope.startTest,true)){
+				 	var FnTestTimeReCheckCallBack= testRelated.FnTestTimeReCheck({courseMappingId:courseMappingId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex});
+
+					FnTestTimeReCheckCallBack.then(function(data){
+					scope.timeObj=angular.fromJson(JSON.parse(data.data));
+					 
+						if(!angular.equals(scope.timeObj.startTime,undefined)){
+							var timeNow=(new Date()).getTime();
+							var timeDiff=timeNow-scope.timeObj.startTime;
+							if(timeDiff>=scope.timeObj.timeDetails.actualDuration){
+								 scope.timeOutModalshowModal();
+								 scope.submitTest();
+							}							
+						}
+					});
+				
+				 }
+				 },10000);
+
+			};
+
+			if(angular.equals(scope.examFinished,false)&&angular.equals(scope.startTest,true)){
+					scope.countdown();
+					scope.timerFunction();	
+				
+			}
+
+
 			scope.submitTest=function(){
+				scope.startSubmit=true;
 				// console.log(scope.questionAnswer);
 				var time=(new Date()).getTime();
 				var totalMarkScored=0;
@@ -95,9 +163,16 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','bbConfi
 				var FnSubmitTestCallBack= testRelated.FnSubmitTest(SubmitTestObj);
 
 				FnSubmitTestCallBack.then(function(data){
-					scope.isMentee=false;
-				 var result=angular.fromJson(JSON.parse(data.data));
+					
+				 // var result=angular.fromJson(JSON.parse(data.data));
 				// console.log(result);
+				 scope.isMentee=false;
+				 scope.examFinished=true;
+				 //scope.timerFunction=function(){};
+				 location.reload();
+
+				
+
 				});
 
 
