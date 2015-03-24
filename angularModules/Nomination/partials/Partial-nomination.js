@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('NominationCtrl',['$scope', '$rootScope', '$state', '$modal','commonService', 'formCustomizerService', 'addCourseService', 'nomination', function($scope, $rootScope, $state, $modal, commonService, formCustomizerService, addCourseService, nomination){
+angular.module('baabtra').controller('NominationCtrl',['$scope', '$rootScope', '$state', '$modal','commonService', 'formCustomizerService', 'addCourseService', 'nomination', '$alert', function($scope, $rootScope, $state, $modal, commonService, formCustomizerService, addCourseService, nomination, $alert){
 
 	/*login detils start*/
 	if(!$rootScope.userinfo){
@@ -87,6 +87,10 @@ if(!angular.equals($state.params.ofId,"")){
 
 
 $scope.fnUserRegister =function () {
+	console.log($scope.allSync.FormData.coursetype);
+	var time=(new Date()).valueOf();
+	hashids = new Hashids("this is a id for mentees");
+	var userUniqueId = 'RQ-' + hashids.encode(time);
 
 	if(angular.equals($scope.data.orderForm,undefined)){
 		$scope.data.orderForm = {};
@@ -115,13 +119,14 @@ $scope.fnUserRegister =function () {
 
 	    	$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userInfo = [];
 
-			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userInfo.push({eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob});
+			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userInfo.push({eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob, status:"requested", userId:userUniqueId});
 
 			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 			nomintaionResponse.then(function(response){
 				var orderForm = angular.fromJson(JSON.parse(response.data));
 				orderForm._id = orderForm._id.$oid;
 				$scope.data.orderForm = orderForm;
+				$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 				$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
 			});
 		});	
@@ -135,6 +140,7 @@ $scope.fnUserRegister =function () {
     		var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
 
     		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].Name = course.Name;
+    		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].coursetype = $scope.allSync.FormData.coursetype;
     		if(!angular.equals(course.Fees.totalAmount,undefined)){
     			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].coursePrice  = course.Fees.totalAmount;
     		}
@@ -146,7 +152,7 @@ $scope.fnUserRegister =function () {
 
     		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userInfo = [];
 
-			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userInfo.push({eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob});
+			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userInfo.push({eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob, status:"requested", userId:userUniqueId});
 
 			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 				nomintaionResponse.then(function(response){
@@ -155,13 +161,16 @@ $scope.fnUserRegister =function () {
 					$scope.data.orderForm = orderForm;
 					$scope.allSync.FormData = "";
 					$scope.status.selected = 1;
+					$scope.userRegistrationForm.$setPristine();
+					$alert({title: 'Done..!', content: 'Mentee Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
+
 				});
 			});
 		}
 		else{
 			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userCount = $scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userCount + 1;
 
-			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userInfo.push({eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob});
+			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userInfo.push({eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob, status:"requested", userId:userUniqueId});
 			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 				nomintaionResponse.then(function(response){
 					var orderForm = angular.fromJson(JSON.parse(response.data));
@@ -169,13 +178,15 @@ $scope.fnUserRegister =function () {
 					$scope.data.orderForm = orderForm;
 					$scope.allSync.FormData = "";
 					$scope.status.selected = 1;
+					$scope.userRegistrationForm.$setPristine();
+					$alert({title: 'Done..!', content: 'Mentee Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 				});
 		}
 	}
 };
 
 $scope.finshRegisteration = function(){
-	//$scope.fnUserRegister();
+	$scope.fnUserRegister();
 	$modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-orderForm.html', show: true});
 };
 

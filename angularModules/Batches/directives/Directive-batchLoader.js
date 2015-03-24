@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$filter', function (addBatches,$rootScope,$filter) {
+angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$filter','$state' ,function (addBatches,$rootScope,$filter ,$state) {
 	return {
 		restrict: 'E',
     require:'ngModel',
@@ -15,7 +15,7 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
    //      }
    //   }, true); 
   
-			var companyId = "54978cc57525614f6e3e710b";    
+			var companyId = "";    
 			if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
 			  companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
         		
@@ -38,6 +38,7 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
    //      }, true);
 
 	scope.$watch('courseobj', function(){//adding watch to couse id
+    if(!angular.equals($state.current.name,'home.main.nominateEmployee')){
    if (typeof scope.courseobj.referredBy == "undefined") { 
          if(!angular.equals(scope.courseobj.course,undefined)){
            courseId=scope.courseobj.course._id;
@@ -76,6 +77,7 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
           
         }); 
      } 
+    }
     }       
    }, true); 
   
