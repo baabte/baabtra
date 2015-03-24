@@ -18,11 +18,14 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
     $scope.fnLoadPopupRepeat=function(batchMode){
       if(angular.equals(batchMode,"repeat")){
            // $scope.Batch.oneTime={};
+           $scope.Batch.repeats={};
+           $scope.Batch.repeats.excludedDaysRepeat=[];
          $modal({scope: $scope, template: 'angularModules/Batches/partials/partial-popupRepeatBatch.html',
-          show: true
+          show: true  
          });
       }else{
            $scope.Batch.repeats={};
+           $scope.Batch.repeats.excludedDaysRepeat=[];
          // $modal({scope: $scope, template: 'angularModules/Batches/partials/partial-popuponeTimeBatch.html',
          // show: true
          //});

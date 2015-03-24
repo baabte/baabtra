@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv', function ($rootScope, commonSrv) {
+angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv', '$state', function ($rootScope, commonSrv, $state) {
 	return {
 		restrict: 'E',
 		require:'ngModel',
@@ -16,7 +16,7 @@ angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv'
 			  companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
 			  
 			}
-			
+			if(!angular.equals($state.current.name,'home.main.nominateEmployee')){
 			if(angular.equals(scope.usersUnderRoles,undefined)){
 				var roleUserResponse = commonSrv.fnLoadUsersUnderRole("54e1780103e38dc70f5efb96",companyId);
 				roleUserResponse.then(function(response){
@@ -28,6 +28,7 @@ angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv'
 					});
 					scope.usersUnderRoles = angular.copy(usersUnderRoles);
 				});
+			}
 			}
 			scope.onItemClick = function(item,index){
 				if(angular.equals(scope.ngModel,undefined)){
