@@ -119,7 +119,7 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','$modal'
 
 			scope.timerFunction=function(){
 				setInterval(function(){
-				 if(angular.equals(scope.examFinished,false)&&angular.equals(scope.startTest,true)){
+				 if(angular.equals(scope.examFinished,false)&&angular.equals(scope.startTest,true)&&angular.equals(scope.isMentee,true)){
 				 	var FnTestTimeReCheckCallBack= testRelated.FnTestTimeReCheck({courseMappingId:courseMappingId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex});
 
 					FnTestTimeReCheckCallBack.then(function(data){
