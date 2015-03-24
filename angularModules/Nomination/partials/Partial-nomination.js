@@ -169,7 +169,6 @@ $scope.fnUserRegister =function () {
 					$scope.data.orderForm = orderForm;
 					$scope.allSync.FormData = "";
 					$scope.status.selected = 1;
-					console.log($scope.allSync.FormData);
 				});
 		}
 	}
