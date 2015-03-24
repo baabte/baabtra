@@ -11,8 +11,8 @@ $scope.$watch(function() {
   companyId=$scope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   var existingConf= globalSettings.retrieveExistingConf(companyId);
 	existingConf.then(function  (data) {
-
 	  existingConfCallBack=angular.fromJson(JSON.parse(data.data));
+	  $scope.roles=[];
 	  $scope.roles=existingConfCallBack.CompanyRoles;
 	  var rolesArrayForSuperVisor=existingConfCallBack.CompanyRoles;
 	  var roleslist=existingConfCallBack.CompanyRoles;
@@ -57,7 +57,6 @@ $scope.$watch(function() {
 	  //if for to append data to supervisor roles
 	  $scope.supervisorrolelist=[];
 	  if(ExistingsupervisorRoles){
-	  		console.log(ExistingsupervisorRoles);
 	  		for (var i = $scope.roles.length - 1; i >= 0; i--) {
 			  var key = $scope.roles[i];
 			  if (-1 === ExistingsupervisorRoles.indexOf(key._id.$oid)) {
@@ -72,7 +71,6 @@ $scope.$watch(function() {
 					}
 				}
 			}
-			console.log($scope.selectedSupervisorsRoles);
 	  }
 	  else{
 	  		for(var roleindex=0;roleindex<roleslist.length;roleindex++){
@@ -168,7 +166,6 @@ $scope.setSupervisors=function(){
 	dataToSend.companyId=companyId;
 	dataToSend.supervisorRoles=selectedsupervisors;
 	dataToSend.userLoginId=$scope.userinfo.userLoginId;
-	console.log(dataToSend);
 	var setSupervisorsCallBack=globalSettings.setSupervisors(dataToSend);
 	setSupervisorsCallBack.then(function  (data) {
 	  if(data.status==200&&data.statusText=="OK"){
@@ -300,7 +297,6 @@ $scope.removeExistingSupervisors=function(removeEvaluatorSupervisor,index){
 		var dataToRemoveSupervisor={};
 		dataToRemoveSupervisor.supervisor=removeEvaluatorSupervisor.value;
 		dataToRemoveSupervisor.companyId=companyId;
-		console.log(dataToRemoveSupervisor);
 		var removeExistingSupervisorCallBack=globalSettings.removeExistingSupervisors(dataToRemoveSupervisor);
 		removeExistingSupervisorCallBack.then(function  (data) {
 				  if(data.status==200&&data.statusText=="OK"){

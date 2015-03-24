@@ -33,6 +33,19 @@ this.fnSendEmailSmsNotification=function(userEmail,userName,menteeEmail,menteeNa
   return promise;
  }
 
+ this.FnRegisterMultipleUser=function(users){
+  var promise = $http({
+    method: 'POST',
+      url: bbConfig.BWS+'RegisterMultipleUsers/',
+      data:{"users":users},
+      method: 'POST',
+      withCredentials: false,
+      contentType:'application/json',
+      dataType:'json'
+   });
+  return promise;
+ }
+
  //   //service function to fetch all details of an exsisting user 
  //   this.FnFetchUserDetails=function(formData){
  //    var result;

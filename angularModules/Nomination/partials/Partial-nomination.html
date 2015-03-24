@@ -2,11 +2,11 @@
   <div class="col-sm-8 col-sm-offset-2">
 
     <div class="panel">
-  
+  <form  name="userRegistrationForm"  class="form" xt-form editable-form novalidate>
       <div class="text-center bg-white">
           <div class="p font-bold bg-00C853">Training Request Form</div>
           <div class="p font-bold btn-material-blue-A400 col-xs-6" ng-class="{'baab-shadow':status.selected == 1}" ng-click="status.selected = 1" style="cursor: pointer;">Personal Details</div>
-          <div class="p font-bold btn-material-orange-A700 col-xs-6" ng-class="{'baab-shadow':status.selected == 2}" ng-click="status.selected = 2" style="cursor: pointer;">Course Details</div>
+          <div ng-disabled="userRegistrationForm.$invalid"  class="p font-bold btn-material-orange-A700 col-xs-6" ng-class="{'baab-shadow':status.selected == 2}" ng-click="status.selected = 2" style="cursor: pointer;">Course Details</div>
          <!--  <div id="status-buttons" class="text-center">
               <a class="font-bold" ng-class="{active:status.selected == $index+1}" ui-sref-active="active"  ng-repeat="i in formlist.formSchema" style="line-height: 20px;" ng-click="status.selected = $index+1"><span>{{$index+1}}</span></a>
           </div> -->
@@ -14,7 +14,7 @@
       </div>
 
       <div class="panel-body">
-        <form  name="userRegistrationForm" ng-submit="fnUserRegister()" class="form" xt-form editable-form novalidate>
+        
           <div fg-form fg-form-data="allSync.FormData" form-data="allSync.FormData" sync-data="allSync" fg-schema="formlist.formSchema[status.selected].stepFormSchema">
           </div>
 
@@ -34,15 +34,15 @@
           <!-- ng-disabled="userRegistrationForm.$invalid" -->
 
           <div ng-show="status.selected==2" class="col-xs-12 text-center">
-    
-            <button ng-disabled="userRegistrationForm.$invalid" type="submit" class="btn btn-danger baab-btn">Submit</button>
+            <button ng-disabled="userRegistrationForm.$invalid" type="button" class="btn btn-info baab-btn" ng-click="fnUserRegister(userRegistrationForm)">Register & Register Another</button>
+            <button ng-disabled="userRegistrationForm.$invalid" type="submit" class="btn btn-success baab-btn" ng-click="finshRegisteration()">Finish & Generate Order Form</button>
           </div>
 
-        </form>
+      
 
       </div>
 
-  	
+  	  </form>
     </div>	
  
   </div>

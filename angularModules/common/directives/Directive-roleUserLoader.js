@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv', function ($rootScope, commonSrv) {
+angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv', '$state', function ($rootScope, commonSrv, $state) {
 	return {
 		restrict: 'E',
 		require:'ngModel',
@@ -10,17 +10,18 @@ angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv'
 		},
 		templateUrl: 'angularModules/common/directives/Directive-roleUserLoader.html',
 		link: function(scope, element, attrs, fn) {
-			
-			var companyId = "54978cc57525614f6e3e710b";
+			var companyId = "";
 			if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
 			  companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
 			  
 			}
-			
+			if(!angular.equals($state.current.name,'home.main.nominateEmployee')){
 			if(angular.equals(scope.usersUnderRoles,undefined)){
-				var roleUserResponse = commonSrv.fnLoadUsersUnderRole("54e1780103e38dc70f5efb96",companyId);
+				console.log(scope.roleId);
+				var roleUserResponse = commonSrv.fnLoadUsersUnderRole(scope.roleId,companyId);
 				roleUserResponse.then(function(response){
 					var usersUnderRoles = angular.fromJson(JSON.parse(response.data));
+					console.log(usersUnderRoles);
 					angular.forEach(usersUnderRoles, function(user){
 
 						user.Name = user.profile.firstName + ' ' + user.profile.lastName;
@@ -28,6 +29,7 @@ angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv'
 					});
 					scope.usersUnderRoles = angular.copy(usersUnderRoles);
 				});
+			}
 			}
 			scope.onItemClick = function(item,index){
 				if(angular.equals(scope.ngModel,undefined)){

@@ -667,21 +667,23 @@ display: block;
   color: black;
 }
 
-/*@media screen {
-    #printf {
+ @media screen {
+    #printSection {
         display: none;
     }
 }
+
 @media print {
     body * {
         visibility:hidden;
+          width: 210mm;
     }
-    #printf, #printf * {
+    #printSection, #printSection * {
         visibility:visible;
     }
-    #printf {
+    #printSection {
         position:absolute;
         left:0;
         top:0;
     }
-}*/
+}

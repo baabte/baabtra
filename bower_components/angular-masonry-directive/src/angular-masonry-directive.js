@@ -48,7 +48,9 @@
     }).directive('masonryTile', function() {
         return {
             restrict: 'AC',
+            //require:'masonry',
             link: function(scope, elem) {
+
                 elem.css('visibility', 'hidden');
                 var master = elem.parent('*[masonry]:first').scope(),
                     update = master.update,

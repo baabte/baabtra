@@ -24,7 +24,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 			var evStatus=0;
 			var isDescriptive=false;
 			scope.isMentee=false;
-
+			
 			//if user is mentee copying all required datas 
 			if(roleId===bbConfig.MURID){
 				userLoginId=$rootScope.userinfo.userLoginId;
@@ -70,6 +70,21 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 				
 				//Creating directive elements according to type of question
 				var answerArea=$('#answers'+scope.randomKey);
+
+				if(scope.question.type=='objective'){
+					evStatus=1;
+					var optionsElem=$('<objective-options>');
+					    optionsElem.attr('options',"question.options");
+					    optionsElem.attr('answer-type',"question.answerType");
+					    optionsElem.attr('answer',"question.answer");
+					    optionsElem.attr('mark-scored','questionResponse.markScored');
+					    optionsElem.attr('user-answer','questionResponse.userAnswer');
+					    optionsElem.attr('db-answer','dbAnswer');
+					    optionsElem.attr('mark-obj',JSON.stringify(scope.question.mark));
+					answerArea.html(optionsElem);
+					$compile(optionsElem)(scope);
+					
+				}
 			 if(scope.question.type=='descriptive'){
 					isDescriptive=true;
 
@@ -90,11 +105,11 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 							if (!scope.dbAnswer.length==0) {
 								 //this code is for re-binding the users answer from db
 								if(scope.dbAnswer[0].primaryAnswer[debugVal.name]){
-									debugVal.value=scope.dbAnswer[0].primaryAnswer[debugVal.name].value;
+									debugVal.value=scope.dbAnswer[0].primaryAnswer[debugVal.name];
+									//edited by arun to show answer 
 								}
 							}
 						}
-						console.log(debugVal);
 						scope.primaryForm.fields.push(debugVal);
 					}
 
@@ -105,7 +120,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 						if(!angular.equals(scope.dbAnswer,undefined)){
 							if (!scope.dbAnswer.length==0) {
 								if(scope.dbAnswer[0].secondaryAnswer[debugVal.name]){
-									debugVal.value=scope.dbAnswer[0].secondaryAnswer[debugVal.name].value;
+									debugVal.value=scope.dbAnswer[0].secondaryAnswer[debugVal.name];
 
 								}
 							}

@@ -1,0 +1,49 @@
+<div class="col-xs-12 lt">
+	<!-- <div class="row font-bold p-sm btn-material-deep-orange-A400">
+			<div class="col-xs-3">Description</div>
+			<div class="col-xs-3">No. Of Cantidates</div>
+			<div class="col-xs-3">Unit Charge</div>
+			<div class="col-xs-3">Total Amount</div>
+	</div>
+	<div  ng-repeat="course in orderObject.orderDetails">
+		<div class="row p-xs b-b baab-list-item">
+			<div class="col-xs-3">{{course.Name}}</div>
+			<div class="col-xs-3">{{course.userCount}}</div>
+			<div class="col-xs-3">{{course.coursePrice}}</div>
+			<span ng-init="data.grandTotal = data.grandTotal + course.userCount*course.coursePrice"></span>
+			<div class="col-xs-3">{{course.userCount*course.coursePrice}}</div>
+		</div>
+	</div>
+	<div class="row p-sm font-bold">
+			<div class="col-xs-9 ">Grand Total</div>
+			<div class="col-xs-3">{{data.grandTotal}}</div>
+	</div> -->
+	<table class="table table-striped table-hover ">
+    <thead>
+        <tr class="info">
+            <th>Order No:</th>
+            <th>Description</th>
+            <th>No. Of Cantidates</th>
+            <th>Unit Charge</th>
+            <th>Total Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="info" ng-init="data.grandTotal = data.grandTotal + course.userCount*course.coursePrice" ng-repeat="course in orderObject.orderDetails">
+            <td class="font-bold">{{$index + 1}}</td>
+            <td>{{course.Name}}</td>
+            <td>{{course.userCount}}</td>
+            <td>{{course.coursePrice}}</td>
+            <td>{{course.userCount*course.coursePrice}}</td>
+        </tr>
+        <tr>
+        	<th >Grand Total</th>
+        	<th></th>
+        	<th></th>
+        	<th></th>
+        	<th>{{data.grandTotal}}</th>
+        </tr>
+    </tbody>
+</table>
+</div>
+

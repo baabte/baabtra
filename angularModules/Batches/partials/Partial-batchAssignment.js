@@ -14,63 +14,25 @@ angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatche
 			//$scope.batchObj.courseTimeline=angular.fromJson(JSON.parse(response.data)).courseObj;
 			$scope.batchObj.userArray=angular.fromJson(JSON.parse(response.data)).userList;
 			$scope.batchObj.userList=angular.fromJson(JSON.parse(response.data)).userDetails;
+	
 		});
 	});
 
+
 	$scope.assignCourseMaterials4Batch=function(){
-		var entities=[];
-		for (key in $scope.batchObj.userArray) { //loop to get the unselected users
- 			var value = $scope.batchObj.userArray[key];
- 			if (angular.equals($scope.batchObj.selectedList.indexOf(value.$oid),-1)) {
-   				entities.push(value.$oid);
- 			}
+		//getting blacklist users
+		$scope.excludeList=[];
+			for (key in $scope.batchObj.userArray) { //loop to get the unselected users
+	 			var value = $scope.batchObj.userArray[key];
+	 			if (angular.equals($scope.batchObj.selectedList.indexOf(value.$oid),-1)) {
+	   				$scope.excludeList.push(value.$oid);
+	 			}
 		}
-		
-		//loop to build the courseTimeline object
-		angular.forEach($scope.batchObj.selectedCourseList,function(element){
-				//$scope.batchObj.batchDetails.courseTimeline[element.key]=element.courseElem;
-				if(angular.equals($scope.batchObj.batchDetails.courseTimeline[element.structureArr[0]],undefined)){
-
-					$scope.batchObj.batchDetails.courseTimeline[element.structureArr[0]]={};
-				}
-				if(angular.equals($scope.batchObj.batchDetails.courseTimeline[element.structureArr[0]][element.structureArr[1]],undefined)){
-					$scope.batchObj.batchDetails.courseTimeline[element.structureArr[0]][element.structureArr[1]]=[];
-				}
-				if(angular.equals($scope.batchObj.batchDetails.courseTimeline[element.structureArr[0]][element.structureArr[1]][element.structureArr[2]],undefined)){
-
-					$scope.batchObj.batchDetails.courseTimeline[element.structureArr[0]][element.structureArr[1]][element.structureArr[2]]={};
-					
-				}
-
-				$scope.batchObj.batchDetails.courseTimeline[element.structureArr[0]][element.structureArr[1]][element.structureArr[2]]=element.courseElem;
-
-				for(var keyNew in element.elemOrder){
-					if(element.elemOrder[keyNew].indexOf(element.key+'.')==0){
-						$scope.batchObj.batchDetails.elementOrder[keyNew]=element.elemOrder[keyNew];
-						
-					}
-					
-				}
+		//adding exluded list
+		angular.forEach($scope.batchObj.selectedCourseList,function(element,key){
+			$scope.batchObj.selectedCourseList[key].courseElement.excludeList=$scope.excludeList;
 		});
 
-		angular.forEach($scope.batchObj.batchDetails.courseTimeline, function(elements, key){
-
-			angular.forEach(elements, function(element,key2){
-				
-					if(angular.equals(typeof element,"object")){
-
-						angular.forEach(element, function(elem,key3){
-							if(!angular.equals(elem.Name,"Payment_checkpoint")){
-								//scope.summaryDetails.push({code:elem.code, Name:elem.elements[0].value,elem:elem,courseElem:elements,key:key,elemOrder:scope.course.elementOrder}); //[Math.ceil(key*scope.summaryViewIn.mFactor)]
-								$scope.batchObj.batchDetails.courseTimeline[key][key2][key3]['excludedList']=entities;
-								
-							}
-							
-						})
-					}
-			});
-		});		
-		
 
 		var assignCourseMaterialsResponse=viewBatches.assignCourseMaterials4Batch($scope);
 		assignCourseMaterialsResponse.then(function(response){ //promise for batch load

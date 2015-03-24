@@ -13,7 +13,7 @@ $scope.pwdicon=false;
 $scope.lange=false;
 $scope.availlangualges=[{"language":"English(en)","langCode":"en"},{"language":"Arabic(ar)","langCode":"ar"}];
 $scope.languageActiveOrNot=true;
-
+userLoginId="";
 if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       $rootScope.hide_when_root_empty=true;
       commonService.GetUserCredentials($scope);
@@ -21,20 +21,18 @@ if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
 $scope.userinfo =$rootScope.userinfo;
 var profile; 
 if(!angular.equals($stateParams.userId,"")){
-	console.log($stateParams.userId);
 	profile = userProfile.loadProfileData($stateParams.userId);
-
+	userLoginId=$stateParams.userId;
 }
 else{
 	profile = userProfile.loadProfileData($scope.userinfo.userLoginId);
+	userLoginId=$scope.userinfo.userLoginId;
+
 
 }
 profile.then(function (data) {
 			$scope.profileData = angular.fromJson(JSON.parse(data.data));
-			console.log($scope.profileData);
-			// $scope.profileData.profile.passwordRelatedData={};
-			// $scope.profileData.profile.passwordRelatedData.passwordChanges=["hai","hello"];
-			// console.log($scope.profileData.profile.passwordRelatedData);
+			console.log($scope.profileData );
 			if(!$scope.profileData.profile.Preferedlanguage){
 				$scope.profileData.profile.Preferedlanguage=$scope.availlangualges[0];
 				$scope.oldLang=$scope.availlangualges[0].langCode;	
@@ -86,10 +84,22 @@ $scope.showHideFotoDive=function(){
 };
 $scope.updateUserProfileDatas=function(data){
 	// console.log($scope.profileData.profile);
-	var profileUpdateConfirmation = userProfile.updateUserProfileData($scope.profileData._id.$oid,$scope.profileData.profile);
+	if(!$scope.profileData._id){
+		$scope.profileDataId=undefined;	
+					
+	}
+	else{
+		$scope.profileDataId=$scope.profileData._id.$oid;
+	}
+	console.log($scope.profileDataId);
+	var profileUpdateConfirmation = userProfile.updateUserProfileData($scope.profileDataId,userLoginId,$scope.profileData.profile);
 		profileUpdateConfirmation.then(function (data) {
 			if(data.status==200&&data.statusText=="OK"){
 				$scope.notifications("Success","Updated","success");
+				if($scope.profileData.profile.Preferedlanguage){
+					$rootScope.userinfo.ActiveUserData.Preferedlanguage=$scope.profileData.profile.Preferedlanguage;
+				}
+
 			}
 		});
 
@@ -119,11 +129,7 @@ $scope.editAboutOpt=function(variable){
 
 };
 
-// $scope.loadTabData=function(tab){
-// 	if(tab=='AccountSettings'){
-// 		console.log($rootScope.userinfo.userLoginId);
-// 	}
-// };
+
 $scope.changePassword=function(){
 
 	var changePwdObj = userProfile.changeUserPassword($scope.userinfo.userLoginId,$scope.currentPassword,$scope.newPassword);
@@ -132,7 +138,6 @@ $scope.changePassword=function(){
 				var response=angular.fromJson(JSON.parse(data.data));
 				if(angular.equals(response.response,"success")){
 					$scope.profileData.profile.passwordChanges=response.changedate;
-					console.log($scope.profileData.profile.passwordChanges);
 					$scope.notifications("Success","Password Changed","success");
 					$scope.currentPassword=$scope.retypedPassword=$scope.newPassword="";
 					$scope.changePwd.$setPristine();
