@@ -51,7 +51,6 @@
 
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right m-r-n ">
-          <li >
           <li>
             <a href=""  data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
               <i class="fa fa-bell text-lg m-v-xs" bs-tooltip data-title="Notifications" data-placement="left"></i>
@@ -74,7 +73,7 @@
                 <div class="line b-b b-light m-h-xs"></div>                
               </div>
             </script>
-            <a ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" class="no-padding-h" href ng-click="appSettings()" bs-tooltip data-title="Customize theme" data-type="success" data-placement="left">
+            <a ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" class="no-padding-h" href ng-click="appSettings()" bs-tooltip data-title="Customize theme"  data-placement="bottom-left">
               <i class="mdi-image-color-lens text-2x"></i>
               <span class="visible-xs-inline" translate="{{'Settings'|translate}}"></span>
             </a>
@@ -99,7 +98,7 @@
          
             <li ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId">
              
-            <a href >
+            <a href bs-tooltip data-title="Settings"  data-placement="left">
               <i class="mdi-action-settings text-2x m-t-xs" style="font-size:25px" ng-click="redirectToGlobalSettings()"></i>
               <!-- <b class="badge badge-xs bg-warning up">3</b> -->
     <!--           <span class="visible-xs-inline">Notifications</span> -->
