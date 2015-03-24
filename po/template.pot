@@ -12,6 +12,10 @@ msgstr ""
 msgid "(Embeddable fields can be added to the answer template by the candidate if needed.)"
 msgstr ""
 
+#: angularModules/user/partials/Partial-bulkEnrollment.html:46
+msgid "(Please specifiy  the Evaluator)"
+msgstr ""
+
 #: angularModules/Batches/partials/Partial-manageBatches.html:30
 msgid "(Please specifiy  the Mode of Batch)"
 msgstr ""
@@ -24,7 +28,7 @@ msgstr ""
 msgid "(Please specifiy  the mode of delivery of the course)"
 msgstr ""
 
-#: angularModules/course/partials/addCourseStep1.html:121
+#: angularModules/course/partials/addCourseStep1.html:138
 msgid "(Please specifiy  to which all branches this course is available)"
 msgstr ""
 
@@ -32,12 +36,24 @@ msgstr ""
 msgid "(Please specify the type of the Course)"
 msgstr ""
 
-#: angularModules/course/partials/addCourseStep1.html:144
+#: angularModules/course/partials/addCourseStep1.html:161
 msgid "(Please specify who all in the selected branches has access to the course)"
 msgstr ""
 
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:107
 msgid "(Primary answer template will be shown to the candidate when he tries to answer this question.)"
+msgstr ""
+
+#: angularModules/Batches/partials/partial-popUpOptions.html:31
+msgid "* Add this batch to more courses"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:116
+msgid "*Designation help your course to be shown when people search courses by Designation"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:101
+msgid "*Tags help your course to be shown when people search courses by tags"
 msgstr ""
 
 #: angularModules/course/partials/addCourseStep1.html:86
@@ -56,25 +72,8 @@ msgstr ""
 msgid "<hr>"
 msgstr ""
 
-#: angularModules/profile/partials/Partial-userProfile.html:24
-msgid "About"
-msgstr ""
-
 #: angularModules/user/partials/step2_UserInfo.html:45
 msgid "Academic Details"
-msgstr ""
-
-#: angularModules/feedback/partials/Partial-createFeedBack.html:33
-msgid "Access type"
-msgstr ""
-
-#: angularModules/profile/partials/Partial-userProfile.html:162
-#: angularModules/profile/partials/Partial-userProfile.html:175
-msgid "Account Settings"
-msgstr ""
-
-#: angularModules/company/partials/Partial-addMenu.html:35
-msgid "Actions"
 msgstr ""
 
 #: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:16
@@ -82,7 +81,7 @@ msgid "Actual name of the field"
 msgstr ""
 
 #: angularModules/Branches/aside/aside-newBranch.html:36
-#: angularModules/company/partials/Partial-addMenu.html:85
+#: angularModules/company/partials/Partial-addMenu.html:84
 #: angularModules/user/partials/step3_SocialProfile.html:32
 msgid "Add"
 msgstr ""
@@ -111,7 +110,7 @@ msgstr ""
 msgid "Add Menu"
 msgstr ""
 
-#: angularModules/course/partials/Partial-addCourseElement.html:87
+#: angularModules/course/partials/Partial-addCourseElement.html:97
 msgid "Add New Course Element"
 msgstr ""
 
@@ -140,20 +139,16 @@ msgstr ""
 msgid "Add a reseller"
 msgstr ""
 
-#: angularModules/Batches/partials/partial-popUpOptions.html:6
+#: angularModules/Batches/partials/partial-popUpOptions.html:7
 msgid "Add this batch under the courses"
 msgstr ""
 
-#: angularModules/feedback/feedbackCreator/directives/Directive-feedbackCreator.html:17
+#: angularModules/feedback/feedbackCreator/directives/Directive-feedbackCreator.html:19
 msgid "Add to Feedback"
 msgstr ""
 
 #: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:93
 msgid "Add to Test"
-msgstr ""
-
-#: angularModules/profile/partials/Partial-userProfile.html:59
-msgid "Add your location and country"
 msgstr ""
 
 #: angularModules/Reseller/partials/Partial-reseller.html:42
@@ -162,13 +157,26 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
-#: angularModules/course/partials/addCourseStep1.html:108
-#: angularModules/course/partials/addCourseStep1.html:109
+#: angularModules/Batches/partials/Partial-viewBatches.html:18
+msgid "All Batches"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:125
+#: angularModules/course/partials/addCourseStep1.html:126
 msgid "All Branches"
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-viewBatches.html:22
+msgid "All Mentees"
 msgstr ""
 
 #: angularModules/feature/partials/Partial-feature_config.html:114
 msgid "Allowed  values"
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-menteeAttendance.html:24
+#: angularModules/common/directives/Directive-courseMultiSelect.html:9
+msgid "Already all course material under the course has been added to this user time line"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:48
@@ -179,8 +187,27 @@ msgstr ""
 msgid "Answer  type"
 msgstr ""
 
+#: angularModules/evaluation/directives/Directive-evaluationLoader.html:36
+#: angularModules/evaluation/directives/Directive-evaluationLoader.html:89
+msgid "Answer Key Points & Mark Weightage"
+msgstr ""
+
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:14
 msgid "Answers"
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-batchAssignment.html:38
+#: angularModules/course/partials/Partial-assignCourseMaterial.html:21
+msgid "Assign"
+msgstr ""
+
+#: angularModules/course/partials/Partial-assignCourseMaterial.html:4
+msgid "Assign Course Material"
+msgstr ""
+
+#: angularModules/course/partials/Partial-addCourseElement.html:63
+#: angularModules/courseElements/directives/Directive-editCourseElement.html:10
+msgid "Attendence Tracking"
 msgstr ""
 
 #: angularModules/form/partials/customizeForm.html:10
@@ -191,9 +218,20 @@ msgstr ""
 msgid "Background"
 msgstr ""
 
-#: angularModules/profile/partials/Partial-userProfile.html:111
-#: angularModules/profile/partials/Partial-userProfile.html:134
-msgid "Birth place"
+#: angularModules/Batches/partials/Partial-batchAssignment.html:5
+msgid "Batch Assignment"
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-batchAttendance.html:5
+msgid "Batch Attendance"
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-manageBatches.html:72
+msgid "Batch Ends On"
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-manageBatches.html:64
+msgid "Batch Starts On"
 msgstr ""
 
 #: angularModules/user/partials/step1_UserInfo.html:36
@@ -208,6 +246,7 @@ msgstr ""
 msgid "Branches"
 msgstr ""
 
+#: angularModules/user/partials/Partial-bulkEnrollment.html:2
 #: po/translate/translate.html:24
 msgid "Bulk Enrollment"
 msgstr ""
@@ -220,22 +259,17 @@ msgstr ""
 msgid "Can be an answer"
 msgstr ""
 
-#: angularModules/Batches/partials/partial-popUpOptions.html:23
-#: angularModules/Batches/partials/partial-popupRepeatBatch.html:60
-#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:38
+#: angularModules/Batches/partials/partial-popUpOptions.html:45
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:61
+#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:39
+#: angularModules/Department/partials/Aside-addDepartment.html:25
 #: angularModules/Reseller/partials/Partial-reseller.html:49
 #: angularModules/common/directives/popup-addNewField.html:23
-#: angularModules/company/partials/Partial-addMenu.html:83
+#: angularModules/company/partials/Partial-addMenu.html:82
 #: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:74
 #: angularModules/courseElementFieldsManaging/partials/Popup-addCourseElementField.html:20
-#: angularModules/feedback/partials/Partial-createFeedBack.html:87
+#: angularModules/feedback/partials/Partial-createFeedBack.html:86
 #: angularModules/login/partials/Popup-userDetails.html:55
-#: angularModules/profile/partials/Partial-userProfile.html:120
-#: angularModules/profile/partials/Partial-userProfile.html:143
-#: angularModules/profile/partials/Partial-userProfile.html:224
-#: angularModules/profile/partials/Partial-userProfile.html:246
-#: angularModules/profile/partials/Partial-userProfile.html:64
-#: angularModules/profile/partials/Partial-userProfile.html:94
 msgid "Cancel"
 msgstr ""
 
@@ -247,7 +281,7 @@ msgstr ""
 msgid "Change Icon"
 msgstr ""
 
-#: angularModules/company/partials/Partial-addMenu.html:52
+#: angularModules/company/partials/Partial-addMenu.html:51
 msgid "Change icon"
 msgstr ""
 
@@ -257,6 +291,10 @@ msgstr ""
 
 #: angularModules/reports/partials/Partial-userReport.html:30
 msgid "Chart type"
+msgstr ""
+
+#: angularModules/Batches/directives/Directive-batchMenteeList.html:5
+msgid "Check all"
 msgstr ""
 
 #: angularModules/company/partials/iconPage.html:13
@@ -335,8 +373,7 @@ msgid "Continue"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:100
-#: angularModules/profile/partials/Partial-userProfile.html:53
-#: angularModules/profile/partials/Partial-userProfile.html:84
+#: angularModules/profile/partials/Partial-userProfile.html:85
 #: angularModules/user/partials/step2_UserInfo.html:15
 msgid "Country"
 msgstr ""
@@ -565,8 +602,13 @@ msgstr ""
 msgid "Course Drafts"
 msgstr ""
 
-#: angularModules/course/partials/Partial-addCourseElement.html:93
+#: angularModules/course/partials/Partial-addCourseElement.html:103
+#: angularModules/course/partials/Partial-addCourseElement.html:5
 msgid "Course Elements"
+msgstr ""
+
+#: angularModules/Department/partials/Aside-addDepartment.html:26
+msgid "Create"
 msgstr ""
 
 #: angularModules/company/partials/Partial-userMenuMapping.html:141
@@ -585,7 +627,7 @@ msgstr ""
 msgid "Create a feedback form"
 msgstr ""
 
-#: angularModules/feedback/partials/Partial-createFeedBack.html:88
+#: angularModules/feedback/partials/Partial-createFeedBack.html:87
 msgid "Create feedback"
 msgstr ""
 
@@ -621,16 +663,25 @@ msgstr ""
 msgid "Default Template"
 msgstr ""
 
+#: angularModules/Department/partials/Aside-addDepartment.html:15
+msgid "Department Head"
+msgstr ""
+
+#: angularModules/Department/partials/Aside-addDepartment.html:9
+msgid "Department Name"
+msgstr ""
+
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:55
 msgid "Descriptive"
 msgstr ""
 
+#: angularModules/course/partials/Partial-PublishedCourse.html:82
 #: angularModules/user/partials/step3_SocialProfile.html:12
 #: angularModules/user/partials/step3_SocialProfile.html:45
 msgid "Designation"
 msgstr ""
 
-#: angularModules/feedback/feedbackCreator/directives/Directive-feedbackCreator.html:12
+#: angularModules/feedback/feedbackCreator/directives/Directive-feedbackCreator.html:13
 #: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:89
 msgid "Discard"
 msgstr ""
@@ -640,8 +691,7 @@ msgid "Dispaly Name"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:114
-#: angularModules/profile/partials/Partial-userProfile.html:48
-#: angularModules/profile/partials/Partial-userProfile.html:79
+#: angularModules/profile/partials/Partial-userProfile.html:80
 #: angularModules/user/partials/step2_UserInfo.html:29
 msgid "District"
 msgstr ""
@@ -654,13 +704,13 @@ msgstr ""
 msgid "Domain Name"
 msgstr ""
 
-#: angularModules/Batches/partials/partial-popupRepeatBatch.html:61
-#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:39
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:62
+#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:40
 msgid "Done"
 msgstr ""
 
-#: angularModules/Batches/partials/partial-popupRepeatBatch.html:34
-#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:13
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:35
+#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:14
 msgid "Dont Start On"
 msgstr ""
 
@@ -677,24 +727,15 @@ msgstr ""
 msgid "Duration type"
 msgstr ""
 
-#: angularModules/profile/partials/Partial-userProfile.html:202
-msgid "E-mail"
-msgstr ""
-
 #: angularModules/user/partials/step1_UserInfo.html:10
 msgid "E-mail address"
 msgstr ""
 
-#: angularModules/profile/partials/Partial-userProfile.html:184
-#: angularModules/profile/partials/Partial-userProfile.html:205
-msgid "Edit"
-msgstr ""
-
-#: angularModules/company/partials/Partial-addMenu.html:78
+#: angularModules/company/partials/Partial-addMenu.html:77
 msgid "Edit Existing Menus"
 msgstr ""
 
-#: angularModules/course/partials/Partial-addCourseElement.html:85
+#: angularModules/course/partials/Partial-addCourseElement.html:95
 msgid "Edit Exsisting Course Element"
 msgstr ""
 
@@ -706,21 +747,34 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
+#: angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.html:5
+msgid "Email& Sms template Configuration"
+msgstr ""
+
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:118
 msgid "Embeddable fields:"
 msgstr ""
 
-#: angularModules/Batches/partials/Partial-manageBatches.html:54
+#: angularModules/courseElements/directives/Directive-editCourseElement.html:12
+msgid "Enable this feature to activate attendence tracking on this course Material"
+msgstr ""
+
+#: angularModules/course/partials/Partial-addCourseElement.html:64
+msgid "Enable this feature to activate attendence tracking on this course element"
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-manageBatches.html:55
 msgid "End Time"
 msgstr ""
 
-#: angularModules/Batches/partials/partial-popupRepeatBatch.html:52
-#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:31
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:53
+#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:32
 msgid "Ends On"
 msgstr ""
 
 #: angularModules/company/partials/Partial-manage_user_role.html:47
 #: angularModules/company/partials/Partial-manage_user_role.html:49
+#: angularModules/globalSettings/partials/Partial-globalSettings.html:156
 msgid "Enter"
 msgstr ""
 
@@ -740,7 +794,7 @@ msgstr ""
 msgid "Enter a name for the course element"
 msgstr ""
 
-#: angularModules/company/partials/Partial-addMenu.html:37
+#: angularModules/company/partials/Partial-addMenu.html:36
 msgid "Enter action name"
 msgstr ""
 
@@ -756,7 +810,7 @@ msgstr ""
 msgid "Enter menu name"
 msgstr ""
 
-#: angularModules/company/partials/Partial-addMenu.html:38
+#: angularModules/company/partials/Partial-addMenu.html:37
 msgid "Enter state name"
 msgstr ""
 
@@ -766,6 +820,10 @@ msgstr ""
 
 #: views/pages/forgot-password.html:6
 msgid "Enter your email address below and we will send you instructions on how to change your password."
+msgstr ""
+
+#: angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.html:37
+msgid "Event"
 msgstr ""
 
 #: angularModules/company/partials/Partial-manage_user_role.html:33
@@ -797,15 +855,15 @@ msgstr ""
 msgid "Feedback Report"
 msgstr ""
 
-#: angularModules/feedback/partials/Partial-createFeedBack.html:58
+#: angularModules/feedback/partials/Partial-createFeedBack.html:57
 msgid "Feedback about"
 msgstr ""
 
-#: angularModules/feedback/partials/Partial-createFeedBack.html:26
+#: angularModules/feedback/partials/Partial-createFeedBack.html:25
 msgid "Feedback description"
 msgstr ""
 
-#: angularModules/feedback/partials/Partial-createFeedBack.html:16
+#: angularModules/feedback/partials/Partial-createFeedBack.html:15
 msgid "Feedback title"
 msgstr ""
 
@@ -813,7 +871,6 @@ msgstr ""
 msgid "Female"
 msgstr ""
 
-#: angularModules/profile/partials/Partial-userProfile.html:189
 #: angularModules/user/partials/step1_UserInfo.html:41
 msgid "First Name"
 msgstr ""
@@ -843,8 +900,6 @@ msgstr ""
 msgid "Free"
 msgstr ""
 
-#: angularModules/profile/partials/Partial-userProfile.html:114
-#: angularModules/profile/partials/Partial-userProfile.html:137
 #: angularModules/user/partials/step3_SocialProfile.html:16
 #: angularModules/user/partials/step3_SocialProfile.html:46
 msgid "From"
@@ -878,12 +933,8 @@ msgstr ""
 msgid "Help text"
 msgstr ""
 
-#: angularModules/course/partials/Partial-addCourseElement.html:68
+#: angularModules/course/partials/Partial-addCourseElement.html:78
 msgid "Here you can select elemets which the user should be able to nest with the currently adding course element"
-msgstr ""
-
-#: angularModules/profile/partials/Partial-userProfile.html:161
-msgid "Home"
 msgstr ""
 
 #: angularModules/course/partials/Partial-addCourseElement.html:23
@@ -892,10 +943,6 @@ msgstr ""
 
 #: angularModules/course/partials/addCourseStep2.html:94
 msgid "Installments"
-msgstr ""
-
-#: angularModules/Batches/partials/Partial-manageBatches.html:41
-msgid "Instructor Lead"
 msgstr ""
 
 #: angularModules/user/partials/step4_OfficeAdmin.html:38
@@ -915,11 +962,14 @@ msgstr ""
 msgid "Job Title"
 msgstr ""
 
+#: angularModules/user/partials/Partial-bulkEnrollment.html:15
+msgid "Join Date"
+msgstr ""
+
 #: angularModules/feature/partials/Partial-feature_config.html:91
 msgid "Label for the piece of detail"
 msgstr ""
 
-#: angularModules/profile/partials/Partial-userProfile.html:190
 #: angularModules/user/partials/step1_UserInfo.html:45
 msgid "Last Name"
 msgstr ""
@@ -934,11 +984,6 @@ msgstr ""
 
 #: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:36
 msgid "Live Result"
-msgstr ""
-
-#: angularModules/profile/partials/Partial-userProfile.html:58
-#: angularModules/profile/partials/Partial-userProfile.html:89
-msgid "Lives in"
 msgstr ""
 
 #: angularModules/Branches/aside/aside-newBranch.html:18
@@ -957,6 +1002,10 @@ msgstr ""
 
 #: angularModules/login/partials/Partial-addSocialInfo.html:7
 msgid "Login"
+msgstr ""
+
+#: angularModules/company/partials/Partial-company_registration.html:138
+msgid "Login Credentials"
 msgstr ""
 
 #: angularModules/user/partials/step1_UserInfo.html:55
@@ -1023,10 +1072,19 @@ msgstr ""
 msgid "Mark"
 msgstr ""
 
+#: angularModules/attendence/aside/aside-attendenceMarking.html:8
+msgid "Mark Attendence"
+msgstr ""
+
 #: angularModules/questionRelated/markFieldsInput/directives/Directive-markFieldsInput.html:7
 msgid "Mark Criteria"
 msgstr ""
 
+#: angularModules/Batches/partials/Partial-menteeAttendance.html:4
+msgid "Mark attendance for mentee"
+msgstr ""
+
+#: angularModules/evaluation/directives/Directive-evaluationLoader.html:52
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:15
 msgid "Marks"
 msgstr ""
@@ -1057,9 +1115,6 @@ msgid "Minimum Salary"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:75
-#: angularModules/profile/partials/Partial-userProfile.html:217
-#: angularModules/profile/partials/Partial-userProfile.html:238
-#: angularModules/profile/partials/Partial-userProfile.html:239
 msgid "Mobile Number"
 msgstr ""
 
@@ -1067,7 +1122,7 @@ msgstr ""
 msgid "Mode of Course"
 msgstr ""
 
-#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:43
+#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:50
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:72
 msgid "Multi Answer"
 msgstr ""
@@ -1078,10 +1133,6 @@ msgstr ""
 
 #: angularModules/course/partials/Partial-candidateCourseView.html:5
 msgid "My Courses"
-msgstr ""
-
-#: angularModules/profile/partials/Partial-userProfile.html:181
-msgid "Name"
 msgstr ""
 
 #: angularModules/Batches/partials/Partial-manageBatches.html:13
@@ -1104,11 +1155,11 @@ msgstr ""
 msgid "Name to be displayed for the field"
 msgstr ""
 
-#: angularModules/course/partials/Partial-addCourseElement.html:67
+#: angularModules/course/partials/Partial-addCourseElement.html:77
 msgid "Nestable Elements"
 msgstr ""
 
-#: angularModules/course/partials/addCourseStep1.html:176
+#: angularModules/course/partials/addCourseStep1.html:202
 #: angularModules/course/partials/addCourseStep2.html:131
 msgid "Next"
 msgstr ""
@@ -1120,7 +1171,11 @@ msgstr ""
 msgid "Next Section"
 msgstr ""
 
-#: angularModules/course/partials/Partial-PublishedCourse.html:124
+#: angularModules/user/partials/partial-popupBulkUpload.html:17
+msgid "No"
+msgstr ""
+
+#: angularModules/course/partials/Partial-PublishedCourse.html:133
 msgid "No Matching Courses Found."
 msgstr ""
 
@@ -1128,17 +1183,25 @@ msgstr ""
 msgid "No. of units"
 msgstr ""
 
+#: angularModules/Batches/partials/Partial-batchAttendance.html:23
+#: angularModules/Batches/partials/Partial-batchAttendance.html:32
+#: angularModules/Batches/partials/Partial-menteeAttendance.html:23
+#: angularModules/Batches/partials/Partial-menteeAttendance.html:32
+#: angularModules/common/directives/Directive-courseMultiSelect.html:8
 #: angularModules/company/partials/Partial-company_view.html:83
 #: angularModules/company/partials/Partial-userMenuMapping.html:90
-#: angularModules/course/partials/Partial-PublishedCourse.html:124
+#: angularModules/course/partials/Partial-PublishedCourse.html:133
 msgid "Not Found!"
 msgstr ""
 
-#: angularModules/Batches/partials/Partial-manageBatches.html:61
+#: angularModules/Batches/partials/Partial-batchAttendance.html:81
+msgid "Not selected!"
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-manageBatches.html:122
 msgid "Number of seats"
 msgstr ""
 
-#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:26
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:48
 msgid "Objective"
 msgstr ""
@@ -1159,7 +1222,7 @@ msgid "On Submit"
 msgstr ""
 
 #: angularModules/Batches/partials/Partial-manageBatches.html:19
-#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:6
+#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:7
 #: angularModules/course/partials/addCourseStep2.html:85
 msgid "Onetime"
 msgstr ""
@@ -1167,6 +1230,10 @@ msgstr ""
 #: angularModules/course/partials/Partial-PublishedCourse.html:68
 #: angularModules/course/partials/addCourseStep1.html:41
 msgid "Online"
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-manageBatches.html:41
+msgid "Online Instructor Lead"
 msgstr ""
 
 #: angularModules/course/partials/addCourseStep2.html:54
@@ -1182,6 +1249,10 @@ msgstr ""
 #: angularModules/login/partials/Partial-Login_view.html:32
 #: angularModules/user/partials/step1_UserInfo.html:15
 msgid "Password"
+msgstr ""
+
+#: angularModules/evaluation/partials/Partial-evaluationViewer.html:4
+msgid "Pending Evaluations"
 msgstr ""
 
 #: angularModules/user/partials/step2_UserInfo.html:66
@@ -1208,11 +1279,15 @@ msgstr ""
 msgid "Please choose a logo..."
 msgstr ""
 
-#: angularModules/Batches/partials/Partial-manageBatches.html:83
+#: angularModules/Batches/partials/Partial-manageBatches.html:150
 msgid "Please click this link for adding batch to existing Courses"
 msgstr ""
 
-#: angularModules/course/partials/addCourseStep1.html:158
+#: angularModules/Batches/partials/Partial-batchAttendance.html:82
+msgid "Please select a course material to load the users"
+msgstr ""
+
+#: angularModules/course/partials/addCourseStep1.html:184
 msgid "Please select an image to represent the course"
 msgstr ""
 
@@ -1245,21 +1320,13 @@ msgstr ""
 msgid "Previous Section"
 msgstr ""
 
-#: angularModules/profile/partials/Partial-userProfile.html:210
-msgid "Primary Email"
-msgstr ""
-
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:106
 msgid "Primary answer template:"
 msgstr ""
 
-#: angularModules/profile/partials/Partial-userProfile.html:164
-msgid "Privacy"
-msgstr ""
-
-#: angularModules/course/partials/addCourseStep1.html:139
-#: angularModules/course/partials/addCourseStep1.html:140
-#: angularModules/feedback/partials/Partial-createFeedBack.html:43
+#: angularModules/course/partials/addCourseStep1.html:156
+#: angularModules/course/partials/addCourseStep1.html:157
+#: angularModules/feedback/partials/Partial-createFeedBack.html:42
 msgid "Private"
 msgstr ""
 
@@ -1268,6 +1335,7 @@ msgid "Professional Experience"
 msgstr ""
 
 #: angularModules/login/partials/Partial-sm_User_Menu.html:23
+#: angularModules/profile/partials/Partial-userProfile.html:2
 msgid "Profile"
 msgstr ""
 
@@ -1275,9 +1343,9 @@ msgstr ""
 msgid "Properties Template"
 msgstr ""
 
-#: angularModules/course/partials/addCourseStep1.html:132
-#: angularModules/course/partials/addCourseStep1.html:133
-#: angularModules/feedback/partials/Partial-createFeedBack.html:37
+#: angularModules/course/partials/addCourseStep1.html:149
+#: angularModules/course/partials/addCourseStep1.html:150
+#: angularModules/feedback/partials/Partial-createFeedBack.html:36
 msgid "Public"
 msgstr ""
 
@@ -1287,6 +1355,10 @@ msgstr ""
 
 #: po/translate/translate.html:19
 msgid "Published Courses"
+msgstr ""
+
+#: angularModules/reports/partials/Partial-feedbackReport.html:14
+msgid "Q:"
 msgstr ""
 
 #: angularModules/company/partials/Partial-JobPosting.html:22
@@ -1299,7 +1371,7 @@ msgstr ""
 msgid "Qualifying Score"
 msgstr ""
 
-#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:16
+#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:32
 #: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:7
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:12
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:38
@@ -1319,7 +1391,7 @@ msgid "Questions per page"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:191
-#: angularModules/user/partials/Partial-bulkEnrollment.html:12
+#: angularModules/user/partials/Partial-bulkEnrollment.html:59
 msgid "Register"
 msgstr ""
 
@@ -1345,15 +1417,15 @@ msgid "Remove my avatar"
 msgstr ""
 
 #: angularModules/Batches/partials/Partial-manageBatches.html:25
-#: angularModules/Batches/partials/partial-popupRepeatBatch.html:6
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:7
 msgid "Repeat"
 msgstr ""
 
-#: angularModules/Batches/partials/partial-popupRepeatBatch.html:21
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:22
 msgid "Repeat every"
 msgstr ""
 
-#: angularModules/Batches/partials/partial-popupRepeatBatch.html:12
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:13
 msgid "Repeats"
 msgstr ""
 
@@ -1361,28 +1433,26 @@ msgstr ""
 msgid "Report type"
 msgstr ""
 
-#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:9
+#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:22
 msgid "Response"
 msgstr ""
 
-#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:8
+#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:14
 msgid "Response  type"
+msgstr ""
+
+#: angularModules/reports/partials/Partial-feedbackReportList.html:20
+msgid "Response(s)"
 msgstr ""
 
 #: angularModules/questionRelated/questionGroup/directives/Directive-questionGroup.html:32
 msgid "Result Mode"
 msgstr ""
 
-#: angularModules/Batches/partials/partial-popUpOptions.html:24
+#: angularModules/Batches/partials/partial-popUpOptions.html:46
 #: angularModules/courseElementFieldsManaging/partials/Partial-courseElementFieldsManaging.html:75
 #: angularModules/courseElementFieldsManaging/partials/Popup-addCourseElementField.html:21
 #: angularModules/form/partials/customizeForm.html:12
-#: angularModules/profile/partials/Partial-userProfile.html:118
-#: angularModules/profile/partials/Partial-userProfile.html:141
-#: angularModules/profile/partials/Partial-userProfile.html:222
-#: angularModules/profile/partials/Partial-userProfile.html:244
-#: angularModules/profile/partials/Partial-userProfile.html:62
-#: angularModules/profile/partials/Partial-userProfile.html:92
 msgid "Save"
 msgstr ""
 
@@ -1390,8 +1460,12 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: angularModules/course/partials/Partial-addCourseElement.html:118
+#: angularModules/course/partials/Partial-addCourseElement.html:128
 msgid "Save Course Element"
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-viewBatches.html:39
+msgid "Search"
 msgstr ""
 
 #: angularModules/course/partials/Partial-candidateCourseView.html:13
@@ -1407,16 +1481,6 @@ msgstr ""
 msgid "Search..."
 msgstr ""
 
-#: angularModules/profile/partials/Partial-userProfile.html:214
-#: angularModules/profile/partials/Partial-userProfile.html:232
-#: angularModules/profile/partials/Partial-userProfile.html:233
-msgid "Secondary Email"
-msgstr ""
-
-#: angularModules/profile/partials/Partial-userProfile.html:163
-msgid "Security"
-msgstr ""
-
 #: angularModules/user/partials/step4_OfficeAdmin.html:15
 msgid "Select Branch"
 msgstr ""
@@ -1424,6 +1488,10 @@ msgstr ""
 #: angularModules/common/directives/Directive-roleLoader.html:2
 #: angularModules/form/partials/selectForm.html:53
 msgid "Select Role"
+msgstr ""
+
+#: angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.html:28
+msgid "Select a  state for this page"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:101
@@ -1436,6 +1504,14 @@ msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:115
 msgid "Select a District"
+msgstr ""
+
+#: angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.html:17
+msgid "Select a Page"
+msgstr ""
+
+#: angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.html:14
+msgid "Select a Page for email& sms configuration"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:53
@@ -1455,6 +1531,11 @@ msgstr ""
 msgid "Select a payment type"
 msgstr ""
 
+#: angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.html:21
+#: angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.html:31
+msgid "Select a state"
+msgstr ""
+
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:100
 msgid "Select an answer"
 msgstr ""
@@ -1471,7 +1552,7 @@ msgstr ""
 msgid "Select palette"
 msgstr ""
 
-#: angularModules/feedback/partials/Partial-createFeedBack.html:48
+#: angularModules/feedback/partials/Partial-createFeedBack.html:47
 msgid "Select roles"
 msgstr ""
 
@@ -1483,7 +1564,7 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: views/header.html:62
+#: views/header.html:79
 msgid "Settings"
 msgstr ""
 
@@ -1507,7 +1588,7 @@ msgstr ""
 msgid "Single"
 msgstr ""
 
-#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:36
+#: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:43
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:65
 msgid "Single Answer"
 msgstr ""
@@ -1516,6 +1597,7 @@ msgstr ""
 msgid "Single Page"
 msgstr ""
 
+#: angularModules/company/partials/Partial-company_registration.html:161
 #: angularModules/user/partials/step3_SocialProfile.html:72
 msgid "Social Profiles"
 msgstr ""
@@ -1524,22 +1606,30 @@ msgstr ""
 msgid "Specialization"
 msgstr ""
 
-#: angularModules/course/partials/addCourseStep1.html:116
+#: angularModules/course/partials/addCourseStep1.html:133
 msgid "Specific Branches"
 msgstr ""
 
-#: angularModules/Batches/partials/Partial-manageBatches.html:50
+#: angularModules/Batches/partials/Partial-manageBatches.html:51
 msgid "Start Time"
 msgstr ""
 
-#: angularModules/Batches/partials/partial-popupRepeatBatch.html:47
-#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:26
+#: angularModules/Batches/partials/Partial-manageBatches.html:79
+msgid "Start taking admissions before"
+msgstr ""
+
+#: angularModules/Batches/partials/partial-popupRepeatBatch.html:48
+#: angularModules/Batches/partials/partial-popuponeTimeBatch.html:27
 msgid "Starts On"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:107
 #: angularModules/user/partials/step2_UserInfo.html:21
 msgid "State"
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-manageBatches.html:100
+msgid "Stop taking admissions  after"
 msgstr ""
 
 #: angularModules/user/partials/step4_OfficeAdmin.html:40
@@ -1562,10 +1652,35 @@ msgstr ""
 msgid "The time line below represents the total duration of the course."
 msgstr ""
 
+#: angularModules/user/partials/partial-popupBulkUpload.html:7
+msgid "There are not enough seats"
+msgstr ""
+
+#: angularModules/user/partials/partial-popupBulkUpload.html:11
+msgid "There are only {{res.seats}} seats left in this batch.Do you Want to register the first {{res.seats}} from the list of {{res.totalRows}}?"
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-menteeAttendance.html:33
+msgid "There is no any course materials added in the batch of this mentee."
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-batchAttendance.html:33
+msgid "There is no any course materials added in this batch."
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-batchAttendance.html:24
+msgid "There is no any materials available under this batch"
+msgstr ""
+
+#: angularModules/Batches/partials/partial-popUpOptions.html:14
+msgid "This batch is currently added to the following courses"
+msgstr ""
+
 #: angularModules/common/directives/popup-addNewField.html:17
 msgid "Title"
 msgstr ""
 
+#: angularModules/feedback/partials/Partial-createFeedBack.html:32
 #: angularModules/user/partials/step3_SocialProfile.html:21
 #: angularModules/user/partials/step3_SocialProfile.html:47
 msgid "To"
@@ -1595,6 +1710,10 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
+#: angularModules/Batches/directives/Directive-batchMenteeList.html:7
+msgid "Uncheck all"
+msgstr ""
+
 #: angularModules/login/partials/Popup-userDetails.html:9
 msgid "Undo Remove Avatar"
 msgstr ""
@@ -1604,11 +1723,12 @@ msgid "University"
 msgstr ""
 
 #: angularModules/Branches/aside/aside-newBranch.html:35
-#: angularModules/company/partials/Partial-addMenu.html:84
+#: angularModules/Department/partials/Aside-addDepartment.html:27
+#: angularModules/company/partials/Partial-addMenu.html:83
 msgid "Update"
 msgstr ""
 
-#: angularModules/course/partials/Partial-addCourseElement.html:120
+#: angularModules/course/partials/Partial-addCourseElement.html:130
 msgid "Update Course Element"
 msgstr ""
 
@@ -1620,7 +1740,7 @@ msgstr ""
 msgid "Update Profile Picture"
 msgstr ""
 
-#: angularModules/user/partials/Partial-bulkEnrollment.html:10
+#: angularModules/user/partials/Partial-bulkEnrollment.html:54
 msgid "Upload your excel document"
 msgstr ""
 
@@ -1648,6 +1768,11 @@ msgstr ""
 msgid "User Customizable Form List"
 msgstr ""
 
+#: angularModules/Batches/partials/Partial-batchAssignment.html:20
+#: angularModules/Batches/partials/Partial-batchAttendance.html:68
+msgid "User List"
+msgstr ""
+
 #: angularModules/company/partials/Partial-company_registration.html:144
 msgid "User Name"
 msgstr ""
@@ -1657,7 +1782,6 @@ msgid "User Registration"
 msgstr ""
 
 #: angularModules/reports/partials/Partial-userReport.html:1
-#: angularModules/user/partials/Partial-bulkEnrollment.html:2
 msgid "User Report"
 msgstr ""
 
@@ -1669,7 +1793,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: angularModules/feedback/partials/Partial-createFeedBack.html:21
+#: angularModules/feedback/partials/Partial-createFeedBack.html:20
 msgid "Valid until"
 msgstr ""
 
@@ -1677,8 +1801,20 @@ msgstr ""
 msgid "Validation"
 msgstr ""
 
+#: angularModules/Batches/partials/Partial-manageBatches.html:144
+msgid "View  Batches"
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-viewBatches.html:12
+msgid "View Batches"
+msgstr ""
+
 #: po/translate/translate.html:13
 msgid "View Jobs"
+msgstr ""
+
+#: angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.html:48
+msgid "View Templates"
 msgstr ""
 
 #: angularModules/user/partials/Partial-viewUsers.html:2
@@ -1686,7 +1822,11 @@ msgstr ""
 msgid "View Users"
 msgstr ""
 
-#: angularModules/company/partials/Partial-addMenu.html:59
+#: angularModules/reports/partials/Partial-feedbackReportList.html:36
+msgid "View feedback report"
+msgstr ""
+
+#: angularModules/company/partials/Partial-addMenu.html:58
 msgid "Visible to user"
 msgstr ""
 
@@ -1696,6 +1836,10 @@ msgstr ""
 
 #: angularModules/questionRelated/objectiveOptionsField/directives/Directive-objectiveOptionsField.html:15
 msgid "Why / Why not this answer (optional)"
+msgstr ""
+
+#: angularModules/user/partials/partial-popupBulkUpload.html:18
+msgid "Yes"
 msgstr ""
 
 #: angularModules/course/partials/addCourseStep2.html:121
@@ -1714,10 +1858,6 @@ msgstr ""
 msgid "Zip Code"
 msgstr ""
 
-#: angularModules/profile/partials/Partial-userProfile.html:28
-msgid "add about yourself."
-msgstr ""
-
 #: angularModules/login/partials/Partial-addSocialInfo.html:21
 msgid "baabtra password"
 msgstr ""
@@ -1731,15 +1871,14 @@ msgid "back to sign in"
 msgstr ""
 
 #: angularModules/company/partials/Partial-manage_user_role.html:23
-#: angularModules/profile/partials/Partial-userProfile.html:193
 msgid "cancel"
 msgstr ""
 
-#: angularModules/profile/partials/Partial-userProfile.html:220
-msgid "change secondary email and mobile number"
+#: angularModules/Batches/directives/Directive-batchMenteeList.html:5
+msgid "check all"
 msgstr ""
 
-#: angularModules/feedback/partials/Partial-createFeedBack.html:62
+#: angularModules/feedback/partials/Partial-createFeedBack.html:61
 msgid "choose an option"
 msgstr ""
 
@@ -1759,10 +1898,6 @@ msgstr ""
 msgid "manage Roles"
 msgstr ""
 
-#: angularModules/profile/partials/Partial-userProfile.html:114
-msgid "place and Birth date"
-msgstr ""
-
 #: angularModules/feature/partials/Partial-feature_config.html:25
 msgid "price"
 msgstr ""
@@ -1771,7 +1906,11 @@ msgstr ""
 msgid "show more.."
 msgstr ""
 
-#: angularModules/profile/partials/Partial-userProfile.html:19
+#: angularModules/Batches/directives/Directive-batchMenteeList.html:6
+msgid "uncheck all"
+msgstr ""
+
+#: angularModules/profile/partials/Partial-userProfile.html:20
 msgid "update profile picture"
 msgstr ""
 
