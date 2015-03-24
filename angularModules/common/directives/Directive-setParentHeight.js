@@ -1,21 +1,34 @@
 angular.module('baabtra').directive('setParentHeight', function() {
 	return {
 		restrict: 'A',
-		required:"ngModel",
-		scope:{
-			clName:"="
+		scope: {
+			parentClName:"="
 		},
 		
 		link: function(scope, element, attrs, fn) {
 			var height;
-			if(!angular.equals(scope.clName,undefined)){
+			
+			if(!angular.equals(scope.parentClName,undefined)){
+
+				scope.$watch(function(){return $(element).parents().find('.'+scope.parentClName).height();},
+					function(){
+						height=$(element).parents().find('.'+scope.parentClName).height();
+						$(element).height(height);
+
+					});
 				
-				height=$(element).parents().find('.'+scope.clName).height();
+				
 			}
 			else{
-				height=$(element).parents().find('.set-full-height').height();
+				scope.$watch(function(){return $(element).parents().find('.set-full-height').height();},
+					function(){
+						height=$(element).parents().find('.set-full-height').height();
+						$(element).height(height);
+					});
+				//height=$(element).parents().find('.set-full-height').height();
+				//$(element).height(height);
 			}
-			$(element).height(height);
+			
 		}
 	};
 });

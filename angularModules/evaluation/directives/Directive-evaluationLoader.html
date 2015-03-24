@@ -3,6 +3,7 @@
         {{evaluationobj.elements[0].value}} Evaluation
     </div>
 	<div class="panel-body">
+		<form name="evaluationForm" xtForm>
         <div ng-if="evaluationobj.elements[1].type=='question-group-viewer'">
          	<div ng-repeat="answeredquestion in evaluationobj.elements[1].value.testModel">
          		<div class="col-xs-12 ">
@@ -12,27 +13,26 @@
 							<i class=" line fa fa-question pull-left" style="font-size:24;font-weight:bold; text-decoration:underline; margin-top:13px;color: #ff4081;"></i>
 						</div>
 
-						<div class="col-xs-11 course-description no-padding " style="margin-left: -55px;"  ng-bind-html="answeredquestion.question">
+						<div class="col-xs-11 course-description no-padding "ng-bind-html="answeredquestion.question">
 						</div>
 						
 						<div ng-repeat="(key, value) in answeredquestion.userAnswer[0].primaryAnswer">
-							<div class="col-xs-12">
 							
-								<div class="col-xs-1 course-description " style="margin-left: -20px;">
-									<i class="pull-left" style="font-weight:bold; text-decoration:underline; margin-top:13px;color: #ff4081;">Ans:</i>
+							
+								<div class="col-xs-1 course-description ">
+									<i class=" line pull-left" style="font-weight:bold; text-decoration:underline; margin-top:10px;color: #ff4081;">Ans: </i>
 								</div>
 							
-								<div class="col-xs-11 course-description m-t-xs" style="margin-left: -55px;" ng-bind-html="answeredquestion.userAnswer[0].primaryAnswer[key]">
+								<div class="col-xs-11 course-description m-t-xs" ng-bind-html="answeredquestion.userAnswer[0].primaryAnswer[key]">
 								</div>
 
-							</div>
 						
 						</div>
 					</div>
 
 					<div class="col-xs-12 m-t-md b-b">
 						<div class="col-xs-12 m-b-md">
-							<div class="col-xs-6">
+							<div class="col-md-6 col-xs-12">
 								<em translate="{{'Answer Key Points & Mark Weightage' | translate}}"></em>
 								<div ng-repeat="markCriteria in answeredquestion.mark.markCriteria">
 									<div ng-if="markCriteria" class="col-xs-12 font-bold">
@@ -44,18 +44,21 @@
 								</div>
 									
 							</div>	
-							<div class="col-xs-6 ">
-								<div class="col-xs-12 font-bold">
+							<div class="col-md-6 col-xs-12 ">
+								<div class=" font-bold">
 								 Total Mark : {{answeredquestion.mark.totalMark}}
 								</div>
-								<div class="col-xs-12 font-bold">
-									<input type="text" msg-pattern="Enter Step Name (Minimum 1)" placeholder="{{' Marks '|translate}}" xt-validate required class="form-control" float-label name="stepName" ng-minlength="1" ng-model="customForm.formSchema[status.selected].stepName" >
 
-								</div>
+								
+									<div class="col-md-4 pull-left">
+									<input type="number" placeholder="{{' Mark Scored '|translate}}" xt-validate required class="form-control" float-label name="markScored" ng-minlength="1" ng-model="answeredquestion.markScored" >
+									</div>
+								
+
 							</div>
 						</div>					
 					</div>
-
+					
 				</div>
 			</div>		
         </div>
@@ -68,24 +71,24 @@
 						<i class=" line fa fa-question pull-left" style="font-size:24;font-weight:bold; text-decoration:underline; margin-top:13px;color: #ff4081;"></i>
 					</div>
 
-					<div class="col-xs-11 course-description no-padding " style="margin-left: -55px;"  ng-bind-html="evaluationobj.elements[1].value.question">
+					<div class="col-xs-11 course-description no-padding "  ng-bind-html="evaluationobj.elements[1].value.question">
 					</div>
 						
 					<div ng-repeat="(key, value) in evaluationobj.elements[1].value.userAnswer[0].primaryAnswer">
-						<div class="col-xs-12">							
-							<div class="col-xs-1 course-description " style="margin-left: -20px;">
-								<i class="pull-left" style="font-weight:bold; text-decoration:underline; margin-top:13px;color: #ff4081;">Ans:</i>
+												
+							<div class="col-xs-1 course-description ">
+								<i class="pull-left" style="font-weight:bold; text-decoration:underline; margin-top:10px;color: #ff4081;">Ans:</i>
 							</div>
-							<div class="col-xs-11 course-description m-t-xs" style="margin-left: -55px;" ng-bind-html="evaluationobj.elements[1].value.userAnswer[0].primaryAnswer[key].value">
+							<div class="col-xs-11 course-description m-t-xs"  ng-bind-html="evaluationobj.elements[1].value.userAnswer[0].primaryAnswer[key].value">
 							</div>
-						</div>						
+												
 					</div>
 
 				</div>
 
 				<div class="col-xs-12 m-t-md b-b">
 					<div class="col-xs-12 m-b-md">
-						<div class="col-xs-6">
+						<div class="col-md-6 col-xs-12">
 							<em translate="{{'Answer Key Points & Mark Weightage' | translate}}"></em>
 							<div ng-repeat="markCriteria in evaluationobj.elements[1].value.mark.markCriteria">									
 								<div ng-if="markCriteria.criteria" class="col-xs-12 font-bold">
@@ -96,18 +99,24 @@
 								</div>
 							</div>	
 						</div>	
-						<div class="col-xs-6 ">
-							<div class="col-xs-12 font-bold">
+						<div class="col-md-6 col-xs-12">
+							<div class="font-bold">
 								Total Mark : {{evaluationobj.elements[1].value.mark.totalMark}}
 							</div>
-							<div class="col-xs-12 font-bold">
-
+							<div class=" font-bold">
+								<div class="col-md-4  pull-left">
+									<input type="number" placeholder="{{' Mark Scored '|translate}}" xt-validate required class="form-control" float-label name="markScored" ng-minlength="1" ng-model="answeredquestion.markScored" >
+								</div>
 							</div>
 						</div>
 					</div>					
 				</div>
-
+				
 			</div>
-         </div>
+
+        </div>
+         <div class="btn btn-info pull-right" ng-click="fnEvaluate(evaluationobj)" translate="{{'Save Evaluation'| translate}}" ng-disabled="evaluationForm.$invalid"></div>
+       </form>
     </div>
+   
 </div>

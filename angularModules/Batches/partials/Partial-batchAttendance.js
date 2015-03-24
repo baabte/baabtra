@@ -23,30 +23,5 @@ angular.module('baabtra').controller('BatchattendanceCtrl',['$scope','$rootScope
 		});
 	});
 
-	//
-	$scope.$watch('batchObj.selectedCourseMaterial',function(){
-		/*for(var key in batchObj.selectedCourseMaterial){
-			$scope.batchObj.selectedCourseMaterial[key];
-
-
-			loadMenteesPromise=viewBatches.loadMentees4batchAtt($scope,$scope.batchObj.selectedCourseMaterial[key]);
-
-			loadMenteesPromise.then(function(response){ //promise for batch load
-			
-				var outcomeObj=angular.fromJson(JSON.parse(response.data))
-				if(!angular.equals(outcomeObj.result,'notfound')){
-						//$scope.batchObj.batchDetails=outcomeObj.courseBatchObj;
-						//$scope.batchObj.materialList=outcomeObj.userCourseElementlist;
-						//$scope.status=true;
-				}
-				else{
-						//$scope.batchObj.batchDetails=outcomeObj.courseBatchObj;
-
-						//$scope.status=false;
-				}
-			});
-
-		}*/
-	});
 
 }]);

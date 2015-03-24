@@ -58,7 +58,7 @@ angular.module('baabtra').controller('ViewbatchesCtrl',['$scope','viewBatches','
 		$scope.batchObj.mfirstId='';
 		/*Checking for first load. ie by checking its length or the list is undefind */
 		if(angular.equals($scope.batchObj.menteeList,undefined)||angular.equals($scope.batchObj.menteeList.length,0)){
-			loadMenteePromise=viewBatches.viewMenteesForManage($scope,$scope.batchObj.bfirstId,'initial',$scope.batchObj.blastId,'');
+			loadMenteePromise=viewBatches.viewMenteesForManage($scope,$scope.batchObj.mfirstId,'initial',$scope.batchObj.mlastId,'');
 			loadMenteePromise.then(function(response){ //promise for mentee load
 				$scope.batchObj.menteeList=angular.fromJson(JSON.parse(response.data)).userList;
 				$scope.batchObj.mfirstId=angular.fromJson(JSON.parse(response.data)).firstId.$oid;
@@ -75,7 +75,7 @@ angular.module('baabtra').controller('ViewbatchesCtrl',['$scope','viewBatches','
 	
 		searchInProgress=setTimeout(function(){
 			if(angular.equals($scope.activeTab,'false')){ //chcking for which tab is active
-				loadMenteePromise=viewBatches.viewMenteesForManage($scope,$scope.batchObj.bfirstId,'initial',$scope.batchObj.blastId,searchKey);
+				loadMenteePromise=viewBatches.viewMenteesForManage($scope,$scope.batchObj.mfirstId,'initial',$scope.batchObj.mlastId,searchKey);
 				loadMenteePromise.then(function(response){ //promise for batch load
 					$scope.batchObj.menteeList=angular.fromJson(JSON.parse(response.data)).userList;
 					$scope.batchObj.mfirstId=angular.fromJson(JSON.parse(response.data)).firstId.$oid;
