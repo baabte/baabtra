@@ -17,11 +17,11 @@ angular.module('baabtra').service('testRelated',['$http','bbConfig',function tes
       return promise;
    };
 
-   this.FnTestTimeReCheck=function(){
+   this.FnTestTimeReCheck=function(data){
     var result;
    var promise=$http({
            url: bbConfig.BWS+'TestTimeReCheck/',
-           data: angular.toJson(),
+           data: angular.toJson(data),
            method: 'POST',
            withCredentials: false,
            contentType:'application/json',
