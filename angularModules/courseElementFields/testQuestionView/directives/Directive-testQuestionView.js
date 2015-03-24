@@ -24,7 +24,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 			var evStatus=0;
 			var isDescriptive=false;
 			scope.isMentee=false;
-
+			
 			//if user is mentee copying all required datas 
 			if(roleId===bbConfig.MURID){
 				userLoginId=$rootScope.userinfo.userLoginId;
@@ -90,11 +90,11 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 							if (!scope.dbAnswer.length==0) {
 								 //this code is for re-binding the users answer from db
 								if(scope.dbAnswer[0].primaryAnswer[debugVal.name]){
-									debugVal.value=scope.dbAnswer[0].primaryAnswer[debugVal.name].value;
+									debugVal.value=scope.dbAnswer[0].primaryAnswer[debugVal.name];
+									//edited by arun to show answer 
 								}
 							}
 						}
-						console.log(debugVal);
 						scope.primaryForm.fields.push(debugVal);
 					}
 
@@ -105,7 +105,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 						if(!angular.equals(scope.dbAnswer,undefined)){
 							if (!scope.dbAnswer.length==0) {
 								if(scope.dbAnswer[0].secondaryAnswer[debugVal.name]){
-									debugVal.value=scope.dbAnswer[0].secondaryAnswer[debugVal.name].value;
+									debugVal.value=scope.dbAnswer[0].secondaryAnswer[debugVal.name];
 
 								}
 							}

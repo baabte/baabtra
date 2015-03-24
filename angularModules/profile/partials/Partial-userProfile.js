@@ -28,9 +28,11 @@ else{
 	profile = userProfile.loadProfileData($scope.userinfo.userLoginId);
 	userLoginId=$scope.userinfo.userLoginId;
 
+
 }
 profile.then(function (data) {
 			$scope.profileData = angular.fromJson(JSON.parse(data.data));
+			console.log($scope.profileData );
 			if(!$scope.profileData.profile.Preferedlanguage){
 				$scope.profileData.profile.Preferedlanguage=$scope.availlangualges[0];
 				$scope.oldLang=$scope.availlangualges[0].langCode;	
@@ -89,6 +91,7 @@ $scope.updateUserProfileDatas=function(data){
 	else{
 		$scope.profileDataId=$scope.profileData._id.$oid;
 	}
+	console.log($scope.profileDataId);
 	var profileUpdateConfirmation = userProfile.updateUserProfileData($scope.profileDataId,userLoginId,$scope.profileData.profile);
 		profileUpdateConfirmation.then(function (data) {
 			if(data.status==200&&data.statusText=="OK"){
