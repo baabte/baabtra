@@ -25,51 +25,52 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 
 	var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes);
 	LoadMenteesResponse.then(function(response){
-		$scope.data.menteesList = angular.fromJson(JSON.parse(response.data));
-		$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
+		$scope.data.orderForms = angular.fromJson(JSON.parse(response.data));
+		console.log($scope.data.orderForms);
+		//$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
 	});
 
 	
-	$scope.checkAllMentees = function(value) {
-		if(!value){
-			$scope.data.approvedMenteesList = [];
-	    	angular.forEach($scope.data.menteesList,function(item){
-	    		$scope.data.approvedMenteesList.push(item._id.$oid);
-	    	});
-	    }
-	    else{
-	    	$scope.data.approvedMenteesList = [];
-	    }
-	    $scope.data.checkAll = !$scope.data.checkAll;
-  	};
+	// $scope.checkAllMentees = function(value) {
+	// 	if(!value){
+	// 		$scope.data.approvedMenteesList = [];
+	//     	angular.forEach($scope.data.menteesList,function(item){
+	//     		$scope.data.approvedMenteesList.push(item._id.$oid);
+	//     	});
+	//     }
+	//     else{
+	//     	$scope.data.approvedMenteesList = [];
+	//     }
+	//     $scope.data.checkAll = !$scope.data.checkAll;
+ //  	};
 
-  	$scope.statusTypesChanged = function(){
+ //  	$scope.statusTypesChanged = function(){
   		
-  		$scope.data.menteesList = [];
-  		$scope.data.approvedMenteesList = [];
+ //  		$scope.data.menteesList = [];
+ //  		$scope.data.approvedMenteesList = [];
 
-  		var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes);
-		LoadMenteesResponse.then(function(response){
-			$scope.data.menteesList = angular.fromJson(JSON.parse(response.data));
-			$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
-	});
-  	};
+ //  		var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes);
+	// 	LoadMenteesResponse.then(function(response){
+	// 		$scope.data.menteesList = angular.fromJson(JSON.parse(response.data));
+	// 		$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
+	// });
+ //  	};
 
-	$scope.approveUsers = function(statusType){
+	// $scope.approveUsers = function(statusType){
 
-		$scope.data.menteesList = [];
+	// 	$scope.data.menteesList = [];
 
-		var approveUserResponse = viewUsersForApprove.fnApproveUserRequest($scope.data.approvedMenteesList, statusType ,$scope.rmId, $scope.cmpId);
-		approveUserResponse.then(function(response){
+	// 	var approveUserResponse = viewUsersForApprove.fnApproveUserRequest($scope.data.approvedMenteesList, statusType ,$scope.rmId, $scope.cmpId);
+	// 	approveUserResponse.then(function(response){
 			
-			$scope.data.menteesList = angular.fromJson(JSON.parse(response.data));
-			$scope.data.selectedStatusTypes = statusType;
+	// 		$scope.data.menteesList = angular.fromJson(JSON.parse(response.data));
+	// 		$scope.data.selectedStatusTypes = statusType;
 
-			$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
-			$scope.data.approvedMenteesList = [];
+	// 		$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
+	// 		$scope.data.approvedMenteesList = [];
 
-			$alert({title: 'Done..!', content: 'Mentees '+ statusType +' successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
-		});
-	};
+	// 		$alert({title: 'Done..!', content: 'Mentees '+ statusType +' successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
+	// 	});
+	// };
 
 }]);

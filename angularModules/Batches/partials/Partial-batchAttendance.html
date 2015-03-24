@@ -6,9 +6,9 @@
 		 		
 		 		</div>
 				
-				<div class="panel-body col-xs-12 bg-white p-sm b-b-danger b-b-3x no-padding parent-full-height">
+				<div class="panel-body col-xs-12 bg-white p-sm b-b-danger b-b-3x no-padding fl-parent-height-main">
 
-					<div class="col-xs-12 col-sm-12 col-md-4  shadow-z-2 h-full" set-parent-height cl-name="parent-full-height">
+					<div class="col-xs-12 col-sm-12 col-md-4  shadow-z-2 h-full" set-parent-height  parent-cl-name="'fl-parent-height-main'">
 						<div class="row">
 
 
@@ -21,7 +21,7 @@
 									        <div class="alert ng-scope am-fade alert-button bg-danger lt text-white no-margin" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
 									        
 									          <strong class="ng-binding" translate="{{'Not Found!'|translate}}"></strong>&nbsp;
-									          <span translate="{{'There is no any materials available under this batch'|translate}}"></span>
+									          <span translate="{{'There are no any materials with attendance tracking enabled under this course'|translate}}"></span>
 									        </div>
 
 										</div>
@@ -30,7 +30,7 @@
 									        <div class="alert ng-scope am-fade alert-button bg-danger lt text-white no-margin" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
 									        
 									          <strong class="ng-binding" translate="{{'Not Found!'|translate}}"></strong>&nbsp;
-									          <span translate="{{'There is no any course materials added in this batch.'|translate}}"></span>
+									          <span translate="{{'There are no any course materials added in this batch.'|translate}}"></span>
 									        </div>
 
 										</div>
@@ -61,20 +61,26 @@
 							</div>
 							
 						</div>
+						<div class="divider"> </div>
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12 m-t-xs">
 														<!--directive to load mentee list of selected batch-->
-								
-									<label floating-label translate="{{'User List'|translate}}"></label>
-									<!-- <div class=" list-group  bg-inherit scrollable" max-height="400px;"> -->
-										<!-- <div class="animated flipInX"> -->
-											<attendance-mentee-list time-line-obj="batchObj.selectedCourseMaterial[0]" r-list="batchObj.userList" ng-model="batchObj.selectedList"> </attendance-mentee-list>
+									
+								<div class="row col-xs-12 m-t"><label floating-label translate="{{'User List'|translate}}"></label></div>
+									<div class="row col-xs-12 m-b" ng-show="batchObj.selectedCourseMaterial[0].userList.length">
+									<form class="pull-right">
+
+		                         		<div class="form-control-wrapper"><input type="text" ng-model="searchText" class="form-control col-xs-8 ng-pristine ng-valid empty" placeholder="Search"><span class="material-input"></span></div>
+		                        	</form>
+		                        </div>
+		                        <div class="row col-xs-12">
+
+											<attendance-mentee-list page-type="'batchAttendance'" time-line-obj="batchObj.selectedCourseMaterial[0]" search-text="searchText" ng-model="batchObj.selectedList"> </attendance-mentee-list>
 											<!-- <div class="text-center" ng-if="!batchObj.selectedCourseMaterial[0]">
 												<i class="fa fa-spinner fa-spin"></i>
 											</div> -->
-										<!-- </div> -->
-									<!-- </div> -->
-									<div ng-if="!batchObj.selectedCourseMaterial[0]">
+								</div>
+								<div class="row col-xs-12 m-b" ng-if="!batchObj.selectedCourseMaterial[0]">
 											<!-- <i class="fa fa-spiner fa-spin text-lg text-info"></i> -->
 									        <div class="alert ng-scope am-fade alert-button bg-danger lt text-white no-margin" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
 									        

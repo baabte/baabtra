@@ -26,7 +26,7 @@ angular.module('baabtra').directive('batchMenteeList', function() {
 			scope.click=function(){
 				scope.ngModel=scope.userObj.users;
 			};
-
+			scope.checkAll();
 		}
 	};
 });

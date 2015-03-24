@@ -9,11 +9,11 @@ angular.module('baabtra').service('evaluationService',['$http','bbConfig',functi
 	return promise;
 };
 
-this.evaluateAnswer = function(){
+this.evaluateAnswer = function(userCourseMappingId,tlPoint,elementType,outerIndex,evaluationobj){
 	var promise = $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'EvaluateAnswer/',
-	    data:{}
+	    data:{userCourseMappingId:userCourseMappingId,tlPoint:tlPoint,elementType:elementType,outerIndex:outerIndex,evaluationobj:evaluationobj}
 	 });
 	return promise;
 };

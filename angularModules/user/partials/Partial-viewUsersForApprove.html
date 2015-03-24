@@ -1,91 +1,20 @@
-<div class="col-xs-12">
-	<div class="row bg-white ">
-		<div class="col-xs-12">
-			<div class="pull-left">
-				<label>Status Type</label>
-				<button type="button" class="btn btn-default" ng-model="data.selectedStatusTypes" data-html="1" ng-change="statusTypesChanged()" ng-options="status.value as status.label for status in data.statusTypes" bs-select placeholder="Status type">
-  				Action <span class="caret"></span>
-				</button>
+<div class="row">
+	<div class="col-xs-12 bg-white">
+		<div ng-if="data.orderForms"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
+			<div masonry-tile class="tile col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm " ng-repeat="orderForm in data.orderForms">
+				<div class="baab-shadow set-full-height bg-white p-sm" style="cursor: pointer;">
+				<div class="row">
+					<div class="col-xs-12 text-right">Order Form Id:&nbsp;<span class="font-bold">{{orderForm.orderFormId}}</span></div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 pull-left">From:&nbsp;<span class="font-bold"><user-card user-id="orderForm.crmId.$oid"></user-card></span></div>
+				</div>
 
+				</div>
 			</div>
-			<div class="pull-right">
-
-				<a href="#" class="btn btn-success baab-btn fa fa-check-circle text-light am-slide-top" style="line-height: 15px;  transition: none;" ng-click="approveUsers('approved')" ng-if="data.approvedMenteesList.length && data.selectedStatusTypes != 'approved'">&nbsp;Approve</a>
-
-				<a href="#" class="btn btn-danger baab-btn fa fa-times-circle text-light am-slide-top"  style="line-height: 15px;  transition: none;" ng-click="approveUsers('rejected')" ng-if="data.approvedMenteesList.length && data.selectedStatusTypes != 'rejected'">&nbsp;Reject</a>
-
-				<div ng-if="data.menteesList" class="checkbox pull-right p-xs">
-					<label>
-					    <input type="checkbox" ng-click="checkAllMentees(data.checkAll)" ng-model="data.checkAll">
-					</label>
-                </div>
-
-			</div>
-			</div>
-		<div class="col-xs-12">
-			<div ng-if="data.menteesList"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-				<div masonry-tile class="tile col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" ng-repeat="mentee in data.menteesList">
-					<div class="baab-shadow set-full-height" style="cursor: pointer;">
-
-            	<div class="row">
-            		<div class="col-xs-12">
-            			<div set-parent-height class="col-xs-3 random-background-color text-center h-full" style="display:table-cell;">
-            				 <i class="mdi-action-assignment-returned text-4x"></i><br/>
-            			</div>
-            			 
-            			<div set-parent-height class="col-xs-9 bg-light" style="display:table-cell;">
-            				<div class="row ">
-            				<div class="checkbox pull-right text-right">
-
-									                    <label>
-									                        <input type="checkbox" checklist-model="data.approvedMenteesList" checklist-value="mentee._id.$oid">
-									                    </label>
-                		</div>
-		            				<div class="p b-light text-1x" >
-			                            <div>
-
-
-
-			                            	<div class="col-xs-12 m-h-n">
-			                            		<div class="pull-left">{{mentee.profile.firstName}} {{mentee.profile.lastName}}</div>
-			                            		<div class="pull-right">
-
-			                            			
-          										</div>
-			                            	</div>
-			                            	<div class="col-xs-12 m-h-n">
-			                            		<i class="fa fa-at font-bold"></i>&nbsp;{{mentee.email}}
-			                            	</div>
-			                            	<div class="col-xs-12 m-h-n m-t-xs">
-			                            		<i class="fa fa-building-o pull-left"></i>
-			                            		<user-card user-id="mentee.crmId.$oid"></user-card>
-			                            	</div>
-			                            	<div class="co-xs-12 m-b-xs text-right">
-			                            		<span ng-if="mentee.status == 'requested'" class="label label-warning">{{mentee.status}}</span>
-			                            		<span ng-if="mentee.status == 'approved'" class="label label-success">{{mentee.status}}</span>
-			                            		<span ng-if="mentee.status == 'rejected'" class="label label-danger">{{mentee.status}}</span>
-			                            	</div>
-			                            </div>
-			                            <!-- <div class="pull-right">
-			                            	<a class="m-l-xs" href="" bs-tooltip data-title="Approve {{mentee.email}}" data-placement="left" ng-click="approveUser(mentee._id.$oid)">
-												<i class="fa fa-check-circle text-lg text-light"></i>
-											</a>
-		                          			<a class="m-l-xs" href="" bs-tooltip data-title="Reject {{mentee.email}}" data-placement="left">
-												<i class="fa fa-ban text-lg text-light"></i>
-											</a>
-			                            </div> -->
-		                          </div>
-
-            				</div>
-
-            			</div>
-            		</div>
-            	</div>       
-                 </div>
-            </div>
-		</div>
-
-
 		</div>
 	</div>
 </div>
+
+
+
