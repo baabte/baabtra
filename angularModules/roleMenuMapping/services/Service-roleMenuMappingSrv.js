@@ -90,7 +90,6 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
         }).
         success(function(data, status, headers, config) {
           $scope.menus = angular.fromJson(JSON.parse(data));//Converting the result to json object
-           console.log($scope.menus);
           if(!angular.equals($scope.menus,null)){//Checking, the selected role have existing menus $scope.menus.menuStructure.length
             $scope.tree1 =$scope.menus.menuStructure[0].regionMenuStructure;//Setting exsting menus of selected role to current menu list
              

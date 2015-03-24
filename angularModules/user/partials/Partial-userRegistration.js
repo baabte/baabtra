@@ -109,7 +109,6 @@ if(!angular.equals($scope.formlist,undefined)){
 //function for user registration 
 $scope.fnUserRegister =function (argument) {
 
-  
 var mandatoryData={};            
   for(var key in $scope.allSync.FormData){
     for(var n in mandatoryFields) {
@@ -154,6 +153,7 @@ var mandatoryData={};
   delete  $scope.userRegister.role.formSchema;
   delete  $scope.userRegister.role.formSteps;
 //  //console.log($scope.userRegister.phone);
+console.log($scope.userRegister);
 var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
 
 fnRegisterUserCallBack.then(function(data){

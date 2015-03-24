@@ -407,15 +407,23 @@
                 
               })
 
-                .state('home.main.approveMentees', {
-                url: '/approveMentees',
+                .state('home.main.viewOrderForm', {
+                url: '/viewOrderForm',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/user/partials/Partial-viewUsersForApprove.html',
                     controller: 'ViewusersforapproveCtrl'
                   }
                 }
-                
+              })
+
+                .state('home.main.viewOrderForm.approveOrderFrom', {
+                url: '/approveOrderFrom/:ofId',
+                views:{
+                  'orderFrom-content':{
+                    templateUrl: 'angularModules/Nomination/partials/Partial-approveOrderFrom.html'
+                  }
+                }
               })
 
               .state('home.main.viewCourse', {
@@ -588,7 +596,7 @@
                 
               })
               .state('home.main.nominateEmployee', {
-                url: '/nominateEmployee',
+                url: '/nominateEmployee/:ofId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Nomination/partials/Partial-nomination.html',
