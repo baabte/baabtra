@@ -13,7 +13,7 @@ $scope.pwdicon=false;
 $scope.lange=false;
 $scope.availlangualges=[{"language":"English(en)","langCode":"en"},{"language":"Arabic(ar)","langCode":"ar"}];
 $scope.languageActiveOrNot=true;
-
+userLoginId="";
 if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       $rootScope.hide_when_root_empty=true;
       commonService.GetUserCredentials($scope);
@@ -23,10 +23,11 @@ var profile;
 if(!angular.equals($stateParams.userId,"")){
 	console.log($stateParams.userId);
 	profile = userProfile.loadProfileData($stateParams.userId);
-
+	userLoginId=$stateParams.userId;
 }
 else{
 	profile = userProfile.loadProfileData($scope.userinfo.userLoginId);
+	userLoginId=$scope.userinfo.userLoginId;
 
 }
 profile.then(function (data) {
@@ -85,8 +86,21 @@ $scope.showHideFotoDive=function(){
 	$scope.updatepicmsg=$scope.updatepicmsg===false? true:false;
 };
 $scope.updateUserProfileDatas=function(data){
-	// console.log($scope.profileData.profile);
-	var profileUpdateConfirmation = userProfile.updateUserProfileData($scope.profileData._id.$oid,$scope.profileData.profile);
+	console.log($scope.profileData.profile);
+	if($scope.profileData){
+		// $scope.profileData={};
+		$scope.profileData._id={};
+		$scope.profileData._id.$oid=undefined;
+		// console.log($scope.profileData);				
+	}
+	else{
+		$scope.profileData={};
+		$scope.profileData._id={};
+		$scope.profileData._id.$oid=undefined;
+		// console.log($scope.profileData);	
+
+	}
+	var profileUpdateConfirmation = userProfile.updateUserProfileData($scope.profileData._id.$oid,userLoginId,$scope.profileData.profile);
 		profileUpdateConfirmation.then(function (data) {
 			if(data.status==200&&data.statusText=="OK"){
 				$scope.notifications("Success","Updated","success");

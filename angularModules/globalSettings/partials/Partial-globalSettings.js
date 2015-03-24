@@ -1,6 +1,6 @@
 angular.module('baabtra').controller('GlobalsettingsCtrl',['$scope','$stateParams','$rootScope','manageCompanyRoleService','globalSettings','$alert',function($scope,$stateParams,$rootScope,manageCompanyRoleService,globalSettings,$alert){
 
-$scope.selectedTab="SetEvaluator";
+$scope.selectedTab="GenerateUniqueCode";
 $scope.entities=[];
 $scope.incrementTypes=[{"Name":"<i class='fa fa-sort-numeric-asc p-xs'></i>Number","value":"Number"},{"Name":"<i class='ti-uppercase p-xs'></i>Alphabetics(In Capital Letter)","value":"Alphabetics(C)"},{"Name":"<i class='ti-smallcap p-xs'></i>Alphabetics(In Small Letter)","value":"Alphabetics(s)"}];
 $scope.$watch(function() {
@@ -11,7 +11,6 @@ $scope.$watch(function() {
   companyId=$scope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   var existingConf= globalSettings.retrieveExistingConf(companyId);
 	existingConf.then(function  (data) {
-
 	  existingConfCallBack=angular.fromJson(JSON.parse(data.data));
 	  $scope.roles=[];
 	  $scope.roles=existingConfCallBack.CompanyRoles;
