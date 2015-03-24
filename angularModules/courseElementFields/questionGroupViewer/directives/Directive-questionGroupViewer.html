@@ -1,6 +1,9 @@
 
 <div>
 	<div class="col-xs-12">
+		<div ng-if="startTest && !examFinished" class="pull-right">
+			<flip-clock countdown="true" count-down-time="countDownTime"></flip-clock>
+		</div>
 		<percent-indicator ng-if="examFinished" show-percentage="true" total-value="dataValue.value.mark.totalMark" obtain-value="courseElement.markScored" ng-model="form"></percent-indicator>
 
 		<div ng-hide="startTest==true" class="col-xs-12 text-center">
@@ -37,19 +40,19 @@
 		</div>
 
 		<div class="col-xs-12 text-center" ng-if="start==0&&noOfQuestions!=stop">
-			<div class="btn btn-info" ng-click="questionChangeNext(start,stop)">Next<div class="ripple-wrapper"></div>
+			<div class="btn btn-info" ng-click="questionChangeNext(start,stop)" translate="{{'Next'|translate}}"><div class="ripple-wrapper"></div>
          	</div>
         </div>
         <div class="col-xs-12 text-center" ng-if="start>0&&stop<noOfQuestions">
-        	<div class="btn btn-info " ng-click="questionChangePrevious(start,stop)">Previous<div class="ripple-wrapper"></div>
+        	<div class="btn btn-info " ng-click="questionChangePrevious(start,stop)" translate="{{'Previous'|translate}}"><div class="ripple-wrapper"></div>
          	</div>
-			<div class="btn btn-info" ng-click="questionChangeNext(start,stop)">Next<div class="ripple-wrapper"></div>
+			<div class="btn btn-info" ng-click="questionChangeNext(start,stop)" translate="{{'Next'|translate}}"><div class="ripple-wrapper"></div>
          	</div>
         </div>
         <div class="col-xs-12 text-center" ng-if="noOfQuestions==stop">
-        	<div ng-if="dataValue.value.questionView.mode=='multiple'" class="btn btn-info pull-left" ng-click="questionChangePrevious(start,stop)">Previous<div class="ripple-wrapper"></div>
+        	<div ng-if="dataValue.value.questionView.mode=='multiple'" class="btn btn-info pull-left" ng-click="questionChangePrevious(start,stop)" translate="{{'Previous'|translate}}"><div class="ripple-wrapper"></div>
          	</div>
-			<div ng-if="isMentee" class="btn btn-danger pull-right" ng-click="submitTest()">Submit<div class="ripple-wrapper"></div>
+			<div ng-if="isMentee||!examFinished" class="btn btn-danger pull-right" ng-click="submitModalshowModal()" translate="{{'Submit'|translate}}"><div class="ripple-wrapper"></div>
          	</div>
 
         </div>
