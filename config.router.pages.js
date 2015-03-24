@@ -588,7 +588,7 @@
                 
               })
               .state('home.main.nominateEmployee', {
-                url: '/nominateEmployee',
+                url: '/nominateEmployee/:ofId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Nomination/partials/Partial-nomination.html',
@@ -672,6 +672,26 @@
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-menteeAttendance.html',
                     controller:'MenteeattendanceCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.menteeEvaluation', {
+                url: '/menteeEvaluation/:userId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-menteeEvaluation.html',
+                    controller:'MenteeevaluationCtrl'
+                  }
+                }
+                
+              })
+              .state('home.main.batchEvaluation', {
+                url: '/batchEvaluation/:batchMappingId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-batchEvaluation.html',
+                    controller:'BatchevaluationCtrl'
                   }
                 }
                 

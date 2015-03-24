@@ -20,30 +20,29 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService' ,fun
 			
 		});
 
+
 		scope.fnEvaluate = function(evaluationobj){
-			
+			evaluationobj=angular.copy(evaluationobj);
 				var totalMark=0;
 			if(angular.equals(evaluationobj.elements[1].type,'question-group-viewer')){
 				for(var markindex in evaluationobj.elements[1].value.testModel){
 					 totalMark+=evaluationobj.elements[1].value.testModel[markindex].markScored;
 					 evaluationobj.elements[1].value.testModel[markindex].evaluated=1;
 				}
-				evaluationobj.markScored+=totalMark;
+				evaluationobj.markScored=totalMark;
 			}
 			if(angular.equals(evaluationobj.elements[1].type,'question-viewer')){
 				evaluationobj.markScored+=evaluationobj.elements[1].value.markScored;
 				evaluationobj.elements[1].value.evaluated=1;
 			}
-				evaluationobj.evaluatedBy=scope.evaluatorId;
-			console.log(evaluationobj);
-			var evaluateAnswerPromise=evaluationService.evaluateAnswer(keyArray[0],keyArray[1],keyArray[2],keyArray[3],evaluationobj);
-			evaluateAnswerPromise.then(function(data){
-		    	
-		    	var result=angular.fromJson(JSON.parse(data.data));
-		    	
-				console.log(result);
+			evaluationobj.evaluatedBy=scope.evaluatorId;
 			
-		});
+
+			var evaluateAnswerPromise=evaluationService.evaluateAnswer(keyArray[0],keyArray[1],keyArray[2],keyArray[3],evaluationobj);
+			evaluateAnswerPromise.then(function(data){		    	
+		    	var result=angular.fromJson(JSON.parse(data.data));
+				console.log(result);
+			});
 
 		};
 

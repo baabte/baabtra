@@ -29,6 +29,8 @@ angular.module('baabtra').controller('AssigncoursematerialCtrl',['$scope','$root
 
 		//loop to build the courseTimeline object
 		angular.forEach($scope.courseObj.courseMaterials,function(element){
+			console.log($scope.courseObj.courseMaterials);
+			console.log($scope.courseObj.existCourseObj);
 				//$scope.batchObj.batchDetails.courseTimeline[element.key]=element.courseElem;
 				if(angular.equals($scope.courseObj.existCourseObj.courseTimeline[element.structureArr[0]],undefined)){
 

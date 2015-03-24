@@ -45,18 +45,21 @@ $scope.userFeedBack=[{"userResponse":["a"]},{"userResponse":["a","c"]}];
 
 $scope.feedbackFormModel=[{"type":"objective","options":[{"Name":"a","value":"sdasd"},{"Name":"b","value":"asd"},{"Name":"c","value":"asd"}],"question":"<div class=\"line\" id=\"line-1\">asdsa</div>","answerType":"singleAnswer","data":[["Answer","User Response"],["sdasd",0],["asd",0],["asd",0]]},{"type":"objective","options":[{"Name":"a","value":"djfkj"},{"Name":"b","value":"sdfjkj"},{"Name":"c","value":"wuierui"},{"Name":"d","value":"dcvmn"}],"question":"<div class=\"line\" id=\"line-8\">sjdfkj</div>","answerType":"multiAnswer","data":[["Answer","User Response"],["djfkj",0],["sdfjkj",0],["wuierui",0],["dcvmn",0]]}];
 
- var time=(new Date()).valueOf();
-       var hashids = new Hashids("test");
-       $scope.code = hashids.encode(time);   
+ // var time=(new Date()).valueOf();
+ //       var hashids = new Hashids("test");
+ //       $scope.code = hashids.encode(time);   
 
 $scope.userCourseId="55095e71d4f9075d40a10c22";
+
+//for evaluation loader
 $scope.evalId1="550e9857d4f9075d40a10f4c.2881.test.0";
 $scope.evalId2="550e9857d4f9075d40a10f4c.8641.test.0";
 $scope.evalId3="550e9857d4f9075d40a10f4c.11521.Test1.0";
 
+
 $scope.evalatorId="550aaf7fd4f9075d40a10d4d";
 
+//end evaluation loader
 
-console.log($rootScope.userinfo);
 
 }]);																																																																								 																			

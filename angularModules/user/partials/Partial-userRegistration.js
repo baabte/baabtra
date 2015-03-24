@@ -109,7 +109,7 @@ if(!angular.equals($scope.formlist,undefined)){
 //function for user registration 
 $scope.fnUserRegister =function (argument) {
 
-  
+ console.log($scope.allSync);
 var mandatoryData={};            
   for(var key in $scope.allSync.FormData){
     for(var n in mandatoryFields) {
