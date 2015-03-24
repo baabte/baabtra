@@ -47,18 +47,20 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','$modal'
 			}
 
 			scope.dataValue= JSON.parse(scope.data);
-			// console.log(scope.isMentee);
+			scope.noOfQuestions=scope.dataValue.value.testModel.length;
 			
 
 			if (angular.equals(scope.questionAnswer.length,0)){
 			for(var index in scope.dataValue.value.testModel){
-				var tempObj={userResponse:[]};
+				var tempObj={};
 				scope.questionAnswer.push(tempObj);
 			}
+
 			}
 			if(angular.equals(scope.dataValue.value.questionView.mode,'multiple')){
 				scope.questionPerPage=scope.dataValue.value.questionView.questionPerPage;
 				scope.stop=scope.questionPerPage;
+
 			}
 			else{
 				scope.questionPerPage=scope.noOfQuestions;
@@ -117,7 +119,7 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','$modal'
 
 			scope.timerFunction=function(){
 				setInterval(function(){
-				 if(angular.equals(scope.examFinished,false)&&angular.equals(scope.startTest,true)){
+				 if(angular.equals(scope.examFinished,false)&&angular.equals(scope.startTest,true)&&angular.equals(scope.isMentee,true)){
 				 	var FnTestTimeReCheckCallBack= testRelated.FnTestTimeReCheck({courseMappingId:courseMappingId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex});
 
 					FnTestTimeReCheckCallBack.then(function(data){
@@ -151,24 +153,24 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','$modal'
 				var time=(new Date()).getTime();
 				var totalMarkScored=0;
 				for(var index in scope.questionAnswer){
-					totalMarkScored+=scope.questionAnswer[index].markScored;
+					if(!angular.equals(scope.questionAnswer[index].markScored,undefined)){
+					totalMarkScored+=scope.questionAnswer[index].markScored*1;
+					}
 				}
 
 				
 				var SubmitTestObj={courseMappingId:courseMappingId,userLoginId:userLoginId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex,totalMarkScored:totalMarkScored,timeObj:{key:'dateOfSubmission',value:time},userAnswers:scope.questionAnswer};
 				
-				// console.clear();
-				// console.log(SubmitTestObj);
+				console.log(SubmitTestObj);
 
 				var FnSubmitTestCallBack= testRelated.FnSubmitTest(SubmitTestObj);
 
 				FnSubmitTestCallBack.then(function(data){
 					
-				 // var result=angular.fromJson(JSON.parse(data.data));
-				// console.log(result);
+				 var result=angular.fromJson(JSON.parse(data.data));
+				
 				 scope.isMentee=false;
 				 scope.examFinished=true;
-				 //scope.timerFunction=function(){};
 				 location.reload();
 
 				
