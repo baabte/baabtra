@@ -186,8 +186,11 @@ $scope.fnUserRegister =function () {
 };
 
 $scope.finshRegisteration = function(){
-	$scope.fnUserRegister();
-	$modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-orderForm.html', show: true});
-};
+	if(Object.keys($scope.allSync.FormData.course).length){
+		$scope.fnUserRegister();
+	}
+	setTimeout(function(){ $modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-orderForm.html', show: true});
+	 }, 1000);
+	};
 
 }]);
