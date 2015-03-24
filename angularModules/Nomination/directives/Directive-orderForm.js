@@ -1,7 +1,6 @@
 angular.module('baabtra').directive('orderForm', function() {
 	return {
 		restrict: 'E',
-		replace: true,
 		scope: {
 			orderObject:"="
 		},
