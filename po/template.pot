@@ -139,6 +139,10 @@ msgstr ""
 msgid "Add a reseller"
 msgstr ""
 
+#: po/translate/translate.html:36
+msgid "Add department"
+msgstr ""
+
 #: angularModules/Batches/partials/partial-popUpOptions.html:7
 msgid "Add this batch under the courses"
 msgstr ""
@@ -174,7 +178,8 @@ msgstr ""
 msgid "Allowed  values"
 msgstr ""
 
-#: angularModules/Batches/partials/Partial-menteeAttendance.html:24
+#: angularModules/Batches/partials/Partial-menteeAttendance.html:28
+#: angularModules/Batches/partials/Partial-menteeEvaluation.html:27
 #: angularModules/common/directives/Directive-courseMultiSelect.html:9
 msgid "Already all course material under the course has been added to this user time line"
 msgstr ""
@@ -188,7 +193,7 @@ msgid "Answer  type"
 msgstr ""
 
 #: angularModules/evaluation/directives/Directive-evaluationLoader.html:36
-#: angularModules/evaluation/directives/Directive-evaluationLoader.html:89
+#: angularModules/evaluation/directives/Directive-evaluationLoader.html:92
 msgid "Answer Key Points & Mark Weightage"
 msgstr ""
 
@@ -196,8 +201,8 @@ msgstr ""
 msgid "Answers"
 msgstr ""
 
-#: angularModules/Batches/partials/Partial-batchAssignment.html:38
-#: angularModules/course/partials/Partial-assignCourseMaterial.html:21
+#: angularModules/Batches/partials/Partial-batchAssignment.html:18
+#: angularModules/course/partials/Partial-assignCourseMaterial.html:25
 msgid "Assign"
 msgstr ""
 
@@ -228,6 +233,10 @@ msgstr ""
 
 #: angularModules/Batches/partials/Partial-manageBatches.html:72
 msgid "Batch Ends On"
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-batchEvaluation.html:5
+msgid "Batch Evaluation"
 msgstr ""
 
 #: angularModules/Batches/partials/Partial-manageBatches.html:64
@@ -524,13 +533,6 @@ msgstr ""
 #: po/translate/translate.html:242
 #: po/translate/translate.html:243
 #: po/translate/translate.html:244
-#: po/translate/translate.html:33
-#: po/translate/translate.html:34
-#: po/translate/translate.html:35
-#: po/translate/translate.html:36
-#: po/translate/translate.html:37
-#: po/translate/translate.html:38
-#: po/translate/translate.html:39
 #: po/translate/translate.html:40
 #: po/translate/translate.html:41
 #: po/translate/translate.html:42
@@ -714,6 +716,10 @@ msgstr ""
 msgid "Dont Start On"
 msgstr ""
 
+#: po/translate/translate.html:33
+msgid "Drafted Course"
+msgstr ""
+
 #: angularModules/course/partials/Partial-draftedCourses.html:5
 #: po/translate/translate.html:32
 msgid "Drafted Courses"
@@ -774,7 +780,8 @@ msgstr ""
 
 #: angularModules/company/partials/Partial-manage_user_role.html:47
 #: angularModules/company/partials/Partial-manage_user_role.html:49
-#: angularModules/globalSettings/partials/Partial-globalSettings.html:156
+#: angularModules/globalSettings/partials/Partial-globalSettings.html:201
+#: angularModules/globalSettings/partials/Partial-globalSettings.html:209
 msgid "Enter"
 msgstr ""
 
@@ -820,6 +827,20 @@ msgstr ""
 
 #: views/pages/forgot-password.html:6
 msgid "Enter your email address below and we will send you instructions on how to change your password."
+msgstr ""
+
+#: angularModules/Batches/directives/Directive-attendanceMenteeList.html:37
+#: angularModules/Batches/partials/Partial-menteeEvaluation.html:73
+msgid "Evaluate"
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-menteeAttendance.html:5
+#: angularModules/Batches/partials/Partial-menteeEvaluation.html:4
+msgid "Evaluate mentee"
+msgstr ""
+
+#: angularModules/Batches/partials/aside-evaluation.html:9
+msgid "Evaluation"
 msgstr ""
 
 #: angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.html:37
@@ -1080,11 +1101,16 @@ msgstr ""
 msgid "Mark Criteria"
 msgstr ""
 
-#: angularModules/Batches/partials/Partial-menteeAttendance.html:4
-msgid "Mark attendance for mentee"
+#: angularModules/evaluation/directives/Directive-evaluationLoader.html:108
+#: angularModules/evaluation/directives/Directive-evaluationLoader.html:54
+msgid "Mark Scored"
 msgstr ""
 
-#: angularModules/evaluation/directives/Directive-evaluationLoader.html:52
+#: angularModules/Batches/directives/Directive-attendanceMenteeList.html:15
+#: angularModules/Batches/partials/Partial-menteeAttendance.html:60
+msgid "Mark attendance"
+msgstr ""
+
 #: angularModules/formGenFields/questionField/directives/Directive-questionField.html:15
 msgid "Marks"
 msgstr ""
@@ -1185,8 +1211,12 @@ msgstr ""
 
 #: angularModules/Batches/partials/Partial-batchAttendance.html:23
 #: angularModules/Batches/partials/Partial-batchAttendance.html:32
-#: angularModules/Batches/partials/Partial-menteeAttendance.html:23
-#: angularModules/Batches/partials/Partial-menteeAttendance.html:32
+#: angularModules/Batches/partials/Partial-batchEvaluation.html:23
+#: angularModules/Batches/partials/Partial-batchEvaluation.html:32
+#: angularModules/Batches/partials/Partial-menteeAttendance.html:27
+#: angularModules/Batches/partials/Partial-menteeAttendance.html:36
+#: angularModules/Batches/partials/Partial-menteeEvaluation.html:26
+#: angularModules/Batches/partials/Partial-menteeEvaluation.html:35
 #: angularModules/common/directives/Directive-courseMultiSelect.html:8
 #: angularModules/company/partials/Partial-company_view.html:83
 #: angularModules/company/partials/Partial-userMenuMapping.html:90
@@ -1194,7 +1224,8 @@ msgstr ""
 msgid "Not Found!"
 msgstr ""
 
-#: angularModules/Batches/partials/Partial-batchAttendance.html:81
+#: angularModules/Batches/partials/Partial-batchAttendance.html:87
+#: angularModules/Batches/partials/Partial-batchEvaluation.html:87
 msgid "Not selected!"
 msgstr ""
 
@@ -1283,7 +1314,8 @@ msgstr ""
 msgid "Please click this link for adding batch to existing Courses"
 msgstr ""
 
-#: angularModules/Batches/partials/Partial-batchAttendance.html:82
+#: angularModules/Batches/partials/Partial-batchAttendance.html:88
+#: angularModules/Batches/partials/Partial-batchEvaluation.html:88
 msgid "Please select a course material to load the users"
 msgstr ""
 
@@ -1433,6 +1465,10 @@ msgstr ""
 msgid "Report type"
 msgstr ""
 
+#: po/translate/translate.html:38
+msgid "Reports"
+msgstr ""
+
 #: angularModules/feedback/feedbackField/directives/Directive-feedbackField.html:22
 msgid "Response"
 msgstr ""
@@ -1464,7 +1500,12 @@ msgstr ""
 msgid "Save Course Element"
 msgstr ""
 
+#: angularModules/evaluation/directives/Directive-evaluationLoader.html:118
+msgid "Save Evaluation"
+msgstr ""
+
 #: angularModules/Batches/partials/Partial-viewBatches.html:39
+#: po/translate/translate.html:39
 msgid "Search"
 msgstr ""
 
@@ -1652,24 +1693,27 @@ msgstr ""
 msgid "The time line below represents the total duration of the course."
 msgstr ""
 
+#: angularModules/Batches/partials/Partial-menteeAttendance.html:37
+#: angularModules/Batches/partials/Partial-menteeEvaluation.html:36
+msgid "There are no any course materials added for this mentee."
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-batchAttendance.html:33
+#: angularModules/Batches/partials/Partial-batchEvaluation.html:33
+msgid "There are no any course materials added in this batch."
+msgstr ""
+
+#: angularModules/Batches/partials/Partial-batchAttendance.html:24
+#: angularModules/Batches/partials/Partial-batchEvaluation.html:24
+msgid "There are no any materials with attendance tracking enabled under this course"
+msgstr ""
+
 #: angularModules/user/partials/partial-popupBulkUpload.html:7
 msgid "There are not enough seats"
 msgstr ""
 
 #: angularModules/user/partials/partial-popupBulkUpload.html:11
 msgid "There are only {{res.seats}} seats left in this batch.Do you Want to register the first {{res.seats}} from the list of {{res.totalRows}}?"
-msgstr ""
-
-#: angularModules/Batches/partials/Partial-menteeAttendance.html:33
-msgid "There is no any course materials added in the batch of this mentee."
-msgstr ""
-
-#: angularModules/Batches/partials/Partial-batchAttendance.html:33
-msgid "There is no any course materials added in this batch."
-msgstr ""
-
-#: angularModules/Batches/partials/Partial-batchAttendance.html:24
-msgid "There is no any materials available under this batch"
 msgstr ""
 
 #: angularModules/Batches/partials/partial-popUpOptions.html:14
@@ -1768,8 +1812,9 @@ msgstr ""
 msgid "User Customizable Form List"
 msgstr ""
 
-#: angularModules/Batches/partials/Partial-batchAssignment.html:20
-#: angularModules/Batches/partials/Partial-batchAttendance.html:68
+#: angularModules/Batches/partials/Partial-batchAssignment.html:42
+#: angularModules/Batches/partials/Partial-batchAttendance.html:69
+#: angularModules/Batches/partials/Partial-batchEvaluation.html:69
 msgid "User List"
 msgstr ""
 
@@ -1806,11 +1851,16 @@ msgid "View  Batches"
 msgstr ""
 
 #: angularModules/Batches/partials/Partial-viewBatches.html:12
+#: po/translate/translate.html:34
 msgid "View Batches"
 msgstr ""
 
 #: po/translate/translate.html:13
 msgid "View Jobs"
+msgstr ""
+
+#: po/translate/translate.html:35
+msgid "View Order Form"
 msgstr ""
 
 #: angularModules/emailSmsConfig/partials/Partial-emailSmsConfig.html:48
@@ -1884,6 +1934,10 @@ msgstr ""
 
 #: angularModules/feature/partials/Partial-feature_config.html:20
 msgid "description"
+msgstr ""
+
+#: po/translate/translate.html:37
+msgid "global Settings"
 msgstr ""
 
 #: angularModules/company/partials/Partial-company_registration.html:168
