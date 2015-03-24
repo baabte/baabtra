@@ -108,6 +108,8 @@ $scope.fnUserRegister =function () {
 		courseLoadResponse.then(function(course){
 	    	var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
 	    	$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].Name = course.Name;
+	    	    		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].coursetype = $scope.allSync.FormData.coursetype;
+	    	    		
 	    	if(!angular.equals(course.Fees.totalAmount,undefined)){
 	    		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].coursePrice  = course.Fees.totalAmount;
 	    	}
@@ -154,6 +156,8 @@ $scope.fnUserRegister =function () {
 
 			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userInfo.push({eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob, status:"requested", userId:userUniqueId});
 
+			console.log($scope.data.orderForm);
+
 			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 				nomintaionResponse.then(function(response){
 					var orderForm = angular.fromJson(JSON.parse(response.data));
@@ -186,8 +190,11 @@ $scope.fnUserRegister =function () {
 };
 
 $scope.finshRegisteration = function(){
-	$scope.fnUserRegister();
-	$modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-orderForm.html', show: true});
-};
+	if(Object.keys($scope.allSync.FormData.course).length){
+		$scope.fnUserRegister();
+	}
+	setTimeout(function(){ $modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-orderForm.html', show: true});
+	 }, 1000);
+	};
 
 }]);

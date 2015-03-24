@@ -63,15 +63,54 @@
   editableOptions.theme = 'bs3';
 })
 
-// .run(function(gettextCatalog){
-//   gettextCatalog.currentLanguage = 'ar';
-//   gettextCatalog.debug = true;
-// })
+
+.run(function(gettextCatalog, $rootScope){  
+
+
+  // setting the user's preferred Language
+  var unbindThis = $rootScope.$watch(function(){ return $rootScope.userinfo; }, function(){
+   
+    if(!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage, undefined)){
+        var preLang = $rootScope.userinfo.ActiveUserData.Preferedlanguage.langCode;
+    }
+    else{
+
+        var preLang = 'en';
+    }
+    
+  
+
+    // setting up the direction for the preferred Language
+    var rtlArray = ['ar'];  
+
+  
+     
+      if(!angular.equals($.inArray( preLang, rtlArray), -1)){
+        $('body').css("direction", 'rtl');
+      }
+      else {
+        $('body').css("direction", 'ltl');
+      }
+
+
+      gettextCatalog.currentLanguage = preLang;
+      // gettextCatalog.debug = true;
+
+      // if(!angular.equals($rootScope.userinfo,undefined)){
+      //   unbindThis();
+      // }
+    
+  });
+
+  
+})
 
 
 
 //code to get the bootstrap-mterial-design working
   $.material.init();
+
+
 
 
 }());

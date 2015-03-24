@@ -4,9 +4,13 @@ angular.module('angular-flipclock', [])
       replace: true,
       template: '<div></div>',
       restrict: 'E',
+      scope:{
+       countDownTime:'=' 
+      },
       link: function(scope, element, attr) {
+        
 
-     
+
         var optionKeys = [
           'autostart', //(boolean) If this is set to false, the clock will not auto start. The default value is true.
           'countdown', //(boolean) If this is set to true, the clock will count down instead of up. The default value is false.
@@ -65,9 +69,21 @@ angular.module('angular-flipclock', [])
           }
         });
 
-        //generate clock object
+         //generate clock object
         clock = new FlipClock(element, options);
 
+        scope.$watch('countDownTime', function(){
+         
+          if(!isNaN(scope.countDownTime)){
+            clock.setTime(scope.countDownTime);
+          clock.start();
+          }
+          
+        
+        });
+
+       
+        
         //bind methods to the scope
         methods.forEach(function(method) {
           scope[method] = function(){
