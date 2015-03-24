@@ -37,7 +37,11 @@ angular.module('baabtra').directive('courseMultiSelect',['$rootScope','commonSrv
 					}
 					
 					courseMaterialResponse.then(function(response){
-						scope.course = angular.fromJson(JSON.parse(response.data));
+						if(!angular.equals(angular.fromJson(JSON.parse(response.data)),'notfound')){
+							scope.summaryDetails = [];	
+							scope.summaryDetails = angular.fromJson(JSON.parse(response.data));
+						}
+						
 						//console.log(scope.course.courseTimeline)
 						/*angular.forEach(usersUnderRoles, function(user){
 
@@ -45,7 +49,7 @@ angular.module('baabtra').directive('courseMultiSelect',['$rootScope','commonSrv
 							delete user.profile;
 						});*/
 						//scope.usersUnderRoles = angular.copy(usersUnderRoles);
-						var summaryViewTypes = {0:{id: "1",name: "Year(s)",mFactor:(1/525600),show:true},
+						/*var summaryViewTypes = {0:{id: "1",name: "Year(s)",mFactor:(1/525600),show:true},
                         		1:{id: "2",name: "Month(s)",mFactor:(1/43200),show:true},
                         		2:{id: "3",name: "Week(s)",mFactor:(1/10080),show:true},
                         		3:{id: "4",name: "Day(s)",mFactor:(1/1440),show:true},
@@ -72,7 +76,7 @@ angular.module('baabtra').directive('courseMultiSelect',['$rootScope','commonSrv
 									})
 								}
 							});
-						});
+						});*/
 						
 					}); //promise ends
 			};

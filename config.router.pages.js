@@ -696,6 +696,16 @@
                 }
                 
               })
+              .state('home.main.menteeAttendanceReport', {
+                url: '/menteeAttendanceReport/:userId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-menteeAttendanceReport.html',
+                    controller:'MenteeattendancereportCtrl'
+                  }
+                }
+                
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'
