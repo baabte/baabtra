@@ -72,7 +72,7 @@ $scope.$watch(function() {
 					}
 				}
 			}
-			console.log($scope.selectedSupervisorsRoles);
+
 	  }
 	  else{
 	  		for(var roleindex=0;roleindex<roleslist.length;roleindex++){
