@@ -8,6 +8,7 @@ angular.module('baabtra').directive('courseMultiSelect',['$rootScope','commonSrv
 			courseId: "=",
 			userId:"=",
 			batchMappingId:"="
+			
 		},
 		templateUrl: 'angularModules/common/directives/Directive-courseMultiSelect.html',
 		link: function(scope, element, attrs, fn) {
@@ -41,7 +42,6 @@ angular.module('baabtra').directive('courseMultiSelect',['$rootScope','commonSrv
 							scope.summaryDetails = [];	
 							scope.summaryDetails = angular.fromJson(JSON.parse(response.data));
 						}
-						
 						//console.log(scope.course.courseTimeline)
 						/*angular.forEach(usersUnderRoles, function(user){
 

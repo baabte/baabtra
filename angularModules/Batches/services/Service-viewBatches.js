@@ -34,7 +34,7 @@ angular.module('baabtra').service('viewBatches',['bbConfig','$http',function(bbC
  	var promise = $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'fnAssignCourseMaterials4Batch/',
-	    data:{"batchMappingId":$scope.batchMappingId,"courseObj":$scope.batchObj.batchDetails,"companyId":$scope.companyId}
+	    data:{"batchMappingId":$scope.batchMappingId,"courseObj":$scope.batchObj.selectedCourseList}
 	 });
 	return promise;
  };	
