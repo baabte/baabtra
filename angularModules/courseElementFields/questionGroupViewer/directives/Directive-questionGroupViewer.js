@@ -47,18 +47,20 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','$modal'
 			}
 
 			scope.dataValue= JSON.parse(scope.data);
-			// console.log(scope.isMentee);
+			scope.noOfQuestions=scope.dataValue.value.testModel.length;
 			
 
 			if (angular.equals(scope.questionAnswer.length,0)){
 			for(var index in scope.dataValue.value.testModel){
-				var tempObj={userResponse:[]};
+				var tempObj={};
 				scope.questionAnswer.push(tempObj);
 			}
+
 			}
 			if(angular.equals(scope.dataValue.value.questionView.mode,'multiple')){
 				scope.questionPerPage=scope.dataValue.value.questionView.questionPerPage;
 				scope.stop=scope.questionPerPage;
+
 			}
 			else{
 				scope.questionPerPage=scope.noOfQuestions;
@@ -151,14 +153,16 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','$modal'
 				var time=(new Date()).getTime();
 				var totalMarkScored=0;
 				for(var index in scope.questionAnswer){
-					totalMarkScored+=scope.questionAnswer[index].markScored;
+					if(!angular.equals(scope.questionAnswer[index].markScored,undefined)){
+					totalMarkScored+=scope.questionAnswer[index].markScored*1;
+					}
 				}
 
 				
 				var SubmitTestObj={courseMappingId:courseMappingId,userLoginId:userLoginId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex,totalMarkScored:totalMarkScored,timeObj:{key:'dateOfSubmission',value:time},userAnswers:scope.questionAnswer};
 				
 				// console.clear();
-				// console.log(SubmitTestObj);
+				console.log(SubmitTestObj);
 
 				var FnSubmitTestCallBack= testRelated.FnSubmitTest(SubmitTestObj);
 

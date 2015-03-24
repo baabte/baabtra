@@ -13,6 +13,30 @@ angular.module('baabtra').directive('objectiveOptions', function() {
 		},
 		templateUrl: 'angularModules/questionRelated/objectiveOptions/directives/Directive-objectiveOptions.html',
 		link: function(scope, element, attrs, fn) {
+			console.log('userAnswer :');
+			console.log(scope.userAnswer);
+
+			console.log(' options:');
+			console.log(scope.options);
+			
+			console.log('answer:');
+			console.log(scope.answer);
+
+			console.log('markScored:');
+			console.log(scope.markScored);
+
+			console.log('markObj:');
+			console.log(scope.markObj);
+
+			console.log('userAnswer:');
+			console.log(scope.userAnswer);
+
+			console.log('dbAnswer:');
+			console.log(scope.dbAnswer);
+
+			console.log('------');
+
+
 
 			if(!scope.userAnswer){ // if he already answered no need to reset the marks
 				scope.markScored=0;
