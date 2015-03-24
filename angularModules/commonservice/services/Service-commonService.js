@@ -88,7 +88,7 @@ this.GetUserCredentials=function($scope)
 				$state.go('login');//redirecting path into login
 			}
 	}
-	console.log($rootScope.userinfo);
+	// console.log($rootScope.userinfo);
 	return $rootScope.userinfo;
 };
 
