@@ -672,10 +672,11 @@ display: block;
         display: none;
     }
 }
- 
+
 @media print {
     body * {
         visibility:hidden;
+          width: 210mm;
     }
     #printSection, #printSection * {
         visibility:visible;

@@ -19,9 +19,9 @@ angular.module('baabtra').directive('pdfBuilder', function() {
                var doc = new jsPDF();
                //doc.text(20, 20, domClone);
               // doc.save('Test.pdf');
-              printSection.appendChild(domClone);
-               doc.fromHTML(printSection, 15, 15, {
-                 'width': 170
+              //printSection.appendChild(domClone);
+               doc.fromHTML(domClone, 15, 15, {
+                 'width': 400
                 });
                doc.save('sample-file.pdf'); 
            });
