@@ -58,16 +58,17 @@
             element.on('click', function () {
 
                 var elemToPrint = document.getElementById(attrs.printElementId);
-                console.log(elemToPrint);
                 if (elemToPrint) {
                     printElement(elemToPrint);
                     window.print();
+                    //elemToPrint.innerHTML="";
+                     printSection.innerHTML = "";
                 }
             });
  
             window.onafterprint = function () {
                 // clean the print section before adding new content
-                printSection.innerHTML = '';
+                printSection.innerHTML = "";
             }
         }
  

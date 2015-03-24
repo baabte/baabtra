@@ -11,7 +11,6 @@ $scope.$watch(function() {
   companyId=$scope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   var existingConf= globalSettings.retrieveExistingConf(companyId);
 	existingConf.then(function  (data) {
-
 	  existingConfCallBack=angular.fromJson(JSON.parse(data.data));
 	  $scope.roles=[];
 	  $scope.roles=existingConfCallBack.CompanyRoles;

@@ -19,12 +19,12 @@ var profile=$http({
 	return profile;
 };
 
-this.updateUserProfileData=function(userDetailsObjId,profile){
-	// console.log({"userDetailsObjId":userDetailsObjId,"field":field,"newData":newData});
+this.updateUserProfileData=function(userDetailsObjId,userLoginId,profile){
+	// console.log({"userDetailsObjId":userDetailsObjId,"profile":profile,"userLoginId":userLoginId});
 	var profileDataUpdation=$http({
 		url: bbConfig.BWS+'updateUserProfileData/',
 		method: "POST",
-		data:angular.toJson({'userProfileDataForUpdate':{"userDetailsObjId":userDetailsObjId,"profile":profile}}),
+		data:angular.toJson({'userProfileDataForUpdate':{"userDetailsObjId":userDetailsObjId,"profile":profile,"userLoginId":userLoginId}}),
 		withCredentials: false,
 		contentType:"application/json",
 		dataType:"json",

@@ -29,8 +29,13 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 
 			},
 			{
-			"text": "<i class=\"fa fa-check\"></i>&nbsp;Evalute",
+			"text": "<i class=\"fa fa-check\"></i>&nbsp;Evaluate",
 			"click": "fnEvaluate()"
+
+			},
+			{
+			"text": "<i class=\"fa fa-pie-chart\"></i>&nbsp;Attendance report",
+			"click": "fnMenteeReport()"
 
 			}
 			];
@@ -58,6 +63,11 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 			//function to evaluate course materials
 			scope.fnEvaluate=function(){
 				$state.go("home.main.menteeEvaluation",{userId:scope.menteeObj.fkUserRoleMappingId.$oid});
+			};
+
+			//function to evaluate course materials
+			scope.fnMenteeReport=function(){
+				$state.go("home.main.menteeAttendanceReport",{userId:scope.menteeObj.fkUserRoleMappingId.$oid});
 			};
 		}
 	};

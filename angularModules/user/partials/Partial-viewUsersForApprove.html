@@ -1,17 +1,28 @@
 <div class="row">
 	<div class="col-xs-12 bg-white">
-		<div ng-if="data.orderForms"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
+		<div ng-if="data.orderForms && $state.current.name == 'home.main.viewOrderForm'"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
 			<div masonry-tile class="tile col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm " ng-repeat="orderForm in data.orderForms">
 				<div class="baab-shadow set-full-height bg-white p-sm" style="cursor: pointer;">
-				<div class="row">
-					<div class="col-xs-12 text-right">Order Form Id:&nbsp;<span class="font-bold">{{orderForm.orderFormId}}</span></div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 pull-left">From:&nbsp;<span class="font-bold"><user-card user-id="orderForm.crmId.$oid"></user-card></span></div>
-				</div>
-
+					<div>
+						<div class="col-xs-11 text-right random-background-color p-xs">Order Form Id:&nbsp;<span class="font-bold">{{orderForm.orderFormId}}</span></div>
+						<div class="col-xs-1 m-v-xs">
+							<a href="" ng-model="data.selectedOrderFormOption" data-animation="am-flip-x" data-html="true" bs-dropdown="data.orderFormOptions" data-placement="bottom-right"><i class="mdi-navigation-more-vert text-lg"></i></a>
+						</div>
+					</div>
+					<div>
+						<div class="col-xs-12">From:&nbsp;<span class="font-bold"><user-card user-id="orderForm.crmId.$oid"></user-card></span></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 p-xs" ng-repeat="course in orderForm.orderDetails">
+							<div class="col-xs-11">{{course.Name}}</div>
+							<div class="col-xs-1">{{course.userCount}}</div>
+						</div>
+					</div>
 				</div>
 			</div>
+		</div>
+		<div ng-if="data.approveOrderForm">
+			<div name="orderFrom-content"  role="main" ui-view></div>
 		</div>
 	</div>
 </div>
