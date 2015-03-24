@@ -86,7 +86,7 @@ angular.module('baabtra').controller('TestCtrl',['$scope','$rootScope',function 
 
 			
 
-});
+// });
 
 $scope.previewData=[{"type":"objective",
 "answerType":"singleAnswer",
