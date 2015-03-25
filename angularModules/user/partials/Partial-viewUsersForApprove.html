@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-xs-12 bg-white">
-		<div ng-if="data.orderForms && $state.current.name == 'home.main.viewOrderForm'"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-			<div masonry-tile class="tile col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm " ng-repeat="orderForm in data.orderForms">
+		<div ng-if="data.companOrderForms && $state.current.name == 'home.main.viewOrderForm'"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
+			<div masonry-tile class="tile col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm " ng-repeat="orderForm in data.companOrderForms.orderFroms">
 				<div class="baab-shadow set-full-height bg-white p-sm" style="cursor: pointer;">
 					<div>
 						<div class="col-xs-11 text-right random-background-color p-xs">Order Form Id:&nbsp;<span class="font-bold">{{orderForm.orderFormId}}</span></div>
