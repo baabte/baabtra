@@ -63,11 +63,7 @@ angular.module('baabtra')
   }])
   .constant('bbConfig',{ //used for storing enviornment variables
      "BWS": "http://127.0.0.1:8000/",//local
-<<<<<<< HEAD
       // "BWS": "http://services.baabtra.com/",//server - production
-=======
-    //"BWS": "http://services.baabtra.com/",//server - production
->>>>>>> 030669535491e8136bdfcd84d2448f6040b22866
     // "BWS": "http://server.mb-test.in/",//server-test
      "SARID":1, // SuperAdminRoleID
      "CURID":2, // CompanyUser
