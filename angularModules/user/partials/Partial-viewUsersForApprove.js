@@ -49,7 +49,8 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 
 	var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes);
 	LoadMenteesResponse.then(function(response){
-		$scope.data.orderForms = angular.fromJson(JSON.parse(response.data));
+		$scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
+		console.log($scope.data.companOrderForms);
 		//$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
 	});
 
