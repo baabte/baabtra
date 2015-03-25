@@ -57,6 +57,7 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 
 			//function to view course
 			scope.fnMarkAttendance=function(){
+				
 				$state.go("home.main.menteeAttendance",{userId:scope.menteeObj.fkUserRoleMappingId.$oid});
 			};
 
