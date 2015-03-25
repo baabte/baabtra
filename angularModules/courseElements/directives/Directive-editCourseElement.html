@@ -19,7 +19,8 @@
 			</div>
 		    <div class="form-group col-xs-6 m-t-md">
 		        <label class="font-bold">Evaluator</label>
-		        <role-user-loader role-id="3" placeholder-value="Please select a person" selection-type="2" ng-model="evaluator"></role-user-loader>
+		        <role-user-loader role-id="$root.userinfo.ActiveUserData.roleMappingObj.evalRoles[0]" placeholder-value="Please select a person" selection-type="2" ng-model="evaluator">
+            	</role-user-loader>
 		    </div>
 	    </div>  
       	

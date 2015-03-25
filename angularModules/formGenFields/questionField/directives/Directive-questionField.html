@@ -40,8 +40,9 @@
 	      				</div>
 	    			
 				</div>
-				<div class="col-xs-12 pull-left" ng-show="selectedTab=='answerType'" >
 
+				<div class="col-xs-12 pull-left" ng-show="selectedTab=='answerType'" >
+						<!-- <pre>{{question.type}}</pre> -->
 						 <div class="radio radio-success">
 				            <label>
 				              <input type="radio" required xt-validate ng-checked="question.type=='objective'" ng-change="questionTypeChange('objective')" value="objective"  ng-model="question.type"  name="questionType">
