@@ -18,8 +18,6 @@
 					<div class="col-xs-12 col-sm-12 col-md-3">
 						<course-multi-select ng-model="courseObj.courseMaterials" course-id="selectedCourse" user-id="urmId">
 						</course-multi-select>
-
-
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-1">
 						<button class="btn btn-success" ng-disabled="!courseObj.courseMaterials.length" ng-click="assignCourseMaterial2timeline()" translate="{{'Assign'|translate}}" disabled="disabled"></button>
@@ -37,7 +35,8 @@
 			 <div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
             	
 		    <div masonry-tile class="tile col-xs-12 col-sm-12 col-md-4 m-t-lg" data-ng-repeat="course in courseObj.courseMaterials">
-		        <course-element-preview course-id="selectedCourse" preview-data="course.courseElement"></course-element-preview>
+		        <!-- <course-element-preview course-id="selectedCourse" preview-data="course.courseElement"></course-element-preview> -->
+		        <material-preview data="course.courseElement"></material-preview>
 		    </div>
 		    </div>
 		</div> 
