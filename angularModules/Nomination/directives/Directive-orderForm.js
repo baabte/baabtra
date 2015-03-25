@@ -2,7 +2,8 @@ angular.module('baabtra').directive('orderForm', function() {
 	return {
 		restrict: 'E',
 		scope: {
-			orderObject:"="
+			orderObject:"=",
+			companyObject:"="
 		},
 		templateUrl: 'angularModules/Nomination/directives/Directive-orderForm.html',
 		link: function(scope, element, attrs, fn) {
