@@ -1,4 +1,4 @@
-<div class="col-xs-12 lt">
+<div class="col-xs-12 lt scrollable hover" style="height: 440px;">
     <div class="row">
         
         <div class="col-xs-10">
@@ -42,8 +42,8 @@
                     <td class="font-bold b-b b-t b-dark">{{$index + 1}}</td>
                     <td class="b b-dark">{{course.Name}}</td>
                     <td class="b b-dark">{{course.userCount}}</td>
-                    <td class="b b-dark">{{course.coursePrice}}</td>
-                    <td class="b b-dark">{{course.userCount*course.coursePrice}}</td>
+                    <td class="b b-dark">{{course.coursePrice}}&nbsp;{{course.currencyType}}</td>
+                    <td class="b b-dark">{{course.userCount*course.coursePrice}}&nbsp;{{course.currencyType}}</td>
                 </tr>
                 <tr>
                 	<th colspan="4">Grand Total</th>
