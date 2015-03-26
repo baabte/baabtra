@@ -82,7 +82,8 @@ angular.module('ui.bootstrap.contextMenu', [])
                          else{
                            $scope.evaluator=[];
                          }
-                        
+                        console.log($rootScope);
+
                          //clearing data in preview object that is previously created
                          $scope.coursePreviewObj={};
                          $templateCache.put('course-element-popup.html','<div style="padding: 0px;" class="aside" role="dialog">'
