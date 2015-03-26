@@ -325,7 +325,8 @@ $scope.paymentTypes=[{id: "1",name: "Before The Course"},
                 
     $scope.feeIn=[{currency: "INR",name: "<i class=\"fa  fa-inr\"></i>"},
           {currency: "$",name: "<i class=\"fa fa-dollar\"></i>"},
-          {currency: "SR",name: "SR"}];
+          {currency: "SR",name: "SR"},
+          {currency: "AED",name: "AED"}];
     // $scope.course.Duration={};
 
     // $scope.course.Duration.DurationDetails={"Year(s)":1,"Month(s)":2,"Week(s)":5};
