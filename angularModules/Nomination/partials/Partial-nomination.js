@@ -87,7 +87,7 @@ if(!angular.equals($state.params.ofId,"")){
 
 
 $scope.fnUserRegister =function () {
-	console.log($scope.allSync.FormData.coursetype);
+	console.log($scope.allSync.FormData);
 	var time=(new Date()).valueOf();
 	hashids = new Hashids("this is a id for mentees");
 	var userUniqueId = 'RQ-' + hashids.encode(time);
@@ -108,10 +108,12 @@ $scope.fnUserRegister =function () {
 		courseLoadResponse.then(function(course){
 	    	var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
 	    	$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].Name = course.Name;
-	    	    		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].coursetype = $scope.allSync.FormData.coursetype;
+	    	$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].coursetype = $scope.allSync.FormData.coursetype;
 	    	    		
+	    	
 	    	if(!angular.equals(course.Fees.totalAmount,undefined)){
 	    		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].coursePrice  = course.Fees.totalAmount;
+	    		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].currencyType = course.Fees.currency.currency;
 	    	}
 	    	else{
 	    		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].coursePrice = 0;
