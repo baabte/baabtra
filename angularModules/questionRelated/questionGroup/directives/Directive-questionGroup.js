@@ -64,13 +64,10 @@ angular.module('baabtra').directive('questionGroup',['$aside', function($aside) 
 
 		    scope.questionShowActivate =function(){
 		    	scope.questionShow=true;
-		    	// console.log('attrs');
-		    	// console.log(attrs);
+		    	
 		    };
 		     scope.questionShowDeactivate =function(){
 		    	scope.questionShow=false;
-		    	// console.log(attrs);
-
 		    };
 
 		    //watch function to keep track of the the totalmark  
@@ -128,9 +125,8 @@ angular.module('baabtra').directive('questionGroup',['$aside', function($aside) 
 		    				    	
 		    },true);
 
-          scope.addQuestion =function(placeindex){
+          scope.addQuestion =function(questionModel,placeindex){
           	// console.log(questionModel);
-          	var questionModel=angular.copy(scope.questionmodel);
           	var tempArray=[];
           	for(var key in questionModel.answer){
           		var tempObj={};

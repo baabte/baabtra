@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('evaluationLoader',['evaluationService' ,function(evaluationService) {
+angular.module('baabtra').directive('evaluationLoader',['evaluationService','$alert',function (evaluationService,$alert) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -41,11 +41,19 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService' ,fun
 			var evaluateAnswerPromise=evaluationService.evaluateAnswer(keyArray[0],keyArray[1],keyArray[2],keyArray[3],evaluationobj);
 			evaluateAnswerPromise.then(function(data){		    	
 		    	var result=angular.fromJson(JSON.parse(data.data));
-				console.log(result);
+				// console.log(result);
+				scope.notifications('Success','Sucessfully Evaluated','success');
+
 			});
 
 		};
 
+
+		//notification 
+	scope.notifications=function(title,message,type){
+     // Notify(message, 'top-right', '2000', type, symbol, true); \
+     $alert({title: title, content: message , placement: 'top-right',duration:3, type: type});// calling notification message function
+    };
 
 
 		}
