@@ -14,22 +14,23 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
             //scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
              if(angular.equals(scope.evaluator,undefined)){
                 scope.evaluator=[];
-                console.log("no evalutor");
              }
              else{
-                console.log("evalutor");
-                console.log(angular.copy(scope.evaluator))
                 for(var index in scope.evaluator){
+                    if(!angular.equals(scope.evaluator[index].roleMappingId.$oid,undefined)){
                     scope.evaluator[index].roleMappingId=scope.evaluator[index].roleMappingId.$oid;
+                    }
+                    else{
+
+                    }
                 }
-                console.log(scope.evaluator)
 
              }
              if(angular.equals(code,undefined)){
                         var time=new Date().valueOf();//date in millisecs11
                         var key=[scope.instance]+'.'+[scope.$parent.courseElement.Name];
                         var hashids = new Hashids(key,8);
-                        var code = hashids.encode(time);
+                        code = hashids.encode(time);
                      }
             scope.createPreviewElement = function(path){
 				scope.ItsTimeToSaveDataToDB=false; // check for object built successfully or not
@@ -132,7 +133,7 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
                 }
               });
                 //scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name].push(scope.coursePreviewObj);
-			}
+			};
 		}
 	};
 }]);

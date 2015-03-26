@@ -76,11 +76,10 @@ angular.module('ui.bootstrap.contextMenu', [])
                          if(angular.equals($scope.attendenceTrack,undefined)){
                             $scope.attendenceTrack=false;
                          }
-                         console.log($scope.item.Name);
                          if(!angular.equals($scope.item.Name,"Payment_checkpoint")){
                          $scope.evaluator=angular.copy($scope.$parent.$parent.$parent.syncData.evaluator);
-
-                         }else{
+                         }
+                         else{
                            $scope.evaluator=[];
                          }
                         
@@ -106,12 +105,12 @@ angular.module('ui.bootstrap.contextMenu', [])
                                           +'</div></div>'
                                           +'<div class="form-group col-xs-6 m-t-md">'
                                           +'<label class="font-bold">Evaluator</label>'
-                                          +'<role-user-loader role-id="3" placeholder-value="Please select a person" selection-type="2" ng-model="evaluator"></role-user-loader>'
+                                          +'<role-user-loader role-id="$root.userinfo.ActiveUserData.roleMappingObj.evalRoles[0]" placeholder-value="Please select a person" selection-type="2" ng-model="evaluator"></role-user-loader>'
                                           +'</div>'
                                         +'</div>'
                                     
                             +'<div class="box-row">'
-                              +'<div class="box-cell m-t">'
+                              +'<div class="box-cell">'
                                 +'<div class="box-inner col-xs-12">'
 
                                   +'<form xt-form novalidate class="form" name="courseElement" enctype="multipart/form-data">'

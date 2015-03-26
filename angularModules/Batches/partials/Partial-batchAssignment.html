@@ -21,8 +21,9 @@
 						<div class="row"> -->
 							<div class="col-xs-12 col-sm-12 col-md-12 m-t-sm pull-left">
 								<div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-									<div masonry-tile class="tile col-xs-12 col-sm-6 col-md-6 b-b" data-ng-repeat="course in batchObj.selectedCourseList">
-				          				<course-element-preview course-id="selectedCourse" preview-data="course.courseElement"></course-element-preview>
+									<div masonry-tile class="tile col-xs-12 col-sm-6 col-md-6" data-ng-repeat="course in batchObj.selectedCourseList">
+				          				<!-- <course-element-preview course-id="selectedCourse" preview-data="course.courseElement"></course-element-preview> -->
+				          				<material-preview data="course.courseElement"></material-preview>
 				        			</div>
 				        		</div>
 							</div>
