@@ -52,8 +52,11 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
         courseType = scope.courseobj.coursetype;
        scope.batchElements=[];
        if(!angular.equals(courseId,undefined)){
+
+    
            var promise = addBatches.loadCourseRelatedBatches(companyId,courseId,joinDate,courseType)
         promise.then(function(response){
+          console.log(angular.fromJson(JSON.parse(response.data)));
           //  console.log(angular.fromJson(JSON.parse(response.data)));
           scope.batchElements = angular.fromJson(JSON.parse(response.data));
            angular.forEach(scope.batchElements, function(batch){
