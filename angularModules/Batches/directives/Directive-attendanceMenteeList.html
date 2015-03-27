@@ -10,12 +10,10 @@
 							</div>
 							<div class="col-xs-9" style="display:table-cell;">
 								<div class="row">
-										<!--for batchAttendance-->
-										<div class="b-1x b-light text-1x col-xs-12 m-t-sm" ng-if="pageType=='batchAttendance'">
-							  				<small translate="{{'Mark attendance'|translate}}"></small><label class="ui-checks pull-left"><input ng-model="user.attendance" ng-change="fnMarkAttendence(user)" type="checkbox" ><i></i></label>
-							  			<!-- 	<label>
-	            					  			<input ng-model="user.attendance" ng-change="fnMarkAttendence(user)" type="checkbox">
-	        					  			</label> -->
+	        					  		<div class="b-1x b-light text-1x col-xs-12 m-t-sm checkbox" ng-if="pageType=='batchAttendance'">
+                    						<label class="pull-left">
+						                        <input type="checkbox" ng-change="fnMarkAttendence(user)" ng-model="user.attendance"> <small translate="{{'Mark attendance'|translate}}"></small>
+						                    </label>
 							  			</div><!--for batchAttendance ends-->
 				        				<div class="b-4x m-t-xs b-light col-xs-12">
 				                        <small>
