@@ -49,7 +49,8 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 
 	var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes);
 	LoadMenteesResponse.then(function(response){
-		$scope.data.orderForms = angular.fromJson(JSON.parse(response.data));
+		$scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
+		console.log($scope.data.companOrderForms);
 		//$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
 	});
 
@@ -91,15 +92,14 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 		$scope.data.courseObject.course._id = key;
 		$scope.data.courseObject.coursetype = coursetype;
 		$scope.data.courseObject.doj = new Date();
-		console.log($scope.data.courseObject);
+		console.log(JSON.stringify($scope.data.courseObject));
 		
 		$scope.addUserToBatch = function($hide){
-			console.log($scope.data.approvedMenteesList[key]);
 			var allUsers = [];
 			var userRegister = {};
 			userRegister.mandatoryData = {};
 
-			console.log($scope.data.batchDetails);
+			
 			delete $scope.data.batchDetails[0].course;
  			userRegister.batchId = $scope.data.batchDetails[0]._id;
  			delete $scope.data.batchDetails[0]._id;

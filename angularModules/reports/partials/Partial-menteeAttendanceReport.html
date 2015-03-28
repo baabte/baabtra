@@ -56,10 +56,10 @@
     		</div>
     		 <div class="row">
     				
-    				<div class="pull-left col-md-offset-4">
+    				<div class="pull-left col-md-offset-4 m-b">
     				<span ng-hide="selectedCourse==undefined">	<div  class="img-responsive" google-chart chart="chartObj" style="{{cssStyle}}">
   						</div></span>
-  						<div  ng-if="selectedCourse==undefined" class="alert ng-scope am-fade alert-button bg-danger lt text-white no-margin" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
+  						<div  ng-if="selectedCourse==undefined" class="alert m-b ng-scope am-fade alert-button bg-danger lt text-white no-margin" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
 					        
 					    	<strong class="ng-binding" translate="{{'Not Found!'|translate}}"></strong>&nbsp;
 					   		<span translate="{{'Select a course to view the attendance report'|translate}}"></span>

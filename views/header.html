@@ -8,7 +8,7 @@
           <img  ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length" ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" class="navbar-img img-circle pull-right m-t" style="margin-top: 0px;">
         </button>
         <span class="pull-right visible-xs" data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
-              <i class="fa fa-bell text-lg m-v" ></i>
+              <i class="fa fa-bell text-lg m-v"  bs-tooltip data-title="Notifications" data-placement="left"></i>
               <b class="badge bg-danger up" ng-if="$root.data.userNotification.notification.length > 0">{{$root.data.userNotification.notification.length}}</b>
 
           </span>
@@ -51,10 +51,9 @@
 
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right m-r-n ">
-          <li >
-          <li >
-            <a href=""   data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
-              <i class="fa fa-bell text-lg m-v-xs" ></i>
+          <li>
+            <a href=""  data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
+              <i class="fa fa-bell text-lg m-v-xs" bs-tooltip data-title="Notifications" data-placement="left"></i>
               <b class="badge bg-danger up" ng-if="$root.data.userNotification.notification.length > 0">{{$root.data.userNotification.notification.length}}</b>
 
             </a>
