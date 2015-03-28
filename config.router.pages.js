@@ -466,12 +466,12 @@
                 }
                 
               })
-              .state('home.main.updateUserProfile', {
-                url: '/updateUserProfile',
+              .state('home.main.baabtraProfile', {
+                url: '/baabtraProfile/:userLoginId',
                 views:{
                   'innercontent':{
-                    templateUrl: 'angularModules/profile/partials/Partial-updateProfileInfo.html',
-                    controller: 'UpdateprofileinfoCtrl'
+                    templateUrl: 'angularModules/baabtra.comProfile/partials/Partial-baabtra.comProfile.html',
+                    controller: 'BaabtraComprofileCtrl'
                   }
                 }
                 

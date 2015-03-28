@@ -187,6 +187,10 @@ angular.module('baabtra')
             $state.go('home.main.globalSettings');
       };
 
+      $scope.redirectTobaabtraProfile=function(){
+            $state.go('home.main.baabtraProfile',{userLoginId:"54d84b55ef14f722f4890797"});
+      };
+
       //when click cancel button exicute this function and revert to previous theme
       $scope.cancelAppSettings = function($hide){
         $rootScope.userinfo.ActiveUserData.appSettings = angular.copy(appSettings);

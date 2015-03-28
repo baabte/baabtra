@@ -96,8 +96,13 @@
           </li> -->
           <!-- button for gloabal settings -->
           <!-- ng-if="bbConfig.CURID==userinfo.ActiveUserData.roleMappingObj.fkRoleId" -->
-         
-            <li ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId">
+         <!--  <li >
+             
+            <a href bs-tooltip data-title="baabtra Profile"  data-placement="left">
+              <i class="mdi-action-assignment-ind text-2x m-t-xs" style="font-size:25px" ng-click="redirectTobaabtraProfile()"></i>
+            </a>
+          </li> -->
+          <li ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId">
              
             <a href bs-tooltip data-title="Settings"  data-placement="left">
               <i class="mdi-action-settings text-2x m-t-xs" style="font-size:25px" ng-click="redirectToGlobalSettings()"></i>
