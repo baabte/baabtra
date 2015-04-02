@@ -1,5 +1,19 @@
 
-<div class="col-md-12 bg-white">
+<div class="bg-white" >
+<nav>
+  <div class="container-fluid">
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="dropdown" ng-repeat="menus in userMenusOrigin"  ng-if="menus.canView || (menus.canView == undefined)"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}<span class="caret" ng-if="menus.childMenuStructure.length"></span></a>
+          <ul class="dropdown-menu am-fade-and-slide-left" ng-if="menus.childMenuStructure.length">
+            <li ><a class="p-v" href="#" ng-repeat="menu in menus.childMenuStructure"  ng-if="menu.canView || (menu.canView == undefined)" ng-click="loadDetails(menu)"><i class="fa {{menu.menuIcon}} fa-md"></i>&nbsp;{{menu.MenuName}}</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 
 <!-- <question-preview preview-data="previewData"></question-preview> -->
 <!-- <question-field ng-model="form"></question-field> -->
@@ -31,6 +45,7 @@
 	<!-- <user-card ng-if="$root.userinfo" user-id="$root.userinfo.ActiveUserData.roleMappingId.$oid">
 	</user-card> -->
 	
-	<baabtra-com-profile></baabtra-com-profile>
+	<!-- <baabtra-com-profile></baabtra-com-profile> -->
+
 </div>
 

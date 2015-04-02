@@ -50,7 +50,8 @@ angular.module('baabtra').directive('branchLoader',['branchSrv','manageTreeStruc
 			if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
 			  companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
 			}
-			$scope.onBranchSelectionChanged = function(items){
+			
+      $scope.onBranchSelectionChanged = function(items){
 				$scope.ngModel=items;
         ctrls[0].$setValidity('branchLoader',true);
 
@@ -58,6 +59,7 @@ angular.module('baabtra').directive('branchLoader',['branchSrv','manageTreeStruc
 			
         $scope.branches={};
         $scope.branches.branchDetails=[];
+        
 		var promise=branchSrv.fnLoadBranch($scope,companyId);
 		promise.then(function(data){
 			var branches=angular.fromJson(JSON.parse(data.data))[0].branches;

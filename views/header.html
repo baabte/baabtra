@@ -1,4 +1,6 @@
         <!-- navbar header ng-class="{'box-shadow-inset dk':app.settings.headerShadow}"  -->
+      <!-- navbar header ng-class="{'box-shadow-inset dk':app.settings.headerShadow}"  -->
+
       <div class="navbar-header p-v-xs" ng-class="{'box-shadow-inset dk':app.settings.headerShadow}">
 
         <button class="pull-right visible-xs" bs-aside="aside" data-template="angularModules/login/partials/Partial-sm_User_Menu.html" data-placement="right" data-animation="am-slide-right aside-open-inner modal-open" data-container="body">
@@ -24,31 +26,6 @@
       <!-- navbar collapse   ng-hide-->
       <!-- ng-class="{'show animated fadeIn' : app.navbarCollapse} add this to enable dynamic color change -->
       <div class="navbar-collapse hidden-xs" ng-class="{'p-v-xs':roleId != $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId}"  ng-class="{'show animated fadeIn' : app.navbarCollapse}">
-        <!-- nav -->
-<!--         <ul class="nav navbar-nav navbar-left ">
-          <li>
-            <a ui-sref="app.dashboard" translate="header.navbar.DASHBOARD">
-              Dashboard
-            </a>
-          </li>
-          <li>
-            <a ui-sref="mail.inbox" translate="header.navbar.EMAIL">
-              Email
-            </a>
-          </li>
-          <li>
-            <a ui-sref="ui.component.arrow" translate="header.navbar.UIKITS">
-              UI Kits
-            </a>
-          </li>
-          <li>
-            <a ui-sref="page.profile" translate="header.navbar.PAGES">
-              Pages
-            </a>
-          </li>
-        </ul> -->
-        <!-- / nav -->
-
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right m-r-n ">
           <li >
@@ -120,6 +97,7 @@
             </a>
           </li> -->
           <li ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId">
+            <li ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId">
              
             <a href bs-tooltip data-title="Settings"  data-placement="left">
               <i class="mdi-action-settings text-2x m-t-xs" style="font-size:25px" ng-click="redirectToGlobalSettings()"></i>
@@ -141,17 +119,7 @@
           </li>
         </ul>
         <!-- / navbar right -->
-
-        <!-- search form -->
-        <!-- <form class="navbar-form navbar-form-sm navbar-right visible-xs" role="search">
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-sm no-bg btn-icon no-shadow no-padder"><i class="ti-search"></i></button>
-              </span>
-              <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control input-sm no-bg no-border" placeholder="Search...">              
-            </div>
-          </div> -->
-        <!-- / search form -->
+        
       </div>
+        
       <!-- / navbar collapse -->
