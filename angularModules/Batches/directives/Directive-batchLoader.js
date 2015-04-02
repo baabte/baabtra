@@ -39,7 +39,7 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
 
 	scope.$watch('courseobj', function(){//adding watch to couse id
     if(!angular.equals($state.current.name,'home.main.nominateEmployee')){
-   if (typeof scope.courseobj.referredBy == "undefined") { 
+   //if (typeof scope.courseobj.referredBy == "undefined") { 
          if(!angular.equals(scope.courseobj.course,undefined)){
            courseId=scope.courseobj.course._id;
          } 
@@ -70,9 +70,12 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
             delete batch.seat;
             delete batch.end
           if(batch.batchMode=="onetime"){
-           batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Duration:'+batch.duration+'days</div>';
+           // batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Duration:'+batch.duration+'days</div>';
+            batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'</div>';
+            // +'<br/>Duration:'+batch.duration+'days</div>'
            }else{
             batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Repeats After:'+batch.repeats.every +" "+ batch.repeats.repeatType +'</div>';
+            batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'</div>';
             }
            })
 
@@ -80,7 +83,7 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
           
         }); 
      } 
-    }
+    //}
     }       
    }, true); 
   
