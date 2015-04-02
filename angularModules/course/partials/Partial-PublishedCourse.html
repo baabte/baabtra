@@ -99,14 +99,17 @@
            <div masonry-tile class="tile col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-left masonry-brick" ng-repeat="course in publishedCourses.courses">            
 
             <div class="panel course-box" >
-
+                 <!--  <div class="ribbon">
+                      <a href="#">Fork me on GitHub</a>
+                  </div> -->
+                 
                  <div class="p text-right">
 
                    <!-- <button ng-click="deleteCourseDetails(course._id.$oid)" class="btn btn-default pull-right no-margin"><i class="mdi-action-delete text-lg " ></i></button>
 
                    <button ng-click="editCourse(course._id.$oid)" class="btn btn-default pull-right no-margin"><i class="mdi-image-edit text-lg" ></i></button> -->
-
-                   <a data-placement="bottom-right" data-html="true" bs-dropdown="data.courseDropdown"><i class="mdi-navigation-more-vert text-lg" ></i></a>
+                  
+                   <a ng-if="course.companyId.$oid==companyId" data-placement="bottom-right" data-html="true" bs-dropdown="data.courseDropdown"><i class="mdi-navigation-more-vert text-lg" ></i></a>
 
                  </div>
                  <div class="panel-body" ng-click="viewCourseDetails(course._id.$oid)" style="cursor:pointer; cursor: hand;">       
