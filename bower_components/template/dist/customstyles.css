@@ -688,6 +688,28 @@ display: block;
     }
 }
 
+
+.border-doted{
+    border: 1px dashed #607D8B;
+}
+
+.baab-inline-box{
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: -khtml-inline-box;
+  display: -ms-inline-box;
+  display: inline-box;
+}
+.baab-overflow{
+    width: 100%;
+  /* height: 100px; */
+  overflow-x: auto;
+  white-space: nowrap;
+  /* overflow-y: visible; */
+  overflow-wrap: break-word;
+
+}
+
 .ribbon {
   background-color: #a00;
   overflow: hidden;

@@ -1,5 +1,7 @@
 angular.module('baabtra').service('userProfile',['$http','bbConfig',function userProfile($http,bbConfig) {
 
+
+
 this.loadProfileData=function(userloginId){
 var profile=$http({
 		url: bbConfig.BWS+'loadProfileData/',
@@ -57,6 +59,26 @@ this.changeUserPassword=function(userLoginId,currentPassword,newPassword){
 
 	});
 	return changePassword;
+
+};
+
+this.changelanguage=function(data){
+	var changelanguage=$http({
+		url: bbConfig.BWS+'changelanguage/',
+		method: "POST",
+		data:angular.toJson({'data':data}),
+		withCredentials: false,
+		contentType:"application/json",
+		dataType:"json",
+	}).
+	success(function(data, status, headers, config) {
+		return data;
+		
+	}).
+	error(function(data, status, headers, config) {
+
+	});
+	return changelanguage;
 
 };
 	

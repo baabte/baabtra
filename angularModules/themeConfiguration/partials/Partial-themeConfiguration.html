@@ -1,0 +1,137 @@
+
+<div class="p-h-md p-v bg-white box-shadow pos-rlt ng-scope">
+  <h3 class="no-margin">Theme Configuration</h3>
+</div> 
+<div class="box ng-scope bg-white" >
+  <div class="col-md-3">
+<!--     <div style="background:url({{userinfo.ActiveUserData.roleMappingObj.avatar}}) center center; background-size:cover">
+      <div class="p-lg bg-white-opacity text-center">
+        <a href="" class="w-xs inline">
+          <img ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" class="img-circle img-responsive">
+        </a>
+        <div class="m-b m-t-sm h2">
+        </div>
+        <p>
+     
+        </p>
+      </div>
+    </div> -->
+    <ul class="nav nav-list b-t bg-white font-bold" ui-nav="">
+      <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='Customizetheme'}" ng-click="selectedTab='Customizetheme'">
+
+        <a href="">Customize theme</a>
+      </li>
+      <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='selectMenutype'}" ng-click="selectedTab='selectMenutype'">
+
+        <a href="">Menu type</a>
+      </li>
+       
+    </ul>
+  </div>
+  <div class="col-md-9 b-l bg-white">
+      <div class="p-md bg-light b-b font-bold">Theme configuration</div>
+        
+      <div class="form-group bg-light m-sm p-sm" ng-show="selectedTab=='Customizetheme'">
+               <div class="modal-header">
+                <h4 class="modal-title text-primary">Customize theme</h4>
+               </div>
+              <div class="modal-body">
+                <form class="form-horizontal ng-pristine ng-valid" style="cursor: pointer;">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <div class="radio radio-inline radio-primary">
+                                <label>
+                                    <input type="radio" ng-model="header.type" value="Header">
+                                    Header colour
+                                </label>
+                            </div>
+                            <div class="radio radio-inline radio-primary">
+                                <label>
+                                    <input type="radio" ng-model="header.type" value="breadCrumb">
+                                    Bread crumb colour
+                                </label>
+                            </div>
+                            <div class="radio radio-inline radio-primary">
+                                <label>
+                                    <input type="radio" ng-model="header.type" value="background">
+                                    Background colour
+                                </label>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="clearfix" >
+                          <a ng-class="{'shadow-z-2':hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" class="inline {{color}} p-xs m-xs pull-left no-borders color-hover" ng-repeat="color in options.headerColor" ng-click="setHeaderColor(color)">
+                          </a>
+                        </p>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <label class="col-xs-3 control-label">Background image</label>
+                          <div class="col-xs-7">
+                            <input type="text" readonly="" class="form-control floating-label" placeholder="Browse background image...">
+                            <input type="file" ng-file-select="backgroundImageChanged($files)">
+                          </div>
+                          <div class="col-xs-2" ng-if="$root.userinfo.ActiveUserData.appSettings.backgroundImage.length">
+                            <a href="" ng-click="removeBackgroundImage()"><i bs-tooltip data-title="Remove background image" data-placement="left" class="fa mdi-action-delete text-2x m-v-xs"></i></a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <label class="col-xs-3 control-label">Logo</label>
+                          <div class="col-xs-7">
+                            <input type="text" readonly="" class="form-control floating-label" placeholder="Browse logo...">
+                            <input type="file" ng-file-select="logoChanged($files)">
+                          </div>
+                          {{$root.userinfo.ActiveUserData.appSettings.log.length}}
+                          <div class="col-xs-2" ng-if="$root.userinfo.ActiveUserData.appSettings.logo.length">
+                            <a href="" ng-click="removeLogo()"><i bs-tooltip data-title="Remove logo" data-placement="left" class="fa mdi-action-delete text-2x m-v-xs"></i></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                 <!--  <button type="button" class="btn btn-warning" ng-click="cancelAppSettings($hide)">Cancel</button> -->
+                  <button type="button" class="btn btn-primary" ng-click="saveAppSettings($hide)">Save</button>
+              </div>
+       
+          </div>  
+          <div class="form-group bg-light m-sm p-sm" ng-show="selectedTab=='selectMenutype'">
+
+              <div class="row p-sm">
+                <div class="col-sm-4 ">
+                  <div class="radio radio-success">
+                    Menu type
+                    <span class="pull-right">:</span>
+                  </div>
+                </div>
+                <div class="col-sm-4 ">
+                               <div class="radio radio-success">
+                                <label>
+                                  <input ng-change="setMenuType(menuType)" type="radio" name="Menutype" ng-model="menuType" value="modern" checked=""><span class="circle"></span><span ></span>
+                                  modern
+                                </label>
+                              </div>
+                </div>
+                <div class="col-sm-4">
+                             
+                              <div class="radio radio-success">
+                                <label>
+                                  <input type="radio" ng-change="setMenuType(menuType)" name="Menutype" ng-model="menuType" value="classic"><span class="circle"></span><span ></span>
+                                  classic
+                                </label>
+                              </div>
+                              
+                </div>
+
+              </div>
+              
+          </div>
+  
+</div>  

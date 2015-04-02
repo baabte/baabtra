@@ -30,7 +30,17 @@ $scope.createGroupModal = function(){
   $modal({scope: $scope, template: 'views/ui/angular-strap/createGroup.html', show: true});
 };
 
+$scope.createGroup = function(groupName)
+    {
+        $scope.tree1.push({"MenuName":groupName,
+                       "menuIcon":$scope.menuIcon,
+                       "childMenuStructure":[]});
+    };
 
+  $scope.setIcon = function(icon)
+  {
+    $scope.menuIcon=icon;
+  };
 
 if(angular.equals($scope.roleId,1))
 {
