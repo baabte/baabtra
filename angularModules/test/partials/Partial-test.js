@@ -147,9 +147,13 @@ $scope.evalId4="5510f66ad4f9075d40a1105f.14401.test.0"
 
 
 $scope.evalatorId="550aaf7fd4f9075d40a10d4d";
-console.log($scope);
+// console.log($scope);
 //end evaluation loader
 $scope.flipclock={};
 
+
+$scope.branch={};
+
+$scope.course={};
 }]);																																																																								 																			
 

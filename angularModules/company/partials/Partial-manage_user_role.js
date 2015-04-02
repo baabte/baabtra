@@ -43,8 +43,6 @@ $scope.AddCompanyRole=function(){
        if($rootScope.userinfo. ActiveUserData.roleMappingObj.fkRoleId!=1){
           RollData._id=RollData._id.$oid;
        }
-       // RollData._id=RollData._id.$oid;
-       // console.log(RollData._id);
        manageCompanyRoleService.DeleteCompanyRole($scope,RollData._id); // calling service function
     };
   $scope.updateUserRole=function(role,roleData,data) //it wil edit roles from database
@@ -64,15 +62,13 @@ $scope.fnAddNewRollCallBack=function(data){ //callback function for handle Add n
     {
       $scope.Form_Adding_form.$setPristine();
       $scope.roleName="";$scope.RoleDesc="";
-       // service call to fetch roles of company edit by arun 
- var fnRertrivecompanyRoleCallBack= manageCompanyRoleService.RetrieveUserRole($scope);
-fnRertrivecompanyRoleCallBack.then(function  (data) {
-  $scope.roles=angular.fromJson(JSON.parse(data.data));
-});
-$scope.notifications("Success","new role added","success");
-    	}
-  else if (data=="error"||data=="failed") 
-    {$scope.notifications('Warning!',"Failed to Create role","warning");} 
+       //  service call to fetch roles of company edit by arun 
+      var fnRertrivecompanyRoleCallBack= manageCompanyRoleService.RetrieveUserRole($scope.companyId);
+      fnRertrivecompanyRoleCallBack.then(function  (data) {
+        $scope.roles=angular.fromJson(JSON.parse(data.data));
+      });
+      $scope.notifications("Success","new role added","success");
+    }
      $scope.btnRoleAdd='add';          
 };
 

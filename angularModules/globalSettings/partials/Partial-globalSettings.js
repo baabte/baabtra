@@ -1,6 +1,7 @@
-angular.module('baabtra').controller('GlobalsettingsCtrl',['$scope','$stateParams','$rootScope','manageCompanyRoleService','globalSettings','$alert',function($scope,$stateParams,$rootScope,manageCompanyRoleService,globalSettings,$alert){
+angular.module('baabtra').controller('GlobalsettingsCtrl',['$scope','$stateParams','$rootScope','manageCompanyRoleService','globalSettings','$alert','UnigueCodeGenerator',function($scope,$stateParams,$rootScope,manageCompanyRoleService,globalSettings,$alert,UnigueCodeGenerator){
 
-$scope.selectedTab="SetEvaluator";
+// $scope.selectedTab="SetEvaluator";
+$scope.selectedTab="GenerateUniqueCode";
 $scope.entities=[];
 $scope.incrementTypes=[{"Name":"<i class='fa fa-sort-numeric-asc p-xs'></i>Number","value":"Number"},{"Name":"<i class='ti-uppercase p-xs'></i>Alphabetics(In Capital Letter)","value":"Alphabetics(C)"},{"Name":"<i class='ti-smallcap p-xs'></i>Alphabetics(In Small Letter)","value":"Alphabetics(s)"}];
 $scope.$watch(function() {
@@ -123,6 +124,15 @@ $scope.$watch(function() {
 	  }
 	 
 	});
+	
+	// this function should be needed to get unigue codes for different entities 
+
+	// var abc=UnigueCodeGenerator.GetCode("54978cc57525614f6e3e710b","Branches");
+	// abc.then(function(data){
+	// 	if(data.status==200&&data.statusText=="OK"){
+	// 		console.log(data.data);
+	// 	}
+	// });
 
 }, true);
 
@@ -198,6 +208,7 @@ $scope.Range = function(start, end) {
     return result;
 };
 
+//This function is used to determine code increment
 $scope.getIncrementalCode=function(n, type) {
 	if(!n){
 		n=1;
@@ -236,6 +247,8 @@ return n;
        return newArr.join('');
 
 };
+
+
 $scope.GenerateCode=function(){
 		var codePattern={};
 		codePattern.companyId=companyId;

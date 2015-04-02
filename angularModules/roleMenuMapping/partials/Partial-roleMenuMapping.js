@@ -253,6 +253,38 @@ else if(angular.equals($scope.roleId,2))
               $menuItem.actions.splice(currIndex,1);
             }
           };
-      
-    
+
+          var selectedMenuGroup = "";
+          $scope.addMenuToGroup = function(groupName, index){
+            $scope.selectedMenuGroup = groupName;
+            selectedMenuGroup = $scope.tree1[index].childMenuStructure;
+          };
+          
+          $scope.insertMenuToGroup = function(menu, index){
+            selectedMenuGroup.push(menu);
+            $scope.tree1.splice(index,1);
+          };
+
+          $scope.removeFromMenuGroup = function(menuGroup, index){
+            $scope.tree1.push(menuGroup.childMenuStructure[index]);
+            menuGroup.childMenuStructure.splice(index,1);
+          };
+
+          $scope.removeMenu = function(index){
+            $scope.tree2.push($scope.tree1[index]);
+            $scope.tree1.splice(index,1);
+          };
+
+          $scope.addMenu = function(index){
+            $scope.tree1.push($scope.tree2[index]);
+            $scope.tree2.splice(index,1);
+          };
+
+          $scope.removeMenuGroup = function(index){
+            var menus = angular.copy($scope.tree1[index].childMenuStructure);
+            $scope.tree1.splice(index,1);
+            //$scope.tree1.push(menus);
+            $scope.tree1 = $scope.tree1.concat(menus);
+            console.log(menus);
+          };
 }]);
