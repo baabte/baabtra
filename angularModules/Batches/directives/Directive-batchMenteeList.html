@@ -13,9 +13,15 @@
 					</div>
 				  <!-- <a href="" class="w-thumb-md pull-left m-r"><img src="images/user.ico" class="img-responsive"></a> -->
 					  <div class="clear m-b-sm col-xs-9">
-					   <!--  <span class="pull-right text-muted text-xs">
-					      12:30 PM -->
-					      <label class="ui-checks m-l-sm m-t pull-right" ><input type="checkbox" checklist-model="userObj.users" checklist-value="user.fkUserRoleMappingId.$oid" ng-click="click()"><i></i></label>
+
+
+					    <div class="b-1x b-light pull-right col-xs-3 text-1x m-t-sm checkbox">
+                    		<label>
+						        <input type="checkbox" checklist-model="userObj.users" checklist-value="user.fkUserRoleMappingId.$oid" ng-click="click()">
+						    </label>
+						</div>
+
+
 					    <!-- </span> -->
 					    <div>{{user.profile.profile.firstName}} {{user.profile.profile.lastName}}</div>
 					    <small class="text-muted">{{user.userName.userName}}</small> 
