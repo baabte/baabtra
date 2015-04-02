@@ -6,11 +6,16 @@ $rootScope.errTooltip = "Please choose an image to be shown for the course";
 // End. Global variables for validating fileupload control
 
 
+
 $rootScope.$watch('userinfo',function(){
   if($rootScope.userinfo){
     
     $scope.rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.userinfo = $rootScope.userinfo;
+    if(angular.equals($rootScope.userinfo.ActiveUserData.modernView,undefined)){
+      $rootScope.userinfo.ActiveUserData.modernView = "modern";
+    }
+    
     if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.avatar,undefined)){
       $rootScope.userinfo.ActiveUserData.roleMappingObj.avatar = '';
     }
@@ -40,6 +45,7 @@ else{
     commonService.GetUserCredentials($scope);
     if($rootScope.userinfo){$scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     home.FnLoadMenus($scope);
+    
   }
   
 }

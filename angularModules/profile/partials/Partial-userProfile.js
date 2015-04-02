@@ -11,7 +11,7 @@ $scope.emailicon=false;
 $scope.toggle=true;
 $scope.pwdicon=false;
 $scope.lange=false;
-$scope.availlangualges=[{"language":"English(en)","langCode":"en"},{"language":"Arabic(ar)","langCode":"ar"}];
+$scope.availlangualges=[{"language":"English","langCode":"en"},{"language":"Arabic","langCode":"ar"}];
 $scope.languageActiveOrNot=true;
 userLoginId="";
 if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
