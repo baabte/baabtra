@@ -13,7 +13,7 @@ $rootScope.$watch('userinfo',function(){
     $scope.rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.userinfo = $rootScope.userinfo;
     if(angular.equals($rootScope.userinfo.ActiveUserData.modernView,undefined)){
-      $rootScope.userinfo.ActiveUserData.modernView = true;
+      $rootScope.userinfo.ActiveUserData.modernView = "modern";
     }
     
     if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.avatar,undefined)){
