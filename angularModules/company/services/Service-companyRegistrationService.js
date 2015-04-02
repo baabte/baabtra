@@ -91,14 +91,14 @@ this.fnUserNameValid=function(userValObj){
       var result;
       console.log(companyRegData);
       var companyLogo=companyRegData.companyLogo;
-      var extArr=companyLogo.name.split('.');
-      var ext=extArr[extArr.length-1].toUpperCase();
-      // console.log(companyRegData);
-      if(ext!=='JPG'&&ext!=='JPEG'&&ext!=='PNG'&&ext!=='TIF'&&ext!=='GIF'){
-        result='fileErr';
-        // $scope.fnGetCompanyRegisterDetailsCallBack(result);
-        return 0;
-      }
+      // var extArr=companyLogo.name.split('.');
+      // var ext=extArr[extArr.length-1].toUpperCase();
+      // // console.log(companyRegData);
+      // if(ext!=='JPG'&&ext!=='JPEG'&&ext!=='PNG'&&ext!=='TIF'&&ext!=='GIF'){
+      //   result='fileErr';
+      //   // $scope.fnGetCompanyRegisterDetailsCallBack(result);
+      //   return 0;
+      // }
        var promise= $upload.upload({
            url: bbConfig.BWS+'CompanyRegistration/',
            file: companyLogo,

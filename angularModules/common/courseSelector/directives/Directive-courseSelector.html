@@ -1,0 +1,12 @@
+<div>
+<course-loader ng-model="ngModel.course"> </course-loader> 
+
+<input type="text" class="form-control" float-label ng-model="ngModel.doj" data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true" data-max-date="today" name="doj" bs-datepicker="" autocomplete="off" placeholder="Date of Joining">
+
+
+<batch-loader ng-if="ngModel.course&&ngModel.doj" courseobj="ngModel" ng-model="ngModel.batch"></batch-loader>
+{{ngModel}}
+<!-- <div ng-if="ngModel.course&&ngModel.doj">test </div> -->
+
+
+</div>

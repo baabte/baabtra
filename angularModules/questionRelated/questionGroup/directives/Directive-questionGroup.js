@@ -13,7 +13,7 @@ angular.module('baabtra').directive('questionGroup',['$modal', function($modal) 
 			scope.questionGroupModel=[];//array to keep the 
 			scope.courseElement={index:1,tlPointInMinute:1000,Name:'Test'};
 			//dummy object created to view the question here
-			scope.questionShow=false;
+			// scope.questionShow=false;
 			scope.questionModel={mark:{}};
 			scope.duration={unit:"minute(s)"};
 			scope.units=['minute(s)','hour(s)'];
