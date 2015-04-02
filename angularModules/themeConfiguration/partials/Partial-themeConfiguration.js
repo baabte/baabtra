@@ -1,57 +1,15 @@
+angular.module('baabtra').controller('ThemeconfigurationCtrl',['$scope','$rootScope','bbConfig','$modal','commonSrv','themeConfigurationSrv',function($scope,$rootScope,bbConfig,$modal,commonSrv,themeConfigurationSrv){
+
+$scope.header ={} ;
+$scope.header.type = "Header";
+$scope.roleId = bbConfig.CURID;
+var appSettings = "";
+var companyId = "";
+var rmId = "";
+$scope.selectedTab="selectMenutype";
 
 
-(function() {
-
-  'use strict';
-
-/**
- * @ngdoc function
- * @name app.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the app
- */
-angular.module('baabtra')  
-  .controller('MainCtrl', ['$scope', '$translate', '$localStorage', '$window', '$rootScope', '$modal', 'commonSrv', 'bbConfig', '$state' ,'userProfile',
-    function ($scope,   $translate,   $localStorage,   $window, $rootScope , $modal , commonSrv , bbConfig, $state,userProfile) {
-      $scope.availlangualges=[{"language":"English","langCode":"en"},{"language":"Arabic","langCode":"ar"}];
-      // add 'ie' classes to html
-      var isIE = !!navigator.userAgent.match(/MSIE/i) || !!navigator.userAgent.match(/Trident.*rv:11\./);
-      // isIE && angular.element($window.document.body).addClass('ie');
-      // isSmartDevice( $window ) && angular.element($window.document.body).addClass('smart');
-      if(isIE) {
-        angular.element($window.document.body).addClass('ie');
-      }
-
-      if (isSmartDevice( $window )) {
-       angular.element($window.document.body).addClass('smart');
-      }
-
-      // config
-      $scope.app = {
-        name: 'baabtra.com',
-        version: '1.0.0',
-        // for chart colors
-        color: {
-          primary: '#155abb',
-          info:    '#2772ee',
-          success: '#4bb622',
-          warning: '#f88311',
-          danger:  '#e11144',
-          inverse: '#a66bee',
-          light:   '#f1f2f3',
-          dark:    '#202a3a'
-        },
-        settings: {
-          headerColor: 'bg-light',
-          headerFixed: true,
-          headerShadow: true,
-          asideColor: 'bg-dark lt',
-          asideTop: true
-        }
-      };
-
-      $scope.options = {
+ $scope.options = {
         headerColor:[
           "btn-material-red","btn-material-red-400","btn-material-red-500","btn-material-red-600","btn-material-red-700","btn-material-red-800","btn-material-red-900","btn-material-red-A100","btn-material-red-A200","btn-material-red-A400","btn-material-red-A700",
           "btn-material-pink","btn-material-pink-400","btn-material-pink-500","btn-material-pink-600","btn-material-pink-700","btn-material-pink-800","btn-material-pink-900","btn-material-pink-A100","btn-material-pink-A200","btn-material-pink-A400","btn-material-pink-A700",
@@ -86,31 +44,37 @@ angular.module('baabtra')
           'bg-light dk'
         ]
       };
+      
+unbindthis=$scope.$watch(function(){
+				return $rootScope.userinfo;
+			},function(){
+				$rootScope.userinfo=$rootScope.userinfo;
+				companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+		        rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+		        //if not setting appsettings, create a null object for appSettings
+		        if(angular.equals($rootScope.userinfo.ActiveUserData.appSettings,null)){
+		          $rootScope.userinfo.ActiveUserData.appSettings = {};
+		        }
 
-      $scope.header ={} ;
-      $scope.header.type = "Header";
-      $scope.roleId = bbConfig.CURID;
-      var appSettings = "";
-      var companyId = "";
-      var rmId = "";
-      // $scope.roleid=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
-      // console.log($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId);
-      $scope.appSettings = function(){
-        companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-        rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
-        //if not setting appsettings, create a null object for appSettings
-        if(angular.equals($rootScope.userinfo.ActiveUserData.appSettings,null)){
-          $rootScope.userinfo.ActiveUserData.appSettings = {};
-        }
+		        //take copy of of appsettings for get old state of app settings
+		        appSettings = angular.copy($rootScope.userinfo.ActiveUserData.appSettings);
+		        
+		        // $modal({scope: $scope, placement:"center" ,backdrop:'static' , template: 'angularModules/common/popup/popup-appSettings.html', show: true});
 
-        //take copy of of appsettings for get old state of app settings
+		        console.log($rootScope.userinfo);
+		        if(angular.equals($rootScope.userinfo.ActiveUserData.modernView,undefined)){
+		        	$scope.menuType="modern";
+		        }
+		        else{
+		        	$scope.menuType=$rootScope.userinfo.ActiveUserData.modernView;
+		        }
+				if(!angular.equals($rootScope.userinfo,undefined)){
+					  unbindthis();
+				}
+			});
 
-        appSettings = angular.copy($rootScope.userinfo.ActiveUserData.appSettings);
-        
-        $modal({scope: $scope, placement:"center" ,backdrop:'static' , template: 'angularModules/common/popup/popup-appSettings.html', show: true});
-      };
 
-      $scope.setHeaderColor = function(color){
+	$scope.setHeaderColor = function(color){
         if(angular.equals($scope.header.type,"Header")){
           $rootScope.userinfo.ActiveUserData.appSettings.headerColor = color;
         }
@@ -143,7 +107,7 @@ angular.module('baabtra')
         });
       };
 
-      $scope.logoChanged = function($file){
+   $scope.logoChanged = function($file){
         if(!angular.equals($rootScope.userinfo.ActiveUserData.appSettings.logo,"")){
           var oldLogo = $rootScope.userinfo.ActiveUserData.appSettings.logo;
           var fileRemoveResponse = commonSrv.fnRemoveFileFromServer(oldLogo);
@@ -185,97 +149,19 @@ angular.module('baabtra')
         appSettings.logo = "";
       };
 
-      var unbindThis = $rootScope.$watch(function(){ return $rootScope.userinfo; }, function(){
-
-      if(!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage, undefined)){
-          var preLang = $rootScope.userinfo.ActiveUserData.Preferedlanguage.langCode;
-      }
-      else{
-
-          var preLang = 'en';
-      }
-      
-      $scope.selectedlanguage={};
-      for(var i=0;i<$scope.availlangualges.length;i++){
-          if($scope.availlangualges[i].langCode==preLang){
-             $scope.selectedlanguage=$scope.availlangualges[i];
-             $scope.userloginId=$rootScope.userinfo.userLoginId;
-             break;
-          }
-      }
-
-     
-      
-    });
-
-      $scope.changeLanguage=function(language){
-        var data={};
-        data.userloginId=$scope.userloginId;
-        data.selectedlanguage=language;
-        var changelang=userProfile.changelanguage(data);
-        changelang.then(function(response){
-            var returndata = angular.fromJson(JSON.parse(response.data));
-            if(angular.equals(returndata,"success")){
-              location.reload();
-            }
-        });
-      }
-
-//       $scope.$watch('selectedlanguage', function() {
-//      console.log($scope.selectedlanguage);
-// });
-
-      // it will redirect to GlobalSettings
-      $scope.redirectToGlobalSettings=function(){
-            $state.go('home.main.globalSettings');
+      $scope.setMenuType=function(data){
+      	var datas ={};
+      	datas.companyId=companyId;
+      	datas.modernView=data;
+      	datas.userLoginId=$rootScope.userinfo.userLoginId;
+      		var setmenutype=themeConfigurationSrv.setMenuType(datas);
+      		setmenutype.then(function(data){
+      			var returndata = angular.fromJson(JSON.parse(data.data));
+      			if(angular.equals(returndata,"success")){
+      				location.reload();
+      			}
+      			
+      		});
       };
 
-      $scope.redirectTobaabtraProfile=function(){
-            $state.go('home.main.baabtraProfile',{userLoginId:"54d84b55ef14f722f4890797"});
-      };
-      // it will redirect to theme settings
-      $scope.redirectTothemeConfiguration=function(){
-        $state.go('home.main.themeConfiguration');
-
-      };
-
-      //when click cancel button exicute this function and revert to previous theme
-      $scope.cancelAppSettings = function($hide){
-        $rootScope.userinfo.ActiveUserData.appSettings = angular.copy(appSettings);
-        $hide();
-      };
-
-      $scope.setAsideColor = function(color){
-        $scope.app.settings.asideColor = color;
-      };
-
-      // save settings to local storage
-      if ( angular.isDefined($localStorage.appSettings) ) {
-        $scope.app.settings = $localStorage.appSettings;
-      } else {
-        //$localStorage.appSettings = $scope.app.settings; commented by lijin for disabling automatic colour settings
-      }
-      $scope.$watch('app.settings', function(){ 
-        //$localStorage.appSettings = $scope.app.settings; commented by lijin for disabling automatic colour settings
-         }, true);
-
-      // angular translate
-      $scope.langs = {en:'English', zh_CN:'中文'};
-      $scope.selectLang = $scope.langs[$translate.proposedLanguage()] || "English";
-      $scope.setLang = function(langKey) {
-        // set the current lang
-        $scope.selectLang = $scope.langs[langKey];
-        // You can change the language during runtime
-        $translate.use(langKey);
-      };
-
-      function isSmartDevice( $window ) {
-        // Adapted from http://www.detectmobilebrowsers.com
-        var ua = $window['navigator']['userAgent'] || $window['navigator']['vendor'] || $window['opera'];
-        // Checks for iOs, Android, Blackberry, Opera Mini, and Windows mobile devices
-        return (/iPhone|iPod|iPad|Silk|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);
-      }
-    }
-  ]);
-
-}());
+}]);

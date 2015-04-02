@@ -486,6 +486,16 @@
                 }
                 
               })
+               .state('home.main.themeConfiguration', {
+                url: '/themeConfiguration',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/themeConfiguration/partials/Partial-themeConfiguration.html',
+                    controller: 'ThemeconfigurationCtrl'
+                  }
+                }
+                
+              })
               .state('home.main.test', {
                 url: '/test',
                 views:{

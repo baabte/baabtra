@@ -1,4 +1,4 @@
-      <!-- navbar header ng-class="{'box-shadow-inset dk':app.settings.headerShadow}"  -->
+        <!-- navbar header ng-class="{'box-shadow-inset dk':app.settings.headerShadow}"  -->
       <div class="navbar-header p-v-xs" ng-class="{'box-shadow-inset dk':app.settings.headerShadow}">
 
         <button class="pull-right visible-xs" bs-aside="aside" data-template="angularModules/login/partials/Partial-sm_User_Menu.html" data-placement="right" data-animation="am-slide-right aside-open-inner modal-open" data-container="body">
@@ -51,7 +51,14 @@
 
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right m-r-n ">
-          <li>
+          <li >
+             <button style="padding-right:3px;padding-left:3px;margin-top:18px" type="button"  class="btn btn-default" ng-model="selectedlanguage"  ng-options="obj as obj.language for obj in availlangualges" ng-change="changeLanguage(selectedlanguage)" bs-select>
+             
+             </button>
+          </li>
+          
+
+          <li >
             <a href=""  data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
               <i class="fa fa-bell text-lg m-v-xs" bs-tooltip data-title="Notifications" data-placement="left"></i>
               <b class="badge bg-danger up" ng-if="$root.data.userNotification.notification.length > 0">{{$root.data.userNotification.notification.length}}</b>
@@ -73,11 +80,22 @@
                 <div class="line b-b b-light m-h-xs"></div>                
               </div>
             </script>
-            <a ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" class="no-padding-h" href ng-click="appSettings()" bs-tooltip data-title="Customize theme"  data-placement="bottom-left">
+            <a ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" class="no-padding-h" href ng-click="redirectTothemeConfiguration()" bs-tooltip data-title="Customize theme"  data-placement="bottom-left">
               <i class="mdi-image-color-lens text-2x"></i>
               <span class="visible-xs-inline" translate="{{'Settings'|translate}}"></span>
             </a>
           </li>
+
+          <!-- temporary menu for test -->
+        <!--    <li>
+                
+                <a ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" class="no-padding-h" href ng-click="redirectTothemeConfiguration()" bs-tooltip data-title="Customize theme"  data-placement="bottom-left">
+                  <i class="mdi-image-brush text-2x"></i>
+                  <span class="visible-xs-inline" translate="{{'Settings'|translate}}"></span>
+                </a>
+          </li> -->
+
+          <!-- end temporary menu for test -->
          <!--  <li>
           
 <!--           <li>
