@@ -123,31 +123,29 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
             };
 
           this.FnGetAllMenus=function ($scope,type)//To Load All menus of loded user
-
-      {  
-        $http({
-          method: 'post',
-          url: bbConfig.BWS+'GetAllMenus/',
-          data: {'rm_id':$scope.rm_id,'type':type},
-          contentType   : 'application/json; charset=UTF-8',
-        }).
-        success(function(data, status, headers, config) {
-          $scope.allMenus=angular.fromJson(JSON.parse(data));//Converting the result to json object
+          {  
+            $http({
+              method: 'post',
+              url: bbConfig.BWS+'GetAllMenus/',
+              data: {'rm_id':$scope.rm_id,'type':type},
+              contentType   : 'application/json; charset=UTF-8',
+            }).
+            success(function(data, status, headers, config) {
+            $scope.allMenus=angular.fromJson(JSON.parse(data));//Converting the result to json object
                     if ($scope.allMenus.length>0){//Checking the result
             if (type=="all") {
-                        for (var i = 0; i < $scope.allMenus.length; i++) {
-            $scope.allMenus[i].fkMenuId=$scope.allMenus[i]._id.$oid;
-            $scope.allMenus[i].actionMaster=$scope.allMenus[i].actions;
-            delete $scope.allMenus[i]._id;
-            $scope.allMenus[i].childMenuStructure=[];
+              for (var i = 0; i < $scope.allMenus.length; i++) {
+                $scope.allMenus[i].fkMenuId=$scope.allMenus[i]._id.$oid;
+                $scope.allMenus[i].actionMaster=$scope.allMenus[i].actions;
+                delete $scope.allMenus[i]._id;
+                $scope.allMenus[i].childMenuStructure=[];
               }
               $scope.tree2=$scope.allMenus;
             }
             else{
-            $scope.tree2=$scope.allMenus[0].menuStructure[0].regionMenuStructure;//Setting the menus to menulist
-            changeObjIdOfMenu($scope.tree2,null);
-            
-          }
+              $scope.tree2=$scope.allMenus[0].menuStructure[0].regionMenuStructure;//Setting the menus to menulist
+              changeObjIdOfMenu($scope.tree2,null);
+            }
           
           var removeDuplicateMenus=function(menu,sub,Child){
               if(sub==null){
