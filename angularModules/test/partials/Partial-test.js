@@ -150,6 +150,6 @@ $scope.evalatorId="550aaf7fd4f9075d40a10d4d";
 console.log($scope);
 //end evaluation loader
 $scope.flipclock={};
-
+$scope.obj={};
 }]);																																																																								 																			
 

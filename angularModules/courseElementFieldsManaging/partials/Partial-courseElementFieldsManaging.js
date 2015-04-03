@@ -48,7 +48,7 @@ $scope.palette = [{"id": "1","name": "Text input fields"},
   		$scope.element.crmId = $scope.rm_id;
   		$scope.element.createdDate = Date();
   	}
-
+    console.log($scope.element);
   	var saveCourseElement = courseElementFieldsManaging.fnSaveCourseElementFields($scope.element);//calling service fn for save course element
   	
   	saveCourseElement.then(function(response){
