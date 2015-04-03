@@ -1,12 +1,17 @@
-angular.module('baabtra').controller('ThemeconfigurationCtrl',['$scope','$rootScope','bbConfig','$modal','commonSrv','themeConfigurationSrv',function($scope,$rootScope,bbConfig,$modal,commonSrv,themeConfigurationSrv){
+angular.module('baabtra').controller('ThemeconfigurationCtrl',['$scope','$rootScope','bbConfig','$modal','commonSrv','themeConfigurationSrv','$alert',function($scope,$rootScope,bbConfig,$modal,commonSrv,themeConfigurationSrv,$alert){
 
+
+$scope.selectedTab="Customizetheme";
+// $scope.selectedTab="selectMenutype";
 $scope.header ={} ;
 $scope.header.type = "Header";
+$scope.menutype="menuPrimaryColor";
 $scope.roleId = bbConfig.CURID;
 var appSettings = "";
 var companyId = "";
 var rmId = "";
-$scope.selectedTab="selectMenutype";
+$scope.activeBtn=false;
+$scope.MenuColorproperties={};
 
 
  $scope.options = {
@@ -59,15 +64,25 @@ unbindthis=$scope.$watch(function(){
 		        //take copy of of appsettings for get old state of app settings
 		        appSettings = angular.copy($rootScope.userinfo.ActiveUserData.appSettings);
 		        
-		        // $modal({scope: $scope, placement:"center" ,backdrop:'static' , template: 'angularModules/common/popup/popup-appSettings.html', show: true});
-
-		        console.log($rootScope.userinfo);
 		        if(angular.equals($rootScope.userinfo.ActiveUserData.modernView,undefined)){
 		        	$scope.menuType="modern";
 		        }
 		        else{
 		        	$scope.menuType=$rootScope.userinfo.ActiveUserData.modernView;
 		        }
+
+            // determine what king color settings were used
+
+             if(angular.equals($rootScope.userinfo.ActiveUserData.menuColor,undefined)||angular.equals($rootScope.userinfo.ActiveUserData.menuColor,"random")){
+                $scope.menuColor="random";
+            }
+            else{
+                $scope.menuColor="custom";
+                $scope.CustomizeMenuColor=true;
+              // $rootScope.userinfo.ActiveUserData.menuColor;
+            }
+
+
 				if(!angular.equals($rootScope.userinfo,undefined)){
 					  unbindthis();
 				}
@@ -75,17 +90,32 @@ unbindthis=$scope.$watch(function(){
 
 
 	$scope.setHeaderColor = function(color){
+    
         if(angular.equals($scope.header.type,"Header")){
           $rootScope.userinfo.ActiveUserData.appSettings.headerColor = color;
         }
         else if(angular.equals($scope.header.type,"breadCrumb")){
           $rootScope.userinfo.ActiveUserData.appSettings.asideColor = color;
         }
-        else{
+        else{          
           $rootScope.userinfo.ActiveUserData.appSettings.backgroundColor = color;
         }
-      };
+       
+  };
 
+ $scope.setMenuColor=function(color){
+
+     if(angular.equals($scope.menutype,"menuPrimaryColor")){
+            $scope.MenuColorproperties.menuPrimaryColor=color;
+            $scope.activeBtn=true;
+        }
+      else{
+            $scope.MenuColorproperties.menuSecondaryColor=color;
+            $scope.activeBtn=true;
+    }
+
+
+ };
 
 
 
@@ -129,7 +159,30 @@ unbindthis=$scope.$watch(function(){
           var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
           commonSrv.fnSaveAppSettings(companyId, $rootScope.userinfo.ActiveUserData.appSettings, rmId);
         }
-        $hide();
+        // $hide();
+
+      };
+
+      $scope.saveMenuColor=function(data){
+        var dataToSend={};
+        dataToSend.companyId=companyId;
+        dataToSend.userLoginId=$rootScope.userinfo.userLoginId;
+        if(angular.equals(data,"random")){
+          dataToSend.menuColor="random";
+        }
+        else{
+          dataToSend.menuColor=$scope.MenuColorproperties;
+        }
+        var saveMenuColor=themeConfigurationSrv.saveMenuColor(dataToSend);
+          saveMenuColor.then(function(data){
+            var returndata = angular.fromJson(JSON.parse(data.data));
+            if(angular.equals(returndata,"success")){
+              $scope.activeBtn=false;
+              $scope.MenuColorproperties={}
+              $scope.notifications("Success","","success");
+            }
+
+          });
 
       };
 
@@ -163,5 +216,12 @@ unbindthis=$scope.$watch(function(){
       			
       		});
       };
+
+     //notification 
+$scope.notifications=function(title,message,type){
+     // Notify(message, 'top-right', '2000', type, symbol, true); \
+     $alert({title: title, content: message , placement: 'top-right',duration:3, type: type});// calling notification message function
+    };
+
 
 }]);
