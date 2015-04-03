@@ -8,6 +8,9 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
 		},
 		templateUrl: 'angularModules/Batches/directives/Directive-batchLoader.html',
 		link: function(scope, element, attrs, fn) {	
+      console.log(scope.ngModel);
+      console.log(scope.courseobj);
+
    // scope.$watch('courseobj', function(){//adding watch to couse id 
    //    $scope.courseId=scope.courseobj.course._id
    //      if(!angular.equals(scope.courseobj.doj,undefined)){
