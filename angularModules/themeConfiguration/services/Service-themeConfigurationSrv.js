@@ -20,4 +20,24 @@ var setMenuType=$http({
 	return setMenuType;
 };
 
+
+this.saveMenuColor=function(data){
+var saveMenuColor=$http({
+		url: bbConfig.BWS+'saveMenuColor/',
+		method: "POST",
+		data:angular.toJson({'data':data}),
+		withCredentials: false,
+		contentType:"application/json",
+		dataType:"json",
+	}).
+	success(function(data, status, headers, config) {
+		return data;
+		
+	}).
+	error(function(data, status, headers, config) {
+
+	});
+	return saveMenuColor;
+};
+
 }]);
