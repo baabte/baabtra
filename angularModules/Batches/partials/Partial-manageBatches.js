@@ -244,8 +244,8 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
   }
 $scope.resetBatch =function(){
   delete $scope.batchInfo[0];
-  $scope.Batch.course={};
-  $scope.Batch={};
+  $scope.Batch={};  
+  $scope.Batch.course=[];
   $scope.summary=null; 
    $scope.buttonType="Add Batch";
    $scope.excluded='';
