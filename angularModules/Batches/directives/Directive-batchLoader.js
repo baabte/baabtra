@@ -1,13 +1,13 @@
 angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$filter','$state' ,function (addBatches,$rootScope,$filter ,$state) {
-	return {
-		restrict: 'E',
+  return {
+    restrict: 'E',
     require: 'ngModel',
-		scope:{
-			ngModel:"=",
-			courseobj:"="
-		},
-		templateUrl: 'angularModules/Batches/directives/Directive-batchLoader.html',
-		link: function(scope, element, attrs, fn) {	
+    scope:{
+      ngModel:"=",
+      courseobj:"="
+    },
+    templateUrl: 'angularModules/Batches/directives/Directive-batchLoader.html',
+    link: function(scope, element, attrs, fn) { 
       
       scope.test={};
       
@@ -18,11 +18,11 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
    //      }
    //   }, true); 
   
-			var companyId = "";    
-			if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
-			  companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-        		
-			}
+      var companyId = "";    
+      if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
+        companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+            
+      }
        var courseId;
        var courseType;
        var join=new Date();
@@ -48,7 +48,7 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
 //         }, true);
 
 
-	scope.$watch('courseobj.course', function(){//adding watch to couse id
+  scope.$watch('courseobj.course', function(){//adding watch to couse id
      scope.fetchBatch();
         
    }); 
@@ -99,9 +99,11 @@ scope.fetchBatch =function(){
                 delete batch.seat;
                 delete batch.end;
               if(batch.batchMode=="onetime"){
-               batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Duration:'+batch.duration+'days</div>';
+               // batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Duration:'+batch.duration+'days</div>';
+               batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'</div>';
                }else{
-                batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Repeats After:'+batch.repeats.every +" "+ batch.repeats.repeatType +'</div>';
+                // batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Repeats After:'+batch.repeats.every +" "+ batch.repeats.repeatType +'</div>';
+                batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'</div>';
                 }
                });
 
@@ -117,10 +119,10 @@ scope.fetchBatch =function(){
 
            
 
-         	 
+           
        
     
- 	   // }, true);   
-	  }	
-	};
+     // }, true);   
+    } 
+  };
 }]);
