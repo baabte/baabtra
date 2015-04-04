@@ -1,12 +1,15 @@
 angular.module('baabtra').service('manageCompanyRoleService',['$http','bbConfig','$rootScope',function manageCompanyRoleService($http,bbConfig,$rootScope) {
 
+
 this.addUserRole=function ($scope){ // functon that call web service to add a comapny role
+     
       if($rootScope.userinfo. ActiveUserData.roleMappingObj.fkRoleId==1){
         var roles={"role":1,"roleName":$scope.roleName,"_id":$scope.roleId,"roleDescription":$scope.RoleDesc,"crmId":$scope.crmId.$oid,"urmId":$scope.urmId.$oid};
       }
       else{
           var roles={"role":2,"roleName":$scope.roleName,"roleDescription":$scope.RoleDesc,"companyId":$scope.companyId,"crmId":$scope.crmId.$oid,"urmId":$scope.urmId.$oid};
       }
+
     $http({
 	 		url: bbConfig.BWS+'ManageCompanyRole/',
 	 		data: JSON.stringify({"roles":roles}),

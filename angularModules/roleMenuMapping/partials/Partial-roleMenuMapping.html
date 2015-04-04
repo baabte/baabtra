@@ -95,88 +95,99 @@
                       </div>
     						</div>
 						</div>
-                                        <script type="text/ng-template" id="Render_ExMenus.html">
-                                <div style="font-weight:400!important" ui-tree-handle class="tree-node dd-item dd2-item" id="{{node.fkMenuId.$oid}}"> 
-                                    <div class="dd2-content list-group-item b-l-info bg-light" style="border: 1px #cccccc solid;" ng-class="{'lt':node.MenuLink.trim().length}">
-                                        <a data-nodrag ng-click="toggle(this)">
-                                            <span ng-if="!node.MenuLink.trim().length" class="glyphicon" ng-class="{'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed}"></span>
-                                        </a> {{node.MenuName}}
-                                        <div title="Remove" class="pull-right glyphicon glyphicon-chevron-right blueberry" data-nodrag="" ng-click="removeFromTree1(this);remove(this)"></div>
-
-                                        <!--<a title="Remove" class="pull-right glyphicon glyphicon-chevron-right m-r blueberry" data-nodrag="" ng-click="moveRight(this)"></a>-->
-                                    </div>
-                                    <ol ui-tree-nodes="" ng-model="node.childMenuStructure" ng-class="{hidden: collapsed}" class="dd-list">
-                                        <li ng-repeat="node in node.childMenuStructure" class="dd-item dd2-item" data-id="13"  ui-tree-node ng-include="'Render_ExMenus.html'">
-                                        </li>
-                                    </ol>
-                                  <div ng-if="node.actionMaster.length" class="" style="margin-top: -5px;">
-                                <div class="m-l" ng-repeat="action in node.actionMaster">
-                                    <input name="{{action.actionName}}" type="checkbox" ng-init="node.actionStatus[$index]=fnActionExists(action.actionName==undefined?null:action.actionName,node.actions)" ng-model="node.actionStatus[$index]" ng-change="checkAction(node,this,$index)" value=""> {{action.actionName}}
-                                </div>    
-                            </div>
-                                </div>
-                                   
-                            </script>
-                            <script type="text/ng-template" id="Render_AllMenus.html">
-                                <div style="font-weight:400!important" ui-tree-handle class="tree-node dd-item dd2-item" id="{{node.fkMenuId.$oid}}">
-                                <div class="dd2-content list-group-item bg-light lt" style="border-color: #BFC1C3;">
-                                    <!--<a data-nodrag ng-click="toggle(this)">
-                                        <span class="glyphicon text-mg" ng-class="{'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed}"></span>
-                                    </a>-->{{node.MenuName}}
-                                    <div title="Add" class="pull-right glyphicon glyphicon-chevron-left" data-nodrag="" ng-click="removeFromTree2(this);remove(this)"><span></span></div>
-                                </div>
-                                <ol ui-tree-nodes="" ng-model="node.childMenuStructure" ng-class="{hidden: collapsed}">
-                                    <li ng-repeat="node in node.childMenuStructure" ui-tree-node ng-include="'Render_AllMenus.html'"></li>
-                                </ol>
-
-                            </script>
-                            <div class="box bg-white" style="border: #e3e5e7 solid 1px;" ng-show="menudetails">
-        <div class="col-sm-6">
-      <div class="box">
-        <div class="p p-v-sm">
-          <h4 class="no-margin font-bold pull-left">Current Menus</h4>
-          <a class="m-h-xs pull-right" ng-click="createGroupModal()">Create A Menu Group</a>
-        </div>
-        <div class="box-row">
-          <div class="box-cell scrollable hover">
-<div class="col-lg-12 col-sm-12 col-xs-12 box-inner">
-                                            <h4 class="no-margin m-b font-bold"></h4>
-                                            <div  id="tree1-root" ui-tree="tree1NodesOptions" class="dd dd-draghandle bordered" >
-                                                <ol ui-tree-nodes ng-model="tree1" class="dd-list " >
-                                                    <li ng-mouseover="editMenu=true" ng-mouseleave="editMenu=false"  ng-repeat="node in tree1" class="dd-item dd2-item list-group list-group-gap" ui-tree-node ng-include="'Render_ExMenus.html'"></li>
-                                                </ol>
-                                            </div>
-                                            <div class="horizontal-space"></div>
-                                        </div>
-          </div>
-        </div>
-        <div class="p p-v-sm">
-          <button class="btn w-sm btn-info pull-right m-b baab-btn" ng-click="SaveChange()">Save Changes</button>
-        </div>
-      </div>
-    </div>
-        <div class="col-sm-6">
-      <div class="box">
-        <div class="p p-v-sm">
-          <h4 class="no-margin font-bold">Menu List</h4>
-        </div>
-        <div class="box-row">
-          <div class="box-cell scrollable hover">
-           <div class="col-lg-12 col-sm-12 col-xs-12 box-inner">
-                                        <h4 class="no-margin m-b font-bold"></h4>
-                                        <div id="tree2-root" ui-tree="tree2NodesOptions" class="dd dd-draghandle bordered" data-max-depth="1">
-                                            <ol  ui-tree-nodes ng-model="tree2" class="dd-list">
-                                                <li ng-repeat="node in tree2" class="dd-item dd2-item list-group list-group-gap " ui-tree-node ng-include="'Render_AllMenus.html'"></li>
-                                            </ol>
-                                        </div>
-                                    </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+            
   					</div>
         		</div>
       		</div>
     	</div>
+      <div class="col-xs-12 " ng-if="tree1.length">
+        <div class="panel">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-xs-12 col-md-4">
+                <div style="height: 100px;" class="p-sm font-bold baab-shadow btn-material-green-400">Available Menus<br>
+                  <i class="text-white font-normal">(These are the menus which can be assigned)</i></div>
+                <div>
+                  <nav>
+                    <div class="container-fluid">
+                      <div class="scrollable hover m-h-n" style="height: 400px;overflow-x: hidden!important;">
+                        <ul class="nav navbar-nav m-h-n">
+                          <li bs-tooltip data-title="Click to assign this menu" data-placement="top" class="col-xs-12 no-padding" class="dropdown" ng-repeat="menus in tree2"><a ng-mouseover="visibleAddIcon=true" ng-mouseleave="visibleAddIcon=false"  class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}
+                            <i ng-if="visibleAddIcon" class="mdi-content-add pull-right text-lg font-bold" ng-click="addMenu($index)"></i>
+                          </a>
+
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </nav>
+                </div>
+              </div>
+
+              <div class="col-xs-12 col-md-4">
+                <div style="height: 100px;" class="p-sm font-bold baab-shadow btn-material-green-400">Assigned Menus<br>
+                  <i class="text-white font-normal">(Ungrouped assigned menus, however the menu the user will have will be combination of menu groups and assigned menus)</i></div>
+                <div>
+                  <nav>
+                  <div class="container-fluid">
+                    <div class="scrollable hover m-h-n" style="height: 400px;overflow-x: hidden!important;">
+                      <ul class="nav navbar-nav ">
+                        <li class="col-xs-12 no-padding" class="dropdown" ng-repeat="menus in tree1" data-placement="top" ng-if="menus.MenuLink"><a class="pull-right" style="z-index:2;"><i ng-if="selectedMenuGroup" class="fa fa-mail-forward" ng-click="insertMenuToGroup(menus, $index)" bs-tooltip data-title="Add this menu to the selected group" data-placement="left"></i></a><a ng-mouseover="visibleAddIcon=true" ng-mouseleave="visibleAddIcon=false" class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}
+                          <i ng-if="visibleAddIcon" class="mdi-content-remove pull-right text-lg font-bold" bs-tooltip data-title="Remove menu" data-placement="left" ng-click="removeMenu($index)"></i>
+
+                        </a>
+                        
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </nav>
+                </div>
+              </div>
+
+              <div class="col-xs-12 col-md-4">
+                <div style="height: 100px;" class="p-sm font-bold baab-shadow btn-material-green-400">Menu Groups<br>
+                  <i class="text-white font-normal">(Assigned menus can be organized under groups, however the menu the user will have will be combination of menu groups and assigned menus)</i>
+                </div>
+                <div class="col-xs-12">
+                    <a class="m-h-xs pull-right p-xs" ng-click="createGroupModal()">Create A Menu Group</a>
+                  </div>
+                <div>
+                  
+                  <nav>
+                  <div class="container-fluid">
+                    <div class="scrollable hover m-h-n" style="height: 400px;overflow-x: hidden!important;">
+                      <ul class="nav navbar-nav m-h-n">
+                        <li bs-tooltip class="col-xs-12 no-padding" ng-class="{'border-doted shadow-z-3':selectedMenuGroup == menus.MenuName}" class="dropdown" ng-repeat="menus in tree1" ng-if="menus.MenuLink == undefined"><a ng-mouseover="visibleAddIcon=true" ng-mouseleave="visibleAddIcon=false" class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}
+                          <i bs-tooltip data-title="Add menus under this group" data-placement="left"  ng-if="visibleAddIcon" class="mdi-av-playlist-add pull-right text-lg font-bold" ng-click="addMenuToGroup(menus.MenuName, $index)"></i>
+                          <i ng-if="visibleAddIcon" bs-tooltip data-title="Remove group" data-placement="left" class="mdi-content-remove pull-right text-lg font-bold" ng-click="removeMenuGroup($index)"></i>
+                        </a>
+                          <ul class="p-xs" ng-if="selectedMenuGroup == menus.MenuName">
+                            <div class="col-xs-12 btn-material-amber-200 m-r p-xs ">
+                              <div class="col-xs-2 p-v-xs"><i class="mdi-action-info-outline text-2x m-t-xs"></i></div>
+                              <div class="col-xs-10 p-v-xs">click on the arrows in the assigned menus box to add menus to this group
+                              </div>
+                            </div>
+                          </ul>
+                          <ul class="nav navbar-nav col-xs-12 " ng-if="menus.childMenuStructure.length">
+                            <li class="col-xs-12"  ng-repeat="menu in menus.childMenuStructure" ><a  class="pull-right" style="z-index:2;"><i bs-tooltip data-title="Remove this menu from group" data-placement="left" class="fa fa-reply" ng-click="removeFromMenuGroup(menus, $index)"></i></a><a class=""><i class="fa {{menu.menuIcon}} fa-md"></i>&nbsp;{{menu.MenuName}}</a>
+                            </li>
+                        </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </nav>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="panel-footer text-right">
+            <button class="btn btn-material-indigo-400" ng-click="SaveChange()">Save Menu Changes</button>
+          </div>
+        </div>
+      </div>
+
 </div>

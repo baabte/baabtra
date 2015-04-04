@@ -59,7 +59,11 @@
     "checklist-model": "~0.2.4",
     "angular-flipclock": "*",
     "jspdf": "~1.0.272",
+<<<<<<< HEAD
     "angular-custom-form":"~0.1"
+=======
+    "tableExport":"1.0"
+>>>>>>> 4a7f0668afdf914f7e99aff7d62ddc224d23cdc3
   },
   "devDependencies": {
     "angular-mocks": "~1.2"

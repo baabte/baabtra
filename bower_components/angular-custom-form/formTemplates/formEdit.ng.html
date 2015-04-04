@@ -1,0 +1,95 @@
+<div>
+	<div class="col-xs-12">
+
+            
+        <div class="row">
+        	<div class="col-xs-12 p-md bg-light b-b m-b font-bold" translate="{{'Form Configuration'|translate}}"></div>
+            <label for="Form name" class="col-lg-2 control-label" translate="{{'Form name'|translate}}"></label>
+            <div class="col-lg-10"><input type="text" name="optionValue" ng-model="formName" ng-required="true" class="form-control"></div>
+        </div>
+        <!-- </div> -->
+
+	<div class="row">
+		<div class="col-xs-offset-3 col-sm-offset-4 col-md-offset-5 m-t">
+			<div class="pull-left m-t-sm m-r-sm" multi-selectable selection-mode="single" ng-show="fieldList.length" input-model="fieldList" output-model="selectedField" button-label="Name" item-label="Name"  tick-property="ticked" helper-elements="all none reset filter" default-label="Please select a field">
+			</div><button type="submit" class="btn btn-info pull-left" ng-click="addNewField()"><i class="fa fa-plus"></i> <span translate="{{'Add Field'|translate}}"></span></button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+		<p ng-show="fields.length == 0">No fields added yet.</p><pre>{{fields}}</pre>
+        <accordion close-others="accordion.oneAtATime">
+            <accordion-group heading="{{field.field_title}}" ng-repeat="field in fields">
+
+                <div class="accordion-edit">
+                    <button class="btn btn-danger pull-right" type="button" ng-click="deleteField(field.field_id)"><i class="icon-trash icon-white"></i> Delete</button>
+
+<!--                     <div class="row">
+                        <div class="span2">Field ID: </div>
+                        <div class="span4">{{field.field_id}}</div>
+                    </div> -->
+                    <div class="row">
+                        <label class="col-lg-2 control-label" translate="{{'Field type'|translate}}"></label>
+                		<div class="col-lg-10">{{field.Name}}</div>
+                    </div>
+
+                    <div class="clear"></div> <hr>
+
+                    <div class="row">
+                       <label class="col-lg-2 control-label" translate="{{'Field type'|translate}}"></label>
+                		<div class="col-lg-10">{{field.DispalyName}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="span2">Field Default Value:</div>
+                        <div class="span4"><input type="text" ng-model="field.field_value" value="{{field.field_value}}" class="form-control"></div>
+                    </div>
+                    <div class="row" ng-show="showAddOptions(field)">
+                        <div class="span2">Field Options:</div>
+                        <div class="span6">
+                            <div ng-repeat="option in field.field_options">
+                                <input type="text" ng-model="option.option_title" value="{{option.option_title}}" class="form-control">
+                                <a class="btn btn-danger btn-mini right" type="button" ng-click="deleteOption(field, option)"><i class="icon-minus icon-white"></i></a>
+                                <span class="label label-inverse">Value: {{ option.option_value }}</span>
+                            </div>
+                            <button class="btn btn-primary btn-small" type="button" ng-click="addOption(field)"><i class="icon-plus icon-white"></i> Add Option</button>
+                        </div>
+                    </div>
+
+					<div class="clear"></div> <hr>
+
+                    <div class="row">
+                        <div class="span2">Required:</div>
+                        <div class="span4">
+                            <label>
+                                <input type="radio" ng-value="true" ng-selected ng-model="field.validation.required"/>
+                                &nbsp; Yes
+                            </label>
+                            <label>
+                                <input type="radio" ng-value="false" ng-model="field.validation.required"/>
+                                &nbsp; No
+                            </label>
+                        </div>
+                    </div>
+					
+					<div class="clear"></div> <hr>
+
+					<div class="row">
+						<div class="span2">Disabled:</div>
+                        <div class="span4">
+                            <label>
+                                <input type="radio" ng-value="true" ng-selected ng-model="field.disabled"/>
+                                &nbsp; Yes
+                            </label>
+                            <label>
+                                <input type="radio" ng-value="false" ng-model="field.disabled"/>
+                                &nbsp; No
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+	</div>
+</div>
+	</div>
+</div>

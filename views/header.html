@@ -1,4 +1,6 @@
+        <!-- navbar header ng-class="{'box-shadow-inset dk':app.settings.headerShadow}"  -->
       <!-- navbar header ng-class="{'box-shadow-inset dk':app.settings.headerShadow}"  -->
+
       <div class="navbar-header p-v-xs" ng-class="{'box-shadow-inset dk':app.settings.headerShadow}">
 
         <button class="pull-right visible-xs" bs-aside="aside" data-template="angularModules/login/partials/Partial-sm_User_Menu.html" data-placement="right" data-animation="am-slide-right aside-open-inner modal-open" data-container="body">
@@ -24,34 +26,16 @@
       <!-- navbar collapse   ng-hide-->
       <!-- ng-class="{'show animated fadeIn' : app.navbarCollapse} add this to enable dynamic color change -->
       <div class="navbar-collapse hidden-xs" ng-class="{'p-v-xs':roleId != $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId}"  ng-class="{'show animated fadeIn' : app.navbarCollapse}">
-        <!-- nav -->
-<!--         <ul class="nav navbar-nav navbar-left ">
-          <li>
-            <a ui-sref="app.dashboard" translate="header.navbar.DASHBOARD">
-              Dashboard
-            </a>
-          </li>
-          <li>
-            <a ui-sref="mail.inbox" translate="header.navbar.EMAIL">
-              Email
-            </a>
-          </li>
-          <li>
-            <a ui-sref="ui.component.arrow" translate="header.navbar.UIKITS">
-              UI Kits
-            </a>
-          </li>
-          <li>
-            <a ui-sref="page.profile" translate="header.navbar.PAGES">
-              Pages
-            </a>
-          </li>
-        </ul> -->
-        <!-- / nav -->
-
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right m-r-n ">
-          <li>
+          <li >
+             <button style="padding-right:3px;padding-left:3px;margin-top:18px" type="button"  class="btn btn-default" ng-model="selectedlanguage"  ng-options="obj as obj.language for obj in availlangualges" ng-change="changeLanguage(selectedlanguage)" bs-select>
+             
+             </button>
+          </li>
+          
+
+          <li >
             <a href=""  data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
               <i class="fa fa-bell text-lg m-v-xs" bs-tooltip data-title="Notifications" data-placement="left"></i>
               <b class="badge bg-danger up" ng-if="$root.data.userNotification.notification.length > 0">{{$root.data.userNotification.notification.length}}</b>
@@ -73,11 +57,22 @@
                 <div class="line b-b b-light m-h-xs"></div>                
               </div>
             </script>
-            <a ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" class="no-padding-h" href ng-click="appSettings()" bs-tooltip data-title="Customize theme"  data-placement="bottom-left">
+            <a ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" class="no-padding-h" href ng-click="redirectTothemeConfiguration()" bs-tooltip data-title="Customize theme"  data-placement="bottom-left">
               <i class="mdi-image-color-lens text-2x"></i>
               <span class="visible-xs-inline" translate="{{'Settings'|translate}}"></span>
             </a>
           </li>
+
+          <!-- temporary menu for test -->
+        <!--    <li>
+                
+                <a ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" class="no-padding-h" href ng-click="redirectTothemeConfiguration()" bs-tooltip data-title="Customize theme"  data-placement="bottom-left">
+                  <i class="mdi-image-brush text-2x"></i>
+                  <span class="visible-xs-inline" translate="{{'Settings'|translate}}"></span>
+                </a>
+          </li> -->
+
+          <!-- end temporary menu for test -->
          <!--  <li>
           
 <!--           <li>
@@ -95,7 +90,13 @@
           </li> -->
           <!-- button for gloabal settings -->
           <!-- ng-if="bbConfig.CURID==userinfo.ActiveUserData.roleMappingObj.fkRoleId" -->
-         
+         <!--  <li >
+             
+            <a href bs-tooltip data-title="baabtra Profile"  data-placement="left">
+              <i class="mdi-action-assignment-ind text-2x m-t-xs" style="font-size:25px" ng-click="redirectTobaabtraProfile()"></i>
+            </a>
+          </li> -->
+          <li ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId">
             <li ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId">
              
             <a href bs-tooltip data-title="Settings"  data-placement="left">
@@ -118,17 +119,7 @@
           </li>
         </ul>
         <!-- / navbar right -->
-
-        <!-- search form -->
-        <!-- <form class="navbar-form navbar-form-sm navbar-right visible-xs" role="search">
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-sm no-bg btn-icon no-shadow no-padder"><i class="ti-search"></i></button>
-              </span>
-              <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control input-sm no-bg no-border" placeholder="Search...">              
-            </div>
-          </div> -->
-        <!-- / search form -->
+        
       </div>
+        
       <!-- / navbar collapse -->

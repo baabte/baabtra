@@ -1,7 +1,7 @@
 <div>
 <div class=" col-xs-12">
 	<div class="nav nav-tabs p m-v-md">
-  		<div class="text-white b-2x" translate="{{'Question Group'| translate}}"></div>
+  		<div class="text-white b-2x" translate="{{'Test'| translate}}"></div>
 	</div>
 	<form name="questionMarkField" xtform no-validate>
 		<div class="col-xs-12">
@@ -67,6 +67,10 @@
 	  	</div>	
 	       
 	</form>
+	<div class="btn btn-primary" ng-disabled="questionMarkField.$invalid" ng-click="questionShowActivate()">
+		<span translate="{{'Add Question' | translate}}"></span>
+		<div class="ripple-wrapper"></div>
+	</div>
 	<div class="col-xs-12" ng-repeat="question in questionGroupModel track by $index">
 		
 		<div class="col-xs-12" >
@@ -77,11 +81,8 @@
 			<i class="pull-right mdi-av-playlist-add text-2x" data-placement="left" bs-dropdown="dropDown($index)"></i>		
 		</div>
 	</div>
-	<div class="btn btn-primary" ng-disabled="questionMarkField.$invalid" ng-click="questionShowActivate()">
-		<span translate="{{'Add Question' | translate}}"></span>
-		<div class="ripple-wrapper"></div>
-	</div>
-	 <div class="col-xs-12" ng-if="questionShow">
+	
+	 <!-- <div class="col-xs-12" ng-if="questionShow">
 			<form name="questionFrom" xtform no-validate>
         		<question-field ng-if="questionModel" ng-model="questionModel"></question-field>
         	     
@@ -93,10 +94,8 @@
         			<span translate="{{'Add to Test' | translate}}"></span>
         			<div class="ripple-wrapper"></div>
         		</div>
-        	</form>
-
-  	
-    </div>
+        	</form>  	
+    </div> -->
     
   	
    

@@ -12,8 +12,9 @@
  * Controller of the app
  */
 angular.module('baabtra')  
-  .controller('MainCtrl', ['$scope', '$translate', '$localStorage', '$window', '$rootScope', '$modal', 'commonSrv', 'bbConfig', '$state' ,
-    function (              $scope,   $translate,   $localStorage,   $window, $rootScope , $modal , commonSrv , bbConfig, $state) {
+  .controller('MainCtrl', ['$scope', '$translate', '$localStorage', '$window', '$rootScope', '$modal', 'commonSrv', 'bbConfig', '$state' ,'userProfile',
+    function ($scope,   $translate,   $localStorage,   $window, $rootScope , $modal , commonSrv , bbConfig, $state,userProfile) {
+      $scope.availlangualges=[{"language":"English","langCode":"en"},{"language":"Arabic","langCode":"ar"}];
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i) || !!navigator.userAgent.match(/Trident.*rv:11\./);
       // isIE && angular.element($window.document.body).addClass('ie');
@@ -122,6 +123,8 @@ angular.module('baabtra')
       };
 
 
+
+
       $scope.backgroundImageChanged = function($file){
         var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
         var rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
@@ -182,9 +185,58 @@ angular.module('baabtra')
         appSettings.logo = "";
       };
 
-      //when click settings button on top of the header
+      var unbindThis = $rootScope.$watch(function(){ return $rootScope.userinfo; }, function(){
+
+      if(!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage, undefined)){
+          var preLang = $rootScope.userinfo.ActiveUserData.Preferedlanguage.langCode;
+      }
+      else{
+
+          var preLang = 'en';
+      }
+      
+      $scope.selectedlanguage={};
+      for(var i=0;i<$scope.availlangualges.length;i++){
+          if($scope.availlangualges[i].langCode==preLang){
+             $scope.selectedlanguage=$scope.availlangualges[i];
+             $scope.userloginId=$rootScope.userinfo.userLoginId;
+             break;
+          }
+      }
+
+     
+      
+    });
+
+      $scope.changeLanguage=function(language){
+        var data={};
+        data.userloginId=$scope.userloginId;
+        data.selectedlanguage=language;
+        var changelang=userProfile.changelanguage(data);
+        changelang.then(function(response){
+            var returndata = angular.fromJson(JSON.parse(response.data));
+            if(angular.equals(returndata,"success")){
+              location.reload();
+            }
+        });
+      }
+
+//       $scope.$watch('selectedlanguage', function() {
+//      console.log($scope.selectedlanguage);
+// });
+
+      // it will redirect to GlobalSettings
       $scope.redirectToGlobalSettings=function(){
             $state.go('home.main.globalSettings');
+      };
+
+      $scope.redirectTobaabtraProfile=function(){
+            $state.go('home.main.baabtraProfile',{userLoginId:"54d84b55ef14f722f4890797"});
+      };
+      // it will redirect to theme settings
+      $scope.redirectTothemeConfiguration=function(){
+        $state.go('home.main.themeConfiguration');
+
       };
 
       //when click cancel button exicute this function and revert to previous theme

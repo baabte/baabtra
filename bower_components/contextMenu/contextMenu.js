@@ -82,7 +82,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                          else{
                            $scope.evaluator=[];
                          }
-                        console.log($rootScope);
+                       
 
                          //clearing data in preview object that is previously created
                          $scope.coursePreviewObj={};
@@ -99,21 +99,17 @@ angular.module('ui.bootstrap.contextMenu', [])
                              //+'test' to be edit by arun 
                                 +'<label  class="font-bold" for="definpu" >Attendence Tracking</label><br>'
                                   +'<em class="text-muted" >Enable this feature to activate attendence tracking on this course element</em><br>'
-                                    +'<div class="togglebutton">'
-                                      +'<label>'
-                                        +'<input ng-model="attendenceTrack" class="toggle" type="checkbox">'
-                                        +'</label>'
-                                          +'</div></div>'
+                                  +'<div class="togglebutton">'
+                                    +'<label>'
+                                      +'<input ng-model="attendenceTrack" class="toggle" type="checkbox">'
+                                    +'</label>'
+                                  +'</div>'
+                              +'</div>'
                                           +'<div class="form-group col-xs-6 m-t-md">'
                                           +'<label class="font-bold">Evaluator</label>'
                                           +'<role-user-loader role-id="$root.userinfo.ActiveUserData.roleMappingObj.evalRoles[0]" placeholder-value="Please select a person" selection-type="2" ng-model="evaluator"></role-user-loader>'
                                           +'</div>'
-                                        +'</div>'
-                                    
-                            +'<div class="box-row">'
-                              +'<div class="box-cell">'
-                                +'<div class="box-inner col-xs-12">'
-
+                                +'<div class="form-group col-xs-12 m-t-md">'      
                                   +'<form xt-form novalidate class="form" name="courseElement" enctype="multipart/form-data">'
                                    +'<div class="p" sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"></div>'
                                    +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData['+$scope.randomKey+'])" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
@@ -121,7 +117,8 @@ angular.module('ui.bootstrap.contextMenu', [])
                                    +'<button class="btn baab-btn pull-left m-v-lg btn-info btn-material-green-A700" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="createPreviewElement(\'tempCourseDocs\')" type="button" ng-disabled = "courseElement.$invalid">Preview</button>'
                                   +'</form>'
                                   +'<div class="clearfix m-v-lg"><course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview></div>'
-                        +'</div></div></div></div></div>');
+                            +'</div></div></div>'
+                          +'</div>');
         $aside({scope: $scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
                         //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
                      });

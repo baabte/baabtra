@@ -466,12 +466,12 @@
                 }
                 
               })
-              .state('home.main.updateUserProfile', {
-                url: '/updateUserProfile',
+              .state('home.main.baabtraProfile', {
+                url: '/baabtraProfile/:userLoginId',
                 views:{
                   'innercontent':{
-                    templateUrl: 'angularModules/profile/partials/Partial-updateProfileInfo.html',
-                    controller: 'UpdateprofileinfoCtrl'
+                    templateUrl: 'angularModules/baabtra.comProfile/partials/Partial-baabtra.comProfile.html',
+                    controller: 'BaabtraComprofileCtrl'
                   }
                 }
                 
@@ -482,6 +482,16 @@
                   'innercontent':{
                     templateUrl: 'angularModules/globalSettings/partials/Partial-globalSettings.html',
                     controller: 'GlobalsettingsCtrl'
+                  }
+                }
+                
+              })
+               .state('home.main.themeConfiguration', {
+                url: '/themeConfiguration',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/themeConfiguration/partials/Partial-themeConfiguration.html',
+                    controller: 'ThemeconfigurationCtrl'
                   }
                 }
                 

@@ -68,7 +68,57 @@
 							<textarea ng-model="element.Debug" name="PropertiesTemplate" required xt-validate placeholder="{{'Debug'|translate}}" class="form-control " float-label></textarea>
 						
 				</div> -->
+				<div class="col-xs-12 m-v-lg">					
+					<div class="box ng-scope bg-white b" >
+					  <div class="col-md-3">
+					    <ul class="nav nav-list b-t bg-white font-bold" ui-nav="">
+					      <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='uneditableAttributes'}" ng-click="selectedTab='uneditableAttributes'">
 
+					        <a href="" translate="{{'Uneditable Attributes'|translate}}"></a>
+					      </li>
+					      <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='mandatoryAttributes'}" ng-click="selectedTab='mandatoryAttributes'">
+
+					        <a href="" translate="{{'Mandatory Attributes'|translate}}"></a>
+					      </li>
+					       
+					    </ul>
+					  </div>
+					  <div class="col-md-9 b-l bg-white">
+					      <div class="p-md bg-light b-b font-bold" translate="{{'Field configuration'|translate}}"></div>
+					        
+					      <div class="form-group bg-light m-sm p-sm" ng-show="selectedTab=='uneditableAttributes'">
+					               <div class="modal-header">
+					                <h4 class="modal-title text-primary" translate="{{'Uneditable Attributes'|translate}}"></h4>
+					               </div>
+					              <div class="modal-body">
+					              	<custom-form-attributes ng-model="element.unEditableAttributes"></custom-form-attributes>
+					              </div>
+					              <div class="modal-footer">
+
+					              </div>
+					       
+					          </div>  
+					          <div class="form-group bg-light m-sm p-sm" ng-show="selectedTab=='mandatoryAttributes'">
+
+							
+				               <div class="modal-header">
+				                <h4 class="modal-title text-primary" translate="{{'Mandatory Attributes'|translate}}"></h4>
+				               </div>
+				              <div class="modal-body">
+				              	<custom-form-attributes ng-model="element.mandatoryAttributes"></custom-form-attributes>
+				              </div>
+				              <div class="modal-footer">
+
+				              </div>
+							       
+							
+							  
+							</div>  
+					  
+							</div>  
+						</div>
+				
+				</div>
 			</div>
 			<div class="panel-footer">
 				<button class="btn btn-warning baab-btn" ng-disabled="Manage_course_element_fields.$pristine" ng-class="{'bg-warning':!Manage_course_element_fields.$pristine}" type="button" translate="{{'Cancel'|translate}}"></button>

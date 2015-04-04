@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('questionGroup',['$aside', function($aside) {
+angular.module('baabtra').directive('questionGroup',['$modal', function($modal) {
 	return {
 		restrict: 'E',
 		require:'ngModel',
@@ -13,7 +13,7 @@ angular.module('baabtra').directive('questionGroup',['$aside', function($aside) 
 			scope.questionGroupModel=[];//array to keep the 
 			scope.courseElement={index:1,tlPointInMinute:1000,Name:'Test'};
 			//dummy object created to view the question here
-			scope.questionShow=false;
+			// scope.questionShow=false;
 			scope.questionModel={mark:{}};
 			scope.duration={unit:"minute(s)"};
 			scope.units=['minute(s)','hour(s)'];
@@ -27,49 +27,69 @@ angular.module('baabtra').directive('questionGroup',['$aside', function($aside) 
 			scope.units=['minute(s)','hour(s)'];
 			scope.resultMode=scope.ngModel.resultMode;
 			scope.questionView=scope.ngModel.questionView;
-			scope.questionShow=false;
+			// scope.questionShow=false;
 			scope.questionModel={mark:{}};
 			scope.courseElement={index:1,tlPointInMinute:1000,Name:'Test'};
 			scope.questionGroupModel=scope.ngModel.testModel;
 			}
 		 scope.dropDown=function (index) {
 		    	var list=[];
-		    	
-		    	list.push({text:"Remove",click:function() {
-		    		scope.placeindex=index;
-		    		if(scope.questionGroupModel.length>=1){
-			    		scope.questionGroupModel.splice(index,1); //removes that object if 
-		    			if(angular.equals(index,0)){
-		    				scope.questionShow=true;
-		    			}
-		    		}
-		    		}});
 
+		    list.push({text:"Edit",click:function() {
+		    			scope.placeindex=index;
+		    			scope.questionModel=angular.copy(scope.questionGroupModel[index]);
+		    			scope.position='edit';
+			    	 	scope.questionShowActivate();
+
+		    		
+		    		}});
 		    list.push({text:"Insert before",click:function() {
 		    		scope.placeindex=index;
 		    		scope.position='before';
-		    		scope.questionShow=true;
+		    		// scope.questionShow=true;
+		    	 	scope.questionShowActivate();
+
 		    		// scope.questionGroupModel.splice(index,0,{});
 		    		}});
 		    list.push({text:"Insert after",click:function() {
 		    		scope.placeindex=index;
 		    		scope.position='after';
-		    		scope.questionShow=true;
+		    		// scope.questionShow=true;
+		    	 	scope.questionShowActivate();
+
 		    		// scope.QuestionModalOpen();
 		    		// scope.questionGroupModel.splice(index+1,0,{});
+		    		}});
+		    list.push({text:"Remove",click:function() {
+		    		scope.placeindex=index;
+		    		if(scope.questionGroupModel.length>=1){
+			    		scope.questionGroupModel.splice(index,1); //removes that object if 
+		    			if(angular.equals(index,0)){
+		    				// scope.questionShow=true;
+			    	 	scope.questionShowActivate();
+
+		    			}
+		    		}
 		    		}});
 
 		    	return list;
 		    };
 
 		    scope.questionShowActivate =function(){
-		    	scope.questionShow=true;
+		    	 questionModal.$promise.then(questionModal.show);
 		    	
 		    };
-		     scope.questionShowDeactivate =function(){
-		    	scope.questionShow=false;
-		    };
+		    //  scope.questionShowDeactivate =function(){
+		    // 	scope.questionShow=false;
 
+		    // };
+
+		     // Pre-fetch an external template populated with a custom scope
+            var questionModal = $modal({scope: scope, template: 'angularModules/questionRelated/questionGroup/directives/Modal-question.html', show: false,placement:'top'});
+            // Show when some event occurs (use $promise property to ensure the template has been loaded)
+          
+             
+           
 		    //watch function to keep track of the the totalmark  
 		    scope.$watch(function(){return scope.questionModel.mark;},function(){
 		    	
@@ -126,7 +146,8 @@ angular.module('baabtra').directive('questionGroup',['$aside', function($aside) 
 		    },true);
 
           scope.addQuestion =function(questionModel,placeindex){
-          	// console.log(questionModel);
+
+          	// console.log(placeindex);
           	var tempArray=[];
           	for(var key in questionModel.answer){
           		var tempObj={};
@@ -139,23 +160,35 @@ angular.module('baabtra').directive('questionGroup',['$aside', function($aside) 
             	// console.log(scope.questionGroupModel);
             		
             		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};
+            		scope.questionModel={mark:{}};//questionmodel reset to default
             	}//to add a question to a specific position 
-            	if(!angular.equals(placeindex,undefined)){
-            		if(!angular.equals(scope.position,'before')){
+
+            		if(!angular.equals(placeindex,undefined)){
+
+            		if(angular.equals(scope.position,'edit')){
+            			// console.log(scope.position);
+            			scope.questionGroupModel[placeindex]=questionModel;
+            			
+            		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};         
+            		
+            		}
+            		else if(!angular.equals(scope.position,'before')){
             			scope.questionGroupModel.splice(placeindex+1,0,questionModel);
             			
-            		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};            
+            		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};         
+            		
+            		scope.questionModel={mark:{}};//questionmodel reset to default
             		}
             		else if(!angular.equals(placeindex,'after')){
 		    			scope.questionGroupModel.splice(placeindex,0,questionModel);
 		    		    
             		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};
+
+            		scope.questionModel={mark:{}};//questionmodel reset to default
             		}
             	    delete scope.placeindex;//deleted to set the index back to default state
             	}
-            	scope.questionModel={mark:{}};//questionmodel reset to default
-            	scope.questionShow=false;//question field hidden after adding question
-            	
+            	questionModal.hide();
 
             };
 

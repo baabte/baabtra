@@ -20,7 +20,8 @@ angular.module('baabtra').controller('CourseelementfieldsmanagingCtrl',['$scope'
   $scope.element.canAdd = true;
   $scope.element.canBeAnAnswer = false;
 
-  var courseElementFields = courseElementFieldsManaging.fnGetCourseElementFields();
+  //var courseElementFields = courseElementFieldsManaging.fnGetCourseElementFields();
+  var courseElementFields = courseElementFieldsManaging.fnGetCourseElementFieldsTemp();
   courseElementFields.then(function(response){
   	$scope.courseElementFields = angular.fromJson(JSON.parse(response.data));
   });
