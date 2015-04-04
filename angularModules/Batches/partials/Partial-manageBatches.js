@@ -191,7 +191,7 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
        angular.forEach($scope.batchInfo[0].repeats.excludedDaysRepeat, function(item) {//for looping through the excluded days to show the excluded days
         $scope.excluded= $scope.excluded + item +',';
        });
-        $scope.excluded=$scope.excluded.substring(0, $scope.excluded.length - 1);
+        //$scope.excluded=$scope.excluded.substring(0, $scope.excluded.length - 1);
          $scope.buttonType="Update Batch";  
       });
     
