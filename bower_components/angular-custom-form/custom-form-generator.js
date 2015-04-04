@@ -134,21 +134,22 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
       //$scope.form[$scope.formName]={};
       $scope.fields=[];
       $scope.fields.validation={};
-      //$scope.$watch('formName',function(){
-       // console.log($scope.form);
-      //});
-      
-
+      $scope.customFieldId=0;
 
       //function to add new field into the custom form 
       $scope.addNewField=function(){
-        $scope.fields.push($scope.selectedField[0]);
-
+        $scope.customFieldId++;
+        var fieldObj=angular.copy($scope.selectedField[0]);
+        if(!angular.equals($scope.selectedField.length,0)){
+          fieldObj.id='field'+$scope.customFieldId;
+          $scope.fields.push(fieldObj);
+        }
       };
     }
   }
 
 }]);
+
 /*service to load the added build in templates from database*/
 acf.service('loadTemplateSrv',['$http','bbConfig',function($http,bbConfig){
 
