@@ -1,6 +1,6 @@
 
-<div class="p-h-md p-v bg-white box-shadow pos-rlt ng-scope">
-  <h3 class="no-margin">Theme Configuration</h3>
+<div class="p-h-md p-v bg-white box-shadow  ng-scope">
+  <h3 class="no-margin" translate="{{'Theme Configuration'|translate}}"></h3>
 </div> 
 <div class="box ng-scope bg-white" >
   <div class="col-md-3">
@@ -19,20 +19,20 @@
     <ul class="nav nav-list b-t bg-white font-bold" ui-nav="">
       <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='Customizetheme'}" ng-click="selectedTab='Customizetheme'">
 
-        <a href="">Customize theme</a>
+        <a href=""  translate="{{'Customize theme'|translate}}"></a>
       </li>
       <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='selectMenutype'}" ng-click="selectedTab='selectMenutype'">
-        <a href="">Menu</a>
+        <a href="" translate="{{'Menu'|translate}}"></a>
       </li>
        
     </ul>
 
   </div>
   <div class="col-md-9 b-l bg-white">
-      <div class="p-md bg-light b-b font-bold">Theme configuration</div>
+      <div class="p-md bg-light b-b font-bold" translate="{{'Theme configuration'|translate}}"></div>
       <div class="form-group bg-light m-sm p-sm" ng-show="selectedTab=='Customizetheme'">
                <div class="modal-header">
-                <h4 class="modal-title text-primary">Customize theme</h4>
+                <h4 class="modal-title text-primary" translate="{{'Customize theme'|translate}}"></h4>
                </div>
               <div class="modal-body">
                 <form class="form-horizontal ng-pristine ng-valid" style="cursor: pointer;">
@@ -42,8 +42,8 @@
                         <div class="row">
                           <div class="col-xs-12">
                             <div class="radio radio-inline radio-primary">
-                                <label>
-                                    <input type="radio" ng-model="header.type" value="Header">
+                                <label >
+                                    <input type="radio" ng-model="header.type" value="Header" >
                                     Header colour
                                 </label>
                             </div>
@@ -68,21 +68,21 @@
                       </div>
                       <div class="form-group">
                         <div class="row">
-                          <label class="col-xs-3 control-label">Background image</label>
+                          <label class="col-xs-3 control-label" translate="{{'Background image'|translate}}"></label>
                           <div class="col-xs-7">
-                            <input type="text" readonly="" class="form-control floating-label" placeholder="Browse background image...">
+                            <input type="text" readonly="" class="form-control floating-label" placeholder="{{'Browse background image...'|translate}}">
                             <input type="file" ng-file-select="backgroundImageChanged($files)">
                           </div>
                           <div class="col-xs-2" ng-if="$root.userinfo.ActiveUserData.appSettings.backgroundImage.length">
-                            <a href="" ng-click="removeBackgroundImage()"><i bs-tooltip data-title="Remove background image" data-placement="left" class="fa mdi-action-delete text-2x m-v-xs"></i></a>
+                            <a href="" ng-click="removeBackgroundImage()"><i bs-tooltip data-title="Remove background image" data-placement="left"  class="fa mdi-action-delete text-2x m-v-xs"></i></a>
                           </div>
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="row">
-                          <label class="col-xs-3 control-label">Logo</label>
+                          <label class="col-xs-3 control-label" translate="{{'Logo'|translate}}"></label>
                           <div class="col-xs-7">
-                            <input type="text" readonly="" class="form-control floating-label" placeholder="Browse logo...">
+                            <input type="text" readonly="" class="form-control floating-label" placeholder="{{'Browse logo...'|translate}}">
                             <input type="file" ng-file-select="logoChanged($files)">
                           </div>
                           {{$root.userinfo.ActiveUserData.appSettings.log.length}}
@@ -105,13 +105,13 @@
           <!-- div for menu type -->
               <div class="row p-sm ">
                 <div class="col-sm-4 ">
-                  <div class="radio radio-success">
+                  <div class="radio radio-success"  >
                     Menu type
-                    <span class="pull-right">:</span>
+                    <span class="pull-right" >:</span>
                   </div>
                 </div>
                 <div class="col-sm-4 ">
-                               <div class="radio radio-success">
+                               <div class="radio radio-success" >
                                 <label>
                                   <input ng-change="setMenuType(menuType)" type="radio" name="Menutype" ng-model="menuType" value="modern" checked=""><span class="circle"></span><span ></span>
                                   modern
@@ -134,11 +134,11 @@
               <!-- div for set menu type -->
                <div class="row p-sm" >
                 <div class="col-sm-4 ">
-                  <div class="radio radio-success">
-                    Menu Color <a ng-mouseenter="showOrHideMenucolormsg=true" ng-mouseleave="showOrHideMenucolormsg=false" href class="p-xs" style="top:2px"><i class=" glyphicon glyphicon-info-sign"></i></a>
+                  <div class="radio radio-success" >
+                  Menu Color
+                     <a bs-tooltip data-title="You can Customize your Menu  Color Scheme by Clicking 'Custom' Option. By default System will Initialize Menu in 'random' Color Scheme" data-placement="bottom-right" data-type="success" ng-mouseenter="showOrHideMenucolormsg=true" ng-mouseleave="showOrHideMenucolormsg=false" href class="p-xs" style="top:2px"><i class=" glyphicon glyphicon-info-sign"></i></a>
                     <span class="pull-right">:</span>
-                    <div ng-show="showOrHideMenucolormsg" class="callout-info p-xs text-info">You can Customize your Menu  Color Scheme by Clicking<span class="font-bold"> 'Custom'</span> Option<div class="p-xs"></div>
-                    By default System will Initialize Menu in  <span class="font-bold"> 'random'</span> Color Scheme</div>
+                
                   </div>
                 </div>
                 <div class="col-sm-4 ">
@@ -163,11 +163,11 @@
 
                <div class="row p-sm no-margin callout-info" ng-show="CustomizeMenuColor">
                     <div class="modal-header">
-                    <h4 class="modal-title text-primary">Customize Menu Color</h4>
+                    <h4 class="modal-title text-primary" translate="{{'Customize Menu Color'|translate}}"></h4>
                    </div>
                    <div class="modal-body">
                     <form class="form-horizontal ng-pristine ng-valid" style="cursor: pointer;">
-                      <div class="row">
+                      <div class="row"> 
                         <div class="col-xs-12">
                           <div class="form-group">
                             <div class="row">
