@@ -1,9 +1,15 @@
 angular.module('baabtra').service('addBatches',['$http','bbConfig','$rootScope',function($http,bbConfig,$rootScope) {
 
- this.addNewBatches=function($scope){
+ this.addNewBatches=function($scope,type){
+ 	var save_url="";
+ 	if(type=="Update Batch"){
+ 	save_url=bbConfig.BWS+'updateBatch/';	
+ 	}else{
+ 	save_url=bbConfig.BWS+'saveNewBatches/';
+ 	}	
  	var promise = $http({
 	 	method: 'POST',
-	    url: bbConfig.BWS+'saveNewBatches/',
+	    url:save_url,
 	    data:{"batchObj":$scope}
 	 });
 	return promise;
@@ -42,4 +48,23 @@ angular.module('baabtra').service('addBatches',['$http','bbConfig','$rootScope',
 	 });
 	return promise;
  }
+
+ this.deleteBatch=function(id,cmpId){
+    var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'deleteBatch/',
+	    data:{"id":id,"cmpId":cmpId}
+	 });
+	return promise;
+ }
+ this.editBatch=function(id){
+    var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'editBatch/',
+	    data:{"id":id}
+	 });
+	return promise;
+
+ }
+
 }]);

@@ -1,15 +1,25 @@
 angular.module('baabtra').directive('courseSelector', function() {
 	return {
-		restrict: 'E',
-		replace: true,
+		restrict: 'E,A',
+		require :["^?form",'ngModel'],
 		scope: {
-			ngModel:'='
+			courseData:'='
 		},
 		templateUrl: 'angularModules/common/courseSelector/directives/Directive-courseSelector.html',
 		link: function(scope, element, attrs, fn) {
-			scope.ngModel={};
-			scope.ngModel.batch={};
-			
+			if(!angular.equals(scope.courseData,undefined)){
+				// console.log(scope.courseData)
+				if(angular.equals(scope.courseData.batch,undefined)){
+					scope.courseData.batch={};
+				}
+				if(angular.equals(scope.courseData.batch,undefined)){
+					scope.courseData.course={};
+				}			
+			}
+
+
+
+
 
 
 

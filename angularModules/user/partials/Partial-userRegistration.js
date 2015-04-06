@@ -121,20 +121,24 @@ var mandatoryData={};
       }
     }
   }
- if(!angular.equals($scope.allSync.batch,undefined)&&($scope.allSync.batch.length>0)) { 
- delete $scope.allSync.batch[0].course;
- $scope.allSync.FormData.batchId=$scope.allSync.batch[0]._id 
- delete $scope.allSync.batch[0]._id;
- delete $scope.allSync.batch[0].companyId;
- delete $scope.allSync.batch[0].updatedDate;
- delete $scope.allSync.batch[0].createddDate;
- delete $scope.allSync.batch[0].crmId;
- delete $scope.allSync.batch[0].urmId;
- $scope.allSync.batch[0].startDate=new Date($scope.allSync.batch[0].startDate).toISOString();
- $scope.allSync.batch[0].endDate=new Date($scope.allSync.batch[0].endDate).toISOString();
- $scope.allSync.batch[0].enrollmentAfter=new Date($scope.allSync.batch[0].enrollmentAfter.$date).toISOString();
- $scope.allSync.batch[0].enrollmentBefore=new Date($scope.allSync.batch[0].enrollmentBefore.$date).toISOString();
- $scope.allSync.FormData.batch=$scope.allSync.batch[0];
+ if(angular.equals(Object.keys($scope.allSync.FormData.batch).length,0)){
+  delete $scope.allSync.FormData.batch;
+ }
+ if(!angular.equals($scope.allSync.FormData.batch,undefined)&&($scope.allSync.FormData.batch.length>0)) { 
+ 
+ delete $scope.allSync.FormData.batch[0].course;
+ $scope.allSync.FormData.batchId=$scope.allSync.FormData.batch[0]._id 
+ delete $scope.allSync.FormData.batch[0]._id;
+ delete $scope.allSync.FormData.batch[0].companyId;
+ delete $scope.allSync.FormData.batch[0].updatedDate;
+ delete $scope.allSync.FormData.batch[0].createddDate;
+ delete $scope.allSync.FormData.batch[0].crmId;
+ delete $scope.allSync.FormData.batch[0].urmId;
+ $scope.allSync.FormData.batch[0].startDate=new Date($scope.allSync.FormData.batch[0].startDate).toISOString();
+ $scope.allSync.FormData.batch[0].endDate=new Date($scope.allSync.FormData.batch[0].endDate).toISOString();
+ $scope.allSync.FormData.batch[0].enrollmentAfter=new Date($scope.allSync.FormData.batch[0].enrollmentAfter.$date).toISOString();
+ $scope.allSync.FormData.batch[0].enrollmentBefore=new Date($scope.allSync.FormData.batch[0].enrollmentBefore.$date).toISOString();
+ $scope.allSync.FormData.batch=$scope.allSync.FormData.batch[0];
  delete $scope.allSync.batch;
          var time=(new Date()).valueOf();
          hashids = new Hashids("this is a batch id");
@@ -142,7 +146,6 @@ var mandatoryData={};
 
 } 
    
-         
   $scope.userRegister=$scope.allSync.FormData;
   $scope.userRegister.mandatoryData=mandatoryData;
   $scope.userRegister.loggedusercrmid=loggedusercrmid;
@@ -153,13 +156,11 @@ var mandatoryData={};
   delete  $scope.userRegister.role.formSchema;
   delete  $scope.userRegister.role.formSteps;
 //  //console.log($scope.userRegister.phone);
-console.log($scope.userRegister);
 var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
 
 fnRegisterUserCallBack.then(function(data){
 
  var result=angular.fromJson(JSON.parse(data.data));
- console.log(result.evaluatorEmailLIst);
 //       //var senderId="BAABTR";
 //       //var smsKey="10069q0x6jqk4pp61r5";
 $scope.notifications('Yaay..!','Registered Successfully','success');   
