@@ -1,5 +1,5 @@
 
-<div class="p-h-md p-v bg-white box-shadow pos-rlt ng-scope">
+<div class="p-h-md p-v bg-white box-shadow b-b ng-scope">
   <h3 class="no-margin">Theme Configuration</h3>
 </div> 
 <div class="box ng-scope bg-white" >
@@ -22,15 +22,14 @@
         <a href="">Customize theme</a>
       </li>
       <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='selectMenutype'}" ng-click="selectedTab='selectMenutype'">
-
-        <a href="">Menu type</a>
+        <a href="">Menu</a>
       </li>
        
     </ul>
+
   </div>
   <div class="col-md-9 b-l bg-white">
       <div class="p-md bg-light b-b font-bold">Theme configuration</div>
-        
       <div class="form-group bg-light m-sm p-sm" ng-show="selectedTab=='Customizetheme'">
                <div class="modal-header">
                 <h4 class="modal-title text-primary">Customize theme</h4>
@@ -102,9 +101,9 @@
               </div>
        
           </div>  
-          <div class="form-group bg-light m-sm p-sm" ng-show="selectedTab=='selectMenutype'">
-
-              <div class="row p-sm">
+          <div class="form-group bg-light m-sm p-sm" ng-show="selectedTab=='selectMenutype'" >
+          <!-- div for menu type -->
+              <div class="row p-sm ">
                 <div class="col-sm-4 ">
                   <div class="radio radio-success">
                     Menu type
@@ -126,12 +125,88 @@
                                   <input type="radio" ng-change="setMenuType(menuType)" name="Menutype" ng-model="menuType" value="classic"><span class="circle"></span><span ></span>
                                   classic
                                 </label>
-                              </div>
-                              
+                              </div>                              
                 </div>
+              </div>
+              <div class="b-b"></div>
+              <!-- div end menu type -->
+
+              <!-- div for set menu type -->
+               <div class="row p-sm" >
+                <div class="col-sm-4 ">
+                  <div class="radio radio-success">
+                    Menu Color <a ng-mouseenter="showOrHideMenucolormsg=true" ng-mouseleave="showOrHideMenucolormsg=false" href class="p-xs" style="top:2px"><i class=" glyphicon glyphicon-info-sign"></i></a>
+                    <span class="pull-right">:</span>
+                    <div ng-show="showOrHideMenucolormsg" class="callout-info p-xs text-info">You can Customize your Menu  Color Scheme by Clicking<span class="font-bold"> 'Custom'</span> Option<div class="p-xs"></div>
+                    By default System will Initialize Menu in  <span class="font-bold"> 'random'</span> Color Scheme</div>
+                  </div>
+                </div>
+                <div class="col-sm-4 ">
+                               <div class="radio radio-success">
+                                <label>
+                                  <input ng-change="CustomizeMenuColor=false;saveMenuColor(menuColor)" ng-model="menuColor" type="radio" name="MenuColor"  value="random" checked=""><span class="circle"></span><span ></span>
+                                  random
+                                </label>
+                              </div>
+
+                </div>
+                <div class="col-sm-4">
+                             
+                              <div class="radio radio-success">
+                                <label>
+                                  <input type="radio" ng-model="menuColor" ng-change="setMenuColor(menuColor)" name="MenuColor" ng-click="CustomizeMenuColor=true"  value="custom"><span class="circle"></span><span ></span>
+                                  Custom
+                                </label>
+                              </div>                              
+                </div>
+              </div>
+
+               <div class="row p-sm no-margin callout-info" ng-show="CustomizeMenuColor">
+                    <div class="modal-header">
+                    <h4 class="modal-title text-primary">Customize Menu Color</h4>
+                   </div>
+                   <div class="modal-body">
+                    <form class="form-horizontal ng-pristine ng-valid" style="cursor: pointer;">
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-xs-3" ></div>
+                              <div class="col-xs-3">
+                                <div class="radio radio-inline radio-primary ">
+                                    <label>
+                                        <input type="radio" ng-model="menutype" value="menuPrimaryColor" >
+                                        Primary colour
+                                    </label>
+                                </div>
+                              </div>                              
+                              <div class="col-xs-3">
+                                <div class="radio radio-inline radio-primary pull-left">
+                                    <label>
+                                        <input type="radio" ng-model="menutype" value="menuSecondaryColor">
+                                        Secondary colour
+                                    </label>
+                                </div>
+                              </div>
+                              <div class="col-xs-3"></div>
+                            </div>
+                            <p class="clearfix" >
+                              <a ng-class="{'shadow-z-2':hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" class="inline {{color}} p-xs m-xs pull-left no-borders color-hover" ng-repeat="color in options.headerColor" ng-click="setMenuColor(color)">
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-warning " ng-click="CustomizeMenuColor=false">Cancel</button>
+                      <button type="button" class="btn btn-primary no-margin" ng-click="saveMenuColor()" ng-disabled="!activeBtn">Save</button>
+                      
+                  </div>
 
               </div>
-              
+              <!-- div for set menu type -->
           </div>
   
 </div>  

@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbConfig','$rootScope','$http','$state','commonService','addBatches','$alert',function($scope,$modal,bbConfig,$rootScope,$http,$state,commonService,addBatches,$alert){
+angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbConfig','$rootScope','$http','$state','commonService','addBatches','$alert','$filter',function($scope,$modal,bbConfig,$rootScope,$http,$state,commonService,addBatches,$alert,$filter){
     if(!$rootScope.userinfo){
     commonService.GetUserCredentials($scope);
     $rootScope.hide_when_root_empty=false;
@@ -7,6 +7,7 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
     $state.go('login');
     }
     $scope.Batch = {};
+    $scope.buttonType="Add Batch";
    // $scope.repeatName={};
     //$scope.Batch.oneTime={};
     $scope.Batch.repeats={};
@@ -15,17 +16,23 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
     $scope.Batch.repeats.excludedDaysRepeat=[];
     $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.cmp_id=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-    $scope.fnLoadPopupRepeat=function(batchMode){
+    $scope.fnLoadPopupRepeat=function(batchMode,type){
       if(angular.equals(batchMode,"repeat")){
            // $scope.Batch.oneTime={};
+           if(type!="edit"){
            $scope.Batch.repeats={};
            $scope.Batch.repeats.excludedDaysRepeat=[];
+           }
+           
          $modal({scope: $scope, template: 'angularModules/Batches/partials/partial-popupRepeatBatch.html',
           show: true  
          });
       }else{
            $scope.Batch.repeats={};
+           $scope.summary=null; 
+           $scope.excluded='';
            $scope.Batch.repeats.excludedDaysRepeat=[];
+           
          // $modal({scope: $scope, template: 'angularModules/Batches/partials/partial-popuponeTimeBatch.html',
          // show: true
          //});
@@ -52,16 +59,26 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
   //  hide();
   // }
     $scope.savepopUpfn=function(hide){
-    hide();
+      $scope.excluded=$scope.excluded.substring(0, $scope.excluded.length - 1);
+   $scope.summary ='(Repeats Every '+ $scope.Batch.repeats.every +' '+ $scope.Batch.repeats.repeatType
+   if($scope.excluded!=""){
+    $scope.summary=$scope.summary+ ' ,Dont start on '+$scope.excluded+')';  ;
+   }
+   hide();
    }
    $scope.saveBatch=function(){//for saving the Batch
     $scope.Batch.crmId = $scope.rm_id;
     $scope.Batch.companyId =  $scope.cmp_id;
     $scope.Batch.urmId = $scope.rm_id;
     $scope.Batch.activeFlag=1;
-    //console.log( $scope.Batch.startDate);
+    if($scope.buttonType=="Update Batch"){
+    $scope.Batch.startDate=new Date($scope.Batch.startDate).toISOString();
+    $scope.Batch.endDate=new Date($scope.Batch.endDate).toISOString();
+    $scope.Batch._id =$scope.Batch._id.$oid; 
+    }else{
     $scope.Batch.startDate=$scope.Batch.startDate.toISOString();    
     $scope.Batch.endDate=$scope.Batch.endDate.toISOString();  
+    }
     $scope.Batch.createdDate = Date();
     $scope.Batch.updatedDate = Date();
     $scope.Batch.Admission.beforeDaysCount=0;
@@ -89,8 +106,34 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
    $scope.Batch.Admission.afterDaysCount=parseInt($scope.Batch.Admission.onAfter)*$scope.Batch.Admission.afterDaysCount;
       //var time=(new Date()).valueOf();
         // hashids = new Hashids("this is a batch id");
-         // $scope.Batch.batchCode = hashids.encode(time);   
-  
+         // $scope.Batch.batchCode = hashids.encode(time);  
+   var promise=addBatches.addNewBatches($scope.Batch,$scope.buttonType);
+   promise.then(function(response){
+    if(response.data)
+      if($scope.buttonType=="Update Batch"){
+        $alert({title: 'Done..!', content: 'Successfuly updated the Batch :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
+        $scope.buttonType="Add Batch";
+        $scope.summary=null; 
+      }else{
+        $alert({title: 'Done..!', content: 'Successfuly added the Batch :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
+      }   
+         //$scope.Batch.oneTime={};
+         
+        // $scope.Batch.oneTime.excludedDaysOnetime=[];
+         $scope.Batch.repeats.excludedDaysRepeat=[];
+         //$scope.Batch.repeats={};
+         //$scope.Batch.Admission={};
+         //$scope.Batch.repeatName={};
+         $scope.Batch.repeats={};
+         $scope.Batch.Admission={};
+         $scope.Batch = {};
+          $scope.Batch.course=[];
+         //$scope.newCourse={};
+         
+   });
+   }
+   $scope.Batch.repeats.excludedDaysRepeat=[];
+   $scope.excluded='';
    $scope.fnExcludedDays=function(id){
        var idsel = $scope.Batch.repeats.excludedDaysRepeat.indexOf(id);
         // is currently selected
@@ -98,28 +141,11 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
            $scope.Batch.repeats.excludedDaysRepeat.splice(idsel, 1);
         }else {// is newly selected
            $scope.Batch.repeats.excludedDaysRepeat.push(id);
+           $scope.excluded= $scope.excluded + id +','
         }
+   
+    //console.log( $scope.Batch.repeats.excludedDaysRepeat)
    }      
-   var promise=addBatches.addNewBatches($scope.Batch)
-   promise.then(function(response){
-    if(response.data)
-        $alert({title: 'Done..!', content: 'Successfuly added the Batch :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
-         //$scope.Batch.oneTime={};
-         
-        // $scope.Batch.oneTime.excludedDaysOnetime=[];
-         $scope.Batch.repeats.excludedDaysRepeat=[];
-         //$scope.Batch.repeats={};
-        // $scope.Batch.course={};
-         //$scope.Batch.Admission={};
-         //$scope.Batch.repeatName={};
-         $scope.Batch.repeats={};
-         $scope.Batch.Admission={};
-         $scope.Batch = {};
-         //$scope.newCourse={};
-         
-   });
-   }
-
    //$scope.Batch.oneTime.excludedDaysOnetime=[];
    /*$scope.fnexcludeDaysOneTime=function(id){
     var idsel=$scope.Batch.oneTime.excludedDaysOnetime.indexOf(id);
@@ -132,7 +158,7 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
    //$scope.totalClicks=0;
   $scope.fnLoadBatches=function(){
 
-      var promise=addBatches.loadBatches($scope.cmp_id)
+      var promise=addBatches.loadBatches($scope.cmp_id);
       promise.then(function(response){
       $scope.batchEelements = angular.fromJson(JSON.parse(response.data));
        //$scope.totalClicks=$scope.totalClicks+1;
@@ -145,30 +171,64 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
  
   
   $scope.fnEditBatches=function(id){
-   console.log(id);
+   var batchInfo= addBatches.editBatch(id);
+      batchInfo.then(function(response){
+      $scope.batchInfo= angular.fromJson(JSON.parse(response.data));
+      $scope.Batch=$scope.batchInfo[0];
+      $scope.Batch.startDate= $filter('date')($scope.batchInfo[0].startDate.$date);
+      $scope.Batch.endDate= $filter('date')($scope.batchInfo[0].endDate.$date);
+      //$scope.Batch.batchMode=$scope.batchInfo[0].courseType
+      if($scope.batchInfo[0].courseType=="offline"){
+        $scope.Batch.offline=true;
+        $scope.Batch.instructorLead=false;
+      }else{
+        $scope.Batch.instructorLead=true;
+        $scope.Batch.offline=false;
+      }
+      $scope.summary="";
+      $scope.excluded='';
+      //$scope.Batch.repeats.every=$scope.batchInfo[0].repeats.every; 
+       angular.forEach($scope.batchInfo[0].repeats.excludedDaysRepeat, function(item) {//for looping through the excluded days to show the excluded days
+        $scope.excluded= $scope.excluded + item +',';
+       });
+        //$scope.excluded=$scope.excluded.substring(0, $scope.excluded.length - 1);
+         $scope.buttonType="Update Batch";  
+      });
+    
   }
   $scope.fnDeleteBatches=function(id){
-   console.log(id);
+   var deletedBatch= addBatches.deleteBatch(id,$scope.cmp_id)
+   deletedBatch.then(function(response){
+    $scope.batchEelements=angular.fromJson(JSON.parse(response.data));
+    console.log($scope.batchEelements)
+    $alert({title: 'Done..!', content: 'Successfuly Deleted the Batch :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
+         hide();
+
+   });
+
   }
   $scope.fnLoadMoreOptions =function(id){
       $scope.batchId=id;
+
       var existingCourses= addBatches.loadExistingCoursesUnderBatch($scope.batchId)
         existingCourses.then(function(response){
         $scope.existingCourses=angular.fromJson(JSON.parse(response.data));
-       
+        //console.log($scope.existingCourses[0]) 
        });
       $modal({scope: $scope, template: 'angularModules/Batches/partials/partial-popUpOptions.html',
           show: true
          });
   }
   $scope.addCoursestoBatch=function(hide){//updating the batch details
-     
+    // console.log($scope.existingCourses[0]); 
      //console.log($scope.Batch.newCourse);
     $scope.existingCourses[0].course= $scope.existingCourses[0].course.concat($scope.Batch.newCourse);
     $scope.existingCourses[0]._id=  $scope.existingCourses[0]._id.$oid; 
     $scope.existingCourses[0].crmId=  $scope.existingCourses[0].crmId.$oid; 
     $scope.existingCourses[0].urmId=  $scope.existingCourses[0].urmId.$oid; 
     $scope.existingCourses[0].companyId=  $scope.existingCourses[0].companyId.$oid; 
+    $scope.existingCourses[0].startDate=  new Date($scope.existingCourses[0].startDate.$date).toISOString(); 
+    $scope.existingCourses[0].endDate=  new Date($scope.existingCourses[0].endDate.$date).toISOString(); 
     $scope.existingCourses[0].updatedDate=Date();
     delete $scope.Batch.newCourse;
    // console.log($scope.existingCourses);
@@ -185,5 +245,27 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
     $scope.existingCourses[0].course.splice(index, 1);
     //console.log($scope.existingCourses[0].course);
   }
+$scope.resetBatch =function(){
+  delete $scope.batchInfo[0];
+  $scope.Batch={};  
+  $scope.Batch.course=[];
+  $scope.summary=null; 
+   $scope.buttonType="Add Batch";
+   $scope.excluded='';
+}
+ $scope.batchDropdown = [
+  {
+    "text": "<i class=\"fa fa-plus-square-o \" ></i>&nbsp;Add Courses",
+    "click": "this.fnLoadMoreOptions(batch._id.$oid);"
+  },
+  {
+    "text": "<i class=\"fa fa-fw fa-edit\"></i>&nbsp;Edit Batch",
+    "click": "this.fnEditBatches(batch._id.$oid);"
+  },
+  {
+    "text": "<i class=\"fa fa-fw fa-trash\"></i>&nbsp;Delete Batch",
+    "click": "this.fnDeleteBatches(batch._id.$oid);"
+  }];
+ 
   
 }]);

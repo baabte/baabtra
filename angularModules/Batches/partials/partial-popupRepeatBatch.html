@@ -20,9 +20,9 @@
               <div class="row">
                 <div class="col-xs-6">
                <label for="select" class="control-label" translate="{{'Repeat every'|translate}}" ></label>
-                <select class="form-control" id="select" ng-model="Batch.repeats.every" ng-click="fnCalcDays(Batch.repeats.every)" required>
+                <select class="form-control" id="select" ng-model="Batch.repeats.every" ng-click="fnCalcDays(Batch.repeats.every)" required ng-options="row for row in repeatEvery" value="">
                    <option selected="selected" value=""  >select an option</option>
-                  <option ng-repeat = "row in repeatEvery" value="{{row}}">{{row}}</option>  
+                  <!-- <option ng-repeat = "row in repeatEvery" value="{{row}}">{{row}}</option>   -->
                 </select> 
                 </div>
                 <div class="col-xs-6">
@@ -37,9 +37,18 @@
                     <div class="col-xs-12">
                      <div class="checkbox checkbox-inline no-margin"  ng-repeat="day in days" bs-tooltip data-title="{{day.id}}"  value="{{day.text}}"  >
                         <label >
-                            <input type="checkbox"value="day" ng-click="fnExcludedDays(day.id)" ng-checked="excludedDaysRepeat.indexOf(day.id) > -1">{{day.text}}
+                            <input type="checkbox"value="day" ng-model="excludeDays" ng-click="fnExcludedDays(day.id)" ng-checked="Batch.repeats.excludedDaysRepeat.indexOf(day.id) > -1">{{day.text}}
                         </label>
                       </div>
+                    </div>  
+                </div>       
+            </div> 
+            <div class="form-group" ng-if="Batch.repeats.every!=null">
+             <label translate="{{'Summary:'|translate}}" ></label>
+               <div class= "row">
+                    <div class="col-xs-12">
+                     <h5 class="font-bold text-dark"> Repeat every {{Batch.repeats.every}} {{Batch.repeats.repeatType}}</h5>
+                     <h5 class="font-bold text-dark" ng-if="excluded!=''">dont start on {{excluded}}</h5>
                     </div>  
                 </div>       
             </div> 
