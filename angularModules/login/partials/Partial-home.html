@@ -4,7 +4,7 @@ Created On:12/11/2014 -->
 <aside id="aside" ng-if="$root.userinfo.ActiveUserData.modernView == 'modern'" class="app-aside {{$root.userinfo.ActiveUserData.appSettings.asideColor}} text-lg fixedBc shadow-z-2" ng-include="'views/aside.html'"  style="margin-top:20px;" ng-class="{'btn-material-blue-grey-900':$root.userinfo.ActiveUserData.appSettings.asideColor == undefined , 'animated fadeInDown':navBar,'ng-hide':!navBar}">
 </aside>
 <div>
-  <div class="bg-white shadow-z-3" bs-affix data-offset-top="-62" style="font-size: 15px;padding-top:25px;z-index: 1;width: 100%;"  ng-if="$root.userinfo.ActiveUserData.modernView != 'modern'" >
+  <div class="bg-white shadow-z-3" bs-affix data-offset-top="-62" style="font-size: 15px;padding-top:25px;z-index: 1;width: 100%;border:solid"  ng-if="$root.userinfo.ActiveUserData.modernView != 'modern'" >
       <nav>
         <div class="container-fluid ">
           <div >

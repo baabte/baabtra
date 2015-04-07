@@ -24,6 +24,9 @@
       <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='selectMenutype'}" ng-click="selectedTab='selectMenutype'">
         <a href="" translate="{{'Menu'|translate}}"></a>
       </li>
+       <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='SubTitlesandBackground'}" ng-click="selectedTab='SubTitlesandBackground'">
+        <a href="" translate="{{'SubTitles and Background'|translate}}"></a>
+      </li>
        
     </ul>
 
@@ -105,7 +108,7 @@
           <!-- div for menu type -->
               <div class="row p-sm ">
                 <div class="col-sm-4 ">
-                  <div class="radio radio-success"  >
+                  <div class="radio radio-success"    >
                     Menu type
                     <span class="pull-right" >:</span>
                   </div>
@@ -208,5 +211,82 @@
               </div>
               <!-- div for set menu type -->
           </div>
-  
+        <!-- div for to set background and subtitles -->
+        <div class="form-group bg-light m-sm p-sm" ng-show="selectedTab=='SubTitlesandBackground'" >
+               <div class="row p-sm ">
+                  <div class="col-sm-4 ">
+                    <div class="radio radio-success"    >
+                      SubTitles and Backgroung Colors
+                      <span class="pull-right" >:</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 ">
+                                 <div class="radio radio-success" >
+                                  <label>
+                                    <input ng-change="CustomizesubTitAndBackg=false;saveSubMenuAndBackgrounds(subTitAndBackg)" ng-model="subTitAndBackg" type="radio" name="subTitAndBackg" value="random" ><span class="circle"></span>
+                                    Random Color
+                                  </label>
+                                </div>
+                  </div>
+                  <div class="col-sm-4">
+                               
+                                <div class="radio radio-success">
+                                  <label>
+                                    <input ng-model="subTitAndBackg" type="radio"  name="subTitAndBackg" ng-click="CustomizesubTitAndBackg=true" value="custom"><span class="circle"></span>
+                                    Custom Color
+                                  </label>
+                                </div>                              
+                  </div>
+              </div>
+
+          </div>
+           <div class="row p-sm no-margin callout-info" ng-show="CustomizesubTitAndBackg">
+                    <div class="modal-header">
+                    <h4 class="modal-title text-primary" translate="{{'Customize Sub Titles and Background'|translate}}"></h4>
+                   </div>
+                   <div class="modal-body">
+                    <form class="form-horizontal ng-pristine ng-valid" style="cursor: pointer;">
+                      <div class="row"> 
+                        <div class="col-xs-12">
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-xs-3" ></div>
+                              <div class="col-xs-3">
+                                <div class="radio radio-inline radio-primary ">
+                                    <label>
+                                        <input type="radio" ng-model="SubTitleandBackcolor" value="SubTitlecolour" >
+                                        Sub Title colour
+                                    </label>
+                                </div>
+                              </div>                              
+                              <div class="col-xs-3">
+                                <div class="radio radio-inline radio-primary pull-left">
+                                    <label>
+                                        <input type="radio" ng-model="SubTitleandBackcolor" value="Backgroundcolour">
+                                        Background colour
+                                    </label>
+                                </div>
+                              </div>
+                              <div class="col-xs-3"></div>
+                            </div>
+                            <p class="clearfix" >
+                              <a ng-class="{'shadow-z-2':hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" class="inline {{color}} p-xs m-xs pull-left no-borders color-hover" ng-repeat="color in options.headerColor" ng-click="setSubTitAndBackground(color)">
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-warning " ng-click="CustomizesubTitAndBackg=false">Cancel</button>
+                      <button type="button" class="btn btn-primary no-margin" ng-click="saveSubMenuAndBackgrounds()" ng-disabled="!subtitleAndbackactiveBtn">Save</button>
+                      
+                  </div>
+
+              </div>
+
+        <!--  /div for to set background and subtitles-->
+
+
 </div>  
