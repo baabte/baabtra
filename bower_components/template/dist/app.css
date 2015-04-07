@@ -696,6 +696,9 @@ sup {
   top: auto;
   bottom: 0;
 }
+.dropdown:hover > .menu-item{
+  display: block;
+}
 
 @media (max-width: 767px) {
   .dropdown-menu.pull-none-xs {

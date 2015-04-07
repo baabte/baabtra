@@ -40,4 +40,25 @@ var saveMenuColor=$http({
 	return saveMenuColor;
 };
 
+
+this.saveSubMenuAndBackgrounds=function(data){
+var saveMenuColor=$http({
+		url: bbConfig.BWS+'saveSubMenuAndBackgrounds/',
+		method: "POST",
+		data:angular.toJson({'data':data}),
+		withCredentials: false,
+		contentType:"application/json",
+		dataType:"json",
+	}).
+	success(function(data, status, headers, config) {
+		return data;
+		
+	}).
+	error(function(data, status, headers, config) {
+
+	});
+	return saveMenuColor;
+};
+
+
 }]);
