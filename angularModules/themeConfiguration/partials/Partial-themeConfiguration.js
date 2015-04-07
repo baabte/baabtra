@@ -1,8 +1,8 @@
 angular.module('baabtra').controller('ThemeconfigurationCtrl',['$scope','$rootScope','bbConfig','$modal','commonSrv','themeConfigurationSrv','$alert',function($scope,$rootScope,bbConfig,$modal,commonSrv,themeConfigurationSrv,$alert){
 
 
-// $scope.selectedTab="Customizetheme";
-$scope.selectedTab="SubTitlesandBackground";
+$scope.selectedTab="Customizetheme";
+// $scope.selectedTab="SubTitlesandBackground";
 $scope.header ={} ;
 $scope.header.type = "Header";
 $scope.menutype="menuPrimaryColor";
