@@ -83,18 +83,21 @@ $scope.fnselectForm = function(selForm){
 for (var i = 0; i < $scope.rolelist.length; i++) {
  
     for (var x = 0; x < selForm.roleSchema.length; x++) {
+
       if(!angular.equals(selForm.roleSchema[x].roleId.$oid,undefined)){
       if(angular.equals($scope.rolelist[i].roleId,selForm.roleSchema[x].roleId.$oid)){
         $scope.rolelist[i].formSchema=selForm.roleSchema[x].formSchema;
         $scope.rolelist[i].formSteps=selForm.roleSchema[x].formSteps;
         }
       }
+
       else{
         if(angular.equals($scope.rolelist[i].roleId,selForm.roleSchema[x].roleId)){
         $scope.rolelist[i].formSchema=selForm.roleSchema[x].formSchema;
         $scope.rolelist[i].formSteps=selForm.roleSchema[x].formSteps;
         }
       }
+      
      }
 
 }
@@ -172,6 +175,7 @@ $modal({ scope: $scope,
 
 //function to save/update custom form
 $scope.fnSaveCustomForm = function(){
+
 $scope.customForm.loggedusercrmid=loggedusercrmid;
 $scope.customForm.fkcompanyId=companyId;
 $scope.customForm.fkuserId=userId;
