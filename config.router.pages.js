@@ -315,7 +315,7 @@
                 
               })
               .state('home.main.userRegistration', {
-                url: '/userRegistration',
+                url: '/userRegistration/:code',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/user/partials/Partial-userRegistration.html',

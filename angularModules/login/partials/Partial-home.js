@@ -134,6 +134,7 @@ $scope.$watch('userMenusOrigin',function(){
 $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
   if($rootScope.userinfo)
    {
+  
     $rootScope.menuExist=false;
        getMenuByLink($scope.userMenusOrigin,null,null,toState.name);
        if (!$rootScope.menuExist && !angular.equals(toState.name,'home.main')) {
@@ -143,6 +144,7 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
 });
 
     $scope.loadDetails =function(menu){
+
       $scope.navBar=true;
       if (angular.equals($localStorage.linkPath,undefined)) {
         $localStorage.linkPath=[];
@@ -153,7 +155,17 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
         $scope.userMenus=menu.childMenuStructure;
       }
       else if(menu.actions){
-        $state.go(menu.actions[0].stateName);
+            //edit by arun
+          if(angular.equals($scope.objectCode,undefined)){
+                $state.go($scope.stateSplit(menu.actions[0].stateName));//go to the curresponding state when click a link
+            }
+            else{
+              var codeObjectArray=$scope.objectCode.split(":")
+              console.log(codeObjectArray)
+              var key=codeObjectArray[0];
+              var value=codeObjectArray[1];
+            $state.go($scope.stateSplit(menu.actions[0].stateName),{key:value});//go to the curresponding state when click a link
+            }
       }
     };
 
@@ -165,13 +177,39 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
       $state.go('home.main');
     };
 
+    $scope.stateSplit =function(primaryState){
+
+      var stateArray= primaryState.split('|');
+
+      var secondaryState=stateArray[0]    
+      
+      $scope.objectCode=stateArray[1];
+      // console.log($scope.objectCode);
+      return  secondaryState; 
+
+    };
+
+ 
     $scope.goMenu = function(menu,index){//for go to a particular menu when click the menu path
       var trim_val=$localStorage.linkPath.length-index-1;
       for (var link_index = 0; link_index < trim_val; link_index++) {
         $localStorage.linkPath.pop();
       }
       if (!angular.equals(menu.actions,undefined)) {
-        $state.go(menu.actions[0].stateName);//go to the curresponding state when click a link
+        console.log('goMenu');
+            
+            //edit by arun
+            
+          if(angular.equals($scope.objectCode,undefined)){
+        $state.go($scope.stateSplit(menu.actions[0].stateName));//go to the curresponding state when click a link
+            }
+            else{
+              var codeObjectArray=$scope.objectCode.split(":")
+              console.log(codeObjectArray)
+              var key=codeObjectArray[0];
+              var value=codeObjectArray[1];
+            $state.go($scope.stateSplit(menu.actions[0].stateName),{key:value});//go to the curresponding state when click a link
+            }
       }
       else {
         $scope.userMenus=menu.childMenuStructure;
@@ -203,14 +241,17 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
             path_obj=[];
           }
           angular.forEach(menu[sub].actions,function(action){
-            if (angular.equals(action.stateName,state)) {
+           
+            if (angular.equals($scope.stateSplit(action.stateName),state)) {
 
               $rootScope.menuExist=true;
               path_obj.push(menu[sub]);
               $scope.navBar=true;
               $localStorage.linkPath=path_obj;
               $scope.linkPath=$localStorage.linkPath;
+
             }
+
           });
         }
       }

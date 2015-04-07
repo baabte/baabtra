@@ -67,7 +67,7 @@ $scope.fnAddNewRollCallBack=function(data){ //callback function for handle Add n
       fnRertrivecompanyRoleCallBack.then(function  (data) {
         $scope.roles=angular.fromJson(JSON.parse(data.data));
       });
-      $scope.notifications("Success","new role added","success");
+      $scope.notifications("Success","new role added and Menu Assigned","success");
     }
      $scope.btnRoleAdd='add';          
 };
