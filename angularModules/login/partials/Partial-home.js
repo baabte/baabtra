@@ -267,4 +267,9 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
       $scope.showScrollbarBreadcrumb=bcWidth>containerWidth;
     });
 
+
+    $scope.menuHover = function(element){
+      console.log(getComputedStyle(element));
+    };
+
 }]);
