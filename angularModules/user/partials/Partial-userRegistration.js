@@ -70,7 +70,18 @@ for(var i in $scope.formlist.formSchema){
 });
 
 
+ var FetchSpecificFormObj={companyId:companyId,fetchFormName:"userRegistration"};
+       var fnFetchSpecificCustomFormCallBack= formCustomizerService.FnFetchSpecificCustomForm(FetchSpecificFormObj);
+      fnFetchSpecificCustomFormCallBack.then(function  (data) {
 
+        var result=angular.fromJson(JSON.parse(data.data));
+
+        $scope.roleSchema=result.roleSchema.roleSchema;
+        // console.log($scope.roleSchema);
+
+      });
+
+// console.log($state.params)
 
 
 // var fnGetCountryStateDistrictCallBack=companyRegistrationService.FnGetCountryStateDistrict();   
