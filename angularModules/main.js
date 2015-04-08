@@ -230,17 +230,20 @@ angular.module('baabtra')
 //       $scope.$watch('selectedlanguage', function() {
 //      console.log($scope.selectedlanguage);
 // });
-
+      console.log($localStorage.linkPath)
       // it will redirect to GlobalSettings
       $scope.redirectToGlobalSettings=function(){
+            $localStorage.currentMenuName="global Settings";
             $state.go('home.main.globalSettings');
       };
 
       $scope.redirectTobaabtraProfile=function(){
+            // $localStorage.currentMenuName="";
             $state.go('home.main.baabtraProfile',{userLoginId:"54d84b55ef14f722f4890797"});
       };
       // it will redirect to theme settings
       $scope.redirectTothemeConfiguration=function(){
+            $localStorage.currentMenuName="theme Configuration";
         $state.go('home.main.themeConfiguration');
 
       };
