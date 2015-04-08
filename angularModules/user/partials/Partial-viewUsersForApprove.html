@@ -1,21 +1,35 @@
+
+
+
+
 <div class="row">
 	<div class="col-xs-12 bg-white">
 		<div ng-if="data.companOrderForms && $state.current.name == 'home.main.viewOrderForm'"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
 			<div masonry-tile class="tile col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm " ng-repeat="orderForm in data.companOrderForms.orderFroms">
-				<div class="baab-shadow set-full-height bg-white p-sm" style="cursor: pointer;">
-					<div>						
-						<div class="col-xs-11 text-right random-background-color p-xs">Order Form Id:&nbsp;<span class="font-bold">{{orderForm.customCompanyCode}}</span></div>
-						<div class="col-xs-1 m-v-xs">
-							<a href="" ng-model="data.selectedOrderFormOption" data-animation="am-flip-x" data-html="true" bs-dropdown="data.orderFormOptions" data-placement="bottom-right"><i class="mdi-navigation-more-vert text-lg"></i></a>
+				<div class="baab-shadow set-full-height bg-white p-sm no-padding" style="cursor: pointer;">
+					<div class="pull-left shadow-z-1 col-xs-12 no-padding">						
+						<div class="col-xs-11 text-left random-background-color p-sm ">Order Form Id:&nbsp;<span class="font-bold">{{orderForm.customCompanyCode}}</span></div>
+						<div class="col-xs-1 text-center m-t-sm">
+							<a href="" ng-model="data.selectedOrderFormOption" data-animation="am-flip-x" data-html="true" bs-dropdown="data.orderFormOptions" data-placement="bottom-right"><i class="mdi-device-storage text-lg m-h-n" style="color:#666666;"></i></a>
 						</div>
 					</div>
-					<div>
-						<div class="col-xs-12">From:&nbsp;<span class="font-bold"><user-card user-id="orderForm.crmId.$oid"></user-card></span></div>
+					<div  class="row p-xs">
+						<div class="col-xs-12">
+
+							<span class="m-v-xs col-xs-12 no-padding">
+							<strong> From: &nbsp;</strong>
+								<user-card user-id="orderForm.crmId.$oid"></user-card>
+							</span>
+						</div>
 					</div>
-					<div class="row">
-						<div class="col-xs-12 p-xs" ng-repeat="course in orderForm.orderDetails">
-							<div class="col-xs-11">{{course.Name}}</div>
-							<div class="col-xs-1">{{course.userCount}}</div>
+					<div class="row p-xs">
+						<div class="col-xs-12">
+							<div class="b-b no-padding p-v-xs m-t-xs col-xs-10 font-bold">Courses</div>
+							<div class="b-b no-padding p-v-xs m-t-xs col-xs-2 font-bold">Count</div>
+							<div class="col-xs-12 p-xs" ng-repeat="course in orderForm.orderDetails">
+								<div class="col-xs-10 no-padding">{{course.Name}}</div>
+								<div class="col-xs-2 no-padding">{{course.userCount}}</div>
+							</div>
 						</div>
 					</div>
 				</div>
