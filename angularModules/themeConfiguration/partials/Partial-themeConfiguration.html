@@ -143,7 +143,7 @@
                 
                   </div>
                 </div>
-                <div class="col-sm-4 " ng-show="!menuType=='classic'">
+                <div class="col-sm-4 " ng-show="menuType!='classic'">
                                <div class="radio radio-success">
                                 <label>
                                   <input ng-change="CustomizeMenuColor=false;saveMenuColor(menuColor)" ng-model="menuColor" type="radio" name="MenuColor"  value="random" checked=""><span class="circle"></span><span ></span>
