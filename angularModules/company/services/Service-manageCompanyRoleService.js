@@ -19,6 +19,8 @@ this.addUserRole=function ($scope){ // functon that call web service to add a co
 	 		dataType:"json",
 	 	}).
 	 	success(function(data, status, headers, config) {
+          var asd=angular.fromJson(JSON.parse(data));//Converting the result to json object
+          console.log(asd);
                    $scope.fnAddNewRollCallBack(data);
                }).
 	 	error(function(data, status, headers, config) {
