@@ -27,9 +27,10 @@
       <!-- ng-class="{'show animated fadeIn' : app.navbarCollapse} add this to enable dynamic color change -->
       <div class="navbar-collapse hidden-xs" ng-class="{'p-v-xs':roleId != $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId}"  ng-class="{'show animated fadeIn' : app.navbarCollapse}">
         <!-- nabar right -->
+
         <ul class="nav navbar-nav navbar-right m-r-n ">
           <li >
-             <button style="padding-right:3px;padding-left:3px;margin-top:18px" type="button"  class="btn btn-default" ng-model="selectedlanguage"  ng-options="obj as obj.language for obj in availlangualges" ng-change="changeLanguage(selectedlanguage)" bs-select>
+             <button style="padding-right:3px;padding-left:3px;margin-top:18px" type="button"  class="btn {{$root.userinfo.ActiveUserData.appSettings.headerColor}}" ng-model="selectedlanguage"  ng-options="obj as obj.language for obj in availlangualges" ng-change="changeLanguage(selectedlanguage)" bs-select>
              
              </button>
           </li>
