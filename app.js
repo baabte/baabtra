@@ -57,7 +57,8 @@
         'internationalPhoneNumber',
         'checklist-model',
         'angular-flipclock',
-        function(){  return 'custom-form';}()
+        function(){  return 'custom-form';}(),
+        'angular-accordion-tabs-directive'
         
       ])
 

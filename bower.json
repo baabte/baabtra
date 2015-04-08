@@ -61,7 +61,7 @@
     "jspdf": "~1.0.272",
     "angular-custom-form":"~0.1",
     "tableExport":"1.0",
-    "angular-accordion-tabs"
+    "angular-accordion-tabs":"0.9.0"
 
   },
   "devDependencies": {

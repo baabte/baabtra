@@ -1,19 +1,12 @@
 {
   "name": "angular-accordion-tabs",
-  "main": "angular-accordion-tabs.js",
   "version": "0.9.0",
+  "homepage": "https://github.com/baabte/baabtra",
   "authors": [
     "Peter Piekarczyk <peterpiekarczyk@gmail.com>"
   ],
   "description": "AngularJS directive that allows you to seamlessly create responsive tabs / accordion using angular",
-  "keywords": [
-    "accordion",
-    "tabs",
-    "responsive"
-  ],
-  "dependencies" : {
-    "angular": "~1.2.0"
-  },
+  "main": "angular-accordion-tabs.js",
   "license": "Apache",
   "ignore": [
     "**/.*",

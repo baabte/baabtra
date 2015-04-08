@@ -39,6 +39,7 @@ angular.module('custom-form').run(['$templateCache','loadTemplateSrv',function($
 
   }]);
 
+
 /* directive to load the dynamic form data*/
 acf.directive('acfForm',['$templateCache',function($templateCache){
 	 return {
@@ -66,7 +67,7 @@ acf.directive('acfForm',['$templateCache',function($templateCache){
 				            "validation" : {
 				                "messages" : {}
 				            },
-				            "type" : "inputtext",
+				            "type" : "text",
 				            "name" : "field2"
 				        }, 
 				        {
@@ -75,7 +76,7 @@ acf.directive('acfForm',['$templateCache',function($templateCache){
 				                "messages" : {},
 				                "maxlength" : 15
 				            },
-				            "type" : "selectfield",
+				            "type" : "select",
 				            "name" : "field3",
 				            "customlist" : [ 
 				                {
@@ -134,17 +135,72 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
       //$scope.form[$scope.formName]={};
       $scope.fields=[];
       $scope.fields.validation={};
+    
       $scope.customFieldId=0;
 
-      //function to add new field into the custom form 
+
+    //***validation patters ***
+    $scope.validationPatterns=[
+      {'name':'None','value': undefined},
+       {'name':'Url','value': '^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$'},
+       {'name':'Domain','value': '^([a-z][a-z0-9\\-]+(\\.|\\-*\\.))+[a-z]{2,6}$'},
+       {'name':'IPv4 Address','value': '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'},
+       {'name':'Email Address','value': '^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$'},
+       {'name':'Positive Integers','value': '^\\d+$'},
+       {'name':'Negative Integers','value': '^-\\d+$'},
+       {'name':'Number','value': '^-{0,1}\\d*\\.{0,1}\\d+$'},
+       {'name':'Positive Number','value': '^\\d*\\.{0,1}\\d+$'},
+       {'name':'Negative Number','value': '^-\\d*\\.{0,1}\\d+$'},
+       {'name':'Year (1920-2099)','value': '^(19|20)[\\d]{2,2}$'},
+       {'name':'Password','value': '(?=.*\\d)(?=.*[!@#$%^&*\\-=()|?.\"\';:]+)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$'}
+    ];
+
+      //***function to add new field into the custom form ***
       $scope.addNewField=function(){
-        $scope.customFieldId++;
+        $scope.customFieldId++; //to uniquely identify
+
+        /*deleting unesessary fields*/
+        delete $scope.selectedField[0]._id;
+        delete $scope.selectedField[0].urmId;
+        delete $scope.selectedField[0].crmId;
+        delete $scope.selectedField[0].updatedDate;
+        delete $scope.selectedField[0].ticked;
+        delete $scope.selectedField[0].createdDate;
+        delete $scope.selectedField[0].activeFlag;
+
         var fieldObj=angular.copy($scope.selectedField[0]);
+        fieldObj.customAttributes=[{"text":"","key":"Attribute1"}]; //for custom attributes
+        fieldObj.options=[{"text":"","key":"option1"}]; //for options
         if(!angular.equals($scope.selectedField.length,0)){
           fieldObj.id='field'+$scope.customFieldId;
           $scope.fields.push(fieldObj);
         }
       };
+
+      //to remove the field from the form
+      $scope.deleteField=function(index){
+        $scope.fields.splice(index,1);
+      };
+
+
+      //****field.otherPattern should be removed from the object while saving***
+      
+      /*save the custom form after configuration*/
+      $scope.generateCustomiseForm=function(){
+        /*creating the custom form object*/
+
+        $scope.form[$scope.formName]={}
+        $scope.form[$scope.formName].fields=$scope.fields;
+        
+        /*loop to add each attributes into the element*/
+        angular.forEach($scope.form[$scope.formName].fields,function(item){
+          delete $scope.form[$scope.formName].fields[item].otherPattern;
+
+          console.log(item);
+        });
+
+      };
+
     }
   }
 
