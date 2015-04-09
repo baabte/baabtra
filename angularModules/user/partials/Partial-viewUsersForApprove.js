@@ -10,6 +10,19 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 		$state.go('login');
 	}
 
+	//creating a mock of the global configuration of the company for the approval flow and access privileges for roles
+
+	$scope.approvalFlow = [{displayName:"Verify Applicants", loadStatus:["Pending Approval"], nextStatus:"Verified", privilegedRoles:[], paymentStage:false },
+	{displayName:"Collect Payment", loadStatus:["Verified", "Partially Paid"], nextStatus:"Paid", privilegedRoles:[], paymentStage:true },
+	{displayName:"Approve Order Form", loadStatus:["Paid"], nextStatus:"Approved", privilegedRoles:[], paymentStage:false}
+	];
+
+	
+
+	//.End == creating a mock of the global configuration of the company for the approval flow and access privileges for roles
+
+
+
 	$scope.coursePreviewObject={};
 	$scope.rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 	$scope.roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
@@ -44,7 +57,9 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 		$state.go('home.main.viewOrderForm.approveOrderFrom',{ofId:orderForm.orderFormId});
 	};
 
-	$scope.data.orderFormOptions = [{text: "Approve Order Form", click: "this.approveOrderForm(orderForm)"},
+	$scope.data.orderFormOptions = [{text: "Verify Applicants", click: "this.approveOrderForm(orderForm)"},
+									{text: "Collect Payment", click: "this.approveOrderForm(orderForm)"},
+									{text: "Approve Order Form", click: "this.approveOrderForm(orderForm)"},
   									{text: "View Order Form", click: "this.viewOrderForm(orderForm)"}];
 
 	var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes);

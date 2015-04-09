@@ -58,7 +58,7 @@
                   </div>
                   </div>
                  </div>  -->
-                 
+                  
                    <div class="row">
                     <div class="col-xs-12">
                       <div class="form-group">
@@ -137,8 +137,23 @@
                       </div>
                      </div>
                   </div>
+
                    </div> 
                  </div>
+                 <div class="row" ng-if="Batch.batchMode=='repeat'">
+                    <div class="col-xs-12">
+                      <div class="form-group">
+                      <div class="checkbox">
+                        <label>
+                            <input type="checkbox"  ng-model="Batch.emptyBatch" value="emptyBatch" ><b class="font-normal"  translate= "{{'Create an empty batch'|translate}}"></b> 
+                        </label>
+                      </div>
+                      <em class="text-muted text-E91E63"> 
+                    <span translate="{{'(Do you want to create a batch if there is no applicants..?)'|translate}}"></span>
+                      &nbsp;</em> 
+                      </div>
+                     </div>
+                  </div>      
               </div>
              <div class="row p"> 
              <div class="col-xs-12 col-sm-6 p " >
