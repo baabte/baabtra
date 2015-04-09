@@ -59,6 +59,7 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
   //  hide();
   // }
     $scope.savepopUpfn=function(hide){
+      $scope.batchMode="repeat";
       $scope.excluded=$scope.excluded.substring(0, $scope.excluded.length - 1);
    $scope.summary ='(Repeats Every '+ $scope.Batch.repeats.every +' '+ $scope.Batch.repeats.repeatType
    if($scope.excluded!=""){
@@ -252,6 +253,10 @@ $scope.resetBatch =function(){
   $scope.summary=null; 
    $scope.buttonType="Add Batch";
    $scope.excluded='';
+}
+$scope.fnChangeMode=function(hide){
+  hide();
+  $scope.Batch.batchMode="onetime";
 }
  $scope.batchDropdown = [
   {
