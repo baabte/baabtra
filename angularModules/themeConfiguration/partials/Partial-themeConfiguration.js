@@ -1,7 +1,12 @@
-angular.module('baabtra').controller('ThemeconfigurationCtrl',['$scope','$rootScope','bbConfig','$modal','commonSrv','themeConfigurationSrv','$alert',function($scope,$rootScope,bbConfig,$modal,commonSrv,themeConfigurationSrv,$alert){
+angular.module('baabtra').controller('ThemeconfigurationCtrl',['$scope','$rootScope','bbConfig','$modal','commonSrv','themeConfigurationSrv','$alert','localStorageService',function($scope,$rootScope,bbConfig,$modal,commonSrv,themeConfigurationSrv,$alert,localStorageService){
 
-
-$scope.selectedTab="Customizetheme";
+if(localStorageService.get('latestThemeState')){
+  $scope.selectedTab=localStorageService.get('latestThemeState');
+}
+else{
+  $scope.selectedTab="Customizetheme";
+}
+// $scope.selectedTab="Customizetheme";
 // $scope.selectedTab="SubTitlesandBackground";
 $scope.header ={} ;
 $scope.header.type = "Header";
@@ -85,10 +90,9 @@ unbindthis=$scope.$watch(function(){
             else{
                 $scope.menuColor="custom";
                 $scope.CustomizeMenuColor=true;
-              // $rootScope.userinfo.ActiveUserData.menuColor;
+                $scope.MenuColorproperties=$rootScope.userinfo.ActiveUserData.menuColor;
             }
 
-            
              if(angular.equals($rootScope.userinfo.ActiveUserData.subTitleAndBackColor,undefined)||angular.equals($rootScope.userinfo.ActiveUserData.subTitleAndBackColor,"random")){
                 $scope.subTitAndBackg="random";
               
@@ -96,10 +100,9 @@ unbindthis=$scope.$watch(function(){
             else{
                 $scope.subTitAndBackg="custom";
                 $scope.CustomizesubTitAndBackg=true;
-              // $rootScope.userinfo.ActiveUserData.menuColor;
+                $scope.subTitleAndBackColorProperpies=$rootScope.userinfo.ActiveUserData.subTitleAndBackColor;
             }
-            // console.log($rootScope.userinfo.ActiveUserData);
-
+             
 				if(!angular.equals($rootScope.userinfo,undefined)){
 					  unbindthis();
 				}
@@ -212,7 +215,8 @@ $scope.setSubTitAndBackground=function(color){
             var returndata = angular.fromJson(JSON.parse(data.data));
             if(angular.equals(returndata,"success")){
               $scope.activeBtn=false;
-              $scope.MenuColorproperties={}
+              $rootScope.userinfo.ActiveUserData.menuColor=$scope.MenuColorproperties;
+              $scope.MenuColorproperties={};
               $scope.notifications("Success","","success");
             }
 
@@ -274,6 +278,11 @@ $scope.setSubTitAndBackground=function(color){
       			
       		});
       };
+
+
+      $scope.setState=function(state){
+         localStorageService.add('latestThemeState',state);
+      }
 
      //notification 
 $scope.notifications=function(title,message,type){

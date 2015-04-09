@@ -17,14 +17,14 @@
       </div>
     </div> -->
     <ul class="nav nav-list b-t bg-white font-bold" ui-nav="">
-      <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='Customizetheme'}" ng-click="selectedTab='Customizetheme'">
+      <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='Customizetheme'}" ng-click="selectedTab='Customizetheme';setState('Customizetheme');">
 
         <a href=""  translate="{{'Customize theme'|translate}}"></a>
       </li>
-      <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='selectMenutype'}" ng-click="selectedTab='selectMenutype'">
+      <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='selectMenutype'}" ng-click="selectedTab='selectMenutype';setState('selectMenutype');">
         <a href="" translate="{{'Menu'|translate}}"></a>
       </li>
-       <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='SubTitlesandBackground'}" ng-click="selectedTab='SubTitlesandBackground'">
+       <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='SubTitlesandBackground'}" ng-click="selectedTab='SubTitlesandBackground';setState('SubTitlesandBackground');">
         <a href="" translate="{{'SubTitles and Background'|translate}}"></a>
       </li>
        
