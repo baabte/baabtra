@@ -238,7 +238,7 @@ angular.module('baabtra')
       };
 
       $scope.redirectTobaabtraProfile=function(){
-             $localStorage.currentMenuName="User Profile";
+            // $localStorage.currentMenuName="";
             $state.go('home.main.baabtraProfile',{userLoginId:"54d84b55ef14f722f4890797"});
       };
       // it will redirect to theme settings
