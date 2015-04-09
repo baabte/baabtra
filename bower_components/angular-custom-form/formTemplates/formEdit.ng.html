@@ -83,6 +83,15 @@
 		            </div>
 		        </div>
 		        <div class="form-group">
+		            <label for="eleLength" class="col-lg-2 control-label" translate="{{'Element width'|translate}}"></label>
+		            <div class="col-lg-10">
+		                <select id="eleLength" class="form-control" ng-model="field.width" placeholder="{{'Element width'|translate}}">
+		                <option value="" translate="{{'-- choose width --'|translate}}"></option>
+		                <option selected="true" value="col-md-12" translate="{{'100%'|translate}}">
+		                <option value="col-md-6" translate="{{'50%'|translate}}"></select>
+		            </div>
+		        </div>
+		        <div class="form-group">
 		        	<label for="placeholder" class="col-lg-2 control-label" translate="{{'Attribute customization'|translate}}"></label>
 		        	<div class="col-lg-10">
 			        	<ul class="nav nav-tabs">
@@ -135,7 +144,7 @@
 						        <div class="form-group" ng-if="field.validation.pattern||field.validation.required">
 						        	<label for="message" class="col-lg-2 control-label" translate="{{'Message'|translate}}"></label>
 						            <div class="col-lg-10">
-						                  <input type="text" id="message" ng-model="field.validation.message" class="form-control" placeholder="{{'validation message'|translate}}">
+						                  <input type="text" id="message" ng-model="field.validation.messages.custom" class="form-control" placeholder="{{'validation message'|translate}}">
 						            </div>
 						        </div>
 						         <div class="form-group">

@@ -29,7 +29,7 @@
 				<input type="text" ng-disabled="attType=='mandatory'||attType=='uneditable'" name="optionValue" ng-model="option.key" ng-required="true" class="form-control">
 			</td>
 			<td>
-				<input type="text" name="text{{$index}}" ng-disabled="attType=='uneditable'" ng-model="option.text" class="form-control"  xt-validate required>
+				<input type="text" name="text{{$index}}" ng-disabled="attType=='uneditable'" ng-model="option.text" class="form-control">  <!--  xt-validate required -->
 			</td>
 			<td>
 				<a href="\" class="" ng-click="removeOption($index)"  ng-show="attType=='other'" data-title="{{'Remove this option from the list'|translate}}" bs-tooltip>

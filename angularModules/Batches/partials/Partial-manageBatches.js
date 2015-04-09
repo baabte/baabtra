@@ -122,12 +122,12 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
         // $scope.Batch.oneTime.excludedDaysOnetime=[];
          $scope.Batch.repeats.excludedDaysRepeat=[];
          //$scope.Batch.repeats={};
-        // $scope.Batch.course={};
          //$scope.Batch.Admission={};
          //$scope.Batch.repeatName={};
          $scope.Batch.repeats={};
          $scope.Batch.Admission={};
          $scope.Batch = {};
+          $scope.Batch.course=[];
          //$scope.newCourse={};
          
    });
@@ -197,10 +197,13 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
     
   }
   $scope.fnDeleteBatches=function(id){
-   var deletedBatch= addBatches.deleteBatch(id)
+   var deletedBatch= addBatches.deleteBatch(id,$scope.cmp_id)
    deletedBatch.then(function(response){
+    $scope.batchEelements=angular.fromJson(JSON.parse(response.data));
+    console.log($scope.batchEelements)
     $alert({title: 'Done..!', content: 'Successfuly Deleted the Batch :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
          hide();
+
    });
 
   }

@@ -32,61 +32,44 @@ angular.module('custom-form').run(['$templateCache','loadTemplateSrv',function($
  
 
   	});
-	//console.log(templateElement.Name);
+
      /*template for loading the dynamic fields*/
-      $templateCache.put('angular-custom-form/fieldView.ng.html','<div class=\"col-xs-12\"><div ng-repeat=\"field in acfSchema.fields\">{{acfModel}}<div acf-model="acfModel" acf-field=\"field\"></div></div></div>');
+      // $templateCache.put('angular-custom-form/fieldView.ng.html','<div class=\"col-xs-12\"><div ng-repeat=\"field in acfSchema.fields\">{{acfModel}}<div acf-model="acfModel" acf-field=\"field\"></div></div></div>');
+      $templateCache.put('angular-custom-form/fieldView.ng.html','<div ng-bind-html=\"template\"></div>');
      
 
   }]);
 
 
 /* directive to load the dynamic form data*/
-acf.directive('acfForm',['$templateCache',function($templateCache){
+acf.directive('acfForm',['$templateCache','$compile','$sce',function($templateCache,$compile,$sce){
 	 return {
     restrict: 'A',
-    require: ['^?acfForm','^?acfModel'],
+    replace:true,
+    require: ['^?acfForm','^?acfModel','^?inputModel'],
     scope: {
       //acfSchema:'=',
-      acfModel:'='
+      //acfModel:'=',
+      inputModel:'='
     },
-   	templateUrl: 'angular-custom-form/fieldView.ng.html', /*template url to field view */
-    link: function ($scope, $element, $attrs){
+   	//templateUrl: 'angular-custom-form/fieldView.ng.html', /*template url to field view */
+    link: function (scope, element, attrs){
       //$scope.acfModel={};
-    	$scope.acfSchema={
-				    "fields" : [ 
-				       /* {
-				            "displayName" : "Textbox",
-				            "validation" : {
-				                "messages" : {}
-				            },
-				            "type" : "youtubevideo",
-				            "name" : "field1"
-				        }, */
-				        {
-				            "displayName" : "Email",
-				            "validation" : {
-				                "messages" : {}
-				            },
-				            "type" : "text",
-				            "name" : "field2"
-				        }, 
-				        {
-				            "displayName" : "Number",
-				            "validation" : {
-				                "messages" : {},
-				                "maxlength" : 15
-				            },
-				            "type" : "select",
-				            "name" : "field3",
-				            "customlist" : [ 
-				                {
-				                    "text" : "payment-checkpoint",
-				                    "value" : "previewkey"
-				                }
-				            ]
-				        }
-				    ]
-				}
+      //scope.template='';
+      scope.template='';
+      scope.$watch('inputModel',function(){
+          if(Object.keys(scope.inputModel).length>0){
+            //console.log(scope.inputModel.template);
+
+            for(var key in scope.inputModel){
+              $templateCache.put('angular-custom-form/template.ng.html',scope.inputModel[key].template);
+              //scope.template = $sce.trustAsHtml(scope.inputModel[key].template);
+            }
+            var templateData=$templateCache.get('angular-custom-form/template.ng.html');
+            element.html(templateData);                                                      
+            $compile(element.contents())(scope);   //compiles the specific control
+          }
+      },true);
 
      }
     }
@@ -125,17 +108,17 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
     replace:true,
     scope: {
       //fieldSchema: '=acfField',
-      acfModel:"="
+      form:"=acfModel"
     },
     templateUrl: 'bower_components/angular-custom-form/formTemplates/formEdit.ng.html',
     link: function ($scope, $element, $attrs) {
    
       $scope.fieldList=responseData; //storing the list of fileds from response data to scope varible.
-      $scope.form={};
+      //$scope.form={};
       //$scope.form[$scope.formName]={};
       $scope.fields=[];
-      $scope.fields.validation={};
-    
+      
+
       $scope.customFieldId=0;
 
 
@@ -167,10 +150,21 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
         delete $scope.selectedField[0].ticked;
         delete $scope.selectedField[0].createdDate;
         delete $scope.selectedField[0].activeFlag;
-
+       $scope.selectedField[0].validation={};
+        $scope.selectedField[0].validation.messages={
+          required: 'A value is required for this field.',
+          minlength: 'The value does not match the minimum length.',
+          maxlength: 'The value exceeds the maximum length',
+          pattern: 'The value does not match the required format.',
+          email: 'The value is not a valid email address.',
+          unique: 'The value is already in use.',
+          number: 'The value is not a number.',
+          min: 'The value not met min',
+          max: 'The value not met max'
+      };
         var fieldObj=angular.copy($scope.selectedField[0]);
-        fieldObj.customAttributes=[{"text":"","key":"Attribute1"}]; //for custom attributes
-        fieldObj.options=[{"text":"","key":"option1"}]; //for options
+        //fieldObj.customAttributes=[{"text":"","key":"Attribute1"}]; //for custom attributes
+        //fieldObj.options=[{"text":"","key":"option1"}]; //for options
         if(!angular.equals($scope.selectedField.length,0)){
           fieldObj.id='field'+$scope.customFieldId;
           $scope.fields.push(fieldObj);
@@ -191,14 +185,71 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
 
         $scope.form[$scope.formName]={}
         $scope.form[$scope.formName].fields=$scope.fields;
-        
+        $scope.form[$scope.formName].template='';
         /*loop to add each attributes into the element*/
-        angular.forEach($scope.form[$scope.formName].fields,function(item){
-          delete $scope.form[$scope.formName].fields[item].otherPattern;
+        angular.forEach($scope.form[$scope.formName].fields,function(item,index){
+          delete $scope.form[$scope.formName].fields[index].otherPattern;
+          var templateData = item.DefaultTemplate;
 
-          console.log(item);
+          //for adding options to select list
+          if(angular.equals(item.Name,'select')){
+           optionsForAdd =templateData.split('</select>')[0];
+            angular.forEach(item.options,function(optAtt){
+              optionsForAdd = optionsForAdd + '<option value=\"'+ optAtt.key +'\">'+optAtt.text+'</option>';
+            });
+            optionsForAdd=optionsForAdd+'</select>';
+            templateData=optionsForAdd;
+          }
+          //split the template by '>' to add custom attributes
+          var beforeCustom = templateData.split(">");
+          var optionsForAdd;
+          var formLabel='<div class="form-group"><label class="col-lg-2 control-label">'+item.DisplayName+'</label><div class="col-lg-10">';
+
+
+          //loping through custom attributes to add it into default template
+          angular.forEach(item.customAttributes,function(cutsomAtt){
+            beforeCustom[0] = beforeCustom[0] + ' '+ customAtt.key +'=\"'+customAtt.text+'\"';
+          });
+          // $templateCache.put('angular-custom-form/
+          //loping through mandatory Attributes to add it into default template
+          angular.forEach(item.mandatoryAttributes,function(mandAtt){
+            beforeCustom[0] = beforeCustom[0] + ' '+ mandAtt.key +'=\"'+mandAtt.text+'\"';
+          });
+          
+          //loping through unEditableAttributes to add it into default template
+          angular.forEach(item.unEditableAttributes,function(uneditAtt){
+            beforeCustom[0] = beforeCustom[0] + ' '+ uneditAtt.key +'=\"'+uneditAtt.text+'\"';
+          });
+
+          //other attributes
+          beforeCustom[0] = beforeCustom[0] + ' '+ 'placeholder=\"'+item.placeholder+'\"';
+          beforeCustom[0] = beforeCustom[0] + ' '+ 'data-title=\"'+item.tooltip+'\"';
+          beforeCustom[0] = beforeCustom[0] + ' '+ 'bs-tooltip';
+          beforeCustom[0] = beforeCustom[0] + ' '+ 'name=\"'+item.id+'\"';
+          if(!angular.equals(item.value,undefined)){
+            beforeCustom[0] = beforeCustom[0] + ' '+ 'value=\"'+item.value+'\"';
+          }
+          if(!angular.equals(item.disabled,undefined)){
+            beforeCustom[0] = beforeCustom[0] + ' '+ 'disabled=\"'+item.disabled+'\"';
+          }
+          //attributes adding for validation
+          beforeCustom[0] = beforeCustom[0] + ' '+ 'xt-validate';
+          //if(angular.equals(item.validation.required,undefined)){
+            beforeCustom[0] = beforeCustom[0] + ' '+ 'required';
+          //}
+          if(!angular.equals(item.validation.pattern,undefined)){
+            beforeCustom[0] = beforeCustom[0] + ' '+ 'ng-pattern=\"'+item.validation.pattern+'\"';
+          }
+          
+
+          beforeCustom[0] = beforeCustom[0] + ' '+ 'msg-required=\"'+item.validation.messages.custom+'\"';
+  
+          templateData= beforeCustom.join('>');
+          var footer="</div></div>";
+          $scope.form[$scope.formName].template=$scope.form[$scope.formName].template+formLabel+templateData+footer;
+             
         });
-
+        $scope.form[$scope.formName].template='<form name="myForm" role="form" class="form-horizontal" xt-form novalidate>'+$scope.form[$scope.formName].template+'</form>'
       };
 
     }

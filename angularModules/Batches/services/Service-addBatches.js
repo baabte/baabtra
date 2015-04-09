@@ -49,11 +49,11 @@ angular.module('baabtra').service('addBatches',['$http','bbConfig','$rootScope',
 	return promise;
  }
 
- this.deleteBatch=function(id){
+ this.deleteBatch=function(id,cmpId){
     var promise = $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'deleteBatch/',
-	    data:{"id":id}
+	    data:{"id":id,"cmpId":cmpId}
 	 });
 	return promise;
  }
