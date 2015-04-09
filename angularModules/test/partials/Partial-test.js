@@ -155,5 +155,7 @@ $scope.flipclock={};
 $scope.branch={};
 
 $scope.course={};
+
+
 }]);																																																																								 																			
 
