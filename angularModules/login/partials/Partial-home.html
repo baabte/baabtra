@@ -23,12 +23,14 @@ Created On:12/11/2014 -->
       </nav>
 </div>
 </div>
-<div class="p-md" >
-	<div class="row" name="innercontent" ui-view>
-    <div ng-if="$root.userinfo.ActiveUserData.modernView == 'modern'" class="col-xs-12"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-      <div ng-if="menu.canView || (menu.canView == undefined)" masonry-tile  ng-repeat="menu in userMenus" class="text-center p-xs pull-left tile masonry-brick" style="width:140px; margin-bottom:0px;">
+<div class="p-md"  >
+	<div  class="row" name="innercontent" ui-view>
+    <div ng-if="$root.userinfo.ActiveUserData.modernView == 'modern' " class="col-xs-12"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
+      <div ng-if="(menu.canView || (menu.canView == undefined)) && userMenus.length" masonry-tile  ng-repeat="menu in userMenus" class="text-center p-xs pull-left tile masonry-brick" style="width:140px; margin-bottom:0px;" >
 
-      <div ng-click="loadDetails(menu)" class="text-sm btn text-dark btn-lg bg-light lt btn-stroke {{colorArray[($index+1)%colorArray.length]}} text-center col-xs-12" style="padding-bottom:0px; margin-bottom:0px; margin-top:0px;">
+
+      <!-- fixed color -->
+      <div ng-if="$root.userinfo.ActiveUserData.menuColor != 'random'" ng-mouseover="menuHover=true" ng-mouseleave="menuHover=false" ng-click="loadDetails(menu)" class="text-sm btn text-dark btn-lg  btn-stroke  text-center col-xs-12 {{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}} invert-color" style="padding-bottom:0px; margin-bottom:0px; margin-top:0px;color:#fff;"  >
         
               <div class="row text-center">
                 <i class="fa {{menu.menuIcon}} fa-2x" ></i>
@@ -46,7 +48,30 @@ Created On:12/11/2014 -->
 
         </div>
 
-        </div>       
+        </div> 
+
+        <!-- random color -->
+        <div ng-if="$root.userinfo.ActiveUserData.menuColor == 'random'" ng-click="loadDetails(menu)" class="text-sm btn text-dark btn-lg bg-light lt  btn-stroke  text-center col-xs-12 {{colorArray[($index+1)%colorArray.length]}} " style="padding-bottom:0px; margin-bottom:0px; margin-top:0px;"  >
+        
+              <div class="row text-center">
+                <i class="fa {{menu.menuIcon}} fa-2x" ></i>
+              </div>
+
+              <div class="row text-center">
+                <span class="block clear m-v-xs word-wrap" text-to-translate = "{{menu.MenuName}}" translate>{{menu.MenuName}}</span>
+
+              <div class="row text-right" style="margin-bottom:0px;"  ng-show="{{menu.childMenuStructure.length}}">
+                <!-- <button class="btn btn-xs"> -->
+                  <i class="mdi-navigation-chevron-right text-2x"></i>
+                <!-- </button> -->
+                
+              </div>
+
+        </div>
+
+        </div>
+
+
       </div>
 	</div>
 

@@ -10,7 +10,7 @@
 			<th translate="{{'value'|translate}}"></th>
 			<th translate="{{'Text'|translate}}"></th>
 			<th>
-				<a href="\" class="" ng-show="attType=='other'" ng-click="addOption()" data-title="{{'Add a new option to the list'|translate}}" bs-tooltip>
+				<a href="\" class="" ng-show="attType==='other'" ng-click="addOption()" data-title="{{'Add a new option to the list'|translate}}" bs-tooltip>
 					<i class="glyphicon glyphicon-plus"></i>
 				</a>
 			</th>
@@ -32,7 +32,7 @@
 				<input type="text" name="text{{$index}}" ng-disabled="attType=='uneditable'" ng-model="option.text" class="form-control">  <!--  xt-validate required -->
 			</td>
 			<td>
-				<a href="\" class="" ng-click="removeOption($index)"  ng-show="attType=='other'" data-title="{{'Remove this option from the list'|translate}}" bs-tooltip>
+				<a href="\" class="" ng-click="removeOption($index)"  ng-show="attType==='other'" data-title="{{'Remove this option from the list'|translate}}" bs-tooltip>
 					<i class="glyphicon glyphicon-trash"></i>
 				</a>
 			</td>

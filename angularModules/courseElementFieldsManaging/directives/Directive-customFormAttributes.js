@@ -71,7 +71,7 @@ angular.module('baabtra').directive('customFormAttributes',['$alert', function($
 			    }
 
 			    var option = {
-			      key: 'Attribute ' + optionCounter++,
+			      key: 'Attribute' + optionCounter++,
 			      text:""
 			    };
 

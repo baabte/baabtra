@@ -16,7 +16,7 @@ angular.module('custom-form').run(['$templateCache','loadTemplateSrv',function($
       
    		angular.forEach(responseData, function(templateElement){
           var templateData=templateElement.DefaultTemplate;
-          var beforeCustom = templateData.split(">");
+          /*var beforeCustom = templateData.split(">");
           angular.forEach(templateElement.unEditableAttributes, function(innerElement){ //looping through uneditable list to get the ng-model value
               beforeCustom[0] = beforeCustom[0] + innerElement.value +'=\"'+innerElement.text+'\"';//this line will add the ng-model to specific control
 
@@ -26,7 +26,7 @@ angular.module('custom-form').run(['$templateCache','loadTemplateSrv',function($
               beforeCustom[0] = beforeCustom[0] + innerMElement.value +'='+innerMElement.text;//this line will add the ng-model to specific control
 
             });
-            templateData= beforeCustom.join('>');
+            templateData= beforeCustom.join('>');*/
             $templateCache.put('angular-custom-form/'+templateElement.Name+'.ng.html',templateData);
          });
  
@@ -46,29 +46,33 @@ acf.directive('acfForm',['$templateCache','$compile','$sce',function($templateCa
 	 return {
     restrict: 'A',
     replace:true,
-    require: ['^?acfForm','^?acfModel','^?inputModel'],
+    require: ['^?acfForm','^?outputModel','^?inputModel'],
     scope: {
-      //acfSchema:'=',
-      //acfModel:'=',
-      inputModel:'='
+      inputModel:'=',
+      outputObj:'=outputModel'
     },
    	//templateUrl: 'angular-custom-form/fieldView.ng.html', /*template url to field view */
     link: function (scope, element, attrs){
-      //$scope.acfModel={};
-      //scope.template='';
-      scope.template='';
-      scope.$watch('inputModel',function(){
-          if(Object.keys(scope.inputModel).length>0){
-            //console.log(scope.inputModel.template);
-
-            for(var key in scope.inputModel){
-              $templateCache.put('angular-custom-form/template.ng.html',scope.inputModel[key].template);
-              //scope.template = $sce.trustAsHtml(scope.inputModel[key].template);
+      scope.outputObj={};
+      //watch function to notify the changes in the object
+      scope.$watch('inputModel',function(newValue, oldValue){
+          //checking for object length
+            if(angular.equals(newValue, oldValue)){
+                return; // simply skip that
             }
-            var templateData=$templateCache.get('angular-custom-form/template.ng.html');
-            element.html(templateData);                                                      
-            $compile(element.contents())(scope);   //compiles the specific control
-          }
+            else{ //takes the newest value
+              if(Object.keys(scope.inputModel).length>0){
+                //creating dynamic object as per the formname
+                scope[scope.inputModel['formName']]={};
+                //passing the object into outputObj to get it in parent scope.
+                scope.outputObj=scope[scope.inputModel['formName']];
+                //adding the template into templateChache for retrival
+                $templateCache.put('angular-custom-form/template.ng.html',scope.inputModel.template);
+                var templateData=$templateCache.get('angular-custom-form/template.ng.html');
+                element.html(templateData);                                                      
+                $compile(element.contents())(scope);   //compiles the specific element
+              }
+            }
       },true);
 
      }
@@ -115,7 +119,7 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
    
       $scope.fieldList=responseData; //storing the list of fileds from response data to scope varible.
       //$scope.form={};
-      //$scope.form[$scope.formName]={};
+      //$scope.form={};
       $scope.fields=[];
       
 
@@ -182,74 +186,131 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
       /*save the custom form after configuration*/
       $scope.generateCustomiseForm=function(){
         /*creating the custom form object*/
+        $scope.form.fields=$scope.fields;
+        $scope.form.template='';
 
-        $scope.form[$scope.formName]={}
-        $scope.form[$scope.formName].fields=$scope.fields;
-        $scope.form[$scope.formName].template='';
         /*loop to add each attributes into the element*/
-        angular.forEach($scope.form[$scope.formName].fields,function(item,index){
-          delete $scope.form[$scope.formName].fields[index].otherPattern;
+        angular.forEach($scope.form.fields,function(item,index){
+          delete $scope.form.fields[index].otherPattern;
           var templateData = item.DefaultTemplate;
+          $scope.tempField=item;
+          var optionsForAdd;
 
           //for adding options to select list
-          if(angular.equals(item.Name,'select')){
+          if(angular.equals(item.Name,'select')){ 
            optionsForAdd =templateData.split('</select>')[0];
             angular.forEach(item.options,function(optAtt){
               optionsForAdd = optionsForAdd + '<option value=\"'+ optAtt.key +'\">'+optAtt.text+'</option>';
             });
-            optionsForAdd=optionsForAdd+'</select>';
-            templateData=optionsForAdd;
+            optionsForAdd=optionsForAdd+'</select>'; 
+            templateData=optionsForAdd; //assigning the added option into a variable
           }
+          //for radiobutton list
+          if(angular.equals(item.Name,'radiobuttonlist')){
+            angular.forEach(item.options,function(optAtt){//adding the nesessary attributes into the element by looping through each radiobutton in radiobuttonlist
+              optionsForAdd = optionsForAdd + '<div class="radio radio-primary"><label><input type="radio" name=\"'+item.id+'optionsRadios\" value=\"'+optAtt.key+'\" checked="">'+optAtt.text+'</label></div>';
+            });
+            tempTemplateData=optionsForAdd; //assigning the added option into a variable
+          }
+          //checking for the input element is checkboxlist
+          if(angular.equals(item.Name,'checkboxlist')){
+            angular.forEach(item.options,function(optAtt){ //adding the nesessary attributes into the element by looping through each checkbox in checkboxlist
+              optionsForAdd = optionsForAdd + '<div class="checkbox"><label><input name=\"'+item.id+'checkbox\" checklist-value=\"'+optAtt.key+'\" type="checkbox">'+optAtt.text+'</label></div>';
+            });
+            tempTemplateData=optionsForAdd; //assigning the added option into a variable
+          }
+          
           //split the template by '>' to add custom attributes
           var beforeCustom = templateData.split(">");
-          var optionsForAdd;
+         
           var formLabel='<div class="form-group"><label class="col-lg-2 control-label">'+item.DisplayName+'</label><div class="col-lg-10">';
-
 
           //loping through custom attributes to add it into default template
           angular.forEach(item.customAttributes,function(cutsomAtt){
             beforeCustom[0] = beforeCustom[0] + ' '+ customAtt.key +'=\"'+customAtt.text+'\"';
           });
-          // $templateCache.put('angular-custom-form/
+
           //loping through mandatory Attributes to add it into default template
           angular.forEach(item.mandatoryAttributes,function(mandAtt){
-            beforeCustom[0] = beforeCustom[0] + ' '+ mandAtt.key +'=\"'+mandAtt.text+'\"';
+            if(angular.equals(mandAtt.key,'ng-model')){
+              beforeCustom[0] = beforeCustom[0] + ' '+ mandAtt.key +'=\"'+$scope.form.formName+'.'+mandAtt.text+'\"';
+            }else{
+              beforeCustom[0] = beforeCustom[0] + ' '+ mandAtt.key +'=\"'+mandAtt.text+'\"';
+            }
+            
+            if(angular.equals(item.Name,'radiobuttonlist')){
+                tmpRdList=tempTemplateData.split('checked="">');
+                angular.forEach(tmpRdList,function(rdItem,index){
+                  if(!angular.equals(index+1,tmpRdList.length)){
+                    tmpRdList[index]=tmpRdList[index]+' '+ mandAtt.key +'=\"'+$scope.form.formName+'.'+mandAtt.text+'\" ';
+                  }
+                });
+                tempTemplateData=tmpRdList.join('checked="">');
+                tempTemplateData=tempTemplateData.replace('undefined','');
+
+            }
+            if(angular.equals(item.Name,'checkboxlist')){
+                tmpCbList=tempTemplateData.split('type="checkbox">');
+                angular.forEach(tmpCbList,function(cbItem,index){
+                  if(!angular.equals(index+1,tmpCbList.length)){
+                    tmpCbList[index]=tmpCbList[index]+' checklist-model=\"'+$scope.form.formName+'.'+mandAtt.text+'\" ';
+                  }
+                });
+                tempTemplateData=tmpCbList.join('type="checkbox">');
+                tempTemplateData=tempTemplateData.replace('undefined','');
+                
+            }
           });
           
+
+
           //loping through unEditableAttributes to add it into default template
           angular.forEach(item.unEditableAttributes,function(uneditAtt){
             beforeCustom[0] = beforeCustom[0] + ' '+ uneditAtt.key +'=\"'+uneditAtt.text+'\"';
           });
 
-          //other attributes
-          beforeCustom[0] = beforeCustom[0] + ' '+ 'placeholder=\"'+item.placeholder+'\"';
-          beforeCustom[0] = beforeCustom[0] + ' '+ 'data-title=\"'+item.tooltip+'\"';
-          beforeCustom[0] = beforeCustom[0] + ' '+ 'bs-tooltip';
-          beforeCustom[0] = beforeCustom[0] + ' '+ 'name=\"'+item.id+'\"';
-          if(!angular.equals(item.value,undefined)){
-            beforeCustom[0] = beforeCustom[0] + ' '+ 'value=\"'+item.value+'\"';
-          }
-          if(!angular.equals(item.disabled,undefined)){
-            beforeCustom[0] = beforeCustom[0] + ' '+ 'disabled=\"'+item.disabled+'\"';
-          }
-          //attributes adding for validation
-          beforeCustom[0] = beforeCustom[0] + ' '+ 'xt-validate';
-          //if(angular.equals(item.validation.required,undefined)){
-            beforeCustom[0] = beforeCustom[0] + ' '+ 'required';
-          //}
-          if(!angular.equals(item.validation.pattern,undefined)){
-            beforeCustom[0] = beforeCustom[0] + ' '+ 'ng-pattern=\"'+item.validation.pattern+'\"';
-          }
-          
+          //looping through object to get the each key,value
+          angular.forEach(item, function(value , key) {
+            //checking for unwanted attributes which remove from adding into elememnt 
+            if(!angular.equals(key,'unEditableAttributes')&&!angular.equals(key,'customAttributes')&&!angular.equals(key,'mandatoryAttributes')&&!angular.equals(key,'DisplayName')&&!angular.equals(key,'$$hashKey')&&!angular.equals(key,'id')&&!angular.equals(key,'validation')&&!angular.equals(key,'DefaultTemplate')&&!angular.equals(key,'Name')&&!angular.equals(key,'options')){
 
-          beforeCustom[0] = beforeCustom[0] + ' '+ 'msg-required=\"'+item.validation.messages.custom+'\"';
-  
-          templateData= beforeCustom.join('>');
+                 beforeCustom[0] = beforeCustom[0] + ' '+key+'=\"'+value+'\"';
+              }
+              if(angular.equals(key,'tooltip')){
+                 beforeCustom[0] = beforeCustom[0] + ' '+ 'data-title=\"'+value+'\"';
+              }
+
+          });
+          //other attributes
+
+          beforeCustom[0] = beforeCustom[0] + ' '+ 'name=\"'+item.id+'\"';
+
+          //looping the validation object
+          angular.forEach(item.validation, function(value , key) {
+              if(!angular.equals(key,'messages')){
+                 beforeCustom[0] = beforeCustom[0] + ' '+key+'=\"'+value+'\"';
+              }
+          });
+
+            templateData= beforeCustom.join('>'); //join the splited content
+
+           if(angular.equals(item.Name,'radiobuttonlist')){
+              templateData=tempTemplateData;
+           }
+           if(angular.equals(item.Name,'checkboxlist')){
+              templateData=tempTemplateData;
+           }
+           if(angular.equals(item.Name,'checkbox')){
+              templateData='<div class="checkbox no-padding"><label>'+templateData+'</label></div>';
+           }
+           if(angular.equals(item.Name,'radio')){
+              templateData='<div class="togglebutton"><label>'+templateData+'</label></div>';
+           }
           var footer="</div></div>";
-          $scope.form[$scope.formName].template=$scope.form[$scope.formName].template+formLabel+templateData+footer;
+          $scope.form.template=$scope.form.template+formLabel+templateData+footer;
              
         });
-        $scope.form[$scope.formName].template='<form name="myForm" role="form" class="form-horizontal" xt-form novalidate>'+$scope.form[$scope.formName].template+'</form>'
+        $scope.form.template='<form name="myForm" role="form" class="form-horizontal" xt-form novalidate>'+$scope.form.template+'</form>'
       };
 
     }
