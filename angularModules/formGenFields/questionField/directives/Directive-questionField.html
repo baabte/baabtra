@@ -90,12 +90,12 @@
 							<objective-options-field ng-if="question.type=='objective'" answers="question.options"></objective-options-field>
 
 
-							<div ng-if="question.type=='objective'&&question.answerType=='multiAnswer'" class="col-xs-12 m-v-lg">
+							<div ng-if="question.type=='objective'&&question.answerType=='multiAnswer'" class="col-xs-12 m-v-xs">
 								<div  multi-selectable input-model="optionsTemp" output-model="question.answer" button-label="Name" item-label="Name" tick-property="ticked" helper-elements="all none reset filter">
 		      					</div>
 							</div>
 							
-	      					<div ng-if="question.type=='objective'&&question.answerType=='singleAnswer'" class="col-xs-12 m-v-lg">
+	      					<div ng-if="question.type=='objective'&&question.answerType=='singleAnswer'" class="col-xs-12 m-v-xs">
 								<div class="paper-dropdown">
 								<select required xt-validate placeholder="{{'Select an answer'|translate}}" data-animation="am-fade-and-slide-top"  ng-model="question.answer[0]" ng-options="value.Name for (key, value) in optionsTemp" data-html="true" bs-select></select>
 								</div>
