@@ -10,18 +10,7 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 		$state.go('login');
 	}
 
-	//creating a mock of the global configuration of the company for the approval flow and access privileges for roles
-
-	$scope.approvalFlow = [{displayName:"Verify Applicants", loadStatus:["Pending Approval"], nextStatus:"Verified", privilegedRoles:[], paymentStage:false },
-	{displayName:"Collect Payment", loadStatus:["Verified", "Partially Paid"], nextStatus:"Paid", privilegedRoles:[], paymentStage:true },
-	{displayName:"Approve Order Form", loadStatus:["Paid"], nextStatus:"Approved", privilegedRoles:[], paymentStage:false}
-	];
-
 	
-
-	//.End == creating a mock of the global configuration of the company for the approval flow and access privileges for roles
-
-
 
 	$scope.coursePreviewObject={};
 	$scope.rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
@@ -32,6 +21,8 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 	$scope.data.checkAll = {};
 	$scope.data.approvedMenteesList = {};
 	$scope.data.courseObject = {};
+
+	
 	$scope.data.statusTypes = [{"value":"requested","label":"Requested"},
 							   {"value":"approved","label":"Approved"},
 							   {"value":"rejected","label":"Rejected"}];
@@ -51,21 +42,71 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 		});
 	}
 
-	$scope.approveOrderForm = function(orderForm){
-		$scope.data.approveOrderForm = orderForm;
-		$scope.data.approveOrderFormStatus = true;
-		$state.go('home.main.viewOrderForm.approveOrderFrom',{ofId:orderForm.orderFormId});
+
+
+//ANOOP ***************************************************************************************
+	//creating a mock of the global configuration of the company for the approval flow and access privileges for roles
+
+	$scope.approvalFlow = [{displayName:"Verify Applicants", loadStatus:["Pending Approval"], nextStatus:"Verified", privilegedRoles:['a','b','c'], buttonText:"Verify", paymentStage:false },
+	{displayName:"Collect Payment", loadStatus:["Verified", "Partially Paid"], nextStatus:"Paid", privilegedRoles:['a','b'], buttonText:"Make Payment", paymentStage:true },
+	{displayName:"Approve Order Form", loadStatus:["Paid"], nextStatus:"Approved", privilegedRoles:['a','c'], buttonText:"Approve", paymentStage:false}
+	];	
+
+	//.End == creating a mock of the global configuration of the company for the approval flow and access privileges for roles
+
+	//taking the role of the current logged in user to a variable
+	//$scope.currentUserRole = angular.copy($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId);
+	$scope.currentUserRole = 'a';
+
+	//Creating the options for each role dynamically to show in the options menu, for eg. if the logged in user is of role 'a' only the entries which has role 'a' in their privilegedroles array will appear in the menu
+	$scope.data.orderFormOptions = [];
+
+	//a variable to keep the active options for the user so that for the click on an option the properties of the particular object in the approval flow object can be tracked
+	$scope.data.activeOptions=[];
+
+
+	var orderFormOption = {};
+
+	for (var i in $scope.approvalFlow) {
+		if(!angular.equals($scope.approvalFlow[i].privilegedRoles.indexOf($scope.currentUserRole),-1)){
+			orderFormOption = {text: $scope.approvalFlow[i].displayName, click: "this.approveOrderForm(orderForm, $index)"};
+			if(!angular.equals(orderFormOption.text, undefined) && !angular.equals(orderFormOption.text, "")){
+				$scope.data.orderFormOptions.push(orderFormOption);
+				$scope.data.activeOptions.push($scope.approvalFlow[i]);
+			}
+		}
 	};
 
-	$scope.data.orderFormOptions = [{text: "Verify Applicants", click: "this.approveOrderForm(orderForm)"},
-									{text: "Collect Payment", click: "this.approveOrderForm(orderForm)"},
-									{text: "Approve Order Form", click: "this.approveOrderForm(orderForm)"},
-  									{text: "View Order Form", click: "this.viewOrderForm(orderForm)"}];
+	// **End**
+
+	//function to trigger when an option from the options menu of each order form is clicked
+		$scope.approveOrderForm = function(orderForm, index){
+
+
+		//getting the currently clicked object to an object in the current scope
+		$scope.currentClickedObject = $scope.data.activeOptions[index];
+		
+		//getting the order from to an object in scope
+		$scope.data.approveOrderForm = orderForm;
+
+		 // Pre-fetch an external template populated with a custom scope
+            var myOtherModal = $modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-orderFormApprovalFlow.html', show: true});
+
+
+
+		
+		// $scope.data.approveOrderFormStatus = true;
+		// $state.go('home.main.viewOrderForm.approveOrderFrom',{ofId:orderForm.orderFormId});
+	};
+
+	// **End**
+
+//ANOOP ***************************************************************************************
+
 
 	var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes);
 	LoadMenteesResponse.then(function(response){
 		$scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
-		console.log($scope.data.companOrderForms);
 		//$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
 	});
 
