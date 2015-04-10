@@ -75,59 +75,56 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
             // Show when some event occurs (use $promise property to ensure the template has been loaded)
           
               scope.questionShowActivate =function(){
-
 		    	 questionModal.$promise.then(questionModal.show);
 		    	
 		    };
 
-		    scope.questionShowDeactivate =function(){
-		    	 scope.assignmentModel={mark:{}};
-		    	 questionModal.hide();
+		     scope.questionShowDeactivate =function(){
+            	 scope.assignmentModel={mark:{}};//questionmodel reset to default
+		    	 questionModal.$promise.then(questionModal.show);
 		    	
 		    };
 
 
 		    scope.addQuestion =function(assignmentModel,placeindex){
-		     var assignment=angular.copy(assignmentModel);
+
           	// console.log(placeindex);
           	var tempArray=[];
-          	for(var key in assignment.answer){
+          	for(var key in assignmentModel.answer){
           		var tempObj={};
-          		tempObj=assignment.answer[key];
+          		tempObj=assignmentModel.answer[key];
           		tempArray.push(tempObj);
           	}
-          	assignment.answer=tempArray;
+          	assignmentModel.answer=tempArray;
             	if(angular.equals(placeindex,undefined)){
-            	scope.assignmentsModel.push(assignment);//must pass questionmodel instead of scope.questionmodel
+            	scope.assignmentsModel.push(assignmentModel);//must pass questionmodel instead of scope.questionmodel
             	// console.log(scope.questionGroupModel);
             		
             		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,assignmentsModel:scope.assignmentsModel};
-            		assignmentModel={}
             		scope.assignmentModel={mark:{}};//questionmodel reset to default
-
             	}//to add a question to a specific position 
 
             		if(!angular.equals(placeindex,undefined)){
 
             		if(angular.equals(scope.position,'edit')){
-            			scope.assignmentsModel[placeindex]=assignment;
+            			// console.log(scope.position);
+            			scope.assignmentsModel[placeindex]=assignmentModel;
             			
             		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,assignmentsModel:scope.assignmentsModel};         
             		
             		}
             		else if(!angular.equals(scope.position,'before')){
-            			scope.assignmentsModel.splice(placeindex+1,0,assignment);
+            			scope.assignmentsModel.splice(placeindex+1,0,assignmentModel);
             			
             		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,assignmentsModel:scope.assignmentsModel};         
-            		            		
-            		}
-            		else if(!angular.equals(placeindex,'after')){
-		    			scope.assignmentsModel.splice(placeindex,0,assignment);
-		    		    
-            		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,assignmentsModel:scope.assignmentsModel};
             		
             		}
-            		assignmentModel={}
+            		else if(!angular.equals(placeindex,'after')){
+		    			scope.assignmentsModel.splice(placeindex,0,assignmentModel);
+		    		    
+            		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,assignmentsModel:scope.assignmentsModel};
+
+            		}
             		scope.assignmentModel={mark:{}};//questionmodel reset to default
             	    delete scope.placeindex;//deleted to set the index back to default state
             	}

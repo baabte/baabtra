@@ -79,6 +79,12 @@ angular.module('baabtra').directive('questionGroup',['$modal', function($modal) 
 		    	 questionModal.$promise.then(questionModal.show);
 		    	
 		    };
+
+		     scope.questionShowDeactivate =function(){
+		     	scope.questionModel={mark:{}};
+		    	 questionModal.hide();
+		    	
+		    };
 		    //  scope.questionShowDeactivate =function(){
 		    // 	scope.questionShow=false;
 
@@ -163,7 +169,7 @@ angular.module('baabtra').directive('questionGroup',['$modal', function($modal) 
             		scope.questionModel={mark:{}};//questionmodel reset to default
             	}//to add a question to a specific position 
 
-            		if(!angular.equals(placeindex,undefined)){
+            	if(!angular.equals(placeindex,undefined)){
 
             		if(angular.equals(scope.position,'edit')){
             			// console.log(scope.position);
@@ -177,16 +183,17 @@ angular.module('baabtra').directive('questionGroup',['$modal', function($modal) 
             			
             		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};         
             		
-            		scope.questionModel={mark:{}};//questionmodel reset to default
+            		
             		}
             		else if(!angular.equals(placeindex,'after')){
 		    			scope.questionGroupModel.splice(placeindex,0,questionModel);
 		    		    
             		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};
 
-            		scope.questionModel={mark:{}};//questionmodel reset to default
             		}
             	    delete scope.placeindex;//deleted to set the index back to default state
+            		scope.questionModel={mark:{}};//questionmodel reset to default
+
             	}
             	questionModal.hide();
 

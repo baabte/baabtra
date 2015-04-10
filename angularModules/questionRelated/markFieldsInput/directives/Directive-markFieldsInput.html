@@ -1,6 +1,6 @@
 <div class="m-b m-t">
 	
-      	<input class="form-control " float-label required xt-validate type="number"  name="TotalMarks" ng-model="markObj.totalMark" placeholder="{{'Total Marks'|translate}}">
+      	<input type="number" min="0" class="form-control " float-label required xt-validate   name="TotalMarks" ng-model="markObj.totalMark" placeholder="{{'Total Marks'|translate}}">
 		<div class="col-xs-12 m-v-md" ng-if="customMarks" ng-repeat="criteria in markObj.markCriteria">
 			<div class="col-xs-12 col-sm-6">
 				
@@ -14,7 +14,7 @@
 
 			<div class="col-xs-12 col-sm-6">
 			   
-	        		<input class="form-control " float-label placeholder="{{'Mark'|translate}}"  name="mark" ng-change="markChanged($index)" ng-model="markObj.markCriteria[$index].mark" type="number" xt-validate>
+	        		<input class="form-control " float-label placeholder="{{'Mark'|translate}}"  name="mark" ng-change="markChanged($index)" ng-model="markObj.markCriteria[$index].mark" type="number" min="0" xt-validate>
 			  
 			</div>
 			
