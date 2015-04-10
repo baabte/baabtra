@@ -100,7 +100,7 @@
         		</div>
       		</div>
     	</div>
-      <div class="col-xs-12 " ng-if="tree1.length">
+      <div class="col-xs-12 " ng-if="tree2.length">
         <div class="panel">
           <div class="panel-body">
             <div class="row">
@@ -117,7 +117,10 @@
                             <a ng-if="!menus.menuDetail||(menus.menuDetail&&menus.menuDetail.companyId==companyId)" ng-mouseover="visibleAddIcon=true" ng-mouseleave="visibleAddIcon=false"  class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}
                             <i ng-if="visibleAddIcon" class="mdi-content-add pull-right text-lg font-bold" ng-click="addMenu($index)"></i>
                           </a>
-
+                          <ul class="nav navbar-nav col-xs-12 " ng-if="menus.childMenuStructure.length">
+                            <li class="col-xs-12"  ng-repeat="menu in menus.childMenuStructure" ><a ng-click="addMenuFromMenuGroup(menus, $index)" class="pull-right" style="z-index:2;"><i bs-tooltip data-title="Click to assign this menu" data-placement="left" class="fa fa-mail-forward" ></i></a><a class=""><i class="fa {{menu.menuIcon}} fa-md"></i>&nbsp;{{menu.MenuName}}</a>
+                            </li>
+                        </ul>
                           </li>
                         </ul>
                       </div>
@@ -133,7 +136,7 @@
                   <nav>
                   <div class="container-fluid">
                     <div class="scrollable hover m-h-n" style="height: 400px;overflow-x: hidden!important;">
-                      <ul class="nav navbar-nav ">
+                      <ul class="nav navbar-nav col-xs-12">
                         <li class="col-xs-12 no-padding" class="dropdown" ng-repeat="menus in tree1" data-placement="top" ng-if="menus.MenuLink"><a class="pull-right" style="z-index:2;"><i ng-if="selectedMenuGroup" class="fa fa-mail-forward" ng-click="insertMenuToGroup(menus, $index)" bs-tooltip data-title="Add this menu to the selected group" data-placement="left"></i></a><a ng-mouseover="visibleAddIcon=true" ng-mouseleave="visibleAddIcon=false" class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}
                           <i ng-if="visibleAddIcon" class="mdi-content-remove pull-right text-lg font-bold" bs-tooltip data-title="Remove menu" data-placement="left" ng-click="removeMenu($index)"></i>
 
