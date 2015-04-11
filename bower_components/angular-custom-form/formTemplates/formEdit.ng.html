@@ -7,6 +7,9 @@
             <label for="Formname" class="col-lg-2 control-label" translate="{{'Form name'|translate}}"></label>
             <div class="col-lg-10">
             <input type="text" id="Formname" name="formName" ng-model="form.formName" ng-required="true" class="form-control" xt-validate required></div>
+            <div class="col-lg-2"></div><div class="col-lg-10">
+            	<p class="m-t-sm text-danger" translate="{{'[Please enter the form name which you wanted to appear]'|translate}}"></p>
+            </div>
         </div>
         <!-- </div> -->
 
@@ -144,7 +147,7 @@
 						        <div class="form-group" ng-if="field.validation.pattern||field.validation.required">
 						        	<label for="message" class="col-lg-2 control-label" translate="{{'Message'|translate}}"></label>
 						            <div class="col-lg-10">
-						                  <input type="text" id="message" ng-model="field.validation.messages.custom" class="form-control" placeholder="{{'validation message'|translate}}">
+						                  <input type="text" id="message" ng-model="field.validation.message" class="form-control" placeholder="{{'validation message'|translate}}">
 						            </div>
 						        </div>
 						         <div class="form-group">
@@ -177,7 +180,7 @@
 </div>
 <div class="row">
 	<div class="col-xs-12 bg-light b-t b-b m-t font-bold">
-		<button class="btn btn-info pull-right m-l" ng-disabled="customiseForm.$invalid" ng-click="generateCustomiseForm()" type="button" translate="{{'Generate form'|translate}}"></button>
+		<button class="btn btn-info pull-right m-l" ng-disabled="customiseForm.$invalid||!fields.length" ng-click="generateCustomiseForm()" type="button" translate="{{'Generate form'|translate}}"></button>
 	</div>
 </div>
 </form>

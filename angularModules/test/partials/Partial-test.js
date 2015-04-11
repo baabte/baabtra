@@ -154,6 +154,8 @@ $scope.schemaObj={};
 $scope.branch={};
 
 $scope.course={};
+
 $scope.obj={};
+
 }]);																																																																								 																			
 

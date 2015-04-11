@@ -13,31 +13,12 @@ angular.module('custom-form').run(['$templateCache','loadTemplateSrv',function($
    	var promise=loadTemplateSrv.loadFormTemplates();
    	promise.then(function(response){ 
    		responseData=angular.fromJson(JSON.parse(response.data));
-      
+      //adding the existing templates into templateCache.
    		angular.forEach(responseData, function(templateElement){
           var templateData=templateElement.DefaultTemplate;
-          /*var beforeCustom = templateData.split(">");
-          angular.forEach(templateElement.unEditableAttributes, function(innerElement){ //looping through uneditable list to get the ng-model value
-              beforeCustom[0] = beforeCustom[0] + innerElement.value +'=\"'+innerElement.text+'\"';//this line will add the ng-model to specific control
-
-            });
-
-          angular.forEach(templateElement.mandatoryAttributes, function(innerMElement){ //looping through uneditable list to get the ng-model value
-              beforeCustom[0] = beforeCustom[0] + innerMElement.value +'='+innerMElement.text;//this line will add the ng-model to specific control
-
-            });
-            templateData= beforeCustom.join('>');*/
             $templateCache.put('angular-custom-form/'+templateElement.Name+'.ng.html',templateData);
          });
- 
-
   	});
-
-     /*template for loading the dynamic fields*/
-      // $templateCache.put('angular-custom-form/fieldView.ng.html','<div class=\"col-xs-12\"><div ng-repeat=\"field in acfSchema.fields\">{{acfModel}}<div acf-model="acfModel" acf-field=\"field\"></div></div></div>');
-      $templateCache.put('angular-custom-form/fieldView.ng.html','<div ng-bind-html=\"template\"></div>');
-     
-
   }]);
 
 
@@ -129,17 +110,17 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
     //***validation patters ***
     $scope.validationPatterns=[
       {'name':'None','value': undefined},
-       {'name':'Url','value': '^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$'},
-       {'name':'Domain','value': '^([a-z][a-z0-9\\-]+(\\.|\\-*\\.))+[a-z]{2,6}$'},
-       {'name':'IPv4 Address','value': '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'},
-       {'name':'Email Address','value': '^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$'},
-       {'name':'Positive Integers','value': '^\\d+$'},
-       {'name':'Negative Integers','value': '^-\\d+$'},
-       {'name':'Number','value': '^-{0,1}\\d*\\.{0,1}\\d+$'},
-       {'name':'Positive Number','value': '^\\d*\\.{0,1}\\d+$'},
-       {'name':'Negative Number','value': '^-\\d*\\.{0,1}\\d+$'},
-       {'name':'Year (1920-2099)','value': '^(19|20)[\\d]{2,2}$'},
-       {'name':'Password','value': '(?=.*\\d)(?=.*[!@#$%^&*\\-=()|?.\"\';:]+)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$'}
+       {'name':'Url','value': '/^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$/'},
+       {'name':'Domain','value': '/^([a-z][a-z0-9\\-]+(\\.|\\-*\\.))+[a-z]{2,6}$/'},
+       {'name':'IPv4 Address','value': '/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/'},
+       {'name':'Email Address','value': '/^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$/'},
+       {'name':'Positive Integers','value': '/^\\d+$/'},
+       {'name':'Negative Integers','value': '/^-\\d+$/'},
+       {'name':'Number','value': '/^-{0,1}\\d*\\.{0,1}\\d+$/'},
+       {'name':'Positive Number','value': '/^\\d*\\.{0,1}\\d+$/'},
+       {'name':'Negative Number','value': '/^-\\d*\\.{0,1}\\d+$/'},
+       {'name':'Year (1920-2099)','value': '/^(19|20)[\\d]{2,2}$/'},
+       {'name':'Password','value': '/(?=.*\\d)(?=.*[!@#$%^&*\\-=()|?.\"\';:]+)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$/'}
     ];
 
       //***function to add new field into the custom form ***
@@ -155,7 +136,7 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
         delete $scope.selectedField[0].createdDate;
         delete $scope.selectedField[0].activeFlag;
        $scope.selectedField[0].validation={};
-        $scope.selectedField[0].validation.messages={
+       /* $scope.selectedField[0].validation.messages={
           required: 'A value is required for this field.',
           minlength: 'The value does not match the minimum length.',
           maxlength: 'The value exceeds the maximum length',
@@ -165,7 +146,7 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
           number: 'The value is not a number.',
           min: 'The value not met min',
           max: 'The value not met max'
-      };
+      };*/
         var fieldObj=angular.copy($scope.selectedField[0]);
         //fieldObj.customAttributes=[{"text":"","key":"Attribute1"}]; //for custom attributes
         //fieldObj.options=[{"text":"","key":"option1"}]; //for options
@@ -237,33 +218,40 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
             }else{
               beforeCustom[0] = beforeCustom[0] + ' '+ mandAtt.key +'=\"'+mandAtt.text+'\"';
             }
-            
+            //checking if the element is radiobuttonlist
             if(angular.equals(item.Name,'radiobuttonlist')){
                 tmpRdList=tempTemplateData.split('checked="">');
                 angular.forEach(tmpRdList,function(rdItem,index){
-                  if(!angular.equals(index+1,tmpRdList.length)){
+                  if(!angular.equals(index+1,tmpRdList.length)){ //adding the mandatory attributes into the element.
                     tmpRdList[index]=tmpRdList[index]+' '+ mandAtt.key +'=\"'+$scope.form.formName+'.'+mandAtt.text+'\" ';
+
                   }
                 });
-                tempTemplateData=tmpRdList.join('checked="">');
-                tempTemplateData=tempTemplateData.replace('undefined','');
+                tempTemplateData=tmpRdList.join('checked="">'); //joining the the splited string
+                tempTemplateData=tempTemplateData.replace('undefined',''); //removing the undefined flag if exists
 
             }
+            //checking the selected elemnt is radiobuttonlist or not 
             if(angular.equals(item.Name,'checkboxlist')){
                 tmpCbList=tempTemplateData.split('type="checkbox">');
-                angular.forEach(tmpCbList,function(cbItem,index){
+                angular.forEach(tmpCbList,function(cbItem,index){ //adding mandatory attributes into the element
                   if(!angular.equals(index+1,tmpCbList.length)){
                     tmpCbList[index]=tmpCbList[index]+' checklist-model=\"'+$scope.form.formName+'.'+mandAtt.text+'\" ';
                   }
                 });
-                tempTemplateData=tmpCbList.join('type="checkbox">');
-                tempTemplateData=tempTemplateData.replace('undefined','');
+                tempTemplateData=tmpCbList.join('type="checkbox">'); //joining the the splited string
+                tempTemplateData=tempTemplateData.replace('undefined',''); //removing the undefined flag if exists
                 
             }
+
+            //checking the element type is file or not
+            if(angular.equals(item.Name,'file')){ 
+                if(angular.equals(mandAtt.key,'ng-model')){
+                  beforeCustom[0] = beforeCustom[0] + ' fileupload-dir=\"'+$scope.form.formName+'.'+mandAtt.text+'\"';
+               
+                }
+            }
           });
-          
-
-
           //loping through unEditableAttributes to add it into default template
           angular.forEach(item.unEditableAttributes,function(uneditAtt){
             beforeCustom[0] = beforeCustom[0] + ' '+ uneditAtt.key +'=\"'+uneditAtt.text+'\"';
@@ -287,12 +275,20 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
 
           //looping the validation object
           angular.forEach(item.validation, function(value , key) {
-              if(!angular.equals(key,'messages')){
+              if(!angular.equals(key,'message')){
                  beforeCustom[0] = beforeCustom[0] + ' '+key+'=\"'+value+'\"';
+              }
+              else{ //for validation messages
+                if(item.validation.pattern){
+                  beforeCustom[0] = beforeCustom[0] + ' msg-pattern=\"'+value+'\"';
+                  beforeCustom[0] = beforeCustom[0] + ' ng-pattern=\"'+item.validation.pattern+'\"';
+                }else{
+                  beforeCustom[0] = beforeCustom[0] + ' msg-required=\"'+value+'\"';
+                }
               }
           });
 
-            templateData= beforeCustom.join('>'); //join the splited content
+           templateData= beforeCustom.join('>'); //join the splited content
 
            if(angular.equals(item.Name,'radiobuttonlist')){
               templateData=tempTemplateData;
