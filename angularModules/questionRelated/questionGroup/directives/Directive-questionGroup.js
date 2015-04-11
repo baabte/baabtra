@@ -79,6 +79,12 @@ angular.module('baabtra').directive('questionGroup',['$modal', function($modal) 
 		    	 questionModal.$promise.then(questionModal.show);
 		    	
 		    };
+
+		     scope.questionShowDeactivate =function(){
+		     	scope.questionModel={mark:{}};
+		    	 questionModal.hide();
+		    	
+		    };
 		    //  scope.questionShowDeactivate =function(){
 		    // 	scope.questionShow=false;
 
@@ -146,7 +152,6 @@ angular.module('baabtra').directive('questionGroup',['$modal', function($modal) 
 		    },true);
 
           scope.addQuestion =function(questionModel,placeindex){
-
           	// console.log(placeindex);
           	var tempArray=[];
           	for(var key in questionModel.answer){
@@ -157,37 +162,26 @@ angular.module('baabtra').directive('questionGroup',['$modal', function($modal) 
           	questionModel.answer=tempArray;
             	if(angular.equals(placeindex,undefined)){
             	scope.questionGroupModel.push(questionModel);//must pass questionmodel instead of scope.questionmodel
-            	// console.log(scope.questionGroupModel);
-            		
-            		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};
-            		scope.questionModel={mark:{}};//questionmodel reset to default
-            	}//to add a question to a specific position 
-
-            		if(!angular.equals(placeindex,undefined)){
+            	// console.log(scope.questionGroupModel);            		            		
+            	}
+            	//to add a question to a specific position 
+            	else{
 
             		if(angular.equals(scope.position,'edit')){
             			// console.log(scope.position);
-            			scope.questionGroupModel[placeindex]=questionModel;
-            			
-            		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};         
-            		
+            			scope.questionGroupModel[placeindex]=questionModel;            			            		
             		}
             		else if(!angular.equals(scope.position,'before')){
-            			scope.questionGroupModel.splice(placeindex+1,0,questionModel);
-            			
-            		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};         
-            		
-            		scope.questionModel={mark:{}};//questionmodel reset to default
+            			scope.questionGroupModel.splice(placeindex+1,0,questionModel);            	            		
             		}
             		else if(!angular.equals(placeindex,'after')){
-		    			scope.questionGroupModel.splice(placeindex,0,questionModel);
-		    		    
-            		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};
-
-            		scope.questionModel={mark:{}};//questionmodel reset to default
+		    			scope.questionGroupModel.splice(placeindex,0,questionModel);    
             		}
             	    delete scope.placeindex;//deleted to set the index back to default state
+
             	}
+            	scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};
+            	scope.questionModel={mark:{}};//questionmodel reset to default
             	questionModal.hide();
 
             };

@@ -273,7 +273,7 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
           }
           angular.forEach(menu[sub].actions,function(action){
             if (angular.equals($scope.stateSplitAll(action.stateName),state)&&(angular.equals(menu[sub].MenuName,$localStorage.currentMenuName))) {
-               console.log('if part');
+               
               //&&(angular.equals(menu[sub].MenuName,$localStorage.currentMenuName))
               $rootScope.menuExist=true;
               path_obj.push(menu[sub]);
@@ -285,7 +285,6 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
 
             else if(angular.equals($scope.stateSplitAll(action.stateName),state)&&(!angular.equals($localStorage.currentMenuLink,$scope.linkSeprate(state)))){
 
-               console.log('else part')
               $rootScope.menuExist=true;
               path_obj.push(menu[sub]);
               $scope.navBar=true;
