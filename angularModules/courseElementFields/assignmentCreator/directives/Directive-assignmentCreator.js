@@ -69,6 +69,12 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 
 		    	return list;
 		    };
+			scope.percentageNum=[];
+			num=0;		   
+		    while(num<100){
+		    	scope.percentageNum[num]=num+1;
+		    	num++;
+		    }
 
 			 // Pre-fetch an external template populated with a custom scope
             var questionModal = $modal({scope: scope, template: 'angularModules/courseElementFields/assignmentCreator/directives/Modal-assignment.html', show: false,placement:'top'});
@@ -81,7 +87,7 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 
 		     scope.questionShowDeactivate =function(){
             	 scope.assignmentModel={mark:{}};//questionmodel reset to default
-		    	 questionModal.$promise.then(questionModal.show);
+		    	 questionModal.hide();
 		    	
 		    };
 
@@ -97,37 +103,36 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
           	}
           	assignmentModel.answer=tempArray;
             	if(angular.equals(placeindex,undefined)){
-            	scope.assignmentsModel.push(assignmentModel);//must pass questionmodel instead of scope.questionmodel
+            	scope.assignmentsModel.push(assignmentModel);//must pass assignmentModel instead of scope.questionmodel
             	// console.log(scope.questionGroupModel);
             		
-            		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,assignmentsModel:scope.assignmentsModel};
-            		scope.assignmentModel={mark:{}};//questionmodel reset to default
             	}//to add a question to a specific position 
-
-            		if(!angular.equals(placeindex,undefined)){
+            	else{
 
             		if(angular.equals(scope.position,'edit')){
             			// console.log(scope.position);
             			scope.assignmentsModel[placeindex]=assignmentModel;
             			
-            		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,assignmentsModel:scope.assignmentsModel};         
             		
             		}
             		else if(!angular.equals(scope.position,'before')){
             			scope.assignmentsModel.splice(placeindex+1,0,assignmentModel);
             			
-            		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,assignmentsModel:scope.assignmentsModel};         
             		
             		}
             		else if(!angular.equals(placeindex,'after')){
 		    			scope.assignmentsModel.splice(placeindex,0,assignmentModel);
 		    		    
-            		scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,assignmentsModel:scope.assignmentsModel};
 
             		}
-            		scope.assignmentModel={mark:{}};//questionmodel reset to default
             	    delete scope.placeindex;//deleted to set the index back to default state
             	}
+
+            	scope.ngModel={mark:scope.mark,duration:scope.duration,actualDuration:scope.actualDuration,assignmentsModel:scope.assignmentsModel};
+
+
+            	scope.assignmentModel={mark:{}};//questionmodel reset to default
+            	
             	questionModal.hide();
 
             };
