@@ -23,6 +23,9 @@
 	                   <a href="" html="true" data-placement="left" bs-dropdown="actions" class="pull-right no-margin"><i class="mdi-action-list text-xl"></i><div class="ripple-wrapper"></div></a>
 
      				</div>
+				</div>
+				<div class="row text-center" ng-if="specificOption">
+					<div class="btn random-background-color btn-stroke" ng-click="executeFunction(actions[specificOption-1].click)" ng-bind-html="actions[specificOption-1].text"></div>
 				</div>	
 
 			</div>
