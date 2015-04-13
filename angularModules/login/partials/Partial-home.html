@@ -30,7 +30,7 @@ Created On:12/11/2014 -->
 
 
       <!-- fixed color -->
-      <div ng-if="$root.userinfo.ActiveUserData.menuColor != 'random'" ng-mouseover="menuHover=true" ng-mouseleave="menuHover=false" ng-click="loadDetails(menu)" class="text-sm btn text-dark btn-lg  btn-stroke  text-center col-xs-12 {{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}} invert-color" style="padding-bottom:0px; margin-bottom:0px; margin-top:0px;color:#fff;"  >
+      <div ng-if="$root.userinfo.ActiveUserData.menuColor != 'random' && $root.userinfo.ActiveUserData.menuColor" ng-mouseover="menuHover=true" ng-mouseleave="menuHover=false" ng-click="loadDetails(menu)" class="text-sm btn text-dark btn-lg  btn-stroke  text-center col-xs-12 {{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}} invert-color" style="padding-bottom:0px; margin-bottom:0px; margin-top:0px;color:#fff;"  >
         
               <div class="row text-center">
                 <i class="fa {{menu.menuIcon}} fa-2x" ></i>
@@ -51,7 +51,7 @@ Created On:12/11/2014 -->
         </div> 
 
         <!-- random color -->
-        <div ng-if="$root.userinfo.ActiveUserData.menuColor == 'random'" ng-click="loadDetails(menu)" class="text-sm btn text-dark btn-lg bg-light lt  btn-stroke  text-center col-xs-12 {{colorArray[($index+1)%colorArray.length]}} " style="padding-bottom:0px; margin-bottom:0px; margin-top:0px;"  >
+        <div ng-if="$root.userinfo.ActiveUserData.menuColor == 'random' || !$root.userinfo.ActiveUserData.menuColor" ng-click="loadDetails(menu)" class="text-sm btn text-dark btn-lg bg-light lt  btn-stroke  text-center col-xs-12 {{colorArray[($index+1)%colorArray.length]}} " style="padding-bottom:0px; margin-bottom:0px; margin-top:0px;"  >
         
               <div class="row text-center">
                 <i class="fa {{menu.menuIcon}} fa-2x" ></i>
