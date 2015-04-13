@@ -10,7 +10,7 @@ angular.module('baabtra').directive('userCard',['commonSrv', function (commonSrv
 			userCardResponse.then(function(response){
 				scope.data = {};
 				scope.data.userDetails = angular.fromJson(JSON.parse(response.data));
-				console.log(scope.data.userDetails);
+				
 			});
 		}
 	};

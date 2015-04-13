@@ -4,13 +4,13 @@
 
 <div class="row">
 	<div class="col-xs-12 bg-white">
-		<div ng-if="data.companOrderForms && $state.current.name == 'home.main.viewOrderForm'"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-			<div masonry-tile class="tile col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm " ng-repeat="orderForm in data.companOrderForms.orderFroms">
+		<div ng-if="data.companOrderForms && $state.current.name == 'home.main.viewOrderForm'"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>			
+			<div masonry-tile ng-if="showOrderFormOnStatus(orderForm.status) && getOptions(orderForm.status,$index).length"   class="tile col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm " ng-repeat="orderForm in data.companOrderForms.orderFroms">
 				<div class="baab-shadow set-full-height bg-white p-sm no-padding" style="cursor: pointer;">
 					<div class="pull-left shadow-z-1 col-xs-12 no-padding">						
 						<div class="col-xs-11 text-left random-background-color p-sm ">Order Form Id:&nbsp;<span class="font-bold">{{orderForm.customCompanyCode}}</span></div>
 						<div class="col-xs-1 text-center m-t-sm">
-							<a href="" ng-model="data.selectedOrderFormOption" data-animation="am-flip-x" data-html="true" bs-dropdown="data.orderFormOptions" data-placement="bottom-right"><i class="mdi-device-storage text-lg m-h-n" style="color:#666666;"></i></a>
+							<a href="" ng-model="data.selectedOrderFormOption" data-animation="am-flip-x" data-html="true" bs-dropdown="getOptions(orderForm.status,$index)" data-placement="bottom-right"><i class="mdi-device-storage text-lg m-h-n" style="color:#666666;"></i></a>
 						</div>
 					</div>
 					<div  class="row p-xs">

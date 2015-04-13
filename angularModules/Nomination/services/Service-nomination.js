@@ -24,4 +24,17 @@ angular.module('baabtra').service('nomination',['$http', 'bbConfig', function ($
     return promise;
    };
 
+   //service to update the status of the order form
+   this.fnUpdateOrderFormStatus = function(orderForm){
+	    var promise = $http({
+	      url: bbConfig.BWS+'updateOrderFormStatus/',
+	      data: {orderForm:orderForm},
+	      method: "POST",
+	      withCredentials: false,
+	      contentType:"application/json",
+	      dataType:"json",
+	    });
+    return promise;
+   };
+
 }]);

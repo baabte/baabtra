@@ -89,6 +89,8 @@ $scope.stepCount=$scope.formlist.formSteps;
         $scope.role={};//to keep the schema of form
 
         if($scope.roleId){
+            $scope.allSync.FormData.role={};
+            $scope.allSync.FormData.role.roleId=$scope.roleId;
         for(var index in $scope.roleSchema){
           if (angular.equals($scope.roleSchema[index].roleId,$scope.roleId)){
             $scope.role.roleId=$scope.roleId;
