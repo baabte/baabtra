@@ -62,16 +62,11 @@ angular.module('baabtra')
    $linkedInProvider.set('appKey', '78jnfwsxzeqtdl').set('scope', "r_fullprofile r_network r_emailaddress").set('authorize', true);
   }])
   .constant('bbConfig',{ //used for storing enviornment variables
-<<<<<<< HEAD
-     //"BWS": "http://127.0.0.1:8000/",//local
-     //"BWS": "http://services.baabtra.com/",//server - production
-     "BWS": "http://server.mb-test.in/",//server-test
 
-=======
      "BWS": "http://127.0.0.1:8000/",//local
-     // "BWS": "http://services.baabtra.com/",//server - production
-    // "BWS": "http://server.mb-test.in/",//server-test
->>>>>>> 02b4864d716649de15d99c15c5d5862bd3f81930
+     //"BWS": "http://services.baabtra.com/",//server - production
+     //"BWS": "http://server.mb-test.in/",//server-test
+
      "SARID":1, // SuperAdminRoleID
      "CURID":2, // CompanyUser
      "MURID":3, // MenteeUser
