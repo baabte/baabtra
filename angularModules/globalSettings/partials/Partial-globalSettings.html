@@ -1,6 +1,6 @@
 
 <div class="p-h-md p-v bg-white box-shadow b-b ng-scope">
-  <h3 class="no-margin">Global Settings</h3>
+  <h3 class="no-margin" translate="{{'Global Settings'|translate}}"></h3>
 </div> 
 <div class="box ng-scope bg-white" >
   <div class="col-md-3">
@@ -18,16 +18,19 @@
       </div>
     </div>
     <ul class="nav nav-list b-t bg-white font-bold" ui-nav="">
-      <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='SetEvaluator '}" ng-click="selectedTab='SetEvaluator'">
+      <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='SetEvaluator '}" ng-click="selectedTab='SetEvaluator';setState('SetEvaluator')">
 
         <a href="">Set an Evaluator </a>
       </li>
-       <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='SetSupervisor'}" ng-click="selectedTab='SetSupervisor'">
+       <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='SetSupervisor'}" ng-click="selectedTab='SetSupervisor';setState('SetSupervisor')">
 
         <a href="">Set a Supervisor </a>
       </li>
-      <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='GenerateUniqueCode'}" ng-click="selectedTab='GenerateUniqueCode'">
+      <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='GenerateUniqueCode'}" ng-click="selectedTab='GenerateUniqueCode';setState('GenerateUniqueCode')">
         <a href="">Generate Unique Codes</a>
+      </li>
+       <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='attendanceAlert'}" ng-click="selectedTab='attendanceAlert';setState('attendanceAlert')">
+        <a href="">Attendance Alert</a>
       </li>
     </ul>
   </div>
@@ -109,7 +112,7 @@
 </div>  
 </div>
 
-<!-- end set supervisor -->
+<!-- end set GenerateUniqueCode -->
 <div ng-show="selectedTab=='GenerateUniqueCode'" class="row bg-light m-sm p-sm">
         <form name="FormCodeGenerator" class="form-validation" ng-submit="GenerateCode()" xt-form novalidate>
        <div class="row p-sm">
@@ -216,9 +219,21 @@
               </div>          
           
         </div>
-<!--End of  Code Updation div -->
-</div>
-      
 
 </div>
+<!--End of  Code Updation div -->
+
+
+
+<!-- set attendance alerts -->
+  <div ng-show="selectedTab=='attendanceAlert'" class="row bg-light m-sm p-sm">
+        <attendance-alert-config course-obj=""> </attendance-alert-config>
+  </div>
+
+   
+      
+  </div>
 </div>
+<!--/end attendance alerts configs  -->
+
+ 

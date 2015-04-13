@@ -7,6 +7,7 @@ angular.module('baabtra').directive('courseLoader',['addCourseService','$rootSco
 		},
 		templateUrl: 'angularModules/common/directives/Directive-courseLoader.html',
 		link: function(scope, element, attrs, ctrls) {
+			
 
 			scope.multi = false;
 		
