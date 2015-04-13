@@ -129,7 +129,13 @@ angular.module('ui.bootstrap.contextMenu', [])
                 $li.append($a)
             }
             $ul.append($li);
+            
+
         });
+         var $footerA = $('<li>');
+             $footerA.text($scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+" "+$scope.$parent.tlpoint);
+             $footerA.addClass('font-bold p-xs bg-'+options[state].colorClass );
+            $ul.append($footerA);
 
         $contextMenu.append($ul);
         var height = Math.max(

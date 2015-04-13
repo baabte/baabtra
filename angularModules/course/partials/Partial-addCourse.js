@@ -89,6 +89,7 @@ $scope.totalCourseDuration=0; // course duration in minutes
   var weHaveGotCrsElementsStep3=addCourseElementService.FnGetCourseElements("");//calling course element function
       weHaveGotCrsElementsStep3.then(function(data){
         $scope.tlPopOver.step3.courseElementlist=angular.fromJson(JSON.parse(data.data));
+        console.log($scope.tlPopOver.step3.courseElementlist);
         $scope.tlPopOverEditObject = angular.fromJson(JSON.parse(data.data));
       });
 
