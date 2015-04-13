@@ -11,7 +11,9 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 		},
 		templateUrl: 'angularModules/courseElementFields/testQuestionView/directives/Directive-testQuestionView.html',
 		link: function(scope, element, attrs, fn) {
-			// console.log(scope.questionResponse);
+			
+			
+
 			var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId; // Role id of logged user
 			var userLoginId;
 			var courseId;
@@ -22,7 +24,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 			var evStatus=0;
 			var isDescriptive=false;
 			scope.isMentee=false;
-
+			
 			//if user is mentee copying all required datas 
 			if(roleId===bbConfig.MURID){
 				userLoginId=$rootScope.userinfo.userLoginId;
@@ -30,98 +32,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 				scope.isMentee=true;
 			}
 
-			scope.saveAnswer=function (argument) {
-				
-				var time=(new Date()).getTime();
-
-
-				//there have different methods to save to database according to the question type
-				if(isDescriptive){
-
-					scope.answerToDb=[];
-					scope.answerToDb[0]={primaryAnswer:{},secondaryAnswer:{}};
-					scope.createPrimaryAnswer('candidateAnswers');
-					scope.createSecondaryAnswer('candidateAnswers');
-					var dbSaverUnbind=scope.$watch(function() { return scope.ItsTimeToSavePrimaryToDB+''+scope.ItsTimeToSaveSecondaryToDB; },function(){
-						// alert(scope.ItsTimeToSavePrimaryToDB+''+scope.ItsTimeToSaveSecondaryToDB);
-						if(scope.ItsTimeToSavePrimaryToDB && scope.ItsTimeToSaveSecondaryToDB){
-			// console.log('murid',courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
-
-							// var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
-							// 	promise.then(function (data) {
-							// 		data=angular.fromJson(JSON.parse(data.data));
-							// 		if(data.success){
-							// 			scope.question.userAnswer=scope.answerToDb;
-							// 			scope.dbAnswer=scope.answerToDb;
-							// 			scope.question.markScored=scope.mark;
-							// 			scope.question.evaluated=evStatus;
-							// 			scope.question.dateOfSubmission=time;
-							// 		}
-							// 	});
-							// scope.questionResponse={userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time};
-
-
-							dbSaverUnbind();
-
-						}
-							
-					});
-					
-				}
-				else{
-					// var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
-					// 	promise.then(function (data) {
-					// 		data=angular.fromJson(JSON.parse(data.data));
-					// 		if(data.success){
-					// 			scope.question.userAnswer=scope.userAnswer;
-					// 			scope.dbAnswer=scope.userAnswer;
-					// 			scope.question.markScored=scope.mark;
-					// 			scope.question.evaluated=evStatus;
-					// 			scope.question.dateOfSubmission=time;
-					// 		}
-					// 	});	
-					// scope.questionResponse={userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time};
-						
-				}
-				
-			};
 			
-
-
-
-
-			// scope.$watch('userAnswer',function (argument) {
-			// 	var time=(new Date()).getTime();
-				
-			// 	if(isDescriptive){
-			// 		scope.answerToDb=[];
-			// 		scope.answerToDb[0]={primaryAnswer:{},secondaryAnswer:{}};
-			// 		scope.createPrimaryAnswer('candidateAnswers');
-			// 		scope.createSecondaryAnswer('candidateAnswers');
-			// 		var dbSaverUnbind=scope.$watch(function() { return scope.ItsTimeToSavePrimaryToDB+''+scope.ItsTimeToSaveSecondaryToDB; },function(){
-
-			// 			if(scope.ItsTimeToSavePrimaryToDB && scope.ItsTimeToSaveSecondaryToDB){
-
-							
-			// 		scope.questionResponse={userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time};
-			// 		console.log(scope.questionResponse);
-
-			// 		dbSaverUnbind();
-
-			// 			}
-							
-			// 		});
-
-			// 	}
-			// 	else{
-
-			// 		scope.questionResponse={userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time};
-			// 		console.log(scope.questionResponse);					
-				
-			// 	}
-
-			// },true);
-
 
 
 
@@ -139,7 +50,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 
 			
 			//initializing mark
-			scope.questionResponse.mark=0;
+			scope.questionResponse.markScored=0;
 
 			//this is to format the data attribute of this directive into JSON object
 			var unbind=scope.$watch('data',function (argument) {
@@ -147,28 +58,26 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 					scope.data=JSON.parse(scope.data);					
 				}
 				scope.question=scope.data.value;
-
+				
 			
 				{
 					if(scope.question.userAnswer){
-
 						scope.dbAnswer=scope.question.userAnswer;
 					}
 				
-
-						scope.questionResponse.userAnswer=[];
-
+					
+			 				scope.questionResponse.userAnswer=[];		
 				
 				//Creating directive elements according to type of question
 				var answerArea=$('#answers'+scope.randomKey);
+
 				if(scope.question.type=='objective'){
 					evStatus=1;
-					scope.questionResponse.evaluated=evStatus;
 					var optionsElem=$('<objective-options>');
 					    optionsElem.attr('options',"question.options");
 					    optionsElem.attr('answer-type',"question.answerType");
 					    optionsElem.attr('answer',"question.answer");
-					    optionsElem.attr('mark-scored','questionResponse.mark');
+					    optionsElem.attr('mark-scored','questionResponse.markScored');
 					    optionsElem.attr('user-answer','questionResponse.userAnswer');
 					    optionsElem.attr('db-answer','dbAnswer');
 					    optionsElem.attr('mark-obj',JSON.stringify(scope.question.mark));
@@ -176,7 +85,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 					$compile(optionsElem)(scope);
 					
 				}
-				else if(scope.question.type=='descriptive'){
+			 if(scope.question.type=='descriptive'){
 					isDescriptive=true;
 
 					scope.primaryForm={};
@@ -196,11 +105,11 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 							if (!scope.dbAnswer.length==0) {
 								 //this code is for re-binding the users answer from db
 								if(scope.dbAnswer[0].primaryAnswer[debugVal.name]){
-									debugVal.value=scope.dbAnswer[0].primaryAnswer[debugVal.name].value;
+									debugVal.value=scope.dbAnswer[0].primaryAnswer[debugVal.name];
+									//edited by arun to show answer 
 								}
 							}
 						}
-
 						scope.primaryForm.fields.push(debugVal);
 					}
 
@@ -211,7 +120,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 						if(!angular.equals(scope.dbAnswer,undefined)){
 							if (!scope.dbAnswer.length==0) {
 								if(scope.dbAnswer[0].secondaryAnswer[debugVal.name]){
-									debugVal.value=scope.dbAnswer[0].secondaryAnswer[debugVal.name].value;
+									debugVal.value=scope.dbAnswer[0].secondaryAnswer[debugVal.name];
 
 								}
 							}
@@ -225,7 +134,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 						descriptiveElem.attr('primary','primaryForm');
 						descriptiveElem.attr('secondary','secondaryForm');
 						descriptiveElem.attr('user-answer','questionResponse.userAnswer');
-						descriptiveElem.attr('mark-scored','questionResponse.mark');
+						descriptiveElem.attr('mark-scored','questionResponse.markScored');
 						descriptiveElem.attr('db-answer','dbAnswer');
 					answerArea.html(descriptiveElem);
 					$compile(descriptiveElem)(scope);

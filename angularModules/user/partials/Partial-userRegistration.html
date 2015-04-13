@@ -7,7 +7,7 @@
           <h2>Complete your profile</h2>
           
           <div ng-hide="currentState=='home.main.userRegistration.step5'" id="status-buttons" class="text-center">
-              <a ui-sref-active="active" ng-class="{'active':status.selected === $index+1}" ng-repeat="i in formlist.formSchema "  ng-click="status.selected = $index+1" ><span>{{$index+1}}</span></a>
+              <a ui-sref-active="active" ng-class="{'active':status.selected === $index+1}" ng-repeat="i in formlist.formSchema " ng-click="status.selected=$index+1"><span>{{$index+1}}</span></a>
           </div>
          
       </div>
@@ -20,7 +20,7 @@
 
 <!--  -->
           <div ng-show="status.selected===1&&status.selected!==stepCount" class="col-xs-6 col-xs-offset-3">
-              <a ng-click="status.selected = status.selected+1" ng-disabled="!userRegistrationForm.$valid" class="btn btn-block btn-info"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+              <a ng-click="status.selected = status.selected+1" ng-disabled="!userRegistrationForm.$valid||formlist=='undefined'" class="btn btn-block btn-info"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
           </div>
           <!-- ng-disabled="userRegistrationForm.$invalid" -->
           <div ng-show="status.selected<stepCount&&status.selected>1">
@@ -34,8 +34,6 @@
           <!-- ng-disabled="userRegistrationForm.$invalid" -->
 
           <div ng-show="status.selected===stepCount" class="col-xs-12 text-center">
-            <span class="glyphicon glyphicon-heart"></span>
-            <h3>Its Great You did it!</h3>
     
             <button ng-disabled="userRegistrationForm.$invalid" type="submit" class="btn btn-danger baab-btn">Submit</button>
           <!-- ng-disabled="userRegistrationForm.$invalid" -->

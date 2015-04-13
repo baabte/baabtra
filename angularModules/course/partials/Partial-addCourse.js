@@ -24,6 +24,11 @@ if(!angular.equals($state.params.courseId,"")){
   var promise = addCourseService.fnLoadCourseDetails($scope, $scope.courseId);
   promise.then(function(course){
     $scope.course = angular.fromJson(JSON.parse(course.data)).courseDetails;
+    if(!angular.equals($scope.course.evaluator,undefined)){
+      angular.forEach($scope.course.evaluator,function(evaluator){
+        evaluator.roleMappingId = evaluator.roleMappingId.$oid;
+      });
+    }
 
     if(angular.equals($scope.course.courseDetails,undefined)){
 
@@ -118,6 +123,21 @@ $scope.onRoleSelectionChanged = function(items) {
       }
     }
   };
+
+
+// function for change course image
+$scope.courseImageChanged = function($files){
+  //this function remove old course image
+  if(!angular.equals($scope.course.courseImg,undefined)){
+    var fileRemoveResponse = commonSrv.fnRemoveFileFromServer($scope.course.courseImg);
+  }
+  //function for upload course Image  
+  var courseImageUploadResponse = commonSrv.fnFileUpload($files[0],"Course/courseImage");
+  courseImageUploadResponse.then(function(response){
+          $scope.course.courseImg = bbConfig.BWS+'files/Course/courseImage/'+response.data.replace('"','').replace('"','');
+        });
+};
+
 
 var globalValuesResponse = commonSrv.FnLoadGlobalValues("");
 globalValuesResponse.then(function(data){
@@ -234,6 +254,10 @@ $scope.loadTechnologies = function(Query){
 $scope.loadTags =function(Query){
     return $scope.globalValues.tags;
 };
+
+$scope.loadDesignation = function (Query) {
+  return $scope.globalValues.Designation;
+};
     $scope.course.crmId = $scope.rm_id.$oid;
     $scope.course.companyId =  $scope.cmp_id.$oid;
     $scope.course.urmId = $scope.rm_id.$oid;
@@ -301,7 +325,8 @@ $scope.paymentTypes=[{id: "1",name: "Before The Course"},
                 
     $scope.feeIn=[{currency: "INR",name: "<i class=\"fa  fa-inr\"></i>"},
           {currency: "$",name: "<i class=\"fa fa-dollar\"></i>"},
-          {currency: "SR",name: "SR"}];
+          {currency: "SR",name: "SR"},
+          {currency: "AED",name: "AED"}];
     // $scope.course.Duration={};
 
     // $scope.course.Duration.DurationDetails={"Year(s)":1,"Month(s)":2,"Week(s)":5};

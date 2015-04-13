@@ -59,6 +59,7 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelectable' , [ '$sce'
             disableProperty : '@',
             groupProperty   : '@',
             maxHeight       : '@',
+            
 
             // callbacks
             onClose         : '&',            
@@ -485,8 +486,10 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelectable' , [ '$sce'
                 if ( $scope.selectedItems.length === 0 ) {
                     // https://github.com/isteven/angular-multi-select/pull/19                    
                     $scope.varButtonLabel = ( typeof $scope.defaultLabel !== 'undefined' ) ? $scope.defaultLabel : 'None selected';
-                }
-                else {                
+                }else if($scope.selectedItems.length === 0 && $scope.defaultLabel != "" ){
+                    $scope.varButtonLabel=$scope.defaultLabel; 
+
+                } else {                
                     var tempMaxLabels = $scope.selectedItems.length;
                     if ( typeof $scope.maxLabels !== 'undefined' && $scope.maxLabels !== '' ) {
                         tempMaxLabels = $scope.maxLabels;

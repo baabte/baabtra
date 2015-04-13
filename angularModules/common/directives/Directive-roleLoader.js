@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('roleLoader',['formCustomizerService','$rootScope', function(formCustomizerService,$rootScope) {
+angular.module('baabtra').directive('roleLoader',['formCustomizerService','$rootScope', '$state',function(formCustomizerService, $rootScope, $state) {
 	return {
 		restrict: 'E',
 		require:'ngModel',
@@ -14,6 +14,12 @@ angular.module('baabtra').directive('roleLoader',['formCustomizerService','$root
 			  companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
 			}
 			
+			if(angular.equals($state.current.name,"home.main.nominateEmployee")){
+				scope.show = false;
+			}
+			else{
+				scope.show = true;
+			}
 
 			if((!angular.equals(companyId,undefined))&&(!angular.equals(attrs.getForm,undefined))){
 				// console.log('fetching role for db');
@@ -36,7 +42,11 @@ angular.module('baabtra').directive('roleLoader',['formCustomizerService','$root
 
 		
 			//combining role and role schema of that role for that company
-			for (var i = 0; i < scope.rolelist.length; i++) { 
+			var menteeIndex = 0;
+			for (var i = 0; i < scope.rolelist.length; i++) {
+				if(angular.equals(scope.rolelist.roleId,3)){
+					menteeIndex = i;
+				}
     			for (var x = 0; x < scope.roleSchema.length; x++) {
       				if(angular.equals(scope.rolelist[i].roleId,scope.roleSchema[x].roleId)){
         					scope.rolelist[i].formSchema=scope.roleSchema[x].formSchema;
@@ -45,7 +55,10 @@ angular.module('baabtra').directive('roleLoader',['formCustomizerService','$root
      				}
 			}
 
-
+			if(!scope.show){
+				scope.ngModel = scope.rolelist[menteeIndex];
+					ctrls.$setValidity('roleLoader',true);
+			}
 			// if(!angular.equals(scope.ngModel,undefined)) {
 			// 	scope.ngModel=scope.ngModel;
 

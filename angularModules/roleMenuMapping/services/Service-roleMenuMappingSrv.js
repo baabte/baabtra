@@ -48,7 +48,7 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
 
       this.FnGetRoles=function ($scope,cmp_id,range,roleVal)//To Load The Roles based on company
       {
-        $http({
+        var promise = $http({
           method: 'post',
           url: bbConfig.BWS+'GetAllRoles/',
           data: {"rm_id":$scope.roleId,"cmp_id":cmp_id,"range":range,"roleVal":roleVal},
@@ -72,24 +72,28 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
         error(function(data, status, headers, config) {
           // called asynchronously if an error occurs
           // or server returns response with an error status.
-        }); 
+        });
+        return promise;
       };
       this.FnGetRoleMenus=function ($scope,id,type)//To Load existing menus of selected role
       {
-        role_id=id;//To Get existing selected role
+        role_id=id;
+        if(!angular.equals(id.$oid,undefined)){
+          role_id=id.$oid;//To Get existing selected role
+        }
+        
         $http({
           method: 'post',
           url:  bbConfig.BWS+'GetRoleMenus/',
-          data: {'fkRoleId':id,'type':type},
+          data: {'fkRoleId':role_id,'type':type},
           contentType   : 'application/json; charset=UTF-8',
         }).
         success(function(data, status, headers, config) {
-          $scope.menus=angular.fromJson(JSON.parse(data));//Converting the result to json object
-          
-          if($scope.menus.length){//Checking, the selected role have existing menus
-            $scope.tree1 =$scope.menus[0].menuStructure[0].regionMenuStructure;//Setting exsting menus of selected role to current menu list
+          $scope.menus = angular.fromJson(JSON.parse(data));//Converting the result to json object
+          if(!angular.equals($scope.menus,null)){//Checking, the selected role have existing menus $scope.menus.menuStructure.length
+            $scope.tree1 =$scope.menus.menuStructure[0].regionMenuStructure;//Setting exsting menus of selected role to current menu list
+             
               changeObjIdOfMenu($scope.tree1,null);
-          
           }
           else//If no existing role found
           {
@@ -119,31 +123,29 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
             };
 
           this.FnGetAllMenus=function ($scope,type)//To Load All menus of loded user
-
-      {  
-        $http({
-          method: 'post',
-          url: bbConfig.BWS+'GetAllMenus/',
-          data: {'rm_id':$scope.rm_id,'type':type},
-          contentType   : 'application/json; charset=UTF-8',
-        }).
-        success(function(data, status, headers, config) {
-          $scope.allMenus=angular.fromJson(JSON.parse(data));//Converting the result to json object
+          {  
+            $http({
+              method: 'post',
+              url: bbConfig.BWS+'GetAllMenus/',
+              data: {'rm_id':$scope.rm_id,'type':type},
+              contentType   : 'application/json; charset=UTF-8',
+            }).
+            success(function(data, status, headers, config) {
+            $scope.allMenus=angular.fromJson(JSON.parse(data));//Converting the result to json object
                     if ($scope.allMenus.length>0){//Checking the result
             if (type=="all") {
-                        for (var i = 0; i < $scope.allMenus.length; i++) {
-            $scope.allMenus[i].fkMenuId=$scope.allMenus[i]._id.$oid;
-            $scope.allMenus[i].actionMaster=$scope.allMenus[i].actions;
-            delete $scope.allMenus[i]._id;
-            $scope.allMenus[i].childMenuStructure=[];
+              for (var i = 0; i < $scope.allMenus.length; i++) {
+                $scope.allMenus[i].fkMenuId=$scope.allMenus[i]._id.$oid;
+                $scope.allMenus[i].actionMaster=$scope.allMenus[i].actions;
+                delete $scope.allMenus[i]._id;
+                $scope.allMenus[i].childMenuStructure=[];
               }
               $scope.tree2=$scope.allMenus;
             }
             else{
-            $scope.tree2=$scope.allMenus[0].menuStructure[0].regionMenuStructure;//Setting the menus to menulist
-            changeObjIdOfMenu($scope.tree2,null);
-            
-          }
+              $scope.tree2=$scope.allMenus[0].menuStructure[0].regionMenuStructure;//Setting the menus to menulist
+              changeObjIdOfMenu($scope.tree2,null);
+            }
           
           var removeDuplicateMenus=function(menu,sub,Child){
               if(sub==null){
@@ -197,6 +199,7 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
       };
       this.FnSaveNewRoleMenu=function ($scope,new_menu)//To Save current menu list
       {
+
         $http({
           method: 'post',
           url: bbConfig.BWS+'SaveNewRoleMenu/',
@@ -204,6 +207,8 @@ angular.module('baabtra').service('RoleMenuMappingSrv',['$http','$alert','bbConf
           contentType   : 'application/json; charset=UTF-8',
         }).
         success(function(data, status, headers, config) {
+          
+
           if (data=="Insert")
           {
             $alert({title: 'Success!', type:'success', content: 'Menus Insert Successfuly..',animation:'am-fade',duration:'3', placement: 'top-right', template: 'views/ui/angular-strap/alert.tpl.html', show: true});

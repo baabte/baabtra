@@ -30,7 +30,13 @@ globalValuesResponse.then(function(data){
   });
   $scope.technologies = $scope.globalValues.technologies;
   $scope.taggs = $scope.globalValues.tags;
+  $scope.Designation =$scope.globalValues.Designation
+
 });
+
+$scope.data = {};
+
+
 
 $scope.cmp_id=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;//to get the company id
   branchSrv.fnLoadBranch($scope,$scope.cmp_id);//to load the branches
@@ -93,7 +99,6 @@ $scope.undo = function(){
 	};
 
 $scope.deleteCourseDetails = function(courseId){
-	// console.log(courseId);
 	$scope.lastDeletedCourseId = courseId;		
 	var deleteCourse = draftedCourses.fnDeleteCourse({activeFlag:0},courseId, $scope.rm_id , "Publish",$scope.companyId);
 	deleteCourse.then(function (data) {
@@ -102,6 +107,21 @@ $scope.deleteCourseDetails = function(courseId){
 	});
 		
 };
+
+$scope.data.courseDropdown = [
+  {
+    "text": "<i class=\"fa fa-fw mdi-action-toc\"></i>&nbsp;View course",
+    "click": "this.viewCourseDetails(course._id.$oid);"
+  },
+  {
+    "text": "<i class=\"fa fa-fw fa-edit\"></i>&nbsp;Edit course",
+    "click": "this.editCourse(course._id.$oid);"
+  },
+  {
+    "text": "<i class=\"fa fa-fw fa-trash\"></i>&nbsp;Delete course",
+    "click": "this.deleteCourseDetails(course._id.$oid);"
+  }];
+
 var searchInProgress;
 $scope.searchCoursesAvailable=function(searchKey,type){//for seaeching the available courses
 	clearTimeout(searchInProgress);

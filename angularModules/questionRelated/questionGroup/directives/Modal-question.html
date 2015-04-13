@@ -1,41 +1,32 @@
-<!-- <div>
-	<div class="col-xs-12 m-v-md" >
-		<question-field ng-model="questionModel" multi-answer="true" ></question-field>
-		<div class="btn btn-primary" ng-click="addQuestion(questionModel)">Add Question<div class="ripple-wrapper"></div>
-		</div>
-	</div>
-</div>
- -->
-<!-- <div class="modal"role="dialog">
-	<div class="modal-content">
-    	<div class="modal-header">        
-        	<h4 class="modal-title text-primary">Add Question</h4>
-    	</div>
-      	<div class="modal-body">
-      		<div class="box">
-        		<question-field ng-model="question" multi-answer="true" ></question-field>
-				<div class="btn btn-primary" ng-click="addQuestion(question,index);$hide()">Add Question<div class="ripple-wrapper"></div>
-				</div>
-      		</div>
-      	</div>
-    </div>
-</div> -->
 
-<div class="aside ng-scope top am-slide-top aside-open-backdrop" tabindex="-1" role="dialog" style="display: block;">
-  <div class="aside-dialog">
-    <div class="aside-content">
-      <div class="aside-header" ng-show="title">
+
+<div class="modal" tabindex="-1" role="dialog" >
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- <div class="modal-header" >
         <button type="button" class="close" ng-click="$hide()">×</button>
-        <h4 class="aside-title ng-binding" ng-bind-html="title">Title</h4>
-      </div>
-      <div class="aside-body">
+        <h4 class="modal-title ng-binding" ng-bind-html="title">Title</h4>
+      </div> -->
+      <div class="modal-body" >
+           <form name="questionFrom" xtform no-validate>
+              <question-field ng-if="questionModel" ng-model="questionModel"></question-field>
+                    
+                    <div class="pull-right" >
+                      <div class="btn btn-warning" ng-click="$hide();" >
+                        <span translate="{{'Discard' | translate}}"></span>
+                        <div class="ripple-wrapper"></div>
+                      </div>
+                      <div class="btn btn-primary" ng-disabled="questionFrom.$invalid" ng-click="addQuestion(questionModel,placeindex)">
+                        <span translate="{{'Add to Test' | translate}}"></span>
+                        <div class="ripple-wrapper"></div>
+                      </div>
+                    </div>
+          </form> 
+       
 
-          <question-field ng-model="question" ></question-field>       
-
       </div>
-      <div class="aside-footer">
-        <button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
-        <button type="button" class="btn btn-primary" ng-click="addQuestion(question,index);$hide()">Add Question</button>
+      <div class="modal-footer">
+        
       </div>
     </div>
   </div>

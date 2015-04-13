@@ -1,13 +1,24 @@
+        <!-- navbar header ng-class="{'box-shadow-inset dk':app.settings.headerShadow}"  -->
       <!-- navbar header ng-class="{'box-shadow-inset dk':app.settings.headerShadow}"  -->
+
       <div class="navbar-header p-v-xs" ng-class="{'box-shadow-inset dk':app.settings.headerShadow}">
+
         <button class="pull-right visible-xs" bs-aside="aside" data-template="angularModules/login/partials/Partial-sm_User_Menu.html" data-placement="right" data-animation="am-slide-right aside-open-inner modal-open" data-container="body">
           <!-- <span class="visible-xs m-r pull-left">{{userinfo.ActiveUserData.username}}</span> -->
+         
+          
           <img  ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length" ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" class="navbar-img img-circle pull-right m-t" style="margin-top: 0px;">
         </button>
+        <span class="pull-right visible-xs" data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
+              <i class="fa fa-bell text-lg m-v"  bs-tooltip data-title="Notifications" data-placement="left"></i>
+              <b class="badge bg-danger up" ng-if="$root.data.userNotification.notification.length > 0">{{$root.data.userNotification.notification.length}}</b>
+
+          </span>
         <!-- brand -->
         <a bs-tooltip data-title="Click to change logo" data-placement="right" class="navbar-brand text-lt" ng-if="$root.userinfo.ActiveUserData.appSettings.logo" ng-click="appSettings()" style="width: auto;">
           <img src="{{$root.userinfo.ActiveUserData.appSettings.logo}}" class="img-responsive" style="max-height: 40px !important;">
         </a>
+
         <!-- / brand -->
       </div>
       <!-- / navbar header -->
@@ -15,33 +26,22 @@
       <!-- navbar collapse   ng-hide-->
       <!-- ng-class="{'show animated fadeIn' : app.navbarCollapse} add this to enable dynamic color change -->
       <div class="navbar-collapse hidden-xs" ng-class="{'p-v-xs':roleId != $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId}"  ng-class="{'show animated fadeIn' : app.navbarCollapse}">
-        <!-- nav -->
-<!--         <ul class="nav navbar-nav navbar-left ">
-          <li>
-            <a ui-sref="app.dashboard" translate="header.navbar.DASHBOARD">
-              Dashboard
-            </a>
-          </li>
-          <li>
-            <a ui-sref="mail.inbox" translate="header.navbar.EMAIL">
-              Email
-            </a>
-          </li>
-          <li>
-            <a ui-sref="ui.component.arrow" translate="header.navbar.UIKITS">
-              UI Kits
-            </a>
-          </li>
-          <li>
-            <a ui-sref="page.profile" translate="header.navbar.PAGES">
-              Pages
-            </a>
-          </li>
-        </ul> -->
-        <!-- / nav -->
-
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right m-r-n ">
+          <li >
+             <button style="padding-right:3px;padding-left:3px;margin-top:18px" type="button"  class="btn btn-default" ng-model="selectedlanguage"  ng-options="obj as obj.language for obj in availlangualges" ng-change="changeLanguage(selectedlanguage)" bs-select>
+             
+             </button>
+          </li>
+          
+
+          <li >
+            <a href=""  data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
+              <i class="fa fa-bell text-lg m-v-xs" bs-tooltip data-title="Notifications" data-placement="left"></i>
+              <b class="badge bg-danger up" ng-if="$root.data.userNotification.notification.length > 0">{{$root.data.userNotification.notification.length}}</b>
+
+            </a>
+          </li>
           <li>
             <script type="text/ng-template" id="settings">
               <div tabindex="-1" class="p dropdown-menu bg-white bg-inherit no-b-t no-margin w-sm" role="menu">                
@@ -57,11 +57,24 @@
                 <div class="line b-b b-light m-h-xs"></div>                
               </div>
             </script>
-            <a ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" class="no-padding-h" href ng-click="appSettings()" bs-tooltip data-title="Customize theme" data-type="success" data-placement="left">
+            <a ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" class="no-padding-h" href ng-click="redirectTothemeConfiguration()" bs-tooltip data-title="Customize theme"  data-placement="bottom-left">
               <i class="mdi-image-color-lens text-2x"></i>
-              <span class="visible-xs-inline">Settings</span>
+              <span class="visible-xs-inline" translate="{{'Settings'|translate}}"></span>
             </a>
           </li>
+
+          <!-- temporary menu for test -->
+        <!--    <li>
+                
+                <a ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" class="no-padding-h" href ng-click="redirectTothemeConfiguration()" bs-tooltip data-title="Customize theme"  data-placement="bottom-left">
+                  <i class="mdi-image-brush text-2x"></i>
+                  <span class="visible-xs-inline" translate="{{'Settings'|translate}}"></span>
+                </a>
+          </li> -->
+
+          <!-- end temporary menu for test -->
+         <!--  <li>
+          
 <!--           <li>
             <a href 
               bs-aside="aside" 
@@ -75,30 +88,38 @@
               <span class="visible-xs-inline">Notifications</span>
             </a>
           </li> -->
+          <!-- button for gloabal settings -->
+          <!-- ng-if="bbConfig.CURID==userinfo.ActiveUserData.roleMappingObj.fkRoleId" -->
+         <!--  <li >
+             
+            <a href bs-tooltip data-title="baabtra Profile"  data-placement="left">
+              <i class="mdi-action-assignment-ind text-2x m-t-xs" style="font-size:25px" ng-click="redirectTobaabtraProfile()"></i>
+            </a>
+          </li> -->
+          <li ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId">
+            <li ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId">
+             
+            <a href bs-tooltip data-title="Settings"  data-placement="left">
+              <i class="mdi-action-settings text-2x m-t-xs" style="font-size:25px" ng-click="redirectToGlobalSettings()"></i>
+              <!-- <b class="badge badge-xs bg-warning up">3</b> -->
+    <!--           <span class="visible-xs-inline">Notifications</span> -->
+            </a>
+          </li>
+          <!--end button for gloabal settings -->
           <!-- <li class="hidden-xs">
             <a href ui-fullscreen><i class="glyphicon glyphicon-resize-vertical"></i></a>
           </li> -->
           <li>            
             <a href class="clear no-padding-h" bs-aside="aside" data-template="angularModules/login/partials/Partial-sm_User_Menu.html" data-placement="right" data-animation="am-slide-right aside-open-inner modal-open" data-container="body">
-              <qrcode ng-if="!userinfo.ActiveUserData.roleMappingObj.avatar.length" version="2" size="30" color="#4A148C" ng-click="$hide()" class="navbar-img  pull-right" data="{{userinfo.ActiveUserData.username}}" style="margin-left: -8px;"></qrcode>
-              <img  ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length" ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" alt="..." class="navbar-img img-circle pull-right">
-              <span class="m-l">{{userinfo.ActiveUserData.username}}</span>
-              <b class="fa fa-caret-left m-h-xs m-r-xs"></b>
+              <qrcode ng-if="!userinfo.ActiveUserData.roleMappingObj.avatar.length" version="2" size="30" color="#4A148C" ng-click="$hide()" class="navbar-img  pull-right m-l-xs m-r-xs" data="{{userinfo.ActiveUserData.username}}" ></qrcode>
+              <img  ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length" ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" alt="..." class="navbar-img img-circle pull-right m-r-xs m-l-xs">
+              <span class="m-l m-r">{{userinfo.ActiveUserData.username}}</span>
+              <b class="fa fa-caret-left m-h-xs m-r-xs m-l-xs"></b>
             </a>
           </li>
         </ul>
         <!-- / navbar right -->
-
-        <!-- search form -->
-        <!-- <form class="navbar-form navbar-form-sm navbar-right visible-xs" role="search">
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-sm no-bg btn-icon no-shadow no-padder"><i class="ti-search"></i></button>
-              </span>
-              <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control input-sm no-bg no-border" placeholder="Search...">              
-            </div>
-          </div> -->
-        <!-- / search form -->
+        
       </div>
+        
       <!-- / navbar collapse -->

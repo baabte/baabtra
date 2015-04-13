@@ -8,14 +8,19 @@ angular.module('baabtra').directive('courseLoader',['addCourseService','$rootSco
 		templateUrl: 'angularModules/common/directives/Directive-courseLoader.html',
 		link: function(scope, element, attrs, ctrls) {
 
-
-
+			scope.multi = false;
+		
+			if(!angular.equals(attrs.multiSelect,undefined)){
+				scope.multi = true;
+			}
 			
 		//------------------------------------------
 
-		var companyId='';
+		var companyId = "54978cc57525614f6e3e710b";
+		// var companyId = "54978cc57525614f6e3e70d3"
 			if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
 			  companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
+			  
 			}
 					
 		//service call for course fetch
@@ -25,30 +30,20 @@ angular.module('baabtra').directive('courseLoader',['addCourseService','$rootSco
 
 			FetchCourseListCallBack.then(function(data){
 
-			 scope.courselist=angular.fromJson(JSON.parse(data.data));
-			// console.log($scope.courselist);        
+			 scope.courselist = angular.fromJson(JSON.parse(data.data));
+			 for(var index in scope.courselist){
+			 	scope.courselist[index]._id=scope.courselist[index]._id.$oid;
+			 }
+			       
 
 			});
 
 			// ctrls.$setValidity('courseLoader',false);
 
 
-			scope.onCourseSelectionChanged = function(course){
-				// if(angular.equals(course,null)){
-				// 	// scope.ngModel=course;
-					ctrls.$setValidity('courseLoader',false);
-
-									
-				//}
-				if(!angular.equals(course,null)){
-					if(!angular.equals(course._id.$oid,undefined)){
-					course._id=course._id.$oid;
-					}
+			scope.onCourseSelectionChanged = function(course){				
 					scope.ngModel=course;
-					ctrls.$setValidity('courseLoader',true);
-					
-				}
-				
+					ctrls.$setValidity('courseLoader',true);				
 			};
         
 

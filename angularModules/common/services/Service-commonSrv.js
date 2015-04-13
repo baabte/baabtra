@@ -32,7 +32,55 @@ this.FnLoadGlobalValues=function(key)
       dataType:"json",
     });
     return promise;
+   };
+
+   this.fnLoadRoleUnderCompany = function(companyId){
+    var promise = $http({
+      url: bbConfig.BWS+'LoadRoleUnderCompany/',
+      data: {"companyId":companyId},
+      method: "POST",
+      withCredentials: false,
+      contentType:"application/json",
+      dataType:"json",
+    });
+    return promise;
    }
+
+   this.fnLoadMentees = function(companyId){
+    var promise = $http({
+      url: bbConfig.BWS+'loadMentees/',
+      data: {"companyId":companyId},
+      method: "POST",
+      withCredentials: false,
+      contentType:"application/json",
+      dataType:"json",
+    });
+    return promise;
+   };
+
+   this.fnLoadUsersUnderRole = function(roleId, companyId){
+    var promise = $http({
+      url: bbConfig.BWS+'LoadUsersUnderRole/',
+      data: {roleId:roleId, companyId:companyId},
+      method: "POST",
+      withCredentials: false,
+      contentType:"application/json",
+      dataType:"json",
+    });
+    return promise;
+   };
+
+   this.fnLoadUserCardDetails = function(rmId){
+    var promise = $http({
+      url: bbConfig.BWS+'LoadUserCardDetails/',
+      data: {"rmId":rmId},
+      method: "POST",
+      withCredentials: false,
+      contentType:"application/json",
+      dataType:"json",
+    });
+    return promise;
+   };
 
    this.fnFileUpload = function (fileToBeUpload, pathToBeSave){ // functon that call web service to add a comapny role
     var promise = $upload.upload({
@@ -71,20 +119,23 @@ this.FnLoadGlobalValues=function(key)
     return promise;
    };
 
-      // this.FnLoadExistingResellerUserData=function($scope, userEmail)
-      // {
-      //   $http({
-      //     method: 'post',
-      //     url: bbConfig.BWS+'LoadExistingUserData/',
-      //     data:{"userEmail":userEmail},
-      //     contentType:'application/json; charset=UTF-8',
-      //   }).
-      //   success(function(data, status, headers, config) {//success respond from server
-      //       //$scope.globalValues=angular.fromJson(JSON.parse(data));//Converting the result to json object
-      //     }).
-      //     error(function(data, status, headers, config) {
-      //       // called asynchronously if an error occurs
-      //       // or server returns response with an error status. 
-      //     });
-      // };
+ this.loadCourseMaterial=function(courseId,userId){ //to load the course materials under specific course
+  var promise = $http({
+    method: 'POST',
+      url: bbConfig.BWS+'fnloadCourseMaterial4multiSelect/',
+      data:{"courseId":courseId,"urmId":userId}
+   });
+  return promise;
+ }; 
+
+ this.loadCourseMaterial4Batch=function(batchMappingId){ //to load the course materials under specific course
+  var promise = $http({
+    method: 'POST',
+      url: bbConfig.BWS+'fnloadCourseMaterial4Batch/',
+      data:{"batchMappingId":batchMappingId}
+   });
+  return promise;
+ }; 
+
+
 }]);
