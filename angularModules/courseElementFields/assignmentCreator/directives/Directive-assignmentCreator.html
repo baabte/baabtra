@@ -1,18 +1,68 @@
-<div class="col-xs-12 ">
+<div class=" bg-white">
 	<form name="assignmentForm">
-		<div class="form-group">
+		<div class="form-group col-xs-12">
+			<input type="text" class="form-control" float-label ng-model="assignmentData.deadLine" data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true" data-min-date="today" name="deadLine" bs-datepicker="" autocomplete="off" placeholder="Last Date of Submission">
+
+			<!-- <select class="form-control" ng-model="endPointPercentage" id="select" required>
+             	<option selected="selected"  value="" required >Select Penality (in %)</option>
+             	<option ng-repeat = "num in percentageNum" value="{{num}}">{{num}}</option>  
+            </select> -->
 
 		</div>
-		<div class="form-group">
+
+		<div class="form-group  col-xs-12">
+			<h4>
+				<div class="font-bold" translate="{{'Penality Settings' | translate}}"></div>
+			</h4>
+
+
+			 <div class="col-xs-6">
+				<div class="form-group">
+					<em translate="{{'Penality on Late Submission ' | translate}}"></em>
+					<select class="form-control" ng-model="penality.lateSubmission" id="select" required>
+		             	<option selected="selected"  value="" required translate="{{'Select Penality (in %)' | translate}}"></option>
+		             	<option ng-repeat = "num in percentageNum" value="{{num}}">{{num}}%</option>  
+		            </select>
+	            </div>
+
+				<div class="form-group">
+		            <em translate="{{'Penality on Re-Submission ' | translate}}"></em>
+					<select class="form-control" ng-model="penality.reSubmission" id="select" required>
+		             	<option selected="selected"  value="" required translate="{{'Select Penality (in %)' | translate}}"></option>
+		             	<option ng-repeat = "num in percentageNum" value="{{num}}">{{num}}%</option>  
+		            </select>
+	        	</div>
+            </div>
+          
+
+			<!-- <div class="col-xs-6">
+				
+				<div class="form-group">
+					<em translate="{{'Penality for unattended Questions' | translate}}"></em>
+
+					<select class="form-control" ng-model="endPointPercentage" id="select" required>
+		             	<option selected="selected"  value="" required translate="{{'Select Penality (in %)' | translate}}"></option>
+		             	<option ng-repeat = "num in percentageNum" value="{{num}}">{{num}}</option>  
+		            </select>
+		        </div>
+
+
+		        
+
+            </div>
+ -->
 
 		</div>
+		<!-- {{penality}} -->
 
-
+		<div class="col-xs-12">
+			<div class="btn btn-primary" ng-disabled="assignmentForm.$invalid" ng-click="questionShowActivate()">
+			<span translate="{{'Add Assignment Question' | translate}}"></span>
+			<div class="ripple-wrapper"></div>
+			</div>
+		</div>
 	</form>
-	<div class="btn btn-primary" ng-disabled="assignmentForm.$invalid" ng-click="questionShowActivate()">
-		<span translate="{{'Add Assignment Question' | translate}}"></span>
-		<div class="ripple-wrapper"></div>
-	</div>
+	
 
 	<div class="col-xs-12" ng-repeat="assignment in assignmentsModel track by $index">
 		

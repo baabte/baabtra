@@ -2,25 +2,30 @@
 	<div class="col-sm-12">
       		<div class="panel b-light">
         		<div class="panel-body p-sm bg-light lt">
-        			<div class="bs-example" append-source="">
+        			<div class="bs-example " append-source="">
     <!-- ngModel is optional -->
-    					<div class="tab-container ng-scope ng-valid ng-dirty">
-    						<ul class="nav nav-tabs" role="tablist"><!-- ngRepeat: $pane in $panes -->
-    							<li  ng-class="{'active':!comapany,'ng-hide':roleId==2}" class="ng-scope active">
+    					<div class="tab-container ng-valid ng-dirty">
+    						<ul class="nav nav-tabs bg-inbox-blue p-xs" role="tablist"><!-- ngRepeat: $pane in $panes -->
+    							<li  ng-class="{'active b-b b-2x b-white':!comapany,'ng-hide':roleId==2}" class="ng-scope active ">
     								<a role="tab" data-toggle="tab" ng-click="toLevelRoles()" data-index="0"  class="ng-binding">Top Level Roles</a>
     							</li><!-- end ngRepeat: $pane in $panes -->
-    							<li  ng-class="{'active':comapany,'ng-hide':roleId==2}" class="ng-scope">
+    							<li  ng-class="{'active b-b b-2x b-white':comapany,'ng-hide':roleId==2}" class="ng-scope">
     								<a href="" role="tab" data-toggle="tab" ng-click="backToCompanies()" data-index="1"  class="ng-binding">
-                      <i class="ui-icon fa fa-arrow-left ui-iconnfo text-md bg-info" ng-click="backToCompanies()" style="cursor: pointer;" ng-show="ModelRoleBox"></i>
+                      <i class="fa fa-arrow-left ui-iconnfo text-md" ng-click="backToCompanies()" style="cursor: pointer;" ng-show="ModelRoleBox"></i>
                       <span>Companies</span>
                     </a>
     							</li><!-- end ngRepeat: $pane in $panes -->
                   <div class="pull-right">
-                  <div class="btn-group" style="margin-top: 4px;">
-            <button type="button" class="btn btn-xs btn-default" ng-click="prev_one()"><i class="fa fa-fw fa-angle-left"></i></button>
-            <button type="button" class="btn btn-xs btn-default" ng-click="next_one()"><i class="fa fa-fw fa-angle-right"></i></button>
-          </div>
-    							<div class="pull-right hidden-xs w">
+
+                  <div class="pull-left">
+                    <a href="" class="p-xs text-2x text-white" ng-click="prev_one()"><i class="fa fa-chevron-circle-left"></i></a>
+                    <a href="" class="p-xs text-2x text-white" ng-click="next_one()"><i class="fa fa-chevron-circle-right"></i></a>
+
+                  </div>
+                  <div class="pull-left">
+                    <input ng-model="modelSearch" type="text" class="form-control input-sm no-border m-t-xs text-white"  placeholder="{{placeholderVal}}...">
+                  </div>
+    							<!-- <div class="pull-right hidden-xs w">
                     <div class="input-group">
                       <span class="input-group-btn">
                         <button type="submit" class="btn btn-sm bg-white btn-icon no-shadow no-padder">
@@ -29,7 +34,7 @@
                       </span>
                       <input ng-model="modelSearch" type="text" class="form-control input-sm no-border" float-label placeholder="{{placeholderVal}}...">
                     </div>
-                  </div>
+                  </div> -->
                   </div>
     						</ul>
     						<div class="tab-content">
@@ -37,24 +42,24 @@
 	      						<div title="To Level Roles" class="ng-binding ng-scope tab-pane am-fade" ng-class="{'active':!comapany,'ng-hide':roleId==2}" >
 	      							<div class="row">
 	      								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" ng-repeat="tRoles in topLevelRoles">
-                          <div class="box bg-light" ng-click="getRole(tRoles._id)" style="cursor: pointer;">
-	                  							<div class="box-col w-xs text-center">
-	                  								<img src="images/a0.jpg" class="w-xs pull-left" >
+                          <div class="box bg-light shadow-z-1" ng-click="getRole(tRoles._id)" style="cursor: pointer;">
+	                  							<div class="box-col w-xs text-center random-background-color">
+	                  								<i class="mdi-social-group text-4x p-v"></i>
 	                  							</div>
 		                  						<div class="box-col p b-b b-4x b-light" ng-class="{'b-success am-fade':RoleState==tRoles._id}">
 		                  							<a href="">{{tRoles.roleName}}</a><br>
-		                    						<div class="pull-left">Common Role For All Companies</div>
-                                    <i class="fa  pull-right text-xl text-success b-4x b-info" ng-class="{'fa-check-circle am-fade':RoleState==tRoles._id}"></i>
+		                    						<div class="pull-left">{{tRoles.roleDescription}}</div>
+                                  <!--   <i class="fa  pull-right text-xl text-success b-4x b-info" ng-class="{'fa-check-circle am-fade':RoleState==tRoles._id}"></i> -->
 		                  						</div>
 	                						</div>
 	            						</div>
 	        						</div>
 	    						</div>
     							<!-- end ngRepeat: tab in tabs -->
-      							<div class="ng-binding ng-scope tab-pane am-fade" ng-class="{'active':comapany,'ng-hide':roleId==2}">
+      							<div class="ng-binding ng-scope tab-pane am-fade" ng-class="{'active ':comapany,'ng-hide':roleId==2}">
       								<div class="row" ng-model="modelCompanyBox" ng-show="!ModelRoleBox">
 	      								<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" ng-click="ChangeCompanyState(OneComapny._id.$oid,OneComapny.companyName)" ng-repeat="OneComapny in companyDetails">
-	      									<div class="box bg-light" style="cursor: pointer;" ng-onhover="box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.23);">
+	      									<div class="box bg-light shadow-z-1" style="cursor: pointer;" ng-onhover="box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.23);">
 	                  							<div class="box-col w-xs text-center">
 	                  								<img src="images/CompanyLogs/company.png" class="w-xs m-r pull-left ">
 	                  							</div>
@@ -70,13 +75,14 @@
 	        					</div><!-- end ngRepeat: tab in tabs --><!-- end ngRepeat: tab in tabs -->
                     <div class="row" ng-show="ModelRoleBox">
                         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 p-sm"  ng-repeat="role in roles">
-                          <div class="box bg-light" style="cursor: pointer;" ng-click="getRole(role._id)">
-                                  <div class="box-col w-xs text-center">
-                                    <img src="images/a0.jpg" class="w-xs m-r pull-left">
+                          <div class="box bg-light shadow-z-1" style="cursor: pointer;" ng-click="getRole(role._id)">
+                                  <div class="box-col w-xs text-center random-background-color">
+                                    <i class="mdi-social-group text-4x"></i>
+                                    <!-- <img src="images/a0.jpg" class="w-xs m-r pull-left"> -->
                                   </div>
                                   <div class="box-col p b-b b-4x b-light" ng-class="{'b-success am-fade':RoleState==role._id}">
-                                    <a>{{role.roleName}}</a><br>
-                                    <i class="fa  pull-right text-xl text-success b-4x b-info" ng-class="{'fa-check-circle am-fade':RoleState==role._id}"></i>
+                                    <div>{{role.roleName}}</div>
+                                    
                                   </div>
                               </div>
                           </div>
@@ -100,7 +106,7 @@
         		</div>
       		</div>
     	</div>
-      <div class="col-xs-12 " ng-if="tree1.length">
+      <div class="col-xs-12 " ng-if="tree2.length">
         <div class="panel">
           <div class="panel-body">
             <div class="row">
@@ -112,10 +118,15 @@
                     <div class="container-fluid">
                       <div class="scrollable hover m-h-n" style="height: 400px;overflow-x: hidden!important;">
                         <ul class="nav navbar-nav m-h-n">
-                          <li bs-tooltip data-title="Click to assign this menu" data-placement="top" class="col-xs-12 no-padding" class="dropdown" ng-repeat="menus in tree2"><a ng-mouseover="visibleAddIcon=true" ng-mouseleave="visibleAddIcon=false"  class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}
+                          <li bs-tooltip data-title="Click to assign this menu" data-placement="top" class="col-xs-12 no-padding" class="dropdown" ng-repeat="menus in tree2">
+
+                            <a ng-if="!menus.menuDetail||(menus.menuDetail&&menus.menuDetail.companyId==companyId)" ng-mouseover="visibleAddIcon=true" ng-mouseleave="visibleAddIcon=false"  class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}
                             <i ng-if="visibleAddIcon" class="mdi-content-add pull-right text-lg font-bold" ng-click="addMenu($index)"></i>
                           </a>
-
+                          <ul class="nav navbar-nav col-xs-12 " ng-if="menus.childMenuStructure.length">
+                            <li class="col-xs-12"  ng-repeat="menu in menus.childMenuStructure" ><a ng-click="addMenuFromMenuGroup(menus, $index)" class="pull-right" style="z-index:2;"><i bs-tooltip data-title="Click to assign this menu" data-placement="left" class="fa fa-mail-forward" ></i></a><a class=""><i class="fa {{menu.menuIcon}} fa-md"></i>&nbsp;{{menu.MenuName}}</a>
+                            </li>
+                        </ul>
                           </li>
                         </ul>
                       </div>
@@ -131,7 +142,7 @@
                   <nav>
                   <div class="container-fluid">
                     <div class="scrollable hover m-h-n" style="height: 400px;overflow-x: hidden!important;">
-                      <ul class="nav navbar-nav ">
+                      <ul class="nav navbar-nav col-xs-12">
                         <li class="col-xs-12 no-padding" class="dropdown" ng-repeat="menus in tree1" data-placement="top" ng-if="menus.MenuLink"><a class="pull-right" style="z-index:2;"><i ng-if="selectedMenuGroup" class="fa fa-mail-forward" ng-click="insertMenuToGroup(menus, $index)" bs-tooltip data-title="Add this menu to the selected group" data-placement="left"></i></a><a ng-mouseover="visibleAddIcon=true" ng-mouseleave="visibleAddIcon=false" class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}
                           <i ng-if="visibleAddIcon" class="mdi-content-remove pull-right text-lg font-bold" bs-tooltip data-title="Remove menu" data-placement="left" ng-click="removeMenu($index)"></i>
 

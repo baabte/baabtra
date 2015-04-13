@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('UserregistrationCtrl',['$scope','$rootScope','$state','commonService','userRegistrationService','formCustomizerService','$alert',function($scope,$rootScope,$state,commonService,userRegistrationService,formCustomizerService,$alert){
+angular.module('baabtra').controller('UserregistrationCtrl',['$scope','bbConfig','$rootScope','$state','commonService','userRegistrationService','formCustomizerService','$alert',function($scope,bbConfig,$rootScope,$state,commonService,userRegistrationService,formCustomizerService,$alert){
 
 
 	if(!$rootScope.userinfo){
@@ -21,7 +21,7 @@ var companyId;
 //getting user crmid and data companyid
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
  $scope.status={};
- if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,1)){
+ if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,bbConfig.SARID)){
   companyId='';
   $scope.status.selected=1;
 }
@@ -38,6 +38,8 @@ $scope.allSync.newUser=false;
 $scope.allSync.FormData={}; // formdata to keep all form inserted data
 var mandatoryFields=[]; //array to keep the mandatory form data fields       
 // formCustomizerService.FnFetchCustomForm($scope);
+
+
 
 var formFetchData={};
 formFetchData.fkcompanyId=companyId;//to fetch forms from clnCustomForms
@@ -56,21 +58,66 @@ FnFetchCustomFormCallBack.then(function(data){
       // console.log($scope.formlist);  
 $scope.stepCount=$scope.formlist.formSteps;
 //to get the mandtory from field name in an array 
-for(var i in $scope.formlist.formSchema){
-    for(var x in $scope.formlist.formSchema[i].stepFormSchema.fields){
+    for(var i in $scope.formlist.formSchema){
+      for(var x in $scope.formlist.formSchema[i].stepFormSchema.fields){
        if(angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'role')||angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'Branch'))
        {}
-      
        else{
       mandatoryFields.push($scope.formlist.formSchema[i].stepFormSchema.fields[x].name);
      }
     } 
-    } 
+    }
+
+    //nedd to improve the call with role id\\//
+    if(!angular.equals(companyId,'')){
+    var FetchSpecificFormObj={companyId:companyId,fetchFormName:"userRegistration"};
+       var fnFetchSpecificCustomFormCallBack= formCustomizerService.FnFetchSpecificCustomForm(FetchSpecificFormObj);
+      fnFetchSpecificCustomFormCallBack.then(function  (data) {
+
+        var result=angular.fromJson(JSON.parse(data.data));
+
+        $scope.roleSchema=result.roleSchema.roleSchema;        
+
+         var tempRoleid=$state.params.key*1;
+         if(!angular.equals(tempRoleid,NaN)){
+          $scope.roleId=tempRoleid;
+         }
+         else{
+          $scope.roleId=$state.params.key;
+         }
+
+        $scope.role={};//to keep the schema of form
+
+        if($scope.roleId){
+            $scope.allSync.FormData.role={};
+            $scope.allSync.FormData.role.roleId=$scope.roleId;
+        for(var index in $scope.roleSchema){
+          if (angular.equals($scope.roleSchema[index].roleId,$scope.roleId)){
+            $scope.role.roleId=$scope.roleId;
+            $scope.role.formSchema=$scope.roleSchema[index].formSchema;
+            $scope.role.formSteps=$scope.roleSchema[index].formSteps;
+            console.log($scope.role);  
+            $scope.allSync.FormData.role=$scope.role;                  
+          }
+
+        }
+        
+      }
+
+      });
+    }else{
+       $scope.allSync.FormData.role={};
+       $scope.allSync.FormData.role.roleId=bbConfig.MURID;
+    }
     // console.log(mandatoryFields)   
 });
 
 
 
+
+      
+
+// console.log($state.params)
 
 
 // var fnGetCountryStateDistrictCallBack=companyRegistrationService.FnGetCountryStateDistrict();   
@@ -121,13 +168,14 @@ var mandatoryData={};
       }
     }
   }
- if(angular.equals(Object.keys($scope.allSync.FormData.batch).length,0)){
+
+ if(!angular.equals($scope.allSync.FormData.batch,undefined)&&(angular.equals(Object.keys($scope.allSync.FormData.batch).length,0))){
   delete $scope.allSync.FormData.batch;
  }
  if(!angular.equals($scope.allSync.FormData.batch,undefined)&&($scope.allSync.FormData.batch.length>0)) { 
  
  delete $scope.allSync.FormData.batch[0].course;
- $scope.allSync.FormData.batchId=$scope.allSync.FormData.batch[0]._id 
+ $scope.allSync.FormData.batchId=$scope.allSync.FormData.batch[0]._id;
  delete $scope.allSync.FormData.batch[0]._id;
  delete $scope.allSync.FormData.batch[0].companyId;
  delete $scope.allSync.FormData.batch[0].updatedDate;
@@ -153,9 +201,14 @@ var mandatoryData={};
 
   //service call for user registration
  // console.log($scope.userRegister);
+ if ($scope.userRegister.role.formSchema) {
   delete  $scope.userRegister.role.formSchema;
   delete  $scope.userRegister.role.formSteps;
+  }
 //  //console.log($scope.userRegister.phone);
+
+ console.log($scope.userRegister);
+
 var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userRegister);
 
 fnRegisterUserCallBack.then(function(data){

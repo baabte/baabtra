@@ -315,12 +315,12 @@
                 
               })
               .state('home.main.userRegistration', {
-                url: '/userRegistration',
+                url: '/userRegistration/:key',
+
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/user/partials/Partial-userRegistration.html',
-                     controller: 'UserregistrationCtrl'
-
+                    controller: 'UserregistrationCtrl',              
                   }
                 }
                 

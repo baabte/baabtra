@@ -2,17 +2,22 @@ angular.module('baabtra').controller('ThemeconfigurationCtrl',['$scope','$rootSc
 
 
 $scope.selectedTab="Customizetheme";
-// $scope.selectedTab="selectMenutype";
+// $scope.selectedTab="SubTitlesandBackground";
 $scope.header ={} ;
 $scope.header.type = "Header";
 $scope.menutype="menuPrimaryColor";
+$scope.SubTitleandBackcolor="SubTitlecolour";
 $scope.roleId = bbConfig.CURID;
 var appSettings = "";
 var companyId = "";
 var rmId = "";
 $scope.activeBtn=false;
+$scope.subtitleAndbackactiveBtn=false;
 $scope.MenuColorproperties={};
-
+$scope.subTitleAndBackColorProperpies={};
+// temporary
+// $scope.subTitAndBackg="custom";
+// $scope.CustomizesubTitAndBackg=true;
 
  $scope.options = {
         headerColor:[
@@ -75,6 +80,7 @@ unbindthis=$scope.$watch(function(){
 
              if(angular.equals($rootScope.userinfo.ActiveUserData.menuColor,undefined)||angular.equals($rootScope.userinfo.ActiveUserData.menuColor,"random")){
                 $scope.menuColor="random";
+              
             }
             else{
                 $scope.menuColor="custom";
@@ -82,10 +88,25 @@ unbindthis=$scope.$watch(function(){
               // $rootScope.userinfo.ActiveUserData.menuColor;
             }
 
+            
+             if(angular.equals($rootScope.userinfo.ActiveUserData.subTitleAndBackColor,undefined)||angular.equals($rootScope.userinfo.ActiveUserData.subTitleAndBackColor,"random")){
+                $scope.subTitAndBackg="random";
+              
+            }
+            else{
+                $scope.subTitAndBackg="custom";
+                $scope.CustomizesubTitAndBackg=true;
+              // $rootScope.userinfo.ActiveUserData.menuColor;
+            }
+            // console.log($rootScope.userinfo.ActiveUserData);
 
 				if(!angular.equals($rootScope.userinfo,undefined)){
 					  unbindthis();
 				}
+        // var abc=UnigueCodeGenerator.GetCode(companyId,"Orders");
+        // abc.then(function(data){
+        //     console.log(data.data);
+        // });
 			});
 
 
@@ -117,6 +138,19 @@ unbindthis=$scope.$watch(function(){
 
  };
 
+$scope.setSubTitAndBackground=function(color){
+  if(angular.equals($scope.SubTitleandBackcolor,"SubTitlecolour"))
+  {
+
+        $scope.subTitleAndBackColorProperpies.SubTitlecolour=color;
+        $scope.subtitleAndbackactiveBtn=true;
+  }else{
+
+        $scope.subTitleAndBackColorProperpies.Backgroundcolour=color;     
+        $scope.subtitleAndbackactiveBtn=true;
+  }
+  
+};
 
 
       $scope.backgroundImageChanged = function($file){
@@ -162,7 +196,7 @@ unbindthis=$scope.$watch(function(){
         // $hide();
 
       };
-
+// function for set menu coor
       $scope.saveMenuColor=function(data){
         var dataToSend={};
         dataToSend.companyId=companyId;
@@ -179,6 +213,30 @@ unbindthis=$scope.$watch(function(){
             if(angular.equals(returndata,"success")){
               $scope.activeBtn=false;
               $scope.MenuColorproperties={}
+              $scope.notifications("Success","","success");
+            }
+
+          });
+
+      };
+
+// function for set sub menu and background
+      $scope.saveSubMenuAndBackgrounds=function(data){
+        var dataToSend={};
+        dataToSend.companyId=companyId;
+        dataToSend.userLoginId=$rootScope.userinfo.userLoginId;
+        if(angular.equals(data,"random")){
+          dataToSend.subTitleAndBackColor="random";
+        }
+        else{
+          dataToSend.subTitleAndBackColor=$scope.subTitleAndBackColorProperpies;
+        }
+        var subTitleAndBackColor=themeConfigurationSrv.saveSubMenuAndBackgrounds(dataToSend);
+          subTitleAndBackColor.then(function(data){
+            var returndata = angular.fromJson(JSON.parse(data.data));
+            if(angular.equals(returndata,"success")){
+              $scope.CustomizesubTitAndBackg=false;
+              $scope.subTitleAndBackColorProperpies={}
               $scope.notifications("Success","","success");
             }
 

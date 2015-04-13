@@ -187,16 +187,23 @@ angular.module('baabtra')
 
       var unbindThis = $rootScope.$watch(function(){ return $rootScope.userinfo; }, function(){
 
-      if(!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage, undefined)){
-          var preLang = $rootScope.userinfo.ActiveUserData.Preferedlanguage.langCode;
+      if(!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage, null)&&!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage, undefined)){
+          // var preLang = $rootScope.userinfo.ActiveUserData.Preferedlanguage.langCode;
+          if(!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage.langCode,undefined)&&!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage.langCode, null))
+          {
+            var preLang = $rootScope.userinfo.ActiveUserData.Preferedlanguage.langCode;
+          }
+          else{
+            var preLang='en';
+          }
       }
       else{
 
           var preLang = 'en';
       }
-      
       $scope.selectedlanguage={};
-      for(var i=0;i<$scope.availlangualges.length;i++){
+      var matchFlag=0;
+      for(var i in $scope.availlangualges){
           if($scope.availlangualges[i].langCode==preLang){
              $scope.selectedlanguage=$scope.availlangualges[i];
              $scope.userloginId=$rootScope.userinfo.userLoginId;
@@ -204,7 +211,6 @@ angular.module('baabtra')
           }
       }
 
-     
       
     });
 
@@ -224,17 +230,19 @@ angular.module('baabtra')
 //       $scope.$watch('selectedlanguage', function() {
 //      console.log($scope.selectedlanguage);
 // });
-
       // it will redirect to GlobalSettings
       $scope.redirectToGlobalSettings=function(){
+            // $localStorage.currentMenuName="global Settings";//added by arun to make top bar menus work 
             $state.go('home.main.globalSettings');
       };
 
       $scope.redirectTobaabtraProfile=function(){
+            // $localStorage.currentMenuName="";//added by arun to make top bar menus work 
             $state.go('home.main.baabtraProfile',{userLoginId:"54d84b55ef14f722f4890797"});
       };
       // it will redirect to theme settings
       $scope.redirectTothemeConfiguration=function(){
+            // $localStorage.currentMenuName="theme Configuration"; //added by arun to make top bar menus work 
         $state.go('home.main.themeConfiguration');
 
       };
