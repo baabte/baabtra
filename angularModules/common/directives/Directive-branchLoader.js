@@ -10,6 +10,7 @@ angular.module('baabtra').directive('branchLoader',['branchSrv','manageTreeStruc
       // console.log($scope.ngModel);
 // console.log(ctrls[0]);
 // ctrls[0].$setValidity('branchLoader',false);
+
 	// function for converting object : created by Jihin
 			var convertObjectName=function(menu,sub){
               if(sub==null){
