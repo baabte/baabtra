@@ -408,7 +408,7 @@
               })
 
                 .state('home.main.viewOrderForm', {
-                url: '/viewOrderForm',
+                url: '/viewOrderForm/:Index',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/user/partials/Partial-viewUsersForApprove.html',
@@ -723,6 +723,16 @@
                   }
                 }
               })
+              .state('home.main.allocateCandidate', {
+                url: '/allocateCandidate',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/user/partials/Partial-allocateCandidate.html',
+                    controller:'AllocatecandidateCtrl'
+                  }
+                }
+                
+              })
               .state('home.main.batchWithOption', {
                 url: '/manageBatch/:key',
                 views:{
@@ -758,7 +768,6 @@
                 templateUrl: 'angularModules/publicAPIs/course/partials/Partial-companyCourseList.html',
                 controller:'CompanycourselistCtrl'
               })
-
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'

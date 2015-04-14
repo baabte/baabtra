@@ -48,7 +48,7 @@
     "angular-multi-select": "~2.0.2",
     "ngImgCrop": "~0.3.2",
     "angular-qrcode": "monospaced/angular-qrcode#~5.1.0",
-     "contextMenu": "~0.0.0",
+    "contextMenu": "~0.0.0",
     "StreamLine": "~1.0",
     "ngHierarchicalSelector": "~1.0",
     "angular-google-chart": "~0.0.11",
@@ -58,7 +58,9 @@
     "international-phone-number": "~0.0.3",
     "checklist-model": "~0.2.4",
     "angular-flipclock": "*",
-    "jspdf": "~1.0.272"
+    "jspdf": "~1.0.272",
+    "angular-custom-form":"~0.1",
+    "tableExport":"1.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.2"
