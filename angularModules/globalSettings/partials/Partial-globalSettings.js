@@ -105,7 +105,7 @@ $scope.$watch(function() {
 	  //end of the div
 
 
-	  $scope.roles.push({"roleName":"Branches","_id":{"$oid":"Branches"}},{"roleName":"Department","_id":{"$oid":"Department"}},{"roleName":"Mentee","_id":{"$oid":"Mentee"}},{"roleName":"Orders","_id":{"$oid":"Orders"}},{"roleName":"Receps","_id":{"$oid":"Receps"}});
+	  $scope.roles.push({"roleName":"Branches","_id":{"$oid":"Branches"}},{"roleName":"Department","_id":{"$oid":"Department"}},{"roleName":"Mentee","_id":{"$oid":"Mentee"}},{"roleName":"Orders","_id":{"$oid":"Orders"}},{"roleName":"Receips","_id":{"$oid":"Receips"}});
 	  // $scope.roleList=
 	  if(existingConfCallBack.existingConf){
 	  	existingItemsObjArray=existingConfCallBack.existingConf.itemCodes;
