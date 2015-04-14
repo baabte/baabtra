@@ -25,10 +25,10 @@ angular.module('baabtra').service('nomination',['$http', 'bbConfig', function ($
    };
 
    //service to update the status of the order form
-   this.fnUpdateOrderFormStatus = function(orderForm){
+   this.fnUpdateOrderFormStatus = function(orderForm, actTransactions, paymentReceipt){
 	    var promise = $http({
 	      url: bbConfig.BWS+'updateOrderFormStatus/',
-	      data: {orderForm:orderForm},
+	      data: {orderForm:orderForm, actTransactions:actTransactions, paymentReceipt:paymentReceipt},
 	      method: "POST",
 	      withCredentials: false,
 	      contentType:"application/json",
