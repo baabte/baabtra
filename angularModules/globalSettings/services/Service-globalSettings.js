@@ -150,6 +150,25 @@ this.removeExistingSupervisors=function (data){ //
     return promise;
 };
 
+this.saveAttendanceAlertSettings=function(data){ // 
+  // console.log(angular.toJson(data));
+    var promise=$http({
+          url: bbConfig.BWS+'saveAttendanceAlertSettings/',
+           data: angular.toJson({"data":data}), //it will save saveAttendanceAlertSettings under a comapany
+           method: "POST",
+           withCredentials: false,
+           contentType:"application/json",
+           dataType:"json",
+       }).
+         success(function(data, status, headers, config) { 
+          return data;                   
+             }).
+         error(function(data, status, headers, config) {
+          
+         }); 
+    return promise;
+};
+
 
 
 }]);

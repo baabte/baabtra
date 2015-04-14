@@ -213,6 +213,8 @@ $scope.course.Delivery = {};
 $scope.course.Delivery.online=true;//setting delevery mode default option to true
 $scope.course.Delivery.offline=true;//setting delevery mode default option to true
 $scope.course.courseDetails = [];
+$scope.course.publishToWebsite = false;
+$scope.course.publishToBaabtra = false;
 
 
 

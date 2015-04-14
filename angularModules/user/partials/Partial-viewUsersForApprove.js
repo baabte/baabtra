@@ -168,13 +168,52 @@ $scope.checkRequestsForStatus = function(course, statusArray){
 
 
 //creating a function to update the status of a mentee when the user checks a checkbox
-$scope.updateStatus = function (mentee, checked){
+$scope.updateStatus = function (mentee, checked, course){
 
 	if(checked){	
 		mentee.statusTobeChangedTo = $scope.currentStage.nextStatus;
+
+		//if the stage is a payment stage update the payment details as well as populate the payment textbox
+		if($scope.currentStage.paymentStage){
+
+			// updating the model for the respective currency
+			for (var i in $scope.currencyArray) {
+				var currentCurrencyRow = $scope.currencyArray[i];
+
+				if(angular.equals(course.currency, currentCurrencyRow.currency)){
+
+					if(angular.equals(currentCurrencyRow.amount, undefined)){
+						currentCurrencyRow.amount = 0;
+					}
+
+					currentCurrencyRow.amount = parseInt(currentCurrencyRow.amount) + parseInt(course.coursePrice);
+				}
+
+			}    
+
+		}
 	}
 	else {
 		delete mentee.statusTobeChangedTo;
+		//if the stage is a payment stage update the payment details as well as populate the payment textbox
+		if($scope.currentStage.paymentStage){
+
+			// updating the model for the respective currency
+			for (var i in $scope.currencyArray) {
+				var currentCurrencyRow = $scope.currencyArray[i];
+
+				if(angular.equals(course.currency, currentCurrencyRow.currency) && !angular.equals(currentCurrencyRow.amount,0)){
+
+					if(angular.equals(currentCurrencyRow.amount, undefined)){
+						currentCurrencyRow.amount = 0;
+					}
+
+					currentCurrencyRow.amount = parseInt(currentCurrencyRow.amount) - parseInt(course.coursePrice);
+				}
+
+			}    
+
+		}
 	}
 
 }
@@ -183,18 +222,40 @@ $scope.updateStatus = function (mentee, checked){
 $scope.checkAll = function(checked){
  
  	var mentee = {};
+ 	var course = {};
+
+ 	//setting the model of the amounts and discounts to 0
+ 		for(var i in $scope.currencyArray){
+ 			var currentCurrencyRow = $scope.currencyArray[i];
+ 			currentCurrencyRow.amount = 0;
+ 			currentCurrencyRow.discount = 0;
+ 		}
 
 		 for(var i in $scope.data.approveOrderForm.orderDetails){
 		 
 		 	for (var j in $scope.data.approveOrderForm.orderDetails[i].userInfo){
 
+				course = $scope.data.approveOrderForm.orderDetails[i];
 				mentee = $scope.data.approveOrderForm.orderDetails[i].userInfo[j];
 		 		mentee.checkedStatus = checked;		 		
-		 		$scope.updateStatus(mentee, checked)
+		 		$scope.updateStatus(mentee, checked, course);
 		 	}
 		 }
 	
 }
+
+//create a watch on the currencyArray to update the total amount when discount amount is applied
+
+        $scope.$watchCollection(
+                    "currencyArray",
+                    function( newValue, oldValue ) {
+
+                    	console.clear();
+                        console.log(newValue);
+                        console.log(oldValue);
+
+                    }
+        );
 
 //get the array of currencies in the courses to show the payment screen, this is needed since each course may be configured to have a differnet currency
 $scope.createCurrencyArray = function() {
