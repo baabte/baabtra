@@ -19,7 +19,7 @@ $scope.entities=[];
 // 	$scope.percentageNum[i]=i;
 // }
 // $scope.actions=["First Warning","Second Warning","Final Warning"];
-// $scope.incrementTypes=[{"Name":"<i class='fa fa-sort-numeric-asc p-xs'></i>Number","value":"Number"},{"Name":"<i class='ti-uppercase p-xs'></i>Alphabetics(In Capital Letter)","value":"Alphabetics(C)"},{"Name":"<i class='ti-smallcap p-xs'></i>Alphabetics(In Small Letter)","value":"Alphabetics(s)"}];
+$scope.incrementTypes=[{"Name":"<i class='fa fa-sort-numeric-asc p-xs'></i>Number","value":"Number"},{"Name":"<i class='ti-uppercase p-xs'></i>Alphabetics(In Capital Letter)","value":"Alphabetics(C)"},{"Name":"<i class='ti-smallcap p-xs'></i>Alphabetics(In Small Letter)","value":"Alphabetics(s)"}];
 // $scope.alertPointsArray=[]; //orinal declaration
 // $scope.setaletcriteriapopup=true;
 // $scope.whenAlert="Absense";
@@ -105,7 +105,7 @@ $scope.$watch(function() {
 	  //end of the div
 
 
-	  $scope.roles.push({"roleName":"Branches","_id":{"$oid":"Branches"}},{"roleName":"Department","_id":{"$oid":"Department"}},{"roleName":"Mentee","_id":{"$oid":"Mentee"}},{"roleName":"Orders","_id":{"$oid":"Orders"}});
+	  $scope.roles.push({"roleName":"Branches","_id":{"$oid":"Branches"}},{"roleName":"Department","_id":{"$oid":"Department"}},{"roleName":"Mentee","_id":{"$oid":"Mentee"}},{"roleName":"Orders","_id":{"$oid":"Orders"}},{"roleName":"Receps","_id":{"$oid":"Receps"}});
 	  // $scope.roleList=
 	  if(existingConfCallBack.existingConf){
 	  	existingItemsObjArray=existingConfCallBack.existingConf.itemCodes;

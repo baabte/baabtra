@@ -63,7 +63,7 @@
               <div class="row p-xs no-margin " >
                   <div class="col-md-4 p m-h-sm m-v-xs bg-light" style="width: 31%;" ng-repeat="selectedEvalRole in selectedEvalRoles">
                   <span class="font-bold m-t">{{selectedEvalRole.Name}}</span>
-                  <button type="button" class="btn pull-right no-margin" ng-click="removeExistingEvaluator(selectedEvalRole,$index)"><i class="glyphicon glyphicon-trash" ></i></button>
+                  <a href class="pull-right " ng-click="removeExistingEvaluator(selectedEvalRole,$index)"><i class="glyphicon glyphicon-trash" ></i></a>
               </div>
      </div>
             
