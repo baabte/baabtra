@@ -232,16 +232,19 @@ angular.module('baabtra')
 // });
       // it will redirect to GlobalSettings
       $scope.redirectToGlobalSettings=function(){
+
             // $localStorage.currentMenuName="global Settings";//added by arun to make top bar menus work 
             $state.go('home.main.globalSettings');
       };
 
       $scope.redirectTobaabtraProfile=function(){
+
             // $localStorage.currentMenuName="";//added by arun to make top bar menus work 
             $state.go('home.main.baabtraProfile',{userLoginId:"54d84b55ef14f722f4890797"});
       };
       // it will redirect to theme settings
       $scope.redirectTothemeConfiguration=function(){
+
             // $localStorage.currentMenuName="theme Configuration"; //added by arun to make top bar menus work 
         $state.go('home.main.themeConfiguration');
 

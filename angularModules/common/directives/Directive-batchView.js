@@ -5,6 +5,7 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 		scope: {
 			batch:"=",
 			actionFlag:"=",
+			specificOption:"=",
 			shadow: "="
 		},
 		templateUrl: 'angularModules/common/directives/Directive-batchView.html',
@@ -57,6 +58,12 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 				//function to load evaluation partial based on batchMappingId
 				scope.fnEvaluate=function(){
 					$state.go("home.main.batchEvaluation",{batchMappingId:scope.batch._id.$oid});
+				};
+
+				// function for executing functions from name
+				scope.executeFunction=function (functionName) {
+					functionName=functionName.replace('()','');
+					scope[functionName]();
 				};
 
 

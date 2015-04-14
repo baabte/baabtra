@@ -723,6 +723,15 @@
                   }
                 }
               })
+              .state('home.main.batchWithOption', {
+                url: '/manageBatch/:key',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-viewBatchWithOption.html',
+                    controller:'ViewbatchwithoptionCtrl'
+                  }
+                }
+              })
 
               .state('home.main.ILTAdmin', {
                 url: '/ILTAdmin',
