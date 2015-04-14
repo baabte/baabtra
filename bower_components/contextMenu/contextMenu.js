@@ -215,7 +215,7 @@ angular.module('ui.bootstrap.contextMenu', [])
               +'<div class="navbar-header col-xs-3">'
                   +'<h4 class="font-bold" >Existing Course Elements</h4>'
               +'</div>'
-              
+              +'<button type="button" class="btn baab-btn pull-right no-padding" style="margin-top:-5px;" ng-click="$hide()"><i class="mdi-navigation-close text-2x text-white"></i></button>'
           +'</div>'
       +'<div class="modal-body no-padding h-full" >'
           
@@ -232,7 +232,7 @@ angular.module('ui.bootstrap.contextMenu', [])
               +'</div>'
             +'<div class="list-group" style=" height:500px; overflow:scroll;">'
                   +'<div ng-repeat="course in ExistingMaterials|filter:searchText">'
-                   +'<a href ng-click="fnselectCourse(course);status.formCourse = $index" bs-tooltip data-title="click to see Elements"  class="list-group-item " >{{course.Name}} <i ng-show="status.formCourse==$index" class="pull-right fa fa-check-circle text-primary"></i></a>'
+                   +'<a href ng-click="fnselectCourse(course);status.formCourse = $index" bs-tooltip data-title="click to see Elements"  class="list-group-item " >{{course.Name}}<i ng-show="status.formCourse==$index" class="pull-right fa fa-check-circle text-primary"></i></a>'
                   +'</div>'
 
             +'</div>'
