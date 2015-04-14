@@ -34,4 +34,26 @@ angular.module('baabtra').service('allocateCandidateService',['$http','bbConfig'
       return promise;
    };
 
+   //service function to register a user 
+	this.fnenrollBulkUsers=function(userRegister,courseObj){
+    var result;
+      var promise=$http({
+           url: bbConfig.BWS+'fnenrollBulkUsers/',
+           data: angular.toJson({regObject:userRegister,courseObj:courseObj}),
+           method: 'POST',
+           withCredentials: false,
+           contentType:'application/json',
+           dataType:'json',
+           }).
+              success(function(data, status, headers, config) {
+             
+                return promise;
+               
+              }).
+              error(function(data, status, headers, config) {
+                result='error';
+             });  
+      return promise;
+   };
+
 }]);

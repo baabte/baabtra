@@ -31,7 +31,7 @@
                   </div>
                   <div class="col-xs-12 col-md-8 pull-right text-right m-v-n">
                       	<button class="btn btn-success baab-btn pull-right" translate="{{'Allocate to Batch'|translate}}" ng-click="fnAllocateToBatch('',course,$index,orderForm._id.$oid,'bulk')"></button>
-						<button class="btn btn-success baab-btn pull-right" translate="{{'Create a New Batch'|translate}}"></button>
+						<button ng-click="fnCreateBatch()" class="btn btn-success baab-btn pull-right" translate="{{'Create a New Batch'|translate}}"></button>
                   </div>
                 </div>
               </div>
@@ -79,7 +79,7 @@
                     </div>
 
                     <div class="col-xs-2 col-md-1 text-right">
-
+                      <span ng-model="mentee.$index"></span>
                       <button class="btn no-padding" ng-click="CallEnrollUserModal(mentee,course,$index,orderForm._id.$oid,'single')" bs-tooltip data-placement="left" data-title="{{'Enroll this candidate'|translate}}">
                         <i class="mdi-social-person-add text-lg"></i>
                       </button>

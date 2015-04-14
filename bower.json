@@ -61,7 +61,6 @@
     "jspdf": "~1.0.272",
     "angular-custom-form":"~0.1",
     "tableExport":"1.0"
-
   },
   "devDependencies": {
     "angular-mocks": "~1.2"

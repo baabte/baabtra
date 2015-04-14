@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('NominationCtrl',['$scope', '$rootScope', '$state', '$modal','commonService', 'formCustomizerService', 'addCourseService', 'nomination', '$alert', function($scope, $rootScope, $state, $modal, commonService, formCustomizerService, addCourseService, nomination, $alert){
+angular.module('baabtra').controller('NominationCtrl',['$scope','bbConfig','$rootScope', '$state', '$modal','commonService', 'formCustomizerService', 'addCourseService', 'nomination', '$alert', function($scope,bbConfig, $rootScope, $state, $modal, commonService, formCustomizerService, addCourseService, nomination, $alert){
 
 	/*login detils start*/
 	if(!$rootScope.userinfo){
@@ -23,32 +23,71 @@ $scope.allSync={}; //the variable to pass data in controller to syncdata
 $scope.allSync.newUser=false;
 $scope.allSync.FormData={}; // formdata to keep all form inserted data
 var mandatoryFields=[];
-var formFetchData = {};
-formFetchData.fkcompanyId = "";//to fetch forms from clnCustomForms
-formFetchData.formName = 'userRegistration';//to fetch all the froms give specific name to fetch that form only
+var formFetchData={};
+formFetchData.fkcompanyId=companyId;//to fetch forms from clnCustomForms
+formFetchData.formName='userRegistration';//to fetch all the froms give specific name to fetch that form only
 // formFetchData.formName='signUp';//to fetch all the froms give specific name to fetch that form only
 
 //sevice call to fetch form 
 var FnFetchCustomFormCallBack= formCustomizerService.FnFetchCustomForm(formFetchData);
 
-FnFetchCustomFormCallBack.then(function(response){
- var result=angular.fromJson(JSON.parse(response.data));
+FnFetchCustomFormCallBack.then(function(data){
+
+ var result=angular.fromJson(JSON.parse(data.data));
 // console.log(result);
  $scope.formlist=result.formlist;
       
       // console.log($scope.formlist);  
 $scope.stepCount=$scope.formlist.formSteps;
 //to get the mandtory from field name in an array 
-for(var i in $scope.formlist.formSchema){
-    for(var x in $scope.formlist.formSchema[i].stepFormSchema.fields){
+    for(var i in $scope.formlist.formSchema){
+      for(var x in $scope.formlist.formSchema[i].stepFormSchema.fields){
        if(angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'role')||angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'Branch'))
-       {
-       }
+       {}
        else{
       mandatoryFields.push($scope.formlist.formSchema[i].stepFormSchema.fields[x].name);
      }
     } 
     }
+
+    //nedd to improve the call with role id\\//
+    if(!angular.equals(companyId,'')){
+    var FetchSpecificFormObj={companyId:companyId,fetchFormName:"userRegistration"};
+       var fnFetchSpecificCustomFormCallBack= formCustomizerService.FnFetchSpecificCustomForm(FetchSpecificFormObj);
+      fnFetchSpecificCustomFormCallBack.then(function  (data) {
+
+        var result=angular.fromJson(JSON.parse(data.data));
+
+        $scope.roleSchema=result.roleSchema.roleSchema;        
+
+        
+
+        $scope.roleId=bbConfig.MURID;
+
+        $scope.role={};//to keep the schema of form
+
+        if($scope.roleId){
+            $scope.allSync.FormData.role={};
+            $scope.allSync.FormData.role.roleId=$scope.roleId;
+        for(var index in $scope.roleSchema){
+          if (angular.equals($scope.roleSchema[index].roleId,$scope.roleId)){
+            $scope.role.roleId=$scope.roleId;
+            $scope.role.formSchema=$scope.roleSchema[index].formSchema;
+            $scope.role.formSteps=$scope.roleSchema[index].formSteps;
+            console.log($scope.role);  
+            $scope.allSync.FormData.role=$scope.role;                  
+          }
+
+        }
+        
+      }
+
+      });
+    }else{
+       $scope.allSync.FormData.role={};
+       $scope.allSync.FormData.role.roleId=bbConfig.MURID;
+    }
+    // console.log(mandatoryFields)   
 });
 
 $scope.$watch('allSync.FormData.role', function(){
@@ -91,6 +130,8 @@ $scope.fnUserRegister =function () {
 	var time=(new Date()).valueOf();
 	hashids = new Hashids("this is a id for mentees");
 	var userUniqueId = 'RQ-' + hashids.encode(time);
+	var courseExits = false;
+	var userinfo = { eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob, status:"requested", userId:userUniqueId };
 
 	if(angular.equals($scope.data.orderForm,undefined)){
 		$scope.data.orderForm = {};
@@ -98,32 +139,31 @@ $scope.fnUserRegister =function () {
 		hashids = new Hashids("this is a order form id");
 		var orderFormId = 'OF-' + hashids.encode(time);
 		var orderFormData = {};
+		
 		$scope.data.orderForm.companyId = companyId;
 		$scope.data.orderForm.orderFormId = orderFormId;
-		$scope.data.orderForm.orderDetails = {};
-		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id] = {};
+		$scope.data.orderForm.orderDetails = [];
 
+		
 		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
 
 		courseLoadResponse.then(function(course){
 	    	var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
-	    	$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].Name = course.Name;
-	    	$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].coursetype = $scope.allSync.FormData.coursetype;
-	    	    		
-	    	
-	    	if(!angular.equals(course.Fees.totalAmount,undefined)){
-	    		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].coursePrice  = course.Fees.totalAmount;
-	    		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].currencyType = course.Fees.currency.currency;
-	    	}
-	    	else{
-	    		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].coursePrice = 0;
-	    	}
-	    	
-	    	$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userCount = 1;
+	    	var courseDetails = {};
+	    	courseDetails.courseId = course._id.$oid;
 
-	    	$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userInfo = [];
+	    	courseDetails.Name = course.Name;
+	    	if(!course.Fees.free){
+	    		courseDetails.currency = course.Fees.currency;
+	    		courseDetails.coursePrice = course.Fees.totalAmount;
+	    	}
+	    	courseDetails.userCount = 1;
+	    	courseDetails.userInfo = [];
 
-			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userInfo.push({eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob, status:"requested", userId:userUniqueId});
+	    	courseDetails.userInfo.push(userinfo);
+	    	courseDetails.coursetype = $scope.allSync.FormData.coursetype;
+
+	    	$scope.data.orderForm.orderDetails.push(courseDetails);
 
 			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 			nomintaionResponse.then(function(response){
@@ -136,59 +176,67 @@ $scope.fnUserRegister =function () {
 		});	
 	}
 	else{
-		if(angular.equals($scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id], undefined)){
-			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id] = {};
+		var courseIndex = 0;
+		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
+		courseLoadResponse.then(function(course){
+     		var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
+     		
+			for (var courseCount = 0; courseCount < $scope.data.orderForm.orderDetails.length; courseCount++) {
+				if(angular.equals($scope.data.orderForm.orderDetails[courseCount].courseId, course._id.$oid)){
+					courseIndex = courseCount;
+					courseExits = true;
+					break;
+				}
+			}
+
+			
+		if(courseExits){
+			$scope.data.orderForm.orderDetails[courseIndex].userInfo.push(userinfo);
+			$scope.data.orderForm.orderDetails[courseIndex].userCount++;
+
+			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
+			nomintaionResponse.then(function(response){
+				var orderForm = angular.fromJson(JSON.parse(response.data));
+				orderForm._id = orderForm._id.$oid;
+				$scope.data.orderForm = orderForm;
+				$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
+				$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
+			});
+
+		}
+		else{
 			var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
 
 			courseLoadResponse.then(function(course){
-    		var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
+		    	var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
+		    	var courseDetails = {};
+		    	courseDetails.courseId = course._id.$oid;
 
-    		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].Name = course.Name;
-    		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].coursetype = $scope.allSync.FormData.coursetype;
-    		if(!angular.equals(course.Fees.totalAmount,undefined)){
-    			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].coursePrice  = course.Fees.totalAmount;
-    		}
-    		else{
-    			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].coursePrice = 0;
-    		}
-    	
-    		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userCount = 1;
+		    	courseDetails.Name = course.Name;
+		    	if(!course.Fees.free){
+		    		courseDetails.currency = course.Fees.currency;
+		    		courseDetails.coursePrice = course.Fees.totalAmount;
+		    	}
+		    	courseDetails.userCount = 1;
+		    	courseDetails.userInfo = [];
 
-    		$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userInfo = [];
+		    	courseDetails.userInfo.push(userinfo);
+		    	courseDetails.coursetype = $scope.allSync.FormData.coursetype;
 
-			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userInfo.push({eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob, status:"requested", userId:userUniqueId});
-
-			console.log($scope.data.orderForm);
-
-			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
+		    	$scope.data.orderForm.orderDetails.push(courseDetails);
+		    	
+				var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 				nomintaionResponse.then(function(response){
 					var orderForm = angular.fromJson(JSON.parse(response.data));
 					orderForm._id = orderForm._id.$oid;
 					$scope.data.orderForm = orderForm;
-					$scope.allSync.FormData = "";
-					$scope.status.selected = 1;
-					$scope.userRegistrationForm.$setPristine();
-					$alert({title: 'Done..!', content: 'Mentee Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
-
+					$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
+					$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
 				});
-			});
+			});	
 		}
-		else{
-			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userCount = $scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userCount + 1;
-
-			$scope.data.orderForm.orderDetails[$scope.allSync.FormData.course._id].userInfo.push({eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob, status:"requested", userId:userUniqueId});
-			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
-				nomintaionResponse.then(function(response){
-					var orderForm = angular.fromJson(JSON.parse(response.data));
-					orderForm._id = orderForm._id.$oid;
-					$scope.data.orderForm = orderForm;
-					$scope.allSync.FormData = "";
-					$scope.status.selected = 1;
-					$scope.userRegistrationForm.$setPristine();
-					$alert({title: 'Done..!', content: 'Mentee Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
-				});
-		}
-	}
+    });
+}
 };
 
 $scope.finshRegisteration = function(){

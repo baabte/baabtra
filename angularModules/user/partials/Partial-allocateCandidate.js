@@ -25,8 +25,13 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 
 					for(var k in $scope.orderFormList[i].orderDetails[j].userInfo){
 
+						$scope.orderFormList[i].orderDetails[j].userInfo[k].index=k;
 						if(angular.equals($scope.orderFormList[i].orderDetails[j].userInfo[k].checkedStatus,true)&&angular.equals($scope.orderFormList[i].orderDetails[j].userInfo[k].status,'Approved')){
-							$scope.selectedCandidates.push($scope.orderFormList[i].orderDetails[j].userInfo[k])
+							var obj=angular.copy($scope.orderFormList[i].orderDetails[j].userInfo[k]);
+							delete obj.status;
+							delete obj.userId;
+							delete obj.checkedStatus;
+							$scope.selectedCandidates.push(obj);
 						}
 					}
 			
@@ -40,7 +45,9 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 	//function to enroll the user
 	$scope.candidateObj={};
 	$scope.userRegister={};
+	$scope.type='';
 	$scope.CallEnrollUserModal=function(userInfo,courseObj,index,orderFormId,type){
+		$scope.type=type;
 		$scope.candidateObj.doj='';
 		$scope.data.courseObj=courseObj;
 		$scope.data.orderFormId=orderFormId;
@@ -58,12 +65,18 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 		$modal({scope: $scope, template: 'angularModules/user/partials/Popup-enrollCandidate.html', show: true});
 	};
 
+	//redirecting to create new batch view
+	$scope.fnCreateBatch=function(){
+		$state.go('home.main.batches');
+	}
+
 	//enrolling the candidate for specific batch/course
 	$scope.fnEnrollCandidate=function(obj,hide,type){
 		//delete some unwanted data
 		if(angular.equals(type,'single')){
 			delete mandatoryData.status;
 			delete mandatoryData.userId;
+			//delete mandatoryData.$index;
 		}
 		//condition to check there is any batch is selected or not.if not selectet then delete the batch object from scope
 		if(!angular.equals($scope.candidateObj.batch,undefined)&&(angular.equals(Object.keys($scope.candidateObj.batch).length,0))){
@@ -107,11 +120,13 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
   		$scope.userRegister.companyId=$scope.companyId;
   		$scope.userRegister.role={};
   		$scope.userRegister.role.roleId=3; //initialising the role id as mentee
-  		hide();
-		console.log($scope.userRegister);
-
-		/*var fnRegisterUserCallBack=allocateCandidateService.fnenrollSingleUser($scope.userRegister,obj);
-
+		var fnRegisterUserCallBack;
+		if(angular.equals(type,'single')){
+			fnRegisterUserCallBack=allocateCandidateService.fnenrollSingleUser($scope.userRegister,obj);
+		}
+		else{
+			fnRegisterUserCallBack=allocateCandidateService.fnenrollBulkUsers($scope.userRegister,obj);
+		}
 		//getting the promise here
 		fnRegisterUserCallBack.then(function(data){
 		
@@ -133,7 +148,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 			 	},200);
 			}
 
-		 });*/
+		 });
 
 
 	};

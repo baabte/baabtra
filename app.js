@@ -71,14 +71,13 @@
 
   // setting the user's preferred Language
   var unbindThis = $rootScope.$watch(function(){ return $rootScope.userinfo; }, function(){
-   
-    // if(!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage, undefined)){
-    //     var preLang = $rootScope.userinfo.ActiveUserData.Preferedlanguage.langCode;
-    // }
-    // else{
+    if(!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage, undefined)){
+        var preLang = $rootScope.userinfo.ActiveUserData.Preferedlanguage.langCode;
+    }
+    else{
 
-    //     var preLang = 'en';
-    // }
+        var preLang = 'en';
+    }
      if(!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage, null)&&!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage, undefined)){
           if(!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage.langCode,undefined)&&!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage.langCode, null))
           {
@@ -92,7 +91,6 @@
 
           var preLang = 'en';
       }
-  
 
     // setting up the direction for the preferred Language
     var rtlArray = ['ar'];  
@@ -108,11 +106,11 @@
 
 
       gettextCatalog.currentLanguage = preLang;
-      // gettextCatalog.debug = true;
+      gettextCatalog.debug = true;
 
-      // if(!angular.equals($rootScope.userinfo,undefined)){
-      //   unbindThis();
-      // }
+      if(!angular.equals($rootScope.userinfo,undefined)){
+        unbindThis();
+      }
     
   });
 
