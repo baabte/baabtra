@@ -732,6 +732,33 @@
                   }
                 }
               })
+
+              .state('home.main.ILTAdmin', {
+                url: '/ILTAdmin',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/ILT/partials/Partial-ILTAdmin.html',
+                    controller:'IltadminCtrl'
+                  }
+                }
+              })
+
+              .state('home.main.ILTCantidate', {
+                url: '/ILTCantidate',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/ILT/partials/Partial-ILTCandidate.html',
+                    controller:'IltcandidateCtrl'
+                  }
+                }
+              })
+
+               .state('course', {
+                url: '/course/:companyId',
+                templateUrl: 'angularModules/publicAPIs/course/partials/Partial-companyCourseList.html',
+                controller:'CompanycourselistCtrl'
+              })
+
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'

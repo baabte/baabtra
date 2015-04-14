@@ -6,6 +6,7 @@ $rootScope.errTooltip = "Please choose an image for the course";
 // End. Global variables for validating fileupload control
 
 
+$scope.viewMenu = false;//for controll menu view in mobile
 
 $rootScope.$watch('userinfo',function(){
   if($rootScope.userinfo){
@@ -142,7 +143,12 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
      }
 });
 
-    $scope.loadDetails =function(menu){
+    $scope.loadDetails =function(menu, event){
+      if($scope.viewMenu){
+        $scope.viewMenu = false;
+      }
+      
+
       $localStorage.currentMenuName=menu.MenuName;
       $localStorage.currentMenuLink=menu.MenuLink;
       $scope.navBar=true;
