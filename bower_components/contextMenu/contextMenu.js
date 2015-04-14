@@ -28,6 +28,40 @@ angular.module('ui.bootstrap.contextMenu', [])
             top: (event.pageY/2.1)-130+'px'
         });
 
+      $scope.ExistingMaterials=angular.copy($scope.$parent.$parent.$parent.$parent.$parent.ExistingMaterials);
+
+      // console.log($scope.ExistingMaterials);
+      $scope.status={};
+      $scope.selectedCourse={};
+      $scope.searchText={};
+      $scope.fnselectCourse =function(course){
+        console.log(course)
+        $scope.selectedCourse=course;
+      };
+      $scope.fnSaveElement =function(tlpointkey,courseElementskey,courseElementvalue,$hide){
+        // console.log({tlpointkey:tlpointkey,courseElementskey:courseElementskey,courseElementvalue:courseElementvalue});
+        var key=$scope.instance+'.'+courseElementskey;
+        var obj={key:key};
+        courseElementvalue.courseId=$scope.selectedCourse._id.$oid;
+        obj[key]=courseElementvalue;
+
+        var saveCourseTimelineElementPromise= addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, obj);//saving to database
+        
+         saveCourseTimelineElementPromise.then(function(data){
+             if(!$scope.syncData.courseTimeline[$scope.instance]){
+                        $scope.syncData.courseTimeline[$scope.instance]={};
+                    }
+                    if(!$scope.syncData.courseTimeline[$scope.instance][courseElementskey]){
+                        $scope.syncData.courseTimeline[$scope.instance][courseElementskey]=[];
+                    }
+
+
+                  $scope.syncData.courseTimeline[$scope.instance][courseElementskey].push(courseElementvalue);
+
+            $hide();
+        });
+
+      };
         //creating a header for context menu
         var $headerA = $('<li>');
              $headerA.text($scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+" "+$scope.$parent.tlpoint);
@@ -129,7 +163,133 @@ angular.module('ui.bootstrap.contextMenu', [])
                 $li.append($a)
             }
             $ul.append($li);
+            
+
         });
+         
+    var $footerA = $('<li>');
+
+                var $a1 = $('<a>');
+
+                $a1.addClass('context-menu-icon');
+                $a1.attr({ tabindex: '-1', href: '#' });
+                var $i1 = $('<i>');
+                $i1.addClass('fa text-lt text-lg pull-left m-r-xs ');
+                $a1.append($i1);
+                var $span1 = $('<span>');
+                $span1.text('Add exsisting Course material');
+                $span1.addClass('font-normal m-l');
+                $a1.append($span1);
+
+                  $footerA.on('click', function ($event) {
+                    $event.preventDefault();
+                    $scope.randomKey=Math.floor(Math.random()*1000,1000); // used to override some scope errors due to duplication
+                    $scope.$parent.formData[$scope.instance]=new Object();//used to save datas from timeline
+                    $scope.$parent.formData[$scope.randomKey]=new Object();
+                    $scope.$parent.formData[$scope.randomKey].mainData=new Object();
+                    clickedChiled=true;
+                    $scope.$apply(function () {
+                         $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
+                         $contextMenu.remove();
+                         // $scope.item=item;
+                         // //taking template for form builder to take required inputs of 
+                         // //selected context menu
+                         // $scope.itemTemplate = item.courseElementTemplate;
+                         // //elements that comes under this element
+                         // $scope.subElements = item.nestableElements;
+                         // $scope.attendenceTrack=item.attendenceTrack;
+                         // if(angular.equals($scope.attendenceTrack,undefined)){
+                         //    $scope.attendenceTrack=false;
+                         // }
+                         // if(!angular.equals($scope.item.Name,"Payment_checkpoint")){
+                         // $scope.evaluator=angular.copy($scope.$parent.$parent.$parent.syncData.evaluator);
+                         // }
+                         // else{
+                         //   $scope.evaluator=[];
+                         // }
+
+                $templateCache.put('course-material-popup.html','<div class="modal modal-full-width" tabindex="-1" role="dialog" >'
++'<div class="modal-dialog-full-width  modal-full-width">'
+    +'<div class="modal-content bg-white">'
+          +'<div class="navbar navbar-inverse btn-material-blue-A700 ">'
+              +'<div class="navbar-header col-xs-3">'
+                  +'<h4 class="font-bold" >Existing Course Elements</h4>'
+              +'</div>'
+              +'<button type="button" class="btn baab-btn pull-right no-padding" style="margin-top:-5px;" ng-click="$hide()"><i class="mdi-navigation-close text-2x text-white"></i></button>'
+          +'</div>'
+      +'<div class="modal-body no-padding h-full" >'
+          
+          +'<div class="col-md-4 col-xs-6" >'
+
+              +'<div class="navbar-header col-xs-3">'
+                  +'<h4 class="font-bold" >Courses</h4>'
+              +'</div>'
+              +'<div class="navbar-collapse collapse navbar-inverse-collapse">'
+                  +'<form class="navbar-form  navbar-left col-xs-8">'
+                      +'<input type="text" class="form-control ng-model="searchText.search" " placeholder="Search">'
+                  +'</form>'
+               
+              +'</div>'
+            +'<div class="list-group" style=" height:500px; overflow:scroll;">'
+                  +'<div ng-repeat="course in ExistingMaterials|filter:searchText">'
+                   +'<a href ng-click="fnselectCourse(course);status.formCourse = $index" bs-tooltip data-title="click to see Elements"  class="list-group-item " >{{course.Name}}<i ng-show="status.formCourse==$index" class="pull-right fa fa-check-circle text-primary"></i></a>'
+                  +'</div>'
+
+            +'</div>'
+            
+          +'</div> '
+
+          +'<div class="col-md-8 col-xs-6 m-t-md"  style=" height:550px; overflow:scroll;"> '
+              +'<div class="navbar-header col-xs-3">'
+                  +'<h4 class="font-bold" >Course Materials</h4>'
+              +'</div>'
+              +'<div class="navbar-collapse collapse navbar-inverse-collapse">'
+                  +'<form class="navbar-form  navbar-left col-xs-8">'
+                      +'<input type="text" class="form-control ng-model="searchText.search" " placeholder="Search">'
+                  +'</form>'
+               
+              +'</div>'
+
+                 +'<div class="col-xs-12" ng-if="selectedCourse" ng-repeat="(tlpointkey,tlpointvalue) in selectedCourse.courseTimeline" >'
+                        +'<div ng-repeat="(courseElementskey,courseElementsvalue) in  tlpointvalue">'
+                               
+
+                              +'<div ng-repeat="(courseElementkey,courseElementvalue) in  courseElementsvalue">'
+                                 // +'{{tlpointkey}}'
+                                 // +'{{courseElementskey}}'                                 
+                                 // +'{{courseElementkey}}'
+                                 // +'{{courseElementvalue}}'
+                                // +'<a href="" class="" bs-tooltip data-title="Add Course Material">Add</a>'
+                                +'<div col-xs-10>'
+                                +'<i class="mdi-content-add-circle-outline text-2x" ng-click="fnSaveElement(tlpointkey,courseElementskey,courseElementvalue,$hide)"></i>'
+                                +'<material-preview data="courseElementvalue"></material-preview>'
+                                +'</div>'
+
+
+                             +'</div>'
+
+                        +'</div>'
+
+                  +'</div> '
+          +'</div> '
+          
+
+      +'</div>'
+      +'<div class="modal-footer">'
+      +'</div>'
+    +'</div>'
+  +'</div>'
++'</div>');
+
+ $modal({scope: $scope, template:'course-material-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+                        //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
+                     });
+                });
+
+
+
+                $footerA.append($a1)
+            $ul.append($footerA);
 
         $contextMenu.append($ul);
         var height = Math.max(
@@ -287,7 +447,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                      courseObj[courseObj.key].code=code;
                      // console.log(courseObj);
                     //--- end by arun to create unique code 
-
+                    // console.log(courseObj);
                     addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);//saving to database
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once
                     $hide();

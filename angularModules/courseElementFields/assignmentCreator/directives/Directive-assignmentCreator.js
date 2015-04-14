@@ -9,22 +9,42 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 		link: function(scope, element, attrs, fn) {
 
 			if(angular.equals(scope.ngModel,undefined)){
-			scope.assignmentsModel=[];//array to keep the 	
+			scope.ngModel={};
+			scope.ngModel.assignmentsModel=[];//array to keep the 	
 			scope.assignmentModel={mark:{}};
-			scope.courseElement={index:1,tlPointInMinute:1000,Name:'Test'};
-
+			scope.courseElement={index:1,tlPointInMinute:1000,Name:'Assignment'};
+			scope.ngModel.mark={totalMark:0};
+			scope.ngModel.penality={}
+			scope.ngModel.penality.unattended={};
+			scope.ngModel.penality.unattended.unit='percentage';
 
 
 			}
 			else{
 			scope.assignmentModel={mark:{}};
-			scope.assignmentsModel=scope.ngModel.assignmentsModel;
-			scope.courseElement={index:1,tlPointInMinute:1000,Name:'Test'};
-			
-
-
+			// scope.assignmentsModel=scope.ngModel.assignmentsModel;
+			scope.courseElement={index:1,tlPointInMinute:1000,Name:'Assignment'};
+			// scope.penality=scope.ngModel.penality;			
 
 			}
+
+
+			//watch function to keep track of the the totalmark  
+		    scope.$watch(function(){return scope.ngModel.assignmentsModel;},function(){
+		    	
+		    	var addedQuestionTotal=0;
+		    	for(var index in scope.ngModel.assignmentsModel){
+
+			    	if(!angular.equals(scope.ngModel.assignmentsModel[index].mark.totalMark,undefined)){
+
+			    		addedQuestionTotal+=scope.ngModel.assignmentsModel[index].mark.totalMark;
+			    	}
+			    }
+			    scope.ngModel.mark.totalMark=addedQuestionTotal;
+
+		    },true);
+
+
 
 			//options button to edit delete insert before after the question	
 			scope.dropDown=function (index) {
@@ -32,7 +52,7 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 
 		    list.push({text:"Edit",click:function() {
 		    			scope.placeindex=index;
-		    			scope.assignmentModel=angular.copy(scope.assignmentsModel[index]);
+		    			scope.assignmentModel=angular.copy(scope.ngModel.assignmentsModel[index]);
 		    			scope.position='edit';
 			    	 	scope.questionShowActivate();
 
@@ -57,8 +77,8 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 		    		}});
 		    list.push({text:"Remove",click:function() {
 		    		scope.placeindex=index;
-		    		if(scope.assignmentsModel.length>=1){
-			    		scope.assignmentsModel.splice(index,1); //removes that object if 
+		    		if(scope.ngModel.assignmentsModel.length>=1){
+			    		scope.ngModel.assignmentsModel.splice(index,1); //removes that object if 
 		    			if(angular.equals(index,0)){
 		    				// scope.questionShow=true;
 			    	 	scope.questionShowActivate();
@@ -71,8 +91,8 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 		    };
 			scope.percentageNum=[];
 			num=0;		   
-		    while(num<100){
-		    	scope.percentageNum[num]=num+1;
+		    while(num<=100){
+		    	scope.percentageNum[num]=num;
 		    	num++;
 		    }
 
@@ -103,7 +123,7 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
           	}
           	assignmentModel.answer=tempArray;
             	if(angular.equals(placeindex,undefined)){
-            	scope.assignmentsModel.push(assignmentModel);//must pass assignmentModel instead of scope.questionmodel
+            	scope.ngModel.assignmentsModel.push(assignmentModel);//must pass assignmentModel instead of scope.questionmodel
             	// console.log(scope.questionGroupModel);
             		
             	}//to add a question to a specific position 
@@ -111,24 +131,24 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 
             		if(angular.equals(scope.position,'edit')){
             			// console.log(scope.position);
-            			scope.assignmentsModel[placeindex]=assignmentModel;
+            			scope.ngModel.assignmentsModel[placeindex]=assignmentModel;
             			
             		
             		}
             		else if(!angular.equals(scope.position,'before')){
-            			scope.assignmentsModel.splice(placeindex+1,0,assignmentModel);
+            			scope.ngModel.assignmentsModel.splice(placeindex+1,0,assignmentModel);
             			
             		
             		}
             		else if(!angular.equals(placeindex,'after')){
-		    			scope.assignmentsModel.splice(placeindex,0,assignmentModel);
+		    			scope.ngModel.assignmentsModel.splice(placeindex,0,assignmentModel);
 		    		    
 
             		}
             	    delete scope.placeindex;//deleted to set the index back to default state
             	}
 
-            	scope.ngModel={mark:scope.mark,duration:scope.duration,actualDuration:scope.actualDuration,assignmentsModel:scope.assignmentsModel};
+            	// scope.ngModel={mark:scope.ngModel.mark,deadLine:scope.ngModel.deadLine,penality:scope.ngModel.penality,assignmentsModel:scope.ngModel.assignmentsModel};
 
 
             	scope.assignmentModel={mark:{}};//questionmodel reset to default
