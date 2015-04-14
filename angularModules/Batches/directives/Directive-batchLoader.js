@@ -10,7 +10,6 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
     link: function(scope, element, attrs, fn) { 
       
       scope.test={};
-      
    // scope.$watch('courseobj', function(){//adding watch to couse id 
    //    $scope.courseId=scope.courseobj.course._id
    //      if(!angular.equals(scope.courseobj.doj,undefined)){
@@ -54,6 +53,7 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
    }); 
 
   scope.$watch('courseobj.doj', function(){//adding watch to couse id
+
     scope.fetchBatch();
         
    }, true); 
@@ -78,7 +78,7 @@ scope.fetchBatch =function(){
                 }else{
                     joinDate=join.toISOString(); 
                 } 
-            courseType = scope.courseobj.coursetype;
+           courseType = scope.courseobj.coursetype;
            scope.batchElements=[];
            if(!angular.equals(courseId,undefined)){
 

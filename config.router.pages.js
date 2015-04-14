@@ -724,6 +724,16 @@
                 }
                 
               })
+              .state('home.main.allocateCandidate', {
+                url: '/allocateCandidate',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/user/partials/Partial-allocateCandidate.html',
+                    controller:'AllocatecandidateCtrl'
+                  }
+                }
+                
+              })
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'
