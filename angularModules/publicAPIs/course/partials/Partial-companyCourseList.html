@@ -1,0 +1,22 @@
+<div class="col-md-12 bg-white">
+	<div class="row">
+        <div class="col-xs-12"  >
+        	<div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
+        		<div masonry-tile class="tile col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-left masonry-brick" ng-repeat="course in data.courseList"> 
+        			<div class="panel course-box" >
+	                 	<div class="p text-right">
+	                 		<a ng-if="course.companyId.$oid==companyId" data-placement="bottom-right" data-html="true" bs-dropdown="data.courseDropdown"><i class="mdi-navigation-more-vert text-lg" ></i></a>
+	                 	</div>
+	                 	<div class="panel-body" ng-click="viewCourseDetails(course._id.$oid)" style="cursor:pointer; cursor: hand;">
+	                 		<div class="text-center">
+	                 			<img src="{{ course.courseImg }}" >
+	                 		</div>
+	                 		<div class="font-bold text-black p-v-xs m-h-sm">{{course.Name}}</div>
+	                 		<div class="text-black  course-description text-muted content-limiter" ng-bind-html="course.courseDetails[0].value"></div>
+	                 	</div>
+                	</div>
+           		</div>
+           	</div>
+        </div> 
+    </div>
+</div>
