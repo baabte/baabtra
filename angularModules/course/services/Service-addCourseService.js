@@ -23,7 +23,7 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	 };
 
 	 this.saveCourseTimelineElement = function ($scope, courseId, courseElement){ 
-	 	$http({
+	 	var promise = $http({
 	 		url: bbConfig.BWS+'saveCourseTimelineEelement/',
 	 		data: {"courseId":courseId, "courseElement":courseElement},
 	 		method: "POST",
@@ -36,7 +36,8 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
                }).
 	 	error(function(data, status, headers, config) {
 	 		
-	 	});  
+	 	}); 
+	 	return promise;
 
 	 };
 	
@@ -128,6 +129,16 @@ this.fnFetchCourseList = function (courseFetchData){ // this function load compl
 	error(function(data, status, headers, config) {
 
 	});
+	return promise;
+};
+
+
+this.getExistingMaterials = function(companyId){
+	var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'ExistingMaterials/',
+	    data:{companyId:companyId}
+	 });
 	return promise;
 };
 

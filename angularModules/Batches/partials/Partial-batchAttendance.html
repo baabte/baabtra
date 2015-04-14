@@ -14,7 +14,13 @@
 
 							<div class="col-xs-12 col-sm-12 col-md-12">
 								<div class="formgen-dropdown m-t m-b" >
-										<div multi-selectable selection-mode="single"  ng-show="batchObj.materialList.length" input-model="batchObj.materialList" output-model="batchObj.selectedCourseMaterial" button-label="Name" item-label="Name"  tick-property="ticked" helper-elements="all none reset filter" default-label="Please select a course material">	
+									<!-- added by lijin on 14-4-2015 -->
+									<div multi-selectable selection-mode="single"  ng-show="batchObj.materialList.length" input-model="batchObj.courseTimeline" output-model="batchObj.selectedTlPoint" button-label="Name" item-label="Name"  tick-property="ticked" helper-elements="filter" default-label="Please select a {{selectedDurationName}}">	
+									</div>
+								</div>
+								<div class="formgen-dropdown m-t m-b" >
+									<!-- input model edited by lijin batchObj.materialList on 14-4-2015 -->
+										<div multi-selectable selection-mode="single"  ng-show="filteredMeterials.length" input-model="filteredMeterials" output-model="batchObj.selectedCourseMaterial" button-label="Name" item-label="Name"  tick-property="ticked" helper-elements="all none reset filter" default-label="Please select a course material">	
 										</div>  <!-- on-item-click="onItemClick(data)" -->
 										<div ng-if="batchObj.materialList.length==0" class="animated fadeIn">
 											<!-- <i class="fa fa-spiner fa-spin text-lg text-info"></i> -->

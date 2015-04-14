@@ -12,66 +12,80 @@
           <div  class="font-bold text-white bg-9C27B0 p baab-shadow" translate="{{'Add Menu'|translate}}"></div>
           <!-- panel body -->
           <div class="panel-body">
-            <div class="row row-sm">
+            
               <form role="form" name="formAddMenu" class="ng-pristine ng-valid">
-
+                  <div class="row row-sm">
                   <!-- Menu name -->
                   <div class="col-xs-12 col-sm-6 col-lg-3">
                     <div class="form-group">                    
-                      <input type="text" class="form-control" float-label placeholder="{{'Enter menu name'|translate}}" ng-model="menu.MenuName" required>
+                      <input type="text" class="form-control" placeholder="{{'Enter menu name'|translate}}" ng-model="menu.MenuName" required>
                     </div>
                   </div>
 
                   <!-- Menu link -->
                   <div class="col-xs-12 col-sm-6 col-lg-3">
                     <div class="form-group">                
-                      <input type="text" class="form-control" float-label placeholder="{{'Enter menu link'|translate}}" ng-model="menu.MenuLink">
-                    </div>
-                  </div>
-
-                  <!-- Actions -->
-                  <div class="col-xs-12 col-sm-6">
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-xs-5"><input type="text" class="form-control" float-label placeholder="{{'Enter action name'|translate}}" ng-model="menu.actionName"></div>
-                        <div class="col-xs-5"><input type="text" class="form-control " float-label placeholder="{{'Enter state name'|translate}}"  ng-model="menu.stateName">
-                        </div>
-                        <div class="col-xs-2">
-                          <a href="">
-                            <i ng-click="addActtion()" class="fa fa-plus-circle fa-2x m-t-lg"></i>
-                          </a>
-                        </div>
-                      </div>
+                      <input type="text" class="form-control" placeholder="{{'Enter menu link'|translate}}" ng-model="menu.MenuLink">
                     </div>
                   </div>
 
                   <!-- Change icon -->
                   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="form-group">
-                      <label translate="{{'Change icon'|translate}}"></label>
                       <icon-chooser selected-icon="menu.menuIcon"></icon-chooser>
-                    </div>
                   </div>
 
+                  <!-- visible to user -->
                   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="form-group">
-                      <label translate="{{'Visible to user'|translate}}"></label>
                       <div class="togglebutton">
+                        <label class="m-r" translate="{{'Visible to user'|translate}}"></label>
                         <label>                          
                           <input type="checkbox" ng-click="menu.canView=!menu.canView" ng-checked="menu.canView" ng-value="menu.canView">
                         </label>
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-6">
+
+                  </div>
+                  <div class="row">
+                  <!-- public link -->
+                  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="form-group">
+                      
+                      <div class="togglebutton">
+                        <label class="m-r" translate="{{'Public link'|translate}}"></label>
+                        <label>                          
+                          <input type="checkbox" ng-click="menu.publicLink=!menu.publicLink" ng-checked="menu.publicLink" ng-value="menu.publicLink">
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Actions -->
+                  <div class="col-xs-12 col-sm-9">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-xs-5"><input type="text" class="form-control"placeholder="{{'Enter action name'|translate}}" ng-model="menu.actionName"></div>
+                        <div class="col-xs-5"><input type="text" class="form-control "  placeholder="{{'Enter state name'|translate}}"  ng-model="menu.stateName">
+                        </div>
+                        <div class="col-xs-2">
+                          <a href="">
+                            <i ng-click="addActtion()" class="fa fa-plus-circle fa-2x"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xs-6">
                     <ul class="nav nav-sm nav-pills m-b" ui-nav="">
                       <li class="active m-r-xs bg-light lt" ng-repeat="action in menu.actions">
                         <a ng-click="editAction(action,$index)" >{{action.actionName}}<button type="button" class="close" style="margin-top: -2px;margin-left: 2px;" ng-click="removeAction($index)">×</button></a>
                       </li>
                     </ul>
                   </div>
+                   </div>
               </form>
-            </div>
             <div class="row">
               <div class="col-xs-12">
                 <a ng-click="loadMenu()" class="" translate="{{'Edit Existing Menus'|translate}}"></a>
