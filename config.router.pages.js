@@ -408,7 +408,7 @@
               })
 
                 .state('home.main.viewOrderForm', {
-                url: '/viewOrderForm/:Index',
+                url: '/viewOrderForm/:key',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/user/partials/Partial-viewUsersForApprove.html',
