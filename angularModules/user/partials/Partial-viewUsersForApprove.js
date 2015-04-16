@@ -10,7 +10,7 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 		$state.go('login');
 	}
 
-	
+	console.log($rootScope.userinfo.ActiveUserData.appSettings.headerColor);	
 
 	$scope.coursePreviewObject={};
 	$scope.rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
@@ -134,9 +134,9 @@ $scope.data.selectedStatusTypes = $scope.currentStage.loadStatus;
 
 
 	//function to trigger when an option from the options menu of each order form is clicked
+
 		$scope.approveOrderForm = function(orderForm){
 
-		
 		//getting the order from to an object in scope
 		$scope.data.approveOrderForm = orderForm;
 
@@ -826,7 +826,6 @@ else{
 				});
 	}
 	};
-
 
 
 

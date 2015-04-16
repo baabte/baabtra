@@ -4,11 +4,12 @@
 		<!-- ng-if="showOrderFormOnStatus(orderForm.status) && getOptions(orderForm.status,$index).length"	 -->
 			<div masonry-tile    class="tile col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm shadow-z-1 no-padding m-xs" ng-repeat="orderForm in data.companOrderForms.orderFroms">
 				<div class="shadow-z-1 set-full-height bg-white p-sm no-padding" style="cursor: pointer;">
-					<div class="pull-left shadow-z-1 col-xs-12 random-background-color p">						
+					<div class="pull-left shadow-z-1 col-xs-12 btn-material-red-700 p">						
 						<span>Order Form Id:&nbsp;</span>
 						<span class="font-bold">{{orderForm.customCompanyCode}}</span>
 						<i class="mdi-navigation-check text-md pull-right p-l-xs" ng-click="approveOrderForm(orderForm)">{{currentStage.buttonText}}</i>
 						<i class="mdi-action-visibility text-md pull-right m-r p-l-xs" ng-click="viewOrderForm(orderForm)">View</i>
+						
 						</div>
 					</div>
 					<div  class="row p-xs">
@@ -30,9 +31,12 @@
 							</div>
 						</div>
 					</div>
+
 				</div>
 			</div>
+
 		</div>
+
 		<div ng-if="data.approveOrderForm">
 			<div name="orderFrom-content"  role="main" ui-view></div>
 		</div>
