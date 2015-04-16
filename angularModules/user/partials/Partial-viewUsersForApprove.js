@@ -9,8 +9,7 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 	if(angular.equals($rootScope.loggedIn,false)){
 		$state.go('login');
 	}
-
-	console.log($rootScope.userinfo.ActiveUserData.appSettings.headerColor);	
+	
 
 	$scope.coursePreviewObject={};
 	$scope.rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
