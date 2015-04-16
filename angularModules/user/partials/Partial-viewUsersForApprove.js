@@ -72,7 +72,7 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 
 	//setting a current stage, this must be taken from the url since every stage will be having a menu link
 
-	var currentStageIndex = $stateParams.Index;	
+	var currentStageIndex = $stateParams.key;	
 	$scope.currentStage = {};
 	$scope.currentStage = $scope.approvalFlow[currentStageIndex];
 
@@ -128,7 +128,8 @@ $scope.data.selectedStatusTypes = $scope.currentStage.loadStatus;
 
 		$scope.createCurrencyArray();
 
-		 // Pre-fetch an external template populated with a custom scope
+
+		// Pre-fetch an external template populated with a custom scope
             var myOtherModal = $modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-orderFormApprovalFlow.html', show: true});
 
 
@@ -290,11 +291,21 @@ $scope.createCurrencyArray = function() {
 			//looping through the current order form to create the currency array
 			for(var i in $scope.currentOrderForm.orderDetails){
 
+
 				var currentCourse = $scope.currentOrderForm.orderDetails[i];
 
-				if(angular.equals($scope.currencyArray.indexOf(currentCourse.currency),-1)){
-					$scope.currencyArray.push({currency:currentCourse.currency});
+			if(angular.equals($scope.currencyArray.length,0)) {
+					$scope.currencyArray.push({currency:currentCourse.currency});				
+			}
+			else{				
+				for (var j in $scope.currencyArray) {
+					if(!angular.equals($scope.currencyArray[j].currency,currentCourse.currency)){
+						$scope.currencyArray.push({currency:currentCourse.currency});
+					}
 				}
+			}
+
+			console.log($scope.currencyArray);
 
 			}		
 
@@ -374,11 +385,15 @@ $scope.updateOrderFormStatus = function(){
 
 	console.clear();
 
+	var actTransactions = [];
+	$scope.paymentReceipt={};
+
 	// A variable to hold tha data that at least one entry has been selected for status change
 	var minimumSelection = false;
 
 	// creating a copy of the original orderForm to hold the updated values, this is done like this to prevent a false notification to the user before the actual database update gets carried out
 	var updatedOrderForm = angular.copy($scope.data.approveOrderForm);
+	console.log($scope.data.approveOrderForm);
 
 	//set the status of the userinfo by looping inside the updatedOrderForm object
 	var request = {};
@@ -484,8 +499,8 @@ $scope.updateOrderFormStatus = function(){
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
 				// create a receipt object
-				if(angular.equals($scope.paymentReceipt, undefined)){
-					$scope.paymentReceipt={};
+				
+					
 					$scope.paymentReceipt.orderFormId = $scope.currentOrderForm._id.$oid;
 					$scope.paymentReceipt.orderFormCode = $scope.currentOrderForm.customCompanyCode;
 					$scope.paymentReceipt.companyId = updatedOrderForm.companyId.$oid;
@@ -494,7 +509,7 @@ $scope.updateOrderFormStatus = function(){
 					$scope.paymentReceipt.activeFlag = 1;
 					$scope.paymentReceipt.receiptDetails = [];
 					$scope.paymentReceipt.totalPayableAmount = 0;
-				}
+				
 
 					var discount = 0;
 					var currency = '';
@@ -624,6 +639,10 @@ $scope.updateOrderFormStatus = function(){
 	updatedOrderForm.urmId = updatedOrderForm.urmId.$oid;
 	updatedOrderForm.crmId = updatedOrderForm.crmId.$oid;	
 	updatedOrderForm.createdDate = new Date($filter('date')(updatedOrderForm.createdDate.$date));	
+
+	console.log(updatedOrderForm);
+	console.log(actTransactions);
+	console.log($scope.paymentReceipt);
     
 	
 	var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm,actTransactions, $scope.paymentReceipt);
@@ -636,12 +655,21 @@ $scope.updateOrderFormStatus = function(){
 			delete updatedOrderForm;
 			$alert({title:'Done. ',content:'The statuses have been set to ' + $scope.currentStage.nextStatus + ' successfully.', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'success', show:true});
 
-			if(!angular.equals(result.data,undefined)){
+			if(!angular.equals(result.data,undefined) && $scope.currentStage.paymentStage){
 				$scope.paymentReceipt = result.data;
+						//setting the model of the amounts and discounts to 0
+		 		for(var i in $scope.currencyArray){
+		 			var currentCurrencyRow = $scope.currencyArray[i];
+		 			currentCurrencyRow.amount = 0;
+		 			currentCurrencyRow.discount = 0;
+		 			currentCurrencyRow.actualAmount = 0;
+		 		}
+
+		 		//calling the print receipt modal			
+				$scope.printReceipt();
 			}
 
-			//calling the print receipt modal
-			$scope.printReceipt();
+			
 		}
 		else{
 			delete updatedOrderForm;

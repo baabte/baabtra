@@ -14,9 +14,7 @@
     "index.html",
     "package.json"
   ],
-  "dependencies": {
-    "angular": ">=1.0.8"
-  },
+ 
   "devDependencies": {
   }
 }

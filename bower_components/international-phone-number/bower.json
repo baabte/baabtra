@@ -4,8 +4,7 @@
   "description": "AngularJS directive for intl-tel-input jQuery plugin",
   "author": "Marek Pietrucha (http://enginearch.com)",
   "license": "MIT",
-  "dependencies": {
-    "angular": ">1.2.0",
+  "dependencies": {    
     "intl-tel-input": "~5.1.0"
   }
 }

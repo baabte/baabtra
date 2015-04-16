@@ -133,7 +133,15 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 			var result=angular.fromJson(JSON.parse(data.data));
 			hide(); //to hide the modal
 			$scope.notifications('Yaay..!','Registered Successfully','success');   
-		      $state.go('home.main');
+		    //$state.go('home.main');
+
+		    var allocatedPromise=allocateCandidateService.FnLoadVerifiedCandidates($scope,['Approved']); 
+			allocatedPromise.then(function(response){ //getting service response here
+				var responseData=angular.fromJson(JSON.parse(response.data));
+				//console.log(responseData.orderFroms._firstBatch);
+				//$scope.orderFormList=responseData.orderFroms._firstBatch;
+				$scope.orderFormList=responseData.orderFroms;
+			}) 
 
 		    if(angular.equals(type,'single')){
 				//sending notification through email 
