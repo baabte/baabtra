@@ -131,7 +131,7 @@ $scope.fnUserRegister =function () {
 	hashids = new Hashids("this is a id for mentees");
 	var userUniqueId = 'RQ-' + hashids.encode(time);
 	var courseExits = false;
-	var userinfo = { eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob, status:"requested", userId:userUniqueId };
+	var userinfo = { eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob, status:"Pending Approval", userId:userUniqueId };
 
 	if(angular.equals($scope.data.orderForm,undefined)){
 		$scope.data.orderForm = {};

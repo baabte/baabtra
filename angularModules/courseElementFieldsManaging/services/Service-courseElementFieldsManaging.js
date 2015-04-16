@@ -23,6 +23,17 @@ angular.module('baabtra').service('courseElementFieldsManaging',['$http', 'bbCon
 	 	return promise;
 	 };
 
+	this.fnGetCourseElementFieldsTemp = function (){
+		var promise = $http({
+			url: bbConfig.BWS+'fnLoadCustomFormTemplates/',
+	 		method: "POST",
+	 		withCredentials: false,
+	 		contentType:"application/json",
+	 		dataType:"json",
+	 	});
+	 	return promise;
+	 };
+
 	 this.fnDeleteCourseElementFields = function (elementId, manageType, urmId){
 		var promise = $http({
 			url: bbConfig.BWS+'DeleteCourseElementFields/',
