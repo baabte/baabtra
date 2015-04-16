@@ -1,7 +1,13 @@
 
+
+<div class="bg-white" >
+<nav>
+<!--   <div class="container-fluid">
+=======
 <div class="bg-white" style="height:200px">
 <!-- <nav>
   <div class="container-fluid">
+>>>>>>> 723f7a1e7cbaec82dac3269e15945dadedc5aef8
     <div>
       <ul class="nav navbar-nav">
         <li class="dropdown" ng-repeat="menus in userMenusOrigin"  ng-if="menus.canView || (menus.canView == undefined)"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}<span class="caret" ng-if="menus.childMenuStructure.length"></span></a>
@@ -47,8 +53,6 @@
 <!-- <feedback-field ng-model="feedbackModel"></feedback-field> -->
 <!-- {{feedbackModel}} -->
 <!-- <flip-clock ></flip-clock> -->
-
-
 <!-- <iframe class="" src="http://baabtra.com/games/flappybird"></iframe> -->
 <!-- 16:9 aspect ratio -->
 <!-- <div class="embed-responsive embed-responsive-16by9">
@@ -60,9 +64,8 @@
   <iframe class="embed-responsive-item" src="http://baabtra.com/games/flappybird"></iframe>
 </div> -->
 
-<!-- <course-selector ng-model="course"></course-selector>
 
-{{course}} -->
+<!-- {{course}} -->
 
 <!-- <assignment-creator ></assignment-creator> -->
 
@@ -83,8 +86,13 @@
 
 	<!-- <user-card ng-if="$root.userinfo" user-id="$root.userinfo.ActiveUserData.roleMappingId.$oid">
 	</user-card> -->
-	
-	<!-- <baabtra-com-profile></baabtra-com-profile> -->
 
+	<!--  <div acf-form acf-model="obj"></div>  -->
+	 <div acf-edit-form acf-model="schemaObj"></div> 
+	 <pre>{{obj}}</pre>  
+	<div class="col-xs-12 bg-white">
+  <div acf-form input-model="schemaObj" output-model="obj"></div>
+	<!-- <baabtra-com-profile></baabtra-com-profile> -->
+</div>
 </div>
 

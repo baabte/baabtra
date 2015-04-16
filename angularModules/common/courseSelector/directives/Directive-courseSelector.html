@@ -3,7 +3,7 @@
 	<div ng-show="!courseData" class="font-bold">Select Course </div>
 	<course-loader ng-if="courseData" ng-model="courseData.course"> </course-loader> 
 
-	<input type="text" ng-if="courseData" class="form-control" float-label ng-model="courseData.doj" data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true" data-max-date="today" name="doj" bs-datepicker="" autocomplete="off" placeholder="Date of Joining">
+	<input type="text" ng-if="courseData" class="form-control" float-label ng-model="courseData.doj" data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true" data-min-date="today" name="doj" bs-datepicker="" autocomplete="off" placeholder="Date of Joining">
 
 
 	<select class="form-control" ng-if="courseData" float-label  xt-validate name="coursetype" data-bv-field="coursetype" ng-model="courseData.coursetype" required ng>

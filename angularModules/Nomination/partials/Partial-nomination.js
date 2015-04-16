@@ -25,7 +25,7 @@ $scope.allSync.FormData={}; // formdata to keep all form inserted data
 var mandatoryFields=[];
 var formFetchData={};
 formFetchData.fkcompanyId=companyId;//to fetch forms from clnCustomForms
-formFetchData.formName='userRegistration';//to fetch all the froms give specific name to fetch that form only
+formFetchData.formName='orderForm';//to fetch all the froms give specific name to fetch that form only
 // formFetchData.formName='signUp';//to fetch all the froms give specific name to fetch that form only
 
 //sevice call to fetch form 
@@ -34,6 +34,7 @@ var FnFetchCustomFormCallBack= formCustomizerService.FnFetchCustomForm(formFetch
 FnFetchCustomFormCallBack.then(function(data){
 
  var result=angular.fromJson(JSON.parse(data.data));
+ console.log(result);
 // console.log(result);
  $scope.formlist=result.formlist;
       
@@ -52,7 +53,7 @@ $scope.stepCount=$scope.formlist.formSteps;
 
     //nedd to improve the call with role id\\//
     if(!angular.equals(companyId,'')){
-    var FetchSpecificFormObj={companyId:companyId,fetchFormName:"userRegistration"};
+    var FetchSpecificFormObj={companyId:companyId,fetchFormName:"orderForm"};
        var fnFetchSpecificCustomFormCallBack= formCustomizerService.FnFetchSpecificCustomForm(FetchSpecificFormObj);
       fnFetchSpecificCustomFormCallBack.then(function  (data) {
 
@@ -122,6 +123,9 @@ if(!angular.equals($state.params.ofId,"")){
 	});
 }
 
+$scope.onFileSelect = function(event){
+	console.log(event);
+};
 
 
 
@@ -131,7 +135,7 @@ $scope.fnUserRegister =function () {
 	hashids = new Hashids("this is a id for mentees");
 	var userUniqueId = 'RQ-' + hashids.encode(time);
 	var courseExits = false;
-	var userinfo = { eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob, status:"requested", userId:userUniqueId };
+	var userinfo = { eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob, status:"Pending Approval", userId:userUniqueId };
 
 	if(angular.equals($scope.data.orderForm,undefined)){
 		$scope.data.orderForm = {};
@@ -164,15 +168,15 @@ $scope.fnUserRegister =function () {
 	    	courseDetails.coursetype = $scope.allSync.FormData.coursetype;
 
 	    	$scope.data.orderForm.orderDetails.push(courseDetails);
-
-			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
-			nomintaionResponse.then(function(response){
-				var orderForm = angular.fromJson(JSON.parse(response.data));
-				orderForm._id = orderForm._id.$oid;
-				$scope.data.orderForm = orderForm;
-				$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
-				$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
-			});
+	    	console.log($scope.data.orderForm);
+			// var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
+			// nomintaionResponse.then(function(response){
+			// 	var orderForm = angular.fromJson(JSON.parse(response.data));
+			// 	orderForm._id = orderForm._id.$oid;
+			// 	$scope.data.orderForm = orderForm;
+			// 	$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
+			// 	$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
+			// });
 		});	
 	}
 	else{

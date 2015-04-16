@@ -20,7 +20,8 @@ angular.module('baabtra').controller('CourseelementfieldsmanagingCtrl',['$scope'
   $scope.element.canAdd = true;
   $scope.element.canBeAnAnswer = false;
 
-  var courseElementFields = courseElementFieldsManaging.fnGetCourseElementFields();
+  //var courseElementFields = courseElementFieldsManaging.fnGetCourseElementFields();
+  var courseElementFields = courseElementFieldsManaging.fnGetCourseElementFieldsTemp();
   courseElementFields.then(function(response){
   	$scope.courseElementFields = angular.fromJson(JSON.parse(response.data));
   });
@@ -48,7 +49,7 @@ $scope.palette = [{"id": "1","name": "Text input fields"},
   		$scope.element.crmId = $scope.rm_id;
   		$scope.element.createdDate = Date();
   	}
-
+    console.log($scope.element);
   	var saveCourseElement = courseElementFieldsManaging.fnSaveCourseElementFields($scope.element);//calling service fn for save course element
   	
   	saveCourseElement.then(function(response){

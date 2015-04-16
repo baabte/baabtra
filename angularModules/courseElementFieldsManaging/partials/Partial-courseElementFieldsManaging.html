@@ -6,8 +6,7 @@
 			<div class="panel-body p-v-lg">
 				<div class="col-md-6 col-lg-2">
 					
-						<input class="form-control " float-label ng-model="element.DispalyName" name="DispalyName" required xt-validate placeholder="{{'Name to be displayed for the field'|translate}}">
-				
+						<input class="form-control " float-label ng-model="element.DisplayName" name="DispalyName" required xt-validate placeholder="{{'Name to be displayed for the field'|translate}}">
 				</div>
 
 				<!-- Name -->
@@ -57,18 +56,68 @@
 				</div>
 
 				<!-- Properties template -->
-				<div class="col-xs-12 m-v-lg">					
+<!-- 				<div class="col-xs-12 m-v-lg">					
 							<textarea ng-model="element.PropertiesTemplate" name="PropertiesTemplate" required xt-validate placeholder="{{'Properties Template'|translate}}" class="form-control " float-label></textarea>
 				
-				</div>
+				</div> -->
 
 				<!-- Debug -->
-				<div class="col-xs-12 m-v-lg">
+<!-- 				<div class="col-xs-12 m-v-lg">
 				
 							<textarea ng-model="element.Debug" name="PropertiesTemplate" required xt-validate placeholder="{{'Debug'|translate}}" class="form-control " float-label></textarea>
 						
-				</div>
+				</div> -->
+				<div class="col-xs-12 m-v-lg">					
+					<div class="box ng-scope bg-white b" >
+					  <div class="col-md-3">
+					    <ul class="nav nav-list b-t bg-white font-bold" ui-nav="">
+					      <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='uneditableAttributes'}" ng-click="selectedTab='uneditableAttributes'">
 
+					        <a href="" translate="{{'Uneditable Attributes'|translate}}"></a>
+					      </li>
+					      <li role="presentation" ng-class="{'b-b b-success b-2x':selectedTab=='mandatoryAttributes'}" ng-click="selectedTab='mandatoryAttributes'">
+
+					        <a href="" translate="{{'Mandatory Attributes'|translate}}"></a>
+					      </li>
+					       
+					    </ul>
+					  </div>
+					  <div class="col-md-9 b-l bg-white">
+					      <div class="p-md bg-light b-b font-bold" translate="{{'Field configuration'|translate}}"></div>
+					        
+					      <div class="form-group bg-light m-sm p-sm" ng-show="selectedTab=='uneditableAttributes'">
+					               <div class="modal-header">
+					                <h4 class="modal-title text-primary" translate="{{'Uneditable Attributes'|translate}}"></h4>
+					               </div>
+					              <div class="modal-body">
+					              	<custom-form-attributes ng-model="element.unEditableAttributes"  att-type="'other'"></custom-form-attributes>
+					              </div>
+					              <div class="modal-footer">
+
+					              </div>
+					       
+					          </div>  
+					          <div class="form-group bg-light m-sm p-sm" ng-show="selectedTab=='mandatoryAttributes'">
+
+							
+				               <div class="modal-header">
+				                <h4 class="modal-title text-primary" translate="{{'Mandatory Attributes'|translate}}"></h4>
+				               </div>
+				              <div class="modal-body">
+				              	<custom-form-attributes ng-model="element.mandatoryAttributes"   att-type="'other'"></custom-form-attributes>
+				              </div>
+				              <div class="modal-footer">
+
+				              </div>
+							       
+							
+							  
+							</div>  
+					  
+							</div>  
+						</div>
+				
+				</div>
 			</div>
 			<div class="panel-footer">
 				<button class="btn btn-warning baab-btn" ng-disabled="Manage_course_element_fields.$pristine" ng-class="{'bg-warning':!Manage_course_element_fields.$pristine}" type="button" translate="{{'Cancel'|translate}}"></button>
@@ -79,7 +128,7 @@
 	<div class="col-xs-12">
 
 		<div class="m-v-sm list-group-gap col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="(key, courseElementField) in courseElementFields">
-			<a title="Click to edit" href=""  class="list-group-item" ng-click="editCourseElement(courseElementField)">{{courseElementField.DispalyName}}
+			<a title="Click to edit" href=""  class="list-group-item" ng-click="editCourseElement(courseElementField)">{{courseElementField.DisplayName}}
 				<span ng-click="fnDeleteCourseElementFields(courseElementField._id.$oid)" title="Click to delete" class="pull-right text-muted m-l-xs">
 					<i class="fa fa-trash"></i>
 				</span>

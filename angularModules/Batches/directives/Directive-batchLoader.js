@@ -20,7 +20,7 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
       var companyId = "";    
       if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
         companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-            
+             
       }
        var courseId;
        var courseType;
@@ -52,10 +52,12 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
         
    }); 
 
-  scope.$watch('courseobj.doj', function(){//adding watch to couse id
-    scope.fetchBatch();
+  // scope.courseobj.doj=new Date();
+  // scope.$watch('courseobj.doj', function(){//adding watch to couse id
+
+  // scope.fetchBatch();
         
-   }, true); 
+  // }, true); 
 
    scope.$watch('courseobj.coursetype', function(){//adding watch to couse id
     scope.fetchBatch();
@@ -64,20 +66,21 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
 
 
 scope.fetchBatch =function(){
-  
+
        
         if(!angular.equals($state.current.name,'home.main.nominateEmployee')){
              
              if(!angular.equals(scope.courseobj.course,undefined)){
                courseId=scope.courseobj.course._id;
              } 
-             if(!angular.equals(scope.courseobj.doj,undefined)){
-                  joinDate=scope.courseobj.doj.toISOString(); 
+             // if(!angular.equals(scope.courseobj.doj,undefined)){
+             //      joinDate=scope.courseobj.doj.toISOString(); 
 
-                }else{
-                    joinDate=join.toISOString(); 
-                } 
-            courseType = scope.courseobj.coursetype;
+             //    }else{
+             //        joinDate=join.toISOString(); 
+             //    } 
+           joinDate=join.toISOString(); 
+           courseType = scope.courseobj.coursetype;
            scope.batchElements=[];
            if(!angular.equals(courseId,undefined)){
 
@@ -115,7 +118,7 @@ scope.fetchBatch =function(){
 
 };
   
-
+scope.fetchBatch();
            
 
            

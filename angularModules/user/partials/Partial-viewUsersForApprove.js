@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$rootScope', '$state', '$alert', 'commonService', 'viewUsersForApprove', '$modal', 'nomination', 'userRegistrationService','$filter',function ($scope, $rootScope, $state, $alert, commonService, viewUsersForApprove, $modal, nomination, userRegistrationService,$filter){
+angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$rootScope', '$state', '$alert', 'commonService', 'viewUsersForApprove', '$modal', 'nomination', 'userRegistrationService','$filter','$stateParams',function ($scope, $rootScope, $state, $alert, commonService, viewUsersForApprove, $modal, nomination, userRegistrationService,$filter,$stateParams){
 
 	/*login detils start*/
 	if(!$rootScope.userinfo){
@@ -9,7 +9,6 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 	if(angular.equals($rootScope.loggedIn,false)){
 		$state.go('login');
 	}
-
 	
 
 	$scope.coursePreviewObject={};
@@ -44,11 +43,40 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 
 
 //ANOOP ***************************************************************************************
+	//change the top padding of the details section when the height of the header changes
+
+	$scope.$watch(function(){
+		return $(".header").height();
+	},
+	function(){
+
+		$(".orderDetails").css("padding-top",($(".header").height() + 20) +'px');
+	})
+
+
+	//function to expand and collapse the details of all applicants
+	$scope.fnShowDetailsOfAll = function(show){
+		
+		$scope.showDetailsOfAll = show;
+
+		for(var i in $scope.currentOrderForm.orderDetails){
+			var uInfo = $scope.currentOrderForm.orderDetails[i];			
+			for(var j in uInfo.userInfo){
+
+				uInfo.userInfo[j].showDetails = show;
+
+			}
+		}
+	}
+
+
 	//creating a mock of the global configuration of the company for the approval flow and access privileges for roles
 
-	$scope.approvalFlow = [{currentStage:'Verification',displayName:"Verify Applicants", loadStatus:["Pending Approval"], nextStatus:"Verified", privilegedRoles:['a','b','c'], buttonText:"Verify", paymentStage:false },
-	{currentStage:'Payment',displayName:"Collect Payment", loadStatus:["Verified", "Partially Paid"], nextStatus:"Paid", privilegedRoles:['a','b'], buttonText:"Make Payment", paymentStage:true },
-	{currentStage:'Approval',displayName:"Approve Order Form", loadStatus:["Paid"], nextStatus:"Approved", privilegedRoles:['a','c'], buttonText:"Approve", paymentStage:false}
+	$scope.approvalFlow = [{currentStage:'Verification',displayName:"Verify Applicants", loadStatus:["Pending Approval"], nextStatus:"Verified", privilegedRoles:['a','b','c'], buttonText:"Verify", paymentStage:false, lastStage:false },
+	{currentStage:'Payment',displayName:"Collect Payment", loadStatus:["Verified", "Partially Paid"], nextStatus:"Paid", privilegedRoles:['a','b'], buttonText:"Make Payment", paymentStage:true, lastStage:false },
+	{currentStage:'Approval',displayName:"Approve Applicants", loadStatus:["Paid"], nextStatus:"Approved", privilegedRoles:['a','c'], buttonText:"Approve", paymentStage:false, lastStage:false},
+	{currentStage:'Approved',displayName:"Approved Applicants", loadStatus:["Approved"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Approved", paymentStage:false, lastStage:true}
+
 	];	
 
 	//.End == creating a mock of the global configuration of the company for the approval flow and access privileges for roles
@@ -59,7 +87,8 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 	$scope.currentUserRole = 'a';
 
 	//setting a current stage, this must be taken from the url since every stage will be having a menu link
-	var currentStageIndex = 1;	
+
+	var currentStageIndex = $stateParams.key;	
 	$scope.currentStage = {};
 	$scope.currentStage = $scope.approvalFlow[currentStageIndex];
 
@@ -104,8 +133,9 @@ $scope.data.selectedStatusTypes = $scope.currentStage.loadStatus;
 
 
 	//function to trigger when an option from the options menu of each order form is clicked
+
 		$scope.approveOrderForm = function(orderForm){
-		
+
 		//getting the order from to an object in scope
 		$scope.data.approveOrderForm = orderForm;
 
@@ -114,7 +144,8 @@ $scope.data.selectedStatusTypes = $scope.currentStage.loadStatus;
 
 		$scope.createCurrencyArray();
 
-		 // Pre-fetch an external template populated with a custom scope
+
+		// Pre-fetch an external template populated with a custom scope
             var myOtherModal = $modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-orderFormApprovalFlow.html', show: true});
 
 
@@ -187,6 +218,7 @@ $scope.updateStatus = function (mentee, checked, course){
 					}
 
 					currentCurrencyRow.amount = parseInt(currentCurrencyRow.amount) + parseInt(course.coursePrice);
+					currentCurrencyRow.actualAmount = currentCurrencyRow.amount;
 				}
 
 			}    
@@ -209,6 +241,8 @@ $scope.updateStatus = function (mentee, checked, course){
 					}
 
 					currentCurrencyRow.amount = parseInt(currentCurrencyRow.amount) - parseInt(course.coursePrice);
+					currentCurrencyRow.actualAmount = currentCurrencyRow.amount;
+
 				}
 
 			}    
@@ -229,33 +263,40 @@ $scope.checkAll = function(checked){
  			var currentCurrencyRow = $scope.currencyArray[i];
  			currentCurrencyRow.amount = 0;
  			currentCurrencyRow.discount = 0;
+ 			currentCurrencyRow.actualAmount = 0;
  		}
 
-		 for(var i in $scope.data.approveOrderForm.orderDetails){
-		 
+		 for(var i in $scope.data.approveOrderForm.orderDetails){		 
 		 	for (var j in $scope.data.approveOrderForm.orderDetails[i].userInfo){
 
-				course = $scope.data.approveOrderForm.orderDetails[i];
-				mentee = $scope.data.approveOrderForm.orderDetails[i].userInfo[j];
-		 		mentee.checkedStatus = checked;		 		
-		 		$scope.updateStatus(mentee, checked, course);
+		 		var currentUserInfo =  $scope.data.approveOrderForm.orderDetails[i].userInfo[j];
+		 		
+		 		if (!angular.equals($scope.currentStage.loadStatus.indexOf(currentUserInfo.status), -1)) {
+					course = $scope.data.approveOrderForm.orderDetails[i];
+					mentee = $scope.data.approveOrderForm.orderDetails[i].userInfo[j];
+			 		mentee.checkedStatus = checked;		 		
+			 		$scope.updateStatus(mentee, checked, course);
+			 	}
+
 		 	}
 		 }
 	
 }
 
-//create a watch on the currencyArray to update the total amount when discount amount is applied
+//create an ng-change function update the total amount when discount amount is applied
 
-        $scope.$watchCollection(
-                    "currencyArray",
-                    function( newValue, oldValue ) {
+$scope.updateDiscount = function(currency){	
 
-                    	console.clear();
-                        console.log(newValue);
-                        console.log(oldValue);
-
-                    }
-        );
+	//change the amount
+	var inequalityArray = [undefined,null,0];
+	
+		if(angular.equals(inequalityArray.indexOf(currency.discount), -1) && currency.discount <= 100) {			
+		currency.amount = currency.actualAmount - Math.ceil(currency.actualAmount * (Math.floor(currency.discount)/100));
+		}
+		else {
+			currency.amount = currency.actualAmount;
+		}
+}
 
 //get the array of currencies in the courses to show the payment screen, this is needed since each course may be configured to have a differnet currency
 $scope.createCurrencyArray = function() {
@@ -266,26 +307,109 @@ $scope.createCurrencyArray = function() {
 			//looping through the current order form to create the currency array
 			for(var i in $scope.currentOrderForm.orderDetails){
 
+
 				var currentCourse = $scope.currentOrderForm.orderDetails[i];
 
-				if(angular.equals($scope.currencyArray.indexOf(currentCourse.currency),-1)){
-					$scope.currencyArray.push({currency:currentCourse.currency});
+			if(angular.equals($scope.currencyArray.length,0)) {
+					$scope.currencyArray.push({currency:currentCourse.currency});				
+			}
+			else{				
+				for (var j in $scope.currencyArray) {
+					if(!angular.equals($scope.currencyArray[j].currency,currentCourse.currency)){
+						$scope.currencyArray.push({currency:currentCourse.currency});
+					}
 				}
+			}
+
+			console.log($scope.currencyArray);
 
 			}		
 
 		}
 }
 
+//creating a function to set the common details of the accountTransaction oobject
+var fillActTransaction = function(updatedOrderForm, currentOrderDetail, mode, actHead, narration, paymentMode){
+
+					var actTransaction = {};
+
+					actTransaction.companyId = updatedOrderForm.companyId.$oid;
+					actTransaction.crmId = updatedOrderForm.urmId.$oid;
+					actTransaction.urmId = updatedOrderForm.urmId.$oid;
+					actTransaction.activeFlag = 1;
+					actTransaction.actHead = {};
+					actTransaction.actHead = actHead;
+						
+					actTransaction.debit = {};
+					actTransaction.credit = {};
+
+					var discount = 0;
+					//calculating the amount
+					for (var k in $scope.currencyArray){
+						var currentCurrency = $scope.currencyArray[k];
+						if(angular.equals(currentCurrency.currency,currentOrderDetail.currency)){
+							discount = currentCurrency.discount; 
+						}
+					}
+
+					actTransaction.transactionFor = {courseId:currentOrderDetail.courseId,
+						courseName:currentOrderDetail.Name,
+						courseType:currentOrderDetail.coursetype};
+
+
+					actTransaction.debit.currency = currentOrderDetail.currency;
+					actTransaction.credit.currency = currentOrderDetail.currency;
+
+					var amount = 0;
+
+					var inequalityArray = [undefined,null,0];
+						if(angular.equals(inequalityArray.indexOf(discount), -1) && discount <= 100) {
+							amount = currentOrderDetail.coursePrice - Math.ceil(currentOrderDetail.coursePrice * (Math.floor(discount)/100));
+						}
+						else{
+							amount = currentOrderDetail.coursePrice;
+						}
+
+					if (angular.equals(mode,'credit')){
+						actTransaction.debit.amount = 0;
+						actTransaction.credit.amount = amount;					
+					}
+					else{
+						actTransaction.credit.amount = 0;
+						actTransaction.debit.amount = amount;	
+					}
+
+					actTransaction.narration = narration;
+					actTransaction.paymentMode = paymentMode;
+					actTransaction.orderFormId = $scope.currentOrderForm._id.$oid;
+
+					return actTransaction;
+}
+
+
+//function to popup the receipt print
+$scope.printReceipt = function(orderForm){
+		$modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-paymentReceipt.html', show: true});
+};
+
+
+//create a receipt detail object
+var receiptDetail = {};
 
 //function to update the orderform status
 $scope.updateOrderFormStatus = function(){
+
+	console.clear();
+
+	var actTransactions = [];
+	$scope.paymentReceipt={};
 
 	// A variable to hold tha data that at least one entry has been selected for status change
 	var minimumSelection = false;
 
 	// creating a copy of the original orderForm to hold the updated values, this is done like this to prevent a false notification to the user before the actual database update gets carried out
 	var updatedOrderForm = angular.copy($scope.data.approveOrderForm);
+	console.log($scope.data.approveOrderForm);
 
 	//set the status of the userinfo by looping inside the updatedOrderForm object
 	var request = {};
@@ -293,10 +417,15 @@ $scope.updateOrderFormStatus = function(){
 	// keep a variable to hold the information for changing the overall status of the orderform
 	var changeOrderFormStatus = true;
 
+	// a variable to hold a single account transaction this will be added to the actTransactions array
+	var actTransaction = {};
+
 	for (var i in updatedOrderForm.orderDetails){
-		for (var j in updatedOrderForm.orderDetails[i].userInfo){
+		var currentOrderDetail = updatedOrderForm.orderDetails[i];
+		
+		for (var j in currentOrderDetail.userInfo){
 			
-			request = updatedOrderForm.orderDetails[i].userInfo[j];
+			request = currentOrderDetail.userInfo[j];
 
 			var d = new Date();
 			
@@ -321,6 +450,160 @@ $scope.updateOrderFormStatus = function(){
 				//change the current status
 				request.status = request.statusTobeChangedTo;
 
+				// if the stage is a payment stage set the data for the in a different object
+				if($scope.currentStage.paymentStage){
+
+					if(angular.equals(actTransactions, undefined)){
+						var actTransactions = [];			
+					}
+					
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+					//crediting the course
+
+					
+					var actHead = {};
+					actHead.type = 'Course';
+					actHead.details = {courseId:currentOrderDetail.courseId,
+						courseName:currentOrderDetail.Name,
+						courseType:currentOrderDetail.coursetype};
+
+					var actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'credit', actHead, 'Course Sales','By Cash');
+					
+					actTransactions.push(actTransaction);
+				
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+					//debitting the requestee
+
+					actHead = {};					
+					actHead.type = 'Requestee';
+					actHead.details = {userId:request.userId,
+						Name:request.firstName + ' ' + request.lastName,
+						eMail:request.eMail};
+
+					var actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'debit', actHead, 'Course Sales','By Cash');
+					
+					actTransactions.push(actTransaction);
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+					//crediting the requestee
+
+					actHead = {};					
+					actHead.type = 'Requestee';
+					actHead.details = {userId:request.userId,
+						Name:request.firstName + ' ' + request.lastName,
+						eMail:request.eMail};
+
+					var actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'credit', actHead, 'Course Sales','By Cash');
+					
+					actTransactions.push(actTransaction);
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+					//debitting cash
+
+					actHead = {};					
+					actHead.type = 'Cash';
+					actHead.details = {};
+
+					var actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'debit', actHead, 'Course Sales','By Cash');
+					
+					actTransactions.push(actTransaction);
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+
+				// create a receipt object
+				
+					
+					$scope.paymentReceipt.orderFormId = $scope.currentOrderForm._id.$oid;
+					$scope.paymentReceipt.orderFormCode = $scope.currentOrderForm.customCompanyCode;
+					$scope.paymentReceipt.companyId = updatedOrderForm.companyId.$oid;
+					$scope.paymentReceipt.crmId = updatedOrderForm.urmId.$oid;
+					$scope.paymentReceipt.urmId = updatedOrderForm.urmId.$oid;
+					$scope.paymentReceipt.activeFlag = 1;
+					$scope.paymentReceipt.receiptDetails = [];
+					$scope.paymentReceipt.totalPayableAmount = 0;
+				
+
+					var discount = 0;
+					var currency = '';
+					//calculating the amount
+					for (var k in $scope.currencyArray){
+						var currentCurrency = $scope.currencyArray[k];
+						if(angular.equals(currentCurrency.currency,currentOrderDetail.currency)){
+							discount = currentCurrency.discount; 
+							currency = currentCurrency.currency; 
+						}
+					}
+
+
+
+					var amount = 0;
+
+					var inequalityArray = [undefined,null,0];
+						if(angular.equals(inequalityArray.indexOf(discount), -1) && discount <= 100) {
+							amount = currentOrderDetail.coursePrice - Math.ceil(currentOrderDetail.coursePrice * (Math.floor(discount)/100));
+						}
+						else{
+							amount = currentOrderDetail.coursePrice;
+						}
+
+					receiptDetail = {};	
+
+					if(angular.equals($scope.paymentReceipt.receiptDetails.length,0)){
+						receiptDetail = {
+							courseId:currentOrderDetail.courseId,
+							course:currentOrderDetail.Name,
+							count:1,
+							currency:currency,
+							actualAmount:currentOrderDetail.coursePrice,
+							discount:discount,
+							payableAmount:amount};
+						$scope.paymentReceipt.totalPayableAmount = 	parseInt($scope.paymentReceipt.totalPayableAmount) + amount;
+						$scope.paymentReceipt.receiptDetails.push(receiptDetail);
+					}
+					else{
+
+						var alreadyExists = false;
+						for(var l in $scope.paymentReceipt.receiptDetails) {
+
+							var currentReceiptDetail = $scope.paymentReceipt.receiptDetails[l];
+
+							if (angular.equals(currentReceiptDetail.courseId,currentOrderDetail.courseId)){
+								currentReceiptDetail.count = parseInt(currentReceiptDetail.count) + 1;
+								currentReceiptDetail.actualAmount = parseInt(currentReceiptDetail.actualAmount) + parseInt(currentOrderDetail.coursePrice);
+								currentReceiptDetail.payableAmount = parseInt(currentReceiptDetail.payableAmount) + parseInt(amount);
+
+								$scope.paymentReceipt.totalPayableAmount = 	parseInt($scope.paymentReceipt.totalPayableAmount) + amount;
+
+								alreadyExists = true;
+							}
+							
+						}
+
+						if(!alreadyExists){						
+
+								receiptDetail = {
+								courseId:currentOrderDetail.courseId,
+								course:currentOrderDetail.Name,
+								count:1,
+								currency:currency,
+								actualAmount:currentOrderDetail.coursePrice,
+								discount:discount,
+								payableAmount:amount};
+								$scope.paymentReceipt.receiptDetails.push(receiptDetail);
+
+								$scope.paymentReceipt.totalPayableAmount = 	parseInt($scope.paymentReceipt.totalPayableAmount) + amount;
+
+						}
+
+					}
+
+				}				
+				
+
 				//delete the temp property
 				delete request.statusTobeChangedTo;
 
@@ -332,17 +615,7 @@ $scope.updateOrderFormStatus = function(){
 				}
 			}
 
-		// if the stage is a payment stage set the data for the same
-			if($scope.currentStage.paymentStage){
-
-				if(angular.equals(actTransactions, undefined)){
-					var actTransactions = [];			
-				}
-
-
-			}
-
-			delete request.checkedStatus;
+		delete request.checkedStatus;
 
 		}
 	}
@@ -382,18 +655,37 @@ $scope.updateOrderFormStatus = function(){
 	updatedOrderForm.urmId = updatedOrderForm.urmId.$oid;
 	updatedOrderForm.crmId = updatedOrderForm.crmId.$oid;	
 	updatedOrderForm.createdDate = new Date($filter('date')(updatedOrderForm.createdDate.$date));	
+
+	console.log(updatedOrderForm);
+	console.log(actTransactions);
+	console.log($scope.paymentReceipt);
     
-	console.log(updatedOrderForm.createdDate);
-	var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm);
+	
+	var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm,actTransactions, $scope.paymentReceipt);
 
 	updateOrderForm.then(function(response){
 		var result = angular.fromJson(JSON.parse(response.data));
-		console.clear();
-		console.log(result);
-		if(angular.equals(result, 'success')){
+		
+		if(angular.equals(result.type, 'success')){
 			$scope.data.approveOrderForm = updatedOrderForm;
 			delete updatedOrderForm;
 			$alert({title:'Done. ',content:'The statuses have been set to ' + $scope.currentStage.nextStatus + ' successfully.', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'success', show:true});
+
+			if(!angular.equals(result.data,undefined) && $scope.currentStage.paymentStage){
+				$scope.paymentReceipt = result.data;
+						//setting the model of the amounts and discounts to 0
+		 		for(var i in $scope.currencyArray){
+		 			var currentCurrencyRow = $scope.currencyArray[i];
+		 			currentCurrencyRow.amount = 0;
+		 			currentCurrencyRow.discount = 0;
+		 			currentCurrencyRow.actualAmount = 0;
+		 		}
+
+		 		//calling the print receipt modal			
+				$scope.printReceipt();
+			}
+
+			
 		}
 		else{
 			delete updatedOrderForm;
@@ -405,6 +697,7 @@ $scope.updateOrderFormStatus = function(){
 
 
 }
+
 
 // ======================================================================================
 //ANOOP ***************************************************************************************
@@ -532,7 +825,6 @@ else{
 				});
 	}
 	};
-
 
 
 
