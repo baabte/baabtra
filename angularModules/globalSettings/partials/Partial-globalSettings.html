@@ -1,8 +1,8 @@
 
-<div class="p-h-md p-v bg-white box-shadow b-b ng-scope">
+<div class="p-h-md p-v bg-white box-shadow b-b">
   <h3 class="no-margin" translate="{{'Global Settings'|translate}}"></h3>
 </div> 
-<div class="box ng-scope bg-white" >
+<div class="box bg-white" >
   <div class="col-md-3">
     <div style="background:url({{userinfo.ActiveUserData.roleMappingObj.avatar}}) center center; background-size:cover">
       <div class="p-lg bg-white-opacity text-center">
@@ -31,6 +31,9 @@
       </li>
        <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='attendanceAlert'}" ng-click="selectedTab='attendanceAlert';setState('attendanceAlert')">
         <a href="">Attendance Alert</a>
+      </li>
+       <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='OrderForm'}" ng-click="selectedTab='OrderForm';setState('OrderForm')">
+        <a href="">Order Form</a>
       </li>
     </ul>
   </div>
@@ -229,7 +232,30 @@
   <div ng-show="selectedTab=='attendanceAlert'" class="row bg-light m-sm p-sm">
         <attendance-alert-config course-obj=""> </attendance-alert-config>
   </div>
-
+<div ng-show="selectedTab=='OrderForm'" class="row bg-light m-sm p-sm">
+    <div class="row p-sm">
+        <div class="col-md-4">
+          <span translate="{{'Order Form Configurable'|translate}}"></span>
+          <span class="pull-right" translate="{{':'|translate}}"></span>
+        </div>
+        <div class="col-md-4">
+               <div class="radio radio-inline radio-primary ">
+                                    <label>
+                                        <input type="radio" ng-model="OrderForm" value="Default" ng-change="setOrderFormConfOrNot(OrderForm)">
+                                        No
+                                    </label>
+              </div>            
+        </div>
+         <div class="col-md-4">
+               <div class="radio radio-inline radio-primary ">
+                                    <label>
+                                        <input type="radio" ng-model="OrderForm" value="Configurable" ng-change="setOrderFormConfOrNot(OrderForm)">
+                                        Yes
+                                    </label>
+              </div>                    
+        </div>
+    </div>
+</div>
    
       
   </div>
