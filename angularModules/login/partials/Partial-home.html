@@ -7,7 +7,7 @@ Created On:12/11/2014 -->
   <a class="visible-xs p-sm {{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}}"  ng-click="viewMenu = !viewMenu">
          <i class="mdi-action-view-headline text-white text-2x m-b"></i>
   </a>
-  <div class="{{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}} shadow-z-3 menu-outer" bs-affix data-offset-top="-62" style="font-size: 15px;padding-top:25px;z-index: 1;width: 100%;"  ng-if="$root.userinfo.ActiveUserData.modernView != 'modern'" ng-class="{'bg-white':$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor, 'hidden-xs':!viewMenu, 'am-fade-and-slide-left':viewMenu}">
+  <div class="{{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}} shadow-z-3 menu-outer" bs-affix data-offset-top="-62" style="font-size: 15px;z-index: 1049;width: 100%;"  ng-if="$root.userinfo.ActiveUserData.modernView != 'modern'" ng-class="{'bg-white':$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor, 'hidden-xs':!viewMenu, 'am-fade-and-slide-left p-v-lg':viewMenu}">
            
       <nav class="" >
         <div class="container-fluid ">

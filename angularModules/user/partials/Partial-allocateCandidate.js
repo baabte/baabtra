@@ -18,7 +18,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 	$scope.selectedCandidates=[];
 	//function to check all the checkboxes when the check all checkbox is clicked
 	$scope.fnAllocateToBatch = function(mentee,courseObj,index,orderFormId,type){
-	 		var mentee = [];
+	 	var mentee = [];
 
 		for(var i in $scope.orderFormList){
 			for(var j in $scope.orderFormList[i].orderDetails){
@@ -78,6 +78,10 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 			delete mandatoryData.userId;
 			//delete mandatoryData.$index;
 		}
+
+		//setting course material assignment type to 'manual'
+		$scope.userRegister.materialAssignment="manual";
+
 		//condition to check there is any batch is selected or not.if not selectet then delete the batch object from scope
 		if(!angular.equals($scope.candidateObj.batch,undefined)&&(angular.equals(Object.keys($scope.candidateObj.batch).length,0))){
 		delete $scope.candidateObj.batch;
