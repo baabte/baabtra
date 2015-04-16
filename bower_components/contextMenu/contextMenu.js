@@ -35,7 +35,7 @@ angular.module('ui.bootstrap.contextMenu', [])
       $scope.selectedCourse={};
       $scope.searchText={};
       $scope.fnselectCourse =function(course){
-        console.log(course)
+        // console.log(course)
         $scope.selectedCourse=course;
       };
       $scope.fnSaveElement =function(tlpointkey,courseElementskey,courseElementvalue,$hide){
@@ -43,6 +43,9 @@ angular.module('ui.bootstrap.contextMenu', [])
         var key=$scope.instance+'.'+courseElementskey;
         var obj={key:key};
         courseElementvalue.courseId=$scope.selectedCourse._id.$oid;
+        delete courseElementvalue.order;
+        delete courseElementvalue.index;
+
         obj[key]=courseElementvalue;
 
         var saveCourseTimelineElementPromise= addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, obj);//saving to database
@@ -120,7 +123,7 @@ angular.module('ui.bootstrap.contextMenu', [])
 
                          //clearing data in preview object that is previously created
                          $scope.coursePreviewObj={};
-                         $templateCache.put('course-element-popup.html','<div style="padding: 0px;" class="aside" role="dialog">'
+                         $templateCache.put('course-element-popup.html','<ng-if="ExistingMaterials" div style="padding: 0px;" class="aside" role="dialog">'
                             +'<div class="box">'
                             +'<div class="p bg-'+options[state].colorClass+' font-bold">'
                               +'<a ng-click="$hide()" class="pull-right text-white"><i class="fa fa-times"></i></a>'
@@ -254,7 +257,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                         +'<div ng-repeat="(courseElementskey,courseElementsvalue) in  tlpointvalue">'
                                
 
-                              +'<div ng-repeat="(courseElementkey,courseElementvalue) in  courseElementsvalue">'
+                              +'<div ng-repeat="(courseElementkey,courseElementvalue) in  courseElementsvalue track by $index">'
                                  // +'{{tlpointkey}}'
                                  // +'{{courseElementskey}}'                                 
                                  // +'{{courseElementkey}}'
