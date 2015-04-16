@@ -35,7 +35,7 @@ angular.module('ui.bootstrap.contextMenu', [])
       $scope.selectedCourse={};
       $scope.searchText={};
       $scope.fnselectCourse =function(course){
-        console.log(course)
+        // console.log(course)
         $scope.selectedCourse=course;
       };
       $scope.fnSaveElement =function(tlpointkey,courseElementskey,courseElementvalue,$hide){
