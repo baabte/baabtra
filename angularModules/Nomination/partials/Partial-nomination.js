@@ -15,6 +15,7 @@ angular.module('baabtra').controller('NominationCtrl',['$scope','bbConfig','$roo
 	var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 	/*login detils ends*/
 
+	console.log($state.params.key);
 
 $scope.status={};
 $scope.status.selected=1;
@@ -106,6 +107,16 @@ if(!angular.equals($scope.formlist,undefined) && !angular.equals($scope.allSync.
     }, true);
 
 $scope.data = {};
+$scope.data.requesteDetailsCompleted = false;
+$scope.data.requisiteDetails = {};
+
+if(angular.equals($state.params.ofId,"")){
+	$scope.data.requisiteDetails.type = $state.params.key;
+}
+else{
+	$scope.data.requesteDetailsCompleted = true;
+}
+
 
 if(!angular.equals($state.params.ofId,"")){
 	var orderFormResponse = nomination.fnLoadOrderFormById($state.params.ofId);
@@ -115,6 +126,17 @@ if(!angular.equals($state.params.ofId,"")){
 		$scope.data.orderForm = orderForm;
 	});
 }
+
+
+$scope.requisteTypeChanged = function( requisteType ){
+	$scope.data.requisiteDetails = {};
+	$scope.data.requisiteDetails.type = requisteType;
+	$scope.data.requisiteDetails.gender = "Male";
+};
+
+$scope.requesteDetailsCompleted = function(){
+	$scope.data.requesteDetailsCompleted = true;
+};
 
 
 $scope.fnUserRegister =function () {
@@ -175,6 +197,7 @@ $scope.fnUserRegister =function () {
 		$scope.data.orderForm.companyId = companyId;
 		$scope.data.orderForm.orderFormId = orderFormId;
 		$scope.data.orderForm.orderDetails = [];
+		$scope.data.orderForm.requisiteDetails = $scope.data.requisiteDetails;
 
 		
 		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
