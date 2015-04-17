@@ -185,6 +185,13 @@ $scope.fnUserRegister =function () {
 	    	courseDetails.courseId = course._id.$oid;
 
 	    	courseDetails.Name = course.Name;
+	    	courseDetails.PendingApprovalCount=1;
+			courseDetails.VerifiedCount=0;
+			courseDetails.PaidCount=0;
+			courseDetails.ApprovedCount=0;
+			courseDetails.RejectedCount=0;
+		    courseDetails.PendingApprovalCount=0;
+
 	    	if(!course.Fees.free){
 	    		courseDetails.currency = course.Fees.currency.currency;
 	    		courseDetails.coursePrice = course.Fees.totalAmount;
@@ -229,7 +236,8 @@ $scope.fnUserRegister =function () {
 		if(courseExits){
 			$scope.data.orderForm.orderDetails[courseIndex].userInfo.push(userinfo);
 			$scope.data.orderForm.orderDetails[courseIndex].userCount++;
-
+			//added for incrementing pending approval status count
+			$scope.data.orderForm.orderDetails[courseIndex].PendingApprovalCount++;
 			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 			nomintaionResponse.then(function(response){
 				var orderForm = angular.fromJson(JSON.parse(response.data));
@@ -249,6 +257,12 @@ $scope.fnUserRegister =function () {
 		    	courseDetails.courseId = course._id.$oid;
 
 		    	courseDetails.Name = course.Name;
+		    	courseDetails.PendingApprovalCount=1;
+		    	courseDetails.VerifiedCount=0;
+		    	courseDetails.PaidCount=0;
+		    	courseDetails.ApprovedCount=0;
+		    	courseDetails.RejectedCount=0;
+		    	courseDetails.PendingApprovalCount=0;
 		    	if(!course.Fees.free){
 		    		courseDetails.currency = course.Fees.currency.currency;
 		    		courseDetails.coursePrice = course.Fees.totalAmount;
@@ -260,7 +274,7 @@ $scope.fnUserRegister =function () {
 		    	courseDetails.coursetype = $scope.allSync.FormData.coursetype;
 
 		    	$scope.data.orderForm.orderDetails.push(courseDetails);
-		    	
+						    	
 				var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 				nomintaionResponse.then(function(response){
 					var orderForm = angular.fromJson(JSON.parse(response.data));
