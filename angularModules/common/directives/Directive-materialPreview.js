@@ -4,7 +4,7 @@ angular.module('baabtra').directive('materialPreview',['$modal', function($modal
 		replace: true,
 		scope: {
 			data:"=",
-			callFunction:'&'
+			dataReturn:"="
 		},
 		templateUrl: 'angularModules/common/directives/Directive-materialPreview.html',
 		link: function(scope, element, attrs, fn) {

@@ -18,7 +18,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 	$scope.selectedCandidates=[];
 	//function to check all the checkboxes when the check all checkbox is clicked
 	$scope.fnAllocateToBatch = function(mentee,courseObj,index,orderFormId,type){
-	 		var mentee = [];
+	 	var mentee = [];
 
 		for(var i in $scope.orderFormList){
 			for(var j in $scope.orderFormList[i].orderDetails){
@@ -78,6 +78,10 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 			delete mandatoryData.userId;
 			//delete mandatoryData.$index;
 		}
+
+		//setting course material assignment type to 'manual'
+		$scope.userRegister.materialAssignment="manual";
+
 		//condition to check there is any batch is selected or not.if not selectet then delete the batch object from scope
 		if(!angular.equals($scope.candidateObj.batch,undefined)&&(angular.equals(Object.keys($scope.candidateObj.batch).length,0))){
 		delete $scope.candidateObj.batch;
@@ -133,7 +137,15 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 			var result=angular.fromJson(JSON.parse(data.data));
 			hide(); //to hide the modal
 			$scope.notifications('Yaay..!','Registered Successfully','success');   
-		      $state.go('home.main');
+		    //$state.go('home.main');
+
+		    var allocatedPromise=allocateCandidateService.FnLoadVerifiedCandidates($scope,['Approved']); 
+			allocatedPromise.then(function(response){ //getting service response here
+				var responseData=angular.fromJson(JSON.parse(response.data));
+				//console.log(responseData.orderFroms._firstBatch);
+				//$scope.orderFormList=responseData.orderFroms._firstBatch;
+				$scope.orderFormList=responseData.orderFroms;
+			}) 
 
 		    if(angular.equals(type,'single')){
 				//sending notification through email 
