@@ -1,6 +1,6 @@
-<div class="col-xs-12">
-	<div class="row bg-white">
-		<ul class="nav nav-tabs btn-material-indigo-A400 p-xs baab-shadow" style="border-bottom: #3d5afe 1px solid;">
+<div class="col-xs-12" >
+	<div class="row bg-white" >
+		<ul set-sub-heading-and-background-color class="nav nav-tabs  p-xs baab-shadow" style="border-bottom: #3d5afe 1px solid;">
       				<li class="active" ng-if="data.feedbackRequests.pendingFeedback.length" ng-click="data.feedbackType = 'Pending'" ng-class="{'b-b b-2x b-white':data.feedbackType == 'Pending'}"><a href="#Pending" data-toggle="tab">Pending<b class="badge bg-danger up">{{data.feedbackRequests.pendingFeedback.length}}</b></a></li>
       				<li ng-if="data.feedbackRequests.submitedFeedback.length" ng-click="data.feedbackType = 'Submited'" ng-class="{'b-b b-2x b-white':(data.feedbackType == 'Submited') || !data.feedbackRequests.pendingFeedback.length}"><a href="#Submited" data-toggle="tab">Submited</a></li>
       			</ul>

@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('randomBackgroundColor',['$compile', function($compile) {
+angular.module('baabtra').directive('randomBackgroundColor',['$compile','$rootScope', function($compile,$rootScope) {
 	return {
 		restrict: 'AC',
 		link: function(scope, element, attrs, fn) {
@@ -72,13 +72,34 @@ angular.module('baabtra').directive('randomBackgroundColor',['$compile', functio
 			}
 			else{
 
-			var randomColor =  colors[Math.floor(Math.random() * (colors.length - 1))];
-			var randomClass = colorsArray[randomColor][Math.floor(Math.random() * (colorsArray[randomColor].length - 1))];
+	
 
-			$(element).addClass(randomClass);
-			$(element).attr("randomBg",randomColor);
-			$(element).removeClass("random-background-color");
-			$compile(element)(scope);
+				if(angular.equals($rootScope.userinfo.ActiveUserData.subTitleAndBackColor,undefined)||angular.equals($rootScope.userinfo.ActiveUserData.subTitleAndBackColor,"random")||!$rootScope.userinfo.ActiveUserData.subTitleAndBackColor){
+						var randomColor =  colors[Math.floor(Math.random() * (colors.length - 1))];
+						var randomClass = colorsArray[randomColor][Math.floor(Math.random() * (colorsArray[randomColor].length - 1))];
+
+						$(element).addClass(randomClass);
+						$(element).attr("randomBg",randomColor);
+						$(element).removeClass("random-background-color");
+						$compile(element)(scope);
+					
+				}else{
+					if($rootScope.userinfo.ActiveUserData.subTitleAndBackColor.Backgroundcolour){
+						$(element).addClass($rootScope.userinfo.ActiveUserData.subTitleAndBackColor.Backgroundcolour);	
+					}else
+					{
+						var randomColor =  colors[Math.floor(Math.random() * (colors.length - 1))];
+						var randomClass = colorsArray[randomColor][Math.floor(Math.random() * (colorsArray[randomColor].length - 1))];
+
+						$(element).addClass(randomClass);
+						$(element).attr("randomBg",randomColor);
+						$(element).removeClass("random-background-color");
+						$compile(element)(scope);
+					}
+					
+					
+				}
+				
 			}
 			
 			// var colors = ["red","pink","purple","deep-purple","indigo","blue","light-blue","cyan","teal","green","light-green","lime","yellow","amber","orange","deep-orange","bright-green", "majenta", "grey"];
