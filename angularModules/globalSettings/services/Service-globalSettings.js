@@ -169,6 +169,23 @@ this.saveAttendanceAlertSettings=function(data){ //
     return promise;
 };
 
+this.setOrderFormConfOrNot=function(data){ // 
 
+    var promise=$http({
+          url: bbConfig.BWS+'setOrderFormConfOrNot/',
+           data: angular.toJson({"data":data}), //it will save saveAttendanceAlertSettings under a comapany
+           method: "POST",
+           withCredentials: false,
+           contentType:"application/json",
+           dataType:"json",
+       }).
+         success(function(data, status, headers, config) { 
+          return data;                   
+             }).
+         error(function(data, status, headers, config) {
+          
+         }); 
+    return promise;
+};
 
 }]);

@@ -62,9 +62,12 @@ angular.module('baabtra')
    $linkedInProvider.set('appKey', '78jnfwsxzeqtdl').set('scope', "r_fullprofile r_network r_emailaddress").set('authorize', true);
   }])
   .constant('bbConfig',{ //used for storing enviornment variables
-    "BWS": "http://127.0.0.1:8000/",//local
+
+     "BWS": "http://127.0.0.1:8000/",//local
      //"BWS": "http://services.baabtra.com/",//server - production
      //"BWS": "http://server.mb-test.in/",//server-test
+
+
      "SARID":1, // SuperAdminRoleID
      "CURID":2, // CompanyUser
      "MURID":3, // MenteeUser
@@ -72,14 +75,14 @@ angular.module('baabtra')
  });
 
 angular.module('angular-custom-form',[]) /*Config constant for angular custom form */
-// .constant('bbConfig',{ //used for storing enviornment variables
-//     "BWS": "http://127.0.0.1:8000/",//local
-//     // "BWS": "http://services.baabtra.com/",//server - production
-//     // "BWS": "http://server.mb-test.in/",//server-test
-//      "SARID":1, // SuperAdminRoleID
-//      "CURID":2, // CompanyUser
-//      "MURID":3, // MenteeUser
-//      "RURID":4  // ResellerUser
-//  });
+.constant('bbConfig',{ //used for storing enviornment variables
+     //"BWS": "http://127.0.0.1:8000/",//local
+     "BWS": "http://services.baabtra.com/",//server - production
+    // "BWS": "http://server.mb-test.in/",//server-test
+     "SARID":1, // SuperAdminRoleID
+     "CURID":2, // CompanyUser
+     "MURID":3, // MenteeUser
+     "RURID":4  // ResellerUser
+ });
 
 

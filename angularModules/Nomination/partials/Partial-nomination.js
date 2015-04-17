@@ -84,14 +84,12 @@ $scope.stepCount=$scope.formlist.formSteps;
        $scope.allSync.FormData.role={};
        $scope.allSync.FormData.role.roleId=bbConfig.MURID;
     }
-    // console.log(mandatoryFields)   
 });
 
 $scope.$watch('allSync.FormData.role', function(){
 if(!angular.equals($scope.formlist,undefined) && !angular.equals($scope.allSync.FormData.role,undefined)){
         $scope.stepCount= $scope.formlist.formSteps;
         while(!angular.equals($scope.formlist.formSchema[++$scope.stepCount],undefined)){
-          // console.log($scope.stepCount);
           delete $scope.formlist.formSchema[$scope.stepCount];
         }
 
@@ -102,7 +100,6 @@ if(!angular.equals($scope.formlist,undefined) && !angular.equals($scope.allSync.
                   $scope.formlist.formSchema[++$scope.stepCount]=$scope.allSync.FormData.role.formSchema[i];
                              
               }
-              // console.log($scope.formlist.formSteps);
             }
     }
                 
@@ -135,12 +132,10 @@ $scope.fnUserRegister =function () {
 			filePaths.push(key);
 		}
 		else if(angular.equals(Object.prototype.toString.call($scope.allSync.FormData[key]),"[object Date]")){
-			console.log(Object.prototype.toString.call($scope.allSync.FormData[key]));
 			$scope.allSync.FormData[key] = new Date($scope.allSync.FormData[key]).toISOString();
 		}
 
 		if(angular.equals(Object.keys($scope.allSync.FormData).length, (keyCount+1) )){
-			console.log("status");
 			$scope.allSync.FormData.status = "Pending Approval";
 			$scope.allSync.FormData.userId = userUniqueId;
 		}
