@@ -13,7 +13,7 @@ angular.module('baabtra').directive('attendanceMenteeList',['attendenceService',
 		templateUrl: 'angularModules/Batches/directives/Directive-attendanceMenteeList.html',
 		link: function(scope, element, attrs, fn) {
 			scope.$watch('timeLineObj',function(){
-				
+
 				if(!angular.equals(scope.timeLineObj,undefined)){
 					if(angular.equals(scope.timeLineObj.courseElement.excludeList,undefined)){
 						scope.timeLineObj.courseElement.excludeList=[];
@@ -21,16 +21,11 @@ angular.module('baabtra').directive('attendanceMenteeList',['attendenceService',
 				}
 			});
 
-			
 			//marking attendence function will triger on click
-			scope.fnMarkAttendence=function(user){	
-				//console.log(courseElement.courseElement.attendence);
-				
-				var markAttendencePromise=attendenceService.markAttendence(user._id.$oid,scope.timeLineObj.tlpoint,scope.timeLineObj.userCourseElementType,scope.timeLineObj.innerIndex,scope.timeLineObj.courseElement.attendence);
+			scope.fnMarkAttendence=function(user){
+				var markAttendencePromise=attendenceService.markAttendence(user._id.$oid,scope.timeLineObj.tlpoint,scope.timeLineObj.userCourseElementType,scope.timeLineObj.innerIndex,user.attendance);
 				markAttendencePromise.then(function(data){
 			    var result=angular.fromJson(JSON.parse(data.data));
-				
-
 				});
 			};
 			//converting back to day
