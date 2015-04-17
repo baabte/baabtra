@@ -1,6 +1,6 @@
 angular.module('ui.bootstrap.contextMenu', [])
 
-.directive('contextMenu', ['$parse','$state','$aside','$templateCache','addCourseService','$rootScope','bbConfig','$modal',function ($parse,$state,$aside,$templateCache,addCourseService,$rootScope,bbConfig,$modal) {
+.directive('contextMenu', ['$parse','$state','$aside','$alert','$templateCache','addCourseService','$rootScope','bbConfig','$modal',function ($parse,$state,$aside,$alert,$templateCache,addCourseService,$rootScope,bbConfig,$modal) {
     var renderContextMenu = function ($scope, event, options) {
         // taking current state for loading context menu
         var state=$state.current.name.split('.');
@@ -40,17 +40,29 @@ angular.module('ui.bootstrap.contextMenu', [])
       };
 
       $scope.previewOut={};
-      // $scope.previewOut.hide=
-      console.log($scope)
 
 
-      $scope.fnSaveElement =function(tlpointkey,courseElementskey,courseElementvalue,$hide){
+      $scope.$watch('previewOut', function(){
+
+        if ($scope.previewOut.courseElement){
+            // console.log($scope.previewOut.courseElement)
+            var courseElement=angular.copy($scope.previewOut.courseElement);
+            $scope.fnSaveElement(courseElement);
+        }
+
+      },true);
+      // $scope.previewOut.hide={};
+      // console.log($scope)
+
+
+      $scope.fnSaveElement =function(courseElementvalue){
         // console.log({tlpointkey:tlpointkey,courseElementskey:courseElementskey,courseElementvalue:courseElementvalue});
+        var courseElementskey=courseElementvalue.Name;
         var key=$scope.instance+'.'+courseElementskey;
         var obj={key:key};
         courseElementvalue.courseId=$scope.selectedCourse._id.$oid;
         delete courseElementvalue.order;
-        delete courseElementvalue.index;
+        courseElementvalue.index=$scope.syncData.courseTimeline[$scope.instance][courseElementskey].length;
         courseElementvalue.tlPointInMinute=$scope.instance;
 
         obj[key]=courseElementvalue;
@@ -68,8 +80,9 @@ angular.module('ui.bootstrap.contextMenu', [])
 
                   $scope.syncData.courseTimeline[$scope.instance][courseElementskey].push(courseElementvalue);
 
-            $hide();
-        });
+                  $scope.notifications('','Material Added Successfully','info');   
+      
+          });
 
       };
 
@@ -113,6 +126,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                          $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
                          $contextMenu.remove();
                          $scope.item=item;
+                         coonsole.log(item)
                          //taking template for form builder to take required inputs of 
                          //selected context menu
                          $scope.itemTemplate = item.courseElementTemplate;
@@ -132,7 +146,7 @@ angular.module('ui.bootstrap.contextMenu', [])
 
                          //clearing data in preview object that is previously created
                          $scope.coursePreviewObj={};
-                         $templateCache.put('course-element-popup.html','<ng-if="ExistingMaterials" div style="padding: 0px;" class="aside" role="dialog">'
+                         $templateCache.put('course-element-popup.html','<div ng-if="ExistingMaterials"  style="padding: 0px;" class="aside" role="dialog">'
                             +'<div class="box">'
                             +'<div class="p bg-'+options[state].colorClass+' font-bold">'
                               +'<a ng-click="$hide()" class="pull-right text-white"><i class="fa fa-times"></i></a>'
@@ -220,14 +234,14 @@ angular.module('ui.bootstrap.contextMenu', [])
                          //   $scope.evaluator=[];
                          // }
 
-                $templateCache.put('course-material-popup.html','<div class="modal modal-full-width" tabindex="-1" role="dialog" >'
+                $templateCache.put('course-material-popup.html','<div class="modal ng-init="previewOut.$hide=$hide" modal-full-width" tabindex="-1" role="dialog" >'
 +'<div class="modal-dialog-full-width  modal-full-width">'
     +'<div class="modal-content bg-white">'
           +'<div class="navbar navbar-inverse btn-material-blue-A700 ">'
               +'<div class="navbar-header col-xs-3">'
                   +'<h4 class="font-bold" >Existing Course Elements</h4>'
               +'</div>'
-              +'<button type="button" class="btn baab-btn pull-right no-padding" style="margin-top:-5px;" ng-click="$hide()"><i class="mdi-navigation-close text-2x text-white"></i></button>'
+              +'<button type="button" class="btn baab-btn pull-right no-padding" ng-click="$hide()"><i class="mdi-navigation-close text-lg m-r-xs"></i></button>'
           +'</div>'
       +'<div class="modal-body no-padding h-full" >'
           
@@ -266,15 +280,15 @@ angular.module('ui.bootstrap.contextMenu', [])
                         +'<div ng-repeat="(courseElementskey,courseElementsvalue) in  tlpointvalue">'
                                
 
-                              +'<div ng-repeat="(courseElementkey,courseElementvalue) in  courseElementsvalue track by $index">'
+                              +'<div ng-repeat="(courseElementkey,courseElementvalue) in  courseElementsvalue ">'
                                  // +'{{tlpointkey}}'
                                  // +'{{courseElementskey}}'                                 
                                  // +'{{courseElementkey}}'
                                  // +'{{courseElementvalue}}'
                                 // +'<a href="" class="" bs-tooltip data-title="Add Course Material">Add</a>'
                                 +'<div col-xs-10>'
-                                +'<i class="mdi-content-add-circle-outline text-2x" ng-click="fnSaveElement(tlpointkey,courseElementskey,courseElementvalue,$hide)"></i>'
-                                +'<material-preview  data-return="" data="courseElementvalue"></material-preview>'
+                                // +'<i class="mdi-content-add-circle-outline text-2x" ng-click="fnSaveElement(courseElementvalue,$hide)"></i>'
+                                +'<material-preview  addmaterial="previewOut" data="courseElementvalue"></material-preview>'
                                 +'</div>'
 
 
@@ -411,6 +425,13 @@ angular.module('ui.bootstrap.contextMenu', [])
                 });
                     
         };
+
+
+
+        $scope.notifications=function(title,message,type){
+     // Notify(message, 'top-right', '2000', type, symbol, true); \
+     $alert({title: title, content: message , placement: 'top-right',duration:2, type: type});// calling notification message function
+    };
         
         //function for triggering when save button in aside 
         $scope.saveMyFormData = function ($hide) {
