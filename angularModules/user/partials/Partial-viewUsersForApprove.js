@@ -709,7 +709,7 @@ $scope.updateOrderFormStatus = function(type){
 	console.log($scope.paymentReceipt);
     
 	
-	/*var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm,actTransactions, $scope.paymentReceipt);
+	var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm,actTransactions, $scope.paymentReceipt);
 
 	updateOrderForm.then(function(response){
 		var result = angular.fromJson(JSON.parse(response.data));
@@ -744,7 +744,7 @@ $scope.updateOrderFormStatus = function(type){
 			$alert({title:'Error. ',content:'We could not update the statuses this time, please click on the "' + $scope.currentStage.buttonText + '" button to retry.', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'danger', show:true});
 		}
 
-	});*/
+	});
 
 
 
