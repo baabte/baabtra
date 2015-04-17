@@ -38,6 +38,12 @@ angular.module('ui.bootstrap.contextMenu', [])
         // console.log(course)
         $scope.selectedCourse=course;
       };
+
+      $scope.previewOut={};
+      // $scope.previewOut.hide=
+      console.log($scope)
+
+
       $scope.fnSaveElement =function(tlpointkey,courseElementskey,courseElementvalue,$hide){
         // console.log({tlpointkey:tlpointkey,courseElementskey:courseElementskey,courseElementvalue:courseElementvalue});
         var key=$scope.instance+'.'+courseElementskey;
@@ -45,6 +51,7 @@ angular.module('ui.bootstrap.contextMenu', [])
         courseElementvalue.courseId=$scope.selectedCourse._id.$oid;
         delete courseElementvalue.order;
         delete courseElementvalue.index;
+        courseElementvalue.tlPointInMinute=$scope.instance;
 
         obj[key]=courseElementvalue;
 
@@ -65,6 +72,8 @@ angular.module('ui.bootstrap.contextMenu', [])
         });
 
       };
+
+
         //creating a header for context menu
         var $headerA = $('<li>');
              $headerA.text($scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+" "+$scope.$parent.tlpoint);
@@ -265,7 +274,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                                 // +'<a href="" class="" bs-tooltip data-title="Add Course Material">Add</a>'
                                 +'<div col-xs-10>'
                                 +'<i class="mdi-content-add-circle-outline text-2x" ng-click="fnSaveElement(tlpointkey,courseElementskey,courseElementvalue,$hide)"></i>'
-                                +'<material-preview data="courseElementvalue"></material-preview>'
+                                +'<material-preview  data-return="" data="courseElementvalue"></material-preview>'
                                 +'</div>'
 
 

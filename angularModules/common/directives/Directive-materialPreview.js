@@ -17,6 +17,10 @@ angular.module('baabtra').directive('materialPreview',['$modal', function($modal
            
 			};
 
+			if(scope.dataReturn){
+				scope.buttonShow=true;
+			}
+
 		}
 	};
 }]);
