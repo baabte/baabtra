@@ -158,7 +158,7 @@ $scope.fnUserRegister =function () {
 
 	    	courseDetails.Name = course.Name;
 	    	if(!course.Fees.free){
-	    		courseDetails.currency = course.Fees.currency;
+	    		courseDetails.currency = course.Fees.currency.currency;
 	    		courseDetails.coursePrice = course.Fees.totalAmount;
 	    	}
 	    	courseDetails.userCount = 1;
