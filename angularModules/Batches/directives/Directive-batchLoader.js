@@ -87,11 +87,8 @@ scope.fetchBatch =function(){
         
                var promise = addBatches.loadCourseRelatedBatches(companyId,courseId,joinDate,courseType);
             promise.then(function(response){
-              // console.log(angular.fromJson(JSON.parse(response.data)));
-              //  console.log(angular.fromJson(JSON.parse(response.data)));
               scope.batchElements = angular.fromJson(JSON.parse(response.data));
                angular.forEach(scope.batchElements, function(batch){
-              //consoel.log(batch.batchName);
                 batch.Name = batch.batchName;
                 batch._id = batch._id.$oid;
                 batch.startDate=batch.start.$date;
