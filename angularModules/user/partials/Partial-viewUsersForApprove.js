@@ -426,12 +426,12 @@ $scope.updateOrderFormStatus = function(type){
 	for (var i in updatedOrderForm.orderDetails){
 		var currentOrderDetail = updatedOrderForm.orderDetails[i];
 		
-		updatedOrderForm.orderDetails[i].rejectedCount=0;
+		/*updatedOrderForm.orderDetails[i].rejectedCount=0;
 		updatedOrderForm.orderDetails[i].approvedCount=0;
 		updatedOrderForm.orderDetails[i].verifiedCount=0;
 		updatedOrderForm.orderDetails[i].allocatedCount=0;
 		updatedOrderForm.orderDetails[i].pendingApprovalCount=0;
-		updatedOrderForm.orderDetails[i].resubmitCount=0;
+		updatedOrderForm.orderDetails[i].resubmitCount=0;*/
 
 
 		for (var j in currentOrderDetail.userInfo){
@@ -440,7 +440,7 @@ $scope.updateOrderFormStatus = function(type){
 
 			var d = new Date();
 							/*counting the status here*/
-				if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Rejected')){
+				/*if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Rejected')){
 					updatedOrderForm.orderDetails[i].rejectedCount=updatedOrderForm.orderDetails[i].rejectedCount+1;
 				}
 				if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Approved')){
@@ -457,7 +457,7 @@ $scope.updateOrderFormStatus = function(type){
 				}
 				if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Pending Approval')){
 					updatedOrderForm.orderDetails[i].resubmitCount=updatedOrderForm.orderDetails[i].resubmitCount+1;
-				}
+				}*/
 				/**************************/
 			if(!angular.equals(request.statusTobeChangedTo, undefined)){
 				
@@ -487,7 +487,7 @@ $scope.updateOrderFormStatus = function(type){
 					request.status = "Rejected";
 				}
 
-				
+
 
 				// if the stage is a payment stage set the data for the in a different object
 				if($scope.currentStage.paymentStage){
