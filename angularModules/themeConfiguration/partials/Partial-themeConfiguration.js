@@ -240,6 +240,8 @@ $scope.setSubTitAndBackground=function(color){
             var returndata = angular.fromJson(JSON.parse(data.data));
             if(angular.equals(returndata,"success")){
               $scope.CustomizesubTitAndBackg=false;
+              $rootScope.userinfo.ActiveUserData.subTitleAndBackColor=$scope.subTitleAndBackColorProperpies;
+              console.log($rootScope.userinfo.ActiveUserData);
               $scope.subTitleAndBackColorProperpies={}
               $scope.notifications("Success","","success");
             }

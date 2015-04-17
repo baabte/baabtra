@@ -1,10 +1,12 @@
-<div class="col-md-12" ng-if="userObj.userList">
-	 <div class="panel b-t b-00C853 bg-light dk"><div class="panel-heading font-bold text-white bg-00C853 p baab-shadow" translate="{{'View Users'|translate}}"></div>
-		
-		<div class="panel-body col-xs-12 bg-white animated fadeInRight p-sm b-b-danger b-b-3x">
+<div  class="col-md-12" ng-if="userObj.userList">
+	 <div  class="panel b-t b-00C853 bg-light dk"><div  set-sub-heading-and-background-color  class="panel-heading font-bold text-white  p baab-shadow"  translate="{{'View Users'|translate}}"></div>
+	
+<!-- ng-class="userinfo.ActiveUserData.subTitleAndBackColor.SubTitlecolour!='random'?userinfo.ActiveUserData.subTitleAndBackColor.SubTitlecolour:bg-00C853" -->
+  
+		<div  class="panel-body col-xs-12 bg-white animated fadeInRight p-sm b-b-danger b-b-3x">
 		<div class="row"><div class="col-xs-12 col-sm-4 col-md-4 col-lg-4  p text-center pull-right">
-            
-             <div class="btn-group col-sm-push-2 col-md-push-2">
+              <!-- {{userinfo.ActiveUserData}} -->
+             <div  class="btn-group col-sm-push-2 col-md-push-2">
                <button type="button" class="btn btn-success btn-xs" ng-click="prevOne()" title="Previous" ng-disabled="prevButtondisabled"><i class="fa fa-fw fa-angle-left"></i><div class="ripple-wrapper"></div></button>
               <button type="button" class="btn btn-success btn-xs" ng-click="nextOne()" ng-disabled="userObj.userList.length<9" title="Next"><i class="fa fa-fw fa-angle-right"></i><div class="ripple-wrapper"></div></button>
            </div> 
@@ -16,7 +18,8 @@
 
             	<div class="row">
             		<div class="col-xs-12">
-            			<div set-parent-height class="col-xs-3 random-background-color text-center h-full" style="display:table-cell;">
+                <!-- set-sub-heading-and-background-color="{{userinfo.ActiveUserData.subTitleAndBackColor}}" -->
+            			<div  set-parent-height class="col-xs-3 random-background-color text-center h-full" style="display:table-cell;">
             				 <i class="mdi-action-perm-contact-cal text-4x"></i><br/>
             			</div>
             			<div class="col-xs-9" style="display:table-cell;">

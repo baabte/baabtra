@@ -10,11 +10,13 @@
 <a ng-click="searchCoursesAvailable(node._id,'Domains')">{{node._id}}</a>
                     <ul class="dropdown-submenu" ng-if="node.childrenObj" > 
                           <li ng-repeat="node in node.childrenObj" ng-include="'nestedDomain.html'"> </li>
+                 
                       </ul>
 </script>
 
   <div class="panel b-t b-00C853 bg-light dk">
-    <div class="panel-heading font-bold text-white bg-00C853 p baab-shadow">Published Course</div>
+    <div set-sub-heading-and-background-color
+     class="panel-heading font-bold text-white  p baab-shadow">Published Course</div>
     <div  class="panel-body">
       <div class="row">
         <div class="col-xs-3">
