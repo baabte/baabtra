@@ -235,13 +235,14 @@ $scope.setSubTitAndBackground=function(color){
         else{
           dataToSend.subTitleAndBackColor=$scope.subTitleAndBackColorProperpies;
         }
+        // console.log(dataToSend);
         var subTitleAndBackColor=themeConfigurationSrv.saveSubMenuAndBackgrounds(dataToSend);
           subTitleAndBackColor.then(function(data){
             var returndata = angular.fromJson(JSON.parse(data.data));
             if(angular.equals(returndata,"success")){
               $scope.CustomizesubTitAndBackg=false;
               $rootScope.userinfo.ActiveUserData.subTitleAndBackColor=$scope.subTitleAndBackColorProperpies;
-              console.log($rootScope.userinfo.ActiveUserData);
+              // console.log($rootScope.userinfo.ActiveUserData);
               $scope.subTitleAndBackColorProperpies={}
               $scope.notifications("Success","","success");
             }
