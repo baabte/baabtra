@@ -19,12 +19,12 @@ angular.module('baabtra').controller('CourseelementfieldsmanagingCtrl',['$scope'
   $scope.element = {};
   $scope.element.canAdd = true;
   $scope.element.canBeAnAnswer = false;
-
+  /*commented by akshath */
   //var courseElementFields = courseElementFieldsManaging.fnGetCourseElementFields();
-  var courseElementFields = courseElementFieldsManaging.fnGetCourseElementFieldsTemp();
+  /*var courseElementFields = courseElementFieldsManaging.fnGetCourseElementFieldsTemp();
   courseElementFields.then(function(response){
   	$scope.courseElementFields = angular.fromJson(JSON.parse(response.data));
-  });
+  });*/
 
 $scope.palette = [{"id": "1","name": "Text input fields"},
 				  {"id": "2","name": "Checkbox fields"},
