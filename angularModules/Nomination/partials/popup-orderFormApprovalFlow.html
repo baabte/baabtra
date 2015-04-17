@@ -9,6 +9,7 @@
              {{currentStage.displayName}}
 
               <button type="button" class="btn baab-btn pull-right no-padding" style="margin-top:-5px;" ng-click="$hide()"><i class="mdi-navigation-close text-2x text-white"></i></button>
+
             </div>
 
           
@@ -22,7 +23,7 @@
                      <div class="col-xs-12 m-v-xs pull-right"  ng-repeat="currency in currencyArray">
                       <div class="col-xs-12 col-md-4" ng-show="currency.actualAmount>0">                      
                        <div class="col-xs-12 btn-material-blue-grey-300 text-center">
-                          <strong>Actual Amount</strong>
+                          <strong translate="{{'Actual Amount'|translate}}"></strong>
                        </div>
                        <div>
                           {{currency.actualAmount}}&nbsp;{{currency.currency}}
@@ -40,7 +41,7 @@
                        <div class="col-xs-12 col-md-4" ng-show="currency.amount>0 || currency.discount>0"> 
 
                             <div class="col-xs-12 btn-material-blue-grey-300 text-center">
-                              <strong>Payable Amount</strong>
+                              <strong translate="{{'Payable Amount'|translate}}"></strong>
                            </div>
                            <div>
                               {{currency.amount}}&nbsp;{{currency.currency}}
@@ -50,9 +51,11 @@
                      </div>
                     </div>
 
-                    <div class="col-xs-12 pull-right text-right m" ng-show="!currentStage.viewStage">
-                        <button type="button" class="btn btn-success baab-btn pull-right" ng-click="updateOrderFormStatus()">{{currentStage.buttonText}}</button>
+                    <div class="col-xs-12 pull-right text-right m" >
+                        <button type="button" ng-show="!currentStage.viewStage" class="btn btn-success baab-btn pull-right" ng-click="updateOrderFormStatus('other')">{{currentStage.buttonText}}</button>
+                         <button ng-show="currentStage.canReject" type="button" class="btn btn-success baab-btn pull-right" ng-click="updateOrderFormStatus('reject')" translate="{{'Reject'|translate}}"></button>
                     </div>
+
                   </div>
 
 
@@ -101,10 +104,9 @@
                                                 <input type="checkbox" ng-model="mentee.checkedStatus" ng-change="updateStatus(mentee, mentee.checkedStatus, course)" >
                                             </label>
                       </div>
-                       <i class="mdi-action-assignment-ind text-2x  random-background-color img-circle p-xs"></i><br/>
-                       <div class="co-xs-12 m-b-xs text-center m-t-xs">
-
-                         
+                       <i ng-if="!mentee.userPic" class="mdi-action-assignment-ind text-2x  random-background-color img-circle p-xs"></i>
+                       <img ng-if="mentee.userPic" height="50" width="50" class="img-resposive img-circle p-xs" src="{{mentee.userPic}}"></img>
+                       <br/><div class="co-xs-12 m-b-xs text-center m-t-xs">
                           <span  class="label">
                           <i class="mdi-content-flag success"></i>
                            {{mentee.status}} 
@@ -118,9 +120,6 @@
                       <div class="col-xs-10 col-md-11">                        
                           <div class="p b-light text-1x" >
                                         <div>
-
-                                            
-
                                           <div class="col-xs-12 m-h-n">
                                             <div class="pull-left">{{mentee.firstName}}&nbsp;{{mentee.lastName}}</div>
                                             <div class="pull-right">                                        
@@ -133,12 +132,12 @@
                                             <div class="col-xs-6">
                                                 <div class="col-xs-12 m-xs">
                                                   <strong>Applicant Emirates Id:</strong>
-                                                  {{mentee.emiratesId}}
+                                                  {{mentee.emId}}
                                                 </div>
 
                                                 <div class="col-xs-12 m-xs">
                                                   <strong>Applicant Passport No.:</strong>
-                                                  {{mentee.passportNo}}
+                                                  {{mentee.icssId}}
                                                 </div>
 
                                                 <div class="col-xs-12 m-xs">
@@ -158,7 +157,7 @@
                                             </div>
                                             <div class="col-xs-6">
                                               <!-- <doc-viewer data="mentee.doc"></doc-viewer> -->
-                                              <a href="{{mentee.passportCopy}}F" target="_blank">
+                                              <a href="{{mentee.passportCopy}}F" ng-if="mentee.passportCopy" target="_blank">
                                                 <img class="col-xs-12 img-responsive img-thumbnail" src="{{mentee.passportCopy}}">
                                               </a>
                                             </div>

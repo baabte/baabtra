@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('attendanceMenteeList',['attendenceService','$aside', function(attendenceService,$aside) {
+angular.module('baabtra').directive('attendanceMenteeList',['attendenceService','$aside','$alert', function(attendenceService,$aside,$alert) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -26,6 +26,7 @@ angular.module('baabtra').directive('attendanceMenteeList',['attendenceService',
 				var markAttendencePromise=attendenceService.markAttendence(user._id.$oid,scope.timeLineObj.tlpoint,scope.timeLineObj.userCourseElementType,scope.timeLineObj.innerIndex,user.attendance);
 				markAttendencePromise.then(function(data){
 			    var result=angular.fromJson(JSON.parse(data.data));
+			    $alert({title: 'Done..!', content: 'Updated attendance.', placement: 'top-right', type: 'success', show: true});
 				});
 			};
 			//converting back to day

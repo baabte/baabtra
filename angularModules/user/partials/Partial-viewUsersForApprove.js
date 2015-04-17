@@ -72,10 +72,11 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 
 	//creating a mock of the global configuration of the company for the approval flow and access privileges for roles
 
-	$scope.approvalFlow = [{currentStage:'Verification',displayName:"Verify Applicants", loadStatus:["Pending Approval"], nextStatus:"Verified", privilegedRoles:['a','b','c'], buttonText:"Verify", paymentStage:false, viewStage:false },
-	{currentStage:'Payment',displayName:"Collect Payment", loadStatus:["Verified", "Partially Paid"], nextStatus:"Paid", privilegedRoles:['a','b'], buttonText:"Make Payment", paymentStage:true, viewStage:false },
-	{currentStage:'Approval',displayName:"Approve Applicants", loadStatus:["Paid"], nextStatus:"Approved", privilegedRoles:['a','c'], buttonText:"Approve", paymentStage:false, viewStage:false},
-	{currentStage:'Approved',displayName:"Approved Applicants", loadStatus:["Approved"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Approved", paymentStage:false, viewStage:true}
+	$scope.approvalFlow = [{currentStage:'Verification',displayName:"Verify Applicants", loadStatus:["Pending Approval","Resubmit"], nextStatus:"Verified", privilegedRoles:['a','b','c'], buttonText:"Verify", paymentStage:false, viewStage:false,canReject:true },
+	{currentStage:'Payment',displayName:"Collect Payment", loadStatus:["Verified", "Partially Paid"], nextStatus:"Paid", privilegedRoles:['a','b'], buttonText:"Make Payment", paymentStage:true, viewStage:false,canReject:false },
+	{currentStage:'Approval',displayName:"Approve Applicants", loadStatus:["Paid"], nextStatus:"Approved", privilegedRoles:['a','c'], buttonText:"Approve", paymentStage:false, viewStage:false,canReject:true},
+	{currentStage:'Approved',displayName:"Approved Applicants", loadStatus:["Approved"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Approved", paymentStage:false, viewStage:true,canReject:false},
+	{currentStage:'Rejected',displayName:"Rejected Applicants", loadStatus:["Rejected"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Rejected", paymentStage:false, viewStage:true,canReject:false}
 
 	];	
 
@@ -398,7 +399,7 @@ $scope.printReceipt = function(orderForm){
 var receiptDetail = {};
 
 //function to update the orderform status
-$scope.updateOrderFormStatus = function(){
+$scope.updateOrderFormStatus = function(type){
 
 	console.clear();
 
@@ -410,7 +411,6 @@ $scope.updateOrderFormStatus = function(){
 
 	// creating a copy of the original orderForm to hold the updated values, this is done like this to prevent a false notification to the user before the actual database update gets carried out
 	var updatedOrderForm = angular.copy($scope.data.approveOrderForm);
-	console.log($scope.data.approveOrderForm);
 
 	//set the status of the userinfo by looping inside the updatedOrderForm object
 	var request = {};
@@ -420,16 +420,45 @@ $scope.updateOrderFormStatus = function(){
 
 	// a variable to hold a single account transaction this will be added to the actTransactions array
 	var actTransaction = {};
+	
+
 
 	for (var i in updatedOrderForm.orderDetails){
 		var currentOrderDetail = updatedOrderForm.orderDetails[i];
 		
+		updatedOrderForm.orderDetails[i].rejectedCount=0;
+		updatedOrderForm.orderDetails[i].approvedCount=0;
+		updatedOrderForm.orderDetails[i].verifiedCount=0;
+		updatedOrderForm.orderDetails[i].allocatedCount=0;
+		updatedOrderForm.orderDetails[i].pendingApprovalCount=0;
+		updatedOrderForm.orderDetails[i].resubmitCount=0;
+
+
 		for (var j in currentOrderDetail.userInfo){
 			
 			request = currentOrderDetail.userInfo[j];
 
 			var d = new Date();
-			
+							/*counting the status here*/
+				if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Rejected')){
+					updatedOrderForm.orderDetails[i].rejectedCount=updatedOrderForm.orderDetails[i].rejectedCount+1;
+				}
+				if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Approved')){
+					updatedOrderForm.orderDetails[i].approvedCount=updatedOrderForm.orderDetails[i].approvedCount+1;
+				}	
+				if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Verified')){
+					updatedOrderForm.orderDetails[i].verifiedCount=updatedOrderForm.orderDetails[i].verifiedCount+1;
+				}
+				if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Allocated')){
+					updatedOrderForm.orderDetails[i].allocatedCount=updatedOrderForm.orderDetails[i].allocatedCount+1;
+				}
+				if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Pending Approval')){
+				updatedOrderForm.orderDetails[i].pendingApprovalCount=updatedOrderForm.orderDetails[i].pendingApprovalCount+1;
+				}
+				if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Pending Approval')){
+					updatedOrderForm.orderDetails[i].resubmitCount=updatedOrderForm.orderDetails[i].resubmitCount+1;
+				}
+				/**************************/
 			if(!angular.equals(request.statusTobeChangedTo, undefined)){
 				
 				//set the variable that at least one entry has been selected
@@ -442,14 +471,23 @@ $scope.updateOrderFormStatus = function(){
 				var statusHistory = {};
 
 				statusHistory.previousStatus = request.status;
-				statusHistory.statusChangedTo = request.statusTobeChangedTo;
+				if(!angular.equals(type,'reject')){
+					statusHistory.statusChangedTo = request.statusTobeChangedTo;
+				}else{
+					statusHistory.statusChangedTo = 'Rejected';
+				}
 				statusHistory.statusChangedOn = d.toISOString();
 				statusHistory.statusChangedby = $scope.rmId;
 
 				request.statusHistory.push(statusHistory);
+				if(!angular.equals(type,'reject')){
+					//change the current status
+					request.status = request.statusTobeChangedTo;
+				}else{
+					request.status = "Rejected";
+				}
 
-				//change the current status
-				request.status = request.statusTobeChangedTo;
+				
 
 				// if the stage is a payment stage set the data for the in a different object
 				if($scope.currentStage.paymentStage){
@@ -624,7 +662,11 @@ $scope.updateOrderFormStatus = function(){
 
 	// exiting the function if no entry has been selected for status change
 	if(!minimumSelection){
+		if(!angular.equals(type,'reject')){
 			$alert({title:'Operation Aborted. ',content:'Please select at least one entry to ' + $scope.currentStage.buttonText, placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'warning', show:true});
+			}else{
+				$alert({title:'Operation Aborted. ',content:'Please select at least one entry to Reject', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'warning', show:true});
+			}
 			return false;
 	}
 
@@ -637,8 +679,13 @@ $scope.updateOrderFormStatus = function(){
 		}
 
 		orderFormStatusHistory.previousStatus = updatedOrderForm.status;
-		orderFormStatusHistory.statusChangedTo = $scope.currentStage.nextStatus;
-	
+		//condition to check if the user clicked 'reject' button or not
+		if(!angular.equals(type,'reject')){
+			
+			orderFormStatusHistory.statusChangedTo = $scope.currentStage.nextStatus;
+		}else{
+			orderFormStatusHistory.statusChangedTo = 'Rejected';
+		}
 		orderFormStatusHistory.statusChangedOn = d.toISOString();
 		orderFormStatusHistory.statusChangedby = $scope.rmId;
 		
@@ -662,7 +709,7 @@ $scope.updateOrderFormStatus = function(){
 	console.log($scope.paymentReceipt);
     
 	
-	var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm,actTransactions, $scope.paymentReceipt);
+	/*var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm,actTransactions, $scope.paymentReceipt);
 
 	updateOrderForm.then(function(response){
 		var result = angular.fromJson(JSON.parse(response.data));
@@ -670,11 +717,15 @@ $scope.updateOrderFormStatus = function(){
 		if(angular.equals(result.type, 'success')){
 			$scope.data.approveOrderForm = updatedOrderForm;
 			delete updatedOrderForm;
-			$alert({title:'Done. ',content:'The statuses have been set to ' + $scope.currentStage.nextStatus + ' successfully.', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'success', show:true});
-
+			//cheking the status is rejected or not
+			if(!angular.equals(type,'reject')){
+				$alert({title:'Done. ',content:'The statuses have been set to ' + $scope.currentStage.nextStatus + ' successfully.', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'success', show:true});
+			}else{
+				$alert({title:'Done. ',content:'The statuses have been set to Rejected successfully.', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'success', show:true});
+			}
 			if(!angular.equals(result.data,undefined) && $scope.currentStage.paymentStage){
 				$scope.paymentReceipt = result.data;
-						//setting the model of the amounts and discounts to 0
+				//setting the model of the amounts and discounts to 0
 		 		for(var i in $scope.currencyArray){
 		 			var currentCurrencyRow = $scope.currencyArray[i];
 		 			currentCurrencyRow.amount = 0;
@@ -693,7 +744,7 @@ $scope.updateOrderFormStatus = function(){
 			$alert({title:'Error. ',content:'We could not update the statuses this time, please click on the "' + $scope.currentStage.buttonText + '" button to retry.', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'danger', show:true});
 		}
 
-	});
+	});*/
 
 
 
