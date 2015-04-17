@@ -10,29 +10,84 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 
 
 			//an array to hold the unit of the penalty
-			scope.penaltyUnits = ["%", 'Times'];
+			scope.penaltyUnits = [{label:"% of this assignment's mark", value:"% of this assignment's mark"}
+			, {label:"times of this assignment's mark", value:"times of this assignment's mark"},
+			{label:'Marks', value:'Marks'}];
 
 			//an array to hold the submission modes
-			scope.penaltySubmissionModes = ["submission is late by","re-submitted","re-submission is late by"];
+			scope.penaltySubmissionModes = [
+			{label:"submission is late",value:"submission is late"},
+			{label:"re-submitted",value:"re-submitted"},
+			{label:"re-submission is late",value:"re-submission is late"}];
+
+			scope.selectedIcon = "Globe";
+			scope.icons = [{"value":"Gear","label":"<i class=\"fa fa-gear\"></i> Gear"},{"value":"Globe","label":"<i class=\"fa fa-globe\"></i> Globe"},{"value":"Heart","label":"<i class=\"fa fa-heart\"></i> Heart"},{"value":"Camera","label":"<i class=\"fa fa-camera\"></i> Camera"}];
+
 			//array to hold the penalty time units
-			scope.penaltyTimeUnits = ["days","hours","months"];
+			scope.penaltyTimeUnits = [
+			{label:"days", value:"days"},
+			{label:"hours", value:"hours"},
+			{label:"months", value:"months"}];
+
+			//an array to hold the configuration for - whether the marks to be reduced once or on each consedutive day
+			scope.penaltyFrequencies = [
+			{label:"one time", value:"one time"},
+			{label:"each day delayed", value:"each day delayed"}];
+
+			//array to hold the information of -from which mars the resuction should be done
+			scope.reduceFromMarks = [
+			{label:"this assignment's mark", value:"this assignment's mark"},
+			{label:"total course marks", value:"total course marks"}];
 
 			//creating an array for penalty configuration
 			scope.penaltyArray = [];
 
 			//creating a penalty object
-			var penaltyObj = {
+			scope.penaltyObj = {
 				reductionUnits:'',
-				penaltyCalculationUnit:'',
-				submissionMode:'',
+				penaltyCalculationUnit:"% of this assignment's mark",
+				reduceFrom:"total course marks",
+				penaltyFrequency:'one time',
+				submissionMode:'submission is late',
 				lateTime:'',
-				lateTimeUnits:''
+				lateTimeUnits:'days'
 			};
 
-			// pushing the first object into the penaltyArray
-			scope.penaltyArray.push(angular.copy(penaltyObj));
+			// a function to add the rule
+			scope.addPenaltyRule = function(){
+				scope.penaltyArray.push(angular.copy(scope.penaltyObj));
+				scope.penaltyObj = {
+					reductionUnits:'',
+					penaltyCalculationUnit:"% of this assignment's mark",
+					reduceFrom:"total course marks",
+					penaltyFrequency:'one time',
+					submissionMode:'submission is late',
+					lateTime:'',
+					lateTimeUnits:'days'
+				}
+			}
 
+			//function to remove rule
+			scope.removeRule = function(index) {
+				scope.penaltyArray.splice(index,1);
+			}
 			
+			//function to edit rule
+			scope.editRule = function(rule) {
+				scope.penaltyObj = rule;
+				scope.ruleEditMode = true;
+			}
+
+			//function to show or hide the from parameter based on selected values
+			scope.showReduceFrom = function(reduceFrom) {
+
+				if (angular.equals(reduceFrom, "this assignment's mark")) {
+					return "";
+				}
+				else{
+					return "from " + reduceFrom;
+				}
+			}
 
 
 

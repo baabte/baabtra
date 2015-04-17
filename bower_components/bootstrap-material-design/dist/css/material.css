@@ -4850,7 +4850,7 @@ body .jumbotron-material-blue-grey-A700,
   text-transform: uppercase;
   text-decoration: none;
   color: rgba(255, 255, 255, 0.84);
-  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  /*transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);*/
   outline: none !important;
 }
 .btn:hover:not(.btn-link):not(.btn-flat):not(.btn-fab) {
