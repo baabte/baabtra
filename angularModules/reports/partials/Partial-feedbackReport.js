@@ -27,13 +27,16 @@ if(!angular.equals($stateParams.feedbackId,undefined)){
 	var feedbackResponse = feedbackList.fnLoadFeedbackReport($stateParams.feedbackId);
 		feedbackResponse.then(function(response){ //getting the promise of feedback response
 			$scope.reportList=angular.fromJson(JSON.parse(response.data));
+      // console.log($scope.reportList);
 			$scope.feedbackList=[];
 			angular.forEach($scope.reportList,function(value, key){ //forech to build the new object for loading the feedback report
 				var obj={};
 				obj.question=value.question;
 				$scope.chart.data=value.data;
+        // console.log($scope.chart);
 				$scope.chart.options.title=value.question.replace(/<\/?[^>]+>/gi, ''); //to replace html tags
 				obj.chart=angular.copy($scope.chart); //to copy the object
+        // console.log(obj);
 				$scope.feedbackList.push(obj);
 			});
 	});
