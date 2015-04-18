@@ -106,6 +106,17 @@ if(!angular.equals($scope.formlist,undefined) && !angular.equals($scope.allSync.
     }, true);
 
 $scope.data = {};
+$scope.data.requesteeDetailsCompleted = false;
+$scope.data.requesteeDetails = {};
+
+if(angular.equals($state.params.ofId,"")){
+	$scope.data.requesteeDetails.type = $state.params.key;
+	console.log($scope.data.requesteeDetails.type);
+}
+else{
+	$scope.data.requesteeDetailsCompleted = true;
+}
+
 
 if(!angular.equals($state.params.ofId,"")){
 	var orderFormResponse = nomination.fnLoadOrderFormById($state.params.ofId);
@@ -117,8 +128,42 @@ if(!angular.equals($state.params.ofId,"")){
 }
 
 
-$scope.fnUserRegister =function () {
+$scope.requisteTypeChanged = function( requisteType ){
+	$scope.data.requesteeDetails = {};
+	$scope.data.requesteeDetails.type = requisteType;
+	$scope.data.requesteeDetails.gender = "Male";
+};
+
+$scope.requesteDetailsCompleted = function(){
+	$scope.data.requesteeDetailsCompleted = true;
+};
+
+
+$scope.checkUserAlreadyExists = function(){
 	
+	if(!angular.equals($scope.data.requesteeDetails.eMail,undefined)){
+		var companyCustomerDetailsResponse = nomination.fnLoadCompanyCustomerDetails($scope.data.requesteeDetails.eMail, companyId, $scope.data.requesteeDetails.type);
+		companyCustomerDetailsResponse.then(function(response){
+			console.log(angular.fromJson(JSON.parse(response.data)));
+			if(!angular.equals(angular.fromJson(JSON.parse(response.data)), null)){
+				$scope.data.requesteeDetails = angular.fromJson(JSON.parse(response.data));
+			}
+			
+		});
+	}
+};
+
+
+$scope.fnUserRegister =function () {
+
+	if(angular.equals($scope.data.requesteeDetails.type,'self')){
+		console.log($scope.data.requesteeDetails.type);
+		$scope.data.requesteeDetails.firstName = $scope.allSync.FormData.firstName;
+		$scope.data.requesteeDetails.lastName = $scope.allSync.FormData.lastName;
+		$scope.data.requesteeDetails.eMail = $scope.allSync.FormData.eMail;
+		$scope.data.requesteeDetails.dob = $scope.allSync.FormData.dob;
+	}
+
 	var time=(new Date()).valueOf();
 	hashids = new Hashids("this is a id for mentees");
 	var userUniqueId = 'RQ-' + hashids.encode(time);
@@ -148,7 +193,7 @@ $scope.fnUserRegister =function () {
 		var courseImageUploadResponse = commonSrv.fnFileUpload($scope.allSync.FormData[filePaths[index]],filePaths[index]);
   				courseImageUploadResponse.then(function(response){
   				var imagePath = response.data.replace('"','').replace('"','');
-          		$scope.allSync.FormData[filePaths[$scope.fileUpload]] = bbConfig.BWS + 'files/'+ filePaths[index] +'/' + imagePath;
+          		$scope.allSync.FormData[filePaths[$scope.fileUpload]] = bbConfig.BWS + 'files/'+ filePaths[$scope.fileUpload] +'/' + imagePath;
           		$scope.fileUpload ++;
         	});
 		}
@@ -177,6 +222,9 @@ $scope.fnUserRegister =function () {
 		$scope.data.orderForm.orderDetails = [];
 
 		
+		$scope.data.orderForm.requesteeDetails = $scope.data.requesteeDetails;
+		
+		
 		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
 
 		courseLoadResponse.then(function(course){
@@ -190,7 +238,6 @@ $scope.fnUserRegister =function () {
 			courseDetails.PaidCount=0;
 			courseDetails.ApprovedCount=0;
 			courseDetails.RejectedCount=0;
-		    courseDetails.PendingApprovalCount=0;
 
 	    	if(!course.Fees.free){
 	    		courseDetails.currency = course.Fees.currency.currency;
@@ -249,6 +296,11 @@ $scope.fnUserRegister =function () {
 
 		}
 		else{
+
+			if(angular.equals($scope.data.requesteeDetails.type,'self')){
+				$scope.data.orderForm.requesteeDetails = $scope.data.requesteeDetails;
+			}
+
 			var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
 
 			courseLoadResponse.then(function(course){
@@ -262,7 +314,7 @@ $scope.fnUserRegister =function () {
 		    	courseDetails.PaidCount=0;
 		    	courseDetails.ApprovedCount=0;
 		    	courseDetails.RejectedCount=0;
-		    	courseDetails.PendingApprovalCount=0;
+
 		    	if(!course.Fees.free){
 		    		courseDetails.currency = course.Fees.currency.currency;
 		    		courseDetails.coursePrice = course.Fees.totalAmount;
