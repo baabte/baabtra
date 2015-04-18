@@ -83,9 +83,16 @@ var FetchCandidateReportCallBack=candidateReport.FetchCandidateReport(courseFetc
          };
          // $scope.candidateReport.type="PieChart";
           $scope.candidateReport= { //dummy object
-                                  "type":"PieChart",  
+                                  "type":"PieChart", 
+                                  "displayExactValues": true, 
                                   "options": {
                                     "title": "Courses and Candidates",
+                                    "vAxis":{
+                                      "title":"Candidates"
+                                    },
+                                    "hAxis": {
+                                        "title": "Course"
+                                      },
                                     "tooltip": {
                                       "isHtml": true
                                     },
