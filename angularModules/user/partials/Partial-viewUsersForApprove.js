@@ -366,7 +366,16 @@ var fillActTransaction = function(updatedOrderForm, currentOrderDetail, mode, ac
 
 					var inequalityArray = [undefined,null,0];
 						if(angular.equals(inequalityArray.indexOf(discount), -1) && discount <= 100) {
-							amount = currentOrderDetail.coursePrice - Math.ceil(currentOrderDetail.coursePrice * (Math.floor(discount)/100));
+							if(angular.equals(actHead.type,'Course')){
+								amount = currentOrderDetail.coursePrice;
+							}
+							else if(angular.equals(actHead.type,'Discount')){
+								amount=Math.ceil(currentOrderDetail.coursePrice * (Math.floor(discount)/100));
+							}
+							else{
+								amount = currentOrderDetail.coursePrice - Math.ceil(currentOrderDetail.coursePrice * (Math.floor(discount)/100));	
+							}
+							
 						}
 						else{
 							amount = currentOrderDetail.coursePrice;
@@ -426,12 +435,12 @@ $scope.updateOrderFormStatus = function(type){
 	for (var i in updatedOrderForm.orderDetails){
 		var currentOrderDetail = updatedOrderForm.orderDetails[i];
 		
-		/*updatedOrderForm.orderDetails[i].rejectedCount=0;
-		updatedOrderForm.orderDetails[i].approvedCount=0;
-		updatedOrderForm.orderDetails[i].verifiedCount=0;
-		updatedOrderForm.orderDetails[i].allocatedCount=0;
-		updatedOrderForm.orderDetails[i].pendingApprovalCount=0;
-		updatedOrderForm.orderDetails[i].resubmitCount=0;*/
+		updatedOrderForm.orderDetails[i].RejectedCount=0;
+		updatedOrderForm.orderDetails[i].ApprovedCount=0;
+		updatedOrderForm.orderDetails[i].VerifiedCount=0;
+		updatedOrderForm.orderDetails[i].AllocatedCount=0;
+		updatedOrderForm.orderDetails[i].PendingApprovalCount=0;
+		updatedOrderForm.orderDetails[i].ResubmitCount=0;
 
 
 		for (var j in currentOrderDetail.userInfo){
@@ -439,26 +448,7 @@ $scope.updateOrderFormStatus = function(type){
 			request = currentOrderDetail.userInfo[j];
 
 			var d = new Date();
-							/*counting the status here*/
-				/*if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Rejected')){
-					updatedOrderForm.orderDetails[i].rejectedCount=updatedOrderForm.orderDetails[i].rejectedCount+1;
-				}
-				if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Approved')){
-					updatedOrderForm.orderDetails[i].approvedCount=updatedOrderForm.orderDetails[i].approvedCount+1;
-				}	
-				if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Verified')){
-					updatedOrderForm.orderDetails[i].verifiedCount=updatedOrderForm.orderDetails[i].verifiedCount+1;
-				}
-				if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Allocated')){
-					updatedOrderForm.orderDetails[i].allocatedCount=updatedOrderForm.orderDetails[i].allocatedCount+1;
-				}
-				if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Pending Approval')){
-				updatedOrderForm.orderDetails[i].pendingApprovalCount=updatedOrderForm.orderDetails[i].pendingApprovalCount+1;
-				}
-				if(angular.equals(updatedOrderForm.orderDetails[i].userInfo[j].status,'Pending Approval')){
-					updatedOrderForm.orderDetails[i].resubmitCount=updatedOrderForm.orderDetails[i].resubmitCount+1;
-				}*/
-				/**************************/
+
 			if(!angular.equals(request.statusTobeChangedTo, undefined)){
 				
 				//set the variable that at least one entry has been selected
@@ -487,10 +477,22 @@ $scope.updateOrderFormStatus = function(type){
 					request.status = "Rejected";
 				}
 
-
+				
 
 				// if the stage is a payment stage set the data for the in a different object
 				if($scope.currentStage.paymentStage){
+
+					var discount = 0;
+					var currency = '';
+					//calculating the amount
+					for (var k in $scope.currencyArray){
+						var currentCurrency = $scope.currencyArray[k];
+						if(angular.equals(currentCurrency.currency,currentOrderDetail.currency)){
+							discount = currentCurrency.discount; 
+							currency = currentCurrency.currency; 
+						}
+					}
+
 
 					if(angular.equals(actTransactions, undefined)){
 						var actTransactions = [];			
@@ -509,6 +511,23 @@ $scope.updateOrderFormStatus = function(type){
 					var actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'credit', actHead, 'Course Sales','By Cash');
 					
 					actTransactions.push(actTransaction);
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+					//if there is discount, debitting the debitting
+
+					if(!angular.equals(discount, 0)) {
+
+						actHead = {};					
+						actHead.type = 'Discount';
+						actHead.details = {};
+
+						var actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'debit', actHead, 'Course Sales','By Cash');
+						
+						actTransactions.push(actTransaction);
+					}
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+
 				
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -529,7 +548,6 @@ $scope.updateOrderFormStatus = function(type){
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 					//crediting the requestee
-
 					actHead = {};					
 					actHead.type = 'Requestee';
 					actHead.details = {userId:request.userId,
@@ -566,17 +584,7 @@ $scope.updateOrderFormStatus = function(type){
 					$scope.paymentReceipt.totalPayableAmount = 0;
 				
 
-					var discount = 0;
-					var currency = '';
-					//calculating the amount
-					for (var k in $scope.currencyArray){
-						var currentCurrency = $scope.currencyArray[k];
-						if(angular.equals(currentCurrency.currency,currentOrderDetail.currency)){
-							discount = currentCurrency.discount; 
-							currency = currentCurrency.currency; 
-						}
-					}
-
+					
 
 
 					var amount = 0;
@@ -654,6 +662,13 @@ $scope.updateOrderFormStatus = function(type){
 				}
 			}
 
+		if(!angular.equals(request.status,'Pending Approval')){
+					updatedOrderForm.orderDetails[i][request.status+'Count']=updatedOrderForm.orderDetails[i][request.status+'Count']+1;
+		}else{
+					updatedOrderForm.orderDetails[i]['PendingApprovalCount']=updatedOrderForm.orderDetails[i]['PendingApprovalCount']+1;
+		}
+
+
 		delete request.checkedStatus;
 
 		}
@@ -697,6 +712,7 @@ $scope.updateOrderFormStatus = function(type){
 	}
 
 
+
 	//updating the details to the database
 	updatedOrderForm._id = updatedOrderForm._id.$oid;
 	updatedOrderForm.companyId = updatedOrderForm.companyId.$oid;
@@ -704,9 +720,10 @@ $scope.updateOrderFormStatus = function(type){
 	updatedOrderForm.crmId = updatedOrderForm.crmId.$oid;	
 	updatedOrderForm.createdDate = new Date($filter('date')(updatedOrderForm.createdDate.$date));	
 
-	console.log(updatedOrderForm);
-	console.log(actTransactions);
-	console.log($scope.paymentReceipt);
+	
+	// console.log(actTransactions);
+	
+
     
 	
 	var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm,actTransactions, $scope.paymentReceipt);
