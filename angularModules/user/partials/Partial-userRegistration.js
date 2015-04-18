@@ -96,7 +96,6 @@ $scope.stepCount=$scope.formlist.formSteps;
             $scope.role.roleId=$scope.roleId;
             $scope.role.formSchema=$scope.roleSchema[index].formSchema;
             $scope.role.formSteps=$scope.roleSchema[index].formSteps;
-            console.log($scope.role);  
             $scope.allSync.FormData.role=$scope.role;                  
           }
 
