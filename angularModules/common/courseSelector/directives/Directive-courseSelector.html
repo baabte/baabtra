@@ -17,7 +17,8 @@
 		<div class="col-xs-12">
 			<batch-loader courseobj="courseData" ng-model="courseData.batch"></batch-loader>
 		</div>
-		<div class="form-group ">
+		
+		<div class="form-group" ng-if="!courseData.batch.length">
 	            <label class="col-xs-12 control-label">Course Material Assignment</label>
 	            <div class="col-xs-12">
 	            	<div class="radio radio-primary col-xs-2" style="margin-top: 0px;">

@@ -139,6 +139,22 @@ $scope.requesteDetailsCompleted = function(){
 };
 
 
+$scope.checkUserAlreadyExists = function(){
+	
+	if(!angular.equals($scope.data.requesteeDetails.eMail,undefined)){
+		console.log($scope.data.requesteeDetails.eMail);
+		var companyCustomerDetailsResponse = nomination.fnLoadCompanyCustomerDetails($scope.data.requesteeDetails.eMail, companyId, $scope.data.requesteeDetails.type);
+		companyCustomerDetailsResponse.then(function(response){
+			console.log(angular.fromJson(JSON.parse(response.data)));
+			if(!angular.equals(angular.fromJson(JSON.parse(response.data)), null)){
+				$scope.data.requesteeDetails = angular.fromJson(JSON.parse(response.data));
+			}
+			
+		});
+	}
+};
+
+
 $scope.fnUserRegister =function () {
 
 	if(angular.equals($scope.data.requesteeDetails.type,'self')){
@@ -300,7 +316,7 @@ $scope.fnUserRegister =function () {
 		    	courseDetails.PaidCount=0;
 		    	courseDetails.ApprovedCount=0;
 		    	courseDetails.RejectedCount=0;
-		    	courseDetails.PendingApprovalCount=0;
+
 		    	if(!course.Fees.free){
 		    		courseDetails.currency = course.Fees.currency.currency;
 		    		courseDetails.coursePrice = course.Fees.totalAmount;
