@@ -1,9 +1,172 @@
-<div class="row">
+<div class="col-xs-12 bg-white">
+  <!-- Requestee details -->
+  <div class="row p-h" style="padding-bottom: 15px;" ng-if="!data.requesteeDetailsCompleted && data.requesteeDetails.type != 'self'">
+    <!-- Requiste type -->
+   <!--  <div class="p-sm b-b b-2x b-success">
+        <div class="p-h pull-left">Requisting as a</div>
+        <div class="radio radio-inline radio-info no-padding no-margin">
+          <label>
+            <input type="radio" name="requisteType" ng-change="requisteTypeChanged('company')" ng-model="data.requesteeDetails.type" value="company" checked="">Company
+          </label>
+        </div>
+        <div class="radio radio-inline radio-info">
+          <label>
+            <input type="radio" name="requisteType" ng-change="requisteTypeChanged('individual')" ng-model="data.requesteeDetails.type" value="individual">Individual
+          </label>
+        </div>
+    </div> -->
+    <form name="requesteDetails">
+      <div class="panel-body">
+    <!-- shows Requestee details, based on there type -->
+    <div  ng-if="data.requesteeDetails.type =='company'">
+      
+      <div class="col-xs-6 m-h-n">
 
-  <div class="col-sm-8 col-sm-offset-2">
+        <!-- Email -->
+        <div class="form-group">
+                <label  class="col-xs-3">Email</label>
+                <div class="col-xs-9">
+                    <input type="email"  ng-model="data.requesteeDetails.eMail" class="form-control" placeholder="Email ID" ng-blur="checkUserAlreadyExists()">
+                </div>
+        </div>
+      </div>
 
-    <div class="panel">
-  <form  name="userRegistrationForm"  class="form" xt-form editable-form novalidate>
+      <div class="col-xs-6 m-h-n">
+
+        <!-- Company Name -->
+        <div class="form-group">
+                <label  class="col-xs-3">Company Name</label>
+                <div class="col-xs-9">
+                    <input type="text" required ng-model="data.requesteeDetails.companyName" class="form-control" placeholder="Company Name">
+                </div>
+        </div>
+      </div>
+
+      <div class="col-xs-6 m-h-n">
+        <!-- contact person -->
+        <div class="form-group">
+          <label  class="col-xs-3">Contact person</label>
+          <div class="col-xs-9">
+            <input type="text" required ng-model="data.requesteeDetails.contactPerson" class="form-control" placeholder="Contact person">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-6 m-h-n">
+
+        <!-- Phone -->
+        <div class="form-group">
+                <label  class="col-xs-3">Phone</label>
+                <div class="col-xs-9">
+                    <input type="text" ng-model="data.requesteeDetails.phone" class="form-control" placeholder="Phone">
+                </div>
+        </div>
+      </div>
+
+      <div class="col-xs-6 m-h-n">
+
+        <!-- Address -->
+        <div class="form-group">
+                <label  class="col-xs-3">Address</label>
+                <div class="col-xs-9">
+                    <textarea class="form-control" rows="3" ng-model="data.requesteeDetails.address" placeholder="Address"></textarea>
+                </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div ng-if="data.requesteeDetails.type =='individual'">
+      
+      <div class="col-xs-6 m-h-n">
+
+        <!-- Email -->
+        <div class="form-group">
+                <label  class="col-xs-2">Email</label>
+                <div class="col-xs-10">
+                    <input type="email" ng-model="data.requesteeDetails.eMail" class="form-control" placeholder="Email" ng-blur="checkUserAlreadyExists()">
+                </div>
+        </div>
+      </div>
+
+      <div class="col-xs-6 m-h-n">
+
+        <!-- Phone -->
+        <div class="form-group">
+                <label  class="col-xs-2">Phone</label>
+                <div class="col-xs-10">
+                    <input type="text" ng-model="data.requesteeDetails.phone" class="form-control" placeholder="Phone">
+                </div>
+        </div>
+      </div>
+
+      <div class="col-xs-6 m-h-n">
+
+        <!-- First Name -->
+        <div class="form-group">
+                <label  class="col-xs-2">First Name</label>
+                <div class="col-xs-10">
+                    <input type="text"  ng-model="data.requesteeDetails.fname" class="form-control" placeholder="First Name">
+                </div>
+        </div>
+      </div>
+
+      
+
+      <div class="col-xs-6 m-h-n">
+
+        <!-- Last Name -->
+        <div class="form-group">
+                <label  class="col-xs-2">Last Name</label>
+                <div class="col-xs-10">
+                    <input type="text"  ng-model="data.requesteeDetails.lname" class="form-control" placeholder="Last Name">
+                </div>
+        </div>
+      </div>
+
+      <div class="col-xs-6 m-h-n">
+
+        <!-- Gender -->
+        <div class="col-xs-2 p-v">Gender</div>
+        <div class="col-xs-10 p-v">
+          <div class="radio radio-inline radio-info no-padding no-margin">
+            <label>
+              <input type="radio" name="Gender" ng-model="data.requesteeDetails.gender" value="Male" checked="">Male
+            </label>
+          </div>
+          <div class="radio radio-inline radio-info">
+            <label>
+              <input type="radio" name="Gender" ng-model="data.requesteeDetails.gender" value="Female">Female
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-6 m-h-n">
+
+        <!-- Address -->
+        <div class="form-group">
+                <label  class="col-xs-2">Address</label>
+                <div class="col-xs-10">
+                    <textarea class="form-control" rows="3" ng-model="data.requesteeDetails.address" placeholder="Address"></textarea>
+                </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="panel-footer text-right">
+     <button ng-disabled="requesteDetails.$invalid" type="button" ng-click="requesteDetailsCompleted()" class="btn btn-success baab-btn">Next</button>
+    </div>
+  </form>
+    
+  </div>
+
+<div class="row" ng-if="data.requesteeDetailsCompleted || data.requesteeDetails.type == 'self'">
+
+  <div class="col-sm-8 col-sm-offset-2 m-v">
+
+    <div class="shadow-z-2">
+    <form  name="userRegistrationForm"  class="form" xt-form editable-form novalidate>
       <div class="text-center bg-white">
           <div set-sub-heading-and-background-color class="p font-bold ">Training Request Form</div>
           <div class="p font-bold btn-material-blue-A400 col-xs-6" ng-class="{'baab-shadow':status.selected == 1}" ng-click="status.selected = 1" style="cursor: pointer;">Personal Details</div>
@@ -49,3 +212,4 @@
 </div>
 
 
+</div>
