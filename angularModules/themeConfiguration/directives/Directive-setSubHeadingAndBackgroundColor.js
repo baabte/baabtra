@@ -7,8 +7,8 @@ angular.module('baabtra').directive('setSubHeadingAndBackgroundColor',['$compile
      
 			 		
 					var subTitleAndBackColor=$rootScope.userinfo.ActiveUserData.subTitleAndBackColor;
-					console.log($rootScope.userinfo);
-					console.log(subTitleAndBackColor);
+					// console.log($rootScope.userinfo);
+					// console.log(subTitleAndBackColor);
 					if(!angular.equals(subTitleAndBackColor,undefined)){
 						if(!angular.equals(subTitleAndBackColor.SubTitlecolour,undefined)){
 							 $(element).addClass($rootScope.userinfo.ActiveUserData.subTitleAndBackColor.SubTitlecolour);	
