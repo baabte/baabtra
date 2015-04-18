@@ -57,10 +57,14 @@ angular.module('ui.bootstrap.contextMenu', [])
         var obj={key:key};
         courseElementvalue.courseId=$scope.selectedCourse._id.$oid;
         delete courseElementvalue.order;
-        if($scope.syncData.courseTimeline[$scope.instance][courseElementskey]){
-        courseElementvalue.index=$scope.syncData.courseTimeline[$scope.instance][courseElementskey].length;
-        }
-        else{
+        if($scope.syncData.courseTimeline[$scope.instance]){
+          if($scope.syncData.courseTimeline[$scope.instance][courseElementskey]){
+          courseElementvalue.index=$scope.syncData.courseTimeline[$scope.instance][courseElementskey].length;
+          }
+          else{
+            courseElementvalue.index=0;
+          }
+        }else{
           courseElementvalue.index=0;
         }
         courseElementvalue.tlPointInMinute=$scope.instance;
