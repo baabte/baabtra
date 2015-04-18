@@ -107,14 +107,14 @@ if(!angular.equals($scope.formlist,undefined) && !angular.equals($scope.allSync.
     }, true);
 
 $scope.data = {};
-$scope.data.requesteDetailsCompleted = false;
-$scope.data.requisiteDetails = {};
+$scope.data.requesteeDetailsCompleted = false;
+$scope.data.requesteeDetails = {};
 
 if(angular.equals($state.params.ofId,"")){
-	$scope.data.requisiteDetails.type = $state.params.key;
+	$scope.data.requesteeDetails.type = $state.params.key;
 }
 else{
-	$scope.data.requesteDetailsCompleted = true;
+	$scope.data.requesteeDetailsCompleted = true;
 }
 
 
@@ -129,13 +129,13 @@ if(!angular.equals($state.params.ofId,"")){
 
 
 $scope.requisteTypeChanged = function( requisteType ){
-	$scope.data.requisiteDetails = {};
-	$scope.data.requisiteDetails.type = requisteType;
-	$scope.data.requisiteDetails.gender = "Male";
+	$scope.data.requesteeDetails = {};
+	$scope.data.requesteeDetails.type = requisteType;
+	$scope.data.requesteeDetails.gender = "Male";
 };
 
 $scope.requesteDetailsCompleted = function(){
-	$scope.data.requesteDetailsCompleted = true;
+	$scope.data.requesteeDetailsCompleted = true;
 };
 
 
@@ -197,7 +197,7 @@ $scope.fnUserRegister =function () {
 		$scope.data.orderForm.companyId = companyId;
 		$scope.data.orderForm.orderFormId = orderFormId;
 		$scope.data.orderForm.orderDetails = [];
-		$scope.data.orderForm.requisiteDetails = $scope.data.requisiteDetails;
+		$scope.data.orderForm.requesteeDetails = $scope.data.requesteeDetails;
 
 		
 		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
