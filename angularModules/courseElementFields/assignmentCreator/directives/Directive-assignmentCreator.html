@@ -1,132 +1,169 @@
 <div class=" bg-white">
 	<form name="assignmentForm">
 
+	<div class="row">
+		<div class="col-xs-12">
+			<question-field fields-options-button ng-model="assignment.question"></question-field>
+		</div>
+	</div>	
 
+	<div class="row">
+		<div class="col-xs-12 m-v">			
+			<div class="col-xs-3 p-v">
+						<span class="font-bold" translate="{{'Time available for submission' | translate}}"></span>
+					</div>
+
+					<div class="col-xs-3">
+						<input type="number" class="form-control" name="assignmentDuration" xt-validate ng-model = "assignment.duration" >
+					</div>
+
+					<div class="col-xs-4">
+						<button type="button" class="btn btn-default" ng-model="assignment.durationUnit" data-html="1" ng-options="timeUnit.value as timeUnit.label for timeUnit in penaltyTimeUnits" bs-select>					
+						</button>						
+					</div>
+		</div>
+	</div>
 
 
 	<div class="row b-b">
-		<div class="col-xs-12 font-bold" translate="{{'Penality Rules' | translate}}" >
-		</div>
 		<div class="col-xs-12">
-			<em>Configure penalty rules for this assignment, use the below fields to construct a rule. (For eg. <strong class="text-success">Reduce</strong> 10% of this assignment's mark <strong class="text-success">from</strong> total course marks <strong class="text-success">for</strong> one time <strong class="text-success">when</strong> submission is late <strong class="text-success">by</strong> 5 days)</em>
+			<div class="col-xs-12 font-bold" translate="{{'Penality Rules' | translate}}" >
+			</div>
+			<div class="col-xs-12">
+				<em>Use the below fields to construct a penalty rule. a couple of examples are provided below for reference
+
+				<br> 
+
+				<strong class="text-default"><i> Example 1: &nbsp;</i></strong> <strong class="text-success">When</strong> submission is late <strong class="text-success">by</strong> 5 days, <strong class="text-success">block submission</strong> and <strong class="text-success">Reduce</strong> 10% of marks <strong class="text-success">for</strong> one time .
+
+
+				<br> 
+
+				<strong class="text-default"><i> Example 2: &nbsp;</i></strong> <strong class="text-success">When</strong> submission is late <strong class="text-success">by</strong> 5 days,  <strong class="text-success">Reduce</strong> 10% of marks <strong class="text-success">for</strong> each day delayed.
+
+				
+
+				</em>
+			</div>
 		</div>
 	</div>
 
 	<!-- Penalty rules addition section -->
-	<div class="row">		
-		<div class="col-xs-12 m-t">	
+	<div class="row">
+		<div class="col-xs-12">		
+			<div class="col-xs-12 col-md-5 m-t shadow-z-1">	
 
-			<!-- Reduce -->
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="col-xs-2">
-						<i class="font-bold" translate="{{'Reduce' | translate}}"></i>
+				<!-- When -->
+				<div class="row bg-light">
+					<div class="col-xs-12">
+						<div class="col-xs-3 p-v">
+							<i class="font-bold" translate="{{'When' | translate}}"></i>
+						</div>
+						
+						<div class="col-xs-4">
+							<button type="button" class="btn btn-default pull-left text-left" ng-model="penaltyObj.submissionMode" data-html="1" ng-options="mode.value as mode.label for mode in penaltySubmissionModes" bs-select style="padding-left:0px;">					
+							</button>
+						</div>
+
 					</div>
-
-					<div class="col-xs-4">
-						<input type="number" class="form-control" name="reductionUnits" xt-validate ng-model = "penaltyObj.reductionUnits" >
-					</div>
-
-					<div class="col-xs-4">
-						<button type="button" class="btn btn-default pull-left text-left" ng-model="penaltyObj.penaltyCalculationUnit" data-html="1" ng-options="unit.value as unit.label for unit in penaltyUnits" bs-select>					
-						</button>
-					</div>
-
 				</div>
-			</div> 
 
+				<!-- by -->
+				<div class="row bg-light">
+					<div class="col-xs-12">
+						<div class="col-xs-3 p-v">
+							<i class="font-bold" translate="{{'by' | translate}}"></i>
+						</div>
 
+						<div class="col-xs-3">
+							<input type="number" class="form-control" name="lateTime" xt-validate ng-model = "penaltyObj.lateTime" >
+						</div>
 
-			<!-- From -->
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="col-xs-2">
-						<i class="font-bold" translate="{{'From' | translate}}"></i>
+						<div class="col-xs-4">
+							<button type="button" class="btn btn-default" ng-model="penaltyObj.lateTimeUnits" data-html="1" ng-options="timeUnit.value as timeUnit.label for timeUnit in penaltyTimeUnits" bs-select style="padding-left:0px;">					
+							</button>
+							<span  class="font-bold"> , </span>
+						</div>
+
 					</div>
-
-					
-
-					<div class="col-xs-4">
-						<button type="button" class="btn btn-default pull-left text-left" ng-model="penaltyObj.reduceFrom" data-html="1" ng-options="from.value as from.label for from in reduceFromMarks" bs-select>
-						</button>
-					</div>
-
 				</div>
-			</div>
 
-			<!-- For -->
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="col-xs-2">
-						<i class="font-bold" translate="{{'For' | translate}}"></i>
-					</div>				
-					<div class="col-xs-4">
-						<button type="button" class="btn btn-default pull-left text-left" ng-model="penaltyObj.penaltyFrequency" data-html="1" ng-options="frequency.value as frequency.label for frequency in penaltyFrequencies" bs-select>					
-						</button>
+				<!-- Block -->
+				<div class="row">
+					<div class="col-xs-12 m-v">					
+						<div class="col-xs-push-3 col-xs-8">
+							<div class="checkbox" >
+		                    <label>
+
+		                        <input type="checkbox" ng-model="penaltyObj.blockSubmission" value="true">
+		                        <a style="color:#666666;" translate="{{'Block submission' | translate}}" ></a>
+		                         
+		                    </label>
+		                	</div>
+		                </div>
 					</div>
+				</div> 
 
+				<!-- Reduce -->
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="col-xs-3 p-v">
+							<i class="font-bold" ng-if="penaltyObj.blockSubmission" translate="{{'and' | translate}}"></i>
+							<i class="font-bold" translate="{{'reduce' | translate}}"></i>
+							
+						</div>
+
+						<div class="col-xs-3">
+							<input type="number" class="form-control" name="reductionUnits" xt-validate ng-model = "penaltyObj.reductionUnits" >
+						</div>
+
+						<div class="col-xs-4">
+							<button type="button" class="btn btn-default pull-left text-left" ng-model="penaltyObj.penaltyCalculationUnit" data-html="1" ng-options="unit.value as unit.label for unit in penaltyUnits" bs-select style="padding-left:0px;">					
+							</button>
+						</div>
+
+					</div>
+				</div> 
+
+
+				
+				<!-- For -->
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="col-xs-3 p-v">
+							<i class="font-bold" translate="{{'for' | translate}}"></i>
+						</div>				
+						<div class="col-xs-4">
+							<button type="button" class="btn btn-default pull-left text-left" ng-model="penaltyObj.penaltyFrequency" data-html="1" ng-options="frequency.value as frequency.label for frequency in penaltyFrequencies" bs-select style="padding-left:0px;">					
+							</button>
+						</div>
+
+					</div>
 				</div>
-			</div>
-
-			<!-- When -->
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="col-xs-2">
-						<i class="font-bold" translate="{{'When' | translate}}"></i>
-					</div>
-					
-					<div class="col-xs-4">
-						<button type="button" class="btn btn-default pull-left text-left" ng-model="penaltyObj.submissionMode" data-html="1" ng-options="mode.value as mode.label for mode in penaltySubmissionModes" bs-select>					
-						</button>
-					</div>
-
-				</div>
-			</div>
-
-			<!-- by -->
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="col-xs-2">
-						<i class="font-bold" translate="{{'by' | translate}}"></i>
-					</div>
-
-					<div class="col-xs-4">
-						<input type="number" class="form-control" name="lateTime" xt-validate ng-model = "penaltyObj.lateTime" >
-					</div>
-
-					<div class="col-xs-4">
-						<button type="button" class="btn btn-default" ng-model="penaltyObj.lateTimeUnits" data-html="1" ng-options="timeUnit.value as timeUnit.label for timeUnit in penaltyTimeUnits" bs-select>					
-						</button>
-					</div>
-
-				</div>
-			</div>		
-			
-		</div>
-		<div class="col-xs-12 p-v m-v-n" >
-				<button class="btn  btn-material-red baab-btn m-v-n pull-right" ng-show="!ruleEditMode"  ng-click="addPenaltyRule()"> <i class="mdi-content-add m-r"></i> Add Rule</button>
-				<button class="btn  btn-material-pink-500 baab-btn m-v-n pull-right" ng-show="ruleEditMode"  ng-click="ruleEditMode = false"> <i class="mdi-action-done m-r"></i> Update Rule</button>
-			</div>
-	</div>
-
-
-
-	
-
-	<!-- Penalty Rules repeater -->
-	<div class="row  shadow-z-1">
-		<div class="col-xs-11 m-t-xs" ng-repeat="rule in penaltyArray">	
-			<div class="col-xs-10 p-v">
-				{{$index + 1}}. Reduce {{rule.reductionUnits}}{{rule.penaltyCalculationUnit}} {{showReduceFrom(rule.reduceFrom)}} for {{rule.penaltyFrequency}} when {{rule.submissionMode}} by {{rule.lateTime}} {{rule.lateTimeUnits}}
+				
+				<div class="col-xs-12 p-v m-v-n" >
+					<button class="btn  btn-material-red baab-btn m-v-n pull-right" ng-show="!ruleEditMode"  ng-click="addPenaltyRule()"> <i class="mdi-content-add m-r"></i> Add Rule</button>
+					<button class="btn  btn-material-pink-500 baab-btn m-v-n pull-right" ng-show="ruleEditMode"  ng-click="ruleEditMode = false"> <i class="mdi-action-done m-r"></i> Update Rule</button>
+				</div>			
+				
 			</div>
 			
-			<div class="col-xs-1 p-v m-v-n">
-				<button class="btn  btn-material-red baab-btn m-v-n" bs-tooltip data-title="Remove Rule" data-placement="top"  ng-click="removeRule($index)"> <i class="mdi-action-delete"></i> </button>
+
+		<!-- Penalty Rules repeater -->
+		
+			<div class="col-xs-12 col-md-6 m-t-xs" ng-repeat="rule in penaltyArray">	
+				<div class="col-xs-8 col-md-10  p-v">
+					{{$index + 1}}. When {{rule.submissionMode}} by {{rule.lateTime}} {{rule.lateTimeUnits}},{{fnShowBlockSubmission(rule.blockSubmission)}} reduce {{rule.reductionUnits}}{{rule.penaltyCalculationUnit}} for {{rule.penaltyFrequency}} 
+				</div>
+				
+				<div class="col-xs-2 col-md-1  p-v m-v-n">
+					<button class="btn  btn-material-red baab-btn m-v-n" bs-tooltip data-title="Remove Rule" data-placement="top"  ng-click="removeRule($index)"> <i class="mdi-action-delete"></i> </button>
+				</div>
+				<div class="col-xs-2 col-md-1  p-v m-v-n">
+					<button class="btn  btn-material-red baab-btn m-v-n" bs-tooltip data-title="Edit Rule" data-placement="top"  ng-click="editRule(rule)"> <i class="mdi-editor-mode-edit"></i>  </button>
+				</div>		
+				
 			</div>
-			<div class="col-xs-1 p-v m-v-n">
-				<button class="btn  btn-material-red baab-btn m-v-n" bs-tooltip data-title="Edit Rule" data-placement="top"  ng-click="editRule(rule)"> <i class="mdi-editor-mode-edit"></i>  </button>
-			</div>		
-			
 		</div>
 	</div>
 
