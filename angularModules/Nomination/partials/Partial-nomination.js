@@ -238,7 +238,6 @@ $scope.fnUserRegister =function () {
 			courseDetails.PaidCount=0;
 			courseDetails.ApprovedCount=0;
 			courseDetails.RejectedCount=0;
-		    courseDetails.PendingApprovalCount=0;
 
 	    	if(!course.Fees.free){
 	    		courseDetails.currency = course.Fees.currency.currency;
