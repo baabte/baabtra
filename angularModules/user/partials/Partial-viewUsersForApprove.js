@@ -10,7 +10,6 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 		$state.go('login');
 	}
 	
-
 	$scope.coursePreviewObject={};
 	$scope.rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 	$scope.roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
@@ -76,8 +75,8 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 	{currentStage:'Payment',displayName:"Collect Payment", loadStatus:["Verified", "Partially Paid"], nextStatus:"Paid", privilegedRoles:['a','b'], buttonText:"Make Payment", paymentStage:true, viewStage:false,canReject:false },
 	{currentStage:'Approval',displayName:"Approve Applicants", loadStatus:["Paid"], nextStatus:"Approved", privilegedRoles:['a','c'], buttonText:"Approve", paymentStage:false, viewStage:false,canReject:true},
 	{currentStage:'Approved',displayName:"Approved Applicants", loadStatus:["Approved"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Approved", paymentStage:false, viewStage:true,canReject:false},
-	{currentStage:'Rejected',displayName:"Rejected Applicants", loadStatus:["Rejected"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Rejected", paymentStage:false, viewStage:true,canReject:false}
-
+	{currentStage:'Rejected',displayName:"Rejected Applicants", loadStatus:["Rejected"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Rejected", paymentStage:false, viewStage:true,canReject:false},
+	{currentStage:'Allocated',displayName:"Allocated Applicants", loadStatus:["Allocated"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Allocated", paymentStage:false, viewStage:true,canReject:false}
 	];	
 
 	//.End == creating a mock of the global configuration of the company for the approval flow and access privileges for roles
@@ -89,7 +88,12 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 
 	//setting a current stage, this must be taken from the url since every stage will be having a menu link
 
-	var currentStageIndex = $stateParams.key;	
+	
+	var currentStageIndex = $stateParams.key;
+	//setting 0 as default key if we not passed any aky as $stateParams
+	if(angular.equals($stateParams.key,'')){
+		currentStageIndex=0;
+	}	
 	$scope.currentStage = {};
 	$scope.currentStage = $scope.approvalFlow[currentStageIndex];
 
@@ -408,7 +412,7 @@ $scope.printReceipt = function(orderForm){
 var receiptDetail = {};
 
 //function to update the orderform status
-$scope.updateOrderFormStatus = function(type){
+$scope.updateOrderFormStatus = function(type,hide){
 
 	console.clear();
 
@@ -439,7 +443,7 @@ $scope.updateOrderFormStatus = function(type){
 		updatedOrderForm.orderDetails[i].ApprovedCount=0;
 		updatedOrderForm.orderDetails[i].VerifiedCount=0;
 		updatedOrderForm.orderDetails[i].AllocatedCount=0;
-		updatedOrderForm.orderDetails[i].PendingApprovalCount=0;
+		//updatedOrderForm.orderDetails[i].PendingApprovalCount=0;
 		updatedOrderForm.orderDetails[i].ResubmitCount=0;
 
 
@@ -664,8 +668,6 @@ $scope.updateOrderFormStatus = function(type){
 
 		if(!angular.equals(request.status,'Pending Approval')){
 					updatedOrderForm.orderDetails[i][request.status+'Count']=updatedOrderForm.orderDetails[i][request.status+'Count']+1;
-		}else{
-					updatedOrderForm.orderDetails[i]['PendingApprovalCount']=updatedOrderForm.orderDetails[i]['PendingApprovalCount']+1;
 		}
 
 
@@ -712,7 +714,7 @@ $scope.updateOrderFormStatus = function(type){
 	}
 
 
-
+	delete updatedOrderForm.showDetails;
 	//updating the details to the database
 	updatedOrderForm._id = updatedOrderForm._id.$oid;
 	updatedOrderForm.companyId = updatedOrderForm.companyId.$oid;
@@ -720,18 +722,13 @@ $scope.updateOrderFormStatus = function(type){
 	updatedOrderForm.crmId = updatedOrderForm.crmId.$oid;	
 	updatedOrderForm.createdDate = new Date($filter('date')(updatedOrderForm.createdDate.$date));	
 
-	
-	// console.log(actTransactions);
-	
-
-    
-	
 	var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm,actTransactions, $scope.paymentReceipt);
 
 	updateOrderForm.then(function(response){
 		var result = angular.fromJson(JSON.parse(response.data));
 		
 		if(angular.equals(result.type, 'success')){
+			hide; //hide the modal
 			$scope.data.approveOrderForm = updatedOrderForm;
 			delete updatedOrderForm;
 			//cheking the status is rejected or not
