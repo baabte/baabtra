@@ -1,33 +1,16 @@
-<div class="tab-container col-md-12"> <div class="panel b-t b-00C853 bg-light dk"><div class="panel-heading font-bold text-white bg-00C853 p baab-shadow" translate="{{'User Report'|translate}}"></div>
+<div class="tab-container col-md-12"> <div class="panel b-t b-00C853 bg-light dk"><div set-sub-heading-and-background-color class="panel-heading font-bold text-white  p baab-shadow" translate="{{'Candidate Report'|translate}}"></div>
 <div class="panel-body col-md-12 bg-white animated fadeInRight p-sm b-b-danger b-b-3x"  >
 	
 	<div class="col-sm-4 col-md-4" style="padding-left: 0px">
-		 <form name="Form_Adding_form" ng-submit="AddCompanyRole()" class="form-validation" role="form" xt-form novalidate>
+		 <form name="Form_Adding_form"  class="form-validation" role="form" xt-form novalidate>
 
-		 		<!-- <paper-input-decorator label="Name of the role" floatinglabel="">
-      					<input is="core-input" name="roleName" required xt-validate ng-model="roleName">
-    			</paper-input-decorator>		 -->
-
-    
-<!--     <div class="form-group">
-    		<select class="form-control" ng-model="search.name" ng-options="technology.name as technology.name for technology in rpt.technologies">
-       		<option value="">-- chose name --</option>
-    	</select>
-    </div> -->
-
-    <!-- Filering table data and chart data
-    <input type="text" class="form-control floating-label" placeholder="Any" ng-model="search.$"> <br>
-     <input type="text"  class="form-control floating-label" placeholder="" ng-model="search.name"><br>
-    <input type="text" class="form-control floating-label"  placeholder="Phone only" ng-model="search.phone"><br> -->
-    <!--  <input type="checkbox" class="checkbox" ng-model="strict" placeholder="Equality"><br>
- -->
     			<div class="form-group col-sm-5">                                  
-               <select  class="form-control" float-label placeholder="{{'Report type'|translate}}" xt-validate name="rptType" data-bv-field="Report Types" ng-model="type" ng-options="rptType.type for rptType in reportTypeList"  required>
-               <option value="">Select a report type</option> 
+              <!--  <select  class="form-control" float-label placeholder="{{'Report type'|translate}}" xt-validate name="rptType" data-bv-field="Report Types" ng-model="type" ng-options="course.type for course in courselist"  required>
+               <option value="">Select a Course</option>  -->
                <!--  <option value="other">Other</option>         -->                 
                 </select>
-                </div><div class="form-group col-sm-5">
-                <select class="form-control" float-label placeholder="{{'Chart type'|translate}}" xt-validate name="chartType" data-bv-field="Chart Type" id="chartType" ng-model="obj[type.id].type" >
+                <!-- </div><div class="form-group col-sm-5"> -->
+                <select class="form-control" float-label placeholder="{{'Chart type'|translate}}" xt-validate name="chartType" data-bv-field="Chart Type" id="chartType" ng-model="candidateReport.type" >
                  
       			        <option value="AreaChart" selected="selected">AreaChart</option>
       			        <option value="PieChart">PieChart</option>
@@ -40,8 +23,10 @@
     </form>
 	</div>
   <div class="col-sm-8 col-md-8 panel-default">
-    <div google-chart chart="obj[type.id]" style="{{cssStyle}}">
+    <div google-chart chart="candidateReport" style="{{cssStyle}}">
+
   </div>
+  {{obj[type.id]}}
 </div>
 </div>
 </div>
