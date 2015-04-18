@@ -15,7 +15,6 @@ angular.module('baabtra').controller('NominationCtrl',['$scope','bbConfig','$roo
 	var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 	/*login detils ends*/
 
-	console.log($state.params.key);
 
 $scope.status={};
 $scope.status.selected=1;
@@ -112,6 +111,7 @@ $scope.data.requesteeDetails = {};
 
 if(angular.equals($state.params.ofId,"")){
 	$scope.data.requesteeDetails.type = $state.params.key;
+	console.log($scope.data.requesteeDetails.type);
 }
 else{
 	$scope.data.requesteeDetailsCompleted = true;
@@ -140,7 +140,15 @@ $scope.requesteDetailsCompleted = function(){
 
 
 $scope.fnUserRegister =function () {
-	
+
+	if(angular.equals($scope.data.requesteeDetails.type,'self')){
+		console.log($scope.data.requesteeDetails.type);
+		$scope.data.requesteeDetails.firstName = $scope.allSync.FormData.firstName;
+		$scope.data.requesteeDetails.lastName = $scope.allSync.FormData.lastName;
+		$scope.data.requesteeDetails.eMail = $scope.allSync.FormData.eMail;
+		$scope.data.requesteeDetails.dob = $scope.allSync.FormData.dob;
+	}
+
 	var time=(new Date()).valueOf();
 	hashids = new Hashids("this is a id for mentees");
 	var userUniqueId = 'RQ-' + hashids.encode(time);
@@ -197,8 +205,10 @@ $scope.fnUserRegister =function () {
 		$scope.data.orderForm.companyId = companyId;
 		$scope.data.orderForm.orderFormId = orderFormId;
 		$scope.data.orderForm.orderDetails = [];
-		$scope.data.orderForm.requesteeDetails = $scope.data.requesteeDetails;
 
+		
+		$scope.data.orderForm.requesteeDetails = $scope.data.requesteeDetails;
+		
 		
 		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
 
@@ -272,6 +282,11 @@ $scope.fnUserRegister =function () {
 
 		}
 		else{
+
+			if(angular.equals($scope.data.requesteeDetails.type,'self')){
+				$scope.data.orderForm.requesteeDetails = $scope.data.requesteeDetails;
+			}
+
 			var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
 
 			courseLoadResponse.then(function(course){
