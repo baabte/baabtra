@@ -1,5 +1,8 @@
 <div class="row">
 	<div class="col-xs-12 bg-white">
+  	<div ng-if="!data.companOrderForms" class="alert alert-dismissable alert-danger">
+      <strong translate="{{'There are no any approved users exists.!'|translate}}"></strong> 
+	</div>
 		<div ng-if="data.companOrderForms && $state.current.name == 'home.main.viewOrderForm'"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>		
 		<!-- ng-if="showOrderFormOnStatus(orderForm.status) && getOptions(orderForm.status,$index).length"	 -->
 			<div masonry-tile    class="tile col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm shadow-z-1 no-padding m-xs" ng-repeat="orderForm in data.companOrderForms.orderFroms">
