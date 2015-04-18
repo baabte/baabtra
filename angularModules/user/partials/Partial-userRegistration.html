@@ -4,7 +4,7 @@
     <div class="panel">
   
       <div class="text-center panel-heading bg-white">
-          <h2>Complete your profile</h2>
+          <h3 translate="{{'Registration'|translate}}"></h3>
           
           <div ng-hide="currentState=='home.main.userRegistration.step5'" id="status-buttons" class="text-center">
               <a ui-sref-active="active" ng-class="{'active':status.selected === $index+1}" ng-repeat="i in formlist.formSchema " ng-click="status.selected=$index+1"><span>{{$index+1}}</span></a>
