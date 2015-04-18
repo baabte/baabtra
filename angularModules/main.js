@@ -86,7 +86,7 @@ angular.module('baabtra')
           'bg-light dk'
         ]
       };
-
+     
       $scope.header ={} ;
       $scope.header.type = "Header";
       $scope.roleId = bbConfig.CURID;
