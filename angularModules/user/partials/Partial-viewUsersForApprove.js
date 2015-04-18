@@ -341,7 +341,10 @@ var fillActTransaction = function(updatedOrderForm, currentOrderDetail, mode, ac
 					actTransaction.activeFlag = 1;
 					actTransaction.actHead = {};
 					actTransaction.actHead = actHead;
-						
+					// if(updatedOrderForm.requesteeDetails){
+					// 	actTransactions.actHead.requesteeType=updatedOrderForm.requesteeDetails.type;
+					// 	actTransactions.actHead.companyName=updatedOrderForm.requesteeDetails.type;
+					// }
 					actTransaction.debit = {};
 					actTransaction.credit = {};
 
@@ -430,7 +433,6 @@ $scope.updateOrderFormStatus = function(type){
 	// a variable to hold a single account transaction this will be added to the actTransactions array
 	var actTransaction = {};
 	
-
 
 	for (var i in updatedOrderForm.orderDetails){
 		var currentOrderDetail = updatedOrderForm.orderDetails[i];
