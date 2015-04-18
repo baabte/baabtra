@@ -58,7 +58,7 @@
                 <div class="line b-b b-light m-h-xs"></div>                
               </div>
             </script>
-            <a ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" class="no-padding-h" href ng-click="redirectTothemeConfiguration()" bs-tooltip data-title="Customize theme"  data-placement="bottom-left">
+            <a ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" class="no-padding-h" href ng-click="redirectTothemeConfiguration()" bs-tooltip data-title="Customize theme"  data-placement="left">
               <i class="mdi-image-color-lens text-2x"></i>
               <span class="visible-xs-inline" translate="{{'Settings'|translate}}"></span>
             </a>
@@ -106,16 +106,14 @@
     <!--           <span class="visible-xs-inline">Notifications</span> -->
             </a>
           </li>
-          <!--end button for gloabal settings -->
-          <!-- <li class="hidden-xs">
-            <a href ui-fullscreen><i class="glyphicon glyphicon-resize-vertical"></i></a>
-          </li> -->
-          <li>            
-            <a href class="clear no-padding-h" bs-aside="aside" data-template="angularModules/login/partials/Partial-sm_User_Menu.html" data-placement="right" data-animation="am-slide-right aside-open-inner modal-open" data-container="body">
+     
+        <!--   title="Title" data-content="Hello Popover<br />This is a multiline message!" data-template="views/accountInfo.html" data-animation="am-flip-x" -->
+          <li >       
+            <a  href class="clear no-padding-h" bs-aside="aside" data-template="angularModules/login/partials/Partial-sm_User_Menu.html" data-placement="right" data-animation="am-slide-right aside-open-inner modal-open" data-container="body">
               <qrcode ng-if="!userinfo.ActiveUserData.roleMappingObj.avatar.length" version="2" size="30" color="#4A148C" ng-click="$hide()" class="navbar-img  pull-right m-l-xs m-r-xs" data="{{userinfo.ActiveUserData.username}}" ></qrcode>
               <img  ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length" ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" alt="..." class="navbar-img img-circle pull-right m-r-xs m-l-xs">
               <span class="m-l m-r">{{userinfo.ActiveUserData.username}}</span>
-              <b class="fa fa-caret-left m-h-xs m-r-xs m-l-xs"></b>
+              <b  class="fa fa-caret-left m-h-xs m-r-xs m-l-xs"></b>
             </a>
           </li>
         </ul>
