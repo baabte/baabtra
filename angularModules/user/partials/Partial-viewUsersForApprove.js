@@ -366,7 +366,16 @@ var fillActTransaction = function(updatedOrderForm, currentOrderDetail, mode, ac
 
 					var inequalityArray = [undefined,null,0];
 						if(angular.equals(inequalityArray.indexOf(discount), -1) && discount <= 100) {
-							amount = currentOrderDetail.coursePrice - Math.ceil(currentOrderDetail.coursePrice * (Math.floor(discount)/100));
+							if(angular.equals(actHead.type,'Course')){
+								amount = currentOrderDetail.coursePrice;
+							}
+							else if(angular.equals(actHead.type,'Discount')){
+								amount=Math.ceil(currentOrderDetail.coursePrice * (Math.floor(discount)/100));
+							}
+							else{
+								amount = currentOrderDetail.coursePrice - Math.ceil(currentOrderDetail.coursePrice * (Math.floor(discount)/100));	
+							}
+							
 						}
 						else{
 							amount = currentOrderDetail.coursePrice;
@@ -473,6 +482,18 @@ $scope.updateOrderFormStatus = function(type){
 				// if the stage is a payment stage set the data for the in a different object
 				if($scope.currentStage.paymentStage){
 
+					var discount = 0;
+					var currency = '';
+					//calculating the amount
+					for (var k in $scope.currencyArray){
+						var currentCurrency = $scope.currencyArray[k];
+						if(angular.equals(currentCurrency.currency,currentOrderDetail.currency)){
+							discount = currentCurrency.discount; 
+							currency = currentCurrency.currency; 
+						}
+					}
+
+
 					if(angular.equals(actTransactions, undefined)){
 						var actTransactions = [];			
 					}
@@ -490,6 +511,23 @@ $scope.updateOrderFormStatus = function(type){
 					var actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'credit', actHead, 'Course Sales','By Cash');
 					
 					actTransactions.push(actTransaction);
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+					//if there is discount, debitting the debitting
+
+					if(!angular.equals(discount, 0)) {
+
+						actHead = {};					
+						actHead.type = 'Discount';
+						actHead.details = {};
+
+						var actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'debit', actHead, 'Course Sales','By Cash');
+						
+						actTransactions.push(actTransaction);
+					}
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+
 				
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -510,7 +548,6 @@ $scope.updateOrderFormStatus = function(type){
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 					//crediting the requestee
-
 					actHead = {};					
 					actHead.type = 'Requestee';
 					actHead.details = {userId:request.userId,
@@ -547,17 +584,7 @@ $scope.updateOrderFormStatus = function(type){
 					$scope.paymentReceipt.totalPayableAmount = 0;
 				
 
-					var discount = 0;
-					var currency = '';
-					//calculating the amount
-					for (var k in $scope.currencyArray){
-						var currentCurrency = $scope.currencyArray[k];
-						if(angular.equals(currentCurrency.currency,currentOrderDetail.currency)){
-							discount = currentCurrency.discount; 
-							currency = currentCurrency.currency; 
-						}
-					}
-
+					
 
 
 					var amount = 0;
@@ -693,9 +720,10 @@ $scope.updateOrderFormStatus = function(type){
 	updatedOrderForm.crmId = updatedOrderForm.crmId.$oid;	
 	updatedOrderForm.createdDate = new Date($filter('date')(updatedOrderForm.createdDate.$date));	
 
-	console.log(updatedOrderForm);
-	console.log(actTransactions);
-	console.log($scope.paymentReceipt);
+	
+	// console.log(actTransactions);
+	
+
     
 	
 	var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm,actTransactions, $scope.paymentReceipt);

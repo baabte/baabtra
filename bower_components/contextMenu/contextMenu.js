@@ -30,12 +30,10 @@ angular.module('ui.bootstrap.contextMenu', [])
 
       $scope.ExistingMaterials=angular.copy($scope.$parent.$parent.$parent.$parent.$parent.ExistingMaterials);
 
-      // console.log($scope.ExistingMaterials);
       $scope.status={};
       $scope.selectedCourse={};
       $scope.searchText={};
       $scope.fnselectCourse =function(course){
-        // console.log(course)
         $scope.selectedCourse=course;
       };
 
@@ -45,18 +43,15 @@ angular.module('ui.bootstrap.contextMenu', [])
       $scope.$watch('previewOut', function(){
 
         if ($scope.previewOut.courseElement){
-            // console.log($scope.previewOut.courseElement)
             var courseElement=angular.copy($scope.previewOut.courseElement);
             $scope.fnSaveElement(courseElement);
         }
 
       },true);
       // $scope.previewOut.hide={};
-      // console.log($scope)
 
 
       $scope.fnSaveElement =function(courseElementvalue){
-        // console.log({tlpointkey:tlpointkey,courseElementskey:courseElementskey,courseElementvalue:courseElementvalue});
         var courseElementskey=courseElementvalue.Name;
         var key=$scope.instance+'.'+courseElementskey;
         var obj={key:key};
@@ -126,7 +121,6 @@ angular.module('ui.bootstrap.contextMenu', [])
                          $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
                          $contextMenu.remove();
                          $scope.item=item;
-                         coonsole.log(item)
                          //taking template for form builder to take required inputs of 
                          //selected context menu
                          $scope.itemTemplate = item.courseElementTemplate;
@@ -473,14 +467,11 @@ angular.module('ui.bootstrap.contextMenu', [])
               var unbindWatchOnThis=$scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if($scope.ItsTimeToSaveDataToDB===true){
                     //---by arun to create unique code 
-                    // console.log(courseObj.key);
                      var time=new Date().valueOf();//date in millisecs11
                      var hashids = new Hashids(courseObj.key,8);//
                      var code = hashids.encode(time);  
                      courseObj[courseObj.key].code=code;
-                     // console.log(courseObj);
                     //--- end by arun to create unique code 
-                    // console.log(courseObj);
                     addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);//saving to database
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once
                     $hide();
