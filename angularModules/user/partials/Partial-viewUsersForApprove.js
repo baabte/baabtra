@@ -343,7 +343,7 @@ var fillActTransaction = function(updatedOrderForm, currentOrderDetail, mode, ac
 					actTransaction.actHead = actHead;
 					// if(updatedOrderForm.requesteeDetails){
 					// 	actTransactions.actHead.requesteeType=updatedOrderForm.requesteeDetails.type;
-					// 	actTransactions.actHead.companyName=updatedOrderForm.requesteeDetails.type;
+					// 	actTransactions.actHead.companyCustomerId=updatedOrderForm.requesteeDetails.companyCustomerId;
 					// }
 					actTransaction.debit = {};
 					actTransaction.credit = {};
