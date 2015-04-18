@@ -25,7 +25,7 @@
 		<div ng-if="data.companOrderForms.orderFroms.length==0" class="alert alert-danger" style="position:fixed; width:101%;">
       	<strong translate="{{'There are no any order form found.!'|translate}}"></strong> 
 		</div>
-			<div class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 p-sm shadow-z-1 no-padding no-margin pull-left bg-white" ng-repeat="orderForm in data.companOrderForms.orderFroms | filter:data.searchText">
+			<div class="col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-sm shadow-z-1 no-padding no-margin pull-left bg-white" ng-repeat="orderForm in data.companOrderForms.orderFroms | filter:data.searchText">
 				<div class="set-full-height  p-sm no-padding" style="cursor: pointer;">
 					<div class="pull-left shadow-z-1 col-xs-12 p">						
 						<span>&nbsp;</span>
@@ -34,10 +34,10 @@
 						<span class="m-l"><strong translate="{{'From:'|translate}}">&nbsp;</strong>
 						<user-card user-id="orderForm.crmId.$oid"></user-card></span>
 							
-						<i ng-if="!orderForm.showDetails" class="p-l-xs m-l mdi-navigation-unfold-more text-md pull-right p-l-xs" ng-click="orderForm.showDetails=true" ><span class="hidden-xs" translate="{{'Expand'|translate}}"></span></i>
-						<i ng-if="orderForm.showDetails" class="p-l-xs m-l mdi-navigation-unfold-less text-md pull-right p-l-xs" ng-click="orderForm.showDetails=false" ><span class="hidden-xs" translate="{{'Collapse'|translate}}"></span></i>
-						<i class="mdi-navigation-check text-md pull-right p-l-xs" ng-click="approveOrderForm(orderForm)"><span class="hidden-xs">{{currentStage.buttonText}}</span></i>
-						<i class="mdi-action-visibility text-md pull-right m-r p-l-xs" ng-click="viewOrderForm(orderForm)"><span class="hidden-xs"  translate="{{'View'|translate}}"></span></i>
+						<i ng-if="!orderForm.showDetails" class="m-l mdi-navigation-unfold-more text-md pull-right p-xs" ng-click="orderForm.showDetails=true" title="{{'Expand'|translate}}"><span class="hidden-xs" translate="{{'Expand'|translate}}"></span></i>
+						<i ng-if="orderForm.showDetails" class="m-l mdi-navigation-unfold-less text-md pull-right p-xs" ng-click="orderForm.showDetails=false" title="{{'Collapse'|translate}}"><span class="hidden-xs" translate="{{'Collapse'|translate}}"></span></i>
+						<i class="mdi-navigation-check text-md pull-right p-xs" ng-click="approveOrderForm(orderForm)" title="{{currentStage.buttonText}}"><span class="hidden-xs">{{currentStage.buttonText}}</span></i>
+						<i class="mdi-action-visibility text-md pull-right m-r p-xs" ng-click="viewOrderForm(orderForm)" title="{{'View'|translate}}"><span class="hidden-xs"  translate="{{'View'|translate}}"></span></i>
 						
 					</div>
 					</div>
