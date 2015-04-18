@@ -142,7 +142,6 @@ $scope.requesteDetailsCompleted = function(){
 $scope.checkUserAlreadyExists = function(){
 	
 	if(!angular.equals($scope.data.requesteeDetails.eMail,undefined)){
-		console.log($scope.data.requesteeDetails.eMail);
 		var companyCustomerDetailsResponse = nomination.fnLoadCompanyCustomerDetails($scope.data.requesteeDetails.eMail, companyId, $scope.data.requesteeDetails.type);
 		companyCustomerDetailsResponse.then(function(response){
 			console.log(angular.fromJson(JSON.parse(response.data)));
@@ -194,7 +193,7 @@ $scope.fnUserRegister =function () {
 		var courseImageUploadResponse = commonSrv.fnFileUpload($scope.allSync.FormData[filePaths[index]],filePaths[index]);
   				courseImageUploadResponse.then(function(response){
   				var imagePath = response.data.replace('"','').replace('"','');
-          		$scope.allSync.FormData[filePaths[$scope.fileUpload]] = bbConfig.BWS + 'files/'+ filePaths[index] +'/' + imagePath;
+          		$scope.allSync.FormData[filePaths[$scope.fileUpload]] = bbConfig.BWS + 'files/'+ filePaths[$scope.fileUpload] +'/' + imagePath;
           		$scope.fileUpload ++;
         	});
 		}
