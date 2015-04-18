@@ -79,8 +79,9 @@ scope.fetchBatch =function(){
              //    }else{
              //        joinDate=join.toISOString(); 
              //    } 
-           joinDate=join.toISOString(); 
-           courseType = scope.courseobj.coursetype;
+           joinDate=join.toISOString();
+
+           courseType = scope.courseobj.coursetype?scope.courseobj.coursetype:'';
            scope.batchElements=[];
            if(!angular.equals(courseId,undefined)){
 
