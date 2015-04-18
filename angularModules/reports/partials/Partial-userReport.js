@@ -85,7 +85,7 @@ var FetchCandidateReportCallBack=candidateReport.FetchCandidateReport(courseFetc
           $scope.candidateReport= { //dummy object
                                   "type":"PieChart",  
                                   "options": {
-                                    "title": "",
+                                    "title": "Courses and Candidates",
                                     "tooltip": {
                                       "isHtml": true
                                     },
