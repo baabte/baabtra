@@ -1558,11 +1558,14 @@ fg.controller('fgFormController', ["$scope", "$parse","$modal", function($scope,
   var self = this;
 
   this.init = function(dataExpression, schema, state, editMode) {
-
+    var ElemIndex = 0;
     // Edited by Anoop + Jihin to make the course object available in the formgen
     this.model.syncData = $scope.syncData;
     // Called by the directive
     this.model.genDropdown = function (index) {
+            console.clear();
+      console.log(index);
+      ElemIndex = index;
       var list=[{text:'<i class="fa fa-fw fa-trash"></i>&nbsp;Remove',"click": "form.removeCourseElementField("+index+")"},
                 {"divider": true},
                 {text:'<strong class="dropdown-submenu-title">Add</strong>',"href": "#"}];
@@ -1598,6 +1601,7 @@ fg.controller('fgFormController', ["$scope", "$parse","$modal", function($scope,
     }
     //function for add course element field
     this.model.addCourseElementField = function(courseElement,index){
+      
       $scope.debugObject = angular.fromJson(JSON.parse(courseElement.Debug));
       $scope.myOtherModal = $modal({scope: $scope, title: 'My Title', template: 'angularModules/courseElementFieldsManaging/partials/Popup-addCourseElementField.html',html:true, placement:'center', show: true});
       rootThis = this;
@@ -1606,7 +1610,7 @@ fg.controller('fgFormController', ["$scope", "$parse","$modal", function($scope,
         var date=new Date();
         $scope.debugObject.name ="field"+Math.floor(Math.random()*10)+date.getTime();
         //courseElement have the element to be insert
-        rootThis.schema.fields.splice(index+1,0,$scope.debugObject);
+        rootThis.schema.fields.splice(ElemIndex+1,0,$scope.debugObject);
       };
     } 
 

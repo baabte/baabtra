@@ -447,9 +447,15 @@ $scope.updateOrderFormStatus = function(type,hide){
 
 	for (var i in updatedOrderForm.orderDetails){
 		var currentOrderDetail = updatedOrderForm.orderDetails[i];
-	
+		currentOrderDetail.RejectedCount=0;
+		currentOrderDetail.ApprovedCount=0;
+		currentOrderDetail.VerifiedCount=0;
+		currentOrderDetail.AllocatedCount=0;
+		currentOrderDetail.PendingApprovalCount=0;
+		currentOrderDetail.ResubmitCount=0;
+
 		for (var j in currentOrderDetail.userInfo){
-			
+
 			request = currentOrderDetail.userInfo[j];
 
 			var d = new Date();
@@ -481,8 +487,8 @@ $scope.updateOrderFormStatus = function(type,hide){
 				}else{
 					request.status = "Rejected";
 				}
-
-				
+					//var orderDetails=$scope.data.approveOrderForm.orderDetails[key];
+			
 
 				// if the stage is a payment stage set the data for the in a different object
 				if($scope.currentStage.paymentStage){
@@ -667,12 +673,12 @@ $scope.updateOrderFormStatus = function(type,hide){
 				}
 			}
 
-		
-		
-		
+		//updating the status count	
+		currentOrderDetail[request.status.replace(' ','')+'Count']=currentOrderDetail[request.status.replace(' ','')+'Count']+1;
 		delete request.checkedStatus;
 
 		}
+
 	}
 
 
@@ -727,8 +733,8 @@ $scope.updateOrderFormStatus = function(type,hide){
 	if(!angular.equals(updatedOrderForm.createdDate.$date,undefined)){
 	updatedOrderForm.createdDate = new Date($filter('date')(updatedOrderForm.createdDate.$date));	
 	}
-	var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm,actTransactions, $scope.paymentReceipt);
 
+	var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm,actTransactions, $scope.paymentReceipt);
 	updateOrderForm.then(function(response){
 		var result = angular.fromJson(JSON.parse(response.data));
 		
@@ -747,7 +753,7 @@ $scope.updateOrderFormStatus = function(type,hide){
 		    		orderDetails.ApprovedCount=0;
 					orderDetails.VerifiedCount=0;
 					orderDetails.AllocatedCount=0;
-					//orderDetails.PendingApprovalCount=0;
+					orderDetails.PendingApprovalCount=0;
 					orderDetails.ResubmitCount=0;
 
 					for(var keyInner in orderDetails.userInfo){
@@ -769,7 +775,10 @@ $scope.updateOrderFormStatus = function(type,hide){
 				hide();
 				$scope.data.companOrderForms.orderFroms.splice($scope.currentOrderFormIndex,1); 
 			}
-
+			else{
+				$scope.data.companOrderForms.orderFroms[$scope.currentOrderFormIndex]=angular.copy($scope.data.approveOrderForm);
+			}
+			console.log($scope.data.approveOrderForm);
 			//--------------------------------------------------------------------------------------
 			//cheking the status is rejected or not
 			if(!angular.equals(type,'reject')){
