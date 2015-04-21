@@ -753,6 +753,16 @@
                 }
               })
 
+              .state('home.main.allocateEvaluator', {
+                url: '/allocateEvaluator/:batchMappingId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-allocateEvaluator.html',
+                    controller:'AllocateevaluatorCtrl'
+                  }
+                }
+              })
+
               .state('home.main.ILTAdmin', {
                 url: '/ILTAdmin',
                 views:{
