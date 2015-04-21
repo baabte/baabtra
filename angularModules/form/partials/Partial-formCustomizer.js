@@ -39,7 +39,7 @@ else{
 
 }
 
-
+//$scope.schemaObj={};
 
 $scope.status={};//status for the tick mark of all selections
  $scope.customForm.formSchema={};
