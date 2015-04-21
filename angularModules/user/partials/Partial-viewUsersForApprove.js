@@ -139,8 +139,9 @@ $scope.data.selectedStatusTypes = $scope.currentStage.loadStatus;
 
 	//function to trigger when an option from the options menu of each order form is clicked
 
-		$scope.approveOrderForm = function(orderForm){
+		$scope.approveOrderForm = function(orderForm,index){
 
+		$scope.currentOrderFormIndex=index;
 		//getting the order from to an object in scope
 		$scope.data.approveOrderForm = orderForm;
 
@@ -314,7 +315,7 @@ $scope.createCurrencyArray = function() {
 
 
 				var currentCourse = $scope.currentOrderForm.orderDetails[i];
-				console.log(currentCourse)
+				
 
 			if(angular.equals($scope.currencyArray.length,0)) {
 					$scope.currencyArray.push({currency:currentCourse.currency});				
@@ -345,10 +346,16 @@ var fillActTransaction = function(updatedOrderForm, currentOrderDetail, mode, ac
 					actTransaction.activeFlag = 1;
 					actTransaction.actHead = {};
 					actTransaction.actHead = actHead;
-					// if(updatedOrderForm.requesteeDetails){
-					// 	actTransactions.actHead.requesteeType=updatedOrderForm.requesteeDetails.type;
-					// 	actTransactions.actHead.companyCustomerId=updatedOrderForm.requesteeDetails.companyCustomerId;
-					// }
+					if(updatedOrderForm.requesteeDetails){
+						actTransaction.actHead.requesteeType=updatedOrderForm.requesteeDetails.type;
+						actTransaction.actHead.companyCustomerId=updatedOrderForm.requesteeDetails.companyCustomerId;
+						if(angular.equals(actTransaction.actHead.requesteeType,'company')){
+							actTransaction.actHead.name=updatedOrderForm.requesteeDetails.companyName;
+						}
+						else{
+							actTransaction.actHead.name=updatedOrderForm.requesteeDetails.firstName+' '+updatedOrderForm.requesteeDetails.lastName;
+						}
+					}
 					actTransaction.debit = {};
 					actTransaction.credit = {};
 
@@ -440,15 +447,7 @@ $scope.updateOrderFormStatus = function(type,hide){
 
 	for (var i in updatedOrderForm.orderDetails){
 		var currentOrderDetail = updatedOrderForm.orderDetails[i];
-		
-		updatedOrderForm.orderDetails[i].RejectedCount=0;
-		updatedOrderForm.orderDetails[i].ApprovedCount=0;
-		updatedOrderForm.orderDetails[i].VerifiedCount=0;
-		updatedOrderForm.orderDetails[i].AllocatedCount=0;
-		//updatedOrderForm.orderDetails[i].PendingApprovalCount=0;
-		updatedOrderForm.orderDetails[i].ResubmitCount=0;
-
-
+	
 		for (var j in currentOrderDetail.userInfo){
 			
 			request = currentOrderDetail.userInfo[j];
@@ -668,11 +667,9 @@ $scope.updateOrderFormStatus = function(type,hide){
 				}
 			}
 
-		if(!angular.equals(request.status,'Pending Approval')){
-					updatedOrderForm.orderDetails[i][request.status+'Count']=updatedOrderForm.orderDetails[i][request.status+'Count']+1;
-		}
-
-
+		
+		
+		
 		delete request.checkedStatus;
 
 		}
@@ -718,21 +715,62 @@ $scope.updateOrderFormStatus = function(type,hide){
 
 	delete updatedOrderForm.showDetails;
 	//updating the details to the database
-	updatedOrderForm._id = updatedOrderForm._id.$oid;
-	updatedOrderForm.companyId = updatedOrderForm.companyId.$oid;
-	updatedOrderForm.urmId = updatedOrderForm.urmId.$oid;
-	updatedOrderForm.crmId = updatedOrderForm.crmId.$oid;	
-	updatedOrderForm.createdDate = new Date($filter('date')(updatedOrderForm.createdDate.$date));	
 
+	if(!angular.equals(updatedOrderForm._id.$oid,undefined)){
+		updatedOrderForm._id = updatedOrderForm._id.$oid;}
+	if(!angular.equals(updatedOrderForm.companyId.$oid,undefined)){
+		updatedOrderForm.companyId = updatedOrderForm.companyId.$oid;}
+	if(!angular.equals(updatedOrderForm.urmId.$oid,undefined)){
+		updatedOrderForm.urmId = updatedOrderForm.urmId.$oid;}
+	if(!angular.equals(updatedOrderForm.crmId.$oid,undefined)){
+	updatedOrderForm.crmId = updatedOrderForm.crmId.$oid;}
+	if(!angular.equals(updatedOrderForm.createdDate.$date,undefined)){
+	updatedOrderForm.createdDate = new Date($filter('date')(updatedOrderForm.createdDate.$date));	
+	}
 	var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm,actTransactions, $scope.paymentReceipt);
 
 	updateOrderForm.then(function(response){
 		var result = angular.fromJson(JSON.parse(response.data));
 		
 		if(angular.equals(result.type, 'success')){
-			hide; //hide the modal
-			$scope.data.approveOrderForm = updatedOrderForm;
+			//hide; //hide the modal
+			$scope.data.approveOrderForm = angular.copy(updatedOrderForm);
 			delete updatedOrderForm;
+			//block to update the status count and hide the modal if count equal to 0
+			var countFlag=0;
+
+				
+
+				for(var key in $scope.data.approveOrderForm.orderDetails){
+					var orderDetails=$scope.data.approveOrderForm.orderDetails[key];
+				   	orderDetails.RejectedCount=0;
+		    		orderDetails.ApprovedCount=0;
+					orderDetails.VerifiedCount=0;
+					orderDetails.AllocatedCount=0;
+					//orderDetails.PendingApprovalCount=0;
+					orderDetails.ResubmitCount=0;
+
+					for(var keyInner in orderDetails.userInfo){
+						var userInfoInner=orderDetails.userInfo[keyInner];
+						orderDetails[userInfoInner.status.replace(' ','')+'Count']=orderDetails[userInfoInner.status.replace(' ','')+'Count']+1;
+						//for chceking the status exists in cusrentStage to hide the modal
+						if(!angular.equals($scope.currentStage.loadStatus.indexOf(userInfoInner.status),-1)){
+							countFlag=1;
+						}
+
+
+					}
+
+				}
+
+
+			if(angular.equals(countFlag,0)){
+
+				hide();
+				$scope.data.companOrderForms.orderFroms.splice($scope.currentOrderFormIndex,1); 
+			}
+
+			//--------------------------------------------------------------------------------------
 			//cheking the status is rejected or not
 			if(!angular.equals(type,'reject')){
 				$alert({title:'Done. ',content:'The statuses have been set to ' + $scope.currentStage.nextStatus + ' successfully.', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'success', show:true});
@@ -792,7 +830,7 @@ $scope.updateOrderFormStatus = function(type,hide){
 	    	});
 	    }
 	    else{
-	    	console.log(value[key]);
+	    	
 	    	$scope.data.approvedMenteesList[key] = [];
 	    }
   	};
@@ -815,7 +853,7 @@ $scope.updateOrderFormStatus = function(type,hide){
 		$scope.data.courseObject.course._id = key;
 		$scope.data.courseObject.coursetype = coursetype;
 		$scope.data.courseObject.doj = new Date();
-		console.log(JSON.stringify($scope.data.courseObject));
+		
 		
 		$scope.addUserToBatch = function($hide){
 			var allUsers = [];
@@ -847,7 +885,7 @@ $scope.updateOrderFormStatus = function(type,hide){
 			angular.forEach(usersUnderCourse,function(user){
 				
 				if(!angular.equals($scope.data.approvedMenteesList[key].indexOf(user.userId),-1)){
-					console.log($scope.data.approveOrderForm.orderDetails[key].Name);
+					
 					var time=(new Date()).valueOf();
 					hashids = new Hashids("password for"+ user.eMail);
 					userRegister.mandatoryData.eMail = user.eMail;
@@ -878,7 +916,7 @@ $scope.updateOrderFormStatus = function(type,hide){
 				});
 
 			});
-			$hide();
+			//$hide();
 		};
 		$modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-addUserToBatch.html', show: true});
 	}

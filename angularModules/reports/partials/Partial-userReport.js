@@ -81,7 +81,25 @@ var FetchCandidateReportCallBack=candidateReport.FetchCandidateReport(courseFetc
           $scope.chartData.push(array);
           array=[];
          };
-         $scope.candidateReport.type="PieChart";
+         // $scope.candidateReport.type="PieChart";
+          $scope.candidateReport= { //dummy object
+                                  "type":"PieChart", 
+                                  "displayExactValues": true, 
+                                  "options": {
+                                    "title": "Courses and Candidates",
+                                    "vAxis":{
+                                      "title":"Candidates"
+                                    },
+                                    "hAxis": {
+                                        "title": "Course"
+                                      },
+                                    "tooltip": {
+                                      "isHtml": true
+                                    },
+                                    'width':700,
+                                   'height':500
+                                  }
+                                };
          $scope.candidateReport.data=$scope.chartData;
         // console.log($scope.candidateReport);
   });
