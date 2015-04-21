@@ -15,17 +15,6 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
              if(angular.equals(scope.evaluator,undefined)){
                 scope.evaluator=[];
              }
-             else{
-                for(var index in scope.evaluator){
-                    if(!angular.equals(scope.evaluator[index].roleMappingId.$oid,undefined)){
-                    scope.evaluator[index].roleMappingId=scope.evaluator[index].roleMappingId.$oid;
-                    }
-                    else{
-
-                    }
-                }
-
-             }
              if(angular.equals(code,undefined)){
                         var time=new Date().valueOf();//date in millisecs11
                         var key=[scope.instance]+'.'+[scope.$parent.courseElement.Name];
