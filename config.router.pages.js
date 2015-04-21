@@ -733,6 +733,16 @@
                 }
                 
               })
+              .state('home.main.courseAllocate', {
+                url: '/courseAllocate',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/user/partials/Partial-courseAllocate.html',
+                    controller:'CourseallocateCtrl'
+                  }
+                }
+                
+              })
               .state('home.main.batchWithOption', {
                 url: '/manageBatch/:key',
                 views:{
