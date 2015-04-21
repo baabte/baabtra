@@ -635,7 +635,7 @@
                 
               })
                .state('home.main.viewBatches', {
-                url: '/viewBatches',
+                url: '/viewBatches/:key',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-viewBatches.html',
