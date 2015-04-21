@@ -17,22 +17,26 @@
     <span class="col-xs-12 m-v-md font-bold no-padding" style="text-transform:uppercase;">{{course.Name}}</span>
    
     <div class="col-xs-12 shadow-z-1 bg-white">
-    		 <div class="row m">
-                <div class="col-xs-12 m-t">
-                  <div class="col-xs-12 col-md-4 pull-left m-v-n" style="margin-left: -3px;">
-                    <div class="col-xs-12 col-sm-6" style="padding-top:5px;">
+    		<!--  <div class="row m"> -->
+                <div class="col-xs-12 no-padding">
+                 <div class="row"> 
+                 <div class="col-xs-12 no-padding">
+                  <div class="col-xs-4 col-md-2 text-center h-full p-v">
+                 <!--    <div class="col-xs-12" style="padding-top:5px;"> -->
                       <div class="checkbox no-padding">
                         <label>
                           <input ng-model="selectAll" value="true" ng-change="checkAll(selectAll,course)"  type="checkbox">Select All
                         </label> <!--  -->
                       </div>
-                    </div>
+                  <!--   </div> -->
                   </div>
-                  <div class="col-xs-12 col-md-8 pull-right text-right m-v-n">
-                      	<button class="btn btn-success baab-btn pull-right" translate="{{'Allocate to Batch'|translate}}" ng-click="fnAllocateToBatch('',course,$index,orderForm._id.$oid,'bulk')" data-ng-disabled=""></button>
-						<button ng-click="fnCreateBatch()" class="btn btn-success baab-btn pull-right" translate="{{'Create a New Batch'|translate}}"></button>
-                  </div>
+                  <div class="col-xs-8 col-md-10 text-center h-full p-v ">
+                      <button class="btn btn-success baab-btn pull-right" translate="{{'Allocate to Batch'|translate}}" ng-click="fnAllocateToBatch('',course,$index,orderForm._id.$oid,'bulk')" data-ng-disabled=""></button>
+            
+            <button ng-click="fnCreateBatch()" class="btn btn-success baab-btn pull-right" translate="{{'Create a New Batch'|translate}}"></button></div>
+                 
                 </div>
+              </div>
               </div>
     		<!--Filter the users who have status Approved using ng-if-->
             <div class="col-xs-12 p-sm no-padding" ng-if="mentee.status=='Approved'" ng-repeat="mentee in course.userInfo" style="margin-bottom:0px;">

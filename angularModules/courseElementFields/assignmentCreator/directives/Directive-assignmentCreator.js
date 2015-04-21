@@ -9,10 +9,24 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 		link: function(scope, element, attrs, fn) {
 
 
+			//defining an assignment object
+			if(angular.equals(scope.assignment, undefined)){
+				scope.assignment = {};
+			}
+
+			//defining an assignment question object
+			if(angular.equals(scope.assignment.question, undefined)){
+				scope.assignment.question = {};
+			}
+
+			//setting a duration unit
+			scope.assignment.durationUnit = "days";
+
+
 			//an array to hold the unit of the penalty
-			scope.penaltyUnits = [{label:"% of this assignment's mark", value:"% of this assignment's mark"}
-			, {label:"times of this assignment's mark", value:"times of this assignment's mark"},
-			{label:'Marks', value:'Marks'}];
+			scope.penaltyUnits = [{label:"% of marks", value:"% of marks"}
+			, {label:"times of marks", value:"times of marks"},
+			{label:'marks', value:'marks'}];
 
 			//an array to hold the submission modes
 			scope.penaltySubmissionModes = [
@@ -34,19 +48,16 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 			{label:"one time", value:"one time"},
 			{label:"each day delayed", value:"each day delayed"}];
 
-			//array to hold the information of -from which mars the resuction should be done
-			scope.reduceFromMarks = [
-			{label:"this assignment's mark", value:"this assignment's mark"},
-			{label:"total course marks", value:"total course marks"}];
+			
 
 			//creating an array for penalty configuration
 			scope.penaltyArray = [];
 
 			//creating a penalty object
 			scope.penaltyObj = {
+				blockSubmission:false,
 				reductionUnits:'',
-				penaltyCalculationUnit:"% of this assignment's mark",
-				reduceFrom:"total course marks",
+				penaltyCalculationUnit:"% of marks",				
 				penaltyFrequency:'one time',
 				submissionMode:'submission is late',
 				lateTime:'',
@@ -57,9 +68,9 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 			scope.addPenaltyRule = function(){
 				scope.penaltyArray.push(angular.copy(scope.penaltyObj));
 				scope.penaltyObj = {
+					blockSubmission:false,
 					reductionUnits:'',
-					penaltyCalculationUnit:"% of this assignment's mark",
-					reduceFrom:"total course marks",
+					penaltyCalculationUnit:"% of marks",					
 					penaltyFrequency:'one time',
 					submissionMode:'submission is late',
 					lateTime:'',
@@ -79,13 +90,13 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 			}
 
 			//function to show or hide the from parameter based on selected values
-			scope.showReduceFrom = function(reduceFrom) {
+			scope.fnShowBlockSubmission = function(blockSubmission) {
 
-				if (angular.equals(reduceFrom, "this assignment's mark")) {
-					return "";
+				if (blockSubmission) {
+					return "block submission and ";
 				}
 				else{
-					return "from " + reduceFrom;
+					return "";
 				}
 			}
 
