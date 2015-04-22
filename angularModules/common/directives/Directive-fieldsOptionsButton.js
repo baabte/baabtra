@@ -1,10 +1,13 @@
-angular.module('baabtra').directive('fieldsOptionsButton',['$compile','courseElementFieldsManaging','$modal', function($compile,courseElementFieldsManaging,$modal) {
+angular.module('baabtra').directive('fieldsOptionsButton',['$compile','courseElementFieldsManaging','$modal','$rootScope','bbConfig', function($compile,courseElementFieldsManaging,$modal, $rootScope, bbConfig) {
 	return {
 		restrict: 'EA',
 		//templateUrl: 'angularModules/common/directives/Directive-fieldsOptionsButton.html',
 		link: function(scope, element, attrs, fn) {
+			
 
-
+		if(angular.equals(bbConfig.MURID, $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId)) {
+			return;
+		}
 
 			var optionsBtn = '<i class="pull-right mdi-av-playlist-add text-2x " bs-tooltip data-title="Click to add more fields" data-placement="left" style="margin-top:-20px; position:relative; z-index:99999;"></i>';
 
@@ -103,7 +106,7 @@ angular.module('baabtra').directive('fieldsOptionsButton',['$compile','courseEle
 	            existingFields.splice(indexToAddAt,0,debugObject);
 	            
 
-	          ;
+	         
 
 			}	
 
