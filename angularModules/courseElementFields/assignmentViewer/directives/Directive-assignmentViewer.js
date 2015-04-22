@@ -71,11 +71,19 @@ angular.module('baabtra').directive('assignmentViewer', function() {
 			 }
 	}
 
+
+  }
+
+ //_______________________________________________________________________________________________
+
 	// -----------------------------------------------------------------------------------------------------
-		//applying penalty rules
+	//function to check whether penalty is applicable
+	var checkAndApplyPenalty = false;
+	var timeDiff = 0;
+    var checkForPenalty = function() {
 		//if(angular.equals(submitStatus,'submitted')) {
 
-				var checkAndApplyPenalty = false;
+				
 				//checking if there is an assigned date
 				if(!angular.equals(scope.$parent.previewData.assignedDate,undefined)){
 					
@@ -87,7 +95,7 @@ angular.module('baabtra').directive('assignmentViewer', function() {
 					
 					if(sumbittedDate > assignedDate){
 						checkAndApplyPenalty = true;
-						var timeDiff = Math.abs(sumbittedDate - assignedDate);
+						timeDiff = Math.abs(sumbittedDate - assignedDate);
 					}
 																																																											
 				//var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
@@ -104,28 +112,58 @@ angular.module('baabtra').directive('assignmentViewer', function() {
 					
 					if(sumbittedDate > (courseAssignedDate + tlPoint)){
 						checkAndApplyPenalty = true;
-						var timeDiff = Math.abs(sumbittedDate - (courseAssignedDate + tlPoint));	
+						timeDiff = Math.abs(sumbittedDate - (courseAssignedDate + tlPoint));	
 				}
 					
 			}
 
-			// if(checkAndApplyPenalty && totalMarksScored > 0){
-				var penaltyArray = scope.data.value.penaltyArray;
-
-				console.log(penaltyArray);
-			// }
-
-
 		//}
+	}
 // -----------------------------------------------------------------------------------------------------
 
+// function to apply penalty
+var findPenalty = function() {
+	var appliablePenalty ={};
 
-	
+	// if(checkAndApplyPenalty && totalMarksScored > 0){
+	var penaltyArray = scope.data.value.penaltyArray;
 
-  }
+	console.clear();
+	console.log(penaltyArray);
+				
 
- //_______________________________________________________________________________________________
+	// a metrics for the calculation in accordance with the late time units 
+	var calculationMetrics = {hours:3600000,
+							  days:86400000,
+							  months:2592000000};	
 
+	//finding out the applicable penalty obj
+	for (var i in penaltyArray){
+		currentPenaltyObj =penaltyArray [i];
+		currentDuration = parseInt(currentPenaltyObj.lateTime)*(calculationMetrics[currentPenaltyObj.lateTimeUnits]);
+
+		if(timeDiff>currentDuration){
+			appliablePenalty = currentPenaltyObj;
 		}
-	};
+	}
+
+	return appliablePenalty;
+			// }
+}
+
+// -----------------------------------------------------------------------------------------------------
+
+//function to apply the penalty
+var applyPenalty = function(penalty){
+
+	if(penalty.blockSubmission){
+		scope.blockSubmission = true;
+	}
+
+}
+
+applyPenalty();
+
+		}//.End link
+	};//.End return
 });
