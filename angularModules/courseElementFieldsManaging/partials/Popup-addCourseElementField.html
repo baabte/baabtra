@@ -4,22 +4,39 @@
        <form class="form-horizontal ng-pristine ng-valid" name="course_element_field" xt-form novalidate>
       <div class="modal-header">
         <h4 class="modal-title text-primary">
-        <b class="font-normal" translate="{{'Do you have a label for this'|translate}}"></b>
+        <b class="font-normal" translate="{{'Please select and configure the field to add'|translate}}"></b>
        <b class="font-normal"> {{debugObject.displayName}}?</b>
       </h4>
       </div>
-      <div class="modal-body">
-       
+      <div class="modal-body m-v">
+
+        <div class="row">
+          <div class="col-xs-12">       
+      
+        <!-- drop down to load the fields -->
+          <div class="col-xs-12 col-md-4">
+            <div multi-selectable selection-mode="single" input-model="courseElementFieldsDropdown" output-model="selectedField" button-label="iconToShow Name" item-label="iconToShow Name" tick-property="ticked" helper-elements="filter" default-label="Please Select a field to add" helper-elements="filter"></div>
+          </div>
+          <div class="col-xs-12 col-md-8">
+            <button type="button" class="btn btn-default" ng-model="addIndex" data-html="1" ng-options="add.value as add.label for add in addAt" bs-select>          
+            </button>
+          </div>
+         </div>
+        </div>
 
         <!-- Dispaly Name -->
-          <input class="form-control" float-label placeholder="{{'Dispaly Name'|translate}}"  ng-model="DispalyName">
-        {{currentObjectIndex}}
-        
+        <div class="row">
+          <div class="col-xs-12">
+            <input class="form-control" float-label placeholder="{{'Dispaly Name'|translate}}"  ng-model="dispalyName">
+            {{currentObjectIndex}}
+          </div>
+        </div>
+
       </div>
 
       <div class="modal-footer">
         <button class="pull-left baab-btn btn btn-warning" ng-disabled="Manage_course_element_fields.$invalid" disabled="disabled" ng-click="$hide()" type="button" translate="{{'Cancel'|translate}}"></button>
-        <button class="pull-right baab-btn btn btn-info"  ng-disabled="course_element_field.$invalid" ng-class="{'text-info':!course_element_field.$invalid}" disabled="disabled" type="button" ng-click="fnaddCourseElement(DispalyName,currentObjectIndex);$hide();" translate="{{'Save'|translate}}"></button>
+        <button class="pull-right baab-btn btn btn-info"  ng-disabled="(!selectedField.length || !dispalyName.length)" ng-class="{'text-info':!course_element_field.$invalid}" disabled="disabled" type="button" ng-click="fnaddCourseElement(selectedField,dispalyName, addIndex);$hide();" translate="{{'Add'|translate}}"></button>
       </div>
       </form>
     </div>

@@ -635,7 +635,7 @@
                 
               })
                .state('home.main.viewBatches', {
-                url: '/viewBatches',
+                url: '/viewBatches/:key',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-viewBatches.html',
@@ -749,6 +749,16 @@
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-viewBatchWithOption.html',
                     controller:'ViewbatchwithoptionCtrl'
+                  }
+                }
+              })
+
+              .state('home.main.allocateEvaluator', {
+                url: '/allocateEvaluator/:batchMappingId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-allocateEvaluator.html',
+                    controller:'AllocateevaluatorCtrl'
                   }
                 }
               })

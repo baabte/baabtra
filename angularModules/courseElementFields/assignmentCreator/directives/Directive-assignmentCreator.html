@@ -1,7 +1,6 @@
 <div class=" bg-white">
 	<form name="assignmentForm">
 
-	
 	<div class="row">
 		<div class="col-xs-12 m-v">			
 			<div class="col-xs-3 p-v">
@@ -9,11 +8,11 @@
 					</div>
 
 					<div class="col-xs-3">
-						<input type="number" class="form-control" name="assignmentDuration" xt-validate ng-model = "assignment.duration" >
+						<input type="number" class="form-control" name="assignmentDuration" xt-validate ng-model = "ngModel.duration.duration" >
 					</div>
 
 					<div class="col-xs-4">
-						<button type="button" class="btn btn-default" ng-model="assignment.durationUnit" data-html="1" ng-options="timeUnit.value as timeUnit.label for timeUnit in penaltyTimeUnits" bs-select>					
+						<button type="button" class="btn btn-default" ng-model="ngModel.duration.durationUnit" data-html="1" ng-options="timeUnit.value as timeUnit.label for timeUnit in penaltyTimeUnits" bs-select>					
 						</button>						
 					</div>
 		</div>
@@ -146,7 +145,8 @@
 
 		<!-- Penalty Rules repeater -->
 		
-			<div class="col-xs-12 col-md-6 m-t-xs" ng-repeat="rule in penaltyArray">	
+			<div class="col-xs-12 col-md-6 m-t-xs" ng-repeat="rule in ngModel.penaltyArray">
+
 				<div class="col-xs-8 col-md-10  p-v">
 					{{$index + 1}}. When {{rule.submissionMode}} by {{rule.lateTime}} {{rule.lateTimeUnits}},{{fnShowBlockSubmission(rule.blockSubmission)}} reduce {{rule.reductionUnits}}{{rule.penaltyCalculationUnit}} for {{rule.penaltyFrequency}} 
 				</div>
@@ -161,16 +161,6 @@
 			</div>
 		</div>
 	</div>
-
-
-	
-
-
-
-
-
-
-
 
 		<!-- <div class="form-group col-xs-12">
 			<input type="text" class="form-control" float-label ng-model="ngModel.deadLine" data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true" data-min-date="today" name="deadLine" bs-datepicker="" autocomplete="off" placeholder="Last Date of Submission">

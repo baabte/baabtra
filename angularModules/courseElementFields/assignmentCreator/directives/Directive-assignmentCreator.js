@@ -8,19 +8,23 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 		templateUrl: 'angularModules/courseElementFields/assignmentCreator/directives/Directive-assignmentCreator.html',
 		link: function(scope, element, attrs, fn) {
 
+			if(angular.equals(scope.ngModel, undefined)){
+				scope.ngModel={};
+				
+				//setting a duration unit
+				scope.ngModel.duration = {};
+				scope.ngModel.duration.durationUnit = "days";
+
+				//creating an array for penalty configuration
+				scope.ngModel.penaltyArray = [];
+			}
 
 			//defining an assignment object
 			if(angular.equals(scope.assignment, undefined)){
 				scope.assignment = {};
-			}
+			}			
 
-			//defining an assignment question object
-			if(angular.equals(scope.assignment.question, undefined)){
-				scope.assignment.question = {};
-			}
-
-			//setting a duration unit
-			scope.assignment.durationUnit = "days";
+			
 
 
 			//an array to hold the unit of the penalty
@@ -50,8 +54,7 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 
 			
 
-			//creating an array for penalty configuration
-			scope.penaltyArray = [];
+			
 
 			//creating a penalty object
 			scope.penaltyObj = {
@@ -66,7 +69,7 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 
 			// a function to add the rule
 			scope.addPenaltyRule = function(){
-				scope.penaltyArray.push(angular.copy(scope.penaltyObj));
+				scope.ngModel.penaltyArray.push(angular.copy(scope.penaltyObj));
 				scope.penaltyObj = {
 					blockSubmission:false,
 					reductionUnits:'',
@@ -80,7 +83,7 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 
 			//function to remove rule
 			scope.removeRule = function(index) {
-				scope.penaltyArray.splice(index,1);
+				scope.ngModel.penaltyArray.splice(index,1);
 			}
 			
 			//function to edit rule
