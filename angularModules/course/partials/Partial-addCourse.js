@@ -135,8 +135,8 @@ $scope.courseImageChanged = function($files){
   //function for upload course Image  
   var courseImageUploadResponse = commonSrv.fnFileUpload($files[0],"Course/courseImage");
   courseImageUploadResponse.then(function(response){
-          $scope.course.courseImg = bbConfig.BWS+'files/Course/courseImage/'+response.data.replace('"','').replace('"','');
-        });
+    $scope.course.courseImg = bbConfig.BWS+'files/Course/courseImage/'+response.data.replace('"','').replace('"','');
+  });
 };
 
 

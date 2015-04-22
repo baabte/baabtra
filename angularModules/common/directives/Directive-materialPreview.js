@@ -4,10 +4,16 @@ angular.module('baabtra').directive('materialPreview',['$modal', function($modal
 		replace: true,
 		scope: {
 			data:"=",
-			callFunction:'&'
+			addmaterial:"="
 		},
 		templateUrl: 'angularModules/common/directives/Directive-materialPreview.html',
 		link: function(scope, element, attrs, fn) {
+
+			scope.$watch('addmaterial', function(){				
+				if(scope.addmaterial){
+					scope.buttonShow=true;
+				}
+			});
 			// console.log(scope.data);
 			scope.elementPreview=function(){
 				
@@ -17,6 +23,7 @@ angular.module('baabtra').directive('materialPreview',['$modal', function($modal
            
 			};
 
+		
 		}
 	};
 }]);

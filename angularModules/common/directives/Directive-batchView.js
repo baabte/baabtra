@@ -30,6 +30,11 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 				"text": "<i class=\"fa fa-check\"></i>&nbsp;Evalute",
 				"click": "fnEvaluate()"
 
+				},
+				{
+				"text": "<i class=\"mdi-action-visibility text-md pull-right m-r p-xs\" ><span class=\"hidden-xs\"  translate=\"{{'View'|translate}}\">Allocate evaluator</span></i>",
+				"click": "fnAllocateEvaluator()"
+
 				}
 				];
 				
@@ -58,6 +63,11 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 				//function to load evaluation partial based on batchMappingId
 				scope.fnEvaluate=function(){
 					$state.go("home.main.batchEvaluation",{batchMappingId:scope.batch._id.$oid});
+				};
+
+				//function to load evaluation partial based on batchMappingId
+				scope.fnAllocateEvaluator=function(){
+					$state.go("home.main.allocateEvaluator",{batchMappingId:scope.batch._id.$oid});
 				};
 
 				// function for executing functions from name

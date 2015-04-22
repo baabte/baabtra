@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('NominationCtrl',['$scope','bbConfig','$rootScope', '$state', '$modal','commonService', 'formCustomizerService', 'addCourseService', 'nomination', '$alert', function($scope,bbConfig, $rootScope, $state, $modal, commonService, formCustomizerService, addCourseService, nomination, $alert){
+angular.module('baabtra').controller('NominationCtrl',['$scope','bbConfig','$rootScope', '$state', '$modal','commonService', 'formCustomizerService', 'addCourseService', 'nomination', '$alert', 'commonSrv', function($scope,bbConfig, $rootScope, $state, $modal, commonService, formCustomizerService, addCourseService, nomination, $alert, commonSrv){
 
 	/*login detils start*/
 	if(!$rootScope.userinfo){
@@ -25,7 +25,7 @@ $scope.allSync.FormData={}; // formdata to keep all form inserted data
 var mandatoryFields=[];
 var formFetchData={};
 formFetchData.fkcompanyId=companyId;//to fetch forms from clnCustomForms
-formFetchData.formName='userRegistration';//to fetch all the froms give specific name to fetch that form only
+formFetchData.formName='orderForm';//to fetch all the froms give specific name to fetch that form only
 // formFetchData.formName='signUp';//to fetch all the froms give specific name to fetch that form only
 
 //sevice call to fetch form 
@@ -34,10 +34,8 @@ var FnFetchCustomFormCallBack= formCustomizerService.FnFetchCustomForm(formFetch
 FnFetchCustomFormCallBack.then(function(data){
 
  var result=angular.fromJson(JSON.parse(data.data));
-// console.log(result);
  $scope.formlist=result.formlist;
-      
-      // console.log($scope.formlist);  
+ 
 $scope.stepCount=$scope.formlist.formSteps;
 //to get the mandtory from field name in an array 
     for(var i in $scope.formlist.formSchema){
@@ -52,7 +50,7 @@ $scope.stepCount=$scope.formlist.formSteps;
 
     //nedd to improve the call with role id\\//
     if(!angular.equals(companyId,'')){
-    var FetchSpecificFormObj={companyId:companyId,fetchFormName:"userRegistration"};
+    var FetchSpecificFormObj={companyId:companyId,fetchFormName:"orderForm"};
        var fnFetchSpecificCustomFormCallBack= formCustomizerService.FnFetchSpecificCustomForm(FetchSpecificFormObj);
       fnFetchSpecificCustomFormCallBack.then(function  (data) {
 
@@ -71,11 +69,10 @@ $scope.stepCount=$scope.formlist.formSteps;
             $scope.allSync.FormData.role.roleId=$scope.roleId;
         for(var index in $scope.roleSchema){
           if (angular.equals($scope.roleSchema[index].roleId,$scope.roleId)){
-            $scope.role.roleId=$scope.roleId;
-            $scope.role.formSchema=$scope.roleSchema[index].formSchema;
-            $scope.role.formSteps=$scope.roleSchema[index].formSteps;
-            console.log($scope.role);  
-            $scope.allSync.FormData.role=$scope.role;                  
+            $scope.role.roleId = $scope.roleId;
+            $scope.role.formSchema = $scope.roleSchema[index].formSchema;
+            $scope.role.formSteps = $scope.roleSchema[index].formSteps;  
+            $scope.allSync.FormData.role = $scope.role;                  
           }
 
         }
@@ -87,14 +84,12 @@ $scope.stepCount=$scope.formlist.formSteps;
        $scope.allSync.FormData.role={};
        $scope.allSync.FormData.role.roleId=bbConfig.MURID;
     }
-    // console.log(mandatoryFields)   
 });
 
 $scope.$watch('allSync.FormData.role', function(){
 if(!angular.equals($scope.formlist,undefined) && !angular.equals($scope.allSync.FormData.role,undefined)){
         $scope.stepCount= $scope.formlist.formSteps;
         while(!angular.equals($scope.formlist.formSchema[++$scope.stepCount],undefined)){
-          // console.log($scope.stepCount);
           delete $scope.formlist.formSchema[$scope.stepCount];
         }
 
@@ -105,13 +100,23 @@ if(!angular.equals($scope.formlist,undefined) && !angular.equals($scope.allSync.
                   $scope.formlist.formSchema[++$scope.stepCount]=$scope.allSync.FormData.role.formSchema[i];
                              
               }
-              // console.log($scope.formlist.formSteps);
             }
     }
                 
     }, true);
 
 $scope.data = {};
+$scope.data.requesteeDetailsCompleted = false;
+$scope.data.requesteeDetails = {};
+
+if(angular.equals($state.params.ofId,"")){
+	$scope.data.requesteeDetails.type = $state.params.key;
+	console.log($scope.data.requesteeDetails.type);
+}
+else{
+	$scope.data.requesteeDetailsCompleted = true;
+}
+
 
 if(!angular.equals($state.params.ofId,"")){
 	var orderFormResponse = nomination.fnLoadOrderFormById($state.params.ofId);
@@ -123,16 +128,88 @@ if(!angular.equals($state.params.ofId,"")){
 }
 
 
+$scope.requisteTypeChanged = function( requisteType ){
+	$scope.data.requesteeDetails = {};
+	$scope.data.requesteeDetails.type = requisteType;
+	$scope.data.requesteeDetails.gender = "Male";
+};
+
+$scope.requesteDetailsCompleted = function(){
+	$scope.data.requesteeDetailsCompleted = true;
+};
+
+
+$scope.checkUserAlreadyExists = function(){
+	
+	if(!angular.equals($scope.data.requesteeDetails.eMail,undefined)){
+		var companyCustomerDetailsResponse = nomination.fnLoadCompanyCustomerDetails($scope.data.requesteeDetails.eMail, companyId, $scope.data.requesteeDetails.type);
+		companyCustomerDetailsResponse.then(function(response){
+			console.log(angular.fromJson(JSON.parse(response.data)));
+			if(!angular.equals(angular.fromJson(JSON.parse(response.data)), null)){
+				$scope.data.requesteeDetails = angular.fromJson(JSON.parse(response.data));
+			}
+			
+		});
+	}
+};
 
 
 $scope.fnUserRegister =function () {
-	console.log($scope.allSync.FormData);
+
+	if(angular.equals($scope.data.requesteeDetails.type,'self')){
+		console.log($scope.data.requesteeDetails.type);
+		$scope.data.requesteeDetails.firstName = $scope.allSync.FormData.firstName;
+		$scope.data.requesteeDetails.lastName = $scope.allSync.FormData.lastName;
+		$scope.data.requesteeDetails.eMail = $scope.allSync.FormData.eMail;
+		$scope.data.requesteeDetails.dob = $scope.allSync.FormData.dob;
+	}
+
 	var time=(new Date()).valueOf();
 	hashids = new Hashids("this is a id for mentees");
 	var userUniqueId = 'RQ-' + hashids.encode(time);
 	var courseExits = false;
-	var userinfo = { eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob, status:"Pending Approval", userId:userUniqueId };
 
+	var filePaths = [];
+	var keyCount = 0;
+	for(var key in $scope.allSync.FormData){
+		
+		if(angular.equals(Object.prototype.toString.call($scope.allSync.FormData[key]),"[object File]")){
+			filePaths.push(key);
+		}
+		else if(angular.equals(Object.prototype.toString.call($scope.allSync.FormData[key]),"[object Date]")){
+			$scope.allSync.FormData[key] = new Date($scope.allSync.FormData[key]).toISOString();
+		}
+
+		if(angular.equals(Object.keys($scope.allSync.FormData).length, (keyCount+1) )){
+			$scope.allSync.FormData.status = "Pending Approval";
+			$scope.allSync.FormData.userId = userUniqueId;
+		}
+		keyCount++;
+	}
+
+	$scope.fileUpload = 0;
+	for(var index in filePaths){
+
+		var courseImageUploadResponse = commonSrv.fnFileUpload($scope.allSync.FormData[filePaths[index]],filePaths[index]);
+  				courseImageUploadResponse.then(function(response){
+  				var imagePath = response.data.replace('"','').replace('"','');
+          		$scope.allSync.FormData[filePaths[$scope.fileUpload]] = bbConfig.BWS + 'files/'+ filePaths[$scope.fileUpload] +'/' + imagePath;
+          		$scope.fileUpload ++;
+        	});
+		}
+	
+	$scope.$watch('fileUpload', function(){
+		var userinfo = angular.copy($scope.allSync.FormData);
+		if(!angular.equals(userinfo.course,undefined)){
+			delete userinfo.course;
+		}
+
+		if(!angular.equals(userinfo.role,undefined)){
+			delete userinfo.role;
+		}
+
+		if(angular.equals($scope.fileUpload, filePaths.length)){
+			
 	if(angular.equals($scope.data.orderForm,undefined)){
 		$scope.data.orderForm = {};
 		var time=(new Date()).valueOf();
@@ -145,6 +222,9 @@ $scope.fnUserRegister =function () {
 		$scope.data.orderForm.orderDetails = [];
 
 		
+		$scope.data.orderForm.requesteeDetails = $scope.data.requesteeDetails;
+		
+		
 		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
 
 		courseLoadResponse.then(function(course){
@@ -153,15 +233,24 @@ $scope.fnUserRegister =function () {
 	    	courseDetails.courseId = course._id.$oid;
 
 	    	courseDetails.Name = course.Name;
+	    	courseDetails.PendingApprovalCount=1;
+			courseDetails.VerifiedCount=0;
+			courseDetails.PaidCount=0;
+			courseDetails.ApprovedCount=0;
+			courseDetails.RejectedCount=0;
+			courseDetails.Resubmit=0;
 	    	if(!course.Fees.free){
-	    		courseDetails.currency = course.Fees.currency;
+	    		courseDetails.currency = course.Fees.currency.currency;
 	    		courseDetails.coursePrice = course.Fees.totalAmount;
 	    	}
+	    	else{
+	    		courseDetails.coursePrice = "free";
+	    	}
+
 	    	courseDetails.userCount = 1;
 	    	courseDetails.userInfo = [];
 
 	    	courseDetails.userInfo.push(userinfo);
-	    	courseDetails.coursetype = $scope.allSync.FormData.coursetype;
 
 	    	$scope.data.orderForm.orderDetails.push(courseDetails);
 
@@ -173,6 +262,7 @@ $scope.fnUserRegister =function () {
 				$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 				$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
 			});
+
 		});	
 	}
 	else{
@@ -193,7 +283,8 @@ $scope.fnUserRegister =function () {
 		if(courseExits){
 			$scope.data.orderForm.orderDetails[courseIndex].userInfo.push(userinfo);
 			$scope.data.orderForm.orderDetails[courseIndex].userCount++;
-
+			//added for incrementing pending approval status count
+			$scope.data.orderForm.orderDetails[courseIndex].PendingApprovalCount++;
 			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 			nomintaionResponse.then(function(response){
 				var orderForm = angular.fromJson(JSON.parse(response.data));
@@ -205,6 +296,11 @@ $scope.fnUserRegister =function () {
 
 		}
 		else{
+
+			if(angular.equals($scope.data.requesteeDetails.type,'self')){
+				$scope.data.orderForm.requesteeDetails = $scope.data.requesteeDetails;
+			}
+
 			var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
 
 			courseLoadResponse.then(function(course){
@@ -213,8 +309,14 @@ $scope.fnUserRegister =function () {
 		    	courseDetails.courseId = course._id.$oid;
 
 		    	courseDetails.Name = course.Name;
+		    	courseDetails.PendingApprovalCount=1;
+		    	courseDetails.VerifiedCount=0;
+		    	courseDetails.PaidCount=0;
+		    	courseDetails.ApprovedCount=0;
+		    	courseDetails.RejectedCount=0;
+		    	courseDetails.Resubmit=0;
 		    	if(!course.Fees.free){
-		    		courseDetails.currency = course.Fees.currency;
+		    		courseDetails.currency = course.Fees.currency.currency;
 		    		courseDetails.coursePrice = course.Fees.totalAmount;
 		    	}
 		    	courseDetails.userCount = 1;
@@ -224,7 +326,7 @@ $scope.fnUserRegister =function () {
 		    	courseDetails.coursetype = $scope.allSync.FormData.coursetype;
 
 		    	$scope.data.orderForm.orderDetails.push(courseDetails);
-		    	
+						    	
 				var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 				nomintaionResponse.then(function(response){
 					var orderForm = angular.fromJson(JSON.parse(response.data));
@@ -237,6 +339,17 @@ $scope.fnUserRegister =function () {
 		}
     });
 }
+		}
+	});
+
+
+	
+	
+
+
+	//var userinfo = { eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob, status:"Pending Approval", userId:userUniqueId };
+
+
 };
 
 $scope.finshRegisteration = function(){

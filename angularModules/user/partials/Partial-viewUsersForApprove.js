@@ -9,9 +9,7 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 	if(angular.equals($rootScope.loggedIn,false)){
 		$state.go('login');
 	}
-
 	
-
 	$scope.coursePreviewObject={};
 	$scope.rmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 	$scope.roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
@@ -73,11 +71,12 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 
 	//creating a mock of the global configuration of the company for the approval flow and access privileges for roles
 
-	$scope.approvalFlow = [{currentStage:'Verification',displayName:"Verify Applicants", loadStatus:["Pending Approval"], nextStatus:"Verified", privilegedRoles:['a','b','c'], buttonText:"Verify", paymentStage:false, lastStage:false },
-	{currentStage:'Payment',displayName:"Collect Payment", loadStatus:["Verified", "Partially Paid"], nextStatus:"Paid", privilegedRoles:['a','b'], buttonText:"Make Payment", paymentStage:true, lastStage:false },
-	{currentStage:'Approval',displayName:"Approve Applicants", loadStatus:["Paid"], nextStatus:"Approved", privilegedRoles:['a','c'], buttonText:"Approve", paymentStage:false, lastStage:false},
-	{currentStage:'Approved',displayName:"Approved Applicants", loadStatus:["Approved"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Approved", paymentStage:false, lastStage:true}
-
+	$scope.approvalFlow = [{currentStage:'Verification',displayName:"Verify Applicants", loadStatus:["Pending Approval","Resubmit"], nextStatus:"Verified", privilegedRoles:['a','b','c'], buttonText:"Verify", paymentStage:false, viewStage:false,canReject:true },
+	{currentStage:'Payment',displayName:"Collect Payment", loadStatus:["Verified", "Partially Paid"], nextStatus:"Paid", privilegedRoles:['a','b'], buttonText:"Make Payment", paymentStage:true, viewStage:false,canReject:false },
+	{currentStage:'Approval',displayName:"Approve Applicants", loadStatus:["Paid"], nextStatus:"Approved", privilegedRoles:['a','c'], buttonText:"Approve", paymentStage:false, viewStage:false,canReject:true},
+	{currentStage:'Approved',displayName:"Approved Applicants", loadStatus:["Approved"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Approved", paymentStage:false, viewStage:true,canReject:false},
+	{currentStage:'Rejected',displayName:"Rejected Applicants", loadStatus:["Rejected"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Rejected", paymentStage:false, viewStage:true,canReject:false},
+	{currentStage:'Allocated',displayName:"Allocated Applicants", loadStatus:["Allocated"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Allocated", paymentStage:false, viewStage:true,canReject:false}
 	];	
 
 	//.End == creating a mock of the global configuration of the company for the approval flow and access privileges for roles
@@ -89,7 +88,12 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 
 	//setting a current stage, this must be taken from the url since every stage will be having a menu link
 
-	var currentStageIndex = $stateParams.key;	
+	
+	var currentStageIndex = $stateParams.key;
+	//setting 0 as default key if we not passed any aky as $stateParams
+	if(angular.equals($stateParams.key,'')){
+		currentStageIndex=0;
+	}	
 	$scope.currentStage = {};
 	$scope.currentStage = $scope.approvalFlow[currentStageIndex];
 
@@ -134,9 +138,10 @@ $scope.data.selectedStatusTypes = $scope.currentStage.loadStatus;
 
 
 	//function to trigger when an option from the options menu of each order form is clicked
-		$scope.approveOrderForm = function(orderForm){
 
-		
+		$scope.approveOrderForm = function(orderForm,index){
+
+		$scope.currentOrderFormIndex=index;
 		//getting the order from to an object in scope
 		$scope.data.approveOrderForm = orderForm;
 
@@ -310,6 +315,7 @@ $scope.createCurrencyArray = function() {
 
 
 				var currentCourse = $scope.currentOrderForm.orderDetails[i];
+				
 
 			if(angular.equals($scope.currencyArray.length,0)) {
 					$scope.currencyArray.push({currency:currentCourse.currency});				
@@ -322,7 +328,7 @@ $scope.createCurrencyArray = function() {
 				}
 			}
 
-			console.log($scope.currencyArray);
+			
 
 			}		
 
@@ -365,7 +371,16 @@ var fillActTransaction = function(updatedOrderForm, currentOrderDetail, mode, ac
 
 					var inequalityArray = [undefined,null,0];
 						if(angular.equals(inequalityArray.indexOf(discount), -1) && discount <= 100) {
-							amount = currentOrderDetail.coursePrice - Math.ceil(currentOrderDetail.coursePrice * (Math.floor(discount)/100));
+							if(angular.equals(actHead.type,'Course')){
+								amount = currentOrderDetail.coursePrice;
+							}
+							else if(angular.equals(actHead.type,'Discount')){
+								amount=Math.ceil(currentOrderDetail.coursePrice * (Math.floor(discount)/100));
+							}
+							else{
+								amount = currentOrderDetail.coursePrice - Math.ceil(currentOrderDetail.coursePrice * (Math.floor(discount)/100));	
+							}
+							
 						}
 						else{
 							amount = currentOrderDetail.coursePrice;
@@ -398,7 +413,7 @@ $scope.printReceipt = function(orderForm){
 var receiptDetail = {};
 
 //function to update the orderform status
-$scope.updateOrderFormStatus = function(){
+$scope.updateOrderFormStatus = function(type,hide){
 
 	console.clear();
 
@@ -410,7 +425,6 @@ $scope.updateOrderFormStatus = function(){
 
 	// creating a copy of the original orderForm to hold the updated values, this is done like this to prevent a false notification to the user before the actual database update gets carried out
 	var updatedOrderForm = angular.copy($scope.data.approveOrderForm);
-	console.log($scope.data.approveOrderForm);
 
 	//set the status of the userinfo by looping inside the updatedOrderForm object
 	var request = {};
@@ -420,16 +434,24 @@ $scope.updateOrderFormStatus = function(){
 
 	// a variable to hold a single account transaction this will be added to the actTransactions array
 	var actTransaction = {};
+	
+
 
 	for (var i in updatedOrderForm.orderDetails){
 		var currentOrderDetail = updatedOrderForm.orderDetails[i];
-		
+		currentOrderDetail.RejectedCount=0;
+		currentOrderDetail.ApprovedCount=0;
+		currentOrderDetail.VerifiedCount=0;
+		currentOrderDetail.AllocatedCount=0;
+		currentOrderDetail.PendingApprovalCount=0;
+		currentOrderDetail.ResubmitCount=0;
+
 		for (var j in currentOrderDetail.userInfo){
-			
+
 			request = currentOrderDetail.userInfo[j];
 
 			var d = new Date();
-			
+
 			if(!angular.equals(request.statusTobeChangedTo, undefined)){
 				
 				//set the variable that at least one entry has been selected
@@ -442,17 +464,38 @@ $scope.updateOrderFormStatus = function(){
 				var statusHistory = {};
 
 				statusHistory.previousStatus = request.status;
-				statusHistory.statusChangedTo = request.statusTobeChangedTo;
+				if(!angular.equals(type,'reject')){
+					statusHistory.statusChangedTo = request.statusTobeChangedTo;
+				}else{
+					statusHistory.statusChangedTo = 'Rejected';
+				}
 				statusHistory.statusChangedOn = d.toISOString();
 				statusHistory.statusChangedby = $scope.rmId;
 
 				request.statusHistory.push(statusHistory);
-
-				//change the current status
-				request.status = request.statusTobeChangedTo;
+				if(!angular.equals(type,'reject')){
+					//change the current status
+					request.status = request.statusTobeChangedTo;
+				}else{
+					request.status = "Rejected";
+				}
+					//var orderDetails=$scope.data.approveOrderForm.orderDetails[key];
+			
 
 				// if the stage is a payment stage set the data for the in a different object
 				if($scope.currentStage.paymentStage){
+
+					var discount = 0;
+					var currency = '';
+					//calculating the amount
+					for (var k in $scope.currencyArray){
+						var currentCurrency = $scope.currencyArray[k];
+						if(angular.equals(currentCurrency.currency,currentOrderDetail.currency)){
+							discount = currentCurrency.discount; 
+							currency = currentCurrency.currency; 
+						}
+					}
+
 
 					if(angular.equals(actTransactions, undefined)){
 						var actTransactions = [];			
@@ -471,6 +514,23 @@ $scope.updateOrderFormStatus = function(){
 					var actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'credit', actHead, 'Course Sales','By Cash');
 					
 					actTransactions.push(actTransaction);
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+					//if there is discount, debitting the debitting
+
+					if(!angular.equals(discount, 0)) {
+
+						actHead = {};					
+						actHead.type = 'Discount';
+						actHead.details = {};
+
+						var actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'debit', actHead, 'Course Sales','By Cash');
+						
+						actTransactions.push(actTransaction);
+					}
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+
 				
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -491,7 +551,6 @@ $scope.updateOrderFormStatus = function(){
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 					//crediting the requestee
-
 					actHead = {};					
 					actHead.type = 'Requestee';
 					actHead.details = {userId:request.userId,
@@ -528,17 +587,7 @@ $scope.updateOrderFormStatus = function(){
 					$scope.paymentReceipt.totalPayableAmount = 0;
 				
 
-					var discount = 0;
-					var currency = '';
-					//calculating the amount
-					for (var k in $scope.currencyArray){
-						var currentCurrency = $scope.currencyArray[k];
-						if(angular.equals(currentCurrency.currency,currentOrderDetail.currency)){
-							discount = currentCurrency.discount; 
-							currency = currentCurrency.currency; 
-						}
-					}
-
+					
 
 
 					var amount = 0;
@@ -616,15 +665,22 @@ $scope.updateOrderFormStatus = function(){
 				}
 			}
 
+		//updating the status count	
+		currentOrderDetail[request.status.replace(' ','')+'Count']=currentOrderDetail[request.status.replace(' ','')+'Count']+1;
 		delete request.checkedStatus;
 
 		}
+
 	}
 
 
 	// exiting the function if no entry has been selected for status change
 	if(!minimumSelection){
+		if(!angular.equals(type,'reject')){
 			$alert({title:'Operation Aborted. ',content:'Please select at least one entry to ' + $scope.currentStage.buttonText, placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'warning', show:true});
+			}else{
+				$alert({title:'Operation Aborted. ',content:'Please select at least one entry to Reject', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'warning', show:true});
+			}
 			return false;
 	}
 
@@ -637,8 +693,13 @@ $scope.updateOrderFormStatus = function(){
 		}
 
 		orderFormStatusHistory.previousStatus = updatedOrderForm.status;
-		orderFormStatusHistory.statusChangedTo = $scope.currentStage.nextStatus;
-	
+		//condition to check if the user clicked 'reject' button or not
+		if(!angular.equals(type,'reject')){
+			
+			orderFormStatusHistory.statusChangedTo = $scope.currentStage.nextStatus;
+		}else{
+			orderFormStatusHistory.statusChangedTo = 'Rejected';
+		}
 		orderFormStatusHistory.statusChangedOn = d.toISOString();
 		orderFormStatusHistory.statusChangedby = $scope.rmId;
 		
@@ -650,31 +711,76 @@ $scope.updateOrderFormStatus = function(){
 	}
 
 
+	delete updatedOrderForm.showDetails;
 	//updating the details to the database
-	updatedOrderForm._id = updatedOrderForm._id.$oid;
-	updatedOrderForm.companyId = updatedOrderForm.companyId.$oid;
-	updatedOrderForm.urmId = updatedOrderForm.urmId.$oid;
-	updatedOrderForm.crmId = updatedOrderForm.crmId.$oid;	
+
+	if(!angular.equals(updatedOrderForm._id.$oid,undefined)){
+		updatedOrderForm._id = updatedOrderForm._id.$oid;}
+	if(!angular.equals(updatedOrderForm.companyId.$oid,undefined)){
+		updatedOrderForm.companyId = updatedOrderForm.companyId.$oid;}
+	if(!angular.equals(updatedOrderForm.urmId.$oid,undefined)){
+		updatedOrderForm.urmId = updatedOrderForm.urmId.$oid;}
+	if(!angular.equals(updatedOrderForm.crmId.$oid,undefined)){
+	updatedOrderForm.crmId = updatedOrderForm.crmId.$oid;}
+	if(!angular.equals(updatedOrderForm.createdDate.$date,undefined)){
 	updatedOrderForm.createdDate = new Date($filter('date')(updatedOrderForm.createdDate.$date));	
+	}
 
-	console.log(updatedOrderForm);
-	console.log(actTransactions);
-	console.log($scope.paymentReceipt);
-    
-	
 	var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm,actTransactions, $scope.paymentReceipt);
-
 	updateOrderForm.then(function(response){
 		var result = angular.fromJson(JSON.parse(response.data));
 		
 		if(angular.equals(result.type, 'success')){
-			$scope.data.approveOrderForm = updatedOrderForm;
+			//hide; //hide the modal
+			$scope.data.approveOrderForm = angular.copy(updatedOrderForm);
 			delete updatedOrderForm;
-			$alert({title:'Done. ',content:'The statuses have been set to ' + $scope.currentStage.nextStatus + ' successfully.', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'success', show:true});
+			//block to update the status count and hide the modal if count equal to 0
+			var countFlag=0;
 
+				
+
+				for(var key in $scope.data.approveOrderForm.orderDetails){
+					var orderDetails=$scope.data.approveOrderForm.orderDetails[key];
+				   	orderDetails.RejectedCount=0;
+		    		orderDetails.ApprovedCount=0;
+					orderDetails.VerifiedCount=0;
+					orderDetails.AllocatedCount=0;
+					orderDetails.PendingApprovalCount=0;
+					orderDetails.ResubmitCount=0;
+
+					for(var keyInner in orderDetails.userInfo){
+						var userInfoInner=orderDetails.userInfo[keyInner];
+						orderDetails[userInfoInner.status.replace(' ','')+'Count']=orderDetails[userInfoInner.status.replace(' ','')+'Count']+1;
+						//for chceking the status exists in cusrentStage to hide the modal
+						if(!angular.equals($scope.currentStage.loadStatus.indexOf(userInfoInner.status),-1)){
+							countFlag=1;
+						}
+
+
+					}
+
+				}
+
+
+			if(angular.equals(countFlag,0)){
+
+				hide();
+				$scope.data.companOrderForms.orderFroms.splice($scope.currentOrderFormIndex,1); 
+			}
+			else{
+				$scope.data.companOrderForms.orderFroms[$scope.currentOrderFormIndex]=angular.copy($scope.data.approveOrderForm);
+			}
+			console.log($scope.data.approveOrderForm);
+			//--------------------------------------------------------------------------------------
+			//cheking the status is rejected or not
+			if(!angular.equals(type,'reject')){
+				$alert({title:'Done. ',content:'The statuses have been set to ' + $scope.currentStage.nextStatus + ' successfully.', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'success', show:true});
+			}else{
+				$alert({title:'Done. ',content:'The statuses have been set to Rejected successfully.', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'success', show:true});
+			}
 			if(!angular.equals(result.data,undefined) && $scope.currentStage.paymentStage){
 				$scope.paymentReceipt = result.data;
-						//setting the model of the amounts and discounts to 0
+				//setting the model of the amounts and discounts to 0
 		 		for(var i in $scope.currencyArray){
 		 			var currentCurrencyRow = $scope.currencyArray[i];
 		 			currentCurrencyRow.amount = 0;
@@ -686,8 +792,7 @@ $scope.updateOrderFormStatus = function(){
 				$scope.printReceipt();
 			}
 
-			
-			
+
 		}
 		else{
 			delete updatedOrderForm;
@@ -703,7 +808,7 @@ $scope.updateOrderFormStatus = function(){
 
 // ======================================================================================
 //ANOOP ***************************************************************************************
-	
+
 
 	var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes);
 	LoadMenteesResponse.then(function(response){
@@ -726,7 +831,7 @@ $scope.updateOrderFormStatus = function(){
 	    	});
 	    }
 	    else{
-	    	console.log(value[key]);
+	    	
 	    	$scope.data.approvedMenteesList[key] = [];
 	    }
   	};
@@ -749,7 +854,7 @@ $scope.updateOrderFormStatus = function(){
 		$scope.data.courseObject.course._id = key;
 		$scope.data.courseObject.coursetype = coursetype;
 		$scope.data.courseObject.doj = new Date();
-		console.log(JSON.stringify($scope.data.courseObject));
+		
 		
 		$scope.addUserToBatch = function($hide){
 			var allUsers = [];
@@ -781,7 +886,7 @@ $scope.updateOrderFormStatus = function(){
 			angular.forEach(usersUnderCourse,function(user){
 				
 				if(!angular.equals($scope.data.approvedMenteesList[key].indexOf(user.userId),-1)){
-					console.log($scope.data.approveOrderForm.orderDetails[key].Name);
+					
 					var time=(new Date()).valueOf();
 					hashids = new Hashids("password for"+ user.eMail);
 					userRegister.mandatoryData.eMail = user.eMail;
@@ -812,7 +917,7 @@ $scope.updateOrderFormStatus = function(){
 				});
 
 			});
-			$hide();
+			//$hide();
 		};
 		$modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-addUserToBatch.html', show: true});
 	}
@@ -827,7 +932,6 @@ else{
 				});
 	}
 	};
-
 
 
 

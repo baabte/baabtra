@@ -606,7 +606,7 @@
                 
               })
               .state('home.main.nominateEmployee', {
-                url: '/nominateEmployee/:ofId',
+                url: '/nominateEmployee/:key/:ofId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Nomination/partials/Partial-nomination.html',
@@ -635,7 +635,7 @@
                 
               })
                .state('home.main.viewBatches', {
-                url: '/viewBatches',
+                url: '/viewBatches/:key',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-viewBatches.html',
@@ -733,12 +733,32 @@
                 }
                 
               })
+              .state('home.main.courseAllocate', {
+                url: '/courseAllocate',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/user/partials/Partial-courseAllocate.html',
+                    controller:'CourseallocateCtrl'
+                  }
+                }
+                
+              })
               .state('home.main.batchWithOption', {
                 url: '/manageBatch/:key',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-viewBatchWithOption.html',
                     controller:'ViewbatchwithoptionCtrl'
+                  }
+                }
+              })
+
+              .state('home.main.allocateEvaluator', {
+                url: '/allocateEvaluator/:batchMappingId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-allocateEvaluator.html',
+                    controller:'AllocateevaluatorCtrl'
                   }
                 }
               })

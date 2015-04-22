@@ -10,9 +10,9 @@
 >>>>>>> 723f7a1e7cbaec82dac3269e15945dadedc5aef8
     <div>
       <ul class="nav navbar-nav">
-        <li class="dropdown" ng-repeat="menus in userMenusOrigin"  ng-if="menus.canView || (menus.canView == undefined)"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}<span class="caret" ng-if="menus.childMenuStructure.length"></span></a>
+        <li class="dropdown" ng-repeat="menus in userMenusOrigin"  ng-if="menus.canView || (menus.canView == undefined)"><a class="dropdown-toggle" data-toggle="dropdown" ><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}<span class="caret" ng-if="menus.childMenuStructure.length"></span></a>
           <ul class="dropdown-menu am-fade-and-slide-left" ng-if="menus.childMenuStructure.length">
-            <li ><a class="p-v" href="#" ng-repeat="menu in menus.childMenuStructure"  ng-if="menu.canView || (menu.canView == undefined)" ng-click="loadDetails(menu)"><i class="fa {{menu.menuIcon}} fa-md"></i>&nbsp;{{menu.MenuName}}</a></li>
+            <li ><a class="p-v"  ng-repeat="menu in menus.childMenuStructure"  ng-if="menu.canView || (menu.canView == undefined)" ng-click="loadDetails(menu)"><i class="fa {{menu.menuIcon}} fa-md"></i>&nbsp;{{menu.MenuName}}</a></li>
           </ul>
         </li>
       </ul>
@@ -20,7 +20,7 @@
   </div>
 </nav> -->
 
-
+<!-- 
 <div class="row">
   <div class=" no-padding bg-white">
   <div class="no-padding  bg-light" >
@@ -30,7 +30,7 @@
                 <div class="row">
                   <div class="col-xs-12 no-padding b b-light" style="margin-bottom:none;">
                     <div class="col-xs-3 col-md-2 text-center h-full p-v" style="display:table-cell;">
-                      arun
+                    
                     </div>
                   </div>
                 </div>       
@@ -39,7 +39,7 @@
     </div>
   </div>
   </div>
-</div>
+</div> -->
 
 <!-- <question-preview preview-data="previewData"></question-preview> -->
 <!-- <question-field ng-model="form"></question-field> -->
@@ -88,10 +88,10 @@
 	</user-card> -->
 
 	<!--  <div acf-form acf-model="obj"></div>  -->
-	 <div acf-edit-form acf-model="schemaObj"></div> 
+	 <!-- <div acf-edit-form acf-model="schemaObj"></div> 
 	 <pre>{{obj}}</pre>  
 	<div class="col-xs-12 bg-white">
-  <div acf-form input-model="schemaObj" output-model="obj"></div>
+  <div acf-form input-model="schemaObj" output-model="obj"></div> -->
 	<!-- <baabtra-com-profile></baabtra-com-profile> -->
 </div>
 </div>

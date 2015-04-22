@@ -1,6 +1,6 @@
 angular.module('ui.bootstrap.contextMenu', [])
 
-.directive('contextMenu', ['$parse','$state','$aside','$templateCache','addCourseService','$rootScope','bbConfig','$modal',function ($parse,$state,$aside,$templateCache,addCourseService,$rootScope,bbConfig,$modal) {
+.directive('contextMenu', ['$parse','$state','$aside','$alert','$templateCache','addCourseService','$rootScope','bbConfig','$modal',function ($parse,$state,$aside,$alert,$templateCache,addCourseService,$rootScope,bbConfig,$modal) {
     var renderContextMenu = function ($scope, event, options) {
         // taking current state for loading context menu
         var state=$state.current.name.split('.');
@@ -29,20 +29,46 @@ angular.module('ui.bootstrap.contextMenu', [])
         });
 
       $scope.ExistingMaterials=angular.copy($scope.$parent.$parent.$parent.$parent.$parent.ExistingMaterials);
-
-      // console.log($scope.ExistingMaterials);
+      $scope.searchTextCourse;
+      $scope.searchTextMaterial;
       $scope.status={};
       $scope.selectedCourse={};
       $scope.searchText={};
       $scope.fnselectCourse =function(course){
-        console.log(course)
         $scope.selectedCourse=course;
       };
-      $scope.fnSaveElement =function(tlpointkey,courseElementskey,courseElementvalue,$hide){
-        // console.log({tlpointkey:tlpointkey,courseElementskey:courseElementskey,courseElementvalue:courseElementvalue});
+
+      $scope.previewOut={};
+
+
+      $scope.$watch('previewOut', function(){
+
+        if ($scope.previewOut.courseElement){
+            var courseElement=angular.copy($scope.previewOut.courseElement);
+            $scope.fnSaveElement(courseElement);
+        }
+
+      },true);
+     
+
+      $scope.fnSaveElement =function(courseElementvalue){
+        var courseElementskey=courseElementvalue.Name;
         var key=$scope.instance+'.'+courseElementskey;
         var obj={key:key};
         courseElementvalue.courseId=$scope.selectedCourse._id.$oid;
+        delete courseElementvalue.order;
+        if($scope.syncData.courseTimeline[$scope.instance]){
+          if($scope.syncData.courseTimeline[$scope.instance][courseElementskey]){
+          courseElementvalue.index=$scope.syncData.courseTimeline[$scope.instance][courseElementskey].length;
+          }
+          else{
+            courseElementvalue.index=0;
+          }
+        }else{
+          courseElementvalue.index=0;
+        }
+        courseElementvalue.tlPointInMinute=$scope.instance;
+
         obj[key]=courseElementvalue;
 
         var saveCourseTimelineElementPromise= addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, obj);//saving to database
@@ -58,10 +84,20 @@ angular.module('ui.bootstrap.contextMenu', [])
 
                   $scope.syncData.courseTimeline[$scope.instance][courseElementskey].push(courseElementvalue);
 
-            $hide();
-        });
+                  $scope.notifications('','Material Added Successfully','info');   
+      
+          });
 
       };
+
+
+
+ $scope.notifications=function(title,message,type){
+     // Notify(message, 'top-right', '2000', type, symbol, true); \
+     $alert({title: title, content: message , placement: 'top-right',duration:2, type: type});// calling notification message function
+    };
+
+
         //creating a header for context menu
         var $headerA = $('<li>');
              $headerA.text($scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+" "+$scope.$parent.tlpoint);
@@ -120,7 +156,7 @@ angular.module('ui.bootstrap.contextMenu', [])
 
                          //clearing data in preview object that is previously created
                          $scope.coursePreviewObj={};
-                         $templateCache.put('course-element-popup.html','<div style="padding: 0px;" class="aside" role="dialog">'
+                         $templateCache.put('course-element-popup.html','<ng-if="ExistingMaterials" div style="padding: 0px;" class="aside" role="dialog">'
                             +'<div class="box">'
                             +'<div class="p bg-'+options[state].colorClass+' font-bold">'
                               +'<a ng-click="$hide()" class="pull-right text-white"><i class="fa fa-times"></i></a>'
@@ -226,12 +262,12 @@ angular.module('ui.bootstrap.contextMenu', [])
               +'</div>'
               +'<div class="navbar-collapse collapse navbar-inverse-collapse">'
                   +'<form class="navbar-form  navbar-left col-xs-8">'
-                      +'<input type="text" class="form-control ng-model="searchText.search" " placeholder="Search">'
+                      +'<input type="text" class="form-control ng-model="ExistingMaterials.searchTextCourse" placeholder="Search">'
                   +'</form>'
                
               +'</div>'
             +'<div class="list-group" style=" height:500px; overflow:scroll;">'
-                  +'<div ng-repeat="course in ExistingMaterials|filter:searchText">'
+                  +'<div ng-repeat="course in ExistingMaterials|filter:ExistingMaterials.searchTextCourse">'
                    +'<a href ng-click="fnselectCourse(course);status.formCourse = $index" bs-tooltip data-title="click to see Elements"  class="list-group-item " >{{course.Name}}<i ng-show="status.formCourse==$index" class="pull-right fa fa-check-circle text-primary"></i></a>'
                   +'</div>'
 
@@ -245,7 +281,7 @@ angular.module('ui.bootstrap.contextMenu', [])
               +'</div>'
               +'<div class="navbar-collapse collapse navbar-inverse-collapse">'
                   +'<form class="navbar-form  navbar-left col-xs-8">'
-                      +'<input type="text" class="form-control ng-model="searchText.search" " placeholder="Search">'
+                      +'<input type="text" class="form-control ng-model="selectedCourse.searchTextMaterial" " placeholder="Search">'
                   +'</form>'
                
               +'</div>'
@@ -254,15 +290,10 @@ angular.module('ui.bootstrap.contextMenu', [])
                         +'<div ng-repeat="(courseElementskey,courseElementsvalue) in  tlpointvalue">'
                                
 
-                              +'<div ng-repeat="(courseElementkey,courseElementvalue) in  courseElementsvalue">'
-                                 // +'{{tlpointkey}}'
-                                 // +'{{courseElementskey}}'                                 
-                                 // +'{{courseElementkey}}'
-                                 // +'{{courseElementvalue}}'
-                                // +'<a href="" class="" bs-tooltip data-title="Add Course Material">Add</a>'
-                                +'<div col-xs-10>'
-                                +'<i class="mdi-content-add-circle-outline text-2x" ng-click="fnSaveElement(tlpointkey,courseElementskey,courseElementvalue,$hide)"></i>'
-                                +'<material-preview data="courseElementvalue"></material-preview>'
+                               +'<div ng-repeat="(courseElementkey,courseElementvalue) in  courseElementsvalue |filter:selectedCourse.searchTextMaterial">'
+                                 
+                                +'<div col-xs-10>'                          
+                                +'<material-preview  addmaterial="previewOut" data="courseElementvalue"></material-preview>'
                                 +'</div>'
 
 
@@ -440,14 +471,11 @@ angular.module('ui.bootstrap.contextMenu', [])
               var unbindWatchOnThis=$scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if($scope.ItsTimeToSaveDataToDB===true){
                     //---by arun to create unique code 
-                    // console.log(courseObj.key);
                      var time=new Date().valueOf();//date in millisecs11
                      var hashids = new Hashids(courseObj.key,8);//
                      var code = hashids.encode(time);  
                      courseObj[courseObj.key].code=code;
-                     // console.log(courseObj);
                     //--- end by arun to create unique code 
-                    // console.log(courseObj);
                     addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);//saving to database
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once
                     $hide();

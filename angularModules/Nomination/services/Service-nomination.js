@@ -37,4 +37,17 @@ angular.module('baabtra').service('nomination',['$http', 'bbConfig', function ($
     return promise;
    };
 
+   //service to Load Company Customer Details
+   this.fnLoadCompanyCustomerDetails = function(eMailId, companyId, type){
+	    var promise = $http({
+	      url: bbConfig.BWS+'LoadCompanyCustomerDetails/',
+	      data: {eMailId:eMailId, companyId:companyId, type:type},
+	      method: "POST",
+	      withCredentials: false,
+	      contentType:"application/json",
+	      dataType:"json",
+	    });
+    return promise;
+   };
+
 }]);

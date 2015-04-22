@@ -2,7 +2,7 @@
   <div class="col-xs-12">
     <div class="panel">
      <form name="batchAdd" xt-form  class="ng-pristine ng-valid"> 
-      <div class="panel-heading font-bold text-white bg-00C853 p baab-shadow" translate="{{'Add Batch Template'|translate}}"></div>
+      <div set-sub-heading-and-background-color class="panel-heading font-bold text-white  p baab-shadow" translate="{{'Add Batch Template'|translate}}"></div>
       <div class="panel-body">
         <div class="row m-l">
               <div class="col-xs-12 col-sm-6">
@@ -153,7 +153,36 @@
                       &nbsp;</em> 
                       </div>
                      </div>
-                  </div>      
+                  </div> 
+
+
+                 
+                    <div class="form-group ">
+                              <label class="col-xs-12 control-label m-b-md" translate="{{'Course Material Assignment Method'|translate}}"></label>
+                              <div class="col-xs-12">
+                                  <div class="radio radio-primary col-xs-2 m-r-md" style="margin-top: 0px;">
+                                      <label>
+                                          <input type="radio" name="materialAssignment" ng-model="Batch.materialAssignment" value="automatic" >
+                                          Automatic
+                                      </label>
+                                  </div>
+                                  <div class="radio radio-primary col-xs-2 m-r-md" style="margin-top: 0px;">
+                                      <label>
+                                          <input type="radio" name="materialAssignment" ng-model="Batch.materialAssignment" value="cascade" >
+                                          Cascade
+                                      </label>
+                                  </div>
+                                  <div class="radio radio-primary col-xs-2 m-r-md" style="margin-top: 0px;">
+                                      <label>
+                                          <input type="radio" name="materialAssignment" ng-model="Batch.materialAssignment"  value="manual">
+                                          Manual
+                                      </label>
+                                  </div>
+                              </div>       
+                    </div>
+                 
+               <!-- {{Batch}}      -->
+
               </div>
              <div class="row p"> 
              <div class="col-xs-12 col-sm-6 p " >
@@ -175,13 +204,16 @@
 
                 </div>
 
-             </div> 
+             </div>
+
+
+
             </div>
         </div>
       </div>
       <div class="panel-footer">
           <button class="btn btn-warning baab-btn" type="reset" ng-click="resetBatch()"  >cancel</button>		
-	        <button class="btn btn-info baab-btn" ng-disabled="batchAdd.$invalid" ng-click="saveBatch()"  class="am-fade-and-slide-bottom"  >{{buttonType}}</button>
+	        <button class="btn btn-info baab-btn" ng-disabled="batchAdd.$invalid" ng-click="saveBatch()"  class="am-fade-and-slide-bottom">{{buttonType}}</button>
           <!-- <button class="btn btn-info baab-btn" ng-disabled="batchAdd.$invalid" ng-click="updateBatch()" ng-if="batchInfo[0]" ng-class="{'am-fade-and-slide-top ':batchInfo[0],'am-fade-and-slide-bottom ':!batchInfo[0]}" >Update Batch</button> -->
 
           <!-- <button class="btn btn-primary" print-page=".panel-body"><i class="fa fa-print"></i> Print</button> -->

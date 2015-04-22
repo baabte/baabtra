@@ -32,6 +32,9 @@
        <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='attendanceAlert'}" ng-click="selectedTab='attendanceAlert';setState('attendanceAlert')">
         <a href="">Attendance Alert</a>
       </li>
+       <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='OrderForm'}" ng-click="selectedTab='OrderForm';setState('OrderForm')">
+        <a href="">Order Form</a>
+      </li>
     </ul>
   </div>
   <div class="col-md-9 b-l bg-white" >
@@ -199,7 +202,7 @@
                         </div>
                        <!--  <div style="padding-left:1px">
                             
-                             <a href="#" e-placeholder="{{'add more '|translate}} role" editable-select="abc" onshow="loadGroups()" e-ng-options="ent.value as ent.Name for ent in entities">
+                             <a  e-placeholder="{{'add more '|translate}} role" editable-select="abc" onshow="loadGroups()" e-ng-options="ent.value as ent.Name for ent in entities">
                               <i class="mdi-content-add-box" style="font-size:30px"></i> 
                              </a>
                         </div> -->
@@ -208,7 +211,7 @@
                       <a href=""  editable-text="existingItemAndCode.prefix" onaftersave="updateItemProps(existingItemAndCode,$data,'prefix')"  e-required e-placeholder="{{'Enter'|translate}} Prefix" > {{existingItemAndCode.prefix}} </a>
                 </div>
                       <div class="col-md-3 p-h p-v-sm">
-                       <a href="#" editable-select="existingItemAndCode.IncPattern" buttons="yes" e-ng-options="incrementType.value as incrementType.value for incrementType in incrementTypes" onaftersave="updateItemProps(existingItemAndCode,$data,'IncPattern')">
+                       <a  editable-select="existingItemAndCode.IncPattern" buttons="yes" e-ng-options="incrementType.value as incrementType.value for incrementType in incrementTypes" onaftersave="updateItemProps(existingItemAndCode,$data,'IncPattern')">
                        {{existingItemAndCode.IncPattern}}
                        </a>
                       </div>
@@ -229,7 +232,30 @@
   <div ng-show="selectedTab=='attendanceAlert'" class="row bg-light m-sm p-sm">
         <attendance-alert-config course-obj=""> </attendance-alert-config>
   </div>
-
+<div ng-show="selectedTab=='OrderForm'" class="row bg-light m-sm p-sm">
+    <div class="row p-sm">
+        <div class="col-md-4">
+          <span translate="{{'Order Form Configurable'|translate}}"></span>
+          <span class="pull-right" translate="{{':'|translate}}"></span>
+        </div>
+        <div class="col-md-4">
+               <div class="radio radio-inline radio-primary ">
+                                    <label>
+                                        <input type="radio" ng-model="OrderForm" value="Default" ng-change="setOrderFormConfOrNot(OrderForm)">
+                                        No
+                                    </label>
+              </div>            
+        </div>
+         <div class="col-md-4">
+               <div class="radio radio-inline radio-primary ">
+                                    <label>
+                                        <input type="radio" ng-model="OrderForm" value="Configurable" ng-change="setOrderFormConfOrNot(OrderForm)">
+                                        Configurable
+                                    </label>
+              </div>                    
+        </div>
+    </div>
+</div>
    
       
   </div>

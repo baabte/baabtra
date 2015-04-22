@@ -8,21 +8,10 @@ else{
 	$scope.selectedTab="SetEvaluator";	
 }
 
-// $scope.selectedTab="attendanceAlert";
 
-// $scope.sendingIntervals=[{"time":"Daily"},{"time":"weekly"},{"time":"monthly"}];
-// $scope.days=[{id:'Sunday',text:'S'},{id:'Monday',text:'M'},{id:'Tuesday',text:'T'},{id:'Wednesday',text:'W'},{id:'Thursday',text:'Th'},{id:'Friday',text:'F'},{id:'Saturday',text:'S'}];
 $scope.entities=[];
-// var num=100;
-// $scope.percentageNum=[];
-// for(var i=0;i<=num;i++){
-// 	$scope.percentageNum[i]=i;
-// }
-// $scope.actions=["First Warning","Second Warning","Final Warning"];
 $scope.incrementTypes=[{"Name":"<i class='fa fa-sort-numeric-asc p-xs'></i>Number","value":"Number"},{"Name":"<i class='ti-uppercase p-xs'></i>Alphabetics(In Capital Letter)","value":"Alphabetics(C)"},{"Name":"<i class='ti-smallcap p-xs'></i>Alphabetics(In Small Letter)","value":"Alphabetics(s)"}];
-// $scope.alertPointsArray=[]; //orinal declaration
-// $scope.setaletcriteriapopup=true;
-// $scope.whenAlert="Absense";
+
 
 // watch function for retireve userinfo
 $scope.$watch(function() {
@@ -44,6 +33,8 @@ $scope.$watch(function() {
 	  		existingEvalroles=existingConfCallBack.existingConf.evalRoles;
 	  		$scope.existingItemAndCodes=existingConfCallBack.existingConf.itemCodes;
 	  		ExistingsupervisorRoles=existingConfCallBack.existingConf.supervisorRoles;
+	  		orderFormConfigurable=existingConfCallBack.existingConf.orderFormConfigurable;
+	  		console.log(orderFormConfigurable);
 	  }
 	  else{
 	  		existingEvalroles=null;
@@ -105,7 +96,7 @@ $scope.$watch(function() {
 	  //end of the div
 
 
-	  $scope.roles.push({"roleName":"Branches","_id":{"$oid":"Branches"}},{"roleName":"Department","_id":{"$oid":"Department"}},{"roleName":"Mentee","_id":{"$oid":"Mentee"}},{"roleName":"Orders","_id":{"$oid":"Orders"}},{"roleName":"Receips","_id":{"$oid":"Receips"}});
+	  $scope.roles.push({"roleName":"Branches","_id":{"$oid":"Branches"}},{"roleName":"Department","_id":{"$oid":"Department"}},{"roleName":"Mentee","_id":{"$oid":"Mentee"}},{"roleName":"Orders","_id":{"$oid":"Orders"}},{"roleName":"Receipts","_id":{"$oid":"Receipts"}},{"roleName":"Customers","_id":{"$oid":"Customers"}});
 	  // $scope.roleList=
 	  if(existingConfCallBack.existingConf){
 	  	existingItemsObjArray=existingConfCallBack.existingConf.itemCodes;
@@ -143,6 +134,12 @@ $scope.$watch(function() {
 	  		}
 	  	}
 	  }
+	  // setting current OrderForm configuration
+			 if(orderFormConfigurable){
+				$scope.OrderForm='Configurable';
+			}else{
+				$scope.OrderForm='Default';
+			}
 	 
 	});
 	
@@ -154,6 +151,7 @@ $scope.$watch(function() {
 	// 		console.log(data.data);
 	// 	}
 	// });
+
 
 }, true);
 
@@ -385,6 +383,26 @@ $scope.updateItemProps=function(fullObj,datas,field){
 	prefixUpdateCallBack.then(function  (data) {
 			  if(data.status==200&&data.statusText=="OK"){
 							$scope.notifications("Success"," Your "+field+" Changed to "+datas,"success");
+					}
+			});
+}
+
+
+$scope.setOrderFormConfOrNot=function(data){
+	var OrderFormSendData={};
+	if(angular.equals(data,'Configurable')){
+		OrderFormSendData.orderFormConfigurable=true;
+	}
+	else{
+		OrderFormSendData.orderFormConfigurable=false;	
+	}
+	OrderFormSendData.companyId=companyId;
+	OrderFormSendData.userLoginId=$rootScope.userinfo.userLoginId
+	console.log(OrderFormSendData);
+	var OrderFormSendDatacallBack=globalSettings.setOrderFormConfOrNot(OrderFormSendData);
+	OrderFormSendDatacallBack.then(function  (data) {
+			  if(data.status==200&&data.statusText=="OK"){
+							$scope.notifications("Success"," Order Form Configuration Updated","success");
 					}
 			});
 }
