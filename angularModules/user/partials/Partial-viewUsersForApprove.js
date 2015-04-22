@@ -687,6 +687,7 @@ $scope.updateOrderFormStatus = function(){
 			}
 
 			
+			
 		}
 		else{
 			delete updatedOrderForm;
@@ -702,7 +703,7 @@ $scope.updateOrderFormStatus = function(){
 
 // ======================================================================================
 //ANOOP ***************************************************************************************
-	console.log($scope.data.selectedStatusTypes);
+	
 
 	var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes);
 	LoadMenteesResponse.then(function(response){

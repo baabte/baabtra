@@ -1561,6 +1561,8 @@ fg.controller('fgFormController', ["$scope", "$parse","$modal", function($scope,
     this.model.syncData = $scope.syncData;
     // Called by the directive
     this.model.genDropdown = function (index) {
+
+     console.log(index);
       var list=[{text:'<i class="fa fa-fw fa-trash"></i>&nbsp;Remove',"click": "form.removeCourseElementField("+index+")"},
                 {"divider": true},
                 {text:'<strong class="dropdown-submenu-title">Add</strong>',"href": "#"}];
