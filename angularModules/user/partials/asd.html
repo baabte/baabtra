@@ -31,8 +31,8 @@
 								<span style="padding: 3px;" class="pull-left">{{course.Name}}</span>
 						<!-- <div class="col-xs-12 col-sm-6 p pull-right"> -->
                      			
-                        		<a href="#" ng-show="!course.showDetails" ng-click="course.showDetails=true" class="pull-right" style="padding: 3px;"><i class="mdi-navigation-unfold-more" style="font-size:14px;"></i></a>
-                        		<a href="#" ng-show="course.showDetails" ng-click="course.showDetails=false" class="ng-hide pull-right" style="padding: 3px;"><i class="mdi-navigation-unfold-less" style="font-size:14px;"></i></a>   
+                        		<a  ng-show="!course.showDetails" ng-click="course.showDetails=true" class="pull-right" style="padding: 3px;"><i class="mdi-navigation-unfold-more" style="font-size:14px;"></i></a>
+                        		<a  ng-show="course.showDetails" ng-click="course.showDetails=false" class="ng-hide pull-right" style="padding: 3px;"><i class="mdi-navigation-unfold-less" style="font-size:14px;"></i></a>   
                         		<span class="pull-right badge" style="margin-top:4px;" ng-if="course.userCount > 0">{{course.userCount}}</span>      
                     
                     		<!-- </div> -->

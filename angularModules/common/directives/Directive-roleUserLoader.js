@@ -15,7 +15,7 @@ angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv'
 			  companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
 			  
 			}
-			if(!angular.equals($state.current.name,'home.main.nominateEmployee')){
+
 			if(angular.equals(scope.usersUnderRoles,undefined)){
 				console.log(scope.roleId);
 				var roleUserResponse = commonSrv.fnLoadUsersUnderRole(scope.roleId,companyId);
@@ -30,8 +30,9 @@ angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv'
 					scope.usersUnderRoles = angular.copy(usersUnderRoles);
 				});
 			}
-			}
+
 			scope.onItemClick = function(item,index){
+
 				if(angular.equals(scope.ngModel,undefined)){
 					scope.ngModel = [];
 				}
@@ -43,7 +44,9 @@ angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv'
 					if(item != null){
 
 						if(item.ticked){
+
 							scope.ngModel.push({ticked:item.ticked,roleMappingId:item.roleMappingId.$oid,Name:item.Name});
+							console.log(scope.ngModel);
 						}
 						else{
 							scope.ngModel.splice(scope.ngModel.indexOf(item.Name),1);

@@ -7,10 +7,14 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 			index:'=',
 			courseElement:'=',
 			multiAnswer:'=',
-			courseId:'='
+			courseId:'=',
+			//added by Anoop to hide the individual submit button when appearing inside a test, assignment or stuff like that
+			showSubmitButton:'@',
+			thisScope:"="
 		},
 		templateUrl: 'angularModules/courseElementFields/questionViewer/directives/Directive-questionViewer.html',
 		link: function(scope, element, attrs, fn) {
+			
 			var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId; // Role id of logged user
 			var userLoginId;
 			var courseId;
@@ -21,6 +25,8 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 			var evStatus=0;
 			var isDescriptive=false;
 			scope.isMentee=false;
+
+			
 
 			//if user is mentee copying all required datas 
 			if(roleId===bbConfig.MURID){
@@ -46,18 +52,23 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 						if(scope.ItsTimeToSavePrimaryToDB && scope.ItsTimeToSaveSecondaryToDB){
 			// console.log('murid',courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
 
-							var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
-								promise.then(function (data) {
-									data=angular.fromJson(JSON.parse(data.data));
-									if(data.success){
-										scope.question.userAnswer=scope.answerToDb;
-										scope.dbAnswer=scope.answerToDb;
-										scope.question.markScored=scope.mark;
-										scope.question.evaluated=evStatus;
-										scope.question.dateOfSubmission=time;
-									}
-								});
-							
+							if(scope.showSubmitButton){
+								var promise = questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time, submitStatus:'submitted'});
+									promise.then(function (data) {
+										data=angular.fromJson(JSON.parse(data.data));
+										if(data.success){
+											scope.question.userAnswer=scope.answerToDb;
+											scope.dbAnswer=scope.answerToDb;
+											scope.question.markScored=scope.mark;
+											scope.question.evaluated=evStatus;
+											scope.question.dateOfSubmission=time;
+										}
+									});
+								}
+								else{
+									//callback function to trigger to return data to be saved to a function which is outside of this scope
+									argument({courseId:courseId,userLoginId:userLoginId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex,answer:{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time}});
+								}
 
 
 							dbSaverUnbind();
@@ -100,6 +111,23 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 
 			//this is to format the data attribute of this directive into JSON object
 			var unbind=scope.$watch('data',function (argument) {
+			
+
+				//added by Anoop to hide the individual submit button when appearing inside a test, assignment or stuff like that
+			if(!angular.equals(scope.showSubmitButton, undefined)){
+
+				if(angular.equals(scope.showSubmitButton, 'false')){
+					scope.showSubmitButton = false;
+				}
+
+			}
+			else{
+				scope.showSubmitButton = true;
+			}
+
+			//.End
+		
+
 				if(!(scope.data instanceof Object)){
 					scope.data=JSON.parse(scope.data);					
 				}
@@ -190,7 +218,7 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 
 
 
-	scope.createPrimaryAnswer=function (path) {
+		scope.createPrimaryAnswer=function (path) {
             scope.ItsTimeToSavePrimaryToDB=false; // check for object built successfully or not
             scope.weHaveGotAprimaryFile=false;
             var fieldsTraversedCount=0;
@@ -214,6 +242,8 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
                                 temp[item.name].type=customProperty.text;
                                 if(angular.equals(customProperty.text,"doc-viewer")){ // if it is a file, it should be stored in server to show preview through
                                                                                       // google doc preview
+
+                                if(!angular.equals(temp[item.name].value, undefined))  {
                                     scope.weHaveGotAprimaryFile=true;
                                     var promise=addCourseService.fnCourseFileUpload(temp[item.name].value, path); // uploading file to the server
                                     promise.then(function(data){ // call back function for the fileupload
@@ -222,6 +252,9 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
                                           temp[item.name].url=bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','');
                                           scope.ItsTimeToSavePrimaryToDB=true;
                                     });
+
+                                  }
+                                    
                                 }
 
                         }
@@ -316,6 +349,8 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 				}
                     
         };
+
+        scope.thisScope = scope;
 			
 		}
 	};

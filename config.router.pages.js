@@ -635,7 +635,7 @@
                 
               })
                .state('home.main.viewBatches', {
-                url: '/viewBatches',
+                url: '/viewBatches/:key',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-viewBatches.html',
@@ -733,6 +733,16 @@
                 }
                 
               })
+              .state('home.main.courseAllocate', {
+                url: '/courseAllocate',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/user/partials/Partial-courseAllocate.html',
+                    controller:'CourseallocateCtrl'
+                  }
+                }
+                
+              })
               .state('home.main.batchWithOption', {
                 url: '/manageBatch/:key',
                 views:{
@@ -742,13 +752,30 @@
                   }
                 }
               })
-
+              .state('home.main.markBatchAttendance', {
+                url: '/markBatchAttendance/:batchMappingId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-markBatchAttendance.html',
+                    controller:'MarkbatchattendanceCtrl'
+                  }
+                }
+              })
               .state('home.main.viewPaymentReport', {
                 url: '/viewPaymentReport/:key',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Nomination/partials/Partial-viewPaymentReport.html',
                     controller:'ViewpaymentreportCtrl'
+                  }
+                }
+              })
+              .state('home.main.allocateEvaluator', {
+                url: '/allocateEvaluator/:batchMappingId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-allocateEvaluator.html',
+                    controller:'AllocateevaluatorCtrl'
                   }
                 }
               })
