@@ -41,8 +41,8 @@
 		                </div>
               		</div> -->
               		<div class="row"><!--Directive to load batches -->
-              		   <div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-							<div masonry-tile class="tile col-lg-4 col-md-4 col-sm-6 col-xs-12 p-xs noselect" ng-if="activeTab=='true'" ng-repeat="batch in batchObj.batchList">
+              		   <div  >
+							<div class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 col-xs-12 p-xs noselect no-padding"  ng-repeat="batch in batchObj.batchList">
 	            				<batch-view batch="batch" specific-option="currentOption" action-flag="false"> 
 	            				</batch-view>
 	            			</div>
