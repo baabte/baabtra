@@ -352,6 +352,9 @@ var fillActTransaction = function(updatedOrderForm, currentOrderDetail, mode, ac
 						if(angular.equals(actTransaction.actHead.requesteeType,'company')){
 							actTransaction.actHead.name=updatedOrderForm.requesteeDetails.companyName;
 						}
+						else if(angular.equals(actTransaction.actHead.requesteeType,'individual')){
+							actTransaction.actHead.name=updatedOrderForm.requesteeDetails.fname+' '+updatedOrderForm.requesteeDetails.lname;
+						}
 						else{
 							actTransaction.actHead.name=updatedOrderForm.requesteeDetails.firstName+' '+updatedOrderForm.requesteeDetails.lastName;
 						}

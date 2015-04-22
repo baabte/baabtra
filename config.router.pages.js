@@ -743,6 +743,16 @@
                 }
               })
 
+              .state('home.main.viewPaymentReport', {
+                url: '/viewPaymentReport/:key',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Nomination/partials/Partial-viewPaymentReport.html',
+                    controller:'ViewpaymentreportCtrl'
+                  }
+                }
+              })
+
               .state('home.main.ILTAdmin', {
                 url: '/ILTAdmin',
                 views:{
