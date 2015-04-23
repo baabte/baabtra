@@ -238,13 +238,14 @@ $scope.fnUserRegister =function () {
 			courseDetails.PaidCount=0;
 			courseDetails.ApprovedCount=0;
 			courseDetails.RejectedCount=0;
-
+			courseDetails.Resubmit=0;
 	    	if(!course.Fees.free){
 	    		courseDetails.currency = course.Fees.currency.currency;
 	    		courseDetails.coursePrice = course.Fees.totalAmount;
 	    	}
 	    	else{
 	    		courseDetails.coursePrice = "free";
+	    		courseDetails.currency="free";
 	    	}
 
 	    	courseDetails.userCount = 1;
@@ -314,11 +315,15 @@ $scope.fnUserRegister =function () {
 		    	courseDetails.PaidCount=0;
 		    	courseDetails.ApprovedCount=0;
 		    	courseDetails.RejectedCount=0;
-
+		    	courseDetails.Resubmit=0;
 		    	if(!course.Fees.free){
 		    		courseDetails.currency = course.Fees.currency.currency;
 		    		courseDetails.coursePrice = course.Fees.totalAmount;
 		    	}
+		    	else{
+	    		courseDetails.coursePrice = "free";
+	    		courseDetails.currency="free";
+	    		}
 		    	courseDetails.userCount = 1;
 		    	courseDetails.userInfo = [];
 

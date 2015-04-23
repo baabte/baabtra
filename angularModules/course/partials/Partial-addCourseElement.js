@@ -81,6 +81,9 @@ addCourseElementService.FnGetExitCriteria($scope);
 		$scope.courseElement.courseElementData.attendenceTrack=$scope.courseElement.attendenceTrack;
 		delete $scope.courseElement.attendenceTrack;
 
+		$scope.courseElement.courseElementData.evaluable=$scope.courseElement.evaluable;
+		delete $scope.courseElement.evaluable;
+
 		$scope.courseElement.courseElementData.courseElementTemplate=$scope.courseElement.schema;
 		delete $scope.courseElement.schema;
 		$scope.courseElement.courseElementData.nestableElements=$scope.courseElement.nestableElements;
@@ -121,6 +124,7 @@ $scope.courseElementConfig	= function(courseElementEdit){
 	$scope.courseElement.iconBackground=courseElementEdit.iconBackground;
 	$scope.courseElement.nestableElements=courseElementEdit.nestableElements;
 	$scope.courseElement.attendenceTrack=courseElementEdit.attendenceTrack;
+	$scope.courseElement.evaluable=courseElementEdit.evaluable;
 	$scope.courseElement.schema=courseElementEdit.courseElementTemplate;
 	$scope.courseElement._id=courseElementEdit._id.$oid;
 	// console.log(courseElementEdit.exitCriteria);

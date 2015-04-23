@@ -81,14 +81,21 @@ angular.module('baabtra').controller('ViewbatchwithoptionCtrl',['$scope','viewBa
 					$scope.batchObj.menteeList=angular.fromJson(JSON.parse(response.data)).userList;
 					$scope.batchObj.mfirstId=angular.fromJson(JSON.parse(response.data)).firstId.$oid;
 					$scope.batchObj.mlastId=angular.fromJson(JSON.parse(response.data)).lastId.$oid;
+
+
 					
 				});
 			}else{
 				loadBatchPromise=viewBatches.viewBatchesForManage($scope,$scope.batchObj.bfirstId,'initial',$scope.batchObj.blastId,searchKey);
 				loadBatchPromise.then(function(response){ //promise for mentee load
-					$scope.batchObj.batchList=angular.fromJson(JSON.parse(response.data)).batchList;
-					$scope.batchObj.bfirstId=angular.fromJson(JSON.parse(response.data)).firstId.$oid;
-					$scope.batchObj.blastId=angular.fromJson(JSON.parse(response.data)).lastId.$oid;
+					var batchResponse = angular.fromJson(JSON.parse(response.data));
+					if(batchResponse.batchList.length){
+						$scope.batchObj.batchList = batchResponse.batchList;
+						$scope.batchObj.bfirstId = batchResponse.firstId.$oid;
+						$scope.batchObj.blastId = batchResponse.lastId.$oid;
+						
+					}
+					
 					
 				});
 			}

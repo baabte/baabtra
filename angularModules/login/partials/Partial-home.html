@@ -4,7 +4,7 @@ Created On:12/11/2014 -->
 <aside id="aside" ng-if="$root.userinfo.ActiveUserData.modernView == 'modern'" class="app-aside {{$root.userinfo.ActiveUserData.appSettings.asideColor}} text-lg fixedBc shadow-z-2" ng-include="'views/aside.html'"  style="margin-top:20px;" ng-class="{'btn-material-blue-grey-900':$root.userinfo.ActiveUserData.appSettings.asideColor == undefined , 'animated fadeInDown':navBar,'ng-hide':!navBar}">
 </aside>
 <div>
-  <a class="visible-xs p-sm {{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}}"  ng-click="viewMenu = !viewMenu">
+  <a ng-if="$root.userinfo.ActiveUserData.modernView != 'modern'" class="visible-xs p-sm {{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}}"  ng-click="viewMenu = !viewMenu">
          <i class="mdi-action-view-headline text-white text-2x m-b"></i>
   </a>
   <div class="{{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}} shadow-z-3 menu-outer" bs-affix data-offset-top="-62" style="font-size: 15px;z-index: 1049;width: 100%;"  ng-if="$root.userinfo.ActiveUserData.modernView != 'modern'" ng-class="{'bg-white':$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor, 'hidden-xs':!viewMenu, 'am-fade-and-slide-left p-v-lg':viewMenu}">
@@ -14,9 +14,9 @@ Created On:12/11/2014 -->
           <div >
             <ul class="nav navbar-nav" >
 
-              <li class="dropdown p-v-xs" id="{{$index+1}}" ng-repeat="menus in userMenusOrigin"  ng-if="menus.canView || (menus.canView == undefined)" ng-click="loadDetails(menus)"><div style="color: inherit;cursor: pointer;" class="dropdown-toggle p-sm" data-toggle="dropdown" href="#"><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}<span class="caret" ng-if="menus.childMenuStructure.length"></span></div>
+              <li class="dropdown p-v-xs" id="{{$index+1}}" ng-repeat="menus in userMenusOrigin"  ng-if="menus.canView || (menus.canView == undefined)" ng-click="loadDetails(menus)"><div style="color: inherit;cursor: pointer;" class="dropdown-toggle p-sm" data-toggle="dropdown" ><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}<span class="caret" ng-if="menus.childMenuStructure.length"></span></div>
                 <ul class="dropdown-menu am-fade-and-slide-left {{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}} menu-item" ng-if="menus.childMenuStructure.length">
-                  <li><div  ng-class="{'{{$root.userinfo.ActiveUserData.menuColor.menuSecondaryColor}}':listHover}" style="min-width: 200px;cursor: pointer;" ng-mouseover="listHover=true" ng-mouseleave="listHover=false" class="p-sm" href="#" ng-repeat="menu in menus.childMenuStructure"  ng-if="menu.canView || (menu.canView == undefined)" ng-click="loadDetails(menu, $event)"><i class="fa {{menu.menuIcon}} fa-md"></i>&nbsp;{{menu.MenuName}}</div></li>
+                  <li><div  ng-class="{'{{$root.userinfo.ActiveUserData.menuColor.menuSecondaryColor}}':listHover}" style="min-width: 200px;cursor: pointer;" ng-mouseover="listHover=true" ng-mouseleave="listHover=false" class="p-sm"  ng-repeat="menu in menus.childMenuStructure"  ng-if="menu.canView || (menu.canView == undefined)" ng-click="loadDetails(menu, $event)"><i class="fa {{menu.menuIcon}} fa-md"></i>&nbsp;{{menu.MenuName}}</div></li>
                 </ul>
               </li>
 
@@ -26,10 +26,10 @@ Created On:12/11/2014 -->
       </nav>
 </div>
 </div>
-<div class="p-md"  >
-	<div  class="row" name="innercontent" ui-view>
+<div class="p-sm"  >
+	<div  class="row p-v-xs" name="innercontent" ui-view>
     <div ng-if="$root.userinfo.ActiveUserData.modernView == 'modern' " class="col-xs-12"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-      <div ng-if="(menu.canView || (menu.canView == undefined)) && userMenus.length" masonry-tile  ng-repeat="menu in userMenus" class="text-center p-xs pull-left tile masonry-brick" style="width:140px; margin-bottom:0px;" >
+      <div ng-if="(menu.canView || (menu.canView == undefined)) && userMenus.length" masonry-tile  ng-repeat="menu in userMenus" class="text-center p-sm pull-left tile masonry-brick" style="width:140px; margin-bottom:0px;" >
 
 
       <!-- fixed color -->

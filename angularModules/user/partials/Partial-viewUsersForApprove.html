@@ -36,7 +36,7 @@
 							
 						<i ng-if="!orderForm.showDetails" class="m-l mdi-navigation-unfold-more text-md pull-right p-xs" ng-click="orderForm.showDetails=true" title="{{'Expand'|translate}}"><span class="hidden-xs" translate="{{'Expand'|translate}}"></span></i>
 						<i ng-if="orderForm.showDetails" class="m-l mdi-navigation-unfold-less text-md pull-right p-xs" ng-click="orderForm.showDetails=false" title="{{'Collapse'|translate}}"><span class="hidden-xs" translate="{{'Collapse'|translate}}"></span></i>
-						<i class="mdi-navigation-check text-md pull-right p-xs" ng-click="approveOrderForm(orderForm)" title="{{currentStage.buttonText}}"><span class="hidden-xs">{{currentStage.buttonText}}</span></i>
+						<i class="mdi-navigation-check text-md pull-right p-xs" ng-click="approveOrderForm(orderForm,$index)" title="{{currentStage.buttonText}}"><span class="hidden-xs">{{currentStage.buttonText}}</span></i>
 						<i class="mdi-action-visibility text-md pull-right m-r p-xs" ng-click="viewOrderForm(orderForm)" title="{{'View'|translate}}"><span class="hidden-xs"  translate="{{'View'|translate}}"></span></i>
 						
 					</div>
@@ -62,7 +62,7 @@
 								<div class="b-b no-padding p-v-xs m-t-xs col-xs-2 font-bold" translate="{{'Count'|translate}}"></div>
 								
 								
-								<div class="p-l col-xs-10 no-padding"  translate="{{'Pending Approval'|translate}}"></div>
+								<div class="p-l col-xs-10 no-padding"  translate="{{'Pending Verification'|translate}}"></div>
 								<div class="col-xs-2 no-padding">{{course.PendingApprovalCount}}</div>
 								<div class="p-l col-xs-10 no-padding" translate="{{'Verified'|translate}}"></div>
 								<div class="col-xs-2 no-padding">{{course.VerifiedCount}}</div>

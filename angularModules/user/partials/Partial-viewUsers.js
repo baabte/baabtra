@@ -4,7 +4,11 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','viewUsers','$roo
 $rootScope.$watch('userinfo',function(){
     $scope.loggedusercrmid = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-    viewUsers.fnLoadCompnayUsers($scope,'','initial',''); 
+    var LoadCompnayUsersCallback=viewUsers.fnLoadCompnayUsers($scope,'','initial',''); 
+    LoadCompnayUsersCallback.then(function(data){
+        $scope.userObj=angular.fromJson(JSON.parse(data.data));
+        $scope.firstUser=$scope.userObj.firstId.$oid;
+    });
 });
 
 $scope.userState = function(userId){
@@ -12,10 +16,6 @@ $scope.userState = function(userId){
 	
 };
 
-$scope.fnLoadCompnayUsersCallback=function(userObj){
-	$scope.userObj=userObj;
-	// console.log($scope.userObj);
-};
 
 $scope.viewCourseDetails = function(courseId){
 	$state.go("home.main.course",{courseId:courseId});
@@ -29,12 +29,25 @@ $scope.prevButtondisabled=true;
 
 $scope.nextOne=function(){//event  for showing next 12 items
 	  $scope.prevButtondisabled=false;
-	   viewUsers.fnLoadCompnayUsers($scope,$scope.userObj.firstId.$oid,'next',$scope.userObj.lastId.$oid);
+	   var LoadCompnayUsersCallback=viewUsers.fnLoadCompnayUsers($scope,$scope.userObj.firstId.$oid,'next',$scope.userObj.lastId.$oid);
+	   LoadCompnayUsersCallback.then(function(data){
+        $scope.userObj=angular.fromJson(JSON.parse(data.data));
+       });
 };
 
 $scope.prevOne=function(){//event  for showing previous 9 items
-   
-   viewUsers.fnLoadCompnayUsers($scope,$scope.userObj.firstId.$oid,'prev',$scope.userObj.lastId.$oid);
+	  if (angular.equals($scope.firstUser,$scope.userObj.firstId.$oid)){ 
+		$scope.prevButtondisabled=true;
+	  }
+	  else{
+	   var LoadCompnayUsersCallback=viewUsers.fnLoadCompnayUsers($scope,$scope.userObj.firstId.$oid,'prev',$scope.userObj.lastId.$oid);
+	   LoadCompnayUsersCallback.then(function(data){
+	        $scope.userObj=angular.fromJson(JSON.parse(data.data));
+	         if (angular.equals($scope.firstUser,$scope.userObj.firstId.$oid)){ 
+				$scope.prevButtondisabled=true;
+	  		}
+	   });
+   	  }
   
 };
 
