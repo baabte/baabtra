@@ -749,3 +749,12 @@ display: block;
     -ms-user-select: none;
     user-select: none;
 }
+.link{
+  cursor: pointer;
+}
+.link-hover:hover{
+  text-decoration: underline;
+}
+.upper{
+  text-transform: uppercase;
+}

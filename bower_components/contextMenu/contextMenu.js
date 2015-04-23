@@ -142,10 +142,20 @@ angular.module('ui.bootstrap.contextMenu', [])
                          $scope.itemTemplate = item.courseElementTemplate;
                          //elements that comes under this element
                          $scope.subElements = item.nestableElements;
-                         $scope.attendenceTrack=item.attendenceTrack;
+                         $scope.attendenceTrack = item.attendenceTrack;
+                        
+
                          if(angular.equals($scope.attendenceTrack,undefined)){
                             $scope.attendenceTrack=false;
                          }
+
+                         if(angular.equals(item.evaluable,undefined)){
+                            $scope.attendenceTrack = false;
+                         }
+                         else{
+                             $scope.evaluable = item.evaluable;
+                         }
+
                          if(!angular.equals($scope.item.Name,"Payment_checkpoint")){
                          $scope.evaluator=angular.copy($scope.$parent.$parent.$parent.syncData.evaluator);
                          }
@@ -172,6 +182,12 @@ angular.module('ui.bootstrap.contextMenu', [])
                                   +'<div class="togglebutton">'
                                     +'<label>'
                                       +'<input ng-model="attendenceTrack" class="toggle" type="checkbox">'
+                                    +'</label>'
+                                  +'</div>'
+                                  +'<label  class="font-bold" for="definpu">Evaluable element</label><br>'
+                                  +'<div class="togglebutton">'
+                                    +'<label>'
+                                      +'<input ng-model="evaluable" class="toggle" type="checkbox">'
                                     +'</label>'
                                   +'</div>'
                               +'</div>'
@@ -459,7 +475,9 @@ angular.module('ui.bootstrap.contextMenu', [])
 
               //adding attendence tack to timeline arun
 
-               courseObj[courseObj.key].attendenceTrack=$scope.attendenceTrack;
+               courseObj[courseObj.key].attendenceTrack = $scope.attendenceTrack;
+
+               courseObj[courseObj.key].evaluable = $scope.evaluable;
               
               //end adding attendence track
               //adding attendence tack to timeline arun
@@ -476,6 +494,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                      var code = hashids.encode(time);  
                      courseObj[courseObj.key].code=code;
                     //--- end by arun to create unique code 
+                    console.log(courseObj);
                     addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);//saving to database
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once
                     $hide();
