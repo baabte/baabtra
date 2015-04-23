@@ -142,12 +142,11 @@ $scope.$watch('userMenusOrigin',function(){
 });
 
 $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
-  
-  if($rootScope.userinfo && !angular.equals(toState.name,'home.main'))
+  if($rootScope.userinfo)
    {
     $rootScope.menuExist=false;
        getMenuByLink($scope.userMenusOrigin,null,null,toState.name, function(){
-          if (!$rootScope.menuExist) {
+          if (!$rootScope.menuExist && !angular.equals(toState.name,'home.main')) {
            event.preventDefault();
           }
        });

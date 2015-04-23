@@ -5,6 +5,7 @@ angular.module('baabtra').controller('ViewbatchesCtrl',['$scope','viewBatches','
 		$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 		$scope.batchObj.blastId='';
 		$scope.batchObj.bfirstId='';
+
 		loadBatchPromise=viewBatches.viewBatchesForManage($scope,$scope.batchObj.bfirstId,'initial',$scope.batchObj.blastId,'');
 		loadBatchPromise.then(function(response){ //promise for batch load
 			$scope.batchObj.batchList=angular.fromJson(JSON.parse(response.data)).batchList;
@@ -12,6 +13,7 @@ angular.module('baabtra').controller('ViewbatchesCtrl',['$scope','viewBatches','
 			$scope.batchObj.blastId=angular.fromJson(JSON.parse(response.data)).lastId.$oid;
 			
 		});
+		
 	});
 
 	$scope.batchObj={}; 		//main object

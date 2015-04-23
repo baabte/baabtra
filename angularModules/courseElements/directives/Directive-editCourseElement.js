@@ -9,22 +9,12 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
 			//scope.instance = scope.selectedTpoint/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor-((1/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor))+1;
             scope.instance = scope.selectedTpoint;
             scope.attendenceTrack=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].attendenceTrack;
+            scope.evaluable = scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].evaluable;
             var code=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
             scope.evaluator=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].evaluator;
             //scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
              if(angular.equals(scope.evaluator,undefined)){
                 scope.evaluator=[];
-             }
-             else{
-                for(var index in scope.evaluator){
-                    if(!angular.equals(scope.evaluator[index].roleMappingId.$oid,undefined)){
-                    scope.evaluator[index].roleMappingId=scope.evaluator[index].roleMappingId.$oid;
-                    }
-                    else{
-
-                    }
-                }
-
              }
              if(angular.equals(code,undefined)){
                         var time=new Date().valueOf();//date in millisecs11
@@ -116,6 +106,7 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
               var unbindWatchOnThis=scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if(scope.ItsTimeToSaveDataToDB===true){
                      scope.coursePreviewObj.attendenceTrack=scope.attendenceTrack; // attendece track
+                     scope.coursePreviewObj.evaluable=scope.evaluable; 
                      scope.coursePreviewObj.code=code; // code backto object
                      scope.coursePreviewObj.evaluator=scope.evaluator; //adding evaluator to course element
                      if(scope.coursePreviewObj.datas){

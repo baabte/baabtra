@@ -285,11 +285,9 @@ else if(angular.equals($scope.roleId,2))
             $scope.tree1.splice(index,1);
             //$scope.tree1.push(menus);
             $scope.tree1 = $scope.tree1.concat(menus);
-            console.log(menus);
           };
 
           $scope.addMenuFromMenuGroup = function(menuGroup, index){
-            console.log(menuGroup.childMenuStructure[index]);
             $scope.tree1.push(menuGroup.childMenuStructure[index]);
             menuGroup.childMenuStructure.splice(index,1);
           };
