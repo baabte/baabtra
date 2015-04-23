@@ -752,7 +752,24 @@
                   }
                 }
               })
-
+              .state('home.main.markBatchAttendance', {
+                url: '/markBatchAttendance/:batchMappingId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-markBatchAttendance.html',
+                    controller:'MarkbatchattendanceCtrl'
+                  }
+                }
+              })
+              .state('home.main.viewPaymentReport', {
+                url: '/viewPaymentReport/:key',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Nomination/partials/Partial-viewPaymentReport.html',
+                    controller:'ViewpaymentreportCtrl'
+                  }
+                }
+              })
               .state('home.main.allocateEvaluator', {
                 url: '/allocateEvaluator/:batchMappingId',
                 views:{
@@ -783,6 +800,16 @@
                 }
               })
 
+               .state('home.main.viewResults', {
+                url: '/viewResults/:batchMappingId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Result/partials/Partial-viewResult.html',
+                    controller: 'ViewresultCtrl'
+                  }
+                }
+                
+              })
                .state('course', {
                 url: '/course/:companyId',
                 templateUrl: 'angularModules/publicAPIs/course/partials/Partial-companyCourseList.html',

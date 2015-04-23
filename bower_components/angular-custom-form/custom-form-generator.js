@@ -5,6 +5,7 @@
 (function(angular) {
 var acf=angular.module('custom-form',[]);
 var responseData;
+
 /* Storing the templates into $templateCache to load it in future*/
 angular.module('custom-form').run(['$templateCache','loadTemplateSrv',function($templateCache,loadTemplateSrv){
 
@@ -35,6 +36,7 @@ acf.directive('acfForm',['$templateCache','$compile','$sce',function($templateCa
    	//templateUrl: 'angular-custom-form/fieldView.ng.html', /*template url to field view */
     link: function (scope, element, attrs){
       scope.outputObj={};
+
       //watch function to notify the changes in the object
       scope.$watch('inputModel',function(newValue, oldValue){
           //checking for object length
@@ -89,10 +91,10 @@ acf.directive('acfField',['$templateCache','$compile',function($templateCache,$c
 acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache,$compile){
    return {
     restrict: 'EA',
-    require: ['^?acfEditForm','^?acfModel'],
+    require: ['^?acfEditForm','^?acfModel','^?acfFields'],
     replace:true,
     scope: {
-      //fieldSchema: '=acfField',
+      fields: "=acfFields", //scope object to load the existing schema
       form:"=acfModel"
     },
     templateUrl: 'bower_components/angular-custom-form/formTemplates/formEdit.ng.html',
@@ -101,9 +103,7 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
       $scope.fieldList=responseData; //storing the list of fileds from response data to scope varible.
       //$scope.form={};
       //$scope.form={};
-      $scope.fields=[];
-      
-
+     // $scope.fields=fieldSchema;
       $scope.customFieldId=0;
 
 
