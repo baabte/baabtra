@@ -565,6 +565,16 @@
                 }
                 
               })
+               .state('home.main.candidateRegistrationReport', {
+                url: '/candidateRegistrationReport',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-candidateRegistrationReport.html',
+                    controller: 'CandidateregistrationreportCtrl'
+                  }
+                }
+                
+              })
              .state('home.main.feedbackReport', {
                 url: '/feedbackReport/:feedbackId',
                 views:{
