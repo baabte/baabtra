@@ -1,59 +1,90 @@
-<div  class="col-xs-12" >
+
 	<div  class="panel b-t b-00C853 bg-light dk">
 		<div  set-sub-heading-and-background-color  class="panel-heading font-bold text-white  p baab-shadow"  translate="{{'Allocate to Course'|translate}}">
 		</div>
-		<div  class="panel-body col-xs-12 bg-white p-sm b-b-danger b-b-3x">
-			<div class="row">
-				<course-loader ng-model="course">
-			</course-loader>
-			</div>		
-			<div class="row">
-				<div class="col-xs-3">
-					<input class="form-control" float-label id="focusedInput" type="text" ng-model="searchUser"  placeholder="Search for a user" >
-				</div>					        
-			</div>
+		<div  class="panel-body col-xs-12 bg-light p-sm b-b-danger b-b-3x">
+
 				
-				<div  class="panel-body col-xs-12 bg-white p-sm b-b-danger b-b-3x">
-				<div class="row">
-					<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4  p text-center pull-right">
-				    <!-- {{userinfo.ActiveUserData}} -->
-				            <div  class="btn-group col-sm-push-2 col-md-push-2">
-				               <button type="button" class="btn btn-success btn-xs" ng-click="prevOne()" title="Previous" ng-disabled="prevButtondisabled"><i class="fa fa-fw fa-angle-left"></i><div class="ripple-wrapper"></div></button>
-				              <button type="button" class="btn btn-success btn-xs" ng-click="nextOne()" ng-disabled="userObj.userList.length<9" title="Next"><i class="fa fa-fw fa-angle-right"></i><div class="ripple-wrapper"></div></button>
-				           </div> 
-				    </div>
-				</div>
-				        <div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-				        <div masonry-tile class="tile col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" ng-repeat="user in userObj.userList">
 
-				            <div class="shadow-z-2 set-full-height" style="cursor: pointer;">
+				<div  class="panel-body col-xs-12 col-md-5 bg-white p-sm b-b-danger b-b-3x">
+					<div set-sub-heading-and-background-color class="navbar m-b-md">
+					   
+					    <div class="col-xs-12">
+					        <div class="col-xs-6 m-t-md ">
+					        <form class="navbar-form navbar-left">
+					            <input class="form-control" type="text" ng-model="userObj.searchUser"  placeholder="Search for a user" >
+					        </form>
+					        </div>
+					        <div class="col-xs-6 m-t-lg " >
+								<div class="nav navbar-nav navbar-right">
+									<a class="text-2x text-white" ng-click="prevOne()" title="Previous" ng-disabled="prevButtondisabled"><i class="fa fa-chevron-circle-left"></i></a>
+				                    <a class="text-2x text-white" ng-click="nextOne()" ng-disabled="userObj.userList.length<9" title="Next"><i class="fa fa-chevron-circle-right"></i></a>
+			                    </div>
+							</div>
 
-				            	<div class="row">
-				            		<div class="col-xs-12">
-				                <!-- set-sub-heading-and-background-color="{{userinfo.ActiveUserData.subTitleAndBackColor}}" -->
-				            			<div  set-parent-height class="col-xs-3 random-background-color text-center h-full" style="display:table-cell;">
-				            				 <i class="mdi-action-perm-contact-cal text-4x"></i><br/>
-				            			</div>
-				            			<div class="col-xs-9" style="display:table-cell;">
-				            				<div class="row">
-						            				<div class="p b-4x b-light text-1x" ng-class="{'b-success am-fade':userActive==user._id.$oid}">
-						                            
-						                            <div class="pull-left font-bold">{{user.profile.profile.firstName}} {{user.profile.profile.lastName}}</div><br/>
-						                            <div ><i>{{user.username.userName}}</i> <i class="fa pull-right text-xl text-success b-4x"></i></div>
-						                            <p></p>
-						                    
-						                            <i class="fa pull-right text-xl text-success b-4x"></i> <!-- ng-class="{'fa-check':(userActive==user._id.$oid)&&!menudetails,'fa-check-circle':(userActive==user._id.$oid)&&menudetails}" -->
-						                          </div>
-				            				</div>
+					        
+					    </div>
+					</div>
 
+				
+				        <div  style="height: 500px; overflow: scroll;">
+				        <div class="tile col-xs-12 list-group m-l-sm"  ng-repeat="user in userObj.userList|filter :userObj.searchUser">
 
-				            			</div>
-				            		</div>
-				            	</div>       
-				            </div>
+				        	<!-- start ngRepeat: tab in tabs -->
+				            	<div ng-class="{'shadow-z-1 set-full-height':shadow==undefined,'b set-full-height':shadow==false}" >
+									<div class="row bg-white shadow-z-1">
+																					
+											<div class="col-xs-12 " style="display:table-cell;">
+												<div class="row">
+								        		    <div class="p b-4x b-light text-1x col-xs-10">
+								                       
+								                        <div class="pull-left font-bold" style="text-transform: uppercase;">{{user.profile.firstName}} {{user.profile.lastName}}</div><br/>
+								                        <div class="pull-left">{{user.username}}</div><br/>   
+								                    </div>
+								                    <div class="p col-xs-2 pull-right">
+								                       <div class="checkbox ">
+                    										<label>
+                        										<input ng-model="user.Selection" ng-change="fnUserSelection(user,$index)" type="checkbox">
+                    										</label>
+                										</div>  
+								                    </div>
+												</div>
+											</div>
+																				
+									</div>       
+								</div>  
+				           
 							<!-- end ngRepeat: tab in tabs -->
 						</div>
 						</div>					
 				</div>
+
+				<div ng-if="courseAllocate.selectedUsers" class="jumbotron col-xs-12 col-md-7">
+					
+					<div class="col-xs-6 m-t-md">
+						<h4><div class="font-bold " translate="{{'Selected Users'|translate}}"></div></h4>
+						<div ng-repeat="selectedUser in courseAllocate.selectedUsers track by $index">
+						<div class="font-bold ">{{selectedUser.profile.firstName}} {{selectedUser.profile.lastName}}</div>
+						
+						</div>	
+    				</div>
+						
+    				
+
+    				<div class="col-xs-6">
+						<course-loader ng-model="courseAllocate.selectedCourse"></course-loader>
+    				</div>
+
+    				<p class="col-xs-12"><a class="btn btn-primary pull-right" translate="{{'Allocate to Course'|translate}}"></a></p>
+
+    				
+				</div>
+				{{courseAllocate}}
+
+				<!-- <div  class="panel-body col-xs-12 col-md-4 bg-white p-sm b-b-danger b-b-3x">			
+					<div class="row">
+						<course-loader ng-model="courseAllocate.selectedCourse"></course-loader>
+					</div>		
+				</div> -->
 	</div>
 </div>
