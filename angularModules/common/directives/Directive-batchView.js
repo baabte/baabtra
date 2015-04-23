@@ -32,9 +32,16 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 
 				},
 				{
+				"text": "<i class=\"fa fa-bolt\"></i>&nbsp;View Results",
+				"click": "fnViewREsults()"
+				},
+				{
 				"text": "<i class=\"mdi-social-person-add\"></i>&nbsp;Allocate Evaluator",
 				"click": "fnAllocateEvaluator()"
-
+				},
+				{
+				"text": "<i class=\"fa fa-hand-o-up\"></i>&nbsp;Update attendance",
+				 "click": "fnEditAttendance()"
 				}
 				];
 				
@@ -57,7 +64,14 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 
 				//function to load the mark the batch attendance 
 				scope.fnMarkAttendance=function(){
-					$state.go("home.main.batchAttendance",{batchMappingId:scope.batch._id.$oid});
+					// $state.go("home.main.batchAttendance",{batchMappingId:scope.batch._id.$oid});
+					$state.go("home.main.markBatchAttendance",{batchMappingId:scope.batch._id.$oid,mode:0});
+				};
+
+				//function to load the mark the batch attendance 
+				scope.fnEditAttendance=function(){
+					// $state.go("home.main.batchAttendance",{batchMappingId:scope.batch._id.$oid});
+					$state.go("home.main.markBatchAttendance",{batchMappingId:scope.batch._id.$oid,mode:1});
 				};
 
 				//function to load evaluation partial based on batchMappingId
@@ -66,8 +80,14 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 				};
 
 				//function to load evaluation partial based on batchMappingId
+
+				scope.fnViewREsults=function(){
+					$state.go("home.main.viewResults",{batchMappingId:scope.batch._id.$oid});
+				};
+				
 				scope.fnAllocateEvaluator=function(){
 					$state.go("home.main.allocateEvaluator",{batchMappingId:scope.batch._id.$oid});
+
 				};
 
 				// function for executing functions from name

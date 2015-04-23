@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('AllocateevaluatorCtrl',['$scope', '$rootScope', '$state', 'commonService', 'allocateEvaluator', function ($scope, $rootScope, $state, commonService, allocateEvaluator){
+angular.module('baabtra').controller('AllocateevaluatorCtrl',['$scope', '$rootScope', '$state', '$alert', 'commonService', 'allocateEvaluator', function ($scope, $rootScope, $state, $alert, commonService, allocateEvaluator){
 
   /*login detils start*/
 
@@ -16,12 +16,15 @@ angular.module('baabtra').controller('AllocateevaluatorCtrl',['$scope', '$rootSc
   var companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   /*login detils ends*/
 
-  $scope.data = {};   
-  var loadCoureBatchResponse = allocateEvaluator.LoadCoureBatchByBatchId($state.params.batchMappingId, companyId);
-  loadCoureBatchResponse.then(function(response){
+  $scope.data = {};
+  $scope.data.changesOccurred = false;
+
+  var loadCourseBatchResponse = allocateEvaluator.LoadCoureBatchByBatchId($state.params.batchMappingId, companyId);
+  loadCourseBatchResponse.then(function(response){
   	var coureBatch = angular.fromJson(JSON.parse(response.data));
+
   	$scope.data.courseTimeline = coureBatch.courseTimeline;
-  });//data.expandDetails = element.evaluator[$index]
+  });
 
   $scope.expandDetails = function(expandElem){
   	if(!angular.equals($scope.data.expandDetails, expandElem)){
@@ -42,6 +45,7 @@ angular.module('baabtra').controller('AllocateevaluatorCtrl',['$scope', '$rootSc
 
   		for(var elem in $scope.data.elementList){
   			if(angular.equals($scope.data.elementList[elem].code, element.code)){
+
   				$scope.data.elementList.splice(elem, 1);
   			}  			
   		}
@@ -50,16 +54,91 @@ angular.module('baabtra').controller('AllocateevaluatorCtrl',['$scope', '$rootSc
 
   $scope.saveEvaluatorList = function(){
   	
-  	angular.forEach($scope.data.elementList, function(element){
-  		var elem = $scope.data.courseTimeline[element.tlPointInMinute][element.Name][element.index];
-  		if(angular.equals(elem.evaluator,undefined)){
-  			elem.evaluator = [];
-  		}
-  		elem.evaluator.push($scope.data.evaluator[0]);
+    saveEvaluatorList(function(){
 
-  		$scope.data.elementList = [];
-  		$scope.data.elementCheckBox = [];
-  	})
+      var saveCourseTimelineBatchResponse = allocateEvaluator.saveBatchTimelineChanges($state.params.batchMappingId, $scope.data.courseTimeline);
+      saveCourseTimelineBatchResponse.then(function(response){
+        var result = angular.fromJson(JSON.parse(response.data));
+        if(angular.equals(result.result, "Success")){
+          $alert({title: 'Success!', content: 'Evaluator details updated :)', placement: 'top-right', type: 'success', show: true});
+        }
+
+      });
+
+      $scope.data.elementList = [];
+      $scope.data.elementCheckBox = [];
+    });
+  };
+
+  function saveEvaluatorList (callBack) {
+    
+    var index = 0;
+    if($scope.data.elementList.length){
+      angular.forEach($scope.data.elementList, function(element){
+        
+        if(element.evaluable){
+
+        var elem = $scope.data.courseTimeline[element.tlPointInMinute][element.Name][element.index];
+        if(angular.equals(elem.evaluator,undefined)){
+          elem.evaluator = [];
+        }
+        
+        var evaluatorIndex = 0;
+        for(var evaluator in elem.evaluator){
+          if(angular.equals(elem.evaluator[evaluator].roleMappingId, $scope.data.evaluator[0].roleMappingId)){
+            break;
+          }
+
+          evaluatorIndex++;
+          if(angular.equals(evaluatorIndex,elem.evaluator.length)){
+             elem.evaluator.push($scope.data.evaluator[0]);
+          }
+
+        }
+
+        index++;
+        
+        if(angular.equals($scope.data.elementList.length, index)){
+          callBack();
+        }
+        }
+      })
+    }
+    else{
+      callBack();
+    }
+  };
+
+  $scope.removeEvaluator = function(index, element){
+    element.evaluator.splice(index, 1);
+    $scope.data.changesOccurred = true;
+  };
+
+  $scope.selectAllElements = function(status){
+    $scope.data.elementCheckBox = {};
+    if(status){
+    angular.forEach($scope.data.courseTimeline, function(tlPoint){
+      for (var elements in tlPoint) {
+        if(tlPoint[elements].length){
+          for(var element in tlPoint[elements]){
+            if(tlPoint[elements][element].code){
+              // var obj = {};
+              // obj[tlPoint[elements][element].code] = true;
+              if(status){
+                $scope.data.elementList.push(tlPoint[elements][element]);
+                $scope.data.elementCheckBox[tlPoint[elements][element].code] = status;
+              }
+              
+            }
+          }
+        }
+      }
+      
+    });
+    }
+    else{
+       $scope.data.elementList = [];
+    }
   };
 
 }]);

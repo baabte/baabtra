@@ -245,6 +245,7 @@ $scope.fnUserRegister =function () {
 	    	}
 	    	else{
 	    		courseDetails.coursePrice = "free";
+	    		courseDetails.currency="free";
 	    	}
 
 	    	courseDetails.userCount = 1;
@@ -319,6 +320,10 @@ $scope.fnUserRegister =function () {
 		    		courseDetails.currency = course.Fees.currency.currency;
 		    		courseDetails.coursePrice = course.Fees.totalAmount;
 		    	}
+		    	else{
+	    		courseDetails.coursePrice = "free";
+	    		courseDetails.currency="free";
+	    		}
 		    	courseDetails.userCount = 1;
 		    	courseDetails.userInfo = [];
 
