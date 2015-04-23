@@ -4,7 +4,7 @@ Created On:12/11/2014 -->
 <aside id="aside" ng-if="$root.userinfo.ActiveUserData.modernView == 'modern'" class="app-aside {{$root.userinfo.ActiveUserData.appSettings.asideColor}} text-lg fixedBc shadow-z-2" ng-include="'views/aside.html'"  style="margin-top:20px;" ng-class="{'btn-material-blue-grey-900':$root.userinfo.ActiveUserData.appSettings.asideColor == undefined , 'animated fadeInDown':navBar,'ng-hide':!navBar}">
 </aside>
 <div>
-  <a class="visible-xs p-sm {{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}}"  ng-click="viewMenu = !viewMenu">
+  <a ng-if="$root.userinfo.ActiveUserData.modernView != 'modern'" class="visible-xs p-sm {{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}}"  ng-click="viewMenu = !viewMenu">
          <i class="mdi-action-view-headline text-white text-2x m-b"></i>
   </a>
   <div class="{{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}} shadow-z-3 menu-outer" bs-affix data-offset-top="-62" style="font-size: 15px;z-index: 1049;width: 100%;"  ng-if="$root.userinfo.ActiveUserData.modernView != 'modern'" ng-class="{'bg-white':$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor, 'hidden-xs':!viewMenu, 'am-fade-and-slide-left p-v-lg':viewMenu}">
@@ -26,8 +26,8 @@ Created On:12/11/2014 -->
       </nav>
 </div>
 </div>
-<div class="p-md"  >
-	<div  class="row" name="innercontent" ui-view>
+<div class="p-sm"  >
+	<div  class="row p-v-xs" name="innercontent" ui-view>
     <div ng-if="$root.userinfo.ActiveUserData.modernView == 'modern' " class="col-xs-12"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
       <div ng-if="(menu.canView || (menu.canView == undefined)) && userMenus.length" masonry-tile  ng-repeat="menu in userMenus" class="text-center p-xs pull-left tile masonry-brick" style="width:140px; margin-bottom:0px;" >
 

@@ -9,6 +9,7 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
 			//scope.instance = scope.selectedTpoint/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor-((1/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor))+1;
             scope.instance = scope.selectedTpoint;
             scope.attendenceTrack=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].attendenceTrack;
+            scope.evaluable = scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].evaluable;
             var code=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
             scope.evaluator=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].evaluator;
             //scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
@@ -105,6 +106,7 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
               var unbindWatchOnThis=scope.$watch('ItsTimeToSaveDataToDB',function(){
                 if(scope.ItsTimeToSaveDataToDB===true){
                      scope.coursePreviewObj.attendenceTrack=scope.attendenceTrack; // attendece track
+                     scope.coursePreviewObj.evaluable=scope.evaluable; 
                      scope.coursePreviewObj.code=code; // code backto object
                      scope.coursePreviewObj.evaluator=scope.evaluator; //adding evaluator to course element
                      if(scope.coursePreviewObj.datas){

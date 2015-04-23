@@ -803,7 +803,7 @@ $scope.updateOrderFormStatus = function(type,hide){
 				$scope.printReceipt();
 			}
 
-			$scope.$Apply();
+
 		}
 		else{
 			delete updatedOrderForm;

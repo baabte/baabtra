@@ -32,7 +32,7 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 
 				},
 				{
-				"text": "<i class=\"mdi-action-visibility text-md pull-right m-r p-xs\" ><span class=\"hidden-xs\"  translate=\"{{'View'|translate}}\">Allocate evaluator</span></i>",
+				"text": "<i class=\"mdi-social-person-add\"></i>&nbsp;Allocate Evaluator",
 				"click": "fnAllocateEvaluator()"
 
 				}
