@@ -119,7 +119,7 @@ angular.module('baabtra').directive('assignmentViewer',  ['$rootScope','$state',
 
      	response = angular.fromJson(JSON.parse(response.data));
      	
-     	if(angular.equals(response.result."success")) {
+     	if(angular.equals(response.result,"success")) {
      	  scope.status = submitStatus;
      	}
 
