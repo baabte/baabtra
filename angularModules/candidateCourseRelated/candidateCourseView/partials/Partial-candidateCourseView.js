@@ -34,7 +34,11 @@ angular.module('baabtra').controller('viewCandidateCourseCtrl',
 			    	var tlPointName=selectedDuration.name.replace('(s)',' ');
 			    	$scope.tlPointName=tlPointName+(Math.ceil(dataElement.tlPoint*selectedDuration.mFactor));
 		    	}
+
+		    	//Anoop: pushing the course assigned date into the prevObj
 		    	$scope.PrevObj=dataElement.element;
+		    	$scope.PrevObj.courseAssignedDate = dataElement.courseAssignedDate;
+
 		    	$scope.courseId=dataElement.courseId;
 		    	$scope.lastViewedOrder=dataElement.lastViewedOrder;
 		 		$scope.lastElement=dataElement.lastElement;

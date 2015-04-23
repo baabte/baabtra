@@ -7,8 +7,163 @@ angular.module('baabtra').directive('assignmentViewer', function() {
 		},
 		templateUrl: 'angularModules/courseElementFields/assignmentViewer/directives/Directive-assignmentViewer.html',
 		link: function(scope, element, attrs, fn) {
+ 
+//_______________________________________________________________________________________________
 
+		//looping in the elements array of the assignment object to hide the question's individual submit button 
+		var elementArray = scope.$parent.previewData.elements;
+		
+		
+		var currentElement;		
+		for (var i in elementArray)	{
+			 currentElement = elementArray[i];
+			 if(!angular.equals(currentElement,null)){
+			 	if(angular.equals(currentElement.type, 'question-viewer')){
+			 	
+			 		// create a custom attributes array if it does not exist
+			 		if(angular.equals(currentElement.customAttributes, undefined)){
+			 			currentElement.customAttributes = {};
+			 		}
 
+			 		if(angular.equals(currentElement.customAttributes['show-submit-button'],undefined)){
+			 			currentElement.customAttributes['show-submit-button'] ='false';
+			 		}
+
+			 		//get the total marks for the assignment
+			 	    if (angular.equals(scope.totalMarks, undefined)){
+			 	    	scope.totalMarks = 0;
+			 	    }			 	   
+			 		scope.totalMarks = parseInt(scope.totalMarks) + parseInt(currentElement.value.mark.totalMark);
+
+			 	}
+			 }
 		}
-	};
+ 
+
+
+ //_______________________________________________________________________________________________
+ 
+  // function to save the answer of the assignment
+  scope.submitAssignment = function(submitStatus) {
+
+
+
+  	//an array to save the answer objects
+  	var answerArray = [];
+  	var totalMarksScored = 0;
+  	for (var i in elementArray)	{
+			 currentElement = elementArray[i];
+			 if(!angular.equals(currentElement,null)){
+			 	if(angular.equals(currentElement.type, 'question-viewer')){			 		
+			 	
+			 		scope.$parent.childElementScopes[i].saveAnswer(function (argument) {
+			 			
+			 			//changing the submit status of the answer
+			 			argument.answer.submitStatus = submitStatus;
+
+			 			totalMarksScored = totalMarksScored + parseInt(currentElement.value.markScored);
+
+			 			answerArray.push(argument);
+			 			
+			 		})
+
+			 	}
+			 }
+	}
+
+
+  }
+
+ //_______________________________________________________________________________________________
+
+	// -----------------------------------------------------------------------------------------------------
+	//function to check whether penalty is applicable
+	var checkAndApplyPenalty = false;
+	var timeDiff = 0;
+    var checkForPenalty = function() {
+		//if(angular.equals(submitStatus,'submitted')) {
+
+				
+				//checking if there is an assigned date
+				if(!angular.equals(scope.$parent.previewData.assignedDate,undefined)){
+					
+					var assignedDate = new Date(scope.$parent.previewData.assignedDate);
+					assignedDate = assignedDate.getTime();
+					
+					var sumbittedDate = new Date();
+					sumbittedDate = sumbittedDate.getTime();
+					
+					if(sumbittedDate > assignedDate){
+						checkAndApplyPenalty = true;
+						timeDiff = Math.abs(sumbittedDate - assignedDate);
+					}
+																																																											
+				//var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+				
+				} else{
+					
+					var sumbittedDate = new Date();
+					sumbittedDate = sumbittedDate.getTime();
+					
+					var courseAssignedDate = new Date(scope.$parent.previewData.courseAssignedDate);
+					courseAssignedDate = courseAssignedDate.getTime();
+					
+					var tlPoint = parseInt(scope.$parent.previewData.tlPointInMinute)*60*1000;
+					
+					if(sumbittedDate > (courseAssignedDate + tlPoint)){
+						checkAndApplyPenalty = true;
+						timeDiff = Math.abs(sumbittedDate - (courseAssignedDate + tlPoint));	
+				}
+					
+			}
+
+		//}
+	}
+// -----------------------------------------------------------------------------------------------------
+
+// function to apply penalty
+var findPenalty = function() {
+	var appliablePenalty ={};
+
+	// if(checkAndApplyPenalty && totalMarksScored > 0){
+	var penaltyArray = scope.data.value.penaltyArray;
+
+	console.clear();
+	console.log(penaltyArray);
+				
+
+	// a metrics for the calculation in accordance with the late time units 
+	var calculationMetrics = {hours:3600000,
+							  days:86400000,
+							  months:2592000000};	
+
+	//finding out the applicable penalty obj
+	for (var i in penaltyArray){
+		currentPenaltyObj =penaltyArray [i];
+		currentDuration = parseInt(currentPenaltyObj.lateTime)*(calculationMetrics[currentPenaltyObj.lateTimeUnits]);
+
+		if(timeDiff>currentDuration){
+			appliablePenalty = currentPenaltyObj;
+		}
+	}
+
+	return appliablePenalty;
+			// }
+}
+
+// -----------------------------------------------------------------------------------------------------
+
+//function to apply the penalty
+var applyPenalty = function(penalty){
+
+	if(penalty.blockSubmission){
+		scope.blockSubmission = true;
+	}
+
+}
+
+applyPenalty();
+
+		}//.End link
+	};//.End return
 });
