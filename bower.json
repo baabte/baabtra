@@ -58,8 +58,7 @@
     "international-phone-number": "~0.0.3",
     "checklist-model": "~0.2.4",
     "angular-flipclock": "*",
-    "jspdf": "~1.0.272"//,
-    //"angular-custom-form":"~0.1"
+    "jspdf": "~1.0.272"
   },
   "devDependencies": {
     "angular-mocks": "~1.2"

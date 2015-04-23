@@ -126,31 +126,11 @@
                                           <div class="col-xs-12 m-h-n">
                                             <i class="fa fa-at font-bold"></i>&nbsp;{{mentee.eMail}}
                                           </div>
-                                          <div class="row m-t am-fade" ng-show="mentee.showDetails">
-                                            <div class="col-xs-6">
-                                                <div class="col-xs-12 m-xs">
-                                                  <strong>Applicant Emirates Id:</strong>
-                                                  {{mentee.emId}}
-                                                </div>
-
-                                                <div class="col-xs-12 m-xs">
-                                                  <strong>Applicant Passport No.:</strong>
-                                                  {{mentee.icssId}}
-                                                </div>
-
-                                                <div class="col-xs-12 m-xs">
-                                                  <strong>Gender:</strong>
-                                                  {{mentee.gender}}
-                                                </div>
-
-                                                <div class="col-xs-12 m-xs">
-                                                  <strong>Nationality:</strong>
-                                                  {{mentee.nationality}}
-                                                </div>
-
-                                                <div class="col-xs-12 m-xs">
-                                                  <strong>Applicant family name:</strong>
-                                                  {{mentee.familyName}}
+                                          <div class="row m-t am-fade n-padding" ng-show="mentee.showDetails">
+                                            <div class="col-xs-6 no-padding m-t">
+                                                <div class="col-xs-12 m-xs no-padding" ng-if="funCheckExludeList(key)"  ng-repeat="(key,value) in mentee">
+                                                  <strong class="col-xs-5 text-u-c text-sm">{{key}}<span class="pull-right">:</span></strong>
+                                                  <span class="col-xs-7">{{value}}</span>
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">

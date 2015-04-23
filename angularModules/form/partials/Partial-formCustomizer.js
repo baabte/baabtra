@@ -42,7 +42,7 @@ else{
 //$scope.schemaObj={};
 
 $scope.status={};//status for the tick mark of all selections
- $scope.customForm.formSchema={};
+$scope.customForm.formSchema={};
 
 //fetching all forms of the user 
 var formFetchData={};
@@ -102,9 +102,9 @@ for (var i = 0; i < $scope.rolelist.length; i++) {
 
 }
 
-   $scope.customForm=selForm;
-   $scope.customForm._id=selForm._id.$oid;
-   $scope.selectFormcheck=true;
+$scope.customForm=selForm;
+$scope.customForm._id=selForm._id.$oid;
+$scope.selectFormcheck=true;
 
 };
 
