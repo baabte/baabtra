@@ -753,7 +753,7 @@
                 }
               })
               .state('home.main.markBatchAttendance', {
-                url: '/markBatchAttendance/:batchMappingId',
+                url: '/markBatchAttendance/:batchMappingId/:mode',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-markBatchAttendance.html',
