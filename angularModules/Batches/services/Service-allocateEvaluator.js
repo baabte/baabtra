@@ -7,5 +7,15 @@ angular.module('baabtra').service('allocateEvaluator', ['$http', 'bbConfig', fun
 		    data:{coureBatchId:coureBatchId, companyId:companyId}
 		 });
 		return promise;
-	};	
+	};
+
+	this.saveBatchTimelineChanges=function(coureBatchId, courseTimeline){
+	 	var promise = $http({
+		 	method: 'POST',
+		    url: bbConfig.BWS+ 'saveBatchTimelineChanges/',
+		    data:{coureBatchId:coureBatchId, courseTimeline:courseTimeline}
+		 });
+		return promise;
+	};
+
 }]);

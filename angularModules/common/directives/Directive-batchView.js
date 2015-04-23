@@ -32,7 +32,7 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 
 				},
 				{
-				"text": "<i class=\"mdi-social-person-add\"></i>&nbsp;Allocate Evaluator",
+				"text": "<i class=\"mdi-social-person-add hidden-xs\"></i>&nbsp;Allocate Evaluator",
 				"click": "fnAllocateEvaluator()"
 
 				}
