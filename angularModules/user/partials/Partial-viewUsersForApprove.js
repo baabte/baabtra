@@ -946,7 +946,7 @@ else{
 
 	//function to check and remove  unwanted feilds from userinfo and displays while clicking expand button
 	$scope.funCheckExludeList=function(key){
-		var inArr=['eMail','password','statusHistory','passportCopy','userPic','lastName','firstName','showDetails'];
+		var inArr=['eMail','password','statusHistory','doc','passportCopy','userPic','lastName','firstName','showDetails'];
 		if(angular.equals(inArr.indexOf(key),-1)){
 			return true;
 		}else{
