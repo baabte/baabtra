@@ -16,7 +16,7 @@
                 <div class="col-xs-12 col-md-3 m-t">
                 	<input required xt-validate type="text" class="form-control" id="doj" placeholder="{{'To Date'|translate}}"  data-date-format="dd-MM-yyyy" data-placement="bottom" data-date-type="date" data-autoclose="true" data-max-date="today"  name="toDate" bs-datepicker ng-model="filter.date.toDate">
                 </div>
-                <div class="col-xs-12 col-md-3 m-t">
+                <div class="col-xs-12 col-md-3 m-t-sm">
                 	<!-- <i ng-show="!data.batchList.length" class="fa fa-spinner fa-spin"></i> -->
                 	<div required xt-validate name="batch"  ng-show="data.batchList.length" multi-selectable selection-mode="single" input-model="data.batchList" output-model="filter.selectedBatch" button-label="icon batchName" item-label="icon batchName" tick-property="ticked" helper-elements="filter" default-label="Please Select a batch" helper-elements="filter"></div>
                 	
