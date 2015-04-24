@@ -3,7 +3,7 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService','$al
 		restrict: 'E',
 		replace: true,
 		scope: {
-			 evalObjKey:'=',
+			 evalObjKey:'@',
 			 evaluatorId:'='
 		},
 		templateUrl: 'angularModules/evaluation/directives/Directive-evaluationLoader.html',
