@@ -1,15 +1,19 @@
 <div class="tab-container col-md-12"> <div class="panel b-t b-00C853 bg-light dk"><div set-sub-heading-and-background-color class="panel-heading font-bold text-white  p baab-shadow" translate="{{'Candidate Course Report'|translate}}"></div>
 <div class="panel-body col-md-12 bg-white animated fadeInRight p-sm b-b-danger b-b-3x"  >
 	
-
+ 
   <div class="col-sm-12 col-md-12">
            <div class="btn-group  pull-right">
-                        <button type="button" class="btn btn-default"  title="Weekly" data-template="angularModules/reports/partials/dateParams.tpl.html" data-animation="am-flip-x" placement="bottom"  bs-popover>weekly</button>
+                        <button type="button" class="btn btn-default"  title="Weekly" data-template="angularModules/reports/partials/dateParams.tpl.html" data-animation="am-flip-x" placement="bottom" trigger="click" bs-popover>weekly</button>
 
                         <button type="button" class="btn btn-default"  title="Monthly" data-template="angularModules/reports/partials/dateParams.tpl.html" data-animation="am-flip-x" placement="bottom"  bs-popover>Monthly</button>
 
                         <button type="button" class="btn btn-default"  title="DateRange" data-template="angularModules/reports/partials/dateParams.tpl.html" data-animation="am-flip-x" placement="bottom-right"   bs-popover>Date Range</button>
            </div>
+  </div>
+   <div class="col-sm-12 col-md-12" ng-if="total">
+    <div class="col-md-4"></div>
+    <div class="col-md-4"><div class="panel p"><span class="font-bold">Total Number of Candidate : {{total}}</div></div>
   </div>
   <div class="col-sm-2 col-md-2 ">
                      <ul class="list-group">
@@ -36,6 +40,7 @@
   </div>
   <div class="col-sm-10 col-md-10 ">
      <div google-chart chart="candidateReport" style="{{cssStyle}}">
+  </div>
   </div>
  <!--  <div class="col-sm-12 col-md-12 " >
    
