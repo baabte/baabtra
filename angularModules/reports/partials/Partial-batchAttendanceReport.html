@@ -18,36 +18,40 @@
                 </div>
                 <div class="col-xs-12 col-md-3 m-t">
                 	<!-- <i ng-show="!data.batchList.length" class="fa fa-spinner fa-spin"></i> -->
-                	<div required xt-validate  ng-show="data.batchList.length" multi-selectable selection-mode="single" input-model="data.batchList" output-model="filter.selectedBatch" button-label="icon batchName" item-label="icon batchName" tick-property="ticked" helper-elements="filter" default-label="Please Select a batch" helper-elements="filter"></div>
+                	<div required xt-validate name="batch"  ng-show="data.batchList.length" multi-selectable selection-mode="single" input-model="data.batchList" output-model="filter.selectedBatch" button-label="icon batchName" item-label="icon batchName" tick-property="ticked" helper-elements="filter" default-label="Please Select a batch" helper-elements="filter"></div>
                 	
                 </div>
-                
-                   <div class="col-xs-12 col-md-3 m-t">
-                   	<select required xt-validate style="width:90%;"  class="form-control m-r" ng-model="chartObj.type" ng-options="chart.value as chart.label for chart in chartTypes">
-  								<option value="">Select a chart type</option>
-							</select>
-                   </div>
+                <div class="col-xs-12 col-md-3 pull-right">
+              <button class="btn btn-success" data-ng-disabled="batchAttForm.$invalid" type="button" data-ng-click="viewReport()" translate="{{'View Report'|translate}}"></button>
             </div>
-            <div class="col-xs-2 pull-right">
-            	<button class="btn btn-success" data-ng-disabled="batchAttForm.$invalid||filter.selectedBatch.length<1" type="button" data-ng-click="viewReport()">View Report</button>
+                   
             </div>
+
             </form>
         </div>
         </div>
         </div>
 		<div style="margin-top:180px;">		
 		<!-- ng-if="showOrderFormOnStatus(orderForm.status) && getOptions(orderForm.status,$index).length"	 -->
-		<span class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 font-bold no-padding m-b" style="text-transform:uppercase;" translate="{{'Batch Attendance Report'}}"></span>
+		<span ng-if="reportArr.length" class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 font-bold no-padding m-b" style="text-transform:uppercase;" translate="{{'Batch Attendance Report'}}"></span>
 		<div ng-if="data.companOrderForms.orderFroms.length==0" class="alert alert-danger" style="position:fixed; width:101%;">
       	<strong translate="{{'There are no any order form found.!'|translate}}"></strong> 
 		</div>
-			<div class="col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-sm shadow-z-1 no-padding no-margin pull-left bg-white">
+			<div ng-if="reportArr.length" class="col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-sm shadow-z-1 no-padding no-margin pull-left bg-white">
+
 				<div class="set-full-height  p-sm no-padding" style="cursor: pointer;">
-					<div class="pull-left shadow-z-1 col-xs-12 p">						
+					<div class="pull-left shadow-z-1 col-xs-12 p"  data-ng-repeat="rpt in reportArr">	
+                 <div class="col-xs-12 col-md-3 m-t">
+                  <select required xt-validate style="width:90%;"  class="form-control m-r" ng-model="rpt.type" ng-options="chart.value as chart.label for chart in chartTypes">
+                  <option value="">Select a chart type</option>
+              </select>
+        </div>					
 					<div class="pull-left col-md-offset-4 m-b">
-    				<span ng-hide="selectedCourse==undefined">	<div  class="img-responsive" google-chart chart="chartObj" style="{{cssStyle}}">
-  						</div></span>
-  						<div  ng-if="selectedCourse==undefined" class="alert m-b ng-scope am-fade alert-button bg-danger lt text-white no-margin" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
+    				<span>
+              <div class="img-responsive" google-chart chart="rpt" style="{{cssStyle}}">
+  						</div>
+            </span>
+  						<div ng-if="!rpt.data.length" class="alert m-b ng-scope am-fade alert-button bg-danger lt text-white no-margin" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
 					        
 					    	<strong class="ng-binding" translate="{{'Not Found!'|translate}}"></strong>&nbsp;
 					   		<span translate="{{'Select a course to view the attendance report'|translate}}"></span>
