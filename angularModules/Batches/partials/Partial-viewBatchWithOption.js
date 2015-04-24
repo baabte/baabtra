@@ -106,13 +106,28 @@ angular.module('baabtra').controller('ViewbatchwithoptionCtrl',['$scope','viewBa
 
 	/*pagination function */
 	$scope.pagination=function(type){
+		$scope.prevButtonDesabled = false;
 		if(angular.equals($scope.activeTab,'true')){ //checking for which tab is active. here if activeTab is true then it will be batch view
 			//$scope.batchObj.btype=type;
 			loadBatchPromise=viewBatches.viewBatchesForManage($scope,$scope.batchObj.bfirstId,type,$scope.batchObj.blastId,'');
 			loadBatchPromise.then(function(response){ //promise for batch load
-				$scope.batchObj.batchList=angular.fromJson(JSON.parse(response.data)).batchList;
-				$scope.batchObj.bfirstId=angular.fromJson(JSON.parse(response.data)).firstId.$oid;
-				$scope.batchObj.blastId=angular.fromJson(JSON.parse(response.data)).lastId.$oid;
+				var result = angular.fromJson(JSON.parse(response.data));
+				if(result.batchList.length){
+					$scope.prevButtonDesabled = false;
+					$scope.nextButtonDesabled = false;
+
+					$scope.batchObj.batchList = result.batchList;
+					$scope.batchObj.bfirstId = result.firstId.$oid;
+					$scope.batchObj.blastId = result.lastId.$oid;
+				}
+				else{
+					if(angular.equals(type, "prev")){
+							$scope.prevButtonDesabled = true;
+						}
+						else if(angular.equals(type, "next")){
+							$scope.nextButtonDesabled = true;
+						}
+					}
 			});
 		}else{ //activeTab false means the second tab is active
 			$scope.prevButtonDesabled=false;

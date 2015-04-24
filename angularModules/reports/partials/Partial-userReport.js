@@ -57,6 +57,7 @@ var FetchCandidateReportCallBack=candidateReport.FetchCandidateReport(courseFetc
           $scope.chartData.push(array);
           array=[];
          }
+         $scope.CalctotalCount($scope.chartData);
          // $scope.candidateReport.type="PieChart";
           $scope.candidateReport= { //dummy object
                                   "type":"PieChart", 
@@ -78,7 +79,7 @@ var FetchCandidateReportCallBack=candidateReport.FetchCandidateReport(courseFetc
                                   }
                                 };                      
          $scope.candidateReport.data=$scope.chartData;
-         // console.log($scope.candidateReport);
+
 
   });
 
@@ -93,6 +94,7 @@ $scope.UpdateReport=function(from,data){
      dataToSend.DateRange={};
      dataToSend.DateRange.startDate=$scope.dates.startDate;     
      dataToSend.DateRange.endDate=$scope.dates.endDate;
+     
     }
     else{
          dataToSend.type='DateRange';
@@ -104,11 +106,9 @@ $scope.UpdateReport=function(from,data){
          dataToSend.DateRange.startDate=weekstartdate;
          dataToSend.DateRange.endDate=weeklastdate;
     }
-    // console.log(dataToSend);
      var UpdateReportCallBack=candidateReport.FetchCandidateReport(dataToSend); 
      UpdateReportCallBack.then(function(data){
         $scope.updatedCourseObj = angular.fromJson(JSON.parse(data.data)); 
-        // console.log($scope.updatedCourseObj);
         var arrayToPush=[];
         var array=[];
             array[0]="Course";
@@ -121,10 +121,22 @@ $scope.UpdateReport=function(from,data){
                arrayToPush.push(array);
                array=[];
         }
+        $scope.CalctotalCount(arrayToPush);
         $scope.candidateReport.data=arrayToPush;
 
  });
 
+
+}
+$scope.CalctotalCount=function(ArrayVar)
+{
+  $scope.total=0;
+  for (var i = 0; i < ArrayVar.length; i++) {
+    if(i>0)
+    {
+      $scope.total= $scope.total+ArrayVar[i][1];
+    }
+  }
 
 }
 ///////////////////////////////////////////////////////////////////
