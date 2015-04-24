@@ -23,7 +23,7 @@ $rootScope.$watch('userinfo',function(){
         $scope.userObj=angular.fromJson(JSON.parse(data.data));
         // console.log('initial')
         // console.log($scope.userObj);
-        $scope.firstUser=$scope.userObj.firstId.$oid;
+        $scope.firstUser=$scope.userObj.firstId;
     });
 });
 
@@ -47,7 +47,7 @@ $scope.searchUser=function(){
         // console.log($scope.userObj)
        });
 
-}
+};
 
 $scope.nextOne=function(){//event  for showing next 9 items
 
