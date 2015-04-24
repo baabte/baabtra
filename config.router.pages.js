@@ -565,6 +565,16 @@
                 }
                 
               })
+               .state('home.main.candidateRegistrationReport', {
+                url: '/candidateRegistrationReport',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-candidateRegistrationReport.html',
+                    controller: 'CandidateregistrationreportCtrl'
+                  }
+                }
+                
+              })
              .state('home.main.feedbackReport', {
                 url: '/feedbackReport/:feedbackId',
                 views:{
@@ -764,7 +774,7 @@
               })
 
               .state('home.main.markBatchAttendance', {
-                url: '/markBatchAttendance/:batchMappingId',
+                url: '/markBatchAttendance/:batchMappingId/:mode',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-markBatchAttendance.html',
@@ -817,6 +827,16 @@
                   'innercontent':{
                     templateUrl: 'angularModules/Result/partials/Partial-viewResult.html',
                     controller: 'ViewresultCtrl'
+                  }
+                }
+                
+              })
+               .state('home.main.batchAttendanceReport', {
+                url: '/batchAttendanceReport',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-batchAttendanceReport.html',
+                    controller: 'BatchattendancereportCtrl'
                   }
                 }
                 

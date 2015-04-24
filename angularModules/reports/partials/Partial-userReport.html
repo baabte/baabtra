@@ -1,31 +1,52 @@
-<div class="tab-container col-md-12"> <div class="panel b-t b-00C853 bg-light dk"><div set-sub-heading-and-background-color class="panel-heading font-bold text-white  p baab-shadow" translate="{{'Candidate Report'|translate}}"></div>
+<div class="tab-container col-md-12"> <div class="panel b-t b-00C853 bg-light dk"><div set-sub-heading-and-background-color class="panel-heading font-bold text-white  p baab-shadow" translate="{{'Candidate Course Report'|translate}}"></div>
 <div class="panel-body col-md-12 bg-white animated fadeInRight p-sm b-b-danger b-b-3x"  >
 	
-	<div class="col-sm-4 col-md-4" style="padding-left: 0px;">
-		 <form name="Form_Adding_form"  class="form-validation" role="form" xt-form novalidate>
+ 
+  <div class="col-sm-12 col-md-12">
+           <div class="btn-group  pull-right">
+                        <button type="button" class="btn btn-default"  title="Weekly" data-template="angularModules/reports/partials/dateParams.tpl.html" data-animation="am-flip-x" placement="bottom" trigger="click" bs-popover>weekly</button>
 
-    			<div class="form-group col-sm-8" >                                  
-              <!--  <select  class="form-control" float-label placeholder="{{'Report type'|translate}}" xt-validate name="rptType" data-bv-field="Report Types" ng-model="type" ng-options="course.type for course in courselist"  required>
-               <option value="">Select a Course</option>  
-               <option value="other">Other</option>                         
-                </select>
-                 </div><div class="form-group col-sm-5"> -->
-                <select class="form-control" float-label placeholder="{{'Chart type'|translate}}" xt-validate name="chartType" data-bv-field="Chart Type" id="chartType" ng-model="candidateReport.type" >
-                 
-      			        <option value="AreaChart" selected="selected">AreaChart</option>
-      			        <option value="PieChart">PieChart</option>
-      			        <option value="ColumnChart">ColumnChart</option>
-      			        <option value="LineChart">LineChart</option>
-      			        <option value="Table">Table</option>
-      			        <option value="BarChart">BarChart</option>
-                </select>
-          </div> 
-    </form>
-	</div>
-  <div class="col-sm-8 col-md-8 panel-default" >
-    <div google-chart chart="candidateReport" style="{{cssStyle}}">
+                        <button type="button" class="btn btn-default"  title="Monthly" data-template="angularModules/reports/partials/dateParams.tpl.html" data-animation="am-flip-x" placement="bottom"  bs-popover>Monthly</button>
 
+                        <button type="button" class="btn btn-default"  title="DateRange" data-template="angularModules/reports/partials/dateParams.tpl.html" data-animation="am-flip-x" placement="bottom-right"   bs-popover>Date Range</button>
+           </div>
   </div>
+   <div class="col-sm-12 col-md-12" ng-if="total">
+    <div class="col-md-4"></div>
+    <div class="col-md-4"><div class="panel p"><span class="font-bold">Total Number of Candidate : {{total}}</div></div>
+  </div>
+  <div class="col-sm-2 col-md-2 ">
+                     <ul class="list-group">
+                        <li class="list-group-item" >
+                          <img src="../images/chart_icons/chart_pie.png" ng-class="{'b-b b-success b-2x':candidateReport.type=='PieChart'}" placement="right" bs-tooltip data-title="Pie Chart" ng-click="candidateReport.type='PieChart'">
+                        </li>
+                         <li class="list-group-item">
+                          <img src="../images/chart_icons/chart_area.png" ng-class="{'b-b b-success b-2x':candidateReport.type=='AreaChart'}" placement="right" bs-tooltip data-title="Area Chart" ng-click="candidateReport.type='AreaChart'">
+                        </li>
+                        <li class="list-group-item">
+                          <img src="../images/chart_icons/chart_column.png" ng-class="{'b-b b-success b-2x':candidateReport.type=='ColumnChart'}" placement="right" bs-tooltip data-title="Column Chart" ng-click="candidateReport.type='ColumnChart'">
+                        </li>
+                        <li class="list-group-item">
+                          <img src="../images/chart_icons/chart_line.png" ng-class="{'b-b b-success b-2x':candidateReport.type=='LineChart'}" placement="right" bs-tooltip data-title="Line Chart" ng-click="candidateReport.type='LineChart'">
+                        </li>
+                        <li class="list-group-item">
+                          <img src="../images/chart_icons/chart_dashboard.png" ng-class="{'b-b b-success b-2x':candidateReport.type=='BarChart'}"  placement="right" bs-tooltip data-title="Bar Chart" ng-click="candidateReport.type='BarChart'">
+                        </li>
+                        <li class="list-group-item">
+                          <img src="../images/chart_icons/chart_table.png" ng-class="{'b-b b-success b-2x':candidateReport.type=='Table'}" placement="right" bs-tooltip data-title="Table" ng-click="candidateReport.type='Table'">
+                        </li>
+                      </ul>
+    
+  </div>
+  <div class="col-sm-10 col-md-10 ">
+     <div google-chart chart="candidateReport" style="{{cssStyle}}">
+  </div>
+  </div>
+ <!--  <div class="col-sm-12 col-md-12 " >
+   
+   
+  </div> -->
+
 
 </div>
 </div>
