@@ -14,7 +14,7 @@ angular.module('baabtra').directive('resultView', function() {
 			scope.data.siNo=0;
 			//function to check the status
 			scope.fnCheckStatus=function(elem){
-				console.log(elem.markScored);
+				// console.log(elem.markScored);
 				if(angular.equals(elem.markScored,undefined)){
 					return 'Pending evaluation';
 				//}else if(angular.equals(elem.evalStatus,undefined)){
@@ -23,6 +23,12 @@ angular.module('baabtra').directive('resultView', function() {
 					return elem.markScored;
 				}
 			};
+		scope.indexCount=0;
+		scope.generateIndex=function (elemIndex) {
+			scope.indexCount=scope.indexCount+1;
+			var index=scope.indexCount;
+			 elemIndex.index=index;
+		};
 		}
 	};
 });
