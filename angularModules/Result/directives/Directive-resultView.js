@@ -12,6 +12,17 @@ angular.module('baabtra').directive('resultView', function() {
 			scope.data.user = {};
 			scope.data.grandTotal = 0;
 			scope.data.siNo=0;
+			//function to check the status
+			scope.fnCheckStatus=function(elem){
+				console.log(elem.markScored);
+				if(angular.equals(elem.markScored,undefined)){
+					return 'Pending evaluation';
+				//}else if(angular.equals(elem.evalStatus,undefined)){
+				//	return 'Pending evaluation';
+				}else{
+					return elem.markScored;
+				}
+			};
 		}
 	};
 });
