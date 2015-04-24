@@ -1,6 +1,7 @@
 angular.module('baabtra').controller('BatchattendancereportCtrl',['$scope','menteeAttendanceReport','$rootScope','$stateParams','assignCourseMaterial',function($scope,menteeAttendanceReport,$rootScope,$stateParams,assignCourseMaterial){
 
-$scope.attReportObj={};
+$scope.filter={};
+$scope.data={};
 $scope.chartObj={};
 //chart type object
 $scope.chart = { //dummy object
@@ -28,18 +29,25 @@ if(!$rootScope.userinfo){
 $rootScope.$watch('userinfo',function(){
 	$scope.loggedusercrmid = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 	$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-	loadCourseDDl=assignCourseMaterial.loadCourses4AssigningCourseMaterial($scope,$stateParams.userId);
-	$scope.urmId=$stateParams.userId;
-	loadCourseDDl.then(function(response){ //promise for batch load
-		$scope.attReportObj.courses=angular.fromJson(JSON.parse(response.data)).courseList;
-		$scope.attReportObj.profile=angular.fromJson(JSON.parse(response.data)).profile;
+	loadBatchesPromise=menteeAttendanceReport.fnLoadAllBatches4Report($scope.companyId);
+	
+	loadBatchesPromise.then(function(response){ //promise for batch load
+		$scope.data.batchList=angular.fromJson(JSON.parse(response.data));
+		angular.forEach($scope.data.batchList, function(batch){
+			batch.batchMappingId=batch._id.$oid;
+			batch.Name=batch.batchName+batch._id.$oid;
+			batch.batchName=batch.batchName+' ['+batch.courseName+']';
+			batch.fkCourseId=batch.fkCourseId.$oid;
+			delete batch._id;
+			delete batch.courseName;
+		});
 	});
 });
 
 //checking for feedbackId to load the feedback report
-	$scope.$watch('selectedCourse',function(){
-		if(!angular.equals($scope.selectedCourse,undefined)){
-			var menteeAttendanceReportPromise = menteeAttendanceReport.fnLoadMenteesAttReport($scope,$stateParams.userId);
+	$scope.viewReport=function(){
+		//if(!angular.equals($scope.selectedCourse,undefined)){
+			var batchAttendanceReportPromise = menteeAttendanceReport.fnLoadBatchAttReport($scope.filter);
 				menteeAttendanceReportPromise.then(function(response){ //getting the promise of feedback response
 					$scope.reportList=angular.fromJson(JSON.parse(response.data)).data;
 						$scope.chart.data=$scope.reportList;
@@ -47,8 +55,8 @@ $rootScope.$watch('userinfo',function(){
 						$scope.chartObj=angular.copy($scope.chart); //to copy the object
 						
 			});
-		}
-	});
+		//}
+	};
 
 $scope.chartTypes = [{"value":"PieChart","label":"PieChart"},{"value":"AreaChart","label":"Area Chart"},{"value":"ColumnChart","label":"Column Chart"},{"value":"LineChart","label":"Line Chart"},{"value":"Table","label":"Table"},{"value":"BarChart","label":"Bar Chart"}];
 

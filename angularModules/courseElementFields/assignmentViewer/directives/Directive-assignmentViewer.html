@@ -31,8 +31,11 @@
 <div class="row">
 	
 		<div class="col-xs-12">
-			<button class="btn btn-success  baab-btn pull-right" bs-tooltip data-title="Submit" data-placement="top" translate="{{'Submit Assignment' | translate }}" ng-click="submitAssignment('submitted')" ng-disabled="blockSubmission"></button>
-			<button class="btn  btn-material-amber-A700 baab-btn pull-right" bs-tooltip data-title="Save Draft" data-placement="top" translate="{{'Save Draft' | translate }}" ng-click="submitAssignment('draft')" ng-disabled="blockSubmission"></button>
+			<div class="col-xs-12 col-md-4 pull-right">
+				<div class="bg-danger text-white p font-bold" ng-if="blockSubmission"><i>{{penaltyMessage}}</i></div>
+				<button class="btn btn-success  baab-btn pull-right" bs-tooltip data-title="Submit" data-placement="top" translate="{{'Submit Assignment' | translate }}" ng-click="submitAssignment('submitted')" ng-disabled="blockSubmission || status == 'submitted'"></button>
+				<button class="btn  btn-material-amber-A700 baab-btn pull-right" bs-tooltip data-title="Save Draft" data-placement="top" translate="{{'Save Draft' | translate }}" ng-click="submitAssignment('draft')" ng-disabled="blockSubmission || status == 'submitted'"></button>
+			</div>
 		</div>
 	</div>
 

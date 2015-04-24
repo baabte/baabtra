@@ -130,7 +130,7 @@
                                             <div class="col-xs-6 no-padding m-t">
                                                 <div class="col-xs-12 m-xs no-padding" ng-if="funCheckExludeList(key)"  ng-repeat="(key,value) in mentee">
                                                   <strong class="col-xs-5 text-u-c text-sm">{{key}}<span class="pull-right">:</span></strong>
-                                                  <span class="col-xs-7">{{value}}</span>
+                                                  <span class="col-xs-7">{{value | date:'MM/dd/yyyy'}}</span>
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">

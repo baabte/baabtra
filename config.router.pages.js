@@ -793,6 +793,16 @@
                 }
                 
               })
+               .state('home.main.batchAttendanceReport', {
+                url: '/batchAttendanceReport',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-batchAttendanceReport.html',
+                    controller: 'BatchattendancereportCtrl'
+                  }
+                }
+                
+              })
                .state('course', {
                 url: '/course/:companyId',
                 templateUrl: 'angularModules/publicAPIs/course/partials/Partial-companyCourseList.html',

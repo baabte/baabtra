@@ -67,6 +67,9 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 				lateTimeUnits:'days'
 			};
 
+			//adding a status to the assignment
+			scope.ngModel.status = 'Not Attended';
+
 			// a function to add the rule
 			scope.addPenaltyRule = function(){
 				scope.ngModel.penaltyArray.push(angular.copy(scope.penaltyObj));
