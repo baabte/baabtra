@@ -43,6 +43,7 @@ angular.module('baabtra').controller('BatchevaluationCtrl',['$scope','$rootScope
 							if(angular.equals($state.params.courseId, $scope.batchObj.courseDetails[coursCount].
 								_id.$oid)){
 								$scope.batchObj.selectedCourse = $scope.batchObj.courseDetails[coursCount];
+								$scope.batchObj.elementOrderArray = Object.keys($scope.batchObj.selectedCourse.elementOrder);
 							}
 						}
 					}

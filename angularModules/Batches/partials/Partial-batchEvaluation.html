@@ -48,17 +48,9 @@
 </div>
 <div class="row p-v"  ng-if="batchObj.selectedCourse" style="padding-top: 80px;padding-bottom: 15px;">
 			<div class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 col-xs-12">
-				<div  ng-repeat="timelinePoint in batchObj.selectedCourse.courseTimeline">
-					<div   ng-repeat="elements in timelinePoint">
-						<!-- ng-if="element.evaluable" -->
-						<div ng-repeat="element in elements">
-								<div class="upper font-bold p-v-sm">{{element.elements[0].value}}</div>
-								<div ng-if="elements.length" class="p shadow-z-1 col-xs-12 bg-white m-b"  >
-									<evaluation-loader eval-obj-key="{{batchObj.selectedCourse._id.$oid}}.{{element.tlPointInMinute}}.{{element.Name}}.{{element.index}}" evaluator-id="rm_id"></evaluation-loader>
-								</div>
-								</div>
-							</div>
-				</div>
+				<div  ng-repeat="element in batchObj.elementOrderArray" >
+					<evaluation-loader course-timeline="batchObj.selectedCourse.courseTimeline" element-order="batchObj.selectedCourse.elementOrder[element]" evaluator-id="rm_id" course-mapping-id="batchObj.selectedCourse._id.$oid"></evaluation-loader>
+			</div>
 	</div>
 </div>
 	</div>
