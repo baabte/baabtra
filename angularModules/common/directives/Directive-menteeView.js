@@ -68,6 +68,13 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 			};
 
 
+			//function to evaluate course materials
+			/*scope.fnMenteeReport=function(){
+				$state.go("home.main.menteeAttendanceReport",{userId:scope.menteeObj.fkUserRoleMappingId.$oid});
+
+			};*/
+
+
 			// function for executing functions from name
 				scope.executeFunction=function (functionName) {
 					functionName=functionName.replace('()','');

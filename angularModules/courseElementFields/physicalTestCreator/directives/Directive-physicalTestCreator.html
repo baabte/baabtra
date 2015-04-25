@@ -46,10 +46,10 @@
 			<em class="m-t" translate="{{'Please use the below fields to configure pass criteria for the type, if different criteria is added for the same categorization under same rules, the last added criteria will apply.' | translate}}"></em>
 			<br>
 				<!-- gender -->
-				<div class="col-xs-12">
-					<div class="checkbox pull-left m-l m-v-n" >
+				<div class="col-xs-12" ng-if="test.showGenderDD">
+					<div class="checkbox pull-left m-l m-v-n" ng-if="test.showGender">
 		              <label data-title="Include this criteria?" data-placement="top"  bs-tooltip>
-						<input type="checkbox" ng-model="test.passCriteriaObj.checkGender" value="true" >
+						<input type="checkbox" ng-model="test.passCriteriaObj.checkGender" value="true">
 			             
 			          </label>
 			        </div>
@@ -59,8 +59,8 @@
 				</div>
 
 				<!-- age -->
-				<div class="col-xs-12">
-					<div class="checkbox pull-left m-l m-v-n" >
+				<div class="col-xs-12" ng-if="test.showCategoryDD">
+					<div class="checkbox pull-left m-l m-v-n"  ng-if="test.showCategory" >
 		              <label data-title="Include this criteria?" data-placement="top"  bs-tooltip>
 						<input type="checkbox" ng-model="test.passCriteriaObj.checkCategory" value="true" >
 			            <a style="color:#666666;" translate="{{'whose' | translate}}" ></a>    
@@ -140,7 +140,7 @@
 
 				<div class="col-xs-12">
 					<button class="btn  btn-material-red baab-btn m-v-n pull-right" ng-show="!test.criteriaEditMode"  ng-click="addCriteria(test, test.passCriteriaObj)"> <i class="mdi-content-add m-r"></i> Add Criteria</button>
-					<button class="btn  btn-material-pink-500 baab-btn m-v-n pull-right" ng-show="test.criteriaEditMode"  ng-click="test.criteriaEditMode = false"> <i class="mdi-action-done m-r"></i> Update Criteria</button>
+					<button class="btn  btn-material-pink-500 baab-btn m-v-n pull-right" ng-show="test.criteriaEditMode"  ng-click="updateCriteria(test)"> <i class="mdi-action-done m-r"></i> Update Criteria</button>
 				</div>	
 
 

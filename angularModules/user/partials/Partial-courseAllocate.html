@@ -28,17 +28,13 @@
                                 </div>
                             </div>
                             
-                            <div class="col-md-3 col-xs-12">
-                                <div class="m-t-sm hidden-xs" ng-if="showFields">
+                            <div class="col-md-3 col-xs-12" ng-show="showFields">
+                                <div class="m-t-sm " >
                                     
                                     <course-loader ng-model="courseAllocate.selectedCourse"></course-loader>
                                   
                                 </div>
-                                <div class=" visible-xs" ng-if="showFields">
-                                    
-                                    <course-loader ng-model="courseAllocate.selectedCourse"></course-loader>
-                                  
-                                </div>
+                              
                             </div>
 
                             <div class="col-md-2 col-xs-12">
@@ -69,7 +65,7 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-                       <div class="p shadow-z-1 col-xs-12 bg-white">
+                       <div ng-if="userObj.userList.length>0" class="p shadow-z-1 col-xs-12 bg-white">
                                     <div class="hidden-xs">
                                     <div  class="col-xs-2 m-t-sm">
                                         <!-- <div class="checkbox no-margin">
@@ -102,6 +98,11 @@
                                         </div>
                                     </div>
                                     </div>
+
+                        </div>
+                        <div ng-if="userObj.userList.length==0" class="p shadow-z-1 col-xs-12 btn-material-red-500">
+                                <h4 translate="{{'No users Found'| translate}}"></h4>    
+                                     
 
                         </div>
                         

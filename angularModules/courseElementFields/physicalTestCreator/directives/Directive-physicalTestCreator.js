@@ -15,8 +15,7 @@ angular.module('baabtra').directive('physicalTestCreator', function() {
 				scope.ngModel.tests = [];
 			}
 
-
-			
+					
 
 			//initiating a blank physical test object
 			scope.physicalTest = {};
@@ -66,7 +65,7 @@ angular.module('baabtra').directive('physicalTestCreator', function() {
 				gender:'Male',
 				evalUnit:'Number',
 				equate:'greater than',
-				timeUnit:'seconds',
+				timeUnit:'minutes',
 				perTimeUnit:'minutes',
 				categorization:'age',
 				lengthUnit:'meters'
@@ -90,6 +89,10 @@ angular.module('baabtra').directive('physicalTestCreator', function() {
 				//pushing a pass criteria object with initial values to show the fields for adding the criteria
 				testObj.passCriteriaObj = angular.copy(scope.passCriteriaObj);
 				testObj.passCriteria = [];
+				testObj.showGender = true;
+				testObj.showCategory = true;
+				testObj.showGenderDD = true;
+				testObj.showCategoryDD = true;
 				scope.ngModel.tests.push(angular.copy(testObj));
 				testObj = {};
 			}
@@ -107,11 +110,12 @@ angular.module('baabtra').directive('physicalTestCreator', function() {
 				}
 
 				testType.passCriteria.push(angular.copy(passCriteriaObj));
+				fnShowGenderCheckBox(testType);
 				passCriteriaObj = {
 										gender:'Male',
 										evalUnit:'Number',
 										equate:'greater than',
-										timeUnit:'seconds',
+										timeUnit:'minutes',
 										perTimeUnit:'minutes',
 										categorization:'age',
 										lengthUnit:'meters'
@@ -119,6 +123,14 @@ angular.module('baabtra').directive('physicalTestCreator', function() {
 									};
 
 				
+			}
+
+//-------------------------------------------------------------------------------------		//function to build and show the criteria for passing the test
+
+			//function to update criteria
+			scope.updateCriteria  = function(testType){
+				testType.criteriaEditMode = false;
+				fnShowGenderCheckBox(testType);
 			}
 
 
@@ -184,6 +196,8 @@ angular.module('baabtra').directive('physicalTestCreator', function() {
 			scope.removeCriteria = function(testType, index) {
 				
 				testType.passCriteria.splice(index,1);
+				fnShowGenderCheckBox(testType);
+
 			}
 //-------------------------------------------------------------------------------------	//function to remove rule
 			
@@ -196,6 +210,65 @@ angular.module('baabtra').directive('physicalTestCreator', function() {
 			scope.removeType = function(index) {
 				scope.ngModel.tests.splice(index,1);
 			}
+
+//-------------------------------------------------------------------------------------	//function to remove  a type
+			// function to check whether the check gender check box should be shown
+			var fnShowGenderCheckBox = function(test){
+
+			
+			 	
+			 	var countGender = 0;
+			 	var countCategory = 0;
+			 	var genderFreeCount = 0;
+			 	var categoryFreeCount = 0;
+
+				for (var i in test.passCriteria){
+					if(test.passCriteria[i].checkGender){
+						countGender = countGender+1;
+					}
+					else{
+						genderFreeCount = genderFreeCount + 1;
+					}
+
+					if(test.passCriteria[i].checkCategory){
+						countCategory = countCategory+1;
+					}
+					else{
+						categoryFreeCount = categoryFreeCount + 1;
+					}
+
+				}
+
+			 	if(countGender > 0){
+			 		test.showGender = false;
+				}
+				else{
+					test.showGender = true;
+				}
+
+				if(countCategory > 0){
+			 		test.showCategory = false;
+				}
+				else{
+					test.showCategory = true;
+				}
+
+				if(genderFreeCount > 0){
+			 		test.showGenderDD = false;
+				}
+				else{
+					test.showGenderDD = true;
+				}
+
+				if(categoryFreeCount > 0){
+			 		test.showCategoryDD = false;
+				}
+				else{
+					test.showCategoryDD = true;
+				}
+
+			}
+//-------------------------------------------------------------------------------------	//function to remove  a type
 
 		}//End. link
 	};
