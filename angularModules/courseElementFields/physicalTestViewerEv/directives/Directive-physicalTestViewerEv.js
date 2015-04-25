@@ -28,6 +28,11 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 			{label:"height", value:"height"},
 			{label:"weight", value:"weight"}];
 
+			//array to hold the pass/fail statuses
+			scope.passStatuses = [
+			{label:"pass", value:"pass"},
+			{label:"fail", value:"fail"}];
+
 
 			//array to hold the time units
 			scope.timeUnits = [
@@ -68,10 +73,13 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 				// an object to hold the real details of the candidate which has to be validated against the pass criteria of each type
 				scope.tests[i].candidate = {};
 
+				scope.tests[i].candidate.passStatus = 'fail';
+
 				currentType = angular.copy(scope.tests[i]);
 
 				//looping through the pass criteria objects in the current test object to build the data
 				var categorizationArray = [];
+				var addedCategories = [];
 				var genderArray = [];
 				var evalUnitsArray = [];
 				var perTimeUnitArray = [];
@@ -89,15 +97,16 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 					
 					if(currentCriteria.checkCategory){
 						checkCategory = true;
-						if(angular.equals(categorizationArray.indexOf(currentCriteria.categorization), -1)){
+						
+						if(angular.equals(addedCategories.indexOf(currentCriteria.categorization), -1)){
 
-							categorizationArray.push(currentCriteria.categorization)
+							addedCategories.push(currentCriteria.categorization);
+
+							categorizationArray.push({category:currentCriteria.categorization})
+							
 						}
 					}
-					else{
-						categoryFree = true;
-						scope.tests[i].candidate.categoryFree = true;
-					}
+					
 
 					if(currentCriteria.checkGender){
 						checkGender = true;
@@ -157,16 +166,16 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 				scope.tests[i].candidate.perTimeUnit = perTimeUnitArray[0];
 			}
 
-			// building the categirization object
-			if(categorizationArray.length){
-				var categorizationOptions = [];
-				for(var k in categorizationArray){
-					// initialising an array to hold the genders			
-					categorizationOptions.push({label:categorizationArray[k], value:categorizationArray[k]});
+			// // building the categirization object
+			// if(categorizationArray.length){
+			// 	var categorizationOptions = [];
+			// 	for(var k in categorizationArray){
+			// 		// initialising an array to hold the genders			
+			// 		categorizationOptions.push({label:categorizationArray[k], value:categorizationArray[k]});
 					
-				}
-				scope.tests[i].candidate.categorization = categorizationArray[0];
-			}
+			// 	}
+			// 	scope.tests[i].candidate.categorization = categorizationArray[0];
+			// }
 
 			// building the evalUnits object
 			if(evalUnitsArray.length){
@@ -181,13 +190,9 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 			}
 
 			// attaching these values to the current type
-			if(!categoryFree){
-				currentType.categorizationArray = categorizationOptions;
-			}
-			else{
-				currentType.categorizationArray = scope.categorizations;
-				scope.tests[i].candidate.categorization = 'age';
-			}
+			
+				scope.tests[i].candidate.categorizationArray = categorizationArray;
+			
 
 			if(!genderFree){
 				currentType.genderArray = genderOptions;
@@ -212,8 +217,8 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 			currentType.checkGender  = checkGender;
 			currentType.checkPer  = checkPer;
 
-			scope.tests[i].candidate.timeUnit = 'seconds';
-			scope.tests[i].candidate.lengthUnit = 'centimeters';
+			scope.tests[i].candidate.timeUnit = 'minutes';
+			scope.tests[i].candidate.lengthUnit = 'meters';
 
 			scope.evaluateArray.push(currentType);
 
@@ -222,12 +227,178 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 //_____________________________________________________________________________________
 
 		// function to check whether the candidate is passed or failed
-		var validate = function(candidate){
+		scope.validate = function(testType){
+
+			var candidate = testType.candidate;
+			var passCriteria = testType.passCriteria;
+
+			var equateArray = ['',undefined, null];
+
+
+			// looping in test object to evaluate a candidate
+			var criteriaArray = [];
+			var checkCriteria = {};
+
+			//building up the criteria array to check
+			for(var i in passCriteria){
+				checkCriteria = passCriteria[i];
+
+						if(angular.equals(candidate.gender, checkCriteria.gender)){
+							
+						if(candidate.categorizationArray.length) {	
+							for(var j in candidate.categorizationArray){
+								var currentCategorization = candidate.categorizationArray[j];
+								if(angular.equals(currentCategorization.category,checkCriteria.categorization)){
+									if(currentCategorization.value>checkCriteria.minLimit && currentCategorization.value<checkCriteria.maxLimit) {	
+											criteriaArray.push(checkCriteria);
+										}
+								}
+							}
+						  }
+						  else{
+						  	criteriaArray.push(checkCriteria);
+						  }
+						}				
+
+
+			}
+
+			if(criteriaArray.length){
+				
+
+				//looping in the criteria array to find out the status
+				for(var i in criteriaArray){
+					
+					checkCriteria = criteriaArray[i];
+
+					var valueToCheck;
+
+					if(checkCriteria.per && !angular.equals(candidate.performedTime, undefined) && angular.equals(checkCriteria.perTimeUnit,candidate.perTimeUnit)){
+
+						valueToCheck = candidate.performedUnits/candidate.performedTime;
+
+					}else{
+						valueToCheck = angular.copy(candidate.performedUnits);
+					}
+
+
+
+					//quitting the function if value to check is undefined
+					if(angular.equals(valueToCheck, undefined)){
+						return;
+					}
+
+					// console.log(checkCriteria.equate);
+					// console.log(parseInt(valueToCheck));
+					// console.log(parseInt(checkCriteria.passLimit));
+
+					//setting the pass status to true if the candidate's performance is fine
+						if(angular.equals(checkCriteria.equate,'less than')){
+						
+							if(parseInt(valueToCheck) < parseInt(checkCriteria.passLimit)){
+								testType.candidate.passStatus = 'pass';
+							}
+						}	
+						else if(angular.equals(checkCriteria.equate, 'less than or equal to')){
+							if(parseInt(valueToCheck)<=parseInt(checkCriteria.passLimit)){
+								testType.candidate.passStatus = 'pass';
+							}
+						}
+						else if(angular.equals(checkCriteria.equate, 'greater than' )){
+							if(parseInt(valueToCheck)>parseInt(checkCriteria.passLimit)){
+								testType.candidate.passStatus = 'pass';
+							}
+						}
+						else if(angular.equals(checkCriteria.equate, 'greater than or equal to' )){
+							if(parseInt(valueToCheck)>=parseInt(checkCriteria.passLimit)){
+								testType.candidate.passStatus = 'pass';
+							}
+						}
+						else if(angular.equals(checkCriteria.equate, 'equal to' )){
+							if(parseInt(valueToCheck)==parseInt(checkCriteria.passLimit)){
+								testType.candidate.passStatus = 'pass';
+							}
+						}
+
+
+				}
+
+
+
+
+			}
+			else{
+							// $alert({title:'Sorry',content:'Sorry we, could not find a suitable criteria for evaluation, please update the pass or fail status yourself.', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'warning', show:true});
+
+			}
+			
+
+
+			
+
 
 		}
+//_____________________________________________________________________________________
+
+		scope.buildCriteria = function(passCriteria){
+
+			var strCriteria = '';
+
+			if(passCriteria.checkGender && passCriteria.checkCategory){
+				strCriteria = passCriteria.gender + 's whose ' +  passCriteria.categorization + ' is between ' + passCriteria.minLimit + ' and ' + passCriteria.maxLimit;
+
+				if(angular.equals(passCriteria.categorization,"age")){
+				strCriteria  = strCriteria + ' years ';
+				}
+				else if(angular.equals(passCriteria.categorization,"height")){
+					strCriteria  = strCriteria + ' cm ';
+				}
+				else if(angular.equals(passCriteria.categorization,"wieght")){
+					strCriteria  = strCriteria + ' Kg ';
+				}
+			}
+			else if (!passCriteria.checkGender && passCriteria.checkCategory){
+				strCriteria = 'People whose ' + passCriteria.categorization + ' is between ' +  passCriteria.minLimit + ' and ' + passCriteria.maxLimit;
+
+				if(angular.equals(passCriteria.categorization,"age")){
+				strCriteria  = strCriteria + ' years ';
+				}
+				else if(angular.equals(passCriteria.categorization,"height")){
+					strCriteria  = strCriteria + ' cm ';
+				}
+				else if(angular.equals(passCriteria.categorization,"wieght")){
+					strCriteria  = strCriteria + ' Kg ';
+				}
+			}
+			else if (passCriteria.checkGender && !passCriteria.checkCategory){
+				strCriteria = passCriteria.gender + 's '
+			}
+
+			
+
+			 strCriteria  = strCriteria + 'pass the test if '; 
+
+			 strCriteria  = strCriteria + passCriteria.evalUnit + ' is ' + passCriteria.equate + ' ' +  passCriteria.passLimit;
+
+			 if(!angular.equals(scope.distanceArray.indexOf(passCriteria.evalUnit), -1)){
+			 	strCriteria = strCriteria + ' ' + passCriteria.lengthUnit;
+			 }
+			 else if (angular.equals(passCriteria.evalUnit, 'Time')) {
+
+			 	strCriteria = strCriteria + ' ' + passCriteria.timeUnit;
+
+			 }
 
 
+			 if(passCriteria.per){
+			 	strCriteria = strCriteria + ' per ' + passCriteria.perTimeUnit;
+			 }
 
+			 return strCriteria;
+		}	
+
+
+//_____________________________________________________________________________________
 
 
 
