@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('BatchattendancereportCtrl',['$scope','menteeAttendanceReport','$rootScope','$stateParams','assignCourseMaterial',function($scope,menteeAttendanceReport,$rootScope,$stateParams,assignCourseMaterial){
+angular.module('baabtra').controller('BatchattendancereportCtrl',['$scope','menteeAttendanceReport','$rootScope','$stateParams','assignCourseMaterial','$alert',function($scope,menteeAttendanceReport,$rootScope,$stateParams,assignCourseMaterial,$alert){
 
 $scope.filter={};
 $scope.data={};
@@ -15,6 +15,7 @@ $scope.chart = { //dummy object
    'height':400
   }
 };
+$scope.flag=0;
 
 //to check login info to get the user details
 if(!$rootScope.userinfo){
@@ -52,7 +53,6 @@ $scope.userBasedList={};
 			var batchAttendanceReportPromise = menteeAttendanceReport.fnLoadBatchAttReport($scope.filter);
 				batchAttendanceReportPromise.then(function(response){ //getting the promise of feedback response
 					$scope.reportList=angular.fromJson(JSON.parse(response.data));
-					// console.log($scope.reportList);
 						var arr=[];
 						angular.forEach($scope.reportList.report,function(report){
 
@@ -96,7 +96,12 @@ $scope.userBasedList={};
 							$scope.chartObj=angular.copy($scope.chart); 
 							$scope.reportArr.push($scope.chartObj);
 						}
-						console.log($scope.reportArr);
+						if(!$scope.reportArr.length){
+							$scope.flag=1;
+						}
+						else{
+							$scope.flag=0;
+						}
 
 			});
 		//}
@@ -131,5 +136,10 @@ $scope.findValue=function(outerarr,item)
 
 };
 	
+ //notification 
+$scope.notifications=function(title,message,type){
+     // Notify(message, 'top-right', '2000', type, symbol, true); \
+     $alert({title: title, content: message , placement: 'top-right',duration:3, type: type});// calling notification message function
+    };
 
 }]);

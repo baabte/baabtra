@@ -32,10 +32,9 @@
         </div>
         </div>
 		<div style="margin-top:180px;">		
-		<!-- ng-if="showOrderFormOnStatus(orderForm.status) && getOptions(orderForm.status,$index).length"	 -->
 		<span ng-if="reportArr.length" class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 font-bold no-padding m-b" style="text-transform:uppercase;" translate="{{'Batch Attendance Report'}}"></span>
-		<div ng-if="data.companOrderForms.orderFroms.length==0" class="alert alert-danger" style="position:fixed; width:101%;">
-      	<strong translate="{{'There are no any order form found.!'|translate}}"></strong> 
+		<div ng-if="flag==1" class="alert alert-danger" style="position:fixed; width:101%;">
+      	<strong translate="{{'There are no data found .!'|translate}}"></strong> 
 		</div>
 			<div ng-if="reportArr.length" class="col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-sm shadow-z-1 no-padding no-margin pull-left bg-white">
 
@@ -59,8 +58,10 @@
 
   					    </div>
   					</div> -->
+
 					</div>
-          <div class="row"  style="margin-left:0;margin-right:0;">
+          
+          <div ng-show="reportArr.length" class="row"  style="margin-left:0;margin-right:0;">
             <!--  -->
             <table class="table table-bordered table-hover bg-white">
                 <thead>
