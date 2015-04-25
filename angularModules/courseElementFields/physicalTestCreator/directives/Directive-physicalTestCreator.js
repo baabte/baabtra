@@ -43,7 +43,7 @@ angular.module('baabtra').directive('physicalTestCreator', function() {
 			scope.lengthUnits = [
 			{label:"centimeters", value:"centimeters"},
 			{label:"meters", value:"meters"},
-			{label:"kilomenters", value:"kilomenters"}];
+			{label:"kilometers", value:"kilometers"}];
 
 			//array to hold the categorization
 			scope.categorizations = [
