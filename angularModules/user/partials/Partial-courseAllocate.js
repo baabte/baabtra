@@ -21,6 +21,8 @@ $rootScope.$watch('userinfo',function(){
     var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope,'','initial','',searchKey); 
     fetchUsersToCourseAllocateCallback.then(function(data){
         $scope.userObj=angular.fromJson(JSON.parse(data.data));
+        // console.log('initial')
+        // console.log($scope.userObj);
         $scope.firstUser=$scope.userObj.firstId.$oid;
     });
 });
@@ -33,31 +35,34 @@ $scope.courseAllocate.selectedUsers={};
 $scope.prevButtondisabled=true;
 $scope.showFields=false;
 $scope.allUserSelected=false;
+$scope.expand=false;
+
 
 
 $scope.searchUser=function(){
 	var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope,'','initial','',$scope.userObj.searchKey);
 	   fetchUsersToCourseAllocateCallback.then(function(data){
         $scope.userObj=angular.fromJson(JSON.parse(data.data));
+        // console.log('search initial')
         // console.log($scope.userObj)
        });
 
 }
 
-$scope.nextOne=function(){//event  for showing next 12 items
+$scope.nextOne=function(){//event  for showing next 9 items
 
 	  $scope.prevButtondisabled=false;
 	   var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope,$scope.userObj.firstId,'next',$scope.userObj.lastId,$scope.userObj.searchKey);
 	   fetchUsersToCourseAllocateCallback.then(function(data){
         $scope.userObj=angular.fromJson(JSON.parse(data.data));
+        // console.log('next');
+        // console.log($scope.userObj);
+
+
        });
 };
 
-            var showSelectedUsersModal = $aside({scope: $scope, template: 'angularModules/user/partials/aside-selectedUsers.html', show: false,placement:'left',animation:'am-fade-and-slide-left'});
 
-$scope.showSelectedUsers=function(){
-showSelectedUsersModal.$promise.then(showSelectedUsersModal.show);
-};
 //event  for showing previous 9 items
 $scope.prevOne=function(){
 	  
@@ -68,6 +73,8 @@ $scope.prevOne=function(){
 	   var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope,$scope.userObj.firstId,'prev',$scope.userObj.lastId,$scope.userObj.searchKey);
 	   fetchUsersToCourseAllocateCallback.then(function(data){
 	        $scope.userObj=angular.fromJson(JSON.parse(data.data));
+	        // console.log('prev');
+        	// console.log($scope.userObj);
 	         if (angular.equals($scope.firstUser,$scope.userObj.firstId)){ 
 				$scope.prevButtondisabled=true;
 	  		}
@@ -77,12 +84,18 @@ $scope.prevOne=function(){
 
 
 
+var showSelectedUsersModal = $aside({scope: $scope, template: 'angularModules/user/partials/aside-selectedUsers.html', show: false,placement:'left',animation:'am-fade-and-slide-left'});
+
+$scope.showSelectedUsers=function(){
+showSelectedUsersModal.$promise.then(showSelectedUsersModal.show);
+};
+
 $scope.fnUserRemove=function(userobj){
 
 	var user=angular.copy(userobj);
 	var index=user.index;
 	 $scope.userObj.userList.splice(index,0,user);
-	 delete $scope.courseAllocate.selectedUsers[user.userRoleMappingId];
+	 delete $scope.courseAllocate.selectedUsers[user.fkUserLoginId];
 	// console.log($scope.courseAllocate.selectedUsers);
 
 	if(Object.keys($scope.courseAllocate.selectedUsers).length>0){
@@ -100,19 +113,14 @@ $scope.fnAddAllUsers=function(){
 
 			var user=angular.copy($scope.userObj.userList[index]);
 			user.index=index;
-			if(angular.equals($scope.courseAllocate.selectedUsers[user.userRoleMappingId],undefined)){
-			$scope.courseAllocate.selectedUsers[user.userRoleMappingId]=user;
+			if(angular.equals($scope.courseAllocate.selectedUsers[user.fkUserLoginId],undefined)){
+			$scope.courseAllocate.selectedUsers[user.fkUserLoginId]=user;
 			}
 			
 
 		}
 	}
 
-	for(var key in $scope.courseAllocate.selectedUsers){
-		if (angular.equals($scope.courseAllocate.selectedUsers[key].Selection,true)) {
-	 		$scope.userObj.userList.splice($scope.courseAllocate.selectedUsers[key].index,1);						
-		}
-	}
 
 	if(Object.keys($scope.courseAllocate.selectedUsers).length>0){
 				$scope.showFields=true;
@@ -162,14 +170,14 @@ $scope.fnUserSelection=function(userobj,index){
 
 	var user=angular.copy(userobj);
 	user.index=index;
-	if(angular.equals($scope.courseAllocate.selectedUsers[user.userRoleMappingId],undefined)){
-	$scope.courseAllocate.selectedUsers[user.userRoleMappingId]=user;
+	if(angular.equals($scope.courseAllocate.selectedUsers[user.fkUserLoginId],undefined)){
+	$scope.courseAllocate.selectedUsers[user.fkUserLoginId]=user;
 	 $scope.userObj.userList.splice(index,1);
 	// console.log($scope.courseAllocate.selectedUsers);
 	}
 	else{
 	 $scope.userObj.userList.splice(index,1,user);
-	 delete $scope.courseAllocate.selectedUsers[user.userRoleMappingId];
+	 delete $scope.courseAllocate.selectedUsers[user.fkUserLoginId];
 	// console.log($scope.courseAllocate.selectedUsers);
 	}
 

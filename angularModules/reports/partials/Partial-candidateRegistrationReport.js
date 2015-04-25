@@ -25,8 +25,8 @@ var CandidateRegistrationReportCallback=candidateReport.CandidateRegistrationRep
       // console.log($scope.candidateregdata);
       $scope.chartData=[];
       var array=[];
-      array[0]="Candidates";
-      array[1]="Registered On";
+      array[0]="Candidates count";
+      array[1]="Time Period";
       $scope.chartData.push(array);
       array=[];
       for (var i in $scope.candidateregdata) {
@@ -35,12 +35,13 @@ var CandidateRegistrationReportCallback=candidateReport.CandidateRegistrationRep
            $scope.chartData.push(array);
            array=[];
       }
+      $scope.CalctotalCount($scope.chartData);
        $scope.candidateRegistrationReport= { 
                                   "type":"PieChart", 
                                   "displayExactValues": true, 
                                   "options": {
                                     "is3D":true,  
-                                    "title": "Courses and Candidates",
+                                    "title": "Candidate Registration",
                                     "vAxis":{
                                       "title":"Candidates"
                                     },
@@ -79,11 +80,10 @@ $scope.UpdateReport=function(from,data){
     var UpdateReportCallBack=candidateReport.CandidateRegistrationReport(dataToSend); 
      UpdateReportCallBack.then(function(data){
         $scope.UpdateReportObj = angular.fromJson(JSON.parse(data.data)); 
-        // console.log($scope.UpdateReportObj);
         var arrayToPush=[];
         var array=[];
-            array[0]="Course";
-            array[1]="Registered On";
+            array[0]="Candidates count";
+            array[1]="Time Period";
         arrayToPush.push(array);
         array=[];
         for (var i in $scope.UpdateReportObj) {
@@ -92,13 +92,23 @@ $scope.UpdateReport=function(from,data){
                arrayToPush.push(array);
                array=[];
         }
-        $scope.candidateRegistrationReport.options.title= $scope.UpdateReportObj[0].registered; 
+        $scope.CalctotalCount(arrayToPush);
         $scope.candidateRegistrationReport.data=arrayToPush;
 
  });
 };
 
+$scope.CalctotalCount=function(ArrayVar)
+{
+  $scope.total=0;
+  for (var i = 0; i < ArrayVar.length; i++) {
+    if(i>0)
+    {
+      $scope.total= $scope.total+ArrayVar[i][1];
+    }
+  }
 
+}
 ///////////////////////////////////////////////////
 
 function firstDayOfWeek(week, year,type) {
