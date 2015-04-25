@@ -25,7 +25,10 @@
 	<div class="row" ng-if="menteeObj.selectedCourse" style="padding-top: 80px;padding-bottom: 15px;">
 		<div class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 col-xs-12">
 			<div  ng-repeat="element in menteeObj.elementOrderArray" >
-				<evaluation-loader course-timeline="menteeObj.selectedCourse.courseTimeline" element-order="menteeObj.selectedCourse.elementOrder[element]" evaluator-id="rm_id" course-mapping-id="menteeObj.selectedCourse._id.$oid"></evaluation-loader>
+				<evaluation-loader course-timeline="menteeObj.selectedCourse.courseTimeline" element-order="menteeObj.selectedCourse.elementOrder[element]" evaluator-id="rm_id" course-mapping-id="menteeObj.selectedCourse._id.$oid" evaluable-element="menteeObj.evaluableElement"></evaluation-loader>
+			</div>
+			<div ng-if="!menteeObj.evaluableElement" class="col-xs-12 shadow-z-1 p bg-warning font-bold">
+				There are no evaluable element found .!
 			</div>
 		</div>
 	</div>
