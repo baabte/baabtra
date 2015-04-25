@@ -16,6 +16,7 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 				scope.ngModel ={};
 			}
 
+			console.clear();
 			console.log(scope.data);
 
 			// Initialising an array to hold the pass criteria objects
