@@ -9,7 +9,7 @@ angular.module('baabtra').directive('courseElementEvaluator',['$compile', functi
 		},
 		templateUrl: 'angularModules/courseElementPreview/directives/Directive-courseElementEvaluator.html',
 		link: function(scope, element, attrs, fn) {
-						scope.rand=Math.floor(Math.random()*100000); // for generating random id for elements
+			scope.rand=Math.floor(Math.random()*100000); // for generating random id for elements
 			scope.$watch('previewData', function(){
 
 				$(element).find('#elementContent'+scope.rand).html('');
