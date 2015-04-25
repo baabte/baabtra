@@ -34,9 +34,11 @@ angular.module('baabtra').directive('physicalTestCreator', function() {
 
 			//array to hold the time units
 			scope.timeUnits = [
+			{label:"seconds", value:"seconds"},
 			{label:"minutes", value:"minutes"},
-			{label:"days", value:"days"},
-			{label:"hours", value:"hours"}];
+			{label:"hours", value:"hours"},
+			{label:"days", value:"days"}
+			];
 
 			//array to hold the length units
 			scope.distanceArray = ['Height','Length'];
@@ -64,7 +66,7 @@ angular.module('baabtra').directive('physicalTestCreator', function() {
 				gender:'Male',
 				evalUnit:'Number',
 				equate:'greater than',
-				timeUnit:'minutes',
+				timeUnit:'seconds',
 				perTimeUnit:'minutes',
 				categorization:'age',
 				lengthUnit:'meters'
@@ -109,7 +111,7 @@ angular.module('baabtra').directive('physicalTestCreator', function() {
 										gender:'Male',
 										evalUnit:'Number',
 										equate:'greater than',
-										timeUnit:'minutes',
+										timeUnit:'seconds',
 										perTimeUnit:'minutes',
 										categorization:'age',
 										lengthUnit:'meters'

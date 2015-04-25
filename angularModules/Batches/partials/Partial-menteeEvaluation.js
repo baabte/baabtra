@@ -79,7 +79,7 @@ angular.module('baabtra').controller('MenteeevaluationCtrl',['$scope','$rootScop
 
   	var result = angular.fromJson(JSON.parse(response.data));
   	$scope.menteeObj.selectedCourse = result[0];
-  	console.log($scope.menteeObj.selectedCourse.elementOrder);
+  	$scope.menteeObj.elementOrderArray = Object.keys($scope.menteeObj.selectedCourse.elementOrder);
   });
 
 
