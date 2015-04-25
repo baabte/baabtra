@@ -105,7 +105,7 @@
 
                         </div>
                         
-                        <div class="p shadow-z-1 col-xs-12 bg-white "ng-repeat="user in userObj.userList|filter :userObj.searchKey" >
+                        <div class="p shadow-z-1 col-xs-12 bg-white "ng-repeat="user in userObj.userList" >
                                     <div class="hidden-xs">
                                     <div ng-if="allUserSelected"  class="col-xs-2">
                                         <div class="checkbox no-margin">
@@ -130,12 +130,12 @@
                                     <!-- </div> -->
                                     <div class="col-xs-10 pull-left">
                                         <span class="upper font-bold">{{user.profile.firstName}} {{user.profile.lastName}}</span>
-                                        <i  class="mdi-navigation-unfold-less pull-right text-lg link hidden-xs" ng-click="user.expandDetails=$index"></i>
+                                        <i  class="mdi-navigation-unfold-less pull-right text-lg link hidden-xs" ng-click="user.expandDetails=!expand;expand=!expand"></i>
 
-                                        <div class="hidden-xs" ng-if="user.expandDetails && user.expandDetails == $index" ng-class="{'am-fade-and-slide-top':user.expandDetails == $index">
+                                        <div class="hidden-xs" ng-if="user.expandDetails && user.expandDetails == true">
                                             <div class="font-bold p-v-xs" translate="{{'User Details'|translate}}"></div>
                                             <div class="">
-                                                <div class="bg-light p-xs m-b-xs">{{user.username}}</div>
+                                                <div class="bg-light p-xs m-b-xs">{{user.userName}}</div>
                                             </div>
                                         </div>
                                     </div>
