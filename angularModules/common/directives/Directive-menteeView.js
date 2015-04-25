@@ -19,11 +19,11 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 			{
 			"text": "<i class=\"fa fa-globe\"></i>&nbsp;View course",
 			 "click": "fnViewCourse()"
-			},
+			},/*,
 			{
 			"text": "<i class=\"fa fa-hand-o-up\"></i>&nbsp;Mark attendance",
 			 "click": "fnMarkAttendance()"
-			},
+			},*/
 			{
 			"text": "<i class=\"fa fa-paperclip\"></i>&nbsp;Assign a course material",
 			"click": "fnAssignMaterial()"
@@ -33,12 +33,12 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 			"text": "<i class=\"fa fa-check\"></i>&nbsp;Evaluate",
 			"click": "fnEvaluate()"
 
-			},
+			}/*,
 			{
 			"text": "<i class=\"fa fa-pie-chart\"></i>&nbsp;Attendance report",
 			"click": "fnMenteeReport()"
 
-			}
+			}*/
 			];
 
 			//function to view the profile
@@ -57,10 +57,10 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 			};
 
 			//function to view course
-			scope.fnMarkAttendance=function(){
+			/*scope.fnMarkAttendance=function(){
 				
 				$state.go("home.main.menteeAttendance",{userId:scope.menteeObj.fkUserRoleMappingId.$oid});
-			};
+			};*/
 
 			//function to evaluate course materials
 			scope.fnEvaluate=function(){
@@ -68,8 +68,11 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 			};
 
 			//function to evaluate course materials
-			scope.fnMenteeReport=function(){
+			/*scope.fnMenteeReport=function(){
 				$state.go("home.main.menteeAttendanceReport",{userId:scope.menteeObj.fkUserRoleMappingId.$oid});
+<<<<<<< HEAD
+			};*/
+=======
 			};
 
 			// function for executing functions from name
@@ -77,6 +80,7 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 					functionName=functionName.replace('()','');
 					scope[functionName]();
 				};
+>>>>>>> 1ae174ba82ea8f503963c5cdff58d65fe95db67d
 		}
 	};
 }]);
