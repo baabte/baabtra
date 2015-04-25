@@ -1,11 +1,14 @@
-<div ng-if="element" class="col-xs-12 shadow-z-1 p bg-white" style="margin-bottom: 30px;">
+<div ng-if="element.evaluable" class="col-xs-12 shadow-z-1 p bg-white" style="margin-bottom: 30px;">
 	<div class="row">
-		<div class="col-xs-9 font-bold text-md">
+		<div class="col-xs-1 ">
+			<i class="fa {{element.Icon}} ui-icon"></i>
+		</div>
+		<div class="col-xs-8 font-bold text-md ">
 			{{element.elements[0].value}}
 		</div>
-		<div class="col-xs-2 col-md-3 text-right">
+		<div class="col-xs-3 col-md-3 text-right">
 			<span class="label label-warning" ng-if="!element.evalStatus">Pending submission</span>
-			<span class="label label-info" ng-if="element.evalStatus">Pending {{element.evalStatus}}</span>
+			<span class="label label-info" ng-if="element.evalStatus">{{element.evalStatus}}</span>
 		</div>
 	</div>
 	<div class="row">
@@ -18,7 +21,10 @@
 
 	<div class="row">
 		<div class="col-xs-12 text-right p-v">
-			<a class="btn btn-info baab-btn no-margin">Evaluate</a>
+			<!-- && element.evalStatus=='Pending evaluation' -->
+			<a ng-if="!element.evalStatus" class="btn btn-info baab-btn no-margin" ng-click="evaluated(element, elementOrder, courseMappingId, evaluatorId)" style="line-height: 13px;">Evaluate</a>
+			<a ng-if="element.evalStatus == 'Evaluated'" class="btn btn-info baab-btn no-margin" ng-click="evaluated(element, elementOrder, courseMappingId, evaluatorId)" style="line-height: 13px;">Update</a>
+
 		</div>
 	</div>
 </div>
