@@ -120,7 +120,32 @@ angular.module('baabtra').directive('assignmentViewer',  ['$rootScope','$state',
      	response = angular.fromJson(JSON.parse(response.data));
      	
      	if(angular.equals(response.result,"success")) {
+
+     		if(angular.equals(submitStatus, 'draft')){
+			$alert({title:'Success',content:'All changes have been saved', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'success', show:true});
+
+     		}
+     		else{
+     			$alert({title:'Success',content:'The assignment has been submitted. Your assignment will be evaluated by the concerned evaluator soon', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'success', show:true});
+     		}
+
+
+     	  //changing the submit status in the scope. This will disable the save and submit button
      	  scope.status = submitStatus;
+
+
+     	}
+     	else{
+
+
+     		if(angular.equals(submitStatus, 'draft')){
+			$alert({title:'Error',content:'Sorry, some error occurred in saving the current changes. Please retry', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'danger', show:true});
+
+     		}
+     		else{
+     			$alert({title:'Error',content:'Sorry, some error occurred in submitting the assignment, please retry', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'danger', show:true});
+     		}
+
      	}
 
      });

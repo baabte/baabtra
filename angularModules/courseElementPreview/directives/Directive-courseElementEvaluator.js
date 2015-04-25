@@ -9,7 +9,10 @@ angular.module('baabtra').directive('courseElementEvaluator',['$compile', functi
 		},
 		templateUrl: 'angularModules/courseElementPreview/directives/Directive-courseElementEvaluator.html',
 		link: function(scope, element, attrs, fn) {
-						scope.rand=Math.floor(Math.random()*100000); // for generating random id for elements
+
+			scope.result = [];
+
+			scope.rand=Math.floor(Math.random()*100000); // for generating random id for elements
 			scope.$watch('previewData', function(){
 
 				$(element).find('#elementContent'+scope.rand).html('');
@@ -29,6 +32,9 @@ angular.module('baabtra').directive('courseElementEvaluator',['$compile', functi
 							 		elementToBeCreated.attr('course-element',JSON.stringify(scope.previewData));
 							 		elementToBeCreated.attr('index',key);
 							 		elementToBeCreated.attr('course-id','courseId');
+
+							 		scope.result[key] = {};							 		
+
 							 		$('#elementContent'+scope.rand).append(elementToBeCreated);
 							}
 					});

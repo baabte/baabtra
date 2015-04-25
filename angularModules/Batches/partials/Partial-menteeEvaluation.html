@@ -1,16 +1,31 @@
-<div class="bg-light">
-	<div class="row m-b-lg" style="position:fixed; width:102%; z-index:100;">
-		<div class="col-xs-12 font-bold text-right p upper bg-white shadow-z-1">
-			{{menteeObj.selectedCourse.Name}}
+<!-- <div class="row">
+	<div class="bg-light">
+		<div class=" m-b-lg" style="position:fixed; width:101%; z-index:100;">
+			<div class="col-xs-12 font-bold text-right p upper bg-white shadow-z-1">
+				{{menteeObj.selectedCourse.Name}}
+			</div>
+		</div>
+		<div class=""  ng-if="menteeObj.selectedCourse" style="padding-top: 80px;padding-bottom: 15px;">
+			<div class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 col-xs-12">
+
+				<div  ng-repeat="element in menteeObj.elementOrderArray" >
+					<evaluation-loader course-timeline="menteeObj.selectedCourse.courseTimeline" element-order="menteeObj.selectedCourse.elementOrder[element]" evaluator-id="rm_id" course-mapping-id="menteeObj.selectedCourse._id.$oid"></evaluation-loader>
+				</div>
+			</div>
 		</div>
 	</div>
+</div> -->
 
-
-	<div class="row p-v"  ng-if="menteeObj.selectedCourse" style="padding-top: 80px;padding-bottom: 15px;">
-
+<div class="bg-light">
+	<div class="bg-white" style="width:101%;z-index:100;"data-offset-top="-131" bs-affix>
+		<div class="col-xs-12 font-bold text-right p upper shadow-z-1">
+				{{menteeObj.selectedCourse.Name}}
+		</div>
+	</div>
+	<div class="row" ng-if="menteeObj.selectedCourse" style="padding-top: 80px;padding-bottom: 15px;">
 		<div class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 col-xs-12">
-			<div  ng-repeat="element in menteeObj.selectedCourse.elementOrder" >
-				<evaluation-loader course-timeline="menteeObj.selectedCourse.courseTimeline" element-order="element" evaluator-id="rm_id" course-mapping-id="menteeObj.selectedCourse._id.$oid"></evaluation-loader>
+			<div  ng-repeat="element in menteeObj.elementOrderArray" >
+				<evaluation-loader course-timeline="menteeObj.selectedCourse.courseTimeline" element-order="menteeObj.selectedCourse.elementOrder[element]" evaluator-id="rm_id" course-mapping-id="menteeObj.selectedCourse._id.$oid"></evaluation-loader>
 			</div>
 		</div>
 	</div>

@@ -73,6 +73,7 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 					functionName=functionName.replace('()','');
 					scope[functionName]();
 				};
+
 		}
 	};
 }]);
