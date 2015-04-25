@@ -72,15 +72,12 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 				$state.go("home.main.menteeAttendanceReport",{userId:scope.menteeObj.fkUserRoleMappingId.$oid});
 <<<<<<< HEAD
 			};*/
-=======
-			};
 
 			// function for executing functions from name
 				scope.executeFunction=function (functionName) {
 					functionName=functionName.replace('()','');
 					scope[functionName]();
 				};
->>>>>>> 1ae174ba82ea8f503963c5cdff58d65fe95db67d
 		}
 	};
 }]);

@@ -21,8 +21,8 @@ $rootScope.$watch('userinfo',function(){
     var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope,'','initial','',searchKey); 
     fetchUsersToCourseAllocateCallback.then(function(data){
         $scope.userObj=angular.fromJson(JSON.parse(data.data));
-        // console.log('initial')
-        // console.log($scope.userObj);
+        console.log('initial')
+        console.log($scope.userObj);
         $scope.firstUser=$scope.userObj.firstId;
     });
 });
@@ -43,8 +43,8 @@ $scope.searchUser=function(){
 	var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope,'','initial','',$scope.userObj.searchKey);
 	   fetchUsersToCourseAllocateCallback.then(function(data){
         $scope.userObj=angular.fromJson(JSON.parse(data.data));
-        // console.log('search initial')
-        // console.log($scope.userObj)
+        console.log('search initial')
+        console.log($scope.userObj)
        });
 
 };
@@ -55,8 +55,8 @@ $scope.nextOne=function(){//event  for showing next 9 items
 	   var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope,$scope.userObj.firstId,'next',$scope.userObj.lastId,$scope.userObj.searchKey);
 	   fetchUsersToCourseAllocateCallback.then(function(data){
         $scope.userObj=angular.fromJson(JSON.parse(data.data));
-        // console.log('next');
-        // console.log($scope.userObj);
+        console.log('next');
+        console.log($scope.userObj);
 
 
        });
