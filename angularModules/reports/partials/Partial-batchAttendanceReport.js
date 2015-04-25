@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('BatchattendancereportCtrl',['$scope','menteeAttendanceReport','$rootScope','$stateParams','assignCourseMaterial',function($scope,menteeAttendanceReport,$rootScope,$stateParams,assignCourseMaterial){
+angular.module('baabtra').controller('BatchattendancereportCtrl',['$scope','menteeAttendanceReport','$rootScope','$stateParams','assignCourseMaterial','$alert',function($scope,menteeAttendanceReport,$rootScope,$stateParams,assignCourseMaterial,$alert){
 
 $scope.filter={};
 $scope.data={};
@@ -15,6 +15,7 @@ $scope.chart = { //dummy object
    'height':400
   }
 };
+$scope.flag=0;
 
 //to check login info to get the user details
 if(!$rootScope.userinfo){
@@ -33,6 +34,7 @@ $rootScope.$watch('userinfo',function(){
 	
 	loadBatchesPromise.then(function(response){ //promise for batch load
 		$scope.data.batchList=angular.fromJson(JSON.parse(response.data));
+		// console.log($scope.data.batchList);
 		angular.forEach($scope.data.batchList, function(batch){
 			batch.batchMappingId=batch._id.$oid;
 			batch.Name=batch.batchName+batch._id.$oid;
@@ -89,9 +91,16 @@ $scope.userBasedList={};
 							}
 
 							$scope.chart.data=data;
-							$scope.chart.options.title="Attendance Report of "+$scope.userBasedList[key].Name;
+							// $scope.chart.options.title="Attendance Report of "+$scope.userBasedList[key].Name;
+							$scope.chart.options.title=$scope.userBasedList[key].Name;
 							$scope.chartObj=angular.copy($scope.chart); 
 							$scope.reportArr.push($scope.chartObj);
+						}
+						if(!$scope.reportArr.length){
+							$scope.flag=1;
+						}
+						else{
+							$scope.flag=0;
 						}
 
 			});
@@ -99,5 +108,38 @@ $scope.userBasedList={};
 	};
 
 $scope.chartTypes = [{"value":"PieChart","label":"PieChart"},{"value":"AreaChart","label":"Area Chart"},{"value":"ColumnChart","label":"Column Chart"},{"value":"LineChart","label":"Line Chart"},{"value":"Table","label":"Table"},{"value":"BarChart","label":"Bar Chart"}];
+
+
+$scope.totalWorkingDays=0;
+
+$scope.findValue=function(outerarr,item)
+{
+	if(!$scope.totalWorkingDays){
+		var total=0;
+		for (var i = 0; i < outerarr.length; i++) {
+			if(angular.equals(typeof(outerarr[i][1]),'number')){
+				total=total+outerarr[i][1];
+			}
+			
+		}
+		$scope.totalWorkingDays=total;
+	}
+	for (var i = 0; i < outerarr.length; i++) {
+		if(angular.equals(outerarr[i][0],item)){
+			per =Math.floor((outerarr[i][1]/$scope.totalWorkingDays)*100);
+			per =(per.toString()).concat("%");
+			per ="(".concat(per.concat(")"));
+
+			return outerarr[i][1]+" "+per;
+		}
+	};
+
+};
+	
+ //notification 
+$scope.notifications=function(title,message,type){
+     // Notify(message, 'top-right', '2000', type, symbol, true); \
+     $alert({title: title, content: message , placement: 'top-right',duration:3, type: type});// calling notification message function
+    };
 
 }]);
