@@ -33,6 +33,7 @@ $rootScope.$watch('userinfo',function(){
 	
 	loadBatchesPromise.then(function(response){ //promise for batch load
 		$scope.data.batchList=angular.fromJson(JSON.parse(response.data));
+		// console.log($scope.data.batchList);
 		angular.forEach($scope.data.batchList, function(batch){
 			batch.batchMappingId=batch._id.$oid;
 			batch.Name=batch.batchName+batch._id.$oid;
