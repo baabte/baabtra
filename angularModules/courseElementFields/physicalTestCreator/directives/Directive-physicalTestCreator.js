@@ -148,7 +148,7 @@ angular.module('baabtra').directive('physicalTestCreator', function() {
 				else if(angular.equals(passCriteria.categorization,"height")){
 					strCriteria  = strCriteria + ' cm ';
 				}
-				else if(angular.equals(passCriteria.categorization,"wieght")){
+				else if(angular.equals(passCriteria.categorization,"weight")){
 					strCriteria  = strCriteria + ' Kg ';
 				}
 			}
@@ -161,7 +161,7 @@ angular.module('baabtra').directive('physicalTestCreator', function() {
 				else if(angular.equals(passCriteria.categorization,"height")){
 					strCriteria  = strCriteria + ' cm ';
 				}
-				else if(angular.equals(passCriteria.categorization,"wieght")){
+				else if(angular.equals(passCriteria.categorization,"weight")){
 					strCriteria  = strCriteria + ' Kg ';
 				}
 			}

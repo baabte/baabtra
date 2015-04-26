@@ -73,7 +73,7 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 				// an object to hold the real details of the candidate which has to be validated against the pass criteria of each type
 				scope.tests[i].candidate = {};
 
-				scope.tests[i].candidate.passStatus = 'fail';
+				scope.tests[i].passStatus = 'fail';
 
 				currentType = angular.copy(scope.tests[i]);
 
@@ -260,9 +260,10 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 						  }
 						}				
 
+				}
+			
 
-			}
-
+			
 			if(criteriaArray.length){
 				
 
@@ -288,35 +289,33 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 						return;
 					}
 
-					// console.log(checkCriteria.equate);
-					// console.log(parseInt(valueToCheck));
-					// console.log(parseInt(checkCriteria.passLimit));
+					testType.passStatus = 'fail';
 
 					//setting the pass status to true if the candidate's performance is fine
 						if(angular.equals(checkCriteria.equate,'less than')){
 						
 							if(parseInt(valueToCheck) < parseInt(checkCriteria.passLimit)){
-								testType.candidate.passStatus = 'pass';
+								testType.passStatus = 'pass';
 							}
 						}	
 						else if(angular.equals(checkCriteria.equate, 'less than or equal to')){
 							if(parseInt(valueToCheck)<=parseInt(checkCriteria.passLimit)){
-								testType.candidate.passStatus = 'pass';
+								testType.passStatus = 'pass';
 							}
 						}
 						else if(angular.equals(checkCriteria.equate, 'greater than' )){
 							if(parseInt(valueToCheck)>parseInt(checkCriteria.passLimit)){
-								testType.candidate.passStatus = 'pass';
+								testType.passStatus = 'pass';
 							}
 						}
 						else if(angular.equals(checkCriteria.equate, 'greater than or equal to' )){
 							if(parseInt(valueToCheck)>=parseInt(checkCriteria.passLimit)){
-								testType.candidate.passStatus = 'pass';
+								testType.passStatus = 'pass';
 							}
 						}
 						else if(angular.equals(checkCriteria.equate, 'equal to' )){
 							if(parseInt(valueToCheck)==parseInt(checkCriteria.passLimit)){
-								testType.candidate.passStatus = 'pass';
+								testType.passStatus = 'pass';
 							}
 						}
 
@@ -331,9 +330,6 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 							// $alert({title:'Sorry',content:'Sorry we, could not find a suitable criteria for evaluation, please update the pass or fail status yourself.', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'warning', show:true});
 
 			}
-			
-
-
 			
 
 
@@ -353,7 +349,7 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 				else if(angular.equals(passCriteria.categorization,"height")){
 					strCriteria  = strCriteria + ' cm ';
 				}
-				else if(angular.equals(passCriteria.categorization,"wieght")){
+				else if(angular.equals(passCriteria.categorization,"weight")){
 					strCriteria  = strCriteria + ' Kg ';
 				}
 			}
@@ -366,7 +362,7 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 				else if(angular.equals(passCriteria.categorization,"height")){
 					strCriteria  = strCriteria + ' cm ';
 				}
-				else if(angular.equals(passCriteria.categorization,"wieght")){
+				else if(angular.equals(passCriteria.categorization,"weight")){
 					strCriteria  = strCriteria + ' Kg ';
 				}
 			}

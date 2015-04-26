@@ -4,10 +4,10 @@ Created On:12/11/2014 -->
 <aside id="aside" ng-if="$root.userinfo.ActiveUserData.modernView == 'modern'" class="app-aside {{$root.userinfo.ActiveUserData.appSettings.asideColor}} text-lg fixedBc shadow-z-2" ng-include="'views/aside.html'"  style="margin-top:20px;" ng-class="{'btn-material-blue-grey-900':$root.userinfo.ActiveUserData.appSettings.asideColor == undefined , 'animated fadeInDown':navBar,'ng-hide':!navBar}">
 </aside>
 <div>
-  <a ng-if="$root.userinfo.ActiveUserData.modernView != 'modern'" class="visible-xs p-sm {{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}}"  ng-click="viewMenu = !viewMenu">
-         <i class="mdi-action-view-headline text-white text-2x m-b"></i>
+  <a ng-if="$root.userinfo.ActiveUserData.modernView != 'modern'" class="visible-xs p-sm {{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}}"  ng-click="viewMobileMenu()">
+         <i class="mdi-action-view-headline text-white text-2x m-b" ></i>
   </a>
-  <div class="{{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}} shadow-z-3 menu-outer" bs-affix data-offset-top="-62" style="font-size: 15px;z-index: 1049;width: 100%;"  ng-if="$root.userinfo.ActiveUserData.modernView != 'modern'" ng-class="{'bg-white':$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor, 'hidden-xs':!viewMenu, 'am-fade-and-slide-left p-v-lg':viewMenu}">
+  <div class="{{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}} shadow-z-3 menu-outer" bs-affix data-offset-top="-62" style="font-size: 15px;z-index: 1049;width: 100%;"  ng-if="$root.userinfo.ActiveUserData.modernView != 'modern'" ng-class="{'bg-white':$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor, 'hidden-xs':!viewMenu, 'am-fade-and-slide-left p-v-lg':viewMenu }">
            
       <nav class="" >
         <div class="container-fluid ">

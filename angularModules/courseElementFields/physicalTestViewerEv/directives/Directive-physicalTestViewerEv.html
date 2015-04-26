@@ -4,16 +4,16 @@
 <div class="row m-t-lg">
 
 	<div class="col-xs-12 m-b" ng-repeat="test in tests">
-		<div class="col-xs-12 font-bold btn-material-red-400 m-b">{{test.type}}</div>
-		<div class="row text-right">
-			<button type="button" class="btn btn-default" ng-model="test.candidate.passStatus" data-html="1" ng-options="passStatus.value as passStatus.label for passStatus in passStatuses" bs-select style="padding-left:3px;"></button>
+		<div class="col-xs-12 font-bold btn-material-red-400 m-b" style="text-transform:uppercase;">{{test.type}}</div>
+		<div class="col-xs-12 text-right p-r">
+			<button type="button" class="btn" ng-model="test.passStatus" data-html="1" ng-options="passStatus.value as passStatus.label for passStatus in passStatuses" bs-select ng-class="{'btn-material-green-600':test.passStatus=='pass','btn-material-red-500':test.passStatus=='fail'}"></button>
 		</div>
 		<!-- candidate details -->
 		<div class="col-xs-12">
 			<div class="col-xs-6 col-sm-3 font-bold" ng-if="evaluateArray[$index].checkGender">Gender</div>
 			<!-- this div will show up only if there is atleast one pass criteria which has a gender check in it -->
 			<div class="col-xs-6  col-sm-3" style="margin-top:-18px;" ng-if="evaluateArray[$index].checkGender">
-					<button type="button" class="btn btn-default" ng-model="test.candidate.gender" data-html="1" ng-options="gender.value as gender.label for gender in evaluateArray[$index].genderArray" bs-select style="padding-left:3px;"></button>
+					<button type="button" class="btn btn-default" ng-model="test.candidate.gender" data-html="1" ng-options="gender.value as gender.label for gender in evaluateArray[$index].genderArray" bs-select style="padding-left:3px;" ng-change="validate(test)"></button>
 			</div>				
 
 		</div>
