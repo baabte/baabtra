@@ -24,7 +24,7 @@ angular.module('baabtra').directive('questionGroupViewerEv', function() {
 					var totalMark=0
 					
 				for(var index in scope.result.data.value.testModel){
-					var totalMark+=scope.result.data.value.testModel[index].markScored
+					totalMark = totalMark + scope.result.data.value.testModel[index].markScored
 				}
 
 				scope.result.data.value.markScored=totalMark;
