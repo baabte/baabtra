@@ -135,7 +135,16 @@ this.FnLoadGlobalValues=function(key)
       data:{"batchMappingId":batchMappingId}
    });
   return promise;
- }; 
+ };
+
+  this.LoadInterviewQuestionBank=function(companyId, noQuestion){ 
+    var promise = $http({
+        method: 'POST',
+        url: bbConfig.BWS + 'LoadInterviewQuestionBank/',
+        data:{companyId:companyId, noQuestion:noQuestion}
+     });
+    return promise;
+  }; 
 
 
 }]);

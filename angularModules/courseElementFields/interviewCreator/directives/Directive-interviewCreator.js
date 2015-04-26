@@ -1,4 +1,6 @@
-angular.module('baabtra').directive('interviewCreator',['interviewFunctions' ,'$alert', function(interviewFunctions, $alert) {
+
+angular.module('baabtra').directive('interviewCreator',['interviewFunctions', '$rootScope' ,'$alert', function(interviewFunctions, $rootScope, $alert) {
+
 	return {
 		restrict: 'E',
 		replace: true,
@@ -7,6 +9,7 @@ angular.module('baabtra').directive('interviewCreator',['interviewFunctions' ,'$
 		},
 		templateUrl: 'angularModules/courseElementFields/interviewCreator/directives/Directive-interviewCreator.html',
 		link: function(scope, element, attrs, fn) {
+
 
 			// initialising the object to be returned
 			if(angular.equals(scope.ngModel, undefined)) {
@@ -75,6 +78,9 @@ angular.module('baabtra').directive('interviewCreator',['interviewFunctions' ,'$
 				scope.selectedTab = 'question';
 				scope.questionEditMode = false;
 				scope.addToQuestionBank(questionObj);
+
+				scope.questionObj = {}; 
+				scope.selectedTab = 'question';
 			}
 
 
@@ -83,6 +89,9 @@ angular.module('baabtra').directive('interviewCreator',['interviewFunctions' ,'$
 
 	scope.addToQuestionBank = function(questionObj){
 
+		var cmp_id = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+
+		questionObj.companyId = cmp_id;
 		if (questionObj._id){
 			if (questionObj._id.$oid){
 				questionObj._id = questionObj._id.$oid;
@@ -141,3 +150,4 @@ angular.module('baabtra').directive('interviewCreator',['interviewFunctions' ,'$
 		} //. End link
 	};
 }]);
+

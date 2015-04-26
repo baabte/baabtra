@@ -1,6 +1,7 @@
 <div class="" style="margin-top: -1px;">
 	<div class="bg-light p-h">
-		<div class="row m-b-lg" style="position:fixed; width:101%; z-index:100;">
+		
+		<div class="row " style="position:fixed; width:101%; z-index:100;margin-top: 38px;">
 			<div class="col-xs-12 shadow-z-1 bg-white">
 				<div class="p-v-sm" ng-if="!batchObj.selectedCourse">
 					<div class="col-xs-6 col-md-3 p-v">
@@ -48,17 +49,12 @@
 </div>
 <div class="row p-v"  ng-if="batchObj.selectedCourse" style="padding-top: 80px;padding-bottom: 15px;">
 			<div class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 col-xs-12">
-				<div  ng-repeat="timelinePoint in batchObj.selectedCourse.courseTimeline">
-					<div   ng-repeat="elements in timelinePoint">
-						<!-- ng-if="element.evaluable" -->
-						<div ng-repeat="element in elements">
-								<div class="upper font-bold p-v-sm">{{element.elements[0].value}}</div>
-								<div ng-if="elements.length" class="p shadow-z-1 col-xs-12 bg-white m-b"  >
-									<evaluation-loader eval-obj-key="{{batchObj.selectedCourse._id.$oid}}.{{element.tlPointInMinute}}.{{element.Name}}.{{element.index}}" evaluator-id="rm_id"></evaluation-loader>
-								</div>
-								</div>
-							</div>
-				</div>
+				<div  ng-repeat="element in batchObj.elementOrderArray" >
+					<evaluation-loader course-timeline="batchObj.selectedCourse.courseTimeline" element-order="batchObj.selectedCourse.elementOrder[element]" evaluator-id="rm_id" course-mapping-id="batchObj.selectedCourse._id.$oid" evaluable-element="batchObj.evaluableElement"></evaluation-loader>
+			</div>
+			<div ng-if="!batchObj.evaluableElement" class="col-xs-12 shadow-z-1 p bg-warning font-bold">
+				There are no evaluable element found .!
+			</div>
 	</div>
 </div>
 	</div>

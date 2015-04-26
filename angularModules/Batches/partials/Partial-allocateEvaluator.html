@@ -31,7 +31,7 @@
 			<div class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 col-xs-12">
 
 				<div class="row">
-					<div class="col-xs-12 m-b-xs" ng-if="data.evaluator.length">
+					<div class="col-xs-12 m-b-xs" ng-if="data.evaluator.length && data.evaluableElement">
 						<div class="p shadow-z-1 col-xs-12 bg-white">
 							<div class="col-xs-6 " style="margin-top:-5px;">
 								<div class="checkbox no-margin">
@@ -44,10 +44,11 @@
 						</div>
 					</div>
 					<div class="col-xs-12">
+						
 						<div  ng-if="data.courseTimeline" ng-repeat="timelinePoint in data.courseTimeline">
 							<div   ng-repeat="elements in timelinePoint">
-								<div class="p shadow-z-1 col-xs-12 bg-white" ng-if="element.evaluable" ng-repeat="element in elements">
-									<div ng-if="data.evaluator" class="col-xs-1" style="margin-top:-5px;">
+								<div class="p shadow-z-1 col-xs-12 bg-white" ng-if="element.evaluable" ng-init="data.evaluableElement = true" ng-repeat="element in elements">
+									<div  ng-if="data.evaluator" class="col-xs-1" style="margin-top:-5px;">
 										<div class="checkbox no-margin">
 			                    			<label>
 			                        			<input type="checkbox" ng-model="data.elementCheckBox[element.code]" ng-change="elementCheckBoxChange(element, data.elementCheckBox[element.code])">
@@ -73,6 +74,15 @@
 										</div>
 									</div>	
 								</div>
+							</div>
+						</div>
+						<div >
+							
+						</div>
+						
+						<div class="col-xs-12 m-b-xs" ng-if="!data.evaluableElement">
+							<div class="p shadow-z-1 col-xs-12 bg-warning font-bold">
+								There are no evaluable element found .!
 							</div>
 						</div>
 					</div>

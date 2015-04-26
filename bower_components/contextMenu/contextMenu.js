@@ -200,9 +200,9 @@ angular.module('ui.bootstrap.contextMenu', [])
                                    +'<div class="p" sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"></div>'
                                    +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData['+$scope.randomKey+'])" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
                                    +'<button class="btn baab-btn pull-right m-v-lg btn-info" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="saveMyFormData($hide)" type="button" ng-disabled = "courseElement.$invalid">Add</button>'
-                                   +'<button class="btn baab-btn pull-left m-v-lg btn-info btn-material-green-A700" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="createPreviewElement(\'tempCourseDocs\')" type="button" ng-disabled = "courseElement.$invalid">Preview</button>'
+                                   //+'<button class="btn baab-btn pull-left m-v-lg btn-info btn-material-green-A700" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="createPreviewElement(\'tempCourseDocs\')" type="button" ng-disabled = "courseElement.$invalid">Preview</button>'
                                   +'</form>'
-                                  +'<div class="clearfix m-v-lg"><course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview></div>'
+                                  //+'<div class="clearfix m-v-lg"><course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview></div>'
                             +'</div></div></div>'
                           +'</div>');
         $aside({scope: $scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
