@@ -3,7 +3,8 @@ Created On:12/11/2014 -->
 
 <aside id="aside" ng-if="$root.userinfo.ActiveUserData.modernView == 'modern'" class="app-aside {{$root.userinfo.ActiveUserData.appSettings.asideColor}} text-lg fixedBc shadow-z-2" ng-include="'views/aside.html'"  style="margin-top:20px;" ng-class="{'btn-material-blue-grey-900':$root.userinfo.ActiveUserData.appSettings.asideColor == undefined , 'animated fadeInDown':navBar,'ng-hide':!navBar}">
 </aside>
-<div ng-style="($root.userinfo.ActiveUserData.modernView != 'modern') && {'margin-bottom':'46px'}">
+<!-- ng-style="($root.userinfo.ActiveUserData.modernView != 'modern') && {'margin-bottom':'46px'}" -->
+<div >
   <a ng-if="$root.userinfo.ActiveUserData.modernView != 'modern'" class="visible-xs p-sm {{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}}"  ng-click="viewMobileMenu()">
          <i class="mdi-action-view-headline text-white text-2x m-b" ></i>
   </a>
@@ -27,7 +28,7 @@ Created On:12/11/2014 -->
 </div>
 </div>
 <div class="p-sm"  >
-	<div  class="row p-v-xs" name="innercontent" ui-view>
+	<div ng-style="($root.userinfo.ActiveUserData.modernView != 'modern') && {'margin-top':'46px'}"  class="row p-v-xs" name="innercontent" ui-view>
     <div ng-if="$root.userinfo.ActiveUserData.modernView == 'modern' " class="col-xs-12"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
       <div ng-if="(menu.canView || (menu.canView == undefined)) && userMenus.length" masonry-tile  ng-repeat="menu in userMenus" class="text-center p-sm pull-left tile masonry-brick" style="width:140px; margin-bottom:0px;" >
 
