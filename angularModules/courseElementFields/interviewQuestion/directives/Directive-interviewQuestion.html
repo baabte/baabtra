@@ -1,0 +1,74 @@
+<div class="p-md m-v-md  col-xs-12">
+
+
+
+<!-- style="background:#F3E5F5;border:1px solid #ff4081" class="p-sm"  -->
+
+
+<div class="shadow-z-1 pull-left col-xs-12 no-padding b" style="border:2px solid #009587;">
+
+
+<ul class="nav nav-tabs p">
+  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='question'}" ng-click="selectedTab='question'"><a ><span class="text-lg font-bold m-t-xs">1</span><span class="hidden-xs hidden-sm m-t-xs" translate="{{'. Question'|translate}}"></span> <div class="m-l-xs pull-right"><i  class="text-2x m-v-n mdi-hardware-keyboard-arrow-right"></i></div></a></li>
+  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='answers'}" ng-click="selectedTab='answers'"><a ><span class="text-lg m-t-xs">2</span><span class="hidden-xs hidden-sm m-t-xs" translate="{{'. Answer'|translate}}"></span> <div class="m-l-xs pull-right"><i  class="text-2x m-v-n mdi-hardware-keyboard-arrow-right"></i></div></a></li>
+  <li   role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='marks'}" ng-click="selectedTab='marks'"><a ><span class="text-lg m-t-xs">4</span><span class="hidden-xs hidden-sm m-t-xs" translate="{{'. Marks'|translate}}"></span></a></li>
+</ul>
+
+
+	<!-- <paper-tabs selected="0" class="pink">
+	  <paper-tab ng-click="selectedTab='question'">Question </paper-tab>
+	  <div  class="icon-container-inactive" ng-class="{'icon-container-active':selectedTab=='question'}"><core-icon icon="arrow-forward"></core-icon></div>
+	  <paper-tab ng-click="selectedTab='answerType'">Answer type</paper-tab>
+	  <div  class="icon-container-inactive" ng-class="{'icon-container-active':selectedTab=='answerType'}"><core-icon icon="arrow-forward"></core-icon></div>
+	  <paper-tab ng-click="selectedTab='answers'">Answers</paper-tab>
+	  <div  class="icon-container-inactive" ng-class="{'icon-container-active':selectedTab=='answers'}"><core-icon icon="arrow-forward"></core-icon></div>
+	  <paper-tab ng-click="selectedTab='marks'">Marks</paper-tab>
+	</paper-tabs> -->
+
+
+
+
+
+				<div ng-show="selectedTab=='question'" class="p-xs">
+
+					<em class="visible-xs visible-sm m-v-xs">Please add a question</em>
+				
+      					<!-- <input class="form-control" float-label type="text" placeholder="Question Title (optional)" name="questionTitle" ng-model="question.title"> -->
+    		
+    					<div class="m-v-lg">
+	    					<em class="text-muted" translate="{{'Question'|translate}}"></em>
+	      					 <ng-quill-editor name="questionDesc" ng-model="question.question"  toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" required xt-validate editor-required="true" error-class="input-error"></ng-quill-editor>
+	      				</div>
+	    			
+				</div>
+
+				
+
+				<div class="col-xs-12 pull-left" ng-show="selectedTab=='marks'">
+					<div class="col-xs-12 m-v">
+
+						<em class="visible-xs visible-sm m-v-xs">Please provide the total marks to be provided for the correct answer</em>
+
+						<mark-fields-input custom-marks="question.type=='descriptive'" mark-obj="question.mark" ></mark-fields-input>
+					</div>
+				</div>
+
+
+				<div class="col-xs-12 pull-left"  ng-show="selectedTab=='answers'">
+
+					<em class="visible-xs visible-sm m-v-xs">Please give a hint to the answer or the answer itself (optional). This will only be visible to the interviewer</em>
+
+					<div class="m-v-lg">
+	    					<em class="text-muted" translate="{{'Answer Hint(optional)'|translate}}"></em>
+	      					 <ng-quill-editor name="answer" ng-model="question.answer"  toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image"  editor-required="true" error-class="input-error"></ng-quill-editor>
+	      				</div>
+
+			
+				</div>
+
+				</div>
+
+
+</div>			
+
+
