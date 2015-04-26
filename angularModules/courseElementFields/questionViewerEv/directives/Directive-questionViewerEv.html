@@ -47,7 +47,7 @@
 								<div  class="col-md-4  pull-left">
 									
 									
-									<input type="number" placeholder="{{' Mark Scored '|translate}}" xt-validate required class="form-control" min="0" float-label name="markScored" ng-minlength="1" ng-model="result.data.value.markScored" >
+									<input type="number" placeholder="{{' Mark Scored '|translate}}" xt-validate required class="form-control" min="0" float-label name="markScored" ng-minlength="1" ng-model="result.data.value.markScored" ng-change="markChanged(result.data)" ui-validate=" '$value <= result.data.value.mark.totalMark' ">
 									
 									
 								</div>
