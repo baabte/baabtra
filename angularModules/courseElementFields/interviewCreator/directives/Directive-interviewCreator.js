@@ -78,6 +78,9 @@ angular.module('baabtra').directive('interviewCreator',['interviewFunctions', '$
 				scope.selectedTab = 'question';
 				scope.questionEditMode = false;
 				scope.addToQuestionBank(questionObj);
+
+				scope.questionObj = {}; 
+				scope.selectedTab = 'question';
 			}
 
 

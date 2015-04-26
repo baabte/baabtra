@@ -296,26 +296,31 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 						
 							if(parseInt(valueToCheck) < parseInt(checkCriteria.passLimit)){
 								testType.passStatus = 'pass';
+								return;
 							}
 						}	
 						else if(angular.equals(checkCriteria.equate, 'less than or equal to')){
 							if(parseInt(valueToCheck)<=parseInt(checkCriteria.passLimit)){
 								testType.passStatus = 'pass';
+								return;
 							}
 						}
 						else if(angular.equals(checkCriteria.equate, 'greater than' )){
 							if(parseInt(valueToCheck)>parseInt(checkCriteria.passLimit)){
 								testType.passStatus = 'pass';
+								return;
 							}
 						}
 						else if(angular.equals(checkCriteria.equate, 'greater than or equal to' )){
 							if(parseInt(valueToCheck)>=parseInt(checkCriteria.passLimit)){
 								testType.passStatus = 'pass';
+								return;
 							}
 						}
 						else if(angular.equals(checkCriteria.equate, 'equal to' )){
 							if(parseInt(valueToCheck)==parseInt(checkCriteria.passLimit)){
 								testType.passStatus = 'pass';
+								return;
 							}
 						}
 
