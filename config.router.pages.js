@@ -565,6 +565,16 @@
                 }
                 
               })
+               .state('home.main.candidateRegistrationReport', {
+                url: '/candidateRegistrationReport',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-candidateRegistrationReport.html',
+                    controller: 'CandidateregistrationreportCtrl'
+                  }
+                }
+                
+              })
              .state('home.main.feedbackReport', {
                 url: '/feedbackReport/:feedbackId',
                 views:{
@@ -695,7 +705,7 @@
                 
               })
               .state('home.main.menteeEvaluation', {
-                url: '/menteeEvaluation/:userId',
+                url: '/menteeEvaluation/:courseId/:userId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-menteeEvaluation.html',
@@ -705,7 +715,7 @@
                 
               })
               .state('home.main.batchEvaluation', {
-                url: '/batchEvaluation/:batchMappingId',
+                url: '/batchEvaluation/:batchMappingId/:courseId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-batchEvaluation.html',
@@ -752,8 +762,19 @@
                   }
                 }
               })
+
+              .state('home.main.traineesWithOption', {
+                url: '/manageTrainees/:key',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/user/partials/Partial-ManageTrainees.html',
+                    controller:'ManagetraineesCtrl'
+                  }
+                }
+              })
+
               .state('home.main.markBatchAttendance', {
-                url: '/markBatchAttendance/:batchMappingId',
+                url: '/markBatchAttendance/:batchMappingId/:mode',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-markBatchAttendance.html',
@@ -806,6 +827,16 @@
                   'innercontent':{
                     templateUrl: 'angularModules/Result/partials/Partial-viewResult.html',
                     controller: 'ViewresultCtrl'
+                  }
+                }
+                
+              })
+               .state('home.main.batchAttendanceReport', {
+                url: '/batchAttendanceReport',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/reports/partials/Partial-batchAttendanceReport.html',
+                    controller: 'BatchattendancereportCtrl'
                   }
                 }
                 

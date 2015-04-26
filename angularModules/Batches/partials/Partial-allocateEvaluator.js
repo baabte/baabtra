@@ -18,6 +18,7 @@ angular.module('baabtra').controller('AllocateevaluatorCtrl',['$scope', '$rootSc
 
   $scope.data = {};
   $scope.data.changesOccurred = false;
+  $scope.data.evaluableElement = false;
 
   var loadCourseBatchResponse = allocateEvaluator.LoadCoureBatchByBatchId($state.params.batchMappingId, companyId);
   loadCourseBatchResponse.then(function(response){

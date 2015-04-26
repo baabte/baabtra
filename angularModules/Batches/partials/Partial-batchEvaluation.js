@@ -11,13 +11,16 @@ angular.module('baabtra').controller('BatchevaluationCtrl',['$scope','$rootScope
     $state.go('login');
   }
 
-  var rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+  $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
   var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
   var companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   /*login detils ends*/
 
 	$scope.batchObj = {};
+	$scope.batchObj.rm_id = $scope.rm_id;
 	$scope.batchMappingId = $state.params.batchMappingId;
+	
+	if(!angular.equals($scope.batchMappingId,"")){
 
 	var loadCourseMaterialsDDl = viewBatches.loadCourseMaterials4batchAtt($scope);
 	loadCourseMaterialsDDl.then(function(response){
@@ -30,41 +33,68 @@ angular.module('baabtra').controller('BatchevaluationCtrl',['$scope','$rootScope
 			usersList.push(result.courseBatchObj.users[user].fkUserRoleMappingId.$oid);
 			if(angular.equals(result.courseBatchObj.users.length, usersList.length)){
 				var courseId = result.courseBatchObj.fkCourseId.$oid;
+				var courseDetailsResponse = viewBatches.LoadUserCourseDetails(usersList, courseId);
+				courseDetailsResponse.then(function(response){
 
-				console.log(result.courseBatchObj);
+					$scope.batchObj.courseDetails = angular.fromJson(JSON.parse(response.data));
+					if($state.params.courseId){
+						
+						for(var coursCount in $scope.batchObj.courseDetails){
+							if(angular.equals($state.params.courseId, $scope.batchObj.courseDetails[coursCount].
+								_id.$oid)){
+								$scope.batchObj.selectedCourse = $scope.batchObj.courseDetails[coursCount];
+								$scope.batchObj.elementOrderArray = Object.keys($scope.batchObj.selectedCourse.elementOrder);
+							}
+						}
+					}
+					
+				});
 			}
 		}
 
 
 		$scope.batchObj.materialList = [];
-		var coureTimeline = $scope.batchObj.batchDetails.courseTimeline;
-		angular.forEach($scope.batchObj.batchDetails.elementOrder, function(elementOrder){
+		// var coureTimeline = $scope.batchObj.batchDetails.courseTimeline;
+		// angular.forEach($scope.batchObj.batchDetails.elementOrder, function(elementOrder){
 
-			var splitedElementOrder = elementOrder.split('.');
-			var obj = coureTimeline;
-			var index = 0;
-			for(var key in splitedElementOrder){
-				obj = obj[splitedElementOrder[key]];
+		// 	var splitedElementOrder = elementOrder.split('.');
+		// 	var obj = coureTimeline;
+		// 	var index = 0;
+		// 	for(var key in splitedElementOrder){
+		// 		obj = obj[splitedElementOrder[key]];
 				
-				index++;
+		// 		index++;
 
-				if(angular.equals(index,splitedElementOrder.length) && obj){
-					if(obj.evaluable){
-						angular.forEach(obj.evaluator, function(evaluator){
-							if(angular.equals(evaluator.roleMappingId, rm_id)){
-								console.log(obj);
-								$scope.batchObj.materialList.push({Name:obj.elements[0].value ,elementCode:obj.code})
-							}	
-						});
-					}
+		// 		if(angular.equals(index,splitedElementOrder.length) && obj){
+		// 			if(obj.evaluable){
+		// 				angular.forEach(obj.evaluator, function(evaluator){
+		// 					if(angular.equals(evaluator.roleMappingId, rm_id)){
+		// 						console.log(obj);
+		// 						$scope.batchObj.materialList.push({Name:obj.elements[0].value ,elementCode:obj.code})
+		// 					}	
+		// 				});
+		// 			}
 					
-				}
-			}
-		});
+		// 		}
+		// 	}
+		// });
 	});
+	
+	}
 
-	$scope.cousrseMaterialSelected = function(data){
-		console.log(data);
+	if($state.params.courseId){
+
+						for(var coursCount in $scope.batchObj.courseDetails){
+							if(angular.equals($state.params.courseId, $scope.batchObj.courseDetails[coursCount].
+								_id.$oid)){
+								$scope.batchObj.selectedCourse = $scope.batchObj.courseDetails[coursCount];
+							}
+						}
+					}
+
+	$scope.evaluateTrainee = function(course){
+		$scope.batchObj.selectedCourse = course;
+		$state.go('home.main.batchEvaluation',{courseId:course._id.$oid});
 	};
 
 

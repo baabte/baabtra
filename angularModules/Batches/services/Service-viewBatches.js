@@ -60,13 +60,21 @@ angular.module('baabtra').service('viewBatches',['bbConfig','$http',function(bbC
 	};	
 
 	this.loadMentees4batchAtt=function($scope,bathObj){
-		
 		var promise = $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'fnloadMentees4batchAtt/',
 	    data:{"batchMappingId":$scope.batchMappingId,"batchObj":batchObj}
 	 });
 	return promise;
-	};	
+	};
+
+	this.LoadUserCourseDetails = function(usersList, courseId){
+		var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'LoadUserCourseDetails/',
+	    data:{"usersList":usersList,"courseId":courseId}
+	 });
+	return promise;
+	};
 
 }]);

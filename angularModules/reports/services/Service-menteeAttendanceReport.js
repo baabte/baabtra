@@ -8,4 +8,22 @@ angular.module('baabtra').service('menteeAttendanceReport',['$http','bbConfig',f
 		 });
 		return promise;
 	 }	
+
+	this.fnLoadAllBatches4Report=function(companyId){
+	 	var promise = $http({
+		 	method: 'POST',
+		    url: bbConfig.BWS+'fnLoadAllBatches4Report/',
+		    data:{"companyId":companyId}
+		 });
+		return promise;
+	 }	
+
+	this.fnLoadBatchAttReport=function(filterObj){
+	 	var promise = $http({
+		 	method: 'POST',
+		    url: bbConfig.BWS+'fnLoadBatchAttReport/',
+		    data:{"filterObj":filterObj}
+		 });
+		return promise;
+	 }
 }]);

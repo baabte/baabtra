@@ -20,7 +20,6 @@ angular.module('baabtra').controller('ViewresultCtrl',['$scope','viewBatches','$
 	});
 
 	$scope.viewResult = function(user){
-		console.log(user);
 		$scope.data.user = user;
 		$modal({scope: $scope, template: 'angularModules/Result/partials/popup-viewResult.html', show: true});
 	};

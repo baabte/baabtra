@@ -20,5 +20,27 @@ angular.module('baabtra').service('candidateReport',['$http','bbConfig',function
 			return FetchCandidateReport;
 
 		};
+
+
+this.CandidateRegistrationReport=function(data){
+
+		var CandidateRegisteredReport=$http({
+				url: bbConfig.BWS+'FetchCandidateRegisteredReport/',
+				method: "POST",
+				data:angular.toJson({'data':data}),
+				withCredentials: false,
+				contentType:"application/json",
+				dataType:"json",
+			}).
+			success(function(data, status, headers, config) {
+				return data;
+				
+			}).
+			error(function(data, status, headers, config) {
+
+			});
+			return CandidateRegisteredReport;
+
+		};
 	
 }]);
