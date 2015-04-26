@@ -52,6 +52,9 @@ $scope.userBasedList={};
 			//getting the promise here
 			var batchAttendanceReportPromise = menteeAttendanceReport.fnLoadBatchAttReport($scope.filter);
 				batchAttendanceReportPromise.then(function(response){ //getting the promise of feedback response
+					$scope.reportArr=[];
+					$scope.userBasedList={};
+
 					$scope.reportList=angular.fromJson(JSON.parse(response.data));
 						var arr=[];
 						angular.forEach($scope.reportList.report,function(report){
@@ -80,8 +83,10 @@ $scope.userBasedList={};
 						 });
 
 						//building the reqired chart object here
-						$scope.reportArr=[];
+						
 						for(var key in $scope.userBasedList){
+							// alert("count");
+							$scope.chartObj={};
 							var data=[];
 							data.push(["Days","Status"]);
 							for(var keyInner in $scope.userBasedList[key]){
@@ -90,10 +95,12 @@ $scope.userBasedList={};
 								}
 							}
 
-							$scope.chart.data=data;
+							// $scope.chart.data=data;
 							// $scope.chart.options.title="Attendance Report of "+$scope.userBasedList[key].Name;
-							$scope.chart.options.title=$scope.userBasedList[key].Name;
-							$scope.chartObj=angular.copy($scope.chart); 
+							// $scope.chart.options.title=$scope.userBasedList[key].Name;
+							// $scope.chartObj=angular.copy($scope.chart); 
+							$scope.chartObj.title=$scope.userBasedList[key].Name;
+							$scope.chartObj.data=data;
 							$scope.reportArr.push($scope.chartObj);
 						}
 						if(!$scope.reportArr.length){
@@ -102,6 +109,8 @@ $scope.userBasedList={};
 						else{
 							$scope.flag=0;
 						}
+
+						
 
 			});
 		//}
