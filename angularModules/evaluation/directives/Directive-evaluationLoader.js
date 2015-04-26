@@ -6,11 +6,13 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService','$al
 			 courseTimeline:'=',
 			 elementOrder:'=',
 			 evaluatorId:'=',
-			 courseMappingId:'='
+			 courseMappingId:'=',
+			 evaluableElement:'='
 		},
 		templateUrl: 'angularModules/evaluation/directives/Directive-evaluationLoader.html',
 		link: function(scope, element, attrs, fn) {
-
+				scope.evalLoader = {};
+				
 				scope.outElement = {};
 				var keyArray = scope.elementOrder.split('.');
 
@@ -23,6 +25,9 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService','$al
 						index++;
 						if(angular.equals(keyArray.length, index)){
 							scope.element = obj;
+							if(scope.element.evaluable){
+								scope.evaluableElement = true;	
+							}
 						}
 					}
 					else{

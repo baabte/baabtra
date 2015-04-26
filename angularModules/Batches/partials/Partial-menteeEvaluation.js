@@ -73,6 +73,7 @@ angular.module('baabtra').controller('MenteeevaluationCtrl',['$scope','$rootScop
   var courseId = $state.params.courseId;
   var usersList = [$state.params.userId];
   $scope.menteeObj = {};
+  $scope.menteeObj.evaluableElement = false;
   var courseDetailsResponse = viewBatches.LoadUserCourseDetails(usersList, courseId);
 
   courseDetailsResponse.then(function(response){
