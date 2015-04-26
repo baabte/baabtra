@@ -330,4 +330,8 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
       console.log(getComputedStyle(element));
     };
 
+    $scope.viewMobileMenu = function(){
+      $scope.viewMenu = !$scope.viewMenu;
+    };
+
 }]);
