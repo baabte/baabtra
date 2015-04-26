@@ -44,8 +44,10 @@ $scope.stepCount=$scope.formlist.formSteps;
        {}
        else{
       mandatoryFields.push($scope.formlist.formSchema[i].stepFormSchema.fields[x].name);
+      
      }
     } 
+    $scope.formlistCopy = angular.copy($scope.formlist);
     }
 
     //nedd to improve the call with role id\\//
@@ -111,7 +113,6 @@ $scope.data.requesteeDetails = {};
 
 if(angular.equals($state.params.ofId,"")){
 	$scope.data.requesteeDetails.type = $state.params.key;
-	console.log($scope.data.requesteeDetails.type);
 }
 else{
 	$scope.data.requesteeDetailsCompleted = true;
@@ -144,7 +145,6 @@ $scope.checkUserAlreadyExists = function(){
 	if(!angular.equals($scope.data.requesteeDetails.eMail,undefined)){
 		var companyCustomerDetailsResponse = nomination.fnLoadCompanyCustomerDetails($scope.data.requesteeDetails.eMail, companyId, $scope.data.requesteeDetails.type);
 		companyCustomerDetailsResponse.then(function(response){
-			console.log(angular.fromJson(JSON.parse(response.data)));
 			if(!angular.equals(angular.fromJson(JSON.parse(response.data)), null)){
 				$scope.data.requesteeDetails = angular.fromJson(JSON.parse(response.data));
 			}
@@ -154,10 +154,9 @@ $scope.checkUserAlreadyExists = function(){
 };
 
 
-$scope.fnUserRegister =function () {
-
+$scope.fnUserRegister =function (fnCallback) {
+if(Object.keys($scope.allSync.FormData.course).length){
 	if(angular.equals($scope.data.requesteeDetails.type,'self')){
-		console.log($scope.data.requesteeDetails.type);
 		$scope.data.requesteeDetails.firstName = $scope.allSync.FormData.firstName;
 		$scope.data.requesteeDetails.lastName = $scope.allSync.FormData.lastName;
 		$scope.data.requesteeDetails.eMail = $scope.allSync.FormData.eMail;
@@ -261,7 +260,18 @@ $scope.fnUserRegister =function () {
 				orderForm._id = orderForm._id.$oid;
 				$scope.data.orderForm = orderForm;
 				$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
-				$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
+				
+				console.log(fnCallback);
+
+				if(!angular.equals(fnCallback,undefined)){
+					fnCallback();
+				}else{
+					$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
+				}
+				
+				
+				
+				
 			});
 
 		});	
@@ -293,6 +303,12 @@ $scope.fnUserRegister =function () {
 				$scope.data.orderForm = orderForm;
 				$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 				$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
+				
+					if(!angular.equals(fnCallback,undefined)){
+					fnCallback();
+				}else{
+					$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
+				}
 			});
 
 		}
@@ -339,6 +355,13 @@ $scope.fnUserRegister =function () {
 					$scope.data.orderForm = orderForm;
 					$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 					$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
+					
+					if(!angular.equals(fnCallback,undefined)){
+						fnCallback();
+					}
+					else{
+						$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
+					}
 				});
 			});	
 		}
@@ -346,23 +369,31 @@ $scope.fnUserRegister =function () {
 }
 		}
 	});
-
-
-	
-	
-
-
-	//var userinfo = { eMail:$scope.allSync.FormData.eMail, firstName:$scope.allSync.FormData.firstName, lastName:$scope.allSync.FormData.lastName, dob:$scope.allSync.FormData.dob, status:"Pending Approval", userId:userUniqueId };
-
-
+}
+	else{
+		if(!angular.equals(fnCallback,undefined)){
+						fnCallback();
+					}
+					else{
+						$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
+					}
+	}
 };
 
-$scope.finshRegisteration = function(){
-	if(Object.keys($scope.allSync.FormData.course).length){
-		$scope.fnUserRegister();
-	}
-	setTimeout(function(){ $modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-orderForm.html', show: true});
-	 }, 1000);
+	$scope.finshRegisteration = function(userRegistrationForm){
+		
+		
+			
+			$scope.fnUserRegister(function(){
+				var orderFormModel = $modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-orderForm.html', show: true});
+				$scope.showModal = function() {
+              		orderFormModel.$promise.then(orderFormModel.show);
+            	};
+			});
+	};
+
+	$scope.hideOrderForm = function(){
+		$state.go('home.main');
 	};
 
 }]);
