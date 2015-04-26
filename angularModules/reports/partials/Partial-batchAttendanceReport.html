@@ -78,9 +78,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr data-ng-repeat="rpt in reportArr">
+                  <tr ng-repeat="rpt in reportArr">
                     <td >{{$index+1}}</td>
-                    <td>{{rpt.options.title}}</td>
+                    <td>{{rpt.title}}</td>
                     <td>{{findValue(rpt.data,'Present')}}</td>
                     <td>{{findValue(rpt.data,'Absent')}}</td>
                     <td>{{findValue(rpt.data,'Planned leave')}}</td>

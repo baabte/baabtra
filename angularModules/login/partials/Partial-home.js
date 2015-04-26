@@ -130,7 +130,7 @@ $scope.$watch('userMenusOrigin',function(){
    
 
     $localStorage.linkPath=[];
-    $scope.linkPath=$localStorage.linkPath;
+    $scope.linkPath = $localStorage.linkPath;
     $rootScope.menuExist=false;
     getMenuByLink($scope.userMenusOrigin,null,null,$state.current.name, function(){
       if(!$rootScope.menuExist){
@@ -144,10 +144,16 @@ $scope.$watch('userMenusOrigin',function(){
 $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
   if($rootScope.userinfo)
    {
+     
     $rootScope.menuExist=false;
+         if(angular.equals(toState.name,'home.main')){
+            $localStorage.linkPath=[];
+            $scope.linkPath = $localStorage.linkPath;
+            $scope.navBar = false;
+          }
        getMenuByLink($scope.userMenusOrigin,null,null,toState.name, function(){
           if (!$rootScope.menuExist && !angular.equals(toState.name,'home.main')) {
-           event.preventDefault();
+            event.preventDefault();
           }
        });
      }

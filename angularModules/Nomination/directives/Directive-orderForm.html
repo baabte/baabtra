@@ -23,8 +23,8 @@
                     
                 </div>
                 <tr >
-                    <th style="border-bottom: 1px #000 solid;"></th>
-                    <th style="border-bottom: 1px #000 solid;"></th>
+                    <th style="border-bottom: 1px #000 solid;" colspan="2">Order form ID&nbsp;:&nbsp;{{orderObject.customCompanyCode}}</th>
+                    <!-- <th style="border-bottom: 1px #000 solid;"></th> -->
                     <th style="border-bottom: 1px #000 solid;"></th>
                     <th style="border-bottom: 1px #000 solid;"></th>
                     <th style="border-bottom: 1px #000 solid;">Date&nbsp;:&nbsp;{{orderObject.createdDate.$date | date:'MM/dd/yyyy'}}</th>
@@ -38,16 +38,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-init="data.grandTotal = data.grandTotal + course.userCount*course.coursePrice" ng-repeat="course in orderObject.orderDetails">
+                <tr  ng-repeat="course in orderObject.orderDetails">
+                    
                     <td class="font-bold b-b b-t b-dark">{{$index + 1}}</td>
                     <td class="b b-dark">{{course.Name}}</td>
                     <td class="b b-dark">{{course.userCount}}</td>
                     <td class="b b-dark">{{course.coursePrice}}&nbsp;{{course.currencyType}}</td>
-                    <td class="b b-dark">{{course.userCount*course.coursePrice}}&nbsp;{{course.currencyType}}</td>
+                    <td class="b b-dark" ng-if="course.coursePrice =='free'">free</td>
+                    <td class="b b-dark" ng-if="course.coursePrice !='free'" ng-init="data.grandTotal = data.grandTotal + course.userCount*course.coursePrice">{{course.userCount*course.coursePrice}}</td>
                 </tr>
                 <tr>
                 	<th colspan="4">Grand Total</th>
-                	<th>{{data.grandTotal}}&nbsp;AED</th>
+                	<th ng-if="data.grandTotal">{{data.grandTotal}}&nbsp;{{orderObject.orderDetails[0].currency}}</th>
+                    <th ng-if="!data.grandTotal">free</th>
                 </tr>
             </tbody>
         </table>

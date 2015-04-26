@@ -249,7 +249,7 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 							for(var j in candidate.categorizationArray){
 								var currentCategorization = candidate.categorizationArray[j];
 								if(angular.equals(currentCategorization.category,checkCriteria.categorization)){
-									if(currentCategorization.value>checkCriteria.minLimit && currentCategorization.value<checkCriteria.maxLimit) {	
+									if(currentCategorization.value>=checkCriteria.minLimit && currentCategorization.value<=checkCriteria.maxLimit) {	
 											criteriaArray.push(checkCriteria);
 										}
 								}
@@ -296,26 +296,31 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 						
 							if(parseInt(valueToCheck) < parseInt(checkCriteria.passLimit)){
 								testType.passStatus = 'pass';
+								return;
 							}
 						}	
 						else if(angular.equals(checkCriteria.equate, 'less than or equal to')){
 							if(parseInt(valueToCheck)<=parseInt(checkCriteria.passLimit)){
 								testType.passStatus = 'pass';
+								return;
 							}
 						}
 						else if(angular.equals(checkCriteria.equate, 'greater than' )){
 							if(parseInt(valueToCheck)>parseInt(checkCriteria.passLimit)){
 								testType.passStatus = 'pass';
+								return;
 							}
 						}
 						else if(angular.equals(checkCriteria.equate, 'greater than or equal to' )){
 							if(parseInt(valueToCheck)>=parseInt(checkCriteria.passLimit)){
 								testType.passStatus = 'pass';
+								return;
 							}
 						}
 						else if(angular.equals(checkCriteria.equate, 'equal to' )){
 							if(parseInt(valueToCheck)==parseInt(checkCriteria.passLimit)){
 								testType.passStatus = 'pass';
+								return;
 							}
 						}
 
