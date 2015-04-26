@@ -100,37 +100,30 @@ angular.module('baabtra').directive('physicalTestCreator', function() {
 //-------------------------------------------------------------------------------------
 
 			//function to add a criteria to a test type
-			scope.addCriteria = function(testType, passCriteriaObj){
+			scope.addCriteria = function(testType){
 				
 				var equateArray = [null,undefined,""];	
 
 				//we have to only check the pass limit parameter as it is the only value that dicides the pass/fail of a candidate in a particular test type
-				if(!angular.equals(equateArray.indexOf(passCriteriaObj.passLimit), -1)){					
+				if(!angular.equals(equateArray.indexOf(testType.passCriteriaObj.passLimit), -1)){					
 					return;
 				}
 
-				testType.passCriteria.push(angular.copy(passCriteriaObj));
+				testType.passCriteria.push(angular.copy(testType.passCriteriaObj));
 				fnShowGenderCheckBox(testType);
-				passCriteriaObj = {
-										gender:'Male',
-										evalUnit:'Number',
-										equate:'greater than',
-										timeUnit:'minutes',
-										perTimeUnit:'minutes',
-										categorization:'age',
-										lengthUnit:'meters'
-
-									};
-
+				testType.passCriteriaObj = angular.copy(testType.passCriteriaObj);
 				
 			}
 
 //-------------------------------------------------------------------------------------		//function to build and show the criteria for passing the test
 
 			//function to update criteria
-			scope.updateCriteria  = function(testType){
+			scope.updateCriteria  = function(testType, passCriteriaObj){
 				testType.criteriaEditMode = false;
+
 				fnShowGenderCheckBox(testType);
+				testType.passCriteriaObj = angular.copy(testType.passCriteriaObj);
+									
 			}
 
 
