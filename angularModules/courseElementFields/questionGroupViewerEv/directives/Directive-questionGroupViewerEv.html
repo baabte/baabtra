@@ -44,12 +44,14 @@
 							<div class="col-md-6 col-xs-12 ">
 								<div class=" font-bold">
 								 Total Mark : {{answeredquestion.mark.totalMark}}
-								</div>
-
-								
-									<div class="col-md-4 pull-left">
-									<input type="number" placeholder="{{' Mark Scored '|translate}}" xt-validate required class="form-control" min='0' ng-change="markChanged()" float-label name="markScored"  ng-model="answeredquestion.markScored" >
+									<div ng-if="answeredquestion.type=='objective'">
+									 Mark Scored : {{answeredquestion.markScored}}
 									</div>
+								</div>
+								
+								<div  ng-if="answeredquestion.type=='descriptive'" class="col-md-4 pull-left">
+								<input type="number" placeholder="{{' Mark Scored '|translate}}" xt-validate required class="form-control" min='0' ng-change="markChanged()" float-label name="markScored"  ng-model="answeredquestion.markScored" >
+								</div>
 								
 
 							</div>
