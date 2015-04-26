@@ -2,6 +2,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 	$scope.data={};
 	$scope.data.checkAll = {};
 	$scope.selectAll=false;
+	$scope.data.viewBox = {};
 	//getting the user role mapping id
 	$rootScope.$watch('userinfo',function(){
 		$scope.crmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
@@ -12,6 +13,9 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 			//console.log(responseData.orderFroms._firstBatch);
 			//$scope.orderFormList=responseData.orderFroms._firstBatch;
 			$scope.orderFormList=responseData.orderFroms;
+			//console.log($scope.orderFormList);
+
+
 		})
 	});
 
@@ -182,13 +186,20 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 	};
 
 
-
 	//function to notify the changes
 	$scope.notifications=function(title,message,type){
    
      $alert({title: title, content: message , placement: 'top-right',duration:3, type: type});// calling notification message function
     };
 
-  
+  //function to check and remove  unwanted feilds from userinfo and displays while clicking expand button
+	$scope.funCheckExludeList=function(key){
+		var inArr=['eMail','password','checkedStatus','statusHistory','doc','passportCopy','userPic','lastName','firstName','showDetails'];
+		if(angular.equals(inArr.indexOf(key),-1)){
+			return true;
+		}else{
+			return false;
+		}
+	};
 
 }]);

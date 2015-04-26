@@ -90,7 +90,7 @@ scope.fetchBatch =function(){
             promise.then(function(response){
               scope.batchElements = angular.fromJson(JSON.parse(response.data));
                angular.forEach(scope.batchElements, function(batch){
-                batch.Name = batch.batchName;
+                batch.Name = batch.batchName+batch._id.$oid;
                 batch._id = batch._id.$oid;
                 batch.startDate=batch.start.$date;
                 batch.seats=batch.seat;

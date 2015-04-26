@@ -21,18 +21,18 @@
         </div>
 		<div style="margin-top:120px;" ng-if="data.companOrderForms && $state.current.name == 'home.main.viewOrderForm'"  >		
 		<!-- ng-if="showOrderFormOnStatus(orderForm.status) && getOptions(orderForm.status,$index).length"	 -->
-		<span class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 font-bold no-padding m-b" style="text-transform:uppercase;">{{currentStage.displayName}}</span>
-		<div ng-if="data.companOrderForms.orderFroms.length==0" class="alert alert-danger" style="position:fixed; width:101%;">
+		<span class="col-md-push-2 col-xs-push-1 col-md-8 col-xs-12 col-sm-12 font-bold no-padding m-b" style="text-transform:uppercase;">{{currentStage.displayName}}</span>
+		<div ng-if="data.companOrderForms.orderFroms.length==0" class="col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-sm shadow-z-1 alert alert-danger">
       	<strong translate="{{'There are no any order form found.!'|translate}}"></strong> 
 		</div>
-			<div class="col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-sm shadow-z-1 no-padding no-margin pull-left bg-white" ng-repeat="orderForm in data.companOrderForms.orderFroms | filter:data.searchText">
-				<div class="set-full-height  p-sm no-padding" style="cursor: pointer;">
-					<div class="pull-left shadow-z-1 col-xs-12 p">						
+			<div class="col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-sm shadow-z-1  pull-left bg-white" ng-repeat="orderForm in data.companOrderForms.orderFroms | filter:data.searchText" style="cursor: pointer;">
+				<!-- <div class="set-full-height  p-sm no-padding" style="cursor: pointer;">
+					<div class="pull-left shadow-z-1 col-xs-12 p">	 -->					
 						<span>&nbsp;</span>
-						<span class="font-bold">{{orderForm.customCompanyCode}}</span>
+						<span class="font-bold col-xs-3 col-md-3 pull-left">{{orderForm.customCompanyCode}}</span>
 
-						<span class="m-l"><strong translate="{{'From:'|translate}}">&nbsp;</strong>
-						<user-card user-id="orderForm.crmId.$oid"></user-card></span>
+						<span class="m-l col-xs-5 col-md-4 pull-left"><strong class="pull-left" translate="{{'From:'|translate}}">&nbsp;&nbsp;</strong>
+						<user-card user-id="orderForm.crmId.$oid" class="pull-left col-md-10"></user-card></span>
 							
 						<i ng-if="!orderForm.showDetails" class="m-l mdi-navigation-unfold-more text-md pull-right p-xs" ng-click="orderForm.showDetails=true" title="{{'Expand'|translate}}"><span class="hidden-xs" translate="{{'Expand'|translate}}"></span></i>
 
@@ -42,8 +42,8 @@
 						
 						<i class="mdi-action-visibility text-md pull-right m-r p-xs" ng-click="viewOrderForm(orderForm)" title="{{'View'|translate}}"><span class="hidden-xs"  translate="{{'View'|translate}}"></span></i>
 						
-					</div>
-					</div>
+					<!-- </div>
+					</div> -->
 <!-- 					<div  class="row p-xs">
 						<div class="col-xs-12">
 
