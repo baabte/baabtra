@@ -49,9 +49,9 @@
 <div class="row p-v"  ng-if="batchObj.selectedCourse" style="padding-top: 80px;padding-bottom: 15px;">
 			<div class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 col-xs-12">
 				<div  ng-repeat="element in batchObj.elementOrderArray" >
-					<evaluation-loader course-timeline="batchObj.selectedCourse.courseTimeline" element-order="batchObj.selectedCourse.elementOrder[element]" evaluator-id="rm_id" course-mapping-id="batchObj.selectedCourse._id.$oid" evaluable-element="menteeObj.evaluableElement"></evaluation-loader>
+					<evaluation-loader course-timeline="batchObj.selectedCourse.courseTimeline" element-order="batchObj.selectedCourse.elementOrder[element]" evaluator-id="rm_id" course-mapping-id="batchObj.selectedCourse._id.$oid" evaluable-element="batchObj.evaluableElement"></evaluation-loader>
 			</div>
-			<div ng-if="!menteeObj.evaluableElement" class="col-xs-12 shadow-z-1 p bg-warning font-bold">
+			<div ng-if="!batchObj.evaluableElement" class="col-xs-12 shadow-z-1 p bg-warning font-bold">
 				There are no evaluable element found .!
 			</div>
 	</div>
