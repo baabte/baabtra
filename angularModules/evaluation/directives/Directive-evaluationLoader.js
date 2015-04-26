@@ -45,7 +45,6 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService','$al
 					
 					element.markScored = 0;
 
-					console.log(result);
 					
 					
 
@@ -61,7 +60,6 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService','$al
 							if(angular.equals(parseInt(key), Object.keys(element.elements[field].markScored).length-1)){
 								if(angular.equals(parseInt(field), result.length-1)){
 
-									console.log(element);
 									
 									var evaluationResponse = evaluationService.evaluateAnswer(courseMappingId, element, elementOrder);
 									evaluationResponse.then(function(response){
