@@ -20,14 +20,21 @@ angular.module('baabtra').directive('questionGroupViewerEv', function() {
 			}
 
 
-			scope.markChanged = function(){
-					var totalMark=0
-					
-				for(var index in scope.result.data.value.testModel){
-					totalMark = totalMark + scope.result.data.value.testModel[index].markScored
+			scope.markChanged = function(mark, index){
+				
+				if(!angular.equals(mark, undefined)){
+					if(angular.equals(scope.result.data.markScored, undefined)){
+						scope.result.data.markScored = {};
+					}
+					scope.result.data.markScored[index] = mark;
 				}
+				// 	var totalMark=0
+					
+				// for(var index in scope.result.data.value.testModel){
+				// 	totalMark = totalMark + scope.result.data.value.testModel[index].markScored
+				// }
 
-				scope.result.data.value.markScored=totalMark;
+				// scope.result.data.value.markScored=totalMark;
 
 			};
 
