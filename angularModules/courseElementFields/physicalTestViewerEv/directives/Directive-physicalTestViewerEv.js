@@ -249,7 +249,7 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 							for(var j in candidate.categorizationArray){
 								var currentCategorization = candidate.categorizationArray[j];
 								if(angular.equals(currentCategorization.category,checkCriteria.categorization)){
-									if(currentCategorization.value>checkCriteria.minLimit && currentCategorization.value<checkCriteria.maxLimit) {	
+									if(currentCategorization.value>=checkCriteria.minLimit && currentCategorization.value<=checkCriteria.maxLimit) {	
 											criteriaArray.push(checkCriteria);
 										}
 								}
