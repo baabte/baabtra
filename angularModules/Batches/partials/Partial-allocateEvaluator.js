@@ -19,6 +19,7 @@ angular.module('baabtra').controller('AllocateevaluatorCtrl',['$scope', '$rootSc
   $scope.data = {};
   $scope.data.changesOccurred = false;
   $scope.data.evaluableElement = false;
+  $scope.data.showMsg = false;
 
   var loadCourseBatchResponse = allocateEvaluator.LoadCoureBatchByBatchId($state.params.batchMappingId, companyId);
   loadCourseBatchResponse.then(function(response){
@@ -122,14 +123,14 @@ angular.module('baabtra').controller('AllocateevaluatorCtrl',['$scope', '$rootSc
       for (var elements in tlPoint) {
         if(tlPoint[elements].length){
           for(var element in tlPoint[elements]){
-            if(tlPoint[elements][element].code){
-              // var obj = {};
-              // obj[tlPoint[elements][element].code] = true;
-              if(status){
-                $scope.data.elementList.push(tlPoint[elements][element]);
-                $scope.data.elementCheckBox[tlPoint[elements][element].code] = status;
+            if(tlPoint[elements][element].evaluable){
+              if(tlPoint[elements][element].code){
+                if(status){
+                  $scope.data.elementList.push(tlPoint[elements][element]);
+                  $scope.data.elementCheckBox[tlPoint[elements][element].code] = status;
+                }
+                
               }
-              
             }
           }
         }

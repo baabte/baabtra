@@ -17,11 +17,9 @@ angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv'
 			}
 
 			if(angular.equals(scope.usersUnderRoles,undefined)){
-				console.log(scope.roleId);
 				var roleUserResponse = commonSrv.fnLoadUsersUnderRole(scope.roleId,companyId);
 				roleUserResponse.then(function(response){
 					var usersUnderRoles = angular.fromJson(JSON.parse(response.data));
-					console.log(usersUnderRoles);
 					angular.forEach(usersUnderRoles, function(user){
 
 						user.Name = user.profile.firstName + ' ' + user.profile.lastName;
@@ -46,7 +44,6 @@ angular.module('baabtra').directive('roleUserLoader', ['$rootScope', 'commonSrv'
 						if(item.ticked){
 
 							scope.ngModel.push({ticked:item.ticked,roleMappingId:item.roleMappingId.$oid,Name:item.Name});
-							console.log(scope.ngModel);
 						}
 						else{
 							scope.ngModel.splice(scope.ngModel.indexOf(item.Name),1);
