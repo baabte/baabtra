@@ -129,8 +129,8 @@
                                           <div class="row m-t am-fade n-padding" ng-show="mentee.showDetails">
                                             <div class="col-xs-6 no-padding m-t">
                                                 <div class="col-xs-12 m-xs no-padding" ng-if="funCheckExludeList(key)"  ng-repeat="(key,value) in mentee">
-                                                  <strong class="col-xs-7 text-u-c text-sm">{{key}}<span class="pull-right">:</span></strong>
-                                                  <span class="col-xs-5" ng-if="key != 'contactNoMob' && key != 'fax' && key !='contactNoLandline'">{{value | date}}</span>
+                                                  <strong class="col-xs-7 text-u-c text-sm" ng-if="key!='checkedStatus'">{{key}}<span class="pull-right">:</span></strong>
+                                                  <span class="col-xs-5" ng-if="key != 'contactNoMob' && key != 'fax' && key !='contactNoLandline'&& key!='checkedStatus'">{{value | date}}</span>
                                                   <span class="col-xs-5" ng-if="key == 'contactNoMob'">{{value}}</span>
                                                   <span class="col-xs-5" ng-if="key == 'fax'">{{value}}</span>
                                                   <span class="col-xs-5" ng-if="key == 'contactNoLandline'">{{value}}</span>

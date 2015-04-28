@@ -12,7 +12,6 @@
 
 						<div class="col-xs-11 course-description no-padding "ng-bind-html="answeredquestion.question">
 						</div>
-						
 						<div ng-repeat="(key, value) in answeredquestion.userAnswer[0].primaryAnswer">
 							
 							
@@ -20,7 +19,7 @@
 									<i class=" line pull-left" style="font-weight:bold; text-decoration:underline; margin-top:10px;color: #ff4081;">Ans: </i>
 								</div>
 							
-								<div class="col-xs-11 course-description m-t-xs" ng-bind-html="answeredquestion.userAnswer[0].primaryAnswer[key]">
+								<div class="col-xs-11 no-padding course-description m-t-xs" ng-bind-html="answeredquestion.userAnswer[0].primaryAnswer[key]">
 								</div>
 
 						
@@ -50,7 +49,7 @@
 								</div>
 								
 								<div  ng-if="answeredquestion.type=='descriptive'" class="col-md-4 pull-left">
-								<input type="number" placeholder="{{' Mark Scored '|translate}}" xt-validate required class="form-control" min='0' ng-change="markChanged()" float-label name="markScored"  ng-model="answeredquestion.markScored" >
+								<input type="number" placeholder="{{' Mark Scored '|translate}}" xt-validate required class="form-control" min='0' ng-change="markChanged(answeredquestion.markScored, $index)" ui-validate=" '$value <= answeredquestion.mark.totalMark' " float-label name="markScored"  ng-model="answeredquestion.markScored" >
 								</div>
 								
 
