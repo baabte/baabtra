@@ -22,7 +22,7 @@
 <div class="col-xs-12" ng-repeat="rule in data.value.penaltyArray">	
 				<div class="col-xs-12 col-md-12 m-t-xs">
 					<i class="text-danger">
-					{{$index + 1}}. When {{rule.submissionMode}} by {{rule.lateTime}} {{rule.lateTimeUnits}},{{fnShowBlockSubmission(rule.blockSubmission)}} reduce {{rule.reductionUnits}}{{rule.penaltyCalculationUnit}} for {{rule.penaltyFrequency}} 
+					{{$index + 1}}. When {{rule.submissionMode}} by {{rule.lateTime}} {{rule.lateTimeUnits}},{{fnShowBlockSubmission(rule.blockSubmission)}} reduce {{rule.reductionUnits}}{{rule.penaltyCalculationUnit}}{{fnSHowPenaltyFrequency(rule)}}
 					</i>
 				</div>
 				
