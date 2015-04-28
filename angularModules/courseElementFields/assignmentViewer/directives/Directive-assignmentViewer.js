@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('assignmentViewer',['$rootScope','$state','assignmentFunctions','$alert',function($rootScope, $state, assignmentFunctions,$alert) {
+angular.module('baabtra').directive('assignmentViewer',['$rootScope','$state','assignmentFunctions','$alert','$modal',function($rootScope, $state, assignmentFunctions,$alert,$modal) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -51,7 +51,7 @@ angular.module('baabtra').directive('assignmentViewer',['$rootScope','$state','a
  //_______________________________________________________________________________________________
  
   // function to save the answer of the assignment
-  scope.submitAssignment = function(submitStatus) {
+  scope.submitAssignment = function(submitStatus, $hide) {
 
   	
   	var totalMarksScored = 0;
@@ -154,7 +154,7 @@ angular.module('baabtra').directive('assignmentViewer',['$rootScope','$state','a
 
      });
 
-
+	$hide();
   }
 
  //_______________________________________________________________________________________________
@@ -191,11 +191,24 @@ var fnBlockSubmission = function(){
 			}
 
 		}
-    }
+    }  
 	
 }
 // -----------------------------------------------------------------------------------------------------
+//this function is used to format the date from milliseconds
+	scope.convertDate=function (millisec) {
+				var date=new Date(millisec);
+				return {day:date.toDateString(),time:date.toTimeString()};
+	}; 
 
+// block the submission if the assignment is already submitted
+ if(angular.equals(scope.$parent.previewData.status, 'submitted')){
+    	scope.blockSubmission = true;
+
+    	scope.penaltyMessage = "Submitted on " + scope.convertDate(scope.$parent.previewData.submittedOn.$date).day + ', ' + scope.convertDate(scope.$parent.previewData.submittedOn.$date).time;
+    }
+
+   
 //function to show or hide the from parameter based on selected values
 			scope.fnShowBlockSubmission = function(blockSubmission) {
 
@@ -219,6 +232,16 @@ var fnBlockSubmission = function(){
 				}
 				
 			}
+// -----------------------------------------------------------------------------------------------------
+// Pre-fetch an external template populated with a custom scope
+   var submitModal = $modal({scope: scope, template: 'angularModules/courseElementFields/assignmentViewer/modals/submitConfirmation.html', show: false,placement:'center'});
+ // Show when some event occurs (use $promise property to ensure the template has been loaded)
+
+// ask for confirmation while submitting
+scope.askConfirmation = function(){
+	submitModal.$promise.then(submitModal.show);
+}
+
 // -----------------------------------------------------------------------------------------------------
 
 
