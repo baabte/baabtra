@@ -761,4 +761,12 @@ display: block;
 .text-name{
   text-transform: capitalize;
 }
+
+/*.modal{
+  z-index: 4050 !important;
+}*/
+
+.aside{
+  z-index:1051 !important;
+}
   

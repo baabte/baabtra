@@ -52,7 +52,7 @@
       </div>
       <div class="modal-footer">
         <button  ng-if="type=='single'" ng-disabled="!candidateObj.batch.length" ng-click="fnEnrollCandidate(data,$hide,type)" type="button" print-page print-element-id="orderForm" class="btn btn-primary baab-btn"><i class="fa fa-print"></i>&nbsp;Enroll</button>
-        <button ng-if="type=='bulk'" ng-disabled="!(candidateObj.batch.length&&selectedCandidates.length)" ng-click="fnEnrollCandidate(data,$hide,type)" type="button" print-page print-element-id="orderForm" class="btn btn-primary baab-btn"><i class="fa fa-print"></i>&nbsp;Enroll</button>
+        <button ng-if="type=='bulk'" ng-disabled="!(candidateObj.batch.length&&selectedCandidates.length)||hideButtonEnrollFlag" ng-click="fnEnrollCandidate(data,$hide,type)" type="button" print-page print-element-id="orderForm" class="btn btn-primary baab-btn"><i class="fa fa-print"></i>&nbsp;Enroll</button>
         <!-- <button type="button" class="btn btn-primary baab-btn"><i class="fa fa-download" ></i>&nbsp;Download</button> -->
         <button type="button" class="btn btn-success baab-btn" ng-click="$hide()">Close</button>
       </div>

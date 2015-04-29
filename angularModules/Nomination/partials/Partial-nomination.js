@@ -50,7 +50,12 @@ $scope.stepCount=$scope.formlist.formSteps;
     $scope.formlistCopy = angular.copy($scope.formlist);
     }
 
-    //nedd to improve the call with role id\\//
+    $scope.fnInitializeFormRelatedDatas();
+});
+
+
+$scope.fnInitializeFormRelatedDatas = function (argument) {
+	    //nedd to improve the call with role id\\//
     if(!angular.equals(companyId,'')){
     var FetchSpecificFormObj={companyId:companyId,fetchFormName:"orderForm"};
        var fnFetchSpecificCustomFormCallBack= formCustomizerService.FnFetchSpecificCustomForm(FetchSpecificFormObj);
@@ -86,7 +91,7 @@ $scope.stepCount=$scope.formlist.formSteps;
        $scope.allSync.FormData.role={};
        $scope.allSync.FormData.role.roleId=bbConfig.MURID;
     }
-});
+};
 
 $scope.$watch('allSync.FormData.role', function(){
 if(!angular.equals($scope.formlist,undefined) && !angular.equals($scope.allSync.FormData.role,undefined)){
@@ -155,12 +160,22 @@ $scope.checkUserAlreadyExists = function(){
 
 
 $scope.fnUserRegister =function (fnCallback) {
-if(Object.keys($scope.allSync.FormData.course).length){
+
+	$scope.allSync.FormDataCopy=angular.copy($scope.allSync.FormData);
+
+	//Re-initialize formdata
+	for(key in $scope.allSync.FormData){
+		$scope.allSync.FormData[key]='';
+	}
+	// $scope.allSync.FormData={};
+	$scope.fnInitializeFormRelatedDatas();
+
+if(Object.keys($scope.allSync.FormDataCopy.course).length){
 	if(angular.equals($scope.data.requesteeDetails.type,'self')){
-		$scope.data.requesteeDetails.firstName = $scope.allSync.FormData.firstName;
-		$scope.data.requesteeDetails.lastName = $scope.allSync.FormData.lastName;
-		$scope.data.requesteeDetails.eMail = $scope.allSync.FormData.eMail;
-		$scope.data.requesteeDetails.dob = $scope.allSync.FormData.dob;
+		$scope.data.requesteeDetails.firstName = $scope.allSync.FormDataCopy.firstName;
+		$scope.data.requesteeDetails.lastName = $scope.allSync.FormDataCopy.lastName;
+		$scope.data.requesteeDetails.eMail = $scope.allSync.FormDataCopy.eMail;
+		$scope.data.requesteeDetails.dob = $scope.allSync.FormDataCopy.dob;
 	}
 
 	var time=(new Date()).valueOf();
@@ -170,18 +185,18 @@ if(Object.keys($scope.allSync.FormData.course).length){
 
 	var filePaths = [];
 	var keyCount = 0;
-	for(var key in $scope.allSync.FormData){
+	for(var key in $scope.allSync.FormDataCopy){
 		
-		if(angular.equals(Object.prototype.toString.call($scope.allSync.FormData[key]),"[object File]")){
+		if(angular.equals(Object.prototype.toString.call($scope.allSync.FormDataCopy[key]),"[object File]")){
 			filePaths.push(key);
 		}
-		else if(angular.equals(Object.prototype.toString.call($scope.allSync.FormData[key]),"[object Date]")){
-			$scope.allSync.FormData[key] = new Date($scope.allSync.FormData[key]).toISOString();
+		else if(angular.equals(Object.prototype.toString.call($scope.allSync.FormDataCopy[key]),"[object Date]")){
+			$scope.allSync.FormDataCopy[key] = new Date($scope.allSync.FormDataCopy[key]).toISOString();
 		}
 
-		if(angular.equals(Object.keys($scope.allSync.FormData).length, (keyCount+1) )){
-			$scope.allSync.FormData.status = "Pending Approval";
-			$scope.allSync.FormData.userId = userUniqueId;
+		if(angular.equals(Object.keys($scope.allSync.FormDataCopy).length, (keyCount+1) )){
+			$scope.allSync.FormDataCopy.status = "Pending Approval";
+			$scope.allSync.FormDataCopy.userId = userUniqueId;
 		}
 		keyCount++;
 	}
@@ -189,16 +204,16 @@ if(Object.keys($scope.allSync.FormData.course).length){
 	$scope.fileUpload = 0;
 	for(var index in filePaths){
 
-		var courseImageUploadResponse = commonSrv.fnFileUpload($scope.allSync.FormData[filePaths[index]],filePaths[index]);
+		var courseImageUploadResponse = commonSrv.fnFileUpload($scope.allSync.FormDataCopy[filePaths[index]],filePaths[index]);
   				courseImageUploadResponse.then(function(response){
   				var imagePath = response.data.replace('"','').replace('"','');
-          		$scope.allSync.FormData[filePaths[$scope.fileUpload]] = bbConfig.BWS + 'files/'+ filePaths[$scope.fileUpload] +'/' + imagePath;
+          		$scope.allSync.FormDataCopy[filePaths[$scope.fileUpload]] = bbConfig.BWS + 'files/'+ filePaths[$scope.fileUpload] +'/' + imagePath;
           		$scope.fileUpload ++;
         	});
 		}
 	
 	$scope.$watch('fileUpload', function(){
-		var userinfo = angular.copy($scope.allSync.FormData);
+		var userinfo = angular.copy($scope.allSync.FormDataCopy);
 		if(!angular.equals(userinfo.course,undefined)){
 			delete userinfo.course;
 		}
@@ -224,7 +239,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
 		$scope.data.orderForm.requesteeDetails = $scope.data.requesteeDetails;
 		
 		
-		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
+		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormDataCopy.course._id);
 
 		courseLoadResponse.then(function(course){
 	    	var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
@@ -261,7 +276,9 @@ if(Object.keys($scope.allSync.FormData.course).length){
 				$scope.data.orderForm = orderForm;
 				$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 				
-				console.log(fnCallback);
+				// console.log(fnCallback);
+				//changing the selected tab
+				$scope.status.selected=1;
 
 				if(!angular.equals(fnCallback,undefined)){
 					fnCallback();
@@ -278,7 +295,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
 	}
 	else{
 		var courseIndex = 0;
-		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
+		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormDataCopy.course._id);
 		courseLoadResponse.then(function(course){
      		var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
      		
@@ -302,6 +319,9 @@ if(Object.keys($scope.allSync.FormData.course).length){
 				orderForm._id = orderForm._id.$oid;
 				$scope.data.orderForm = orderForm;
 				$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
+
+				//changing the selected tab
+				$scope.status.selected=1;
 				$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
 				
 					if(!angular.equals(fnCallback,undefined)){
@@ -318,7 +338,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
 				$scope.data.orderForm.requesteeDetails = $scope.data.requesteeDetails;
 			}
 
-			var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
+			var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormDataCopy.course._id);
 
 			courseLoadResponse.then(function(course){
 		    	var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
@@ -344,7 +364,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
 		    	courseDetails.userInfo = [];
 
 		    	courseDetails.userInfo.push(userinfo);
-		    	courseDetails.coursetype = $scope.allSync.FormData.coursetype;
+		    	courseDetails.coursetype = $scope.allSync.FormDataCopy.coursetype;
 
 		    	$scope.data.orderForm.orderDetails.push(courseDetails);
 						    	
@@ -354,12 +374,16 @@ if(Object.keys($scope.allSync.FormData.course).length){
 					orderForm._id = orderForm._id.$oid;
 					$scope.data.orderForm = orderForm;
 					$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
+					//changing the selected tab
+					$scope.status.selected=1;
 					$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
 					
 					if(!angular.equals(fnCallback,undefined)){
 						fnCallback();
 					}
 					else{
+						//changing the selected tab
+						$scope.status.selected=1;
 						$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
 					}
 				});
@@ -391,7 +415,6 @@ if(Object.keys($scope.allSync.FormData.course).length){
             	};
 			});
 	};
-
 	$scope.hideOrderForm = function(){
 		$state.go('home.main');
 	};

@@ -99,7 +99,7 @@
                       <div class="checkbox" ng-show="!currentStage.viewStage"  style="margin-left:7px;" ng-if="mentee.status != 'approved'">
 
                                             <label>                     
-                                                <input type="checkbox" ng-model="mentee.checkedStatus" ng-change="updateStatus(mentee, mentee.checkedStatus, course)" >
+                                                <input ng-init="mentee.checkedStatus=false" type="checkbox" ng-model="mentee.checkedStatus" ng-change="updateStatus(mentee, mentee.checkedStatus, course)" >
                                             </label>
                       </div>
                        <i ng-if="!mentee.userPic" class="mdi-action-assignment-ind text-2x  random-background-color img-circle p-xs"></i>
