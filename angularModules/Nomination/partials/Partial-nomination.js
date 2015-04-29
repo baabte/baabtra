@@ -207,8 +207,10 @@ if(Object.keys($scope.allSync.FormDataCopy.course).length){
 		var courseImageUploadResponse = commonSrv.fnFileUpload($scope.allSync.FormDataCopy[filePaths[index]],filePaths[index]);
   				courseImageUploadResponse.then(function(response){
   				var imagePath = response.data.replace('"','').replace('"','');
-          		$scope.allSync.FormDataCopy[filePaths[$scope.fileUpload]] = bbConfig.BWS + 'files/'+ filePaths[$scope.fileUpload] +'/' + imagePath;
-          		$scope.fileUpload ++;
+
+  				//var imagePathArray = imagePath.split('_');
+          		$scope.allSync.FormData[filePaths[$scope.fileUpload]] = bbConfig.BWS + 'files/'+ imagePath.split('_')[0] +'/' + imagePath;
+          		$scope.fileUpload++;
         	});
 		}
 	

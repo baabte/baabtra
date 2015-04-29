@@ -26,8 +26,6 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 			var isDescriptive=false;
 			scope.isMentee=false;
 
-			
-
 			//if user is mentee copying all required datas 
 			if(roleId===bbConfig.MURID){
 				userLoginId=$rootScope.userinfo.userLoginId;
@@ -35,7 +33,7 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 				scope.isMentee=true;
 			}
 
-			scope.saveAnswer=function (argument) {
+			scope.saveAnswer=function (argKeys) {
 				
 				var time=(new Date()).getTime();
 
@@ -52,8 +50,18 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 						if(scope.ItsTimeToSavePrimaryToDB && scope.ItsTimeToSaveSecondaryToDB){
 			// console.log('murid',courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
 
-							if(scope.showSubmitButton){
-								var promise = questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time, submitStatus:'submitted'});
+								//Edited by ANOOP - if the function has an argument specified, the key value pairs in the answer object should be replaced with the key value pairs in the oargument. This is to make this waork with elements in which a question comes as a sub element, for eg. assignment, test etc. So the status or any key can be controlled by the directive which calls this function
+								var ansObj = {userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time, submitStatus:'submitted'};
+
+								if(!angular.equals(argKeys, undefined)){
+									for (var key in argKeys){
+										
+										ansObj[key] = argKeys[key];
+									}
+								}
+								//.End
+
+								var promise = questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,ansObj);
 									promise.then(function (data) {
 										data=angular.fromJson(JSON.parse(data.data));
 										if(data.success){
@@ -64,11 +72,7 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 											scope.question.dateOfSubmission=time;
 										}
 									});
-								}
-								else{
-									//callback function to trigger to return data to be saved to a function which is outside of this scope
-									argument({courseId:courseId,userLoginId:userLoginId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex,answer:{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time}});
-								}
+								
 
 
 							dbSaverUnbind();
