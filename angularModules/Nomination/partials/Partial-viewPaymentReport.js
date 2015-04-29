@@ -23,33 +23,39 @@ angular.module('baabtra').controller('ViewpaymentreportCtrl',['$scope','$rootSco
 							{value:'company',name:'Corporate customer'},
 							{value:'individual',name:'Individual customer'}
 						];
+	$scope.obj={};
+	$scope.selectedCurrency=0;
     $scope.reportName=stateArray[currentStateIdentifier].reportName;
 	$scope.filter={};
-	$scope.filter.courses=[];
+	$scope.filter.courses;
 	$scope.searchObj={};
 	$scope.searchObj.searchObj={companyId:companyId,"actHead.type":stateArray[currentStateIdentifier].acthType};
-	
-
+	$scope.currency=[];
+// 'INR'
+// '$'
+// 'SR'
+// 'AED'
 	$scope.fnGetReport=function () {
 		var promise=paymentReport.getReport($scope.searchObj);
 		promise.then(function  (data) {
 
-			$scope.report=angular.fromJson(JSON.parse(data.data));
+			$scope.obj.report=angular.fromJson(JSON.parse(data.data));
 			$scope.totalCredit={};
-			for(key in $scope.report){
-				if(angular.equals($scope.totalCredit[$scope.report[key]._id.currency],undefined)){
-					$scope.totalCredit[$scope.report[key]._id.currency]=0;
+			for(key in $scope.obj.report){
+				if(angular.equals($scope.totalCredit[$scope.obj.report[key]._id.currency],undefined)){
+					$scope.totalCredit[$scope.obj.report[key]._id.currency]=0;
+					$scope.currency.push($scope.obj.report[key]._id.currency);
 				}
-				$scope.totalCredit[$scope.report[key]._id.currency]+=$scope.report[key].credit;
+				$scope.totalCredit[$scope.obj.report[key]._id.currency]+=$scope.obj.report[key].credit;
 			}
-			if(!$scope.report.length){
+			if(!$scope.obj.report.length){
 				$alert({title: 'Sorry !', content: 'There have no entries to show.', placement: 'top-right', type: 'warning', show: true});
 			}
 		});
 	};
 
 	$scope.clearReport=function () {
-		delete $scope.report;
+		delete $scope.obj.report;
 	};
 
 	$scope.filterPopup=function () {
@@ -71,11 +77,11 @@ angular.module('baabtra').controller('ViewpaymentreportCtrl',['$scope','$rootSco
 		}
 
 		if(!angular.equals($scope.filter.courses,undefined)){
-			if($scope.filter.courses.length){
+			if($scope.filter.courses._id){
 				// $scope.searchObj.searchObj['transactionFor.courseId']={};
 				// $scope.searchObj.searchObj['transactionFor.courseId']['$in']=[];
 				// for(key in $scope.filter.courses){
-					$scope.searchObj.searchObj['transactionFor.courseId']=$scope.filter.courses[0]._id;
+					$scope.searchObj.searchObj['transactionFor.courseId']=$scope.filter.courses._id;
 				// }
 			}else{
 				delete $scope.searchObj.searchObj['transactionFor.courseId'];
@@ -95,10 +101,12 @@ angular.module('baabtra').controller('ViewpaymentreportCtrl',['$scope','$rootSco
 		}
 		else if(keyName=='course'){
 			delete $scope.searchObj.searchObj['transactionFor.courseId'];
+			delete $scope.filter.courses;
 		}
 	};
 
 	$scope.fnGetObjectLen = function(obj){
+		console.log(Object.keys(obj));
 		return Object.keys(obj).length;
 	};
 

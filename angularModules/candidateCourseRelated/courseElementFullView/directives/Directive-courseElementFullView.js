@@ -15,7 +15,8 @@ angular.module('baabtra').directive('courseElementFullView',['$compile', functio
 				"doc-viewer":'doc-viewer-frame'
 			};
 
-			scope.$watch('previewData', function(){
+		scope.$watch('previewData', function(){
+
 			scope.childElementScopes = {};
 				$(element).find('#elementContent'+scope.rand).html('');
 				if(!angular.equals(scope.previewData,undefined)){
@@ -27,9 +28,9 @@ angular.module('baabtra').directive('courseElementFullView',['$compile', functio
 										//checks for alternative viewer
 										elemDirName=secondaryElements[elemDirName];
 									}
-							 		var elementToBeCreated=$('<'+elemDirName+'>');							 		
+							 		var elementToBeCreated = $('<'+elemDirName+'>');							 		
 							 		
-							 		
+							 		console.log(data.customAttributes);
 							 		//checking for custom attributes and adding them
 							 		if(!angular.equals(data.customAttributes, undefined)) {
 							 			

@@ -19,10 +19,12 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 							if(data instanceof Object){
 							 		var elementToBeCreated=$('<'+data.type+'>');
 							 		//checking for custom attributes and adding them
+							 		
+							 		
 							 		if(!angular.equals(data.customAttributes, undefined)) {
 							 			
-							 			for (var key in data.customAttributes){
-							 				elementToBeCreated.attr(key,data.customAttributes[key]);
+							 			for (var keyAttrib in data.customAttributes){
+							 				elementToBeCreated.attr(keyAttrib,data.customAttributes[keyAttrib]);
 							 			}
 							 		}
 							 		elementToBeCreated.attr('data',JSON.stringify(data));
