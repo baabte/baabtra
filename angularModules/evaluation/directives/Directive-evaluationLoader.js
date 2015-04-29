@@ -11,6 +11,7 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService','$al
 		},
 		templateUrl: 'angularModules/evaluation/directives/Directive-evaluationLoader.html',
 		link: function(scope, element, attrs, fn) {
+			console.log(scope);
 				scope.evalLoader = {};
 				
 				scope.outElement = {};
