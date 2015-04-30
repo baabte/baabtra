@@ -73,9 +73,10 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 	$scope.fnCreateBatch=function(){
 		$state.go('home.main.batches');
 	}
-
+	$scope.hideButtonEnrollFlag=false;
 	//enrolling the candidate for specific batch/course
 	$scope.fnEnrollCandidate=function(obj,hide,type){
+		$scope.hideButtonEnrollFlag=true;
 		//delete some unwanted data
 		if(angular.equals(type,'single')){
 			delete mandatoryData.status;
@@ -140,6 +141,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 		
 			var result=angular.fromJson(JSON.parse(data.data));
 			hide(); //to hide the modal
+			$scope.hideButtonEnrollFlag=false;
 			$scope.notifications('Yaay..!','Registered Successfully','success');   
 		    //$state.go('home.main');
 

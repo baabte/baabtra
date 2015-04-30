@@ -23,8 +23,8 @@
                     
                 </div>
                 <tr class="b b-dark">
-                    <th style="border-bottom: 1px #000 solid;"></th>
-                    <th style="border-bottom: 1px #000 solid;"></th>
+                    <th style="border-bottom: 1px #000 solid;" colspan="2">Order form ID&nbsp;:&nbsp;{{receiptDetails.orderFormCode}}</th>
+                    <!-- <th style="border-bottom: 1px #000 solid;"></th> -->
                     <th style="border-bottom: 1px #000 solid;"></th>
                     <th style="border-bottom: 1px #000 solid;"></th>
                     <th style="border-bottom: 1px #000 solid;"></th>
@@ -45,7 +45,7 @@
                     <td class="b b-dark">{{course.course}}</td>
                     <td class="b b-dark">{{course.count}}</td>
                     <td class="b b-dark">{{course.actualAmount}}&nbsp;{{course.currency}}</td>
-                    <td class="b b-dark">{{course.discount}}&nbsp;%</td>
+                    <td class="b b-dark">{{course.discount?course.discount:'0'}}&nbsp;%</td>
                     <td class="b b-dark">{{course.payableAmount}}&nbsp;{{course.currency}}</td>
                 </tr>
                 <tr>
