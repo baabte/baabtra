@@ -4,18 +4,34 @@
 	 	<div class="row m-b-lg" style="position:fixed; width:101%; z-index:100;">
             <div ng-if="classic" set-sub-heading-and-background-color  class="panel-heading font-bold text-white  p baab-shadow"   translate="{{'Users'|translate}}"></div>
             <div  class="col-xs-12 shadow-z-1 bg-white" >
-                <div class="col-md-5 col-xs-12">
-                    <div class="m-t-md ">
-                        <div class="input-group m-b pull-left col-xs-8">
-                            <span class="input-group-addon"><i class="mdi-action-search text-2x"></i></span>
-                            <input type="text" ng-change="searchUser()" ng-model="userObj.searchKey" class="form-control" placeholder="Search Users" autocomplete="off">
-                        </div>
-                        <div class="col-xs-4">
-                            <a class="text-2x " ng-click="prevOne()" title="Previous" ng-disabled="prevButtondisabled"><i class="fa fa-chevron-circle-left"></i></a>
-                            <a class="text-2x " ng-click="nextOne()" ng-disabled="userObj.userList.length<9" title="Next"><i class="fa fa-chevron-circle-right"></i></a>
-                        </div>
+            	
+            		<div class="visible-xs row">
+	                    <div class="col-xs-5 no-padding">
+	                    	<div class="btn btn-addon "><i class="mdi-content-filter-list text-2x"></i><i translate="{{'Filter'|translate}}"></i></div>
+	                    </div>
+	                    <div class="col-xs-7 m-t-sm text-left">
+	                        <div class="input-group m-b pull-left ">
+	                            <span class="input-group-addon"><i class="mdi-action-search text-2x"></i></span>
+	                            <input type="text" ng-change="searchUser()" ng-model="userObj.searchKey" class=" form-control" placeholder="Search Users" autocomplete="off">
+	                        </div>
+	                    </div>
                     </div>
-                </div>                                                                  
+
+                    <div class="hidden-xs">
+                    	<div class="col-md-2 m-t-sm no-padding">
+	                    	<div class="btn btn-addon "><i class="mdi-content-filter-list text-2x"></i><i translate="{{'Filter'|translate}}"></i></div>
+	                    </div>
+	                    <div class="col-md-10 m-t-md ">
+	                        <div class="input-group m-b pull-left col-xs-10">
+	                            <span class="input-group-addon"><i class="mdi-action-search text-2x"></i></span>
+	                            <input type="text" ng-change="searchUser()" ng-model="userObj.searchKey" class="form-control" placeholder="Search Users" autocomplete="off">
+	                        </div>
+	                        <div class="">
+	                            <a class="text-2x " ng-click="prevOne()" title="Previous" ng-disabled="prevButtondisabled"><i class="fa fa-chevron-circle-left"></i></a>
+	                            <a class="text-2x " ng-click="nextOne()" ng-disabled="userObj.userList.length<9" title="Next"><i class="fa fa-chevron-circle-right"></i></a>
+	                        </div>
+	                    </div>
+                    </div>                                                             
             </div>
         </div>
 
