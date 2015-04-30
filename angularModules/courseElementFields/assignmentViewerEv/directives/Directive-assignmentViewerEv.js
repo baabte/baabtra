@@ -16,7 +16,8 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
 				scope.result = scope.$parent.result[parseInt(attrs.index)];
 				scope.result.data = angular.copy(scope.data);
 			}
-
+			//settin a variable to show resubmit button in the course element evaluator directive
+			scope.$parent.$parent.showResubmitButton = true;
 	//looping in the elements array of the assignment object to hide the question's individual submit button 
 		var elementArray = angular.copy(scope.$parent.previewData.elements);
 		

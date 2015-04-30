@@ -14,7 +14,15 @@ angular.module('baabtra').service('assignmentFunctions',['$http', 'bbConfig',fun
 
 // _______________________________________________________________________________________
 	 //function to check for the penalty
-	 this.checkForPenalty = function(scope) {			
+	 // a metrics for the calculation in accordance with the late time units 
+	var calculationMetrics = {hours:3600000,
+							  days:86400000,
+							  months:2592000000};	
+
+	 this.checkForPenalty = function(scope) {
+
+				var duration = scope.$parent.previewData.duration.duration * calculationMetrics[scope.duration.durationUnit];					
+				
 
 				//checking if there is an assigned date
 				if(!angular.equals(scope.$parent.previewData.assignedDate,undefined)){		
@@ -24,10 +32,9 @@ angular.module('baabtra').service('assignmentFunctions',['$http', 'bbConfig',fun
 					
 					var sumbittedDate = new Date();
 					sumbittedDate = sumbittedDate.getTime();
-					
-					if(sumbittedDate > assignedDate){
+					if(sumbittedDate > (assignedDate + duration)){
 						scope.checkAndApplyPenalty = true;
-						scope.timeDiff = Math.abs(sumbittedDate - assignedDate);
+						scope.timeDiff = Math.abs(sumbittedDate - (assignedDate + duration));
 					}
 																																																											
 				
@@ -44,9 +51,9 @@ angular.module('baabtra').service('assignmentFunctions',['$http', 'bbConfig',fun
 					
 					var tlPoint = parseInt(scope.$parent.previewData.tlPointInMinute)*60*1000;
 					
-					if(sumbittedDate > (courseAssignedDate + tlPoint)){						
+					if(sumbittedDate > (courseAssignedDate + tlPoint + duration)){						
 						scope.checkAndApplyPenalty = true;
-						scope.timeDiff = Math.abs(sumbittedDate - (courseAssignedDate + tlPoint));	
+						scope.timeDiff = Math.abs(sumbittedDate - (courseAssignedDate + tlPoint + duration));	
 						
 				}
 					
@@ -66,10 +73,7 @@ angular.module('baabtra').service('assignmentFunctions',['$http', 'bbConfig',fun
 				
 
 
-	// a metrics for the calculation in accordance with the late time units 
-	var calculationMetrics = {hours:3600000,
-							  days:86400000,
-							  months:2592000000};	
+	
 
 	//an object to push hold the eligible penalty object, for eg. if there are objects of late time 5 and 10 respectively and submission is late by 11 days only the object with latetime 10 is to be pushed
 	var objTobePushed = {};
