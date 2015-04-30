@@ -84,6 +84,21 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 				}
 			}
 
+			//function to update the penalty rule
+			scope.updatePenaltyRule = function(){
+				scope.ruleEditMode = false;
+				// resetting the form
+				scope.penaltyObj = {
+					blockSubmission:false,
+					reductionUnits:'',
+					penaltyCalculationUnit:"% of marks",					
+					penaltyFrequency:'one time',
+					submissionMode:'submission is late',
+					lateTime:'',
+					lateTimeUnits:'days'
+				}
+			}
+			
 			//function to remove rule
 			scope.removeRule = function(index) {
 				scope.ngModel.penaltyArray.splice(index,1);
@@ -99,11 +114,23 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 			scope.fnShowBlockSubmission = function(blockSubmission) {
 
 				if (blockSubmission) {
-					return "block submission and ";
+					return " block submission and ";
 				}
 				else{
 					return "";
 				}
+			}
+
+			//if block submission is true, don't show the penalty frequency
+			scope.fnShowPenaltyFrequency = function(rule){
+
+				if (rule.blockSubmission) {
+					return "";
+				}
+				else{
+					return "for" + rule.penaltyFrequency;
+				}
+				
 			}
 
 

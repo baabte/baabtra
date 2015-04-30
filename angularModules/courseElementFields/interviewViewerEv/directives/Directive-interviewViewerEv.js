@@ -18,7 +18,7 @@ angular.module('baabtra').directive('interviewViewerEv',['$rootScope', 'commonSr
 				
 				if(angular.equals(scope.result.data.value.questionSelection.type, 'manual')){
 					scope.questionArray = scope.result.data.value.questionArray;
-					console.log(scope.result.data.value);
+					
 				}
 				else if(angular.equals(scope.result.data.value.questionSelection.type, 'automatic')){
 					var QuestionBankResponse = commonSrv.LoadInterviewQuestionBank(cmp_id, scope.result.data.value.questionSelection.noOfQuestions);
