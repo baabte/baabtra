@@ -9,8 +9,12 @@
 										<span ng-if="mode==0">
 											Date:&nbsp;{{attendance.date|date:'MM-dd-yyyy'}}
 										</span>
-										<span ng-if="mode==1">
+										<!-- <span ng-if="mode==1">
 											<input type="text" class="form-control"  float-label ng-model="attendance.filterDate" data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true" data-max-date="today" name="doj" bs-datepicker="" autocomplete="off" placeholder="Date">
+										</span> -->
+										<span ng-if="mode==1">
+											<div date-picker="start"  max-view="date" auto-close="true">
+											</div>
 										</span>
 
 										<!--attendance.date mode -->
