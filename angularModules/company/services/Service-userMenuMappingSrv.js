@@ -157,7 +157,7 @@ this.FnSaveUserMenu=function ($scope){ //function to save the user menus.
               success(function(data, status, headers, config) {     //success respond from server
                 
                 var result = angular.fromJson(JSON.parse(data)); 
-                console.log(result);   //setting the respond into a  variable
+                console.log("ashdgf"+result);   //setting the respond into a  variable
                 $scope.UserList=result.data;                   //filer the user list from respond data
                 $scope.user_count=result.user_count;
                 if($scope.ShowNoDataFound){
@@ -167,9 +167,9 @@ this.FnSaveUserMenu=function ($scope){ //function to save the user menus.
                   $scope.WarringMessage="No Matching User Found";
                   $scope.ShowNoDataFound=true;
                 }
-                if ($scope.UserList.length>0) {
-          $scope.ModelUserBox=true;
-        }//filer the user list from respond data
+        //         if ($scope.UserList.length>0) {
+        //   $scope.ModelUserBox=true;
+        // }//filer the user list from respond data
               }).
               error(function(data, status, headers, config) {
                 // called asynchronously if an error occurs
