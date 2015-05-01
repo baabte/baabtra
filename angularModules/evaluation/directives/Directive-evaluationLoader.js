@@ -57,7 +57,6 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 
 					
 					
-
 					for(var field in result){
 						element.elements[field] = result[field].data;
 

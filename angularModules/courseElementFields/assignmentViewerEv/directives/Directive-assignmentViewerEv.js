@@ -112,10 +112,10 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
  		}
 
 
- 		scope.result.data.markScored = scope.result.data.markScored.toFixed(2)
+ 		scope.result.data.markScored = parseFloat(scope.result.data.markScored).toFixed(2);
 
 
- 		return scope.result.data.markScored.toFixed(2);
+ 		return parseFloat(scope.result.data.markScored).toFixed(2);
 
  }
 
