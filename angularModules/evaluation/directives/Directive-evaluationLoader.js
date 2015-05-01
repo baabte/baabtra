@@ -41,7 +41,7 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 
 				scope.evaluated = function(element, outElement, elementOrder, courseMappingId, evaluatorId){
 					element.evalDetails = {};
-					var result = angular.copy(scope.outElement);
+					var result = angular.copy(outElement);
 					console.log(outElement);
 					if(angular.equals(element.evalStatusHistory,undefined)){
 						element.evalStatusHistory = [];
@@ -58,28 +58,32 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 					
 					
 					for(var field in result){
-						element.elements[field] = result[field].data;
+						console.log(result[field],field);
+							if(!angular.equals(result[field], undefined)){
+
+							element.elements[field] = result[field].data;
 
 
-						for(var key in element.elements[field].markScored){
-							
+							for(var key in element.elements[field].markScored){
+								
 
-							element.markScored = element.markScored + element.elements[field].markScored[key];
-							
-							if(angular.equals(parseInt(key), Object.keys(element.elements[field].markScored).length-1)){
-								if(angular.equals(parseInt(field), result.length-1)){
+								element.markScored = element.markScored + element.elements[field].markScored[key];
+								
+								if(angular.equals(parseInt(key), Object.keys(element.elements[field].markScored).length-1)){
+									if(angular.equals(parseInt(field), result.length-1)){
 
-									
-									var evaluationResponse = evaluationService.evaluateAnswer(courseMappingId, element, elementOrder);
-									evaluationResponse.then(function(response){
-										var result = angular.fromJson(JSON.parse(response.data));
-										if(angular.equals(result.result, "Added")){
-											$alert({title: 'Evaluated!', content: element.Name + ' evaluated successfuly', placement: 'top-right', type: 'success', duration:3, show: true});
-										}
-										else if(angular.equals(result.result, "Updated")){
-											$alert({title: 'Updated!', content: element.Name + ' updated successfuly', placement: 'top-right', type: 'success', duration:3, show: true});
-										}
-									});
+										
+										var evaluationResponse = evaluationService.evaluateAnswer(courseMappingId, element, elementOrder);
+										evaluationResponse.then(function(response){
+											var result = angular.fromJson(JSON.parse(response.data));
+											if(angular.equals(result.result, "Added")){
+												$alert({title: 'Evaluated!', content: element.Name + ' evaluated successfuly', placement: 'top-right', type: 'success', duration:3, show: true});
+											}
+											else if(angular.equals(result.result, "Updated")){
+												$alert({title: 'Updated!', content: element.Name + ' updated successfuly', placement: 'top-right', type: 'success', duration:3, show: true});
+											}
+										});
+									}
 								}
 							}
 						}
