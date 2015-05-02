@@ -56,7 +56,8 @@
         'timer',
         'internationalPhoneNumber',
         'checklist-model',
-        'angular-flipclock'//,
+        'angular-flipclock',
+        'chart.js'//,
         //function(){  return 'custom-form';}()
         
       ])

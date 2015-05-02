@@ -11,14 +11,14 @@ else{
 
 $scope.entities=[];
 $scope.incrementTypes=[{"Name":"<i class='fa fa-sort-numeric-asc p-xs'></i>Number","value":"Number"},{"Name":"<i class='ti-uppercase p-xs'></i>Alphabetics(In Capital Letter)","value":"Alphabetics(C)"},{"Name":"<i class='ti-smallcap p-xs'></i>Alphabetics(In Small Letter)","value":"Alphabetics(s)"}];
-
+$scope.enableaddEvaluator=true;
 
 // watch function for retireve userinfo
 $scope.$watch(function() {
   return $rootScope.userinfo;
 }, function() {
-
   $scope.userinfo = $rootScope.userinfo;
+  // console.log($scope.userinfo.ActiveUserData.roleMappingObj);
   companyId=$scope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   var existingConf= globalSettings.retrieveExistingConf(companyId);
 	existingConf.then(function  (data) {
@@ -156,6 +156,7 @@ $scope.$watch(function() {
 }, true);
 
 $scope.setEvaluator=function(){
+	$scope.enableaddEvaluator=false;
 	var selectedroles=[];
 	for(var index=0;index<$scope.selectedrole.length;index++){
 		selectedroles.push($scope.selectedrole[index].value);
@@ -168,6 +169,7 @@ $scope.setEvaluator=function(){
 	var addEvalRolesCallback= globalSettings.addEvaluator(data);
 	addEvalRolesCallback.then(function  (data) {
 	  if(data.status==200&&data.statusText=="OK"){
+	  				// console.log(angular.fromJson(JSON.parse(data.data)));
 	  				for(var index=0;index<selectedroles.length;index++){
 							for(var index2=0;index2<$scope.roleslist.length;index2++){
 								if(selectedroles[index]==$scope.roleslist[index2].value){
@@ -181,6 +183,14 @@ $scope.setEvaluator=function(){
 						$scope.selectedEvalRoles.push($scope.selectedrole[index]);
 					}
 					$scope.notifications("Success","Evaluator Added","success");
+					if($rootScope.userinfo.ActiveUserData.roleMappingObj.evalRoles)
+					{
+						$rootScope.userinfo.ActiveUserData.roleMappingObj.evalRoles=$rootScope.userinfo.ActiveUserData.roleMappingObj.evalRoles.concat(selectedroles);
+
+					}
+					else{
+						$rootScope.userinfo.ActiveUserData.roleMappingObj.evalRoles=selectedroles;
+					}
 					selectedroles=[];
 			}
 	});
@@ -321,6 +331,12 @@ $scope.removeExistingEvaluator=function(removeEvaluatorSelected,index){
 			  				$scope.selectedEvalRoles.splice(index,1);
 							$scope.roleslist.push({"Name":removeEvaluatorSelected.Name,"value":removeEvaluatorSelected.value});
 							$scope.notifications("Success","Evaluator Removed","success");
+							for (var i = 0; i < $rootScope.userinfo.ActiveUserData.roleMappingObj.evalRoles.length; i++) {
+								if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.evalRoles[i],removeEvaluatorSelected.value)){
+									$rootScope.userinfo.ActiveUserData.roleMappingObj.evalRoles.splice(i,1);
+								}
+							};
+
 					}
 			});
 }
@@ -336,7 +352,8 @@ $scope.removeExistingSupervisors=function(removeEvaluatorSupervisor,index){
 				  				$scope.selectedSupervisorsRoles.splice(index,1);
 								$scope.supervisorrolelist.push({"Name":removeEvaluatorSupervisor.Name,"value":removeEvaluatorSupervisor.value});
 								$scope.notifications("Success","Supervisor Removed","success");
-						}
+								console.log();
+					}
 				});
 }
 
