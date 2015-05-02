@@ -40,6 +40,9 @@ angular.module('baabtra').controller('MarkbatchattendanceCtrl',['$scope','$rootS
     };
     //function for getting full candidate's list under this batch
     $scope.getMenteeListBlindly = function () {
+    	if($scope.mode==1){
+    		$scope.attendance.date=$scope.attendance.filterDate;
+    	}
     	    var gotMenteesList = batchAttendance.getAllCandidates($scope.batchMappingId,$scope.attendance.date);
 
 		    gotMenteesList.then(function (data) {
@@ -59,7 +62,11 @@ angular.module('baabtra').controller('MarkbatchattendanceCtrl',['$scope','$rootS
 		    	}
 		    });
     };
-    $scope.getMenteeListBlindly();
+
+    if($scope.mode==0){
+    	$scope.getMenteeListBlindly();	
+    }
+    
 
     // function to select all candidates
     $scope.changeSelectAll = function(){
@@ -113,7 +120,7 @@ angular.module('baabtra').controller('MarkbatchattendanceCtrl',['$scope','$rootS
     	var savedAttandence = batchAttendance.saveCandidatesAttandence(dataObj);
     		savedAttandence.then(function () {
 
-    			$alert({title: 'Done..!', content: 'Attendance saved..', placement: 'top-right', type: 'success', show: true});
+    			$alert({title: 'Done..!', content: 'Attendance saved..', placement: 'top-right', type: 'success', show: true,duration:3});
     			$scope.getMenteeListBlindly();
     		});
     };
@@ -156,7 +163,7 @@ angular.module('baabtra').controller('MarkbatchattendanceCtrl',['$scope','$rootS
     	var updatedAttandence = batchAttendance.updateCandidatesAttandence(dataObj);
     		updatedAttandence.then(function () {
 
-    			$alert({title: 'Done..!', content: 'Attendance updated..', placement: 'top-right', type: 'success', show: true});
+    			$alert({title: 'Done..!', content: 'Attendance updated..', placement: 'top-right', type: 'success', show: true,duration:3});
     			$scope.getMenteeListForUpdate();
     		});
     };

@@ -15,12 +15,23 @@ Created On:12/11/2014 -->
           <div >
             <ul class="nav navbar-nav" >
 
-              <li class="dropdown p-v-xs" id="{{$index+1}}" ng-repeat="menus in userMenusOrigin"  ng-if="menus.canView || (menus.canView == undefined)" ng-click="loadDetails(menus)"><div style="color: inherit;cursor: pointer;" class="dropdown-toggle p-sm" data-toggle="dropdown" ><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}<span class="caret" ng-if="menus.childMenuStructure.length"></span></div>
+                <li ng-click="goHome()" class="dropdown p-v-sm " ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}" ui-sref-active="active">
+                  <a class="{{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}} no-padding">
+                    <i class="fa fa-home text-2x" ></i>
+                  </a>
+                </li>
+
+             
+                
+                <li class="dropdown p-v-xs" id="{{$index+1}}" ng-repeat="menus in userMenusOrigin"  ng-if="(menus.canView || (menus.canView == undefined)) ">
+
+
+                <div style="color: inherit;cursor: pointer;" class="dropdown-toggle p-sm" data-toggle="dropdown" ><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}<span class="caret" ng-if="menus.childMenuStructure.length"></span></div>
                 <ul class="dropdown-menu am-fade-and-slide-left {{$root.userinfo.ActiveUserData.menuColor.menuPrimaryColor}} menu-item" ng-if="menus.childMenuStructure.length">
                   <li><div  ng-class="{'{{$root.userinfo.ActiveUserData.menuColor.menuSecondaryColor}}':listHover}" style="min-width: 200px;cursor: pointer;" ng-mouseover="listHover=true" ng-mouseleave="listHover=false" class="p-sm"  ng-repeat="menu in menus.childMenuStructure"  ng-if="menu.canView || (menu.canView == undefined)" ng-click="loadDetails(menu, $event)"><i class="fa {{menu.menuIcon}} fa-md"></i>&nbsp;{{menu.MenuName}}</div></li>
                 </ul>
               </li>
-
+              
             </ul>
           </div>
         </div>

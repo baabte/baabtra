@@ -74,7 +74,6 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 
 			};*/
 
-
 			// function for executing functions from name
 				scope.executeFunction=function (functionName) {
 					functionName=functionName.replace('()','');

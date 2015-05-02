@@ -99,7 +99,7 @@
                       <div class="checkbox" ng-show="!currentStage.viewStage"  style="margin-left:7px;" ng-if="mentee.status != 'approved'">
 
                                             <label>                     
-                                                <input type="checkbox" ng-model="mentee.checkedStatus" ng-change="updateStatus(mentee, mentee.checkedStatus, course)" >
+                                                <input ng-init="mentee.checkedStatus=false" type="checkbox" ng-model="mentee.checkedStatus" ng-change="updateStatus(mentee, mentee.checkedStatus, course)" >
                                             </label>
                       </div>
                        <i ng-if="!mentee.userPic" class="mdi-action-assignment-ind text-2x  random-background-color img-circle p-xs"></i>
@@ -129,8 +129,8 @@
                                           <div class="row m-t am-fade n-padding" ng-show="mentee.showDetails">
                                             <div class="col-xs-6 no-padding m-t">
                                                 <div class="col-xs-12 m-xs no-padding" ng-if="funCheckExludeList(key)"  ng-repeat="(key,value) in mentee">
-                                                  <strong class="col-xs-7 text-u-c text-sm">{{key}}<span class="pull-right">:</span></strong>
-                                                  <span class="col-xs-5" ng-if="key != 'contactNoMob' && key != 'fax' && key !='contactNoLandline'">{{value | date}}</span>
+                                                  <strong class="col-xs-7 text-u-c text-sm" ng-if="key!='checkedStatus'">{{key}}<span class="pull-right">:</span></strong>
+                                                  <span class="col-xs-5" ng-if="key != 'contactNoMob' && key != 'fax' && key !='contactNoLandline'&& key!='checkedStatus'">{{value | date}}</span>
                                                   <span class="col-xs-5" ng-if="key == 'contactNoMob'">{{value}}</span>
                                                   <span class="col-xs-5" ng-if="key == 'fax'">{{value}}</span>
                                                   <span class="col-xs-5" ng-if="key == 'contactNoLandline'">{{value}}</span>

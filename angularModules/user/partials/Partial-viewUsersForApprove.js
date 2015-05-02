@@ -420,14 +420,13 @@ $scope.printReceipt = function(orderForm){
 		$modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-paymentReceipt.html', show: true});
 };
 
-
 //create a receipt detail object
 var receiptDetail = {};
 
 //function to update the orderform status
 $scope.updateOrderFormStatus = function(type,hide){
 
-	console.clear();
+	// console.clear();
 
 	var actTransactions = [];
 	$scope.paymentReceipt={};
@@ -594,7 +593,9 @@ $scope.updateOrderFormStatus = function(type,hide){
 					$scope.paymentReceipt.crmId = updatedOrderForm.urmId.$oid;
 					$scope.paymentReceipt.urmId = updatedOrderForm.urmId.$oid;
 					$scope.paymentReceipt.activeFlag = 1;
-					$scope.paymentReceipt.receiptDetails = [];
+					if(angular.equals($scope.paymentReceipt.receiptDetails,undefined)){
+						$scope.paymentReceipt.receiptDetails = [];
+					}
 					$scope.paymentReceipt.totalPayableAmount = 0;
 				
 
@@ -611,8 +612,7 @@ $scope.updateOrderFormStatus = function(type,hide){
 							amount = currentOrderDetail.coursePrice;
 						}
 
-					receiptDetail = {};	
-
+					receiptDetail = {};
 					if(angular.equals($scope.paymentReceipt.receiptDetails.length,0)){
 						receiptDetail = {
 							courseId:currentOrderDetail.courseId,
@@ -631,7 +631,6 @@ $scope.updateOrderFormStatus = function(type,hide){
 						for(var l in $scope.paymentReceipt.receiptDetails) {
 
 							var currentReceiptDetail = $scope.paymentReceipt.receiptDetails[l];
-
 							if (angular.equals(currentReceiptDetail.courseId,currentOrderDetail.courseId)){
 								currentReceiptDetail.count = parseInt(currentReceiptDetail.count) + 1;
 								currentReceiptDetail.actualAmount = parseInt(currentReceiptDetail.actualAmount) + parseInt(currentOrderDetail.coursePrice);

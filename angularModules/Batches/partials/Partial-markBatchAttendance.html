@@ -10,8 +10,12 @@
 											Date:&nbsp;{{attendance.date|date:'MM-dd-yyyy'}}
 										</span>
 										<span ng-if="mode==1">
-											<input type="text" class="form-control"  float-label ng-model="attendance.date" data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true" data-max-date="today" name="doj" bs-datepicker="" autocomplete="off" placeholder="Date">
+											<input type="text" class="form-control"  float-label ng-model="attendance.filterDate" data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true" data-max-date="today" name="doj" bs-datepicker="" autocomplete="off" placeholder="Date">
 										</span>
+									<!-- 	<span ng-if="mode==1">
+											<div date-picker="start"  max-view="date" auto-close="true">
+											</div>
+										</span> -->
 
 										<!--attendance.date mode -->
 									</span>
@@ -36,8 +40,8 @@
 							</div>
 
 							<div class="col-md-3 col-xs-12 text-right">
+								<a class="btn btn-success" ng-disabled="!attendance.filterDate" ng-show="mode==1" ng-click="getMenteeListBlindly()">Get list</a>
 								<a class="btn btn-success" ng-hide="obj.menteeList&&obj.menteeList.length==0" ng-click="saveCandidatesAttandence()">Save</a>
-								<a class="btn btn-success" ng-show="obj.menteeList&&mode==1" ng-click="getMenteeListBlindly()">Get list</a>
 								<a class="btn btn-success" ng-show="obj.menteeList&&markedUrmIds.length" ng-click="updateAttendance()">Update</a>
 							</div>
 						</div>

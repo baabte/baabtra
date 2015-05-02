@@ -13,6 +13,7 @@ angular.module('baabtra').directive('questionViewerEv', function() {
 				scope.result = scope.$parent.result[parseInt(attrs.index)];
 				scope.result.data = angular.copy(scope.data);
 			}
+			
 
 			scope.markChanged = function(mark){
 				

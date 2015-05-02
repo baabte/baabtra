@@ -147,9 +147,7 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
      
     $rootScope.menuExist=false;
          if(angular.equals(toState.name,'home.main')){
-            $localStorage.linkPath=[];
             $scope.linkPath = $localStorage.linkPath;
-            $scope.navBar = false;
           }
        getMenuByLink($scope.userMenusOrigin,null,null,toState.name, function(){
           if (!$rootScope.menuExist && !angular.equals(toState.name,'home.main')) {
@@ -160,12 +158,15 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
 });
 
     $scope.loadDetails =function(menu, event){
+
+
       if($scope.viewMenu){
         $scope.viewMenu = false;
       }
       
       $localStorage.currentMenuName=menu.MenuName;
       $localStorage.currentMenuLink=menu.MenuLink;
+
       $scope.navBar=true;
       if (angular.equals($localStorage.linkPath,undefined)) {
         $localStorage.linkPath=[];
@@ -242,13 +243,17 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
 
  
     $scope.goMenu = function(menu,index){//for go to a particular menu when click the menu path
-      $localStorage.currentMenuName=menu.MenuName;
-      $localStorage.currentMenuLink=menu.MenuLink;
+      
+      
+
+      $localStorage.currentMenuName = menu.MenuName;
+      $localStorage.currentMenuLink = menu.MenuLink;
 
        var trim_val=$localStorage.linkPath.length-index-1;
-      for (var link_index = 0; link_index < trim_val; link_index++) {
-        $localStorage.linkPath.pop();
-      }
+        for (var link_index = 0; link_index < trim_val; link_index++) {
+          $localStorage.linkPath.pop();
+        }
+
       if (!angular.equals(menu.actions,undefined)) {
         
             
@@ -256,7 +261,9 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
           
       }
       else {
-        $scope.userMenus=menu.childMenuStructure;
+        
+        $scope.linkPath = $localStorage.linkPath;
+        $scope.userMenus = menu.childMenuStructure;
         $state.go('home.main');
       }
 
