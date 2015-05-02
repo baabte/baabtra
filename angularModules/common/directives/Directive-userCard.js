@@ -6,7 +6,7 @@ angular.module('baabtra').directive('userCard',['commonSrv', function (commonSrv
 		},
 		templateUrl: 'angularModules/common/directives/Directive-userCard.html',
 		link: function(scope, element, attrs, fn) {
-			console.log(scope.userId)
+			
 			var userCardResponse = commonSrv.fnLoadUserCardDetails(scope.userId);
 			userCardResponse.then(function(response){
 				scope.data = {};

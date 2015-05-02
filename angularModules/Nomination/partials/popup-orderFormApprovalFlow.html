@@ -102,9 +102,11 @@
                                                 <input ng-init="mentee.checkedStatus=false" type="checkbox" ng-model="mentee.checkedStatus" ng-change="updateStatus(mentee, mentee.checkedStatus, course)" >
                                             </label>
                       </div>
-                       <i ng-if="!mentee.userPic" class="mdi-action-assignment-ind text-2x  random-background-color img-circle p-xs"></i>
-                       <img ng-if="mentee.userPic" height="50" width="50" class="img-resposive img-circle p-xs" src="{{mentee.userPic}}"></img>
-                       <br/><div class="co-xs-12 m-b-xs text-center m-t-xs">
+                      <div class="">
+                         <i ng-if="!mentee.userPic" class="mdi-action-assignment-ind text-2x  random-background-color img-circle p-xs"></i>
+                         <img ng-if="mentee.userPic" height="100" class="img-resposive img-circle p-xs" src="{{mentee.userPic}}"></img>
+                       </div>
+                       <div class="co-xs-12 m-b-xs text-center m-t-xs">
                           <span  class="label">
                           <i class="mdi-content-flag success"></i>
                            {{mentee.status}} 
