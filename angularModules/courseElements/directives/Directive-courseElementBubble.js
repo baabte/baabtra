@@ -7,12 +7,7 @@ angular.module('baabtra').directive('courseElementBubble',['$dropdown','$rootSco
 			if(!angular.equals(attrs['tlPoint'],undefined)){
 				scope.thisPoint=attrs['tlPoint'];				
 			}
-			if(scope.elementOrderNewFormat){
-			// console.log('elementOrderNewFormat');				
-			// console.log(scope.elementOrderNewFormat);
-			// console.log('timeLineView');				
-			// console.log(scope.timeLineView);
-			}			
+			
 
 			scope.status = true;
 			scope.showBubble = 2;

@@ -12,7 +12,11 @@ angular.module('baabtra').controller('UserreportCtrl',['$scope','$filter','bulkE
 $scope.dates={};
 $scope.courses=[];
 $scope.obj={};
-
+$scope.hideOrShowChart=true;
+$scope.type = 'Pie';
+$scope.data=[];
+$scope.labels=[];
+$scope.labelname=[];
 //to get number of weeks in the year
 // var today = new Date();
 // $scope.weekno =getISOWeeks(today);
@@ -44,45 +48,65 @@ courseFetchData.type=0;
 $scope.candidateReport={};
 var FetchCandidateReportCallBack=candidateReport.FetchCandidateReport(courseFetchData);
       FetchCandidateReportCallBack.then(function(data){
-        $scope.chartData=[];
-        var array=[];
-        array[0]="Course";
-        array[1]="Candidates";
-        $scope.chartData.push(array);
-        $scope.CandidateReport = angular.fromJson(JSON.parse(data.data)); 
-         array=[];
-        for (var i in $scope.CandidateReport) {
-           array[0]=$scope.CandidateReport[i].courseName;
-           array[1]=$scope.CandidateReport[i].candidateCount;
-          $scope.chartData.push(array);
-          array=[];
+        // $scope.chartData=[];
+        // var array=[];
+        // array[0]="Course";
+        // array[1]="Candidates";
+        // $scope.chartData.push(array);
+        // $scope.CandidateReport = angular.fromJson(JSON.parse(data.data)); 
+        //  array=[];
+        // for (var i in $scope.CandidateReport) {
+        //    array[0]=$scope.CandidateReport[i].courseName;
+        //    array[1]=$scope.CandidateReport[i].candidateCount;
+        //   $scope.chartData.push(array);
+        //   array=[];
+        //  }
+        //  $scope.CalctotalCount($scope.chartData);
+        //   $scope.candidateReport= { //dummy object
+        //                           "type":"PieChart", 
+        //                           "displayExactValues": true, 
+        //                           "options": {
+        //                             "is3D":true,  
+        //                             "title": "Courses and Candidates",
+        //                             "vAxis":{
+        //                               "title":"Candidates"
+        //                             },
+        //                             "hAxis": {
+        //                                 "title": "Course"
+        //                               },
+        //                             "tooltip": {
+        //                               "isHtml": true
+        //                             },
+        //                             'width':600,
+        //                            'height':400
+        //                           }
+        //                         };                      
+        //  $scope.candidateReport.data=$scope.chartData;
+
+
+        $scope.datas=[];
+        $scope.CandidateReport = angular.fromJson(JSON.parse(data.data));
+        if($scope.CandidateReport.length)
+          {
+            var counter=0;
+            $scope.hideOrShowChart=true;
+            $scope.CalctotalCount($scope.CandidateReport);
+            for (index in $scope.CandidateReport) {
+              if($scope.CandidateReport[index].candidateCount>0){
+                  // $scope.labelname.push(("Course ".concat(++counter)).concat(" ("+$scope.CandidateReport[index].courseName+")"));
+                  $scope.labelname.push(("Course ".concat(++counter)));
+                  $scope.labels.push($scope.CandidateReport[index].courseName);
+                  $scope.data.push($scope.CandidateReport[index].candidateCount);
+              }
+               
+            }
+            $scope.tempArrarlabels=angular.copy($scope.labels);
          }
-         $scope.CalctotalCount($scope.chartData);
-         // $scope.candidateReport.type="PieChart";
-          $scope.candidateReport= { //dummy object
-                                  "type":"PieChart", 
-                                  "displayExactValues": true, 
-                                  "options": {
-                                    "is3D":true,  
-                                    "title": "Courses and Candidates",
-                                    "vAxis":{
-                                      "title":"Candidates"
-                                    },
-                                    "hAxis": {
-                                        "title": "Course"
-                                      },
-                                    "tooltip": {
-                                      "isHtml": true
-                                    },
-                                    'width':600,
-                                   'height':400
-                                  }
-                                };                      
-         $scope.candidateReport.data=$scope.chartData;
-
-
+         else{
+            $scope.hideOrShowChart=false;
+         }
+        
   });
-
 $scope.UpdateReport=function(from,data){
   var dataToSend={};
   dataToSend.type=from;
@@ -108,34 +132,55 @@ $scope.UpdateReport=function(from,data){
     }
      var UpdateReportCallBack=candidateReport.FetchCandidateReport(dataToSend); 
      UpdateReportCallBack.then(function(data){
-        $scope.updatedCourseObj = angular.fromJson(JSON.parse(data.data)); 
-        var arrayToPush=[];
-        var array=[];
-            array[0]="Course";
-            array[1]="Candidates";
-        arrayToPush.push(array);
-        array=[];
-        for (var i in $scope.updatedCourseObj) {
-               array[0]=$scope.updatedCourseObj[i].courseName;
-               array[1]=$scope.updatedCourseObj[i].candidateCount;
-               arrayToPush.push(array);
-               array=[];
-        }
-        $scope.CalctotalCount(arrayToPush);
-        $scope.candidateReport.data=arrayToPush;
+        // $scope.updatedCourseObj = angular.fromJson(JSON.parse(data.data)); 
+        // var arrayToPush=[];
+        // var array=[];
+        //     array[0]="Course";
+        //     array[1]="Candidates";
+        // arrayToPush.push(array);
+        // array=[];
+        // for (var i in $scope.updatedCourseObj) {
+        //        array[0]=$scope.updatedCourseObj[i].courseName;
+        //        array[1]=$scope.updatedCourseObj[i].candidateCount;
+        //        arrayToPush.push(array);
+        //        array=[];
+        // }
+        // $scope.CalctotalCount(arrayToPush);
+        // $scope.candidateReport.data=arrayToPush;
+
+        // $scope.options={"width":100,"height":200};
+        $scope.UpdatedCandidateReport = angular.fromJson(JSON.parse(data.data));
+        $scope.labelname=[];
+        $scope.labels=[];
+        $scope.data=[];
+        if($scope.UpdatedCandidateReport.length)
+          {
+            var counter=0;
+            $scope.hideOrShowChart=true;
+            $scope.CalctotalCount($scope.UpdatedCandidateReport);
+            for (index in $scope.UpdatedCandidateReport) {
+              $scope.labelname.push(("Course ".concat(++counter)));
+              $scope.labels.push($scope.UpdatedCandidateReport[index].courseName);
+              $scope.data.push($scope.UpdatedCandidateReport[index].candidateCount);
+            }
+              $scope.tempArrarlabels=angular.copy($scope.labels);
+          }else{
+            $scope.hideOrShowChart=false;
+          }
+        
 
  });
-
 
 }
 $scope.CalctotalCount=function(ArrayVar)
 {
   $scope.total=0;
   for (var i = 0; i < ArrayVar.length; i++) {
-    if(i>0)
-    {
-      $scope.total= $scope.total+ArrayVar[i][1];
-    }
+    // if(i>0)
+    // {
+    //   $scope.total= $scope.total+ArrayVar[i][1];
+    // }
+     $scope.total=$scope.total+ArrayVar[i].candidateCount;
   }
 
 }
@@ -220,6 +265,54 @@ function getISOWeeks(y) {
     //Wednesday jan 1. Otherwise it's 52
     return d.getDay() === 4 || isLeap && d.getDay() === 3 ? 53 : 52
 }
+
+$scope.changeChartType=function(chart){
+  if(chart=='Bar'||chart=='Radar'||chart=='Line'){
+    if($scope.data[0].length){
+      $scope.type=chart;
+      $scope.labels=[];
+      $scope.labels=$scope.labels.concat($scope.labelname);
+      // $scope.labels=[];
+      // $scope.labels=$scope.labels.concat($scope.labelname);
+    }else{
+      var tempArrar=angular.copy($scope.data);
+      $scope.data=[];
+      $scope.data.push(tempArrar);
+      $scope.labels=[];
+      $scope.labels=$scope.labels.concat($scope.labelname);
+      $scope.type=chart;
+    }
+     
+  }else{
+      if($scope.data[0].length){
+        var tempArrar=[];
+        tempArrar=tempArrar.concat($scope.data[0]);
+        $scope.data=[];
+        $scope.data=$scope.data.concat(tempArrar);
+        $scope.type=chart;
+        $scope.labels=[];
+        $scope.labels=$scope.labels.concat($scope.tempArrarlabels);
+      }else{
+        $scope.type=chart;
+        $scope.labels=[];
+        $scope.labels=$scope.labels.concat($scope.tempArrarlabels);
+      }
+  }
+  
+}
+
+//  $scope.addOrRemoveItemFromTheList=function(index)
+// {
+//   $scope.data[0].splice(index,1);
+// }
+ // $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"];
+ //    $scope.data = [[300, 500, 100, 40, 120]];
+ //    $scope.type = 'Bar';
+
+ //    $scope.toggle = function () {
+ //      $scope.type = $scope.type === 'Bar' ?
+ //        'Radar' : 'Bar';
+ //    };
 
 
 }]);

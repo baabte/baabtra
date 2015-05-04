@@ -62,7 +62,7 @@ angular.module('baabtra').controller('AllocateevaluatorCtrl',['$scope', '$rootSc
       saveCourseTimelineBatchResponse.then(function(response){
         var result = angular.fromJson(JSON.parse(response.data));
         if(angular.equals(result.result, "Success")){
-          $alert({title: 'Success!', content: 'Evaluator details updated :)', placement: 'top-right', type: 'success', show: true});
+          $alert({title: 'Success!', content: 'Evaluator details updated :)', placement: 'top-right', type: 'success', duration:3, show: true});
         }
 
       });

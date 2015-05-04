@@ -6,7 +6,8 @@ angular.module('baabtra').directive('courseElementEvaluator',['$compile', functi
 			previewData:"=",
 			tlPosition:"@",
 			courseMappingId:'=',
-			result:'='
+			result:'=',
+			elementMark:'='
 		},
 		templateUrl: 'angularModules/courseElementPreview/directives/Directive-courseElementEvaluator.html',
 		link: function(scope, element, attrs, fn) {

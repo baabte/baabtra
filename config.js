@@ -62,9 +62,9 @@ angular.module('baabtra')
    $linkedInProvider.set('appKey', '78jnfwsxzeqtdl').set('scope', "r_fullprofile r_network r_emailaddress").set('authorize', true);
   }])
   .constant('bbConfig',{ //used for storing enviornment variables
-      "BWS": "http://127.0.0.1:8000/",//local
-    //"BWS": "http://services.baabtra.com/",//server - production
-     //"BWS": "http://server.mb-test.in/",//server-test
+    "BWS": "http://127.0.0.1:8000/",//local
+     //"BWS": "http://services.baabtra.com/",//server - production
+     // "BWS": "http://server.mb-test.in/",//server-test
      "SARID":1, // SuperAdminRoleID
      "CURID":2, // CompanyUser
      "MURID":3, // MenteeUser
@@ -81,5 +81,81 @@ angular.module('angular-custom-form',[]) /*Config constant for angular custom fo
      "MURID":3, // MenteeUser
      "RURID":4  // ResellerUser
  });
+
+// added by lijin for offline online check
+//=======network status==============
+// app.run(['$rootScope','$alert',function($rootScope,$alert) {
+//   var alertMsg;
+//   $rootScope.online = navigator.onLine ? 'online' : 'offline';
+//   $rootScope.$apply();
+ 
+//   if (window.addEventListener) {
+//     window.addEventListener("online", function() {
+//       $rootScope.online = "online";
+//       console.log(alertMsg);
+//       alertMsg.destroy();
+//       alertMsg=$alert({title: 'Connected', content: 'Online now..', placement: 'top-right', type: 'success', show: true,duration:3});
+//       $rootScope.$apply();
+//     }, true);
+//     window.addEventListener("offline", function() {
+//       $rootScope.online = "offline";
+//       alertMsg=$alert({title: 'Oops..!', content: 'We are trying hard to connect to internet., Please wait a moment.', placement: 'top-right', type: 'danger', show: true});
+//       $rootScope.$apply();
+//     }, true);
+//   } else {
+//     document.body.ononline = function() {
+//       $rootScope.online = "online";
+//       // alertMsg.$hide();
+//       alertMsg=$alert({title: 'Connected', content: 'Online now..', placement: 'top-right', type: 'success', show: true,duration:3});
+//       $rootScope.$apply();
+//     };
+//     document.body.onoffline = function() {
+//       $rootScope.online = "offline";
+//       alertMsg=$alert({title: 'Oops..!', content: 'We are trying hard to connect to internet., Please wait a moment.', placement: 'top-right', type: 'danger', show: true});
+//       $rootScope.$apply();
+//     };
+//   }
+// }]);
+//===========end=============
+
+// app.run(['$http','$interval','bbConfig','$alert','$modal','$rootScope',function ($http, $interval,bbConfig,$alert,$modal,$rootScope) {
+//         var TIME = 3500;
+//         var alertMsg={};
+//             $rootScope.closeThisOfflineMsgModal=function (hide) {
+//               hide();
+//               alertMsg.alert=$alert({title: 'Oops..!', content: 'We are trying hard to connect to internet., Please wait a moment.', placement: 'top-right', type: 'danger', show: true,dismissable:false});
+//             };
+//         function ping() {
+//           // try{
+//             var promise=$http.get(bbConfig.BWS);
+//              promise.catch(function (response) {
+//               if(angular.equals(response.status,0)){
+//                 if(angular.equals(alertMsg.alert,undefined)){
+//                   alertMsg.alert=$modal({scope:$rootScope,template: 'angularModules/login/partials/popup-offline.html', show: true,placement:'center',backdrop:'static'});
+//                   // console.log(alertMsg.alert);
+//                 }
+//               }
+//               else if(!angular.equals(alertMsg.alert,undefined)){            
+//                   alertMsg.alert.destroy();
+//                   delete alertMsg.alert;
+//                   $alert({title: 'Connected', content: 'Online now..', placement: 'top-right', type: 'success', show: true,duration:3});
+
+//               }
+//               else{
+//                 // console.log(alertMsg);
+//               }
+//             });
+
+//           // }
+//           // catch(e){
+//           //   console.log(e);
+//           // }
+         
+//         }
+//         $interval(ping, TIME);
+        
+//     }]);
+
+
 
 

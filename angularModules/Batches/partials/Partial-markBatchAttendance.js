@@ -120,7 +120,7 @@ angular.module('baabtra').controller('MarkbatchattendanceCtrl',['$scope','$rootS
     	var savedAttandence = batchAttendance.saveCandidatesAttandence(dataObj);
     		savedAttandence.then(function () {
 
-    			$alert({title: 'Done..!', content: 'Attendance saved..', placement: 'top-right', type: 'success', show: true});
+    			$alert({title: 'Done..!', content: 'Attendance saved..', placement: 'top-right', type: 'success', show: true,duration:3});
     			$scope.getMenteeListBlindly();
     		});
     };
@@ -163,7 +163,7 @@ angular.module('baabtra').controller('MarkbatchattendanceCtrl',['$scope','$rootS
     	var updatedAttandence = batchAttendance.updateCandidatesAttandence(dataObj);
     		updatedAttandence.then(function () {
 
-    			$alert({title: 'Done..!', content: 'Attendance updated..', placement: 'top-right', type: 'success', show: true});
+    			$alert({title: 'Done..!', content: 'Attendance updated..', placement: 'top-right', type: 'success', show: true,duration:3});
     			$scope.getMenteeListForUpdate();
     		});
     };

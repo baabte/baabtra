@@ -1,4 +1,5 @@
 <div>
+
 	<div class="row">
 		<div class="col-xs-12 ">
 			<div class="col-xs-12 m-t-md">
@@ -39,8 +40,8 @@
 						</div>
 							
 						<div  ng-if="result.data.value.type=='descriptive'" class=" font-bold">
-							<div  class="col-md-4  pull-left">	
-								<input type="number" placeholder="{{' Mark Scored '|translate}}" xt-validate required class="form-control" min="0" float-label name="markScored" ng-minlength="1" ng-model="result.data.value.markScored" ng-change="markChanged(result.data)" ui-validate=" '$value <= result.data.value.mark.totalMark' ">
+							<div  class="col-md-4  pull-left">
+								<input type="number" placeholder="{{' Mark Scored '|translate}}" xt-validate required class="form-control" min="0" float-label name="markScored" ng-minlength="1" ng-model="result.data.value.markScored" ng-change="markChanged(result.data.value.markScored)" ui-validate=" '$value <= result.data.value.mark.totalMark' ">
 							</div>
 						</div>
 					</div>

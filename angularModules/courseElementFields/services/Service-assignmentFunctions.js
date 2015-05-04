@@ -134,7 +134,7 @@ angular.module('baabtra').service('assignmentFunctions',['$http', 'bbConfig',fun
 // function to apply the penalties
 this.applyPenalty = function(scope, totalMarks){
 	
-
+	
 	//calculating the reduction marks
 	var reduce = 0;
 
@@ -157,12 +157,12 @@ this.applyPenalty = function(scope, totalMarks){
 		
 
 		if(angular.equals(currentPenalty.penaltyCalculationUnit,"% of marks")){		
-			reduce = totalMarks*(currentPenalty.reductionUnits/100);
+			reduce = parseInt(totalMarks)*(currentPenalty.reductionUnits/100);
 
 		}
 		else if (angular.equals(currentPenalty.penaltyCalculationUnit,"times of marks")){
 			
-			reduce = totalMarks*currentPenalty.reductionUnits;
+			reduce = parseInt(totalMarks)*currentPenalty.reductionUnits;
 
 		}
 		else if (angular.equals(currentPenalty.penaltyCalculationUnit,"marks")){
@@ -179,7 +179,7 @@ this.applyPenalty = function(scope, totalMarks){
 			reduce = reduce*diffDays;
 		}
 
-		totalMarks = totalMarks - reduce;
+		totalMarks = parseInt(totalMarks) - reduce;
 	}
 	
  	
