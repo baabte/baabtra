@@ -36,6 +36,7 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 			var orderForm = angular.fromJson(JSON.parse(response.data));
 			orderForm._id = orderForm._id.$oid;
 			$scope.data.approveOrderForm = orderForm;
+			
 		});
 	}
 
@@ -819,12 +820,21 @@ $scope.updateOrderFormStatus = function(type,hide){
 // ======================================================================================
 //ANOOP ***************************************************************************************
 
-
-	var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes);
+	$scope.data.pageNumber = 1;
+	var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8);
 	LoadMenteesResponse.then(function(response){
 		$scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
 		//$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
 	});
+
+	$scope.pageNavigation = function(pageNumber){
+		$scope.data.pageNumber = pageNumber;
+		var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8);
+		LoadMenteesResponse.then(function(response){
+			$scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
+			//$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
+		});
+	}
 
 	
 	$scope.checkAllMentees = function(value, key) {

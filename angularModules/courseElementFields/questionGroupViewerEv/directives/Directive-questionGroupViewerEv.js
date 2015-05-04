@@ -13,7 +13,6 @@ angular.module('baabtra').directive('questionGroupViewerEv', function() {
 				scope.result.data = angular.copy(scope.data);
 			}
 
-			console.log(scope.result.data);
 
 			if(angular.equals(scope.result.data.value.markScored,undefined)){
 				scope.result.data.value.markScored=0;
@@ -21,7 +20,7 @@ angular.module('baabtra').directive('questionGroupViewerEv', function() {
 
 
 			scope.markChanged = function(mark, index){
-
+				
 				if(!angular.equals(mark, undefined)){
 					if(angular.equals(scope.result.data.markScored, undefined)){
 						scope.result.data.markScored = {};

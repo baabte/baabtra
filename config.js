@@ -118,43 +118,43 @@ angular.module('angular-custom-form',[]) /*Config constant for angular custom fo
 // }]);
 //===========end=============
 
-app.run(['$http','$interval','bbConfig','$alert','$modal','$rootScope',function ($http, $interval,bbConfig,$alert,$modal,$rootScope) {
-        var TIME = 3500;
-        var alertMsg={};
-            $rootScope.closeThisOfflineMsgModal=function (hide) {
-              hide();
-              alertMsg.alert=$alert({title: 'Oops..!', content: 'We are trying hard to connect to internet., Please wait a moment.', placement: 'top-right', type: 'danger', show: true,dismissable:false});
-            };
-        function ping() {
-          // try{
-            var promise=$http.get(bbConfig.BWS);
-             promise.catch(function (response) {
-              if(angular.equals(response.status,0)){
-                if(angular.equals(alertMsg.alert,undefined)){
-                  alertMsg.alert=$modal({scope:$rootScope,template: 'angularModules/login/partials/popup-offline.html', show: true,placement:'center',backdrop:'static'});
-                  // console.log(alertMsg.alert);
-                }
-              }
-              else if(!angular.equals(alertMsg.alert,undefined)){            
-                  alertMsg.alert.destroy();
-                  delete alertMsg.alert;
-                  $alert({title: 'Connected', content: 'Online now..', placement: 'top-right', type: 'success', show: true,duration:3});
+// app.run(['$http','$interval','bbConfig','$alert','$modal','$rootScope',function ($http, $interval,bbConfig,$alert,$modal,$rootScope) {
+//         var TIME = 3500;
+//         var alertMsg={};
+//             $rootScope.closeThisOfflineMsgModal=function (hide) {
+//               hide();
+//               alertMsg.alert=$alert({title: 'Oops..!', content: 'We are trying hard to connect to internet., Please wait a moment.', placement: 'top-right', type: 'danger', show: true,dismissable:false});
+//             };
+//         function ping() {
+//           // try{
+//             var promise=$http.get(bbConfig.BWS);
+//              promise.catch(function (response) {
+//               if(angular.equals(response.status,0)){
+//                 if(angular.equals(alertMsg.alert,undefined)){
+//                   alertMsg.alert=$modal({scope:$rootScope,template: 'angularModules/login/partials/popup-offline.html', show: true,placement:'center',backdrop:'static'});
+//                   // console.log(alertMsg.alert);
+//                 }
+//               }
+//               else if(!angular.equals(alertMsg.alert,undefined)){            
+//                   alertMsg.alert.destroy();
+//                   delete alertMsg.alert;
+//                   $alert({title: 'Connected', content: 'Online now..', placement: 'top-right', type: 'success', show: true,duration:3});
 
-              }
-              else{
-                // console.log(alertMsg);
-              }
-            });
+//               }
+//               else{
+//                 // console.log(alertMsg);
+//               }
+//             });
 
-          // }
-          // catch(e){
-          //   console.log(e);
-          // }
+//           // }
+//           // catch(e){
+//           //   console.log(e);
+//           // }
          
-        }
-        $interval(ping, TIME);
+//         }
+//         $interval(ping, TIME);
         
-    }]);
+//     }]);
 
 
 
