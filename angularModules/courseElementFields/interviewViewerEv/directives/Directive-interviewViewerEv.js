@@ -35,6 +35,11 @@ angular.module('baabtra').directive('interviewViewerEv',['$rootScope', 'commonSr
 						scope.result.data.markScored = {};
 					}
 					scope.result.data.markScored[index] = mark;
+					
+					scope.$parent.elementMark = 0;
+					for(var qMark in scope.result.data.markScored){
+						scope.$parent.elementMark = scope.$parent.elementMark +  scope.result.data.markScored[qMark];
+					}
 				}
 
 			};

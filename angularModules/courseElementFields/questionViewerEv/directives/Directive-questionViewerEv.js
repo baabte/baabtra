@@ -19,6 +19,11 @@ angular.module('baabtra').directive('questionViewerEv', function() {
 				
 				if(!angular.equals(mark.value.markScored, undefined)){
 					mark.markScored = {0:mark.value.markScored};
+
+					scope.$parent.elementMark = 0;
+					for(var qMark in scope.result.data.markScored){
+						scope.$parent.elementMark = scope.$parent.elementMark +  scope.result.data.markScored[qMark];
+					}
 				}
 
 			};

@@ -23,12 +23,14 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
 		
 		
 		var currentElement;
+		scope.questionViewerArray = [];
 		//looping in the original parent object to calculate the marks, any change in the parent scope will force the respective directive to load once more as it will trigger a watch on the parent scope. That is the reason why we are taking a copy of the parnet scope in the line above. But here we want the watch to trigger as it has to modify a custom property on the question directive which will hide the submit button.		
 		for (var i in scope.$parent.previewData.elements)	{
 			 currentElement = scope.$parent.previewData.elements[i];
 			 if(!angular.equals(currentElement,null)){
 			 	if(angular.equals(currentElement.type, 'question-viewer')){
 
+			 		scope.questionViewerArray.push(currentElement);
 
 			 		//get the total marks for the assignment
 			 	    if (angular.equals(scope.totalMarks, undefined)){
@@ -41,7 +43,7 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
 		}
  
 
-
+		
  //_______________________________________________________________________________________________
    
 
@@ -91,6 +93,9 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
 	 	scope.result.data.markScored = 0;
 	 	
 	 	if(!angular.equals(scope.$parent.previewData.markScored, undefined)){
+	 		
+	 		console.log(JSON.stringify(scope.$parent.previewData.markScored));
+
 	 		scope.result.data.markScored = parseInt(scope.$parent.previewData.markScored);
 	 	} 	
  
@@ -100,9 +105,9 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
 
  			if(!angular.equals(curElement.data.markScored,undefined) && !angular.equals(curElement.data.markScored,{})){		
 
- 				if(!angular.equals(curElement.data.markScored[0],undefined)){ 				
+ 				if(!angular.equals(curElement.data.markScored[0],undefined)){ 
+ 									
  					scope.result.data.markScored = scope.result.data.markScored +  parseInt(curElement.data.markScored[0]);
-
  					scope.result.data.markScored = assignmentFunctions.applyPenalty(scope.$parent.previewData,  scope.result.data.markScored);
 
  				} 			
@@ -114,6 +119,7 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
 
  		scope.result.data.markScored = parseFloat(scope.result.data.markScored).toFixed(2);
 
+ 		scope.$parent.elementMark = scope.result.data.markScored;
 
  		return parseFloat(scope.result.data.markScored).toFixed(2);
 
@@ -122,7 +128,13 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
 // -----------------------------------------------------------------------------------------------------
 //setting up a watch on the elements array to sense the change in the mark scored bject in each element to run the function that calculates the total marks of the assignment
 	
-	scope.$watch('fnCalulateTotalMarks()', function(){});
+	scope.$watch(function () {
+		return scope.$parent.result;
+	}
+		, function(){
+
+		scope.fnCalulateTotalMarks();
+	},true);
 
 // -----------------------------------------------------------------------------------------------------
 
