@@ -14,6 +14,22 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 			//$scope.orderFormList=responseData.orderFroms._firstBatch;
 			$scope.orderFormList=responseData.orderFroms;
 			//console.log($scope.orderFormList);
+			$scope.courseBasedUserList={};
+			for(var key in responseData.orderFroms){
+				for(var detailsKey in responseData.orderFroms[key].orderDetails){
+					responseData.orderFroms[key].orderDetails[detailsKey].orderFormId=responseData.orderFroms[key]._id.$oid;
+					// console.log(responseData.orderFroms[key].orderDetails[detailsKey]);
+					console.log(responseData.orderFroms[key].orderDetails[detailsKey].Name);
+					if(angular.equals($scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name],undefined)){
+						$scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name]=[];
+					}
+
+					$scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name].push(responseData.orderFroms[key].orderDetails[detailsKey]);
+				}
+				
+			}
+
+			console.log($scope.courseBasedUserList);
 
 
 		})
