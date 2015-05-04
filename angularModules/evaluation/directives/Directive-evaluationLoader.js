@@ -55,7 +55,8 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 					
 					element.markScored = parseFloat(elementTotalMarks);
 					
-
+					console.log(element.markScored);
+					
 					var index = 0;
 					for(var field in result){
 						if(!angular.equals(result[field], undefined)){
@@ -64,7 +65,7 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 
 						index++;
 						if(angular.equals(result.length, index)){
-							
+
 							var evaluationResponse = evaluationService.evaluateAnswer(courseMappingId, element, elementOrder);
 							evaluationResponse.then(function(response){
 								var result = angular.fromJson(JSON.parse(response.data));

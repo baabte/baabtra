@@ -18,7 +18,6 @@ angular.module('baabtra').directive('questionViewerEv', function() {
 			scope.markChanged = function(mark){
 				
 				if(!angular.equals(mark, undefined)){	
-
 					//scope.$parent.elementMark = 0;
 					scope.$parent.elementMark = scope.$parent.elementMark +  scope.result.data.markScored;
 					
