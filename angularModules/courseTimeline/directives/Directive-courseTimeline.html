@@ -22,6 +22,7 @@
 			<!-- REPEAT -->		
 			<span style="padding-left:{{tlPointMinWidth}}px; top:-12px;"class="b-b tl-line" ></span>
 								<div ng-mouseover="mouseOverTl=true" ng-mouseleave="mouseOverTl=false" style="display:inline-block;" ng-repeat="tlpoint in tlPointList">
+									
 								<!-- <i  context-menu="popoverObject" ng-click="callbackOfTlPointClick(tlpoint)" class="fa fa-circle-o text-inverse tl-point" ng-class="{'fa-dot-circle-o tl-ripple':mouseOverTl}" style="cursor: pointer;font-weight: bolder;position: relative;z-index: 1;"></i> -->
 								<!-- <div class="icon-button"> -->
 									<i class="mdi-toggle-radio-button-on tl-point" style="font-size:20px; font-weight:bold;" context-menu="popoverObject" ng-click="callbackOfTlPointClick(tlpoint)"></i>
@@ -37,8 +38,7 @@
 
 								<div style="margin-left:1px solid #444444;">
 									<div class="m-b" style="float:left !important;position: absolute;" >
-										<course-element-bubble tl-point="{{tlpoint}}">
-										 </course-element-bubble>
+										<course-element-bubble tl-point="{{tlpoint}}"></course-element-bubble>
 									</div>
 								
 								</div>

@@ -5,8 +5,15 @@ angular.module('baabtra').directive('courseElementBubble',['$dropdown','$rootSco
 		link: function(scope, element, attrs, fn) {
 			// console.log(scope.timeLineView[attrs['tlPoint']]);
 			if(!angular.equals(attrs['tlPoint'],undefined)){
-				scope.thisPoint=attrs['tlPoint'];
+				scope.thisPoint=attrs['tlPoint'];				
+			}
+			if(scope.elementOrderNewFormat){
+			// console.log('elementOrderNewFormat');				
+			// console.log(scope.elementOrderNewFormat);
+			// console.log('timeLineView');				
+			// console.log(scope.timeLineView);
 			}			
+
 			scope.status = true;
 			scope.showBubble = 2;
 			scope.viewAllBubble = function(length,elementName){
