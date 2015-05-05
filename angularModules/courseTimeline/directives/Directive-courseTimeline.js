@@ -61,24 +61,26 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 					var name=scope.ddlBindObject[scope.selectedDuration-1].name.replace('(s)','');
 					var newTlPoint = 1;
 					scope.timeLineView = {};
+
 					// buliding the element order according to tlpoint 
-					scope.tempFormat = angular.copy(scope.syncData.elementOrder);
-					var elemArray=[];
-					for (var key in scope.tempFormat){
-						elemArray.push(scope.tempFormat[key].split('.'));						
-					}
-					var elementOrderNewFormat={};
-					for(var index in elemArray){
-						var tlPoint=Math.ceil(elemArray[index][0]/(1/scope.ddlBindObject[scope.selectedDuration-1].mFactor));
-						elemArray[index].splice(0,1);
+					var elementOrderOldFormat = angular.copy(scope.syncData.elementOrder);
+
+					var elementOrderNewFormat={};//variable to store the new element order formatted in the basis of timelinr point 
+					//tlpoint also changed according to the showing points mFactor method
+					for (var key in elementOrderOldFormat){
+						var elementOrderSplitArray=elementOrderOldFormat[key].split('.');	
+						var tlPoint=Math.ceil(elementOrderSplitArray[0]/(1/scope.ddlBindObject[scope.selectedDuration-1].mFactor));
+						elementOrderSplitArray.splice(0,1);
 						if (elementOrderNewFormat[tlPoint]){
-							elementOrderNewFormat[tlPoint].push(elemArray[index]);
+							elementOrderNewFormat[tlPoint].push(elementOrderSplitArray);
 						}else{
 							elementOrderNewFormat[tlPoint]=[];
-							elementOrderNewFormat[tlPoint].push(elemArray[index]);							
+							elementOrderNewFormat[tlPoint].push(elementOrderSplitArray);							
 						}
 					}
+					
 					scope.elementOrderNewFormat=elementOrderNewFormat;
+					console.log(scope.elementOrderNewFormat)
 					var containerCount = 0;
 					scope.containerHeight = 95;
 					
@@ -304,7 +306,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	 }
             	$templateCache.put('course-element-popup.html','<edit-course-element></edit-course-element>');
  				$aside({scope: scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
-            }
+            };
 
             scope.removeCourseElement = function(ev) {
             		angular.forEach(scope.popoverObject.courseElementlist,function(courseElement){
