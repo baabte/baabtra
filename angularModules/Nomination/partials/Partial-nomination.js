@@ -160,10 +160,9 @@ $scope.checkUserAlreadyExists = function(){
 };
 
 
-$scope.fnUserRegister =function (fnUserRegister, fnCallback) {
+$scope.fnUserRegister =function (fnCallback) {
 
-	userRegistrationForm.$invalid = true;
-	
+
 
 	
 	// $scope.allSync.FormData={};
@@ -296,7 +295,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
 					$scope.allSync.FormData[key]='';
 				}
 
-				userRegistrationForm.$invalid = false;
+				
 				
 				
 				
@@ -346,7 +345,6 @@ if(Object.keys($scope.allSync.FormData.course).length){
 					$scope.allSync.FormData[key]='';
 				}
 
-				userRegistrationForm.$invalid = false;
 
 			});
 
@@ -411,7 +409,6 @@ if(Object.keys($scope.allSync.FormData.course).length){
 						$scope.allSync.FormData[key]='';
 					}
 
-					userRegistrationForm.$invalid = false;
 
 				});
 			});	
@@ -435,7 +432,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
 		
 		
 			
-			$scope.fnUserRegister(userRegistrationForm,function(){
+			$scope.fnUserRegister(function(){
 				var orderFormModel = $modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-orderForm.html', show: true});
 				$scope.showModal = function() {
               		orderFormModel.$promise.then(orderFormModel.show);
