@@ -61,6 +61,7 @@
 
 						<!-- requestee Details -->
 						<div class="row p-v-sm" ng-if="orderForm.requesteeDetails" >
+							
 							<!-- requestee type -->
 							<div class="col-xs-12">
 								<label class="font-bold col-xs-2">Requestee Type</label>
@@ -81,9 +82,13 @@
 							<!-- if type is individual -->
 							<div class="col-xs-12" ng-if="orderForm.requesteeDetails.type == 'individual'">
 								<label class="font-bold col-xs-2">Name</label>
-								<span class="text-name col-xs-6">
+								<span class="text-name col-xs-6" ng-if="orderForm.requesteeDetails.fname">
 								{{orderForm.requesteeDetails.fname}}&nbsp;
 								{{orderForm.requesteeDetails.lname}}
+								</span>
+								<span class="text-name col-xs-6" ng-if="orderForm.requesteeDetails.firstName">
+								{{orderForm.requesteeDetails.firstName}}&nbsp;
+								{{orderForm.requesteeDetails.lastName}}
 								</span>
 							</div>
 

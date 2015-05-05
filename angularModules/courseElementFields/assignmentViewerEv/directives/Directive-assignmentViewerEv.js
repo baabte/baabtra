@@ -17,8 +17,8 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
 				scope.result.data = angular.copy(scope.data);
 			}
 			//settin a variable to show resubmit button in the course element evaluator directive
-			scope.$parent.$parent.showResubmitButton = true;
-	//looping in the elements array of the assignment object to hide the question's individual submit button 
+		scope.$parent.$parent.showResubmitButton = true;
+		//looping in the elements array of the assignment object to hide the question's individual submit button 
 		var elementArray = angular.copy(scope.$parent.previewData.elements);
 		
 		
@@ -90,24 +90,31 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
 
 
  	//initialising the mark object, if the assignment already has marks (as a result of objective questions which will be assessed on submission), we should start off with that mark
-	 	scope.result.data.markScored = 0;
 	 	
-	 	if(!angular.equals(scope.$parent.previewData.markScored, undefined)){
+	 	
+	 		scope.result.data.markScored = 0;
+	 	
+	 	
+	 	
+	 	// if(!angular.equals(scope.$parent.previewData.markScored, undefined)){ 		
 	 		
-	 		console.log(JSON.stringify(scope.$parent.previewData.markScored));
 
-	 		scope.result.data.markScored = parseInt(scope.$parent.previewData.markScored);
-	 	} 	
- 
- 	// Looping throuth the elemets in the elements array, if any element has a markscored value defied, that will be added to the total mark scored for the assignment
+	 	// 	scope.result.data.markScored = parseFloat(scope.$parent.previewData.markScored);
+	 	// } 	
+ 		
+ 		// console.log(scope.result.data.markScored);
+ 		// Looping throuth the elemets in the elements array, if any element has a markscored value defied, that will be added to the total mark scored for the assignment
+ 		
  		for (var i in scope.$parent.result){
  			var curElement = scope.$parent.result[i];
+ 			console.log(curElement);
 
- 			if(!angular.equals(curElement.data.markScored,undefined) && !angular.equals(curElement.data.markScored,{})){		
+ 			if(!angular.equals(curElement.data.value.markScored,undefined) && !angular.equals(curElement.data.value.markScored,{})){		
 
- 				if(!angular.equals(curElement.data.markScored[0],undefined)){ 
- 									
- 					scope.result.data.markScored = scope.result.data.markScored +  parseInt(curElement.data.markScored[0]);
+ 				if(!angular.equals(curElement.data.value.markScored,undefined)){ 
+
+ 					
+ 					scope.result.data.markScored = scope.result.data.markScored +  parseInt(curElement.data.value.markScored);
  					scope.result.data.markScored = assignmentFunctions.applyPenalty(scope.$parent.previewData,  scope.result.data.markScored);
 
  				} 			
@@ -118,9 +125,11 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
 
 
  		scope.result.data.markScored = parseFloat(scope.result.data.markScored).toFixed(2);
-
+ 		
+ 		console.log(JSON.stringify(scope.result.data.markScored));	
+ 		
  		scope.$parent.elementMark = scope.result.data.markScored;
-
+ 		
  		return parseFloat(scope.result.data.markScored).toFixed(2);
 
  }

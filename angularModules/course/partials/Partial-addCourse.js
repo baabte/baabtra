@@ -26,7 +26,7 @@ if(!angular.equals($state.params.courseId,"")){
     $scope.course = angular.fromJson(JSON.parse(course.data)).courseDetails;
     if(!angular.equals($scope.course.evaluator,undefined)){
       angular.forEach($scope.course.evaluator,function(evaluator){
-        evaluator.roleMappingId = evaluator.roleMappingId.$oid;
+        evaluator.roleMappingId = evaluator.roleMappingId;
       });
     }
 
