@@ -13,11 +13,14 @@ angular.module('baabtra').directive('questionViewerEv', function() {
 				scope.result = scope.$parent.result[parseInt(attrs.index)];
 				scope.result.data = angular.copy(scope.data);
 			}
+			
 
 			scope.markChanged = function(mark){
 				
-				if(!angular.equals(mark.value.markScored, undefined)){
-					mark.markScored = {0:mark.value.markScored};
+				if(!angular.equals(mark, undefined)){	
+					//scope.$parent.elementMark = 0;
+					scope.$parent.elementMark = scope.$parent.elementMark +  scope.result.data.markScored;
+					
 				}
 
 			};

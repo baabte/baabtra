@@ -50,7 +50,12 @@ $scope.stepCount=$scope.formlist.formSteps;
     $scope.formlistCopy = angular.copy($scope.formlist);
     }
 
-    //nedd to improve the call with role id\\//
+    $scope.fnInitializeFormRelatedDatas();
+});
+
+
+$scope.fnInitializeFormRelatedDatas = function (argument) {
+	    //nedd to improve the call with role id\\//
     if(!angular.equals(companyId,'')){
     var FetchSpecificFormObj={companyId:companyId,fetchFormName:"orderForm"};
        var fnFetchSpecificCustomFormCallBack= formCustomizerService.FnFetchSpecificCustomForm(FetchSpecificFormObj);
@@ -86,7 +91,7 @@ $scope.stepCount=$scope.formlist.formSteps;
        $scope.allSync.FormData.role={};
        $scope.allSync.FormData.role.roleId=bbConfig.MURID;
     }
-});
+};
 
 $scope.$watch('allSync.FormData.role', function(){
 if(!angular.equals($scope.formlist,undefined) && !angular.equals($scope.allSync.FormData.role,undefined)){
@@ -112,6 +117,7 @@ $scope.data.requesteeDetailsCompleted = false;
 $scope.data.requesteeDetails = {};
 
 if(angular.equals($state.params.ofId,"")){
+	if(angular.equals($state.params.key,'company')){}
 	$scope.data.requesteeDetails.type = $state.params.key;
 }
 else{
@@ -155,6 +161,13 @@ $scope.checkUserAlreadyExists = function(){
 
 
 $scope.fnUserRegister =function (fnCallback) {
+
+
+
+	
+	// $scope.allSync.FormData={};
+	$scope.fnInitializeFormRelatedDatas();
+
 if(Object.keys($scope.allSync.FormData.course).length){
 	if(angular.equals($scope.data.requesteeDetails.type,'self')){
 		$scope.data.requesteeDetails.firstName = $scope.allSync.FormData.firstName;
@@ -192,8 +205,10 @@ if(Object.keys($scope.allSync.FormData.course).length){
 		var courseImageUploadResponse = commonSrv.fnFileUpload($scope.allSync.FormData[filePaths[index]],filePaths[index]);
   				courseImageUploadResponse.then(function(response){
   				var imagePath = response.data.replace('"','').replace('"','');
-          		$scope.allSync.FormData[filePaths[$scope.fileUpload]] = bbConfig.BWS + 'files/'+ filePaths[$scope.fileUpload] +'/' + imagePath;
-          		$scope.fileUpload ++;
+
+  				//var imagePathArray = imagePath.split('_');
+          		$scope.allSync.FormData[imagePath.split('_')[0]] = bbConfig.BWS + 'files/'+ imagePath.split('_')[0] +'/' + imagePath;
+          		$scope.fileUpload++;
         	});
 		}
 	
@@ -254,6 +269,10 @@ if(Object.keys($scope.allSync.FormData.course).length){
 
 	    	$scope.data.orderForm.orderDetails.push(courseDetails);
 
+	    	if(angular.equals($scope.data.requesteeDetails.type,'self')){
+				$scope.data.orderForm.requesteeDetails.type = 'individual'
+			}
+
 			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 			nomintaionResponse.then(function(response){
 				var orderForm = angular.fromJson(JSON.parse(response.data));
@@ -261,13 +280,21 @@ if(Object.keys($scope.allSync.FormData.course).length){
 				$scope.data.orderForm = orderForm;
 				$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 				
-				console.log(fnCallback);
+				// console.log(fnCallback);
+				//changing the selected tab
+				$scope.status.selected=1;
 
 				if(!angular.equals(fnCallback,undefined)){
 					fnCallback();
 				}else{
 					$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
 				}
+				
+				//Re-initialize formdata
+				for(key in $scope.allSync.FormData){
+					$scope.allSync.FormData[key]='';
+				}
+
 				
 				
 				
@@ -302,6 +329,9 @@ if(Object.keys($scope.allSync.FormData.course).length){
 				orderForm._id = orderForm._id.$oid;
 				$scope.data.orderForm = orderForm;
 				$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
+
+				//changing the selected tab
+				$scope.status.selected=1;
 				$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
 				
 					if(!angular.equals(fnCallback,undefined)){
@@ -309,6 +339,13 @@ if(Object.keys($scope.allSync.FormData.course).length){
 				}else{
 					$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
 				}
+
+				//Re-initialize formdata
+				for(key in $scope.allSync.FormData){
+					$scope.allSync.FormData[key]='';
+				}
+
+
 			});
 
 		}
@@ -354,14 +391,25 @@ if(Object.keys($scope.allSync.FormData.course).length){
 					orderForm._id = orderForm._id.$oid;
 					$scope.data.orderForm = orderForm;
 					$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
+					//changing the selected tab
+					$scope.status.selected=1;
 					$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
 					
 					if(!angular.equals(fnCallback,undefined)){
 						fnCallback();
 					}
 					else{
+						//changing the selected tab
+						$scope.status.selected=1;
 						$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
 					}
+
+					//Re-initialize formdata
+					for(key in $scope.allSync.FormData){
+						$scope.allSync.FormData[key]='';
+					}
+
+
 				});
 			});	
 		}
@@ -391,7 +439,6 @@ if(Object.keys($scope.allSync.FormData.course).length){
             	};
 			});
 	};
-
 	$scope.hideOrderForm = function(){
 		$state.go('home.main');
 	};

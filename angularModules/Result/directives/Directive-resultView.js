@@ -15,8 +15,11 @@ angular.module('baabtra').directive('resultView', function() {
 			//function to check the status
 			scope.fnCheckStatus=function(elem){
 				// console.log(elem.markScored);
-				if(angular.equals(elem.markScored,undefined)){
-					return 'Pending evaluation';
+				if(angular.equals(elem.evalStatus,undefined)){
+						return 'Pending submission';
+					}
+				else if(angular.equals(elem.markScored,undefined)){
+					return elem.evalStatus;	
 				//}else if(angular.equals(elem.evalStatus,undefined)){
 				//	return 'Pending evaluation';
 				}else{

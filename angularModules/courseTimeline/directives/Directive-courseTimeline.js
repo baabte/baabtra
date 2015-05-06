@@ -36,7 +36,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 				}
 			});
 
-			scope.formData=new Object();//used to save datas from timeline
+			scope.formData={};//used to save datas from timeline
 
 			//These are kept in rootscope as these are to be availble throughout the application
 			$rootScope.valid=true;
@@ -55,12 +55,32 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 
 
 			scope.buildTlObject = function(selectedDuration){//function for building timeline object
-				var selectedDuration = selectedDuration;
+				// var selectedDuration = selectedDuration;
 				scope.$watch(function() {return scope.syncData.courseTimeline}, function(){
 				if(!angular.equals(scope.syncData.courseTimeline,undefined)){
 					var name=scope.ddlBindObject[scope.selectedDuration-1].name.replace('(s)','');
 					var newTlPoint = 1;
 					scope.timeLineView = {};
+
+					// buliding the element order according to tlpoint 
+					var elementOrderOldFormat = angular.copy(scope.syncData.elementOrder);
+
+					var elementOrderNewFormat={};//variable to store the new element order formatted in the basis of timelinr point 
+					//tlpoint also changed according to the showing points mFactor method
+					for (var key in elementOrderOldFormat){
+						var elementOrderSplitArray=elementOrderOldFormat[key].split('.');	
+						var tlPoint=Math.ceil(elementOrderSplitArray[0]/(1/scope.ddlBindObject[scope.selectedDuration-1].mFactor));
+						elementOrderSplitArray.splice(0,1);
+						if (elementOrderNewFormat[tlPoint]){
+							elementOrderNewFormat[tlPoint].push(elementOrderSplitArray);
+						}else{
+							elementOrderNewFormat[tlPoint]=[];
+							elementOrderNewFormat[tlPoint].push(elementOrderSplitArray);							
+						}
+					}
+					
+					scope.elementOrderNewFormat=elementOrderNewFormat;
+					console.log(scope.elementOrderNewFormat)
 					var containerCount = 0;
 					scope.containerHeight = 95;
 					
@@ -92,7 +112,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 					}
 				}
 			  }, true);
-			}
+			};
 
 
 			//building the object for the first time
@@ -255,7 +275,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	selectedCourseElement = element;
             	scope.selectedTpoint = element.tlPointInMinute;
             	scope.selectedIndex = selectedIndex;
-            }
+            };
 
             scope.editCourseElement = function(){
             	if(!angular.equals(scope.coursePreviewObj,undefined))
@@ -286,7 +306,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	 }
             	$templateCache.put('course-element-popup.html','<edit-course-element></edit-course-element>');
  				$aside({scope: scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
-            }
+            };
 
             scope.removeCourseElement = function(ev) {
             		angular.forEach(scope.popoverObject.courseElementlist,function(courseElement){
@@ -294,8 +314,14 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             			scope.courseElement = courseElement;
             		}
             	});
+            	var removeCourseTimelineElementCallback=addCourseService.removeCourseTimelineElement(scope.courseId, selectedCourseElement.Name, scope.selectedTpoint, scope.selectedIndex, scope.$parent.$parent.rm_id);
+            	
+            	removeCourseTimelineElementCallback.then(function(data){
+				var updatedElementOrder = angular.fromJson(JSON.parse(data.data));
+				scope.syncData.elementOrder=updatedElementOrder;
             	scope.syncData.courseTimeline[scope.selectedTpoint][selectedCourseElement.Name].splice(scope.selectedIndex,1);
-            	addCourseService.removeCourseTimelineElement(scope.courseId, selectedCourseElement.Name, scope.selectedTpoint, scope.selectedIndex, scope.$parent.$parent.rm_id);
+				
+				});
             };
 
 		}

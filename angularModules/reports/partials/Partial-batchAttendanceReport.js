@@ -38,7 +38,8 @@ $rootScope.$watch('userinfo',function(){
 		angular.forEach($scope.data.batchList, function(batch){
 			batch.batchMappingId=batch._id.$oid;
 			batch.Name=batch.batchName+batch._id.$oid;
-			batch.batchName=batch.batchName+' ['+batch.courseName+']';
+			// batch.batchName=batch.batchName+' ['+batch.courseName+']';
+			batch.batchName=batch.batchName;
 			batch.fkCourseId=batch.fkCourseId.$oid;
 			delete batch._id;
 			delete batch.courseName;
@@ -102,7 +103,9 @@ $scope.userBasedList={};
 							$scope.chartObj.title=$scope.userBasedList[key].Name;
 							$scope.chartObj.data=data;
 							$scope.reportArr.push($scope.chartObj);
+
 						}
+						console.log($scope.reportArr);
 						if(!$scope.reportArr.length){
 							$scope.flag=1;
 						}
