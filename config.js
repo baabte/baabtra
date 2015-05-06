@@ -63,8 +63,8 @@ angular.module('baabtra')
   }])
   .constant('bbConfig',{ //used for storing enviornment variables
     // "BWS": "http://127.0.0.1:8000/",//local
-     // "BWS": "http://services.baabtra.com/",//server - production
-     "BWS": "http://server.mb-test.in/",//server-test
+      // "BWS": "http://services.baabtra.com/",//server - production
+    "BWS": "http://server.mb-test.in/",//server-test
      "SARID":1, // SuperAdminRoleID
      "CURID":2, // CompanyUser
      "MURID":3, // MenteeUser
@@ -92,7 +92,15 @@ app.run(['$http','$interval','bbConfig','$alert','$modal','$rootScope',function 
             };
         function ping() {
           // try{
-            var promise=$http.get(bbConfig.BWS);
+            var promise=$http.get(bbConfig.BWS+'getStatus');
+            promise.then(function (response) {
+              if(!angular.equals(alertMsg.alert,undefined)){            
+                  alertMsg.alert.destroy();
+                  delete alertMsg.alert;
+                  $alert({title: 'Connected', content: 'Online now..', placement: 'top-right', type: 'success', show: true,duration:3});
+
+              }
+            });
              promise.catch(function (response) {
               if(angular.equals(response.status,0)){
                 if(angular.equals(alertMsg.alert,undefined)){

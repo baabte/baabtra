@@ -49,6 +49,7 @@
 								</div>
 								
 								<div  ng-if="answeredquestion.type=='descriptive'" class="col-md-4 pull-left">
+									
 								<input type="number" placeholder="{{' Mark Scored '|translate}}" xt-validate required class="form-control" min='0' ng-change="markChanged(answeredquestion.markScored, $index)" ui-validate=" '$value <= answeredquestion.mark.totalMark' " float-label name="markScored"  ng-model="answeredquestion.markScored" >
 								</div>
 								

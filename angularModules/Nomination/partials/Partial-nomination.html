@@ -106,7 +106,7 @@
         <div class="form-group">
                 <label  class="col-xs-2">First Name</label>
                 <div class="col-xs-10">
-                    <input type="text"  ng-model="data.requesteeDetails.fname" class="form-control" placeholder="First Name">
+                    <input type="text"  ng-model="data.requesteeDetails.firstName" class="form-control" placeholder="First Name">
                 </div>
         </div>
       </div>
@@ -119,7 +119,7 @@
         <div class="form-group">
                 <label  class="col-xs-2">Last Name</label>
                 <div class="col-xs-10">
-                    <input type="text"  ng-model="data.requesteeDetails.lname" class="form-control" placeholder="Last Name">
+                    <input type="text"  ng-model="data.requesteeDetails.lastName" class="form-control" placeholder="Last Name">
                 </div>
         </div>
       </div>
@@ -196,7 +196,7 @@
           <!-- ng-disabled="userRegistrationForm.$invalid" -->
 
           <div ng-show="status.selected==2" class="col-xs-12 text-center">
-            <button ng-disabled="userRegistrationForm.$invalid" type="button" class="btn btn-info baab-btn" ng-click="fnUserRegister()">Register & Register Another</button>
+            <button ng-if="data.requesteeDetails.type != 'self'" ng-disabled="userRegistrationForm.$invalid" type="button" class="btn btn-info baab-btn" ng-click="fnUserRegister(userRegistrationForm)">Register & Register Another</button>
             <button ng-disabled="userRegistrationForm.$invalid" type="submit" class="btn btn-success baab-btn" ng-click="finshRegisteration(userRegistrationForm)">Finish & Generate Order Form</button>
           </div>
 

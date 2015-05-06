@@ -55,17 +55,31 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 					
 					element.markScored = parseFloat(elementTotalMarks);
 					
+					console.log(element.markScored);
+					
+					var index = 0;
+					for(var field in result){
+						if(!angular.equals(result[field], undefined)){
+							element.elements[field] = result[field].data;
+						}
 
-					var evaluationResponse = evaluationService.evaluateAnswer(courseMappingId, element, elementOrder);
-					evaluationResponse.then(function(response){
-											var result = angular.fromJson(JSON.parse(response.data));
-											if(angular.equals(result.result, "Added")){
-												$alert({title: 'Evaluated!', content: element.Name + ' evaluated successfuly', placement: 'top-right', type: 'success', duration:3, show: true});
-											}
-											else if(angular.equals(result.result, "Updated")){
-												$alert({title: 'Updated!', content: element.Name + ' updated successfuly', placement: 'top-right', type: 'success', duration:3, show: true});
-											}
-										});					
+						index++;
+						if(angular.equals(result.length, index)){
+
+							var evaluationResponse = evaluationService.evaluateAnswer(courseMappingId, element, elementOrder);
+							evaluationResponse.then(function(response){
+								var result = angular.fromJson(JSON.parse(response.data));
+								if(angular.equals(result.result, "Added")){
+									$alert({title: 'Evaluated!', content: element.Name + ' evaluated successfuly', placement: 'top-right', type: 'success', duration:3, show: true});
+								}
+								else if(angular.equals(result.result, "Updated")){
+									$alert({title: 'Updated!', content: element.Name + ' updated successfuly', placement: 'top-right', type: 'success', duration:3, show: true});
+								}
+							});	
+						}
+					}
+
+									
 					
 					
 					// for(var field in result){
@@ -121,7 +135,7 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 				scope.fnResubmit = function(element, outElement, elementOrder, courseMappingId, evaluatorId){
 					
 					var result = angular.copy(outElement);
-					console.log(result);
+					
 					if(angular.equals(element.statusHistory,undefined)){
 						element.statusHistory = [];
 					}
