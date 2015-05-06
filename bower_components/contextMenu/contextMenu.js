@@ -74,6 +74,8 @@ angular.module('ui.bootstrap.contextMenu', [])
         var saveCourseTimelineElementPromise= addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, obj);//saving to database
         
          saveCourseTimelineElementPromise.then(function(data){
+          var updatedElementOrder = angular.fromJson(JSON.parse(data.data));
+          $scope.syncData.elementOrder=updatedElementOrder;
              if(!$scope.syncData.courseTimeline[$scope.instance]){
                         $scope.syncData.courseTimeline[$scope.instance]={};
                     }
@@ -470,8 +472,8 @@ angular.module('ui.bootstrap.contextMenu', [])
                     $scope.syncData.courseTimeline[$scope.instance][$scope.item.Name]=[];
                 }
 
-
-              $scope.syncData.courseTimeline[$scope.instance][$scope.item.Name].push($scope.coursePreviewObj);
+              //commented by arun and added below to build the time line after database promise 
+              // $scope.syncData.courseTimeline[$scope.instance][$scope.item.Name].push($scope.coursePreviewObj);
 
               //adding attendence tack to timeline arun
 
@@ -494,10 +496,15 @@ angular.module('ui.bootstrap.contextMenu', [])
                      var code = hashids.encode(time);  
                      courseObj[courseObj.key].code=code;
                     //--- end by arun to create unique code 
-                    console.log(courseObj);
-                    addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, courseObj);//saving to database
+                    var saveCourseTimelineElementPromise= addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId,courseObj);//saving to database
+                     saveCourseTimelineElementPromise.then(function(data){
+                      var updatedElementOrder = angular.fromJson(JSON.parse(data.data));
+                     $scope.syncData.elementOrder=updatedElementOrder;
+                     $scope.syncData.courseTimeline[$scope.instance][$scope.item.Name].push($scope.coursePreviewObj);
+
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once
                     $hide();
+                  });
                 }
               });
         };

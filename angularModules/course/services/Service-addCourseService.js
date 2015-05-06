@@ -62,7 +62,7 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	 };
 
 	 this.removeCourseTimelineElement = function (courseId, courseElemName, tlPoint, index, rmId){ // functon that call web service to remove course element
-	 	$http({
+	 	var promise =$http({
 	 		url: bbConfig.BWS+'removeCourseElement/',
 	 		data: {"courseId":courseId, "courseElemName":courseElemName, "tlPoint":tlPoint, "index":index, "rmId":rmId},
 	 		method: "POST",
@@ -75,7 +75,8 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	 		}).
 	 	error(function(data, status, headers, config) {
 	 		
-	 	});  
+	 	});
+	 	return promise;  
 
 	 };
 

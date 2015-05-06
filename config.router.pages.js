@@ -605,11 +605,21 @@
                 }
                 
               })
+                  .state('home.main.user', {
+                url: '/user',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/user/manageUsers/partials/Partial-manageUsers.html',
+                    controller: 'ManageusersCtrl'
+                  }
+                }
+                
+              })
               .state('home.main.bulkEnrollment', {
                 url: '/bulkEnrollment',
                 views:{
                   'innercontent':{
-                    templateUrl: 'angularModules/user/partials/Partial-bulkEnrollment.html',
+                    templateUrl: 'angularModules/user//partials/Partial-bulkEnrollment.html',
                     controller: 'BulkenrollmentCtrl'
                   }
                 }
