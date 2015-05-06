@@ -91,7 +91,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 						}
 					}
 					// console.log(containerCount)
-					scope.containerHeight = 10/containerCount + (containerCount*60);
+					scope.containerHeight = 70/containerCount + (containerCount*70);
 
 					
 					if(angular.equals(name,'Minute')){
