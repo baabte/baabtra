@@ -70,9 +70,9 @@ angular.module('baabtra').directive('fieldsOptionsButton',['$compile','courseEle
 
 
 			// create a function to add the element to the specified z-index	
-			scope.fnaddCourseElement = function(selectedField,displayName, addIndex){
+			scope.fnaddCourseElement = function(selectedField,displayName, addIndex, subElement){
 
-					//getting the name of the field to a varaibale
+				//getting the name of the field to a varaibale
 	            var name = scope.$parent.field.name;
 
 	            //getting the existing fields shema into an array
@@ -90,6 +90,8 @@ angular.module('baabtra').directive('fieldsOptionsButton',['$compile','courseEle
 				//pushing the selected field into the specified index
 	            currentIndex=currentIndex*1;
 	            var debugObject = angular.fromJson(JSON.parse(selectedField[0].Debug));
+	            
+	           
 	            debugObject.displayName = displayName+' ('+ debugObject.displayName +')';
         		var date=new Date();
 
@@ -102,10 +104,20 @@ angular.module('baabtra').directive('fieldsOptionsButton',['$compile','courseEle
         			indexToAddAt = currentIndex;
         		}
 
+        		if(subElement){
+		        		if(angular.equals(debugObject.customlist, undefined)){
+		        			debugObject.customlist = [];
+		        		}
+		        	
+
+		        		debugObject.customlist.push({key:'sub-element', text:'true'});
+		        		debugObject.parentElement = selectedField;
+        		}
+
         		debugObject.name ="field"+Math.floor(Math.random()*10)+date.getTime();
 	            existingFields.splice(indexToAddAt,0,debugObject);
-	            
 
+	            
 	         
 
 			}	

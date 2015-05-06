@@ -80,7 +80,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 					}
 					
 					scope.elementOrderNewFormat=elementOrderNewFormat;
-					console.log(scope.elementOrderNewFormat)
+					
 					var containerCount = 0;
 					scope.containerHeight = 95;
 					
@@ -290,14 +290,30 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	});
             	
             	 for(var elementCount=0;elementCount < selectedCourseElement.elements.length; elementCount++){
-            	 	if(!angular.equals(selectedCourseElement.elements[elementCount],null)){
-
+            	 	if(!angular.equals(selectedCourseElement.elements[elementCount],null)&&!angular.equals(selectedCourseElement.elements[elementCount],undefined)){
+            	 		console.clear();
             	 		angular.forEach(scope.courseElements,function(courseElement){
             	 			if(angular.equals($(courseElement.DefaultTemplate).attr('previewKey'),selectedCourseElement.elements[elementCount].type)){
             	 				var elementTo = angular.fromJson(JSON.parse(courseElement.Debug));
             	 				var date=new Date();
             	 				elementTo.name = "field"+Math.floor(Math.random()*10)+date.getTime();
             	 				elementTo.value = selectedCourseElement.elements[elementCount].value;
+            	 				elementTo.displayName = selectedCourseElement.displayName;
+
+            	 				console.log(elementTo.displayName);
+
+            	 				// setting custom attributes, if any
+            	 				if(!angular.equals(selectedCourseElement.elements[elementCount].customAttributes, undefined)){
+            	 					if(!angular.equals(elementTo.customlist, undefined)){
+
+            	 						elementTo.customlist = [];
+            	 					}
+
+            	 					for(var keyAttrib in selectedCourseElement.elements[elementCount].customAttributes){
+            	 						elementTo.customlist.push({key:keyAttrib, text:selectedCourseElement.elements[elementCount].customAttributes[keyAttrib]});
+            	 					}
+            	 				}
+
             	 				scope.courseElement.courseElementTemplate.fields.push(elementTo);
             	 			}
             	 			});

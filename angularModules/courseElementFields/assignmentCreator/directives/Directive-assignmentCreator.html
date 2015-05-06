@@ -63,7 +63,7 @@
 				</div>
 
 				<!-- by -->
-				<div class="row bg-light">
+				<div class="row bg-light" ng-if="penaltyObj.submissionMode != 're-submitted'">
 					<div class="col-xs-12">
 						<div class="col-xs-3 p-v">
 							<i class="font-bold" translate="{{'by' | translate}}"></i>
@@ -83,7 +83,7 @@
 				</div>
 
 				<!-- Block -->
-				<div class="row">
+				<div class="row" ng-if="penaltyObj.submissionMode != 're-submitted'">
 					<div class="col-xs-12 m-v">					
 						<div class="col-xs-push-3 col-xs-8">
 							<div class="checkbox" >

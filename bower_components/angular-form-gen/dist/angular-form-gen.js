@@ -589,7 +589,7 @@ return {
     if(!angular.equals(scope.fieldSchema.customlist,undefined)){
       
       angular.forEach(scope.fieldSchema.customlist,function(cList){
-        $(elem).attr(cList.key+'', cList.text+'');
+         $(elem).attr(cList.key+'', cList.text+'');
       });
     }
     $(elem).removeAttr('fg-custom-attributes');

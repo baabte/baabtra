@@ -43,7 +43,12 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
                     	var loopCounter=0; // a counter for all loops comes inside custom list of properties
                     	var maxLoopValue=item.customlist.length;
                     	var weHaveGotPreviewKey=false;
+                        temp[item.name].displayName = item.displayName;
+
                     	angular.forEach(item.customlist,function(customProperty){
+
+                         
+
                     		loopCounter++;
                             // here we build object to store into db and to push into timeline
                             if(angular.equals(customProperty.value,'previewkey')){ // checking is there have a value for previewkey
@@ -61,6 +66,12 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
                                           scope.ItsTimeToSaveDataToDB = true;
                                     });
                                 }
+                            }
+                            else if(angular.equals(customProperty.key,'sub-element')){
+                              if(!temp[item.name].customAttributes){
+                                  temp[item.name].customAttributes ={};
+                                }
+                                temp[item.name].customAttributes['sub-element'] ='true';
                             }
                             else{
                             	if((loopCounter==maxLoopValue)&&!weHaveGotPreviewKey){ // when count meets length of custom list and still

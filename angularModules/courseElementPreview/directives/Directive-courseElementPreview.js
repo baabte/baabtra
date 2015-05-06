@@ -31,6 +31,8 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 							 		elementToBeCreated.attr('course-element',JSON.stringify(scope.previewData));
 							 		elementToBeCreated.attr('index',key);
 							 		elementToBeCreated.attr('course-id','courseId');
+							 		elementToBeCreated.addClass('elementField');
+
 							 		$('#elementContent'+scope.rand).append(elementToBeCreated);
 							}
 					});
