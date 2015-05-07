@@ -35,11 +35,11 @@ angular.module('baabtra').service('allocateCandidateService',['$http','bbConfig'
    };
 
    //service function to register a user 
-	this.fnenrollBulkUsers=function(userRegister,courseObj){
+	this.fnenrollBulkUsers=function(userList){
     var result;
       var promise=$http({
            url: bbConfig.BWS+'fnenrollBulkUsers/',
-           data: angular.toJson({regObject:userRegister,courseObj:courseObj}),
+           data: angular.toJson({listData:userList}),
            method: 'POST',
            withCredentials: false,
            contentType:'application/json',

@@ -19,7 +19,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 					}
 
 					$scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name].push(responseData.orderFroms[key].orderDetails[detailsKey]);
-					console.log(responseData.orderFroms[key].orderDetails[detailsKey].Name,$scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name][0].userInfo);
+					// console.log(responseData.orderFroms[key].orderDetails[detailsKey].Name,$scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name][0].userInfo);
 					var userCount=0;
 					for(userIndex in $scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name][0].userInfo){
 						if(angular.equals($scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name][0].userInfo[userIndex].status,'Approved')){
@@ -91,10 +91,10 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 	// variable for setting selected course details for loading batches
 	$scope.selectedCourse={};
 	$scope.CallEnrollUserModalByCourse=function (index,userList,type) {
-		console.log(index,userList,type);
-
 
 		$scope.enrollType=type;
+
+		//for enrolling single user into a batch
 		if(angular.equals(type,'single')){
 			$scope.orderFormData={};
 			$scope.orderFormData.index=index;
@@ -108,16 +108,41 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 			$scope.selectedCourse.course.Name=userList.Name;
 			$scope.selectedCourse.coursetype=userList.coursetype?userList[0].coursetype:'offline';
 		}
+		//for enrolling multiple users to a batch at one click
 		else if(angular.equals(type,'bulk')){
-			// $scope.selectedUsers=
+			$scope.orderFormsData=[];
+			for(key in userList){
+				var orderFormId=userList[key].orderFormId;
+				// checkedStatus
+				for(candidKey in userList[key].userInfo){
+					if(userList[key].userInfo[candidKey].checkedStatus){
+						var groupOfOneOrderForm={};
+						groupOfOneOrderForm.orderFormData={};
+						groupOfOneOrderForm.orderFormData.index=candidKey;
+						groupOfOneOrderForm.orderFormData.courseObj={};
+						groupOfOneOrderForm.orderFormData.courseObj.courseId=userList[key].courseId;
+						groupOfOneOrderForm.orderFormData.orderFormId=userList[key].orderFormId;
+						groupOfOneOrderForm.selectedUser={};
+						groupOfOneOrderForm.selectedUser.mandatoryData=angular.copy(userList[key].userInfo[candidKey]);
+						delete groupOfOneOrderForm.selectedUser.mandatoryData.status;
+						delete groupOfOneOrderForm.selectedUser.mandatoryData.userId;
+
+						$scope.orderFormsData.push(groupOfOneOrderForm);
+					}
+				}
+				
+			}
+
+
+			// console.log($scope.orderFormsData);
+
 			$scope.selectedCourse.course={};
 			$scope.selectedCourse.course._id=userList[0].courseId;
 			$scope.selectedCourse.course.Name=userList[0].Name;
 			$scope.selectedCourse.coursetype=userList[0].coursetype?userList[0].coursetype:'offline';
+			$scope.selectedUsers={};
 
 		}
-
-		console.log($scope.selectedCourse);
 
 		$modal({scope: $scope, template: 'angularModules/user/partials/popup-enrollCandidateByCourse.html', show: true});
 	};
@@ -157,7 +182,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 				hashids = new Hashids("this is a batch id");
 				$scope.selectedCourse.batch.batchCode = hashids.encode(time); 
 
-				 $scope.selectedUser.batch=angular.copy($scope.selectedCourse.batch);
+				$scope.selectedUser.batch=angular.copy($scope.selectedCourse.batch);
 
 				 	$scope.selectedUser.course={};
 					$scope.selectedUser.coursetype=$scope.selectedCourse.coursetype;
@@ -171,11 +196,62 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 			  		$scope.selectedUser.role.roleId=3; //initialising the role id as mentee
 
 				}
-				console.log($scope.selectedCourse,$scope.selectedUser);
 
-		
-					fnRegisterUserCallBack=allocateCandidateService.fnenrollSingleUser($scope.selectedUser,$scope.orderFormData);
+			//calling service for enrolling user
+			fnRegisterUserCallBack=allocateCandidateService.fnenrollSingleUser($scope.selectedUser,$scope.orderFormData);
 		}
+
+		else if(angular.equals(type,'bulk')){
+				var batchId=$scope.selectedCourse.batch[0]._id;
+				if(!angular.equals($scope.selectedCourse.batch,undefined)&&(angular.equals(Object.keys($scope.selectedCourse.batch).length,0))){
+				delete $scope.selectedCourse.batch;
+				}
+				if(!angular.equals($scope.selectedCourse.batch,undefined)&&($scope.selectedCourse.batch.length>0)) { 
+
+				delete $scope.selectedCourse.batch[0].course;
+				delete $scope.selectedCourse.batch[0]._id;
+				delete $scope.selectedCourse.batch[0].companyId;
+				delete $scope.selectedCourse.batch[0].updatedDate;
+				delete $scope.selectedCourse.batch[0].createddDate;
+				delete $scope.selectedCourse.batch[0].crmId;
+				delete $scope.selectedCourse.batch[0].urmId;
+				$scope.selectedCourse.batch[0].startDate=new Date($scope.selectedCourse.batch[0].startDate).toISOString();
+				$scope.selectedCourse.batch[0].endDate=new Date($scope.selectedCourse.batch[0].endDate).toISOString();
+				$scope.selectedCourse.batch[0].enrollmentAfter=new Date($scope.selectedCourse.batch[0].enrollmentAfter.$date).toISOString();
+				$scope.selectedCourse.batch[0].enrollmentBefore=new Date($scope.selectedCourse.batch[0].enrollmentBefore.$date).toISOString();
+				$scope.selectedCourse.batch=$scope.selectedCourse.batch[0];
+				//setting the date time
+				var time=(new Date()).valueOf();
+				hashids = new Hashids("this is a batch id");
+				$scope.selectedCourse.batch.batchCode = hashids.encode(time);
+
+				for(key in $scope.orderFormsData){
+
+					$scope.orderFormsData[key].selectedUser.batchId=batchId;
+
+					$scope.orderFormsData[key].selectedUser.batch=angular.copy($scope.selectedCourse.batch);
+
+				 	$scope.orderFormsData[key].selectedUser.course={};
+					$scope.orderFormsData[key].selectedUser.coursetype=$scope.selectedCourse.coursetype;
+					$scope.orderFormsData[key].selectedUser.course=$scope.selectedCourse.course;
+					// $scope.orderFormsData[key].selectedUser.mandatoryData=
+					$scope.orderFormsData[key].selectedUser.mandatoryData.password=$scope.orderFormsData[key].selectedUser.mandatoryData.eMail;
+					
+			  		$scope.orderFormsData[key].selectedUser.loggedusercrmid=$scope.crmId;
+			  		$scope.orderFormsData[key].selectedUser.companyId=$scope.companyId;
+			  		$scope.orderFormsData[key].selectedUser.role={};
+			  		$scope.orderFormsData[key].selectedUser.role.roleId=3; //initialising the role id as mentee
+				}
+
+				fnRegisterUserCallBack=allocateCandidateService.fnenrollBulkUsers($scope.orderFormsData);
+
+
+
+		}
+	}
+
+
+
 		fnRegisterUserCallBack.then(function(data){
 		
 			var result=angular.fromJson(JSON.parse(data.data));
