@@ -201,7 +201,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                                   +'<form xt-form novalidate class="form" name="courseElement" enctype="multipart/form-data">'
                                    +'<div class="p" sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"></div>'
                                    +'<div ng-if="subElements.length>0" on-item-click="selectedNestedElem(data,$parent.formData['+$scope.randomKey+'])" selection-mode="single" multi-selectable input-model="subElements" button-label="icon menuDisplayName" item-label="icon menuDisplayName" tick-property="tick" class="m-v col-xs-12"></div>'//multiselect to be added
-                                   +'<button class="btn baab-btn pull-right m-v-lg btn-info" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="saveMyFormData($hide)" type="button" ng-disabled = "courseElement.$invalid">Add</button>'
+                                   +'<button class="btn baab-btn pull-right m-v-lg btn-info" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="saveMyFormData($hide)" type="button" ng-disabled = "courseElement.$invalid">save</button>'
                                    //+'<button class="btn baab-btn pull-left m-v-lg btn-info btn-material-green-A700" ng-class = "{\''+options[state].colorClass+'\':!(courseElement.$invalid)}" ng-click="createPreviewElement(\'tempCourseDocs\')" type="button" ng-disabled = "courseElement.$invalid">Preview</button>'
                                   +'</form>'
                                   //+'<div class="clearfix m-v-lg"><course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview></div>'
@@ -405,7 +405,13 @@ angular.module('ui.bootstrap.contextMenu', [])
                         var maxLoopValue=item.customlist.length;
                         var weHaveGotPreviewKey=false;
                         temp[item.name].displayName = item.displayName;
-                        console.log(temp[item.name].displayName);
+                        if(!angular.equals(item.uniqueId, undefined)){
+                           temp[item.name].uniqueId = item.uniqueId;
+                        }
+                        if(!angular.equals(item.parentElementId, undefined)){
+                           temp[item.name].parentElementId = item.parentElementId;
+                        }
+                       
                         angular.forEach(item.customlist,function(customProperty){
 
                             loopCounter++;
@@ -433,6 +439,12 @@ angular.module('ui.bootstrap.contextMenu', [])
                                 }
                                 temp[item.name].customAttributes['sub-element'] ='true';
                             }
+                            else if(angular.equals(customProperty.key,'cef-remove-button')){
+                              if(!temp[item.name].customAttributes){
+                                  temp[item.name].customAttributes ={};
+                                }
+                                temp[item.name].customAttributes['cef-remove-button'] ='true';
+                            }
                             else{
 
                                 if((loopCounter==maxLoopValue)&&!weHaveGotPreviewKey){ // when count meets length of custom list and still
@@ -451,6 +463,9 @@ angular.module('ui.bootstrap.contextMenu', [])
                                     $scope.ItsTimeToSaveDataToDB=true;
                                 }
                     $scope.coursePreviewObj.elements.push(temp[item.name]);
+
+                   
+
                     if($scope.$parent.formData[$scope.randomKey].nestedElements){
                         $scope.coursePreviewObj.nestedElements=$scope.$parent.formData[$scope.randomKey].nestedElements;
                     }

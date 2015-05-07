@@ -330,6 +330,13 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	 				elementTo.name = "field"+Math.floor(Math.random()*10)+date.getTime();
             	 				elementTo.value = selectedCourseElement.elements[elementCount].value;
             	 				elementTo.displayName = selectedCourseElement.elements[elementCount].displayName;
+            	 				if(!angular.equals(selectedCourseElement.elements[elementCount].uniqueId, undefined)){
+            	 					elementTo.uniqueId = selectedCourseElement.elements[elementCount].uniqueId
+            	 				}
+
+            	 				if(!angular.equals(selectedCourseElement.elements[elementCount].parentElementId, undefined)){
+            	 					elementTo.parentElementId = selectedCourseElement.elements[elementCount].parentElementId
+            	 				}
             	 				
             	 				
 

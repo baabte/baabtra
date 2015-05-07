@@ -14,12 +14,12 @@
       
         <!-- drop down to load the fields -->
         <div class="row">
-          <div class="col-xs-12 col-md-4">
+          <div class="col-xs-12">
             <div multi-selectable selection-mode="single" input-model="courseElementFieldsDropdown" output-model="selectedField" button-label="iconToShow Name" item-label="iconToShow Name" tick-property="ticked" helper-elements="filter" default-label="Please Select a field to add" helper-elements="filter"></div>
           </div>
         </div>
         <div class="row">
-          <div class="col-xs-12 col-md-8">
+          <div class="col-xs-12">
             <button type="button" class="btn btn-default" ng-model="addIndex" data-html="1" ng-options="add.value as add.label for add in addAt" bs-select style="padding-left:0px;">          
             </button>
           </div>
@@ -49,7 +49,7 @@
 
       <div class="modal-footer">
         <button class="pull-left baab-btn btn btn-warning" ng-disabled="Manage_course_element_fields.$invalid" disabled="disabled" ng-click="$hide()" type="button" translate="{{'Cancel'|translate}}"></button>
-        <button class="pull-right baab-btn btn btn-info"  ng-disabled="(!selectedField.length || !dispalyName.length)" ng-class="{'text-info':!course_element_field.$invalid}" disabled="disabled" type="button" ng-click="fnaddCourseElement(selectedField,dispalyName, addIndex,subElement);$hide();" translate="{{'Add'|translate}}"></button>
+        <button class="pull-right baab-btn btn btn-info"  ng-disabled="(!selectedField.length || !dispalyName.length)" ng-class="{'text-info':!course_element_field.$invalid}" disabled="disabled" type="button" ng-click="fnaddCourseElement(selectedField,dispalyName, addIndex,subElement, parentId);$hide();" translate="{{'Add'|translate}}"></button>
       </div>
       </form>
     </div>

@@ -17,6 +17,18 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 				
 					angular.forEach(scope.previewData.elements, function(data,key){//looping through each type of course elements at this point in the object
 							if(data instanceof Object){
+
+								if(angular.equals(data.parentElementId, undefined)){
+
+									if(angular.isDefined(data.uniqueId)){
+										var subArray = returnSub(scope.previewData.elements, data.uniqueId);
+
+										if(subArray.length){
+											data.subElems = subArray;
+										}
+									}
+
+
 							 		var elementToBeCreated=$('<'+data.type+'>');
 							 		//checking for custom attributes and adding them
 							 		
@@ -34,6 +46,7 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 							 		elementToBeCreated.addClass('elementField');
 
 							 		$('#elementContent'+scope.rand).append(elementToBeCreated);
+								}
 							}
 					});
 					if(!angular.equals(scope.previewData.nestedElements,undefined)){
@@ -48,6 +61,25 @@ angular.module('baabtra').directive('courseElementPreview',['$compile', function
 				// now we have to compile the view to render all the directives that we have added manually using js
 				$compile(element)(scope);
 			},true);
+
+		//a function to return the sub elements of a parent element
+		function returnSub(inputArray, parentId){
+			// initialise an array to hold the sub elements
+			var subArray = [];
+			var currentElement = {};
+
+			for (var i in inputArray){
+				currentElement = inputArray[i];
+
+				if(angular.isDefined(currentElement.parentElementId) && angular.equals(currentElement.parentElementId,parentId)){
+					subArray.push(currentElement);
+				}
+			}
+
+			return subArray;
+		}
+		// *************************************************************************************
+
 		}
 	};
 }]);

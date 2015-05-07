@@ -15,6 +15,12 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 		templateUrl: 'angularModules/courseElementFields/questionViewer/directives/Directive-questionViewer.html',
 		link: function(scope, element, attrs, fn) {
 			
+			// building the previewData object to pass to the sub element directive
+
+			scope.previewData = scope.courseElement;
+
+
+
 			var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId; // Role id of logged user
 			var userLoginId;
 			var courseId;
