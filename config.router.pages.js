@@ -314,6 +314,15 @@
                 }
                 
               })
+              .state('home.main.addCourse.step4', {
+                url: '/step4/:courseId',
+                views:{
+                  'addCourse-container':{
+                    templateUrl: 'angularModules/course/partials/addCourseStep4.html'
+                  }
+                }
+                
+              })
               .state('home.main.userRegistration', {
                 url: '/userRegistration/:key',
 
