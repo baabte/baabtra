@@ -80,9 +80,19 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 					}
 					
 					scope.elementOrderNewFormat=elementOrderNewFormat;
-					
+
 					var containerCount = 0;
 					scope.containerHeight = 95;
+
+
+					for (var index in scope.elementOrderNewFormat ){
+						if(containerCount < scope.elementOrderNewFormat[index].length){
+							containerCount = scope.elementOrderNewFormat[index].length;
+						}
+					}
+					// console.log(containerCount)
+					scope.containerHeight = 70/containerCount + (containerCount*70);
+
 					
 					if(angular.equals(name,'Minute')){
 						scope.timeLineView = angular.copy(scope.syncData.courseTimeline);
@@ -102,12 +112,16 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 								item.tlPointInMinute = timePoint*1;
 								item.index = index;
 								scope.timeLineView[newTlPoint][elemType].push(item);
-								if(containerCount < Object.keys(scope.timeLineView[newTlPoint]).length){
-									containerCount = Object.keys(scope.timeLineView[newTlPoint]).length;
-								}
+
+								//commented by arun to change the height calculation in the basic of 
+								// if(containerCount < Object.keys(scope.timeLineView[newTlPoint]).length){
+								// 	containerCount = Object.keys(scope.timeLineView[newTlPoint]).length;
+								// }
 							});
+
 							});
-							scope.containerHeight = 30/containerCount + (containerCount*90);
+							//commented and placed out side 
+							// scope.containerHeight = 30/containerCount + (containerCount*90);
 						});
 					}
 				}
@@ -252,16 +266,32 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	var startPoint=((selectedPoint/scope.ddlBindObject[scope.selectedDuration-1].mFactor)-(1/scope.ddlBindObject[scope.selectedDuration-1].mFactor)+1);
             	var endPoint=(((selectedPoint)/scope.ddlBindObject[scope.selectedDuration-1].mFactor));
             	scope.coursePreviewObj.datas=[];
-            	angular.forEach(scope.syncData.courseTimeline, function(CourseElements, key){
-            		if(key >= startPoint && key <= endPoint){
-            			angular.forEach(CourseElements,function(courseElemType){
-            				angular.forEach(courseElemType, function(courseElem){
-	            				scope.coursePreviewObj.datas.push(courseElem);
-	            				scope.coursePreviewObj.tlSelectedPoint = tlSelectedPoint;
-            				});
-            			});
-            		}
-            	});
+            	scope.coursePreviewObj.tlSelectedPoint = tlSelectedPoint;
+            	// console.log(scope.elementOrderNewFormat);
+
+				var elementOrderOldFormat = angular.copy(scope.syncData.elementOrder);
+					for (var key in elementOrderOldFormat){
+
+						var elementOrderSplitArray=elementOrderOldFormat[key].split('.');	
+							if(elementOrderSplitArray[0] >= startPoint && elementOrderSplitArray[0] <= endPoint){
+								scope.coursePreviewObj.datas.push(scope.syncData.courseTimeline[elementOrderSplitArray[0]][elementOrderSplitArray[1]][elementOrderSplitArray[2]]);
+							
+							}
+						
+					}
+		            		
+
+            	//commented by arun to rebuild the course previewobj according to the 
+            	// angular.forEach(scope.syncData.courseTimeline, function(CourseElements, key){
+            	// 	if(key >= startPoint && key <= endPoint){
+            	// 		angular.forEach(CourseElements,function(courseElemType){
+            	// 			angular.forEach(courseElemType, function(courseElem){
+	            // 				scope.coursePreviewObj.datas.push(courseElem);
+	            // 				scope.coursePreviewObj.tlSelectedPoint = tlSelectedPoint;
+            	// 			});
+            	// 		});
+            	// 	}
+            	// });
             };
 
             var selectedCourseElement = {};
@@ -291,16 +321,17 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	
             	 for(var elementCount=0;elementCount < selectedCourseElement.elements.length; elementCount++){
             	 	if(!angular.equals(selectedCourseElement.elements[elementCount],null)&&!angular.equals(selectedCourseElement.elements[elementCount],undefined)){
-            	 		console.clear();
+            	 		
             	 		angular.forEach(scope.courseElements,function(courseElement){
+
             	 			if(angular.equals($(courseElement.DefaultTemplate).attr('previewKey'),selectedCourseElement.elements[elementCount].type)){
             	 				var elementTo = angular.fromJson(JSON.parse(courseElement.Debug));
             	 				var date=new Date();
             	 				elementTo.name = "field"+Math.floor(Math.random()*10)+date.getTime();
             	 				elementTo.value = selectedCourseElement.elements[elementCount].value;
-            	 				elementTo.displayName = selectedCourseElement.displayName;
-
-            	 				console.log(elementTo.displayName);
+            	 				elementTo.displayName = selectedCourseElement.elements[elementCount].displayName;
+            	 				
+            	 				
 
             	 				// setting custom attributes, if any
             	 				if(!angular.equals(selectedCourseElement.elements[elementCount].customAttributes, undefined)){

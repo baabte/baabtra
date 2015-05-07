@@ -7,6 +7,7 @@ angular.module('baabtra').directive('courseStreamline', function() {
 		},
 		templateUrl: 'angularModules/courseStreamline/directives/Directive-courseStreamline.html',
 		link: function(scope, element, attrs, fn) {
+
 		}
 	};
 });
