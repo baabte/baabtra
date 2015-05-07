@@ -36,7 +36,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 				}
 			});
 
-			scope.formData=new Object();//used to save datas from timeline
+			scope.formData={};//used to save datas from timeline
 
 			//These are kept in rootscope as these are to be availble throughout the application
 			$rootScope.valid=true;
@@ -55,14 +55,44 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 
 
 			scope.buildTlObject = function(selectedDuration){//function for building timeline object
-				var selectedDuration = selectedDuration;
+				// var selectedDuration = selectedDuration;
 				scope.$watch(function() {return scope.syncData.courseTimeline}, function(){
 				if(!angular.equals(scope.syncData.courseTimeline,undefined)){
 					var name=scope.ddlBindObject[scope.selectedDuration-1].name.replace('(s)','');
 					var newTlPoint = 1;
 					scope.timeLineView = {};
+
+					// buliding the element order according to tlpoint 
+					var elementOrderOldFormat = angular.copy(scope.syncData.elementOrder);
+
+					var elementOrderNewFormat={};//variable to store the new element order formatted in the basis of timelinr point 
+					//tlpoint also changed according to the showing points mFactor method
+					for (var key in elementOrderOldFormat){
+						var elementOrderSplitArray=elementOrderOldFormat[key].split('.');	
+						var tlPoint=Math.ceil(elementOrderSplitArray[0]/(1/scope.ddlBindObject[scope.selectedDuration-1].mFactor));
+						elementOrderSplitArray.splice(0,1);
+						if (elementOrderNewFormat[tlPoint]){
+							elementOrderNewFormat[tlPoint].push(elementOrderSplitArray);
+						}else{
+							elementOrderNewFormat[tlPoint]=[];
+							elementOrderNewFormat[tlPoint].push(elementOrderSplitArray);							
+						}
+					}
+					
+					scope.elementOrderNewFormat=elementOrderNewFormat;
+
 					var containerCount = 0;
 					scope.containerHeight = 95;
+
+
+					for (var index in scope.elementOrderNewFormat ){
+						if(containerCount < scope.elementOrderNewFormat[index].length){
+							containerCount = scope.elementOrderNewFormat[index].length;
+						}
+					}
+					// console.log(containerCount)
+					scope.containerHeight = 70/containerCount + (containerCount*70);
+
 					
 					if(angular.equals(name,'Minute')){
 						scope.timeLineView = angular.copy(scope.syncData.courseTimeline);
@@ -82,17 +112,21 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 								item.tlPointInMinute = timePoint*1;
 								item.index = index;
 								scope.timeLineView[newTlPoint][elemType].push(item);
-								if(containerCount < Object.keys(scope.timeLineView[newTlPoint]).length){
-									containerCount = Object.keys(scope.timeLineView[newTlPoint]).length;
-								}
+
+								//commented by arun to change the height calculation in the basic of 
+								// if(containerCount < Object.keys(scope.timeLineView[newTlPoint]).length){
+								// 	containerCount = Object.keys(scope.timeLineView[newTlPoint]).length;
+								// }
 							});
+
 							});
-							scope.containerHeight = 30/containerCount + (containerCount*90);
+							//commented and placed out side 
+							// scope.containerHeight = 30/containerCount + (containerCount*90);
 						});
 					}
 				}
 			  }, true);
-			}
+			};
 
 
 			//building the object for the first time
@@ -232,16 +266,32 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	var startPoint=((selectedPoint/scope.ddlBindObject[scope.selectedDuration-1].mFactor)-(1/scope.ddlBindObject[scope.selectedDuration-1].mFactor)+1);
             	var endPoint=(((selectedPoint)/scope.ddlBindObject[scope.selectedDuration-1].mFactor));
             	scope.coursePreviewObj.datas=[];
-            	angular.forEach(scope.syncData.courseTimeline, function(CourseElements, key){
-            		if(key >= startPoint && key <= endPoint){
-            			angular.forEach(CourseElements,function(courseElemType){
-            				angular.forEach(courseElemType, function(courseElem){
-	            				scope.coursePreviewObj.datas.push(courseElem);
-	            				scope.coursePreviewObj.tlSelectedPoint = tlSelectedPoint;
-            				});
-            			});
-            		}
-            	});
+            	scope.coursePreviewObj.tlSelectedPoint = tlSelectedPoint;
+            	// console.log(scope.elementOrderNewFormat);
+
+				var elementOrderOldFormat = angular.copy(scope.syncData.elementOrder);
+					for (var key in elementOrderOldFormat){
+
+						var elementOrderSplitArray=elementOrderOldFormat[key].split('.');	
+							if(elementOrderSplitArray[0] >= startPoint && elementOrderSplitArray[0] <= endPoint){
+								scope.coursePreviewObj.datas.push(scope.syncData.courseTimeline[elementOrderSplitArray[0]][elementOrderSplitArray[1]][elementOrderSplitArray[2]]);
+							
+							}
+						
+					}
+		            		
+
+            	//commented by arun to rebuild the course previewobj according to the 
+            	// angular.forEach(scope.syncData.courseTimeline, function(CourseElements, key){
+            	// 	if(key >= startPoint && key <= endPoint){
+            	// 		angular.forEach(CourseElements,function(courseElemType){
+            	// 			angular.forEach(courseElemType, function(courseElem){
+	            // 				scope.coursePreviewObj.datas.push(courseElem);
+	            // 				scope.coursePreviewObj.tlSelectedPoint = tlSelectedPoint;
+            	// 			});
+            	// 		});
+            	// 	}
+            	// });
             };
 
             var selectedCourseElement = {};
@@ -255,7 +305,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	selectedCourseElement = element;
             	scope.selectedTpoint = element.tlPointInMinute;
             	scope.selectedIndex = selectedIndex;
-            }
+            };
 
             scope.editCourseElement = function(){
             	if(!angular.equals(scope.coursePreviewObj,undefined))
@@ -286,7 +336,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	 }
             	$templateCache.put('course-element-popup.html','<edit-course-element></edit-course-element>');
  				$aside({scope: scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
-            }
+            };
 
             scope.removeCourseElement = function(ev) {
             		angular.forEach(scope.popoverObject.courseElementlist,function(courseElement){
@@ -294,8 +344,14 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             			scope.courseElement = courseElement;
             		}
             	});
+            	var removeCourseTimelineElementCallback=addCourseService.removeCourseTimelineElement(scope.courseId, selectedCourseElement.Name, scope.selectedTpoint, scope.selectedIndex, scope.$parent.$parent.rm_id);
+            	
+            	removeCourseTimelineElementCallback.then(function(data){
+				var updatedElementOrder = angular.fromJson(JSON.parse(data.data));
+				scope.syncData.elementOrder=updatedElementOrder;
             	scope.syncData.courseTimeline[scope.selectedTpoint][selectedCourseElement.Name].splice(scope.selectedIndex,1);
-            	addCourseService.removeCourseTimelineElement(scope.courseId, selectedCourseElement.Name, scope.selectedTpoint, scope.selectedIndex, scope.$parent.$parent.rm_id);
+				
+				});
             };
 
 		}

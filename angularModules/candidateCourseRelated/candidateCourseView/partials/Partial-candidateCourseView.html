@@ -35,10 +35,13 @@
             <div>
               <div class="col-xs-12 btn btn-material-red-A400 font-bold" ng-if="!lastElement" >{{tlPointName}}</div>
             </div>
+                <div class="col-xs-12 col-md-12 text-right m-b">
+                  <span class="label label-warning" ng-if="(!PrevObj.evalStatus)&&PrevObj.evaluable">Pending submission</span>
+                  <span class="label label-info" ng-if="PrevObj.evalStatus">{{PrevObj.evalStatus}}</span>
+                </div>
             <!-- course element preview box  -->
 
             <div class="col-xs-12 b">
-
               <div class="col-xs-12">
                 <course-element-full-view course-id="courseId.$oid" preview-data="PrevObj"></course-element-full-view>
               </div>

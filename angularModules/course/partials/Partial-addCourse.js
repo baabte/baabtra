@@ -440,7 +440,7 @@ $scope.completeStep4 = function(){
   var courseToBeSave = angular.copy($scope.course);
   courseToBeSave.draftFlag=1;
   courseToBeSave.activeFlag = 1;
-  var toState='home.main.addCourse.step3';
+  var toState='home.main.addCourse.step4';
   $alert({title: 'Done..!', content: 'Course has been published successfuly  :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
   addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId ,toState);//saving to database
 };

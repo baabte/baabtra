@@ -3,6 +3,40 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 	$scope.data.checkAll = {};
 	$scope.selectAll=false;
 	$scope.data.viewBox = {};
+	$scope.courseBasedUserList={};
+
+	$scope.buildUsersObjectByCourse=function (responseData) {
+			for(key in $scope.courseBasedUserList){
+				$scope.courseBasedUserList[key]='';
+			}
+			for(var key in responseData.orderFroms){
+				for(var detailsKey in responseData.orderFroms[key].orderDetails){
+					responseData.orderFroms[key].orderDetails[detailsKey].orderFormId=responseData.orderFroms[key]._id.$oid;
+					// console.log(responseData.orderFroms[key].orderDetails[detailsKey]);
+					
+					if(angular.equals($scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name],undefined)){
+						$scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name]=[];
+					}
+
+					$scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name].push(responseData.orderFroms[key].orderDetails[detailsKey]);
+					console.log(responseData.orderFroms[key].orderDetails[detailsKey].Name,$scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name][0].userInfo);
+					var userCount=0;
+					for(userIndex in $scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name][0].userInfo){
+						if(angular.equals($scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name][0].userInfo[userIndex].status,'Approved')){
+							userCount++;
+						}
+					}
+
+					if(!userCount){
+						delete $scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name];
+					}
+				}
+				
+			}
+
+			// console.log($scope.courseBasedUserList);
+	};
+
 	//getting the user role mapping id
 	$rootScope.$watch('userinfo',function(){
 		$scope.crmId = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
@@ -14,10 +48,13 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 			//$scope.orderFormList=responseData.orderFroms._firstBatch;
 			$scope.orderFormList=responseData.orderFroms;
 			//console.log($scope.orderFormList);
+			$scope.buildUsersObjectByCourse(responseData);
 
 
-		})
+		});
 	});
+
+
 
 	$scope.selectedCandidates=[];
 	//function to check all the checkboxes when the check all checkbox is clicked
@@ -50,6 +87,19 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 	$scope.candidateObj={};
 	$scope.userRegister={};
 	$scope.type='';
+
+
+	$scope.CallEnrollUserModalByCourse=function (index,userList,type) {
+		console.log(index,userList,type);
+		if(angular.equals(type,'single')){
+			console.log(userList.userInfo[index]);
+		}
+		else if(angular.equals(type,'bulk')){
+			
+		}
+	}
+
+	//old function
 	$scope.CallEnrollUserModal=function(userInfo,courseObj,index,orderFormId,type){
 		$scope.type=type;
 		$scope.candidateObj.doj='';
@@ -151,6 +201,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 				//console.log(responseData.orderFroms._firstBatch);
 				//$scope.orderFormList=responseData.orderFroms._firstBatch;
 				$scope.orderFormList=responseData.orderFroms;
+				$scope.buildUsersObjectByCourse(responseData);
 			}) 
 
 		    if(angular.equals(type,'single')){

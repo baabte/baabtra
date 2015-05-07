@@ -29,7 +29,6 @@ angular.module('baabtra').directive('interviewViewerEv',['$rootScope', 'commonSr
 			}
 
 			scope.markChanged = function(mark, index){
-				
 				if(!angular.equals(mark, undefined)){
 					if(angular.equals(scope.result.data.markScored, undefined)){
 						scope.result.data.markScored = {};
