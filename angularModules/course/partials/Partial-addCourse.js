@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','RoleMenuMappingSrv','addCourseElementService','commonService','$alert','$sce',function($scope,bbConfig,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,RoleMenuMappingSrv,addCourseElementService,commonService,$alert,$sce){
+angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$rootScope','$http','$state','addCourseService','commonSrv','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','RoleMenuMappingSrv','addCourseElementService','commonService','$alert','$sce', '$modal', function($scope,bbConfig,$rootScope,$http,$state,addCourseService,commonSrv,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,RoleMenuMappingSrv,addCourseElementService,commonService,$alert,$sce, $modal){
 
 
   /*login detils start*/
@@ -17,13 +17,29 @@ angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$root
   $scope.cmp_id=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   /*login detils ends*/
 
-
+$scope.data = {};
 if(!angular.equals($state.params.courseId,"")){
   //this function loads course details by course Id
   $scope.courseId = $state.params.courseId;
   var promise = addCourseService.fnLoadCourseDetails($scope, $scope.courseId);
   promise.then(function(course){
     $scope.course = angular.fromJson(JSON.parse(course.data)).courseDetails;
+
+    //checking this course have syllabus
+    if(angular.equals($scope.course.syllabus,undefined)){
+      // if undefined create a default syllabus
+      $scope.data.syllabusTree = [{ _id: $scope.course.Name, parent: null, children: [], ancestors: [], activeFlag:1}];
+      
+      $scope.course.syllabus = angular.copy($scope.data.syllabusTree);
+      $scope.data.syllabusTree = manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.data.syllabusTree, null), null);
+      // console.log(syllabusTree);
+    }
+    else{
+      $scope.data.syllabusTree = angular.copy($scope.course.syllabus);
+      $scope.data.syllabusTree = manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.course.syllabus, null), null);
+
+    }
+
     if(!angular.equals($scope.course.evaluator,undefined)){
       angular.forEach($scope.course.evaluator,function(evaluator){
         evaluator.roleMappingId = evaluator.roleMappingId;
@@ -85,10 +101,10 @@ $scope.totalCourseDuration=0; // course duration in minutes
 
 
 	$scope.tlPopOver={};//obj for bulding context menu of timeline point
-	$scope.tlPopOver.step3={colorClass:'03A9F4'};
-  var weHaveGotCrsElementsStep3=addCourseElementService.FnGetCourseElements("");//calling course element function
-      weHaveGotCrsElementsStep3.then(function(data){
-        $scope.tlPopOver.step3.courseElementlist=angular.fromJson(JSON.parse(data.data));
+	$scope.tlPopOver.step4={colorClass:'03A9F4'};
+  var weHaveGotCrsElementsStep4=addCourseElementService.FnGetCourseElements("");//calling course element function
+      weHaveGotCrsElementsStep4.then(function(data){
+        $scope.tlPopOver.step4.courseElementlist=angular.fromJson(JSON.parse(data.data));
         // console.log($scope.tlPopOver.step3.courseElementlist);
         $scope.tlPopOverEditObject = angular.fromJson(JSON.parse(data.data));
       });
@@ -390,7 +406,7 @@ $scope.fnTotalFeeChanged = function(){// this function trigers, when user change
      angular.forEach(time, function(element,key){//looping through all the existing check points
       if (angular.equals(key,"Payment_checkpoint")) {
         payedAmt = payedAmt + element[0].elements[0];// taking the sum of the already defined  payment check points amt 
-      };
+      }
     });
   });
   if(!angular.equals($scope.course.balanceAmount,$scope.course.Fees.totalAmount -payedAmt)){// checking value is changed
@@ -412,11 +428,11 @@ $scope.fnTotalFeeChanged = function(){// this function trigers, when user change
       
         });
 
-$scope.completeStep3 = function(){
+$scope.completeStep4 = function(){
   delete $scope.course._id;
 
   if(!angular.equals($scope.course.companyId.$oid,undefined)){
-    $scope.course.companyId = $scope.course.companyId.$oid
+    $scope.course.companyId = $scope.course.companyId.$oid;
   }
     $scope.course.urmId = $scope.rm_id;
     $scope.course.crmId = $scope.rm_id;
@@ -424,10 +440,189 @@ $scope.completeStep3 = function(){
   var courseToBeSave = angular.copy($scope.course);
   courseToBeSave.draftFlag=1;
   courseToBeSave.activeFlag = 1;
-  var toState='home.main.addCourse.step3';
+  var toState='home.main.addCourse.step4';
   $alert({title: 'Done..!', content: 'Course has been published successfuly  :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
   addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId ,toState);//saving to database
 };
 // *********************** STEP 3 .End ***********************************
+
+  
+  $scope.data.markingCriteria = [{"value":"mark","label":"Mark"},
+                                 {"value":"pass/fail","label":"Pass/Fail"},
+                                 {"value":"no mark","label":"No Mark"}];
+$scope.showPopupForAddChild = function(item){
+  $scope.data.item = item;
+  $scope.data.childName = "";
+  $scope.data.headName = "Add";
+  $scope.data.child = {};
+  $scope.data.child.selectedMarkingCriteria = "mark";
+
+  var addNewChild = $modal({scope: $scope, template: 'angularModules/course/partials/Popup-addNewChild.html', placement:'center', show: true});
+};
+
+$scope.addNewChild = function(item, childName, $hide){// function for add new child under a node
+  
+  for(var node in $scope.course.syllabus){// loop for upadating details of child into parent
+    if(angular.equals($scope.course.syllabus[node]._id, item._id)){// if node equal to clicked node
+
+      var mark = {};
+      if(angular.equals($scope.data.child.selectedMarkingCriteria, 'mark')){
+        mark.type = 'mark';
+        mark.minMark = $scope.data.child.mark.minMark;
+        mark.maxMark = $scope.data.child.mark.maxMark;
+        $scope.course.syllabus[node].mark = mark;
+      }
+      else if(angular.equals($scope.data.child.selectedMarkingCriteria, 'pass/fail')){
+        mark.type = 'mark';
+        $scope.course.syllabus[node].mark = mark;
+      }
+      else if(angular.equals($scope.data.child.selectedMarkingCriteria, 'no mark')){
+        mark.type = 'no mark';
+        $scope.course.syllabus[node].mark = mark;
+      }
+
+      $scope.course.syllabus[node].children.push(childName);//push the details of chidren to his parent node
+      $scope.course.syllabus.push({ _id: childName , parent: item._id, children: [], ancestors: [item._id].concat(item.ancestors), activeFlag:1}); // push the chidren to syllabus 
+      $scope.data.syllabusTree = angular.copy($scope.course.syllabus);
+      //converting syllabus to tree structure
+      $scope.data.syllabusTree = manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.data.syllabusTree, null), null);
+      $hide();
+      //break;
+    }
+  }
+  console.log($scope.data.syllabusTree);
+
+};
+
+$scope.removeChild = function(node){
+
+  console.log(node);
+  
+  var index = 0;
+  for(var key in $scope.course.syllabus){
+
+    if(!angular.equals($scope.course.syllabus[key].children.indexOf(node._id), -1)){
+      $scope.course.syllabus[key].children.splice($scope.course.syllabus[key].children.indexOf(node._id), 1);
+    }
+    
+    if(angular.equals($scope.course.syllabus[key]._id, node._id)){
+      $scope.course.syllabus.splice(index, 1);
+      $scope.data.syllabusTree = angular.copy($scope.course.syllabus);
+      $scope.data.syllabusTree = manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.data.syllabusTree, null), null);
+    }
+    index++;
+  }
+  
+};
+
+
+function changeChildAncestors(oldName, node){
+  var index = 0;
+  for(var key in $scope.course.syllabus){
+    if(!angular.equals($scope.course.syllabus[key].ancestors.indexOf(oldName), -1)){
+      $scope.course.syllabus[key].ancestors[$scope.course.syllabus[key].ancestors.indexOf(oldName)] = node._id;
+    }
+    if(angular.equals(oldName, $scope.course.syllabus[key].parent)){
+      $scope.course.syllabus[key].parent = node._id;
+    }
+    if(angular.equals(oldName, $scope.course.syllabus[key]._id)){
+      $scope.course.syllabus[key]._id = node._id;
+    }
+    if(!angular.equals($scope.course.syllabus[key].children.indexOf(oldName), -1)){
+      $scope.course.syllabus[key].children[$scope.course.syllabus[key].children.indexOf(oldName)] = node._id;
+    }
+    index++;
+    if(angular.equals(index, $scope.course.syllabus.length)){
+      console.log(index);
+      $scope.data.syllabusTree = angular.copy($scope.course.syllabus);
+      $scope.data.syllabusTree = manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.data.syllabusTree, null), null);
+    
+    }
+  }
+}
+
+var lastSelectedNode = "";
+$scope.editChild = function(node){
+
+  lastSelectedNode = node;
+  $scope.data.child = angular.copy(node);
+  if(!angular.equals($scope.data.child.mark, undefined)){
+    $scope.data.child.selectedMarkingCriteria = $scope.data.child.mark.type;
+  }
+  else{
+    $scope.data.child.selectedMarkingCriteria = 'mark';
+  }
+  
+  console.log($scope.data.markingCriteria);
+  $scope.data.headName = "Update";
+  $scope.data.childName = node._id;
+  var addNewChild = $modal({scope: $scope, template: 'angularModules/course/partials/Popup-addNewChild.html', placement:'center', show: true});
+
+};
+
+$scope.updateNewChild = function(node, hide){
+  
+  var index = 0;
+  for(var key in $scope.course.syllabus){
+    if(angular.equals($scope.course.syllabus[key]._id, $scope.data.childName)){
+      
+      var mark = {};
+      if(angular.equals($scope.data.child.selectedMarkingCriteria, 'mark')){
+        mark.type = 'mark';
+        mark.minMark = $scope.data.child.mark.minMark;
+        mark.maxMark = $scope.data.child.mark.maxMark;
+        $scope.course.syllabus[key].mark = mark;
+      }
+      else if(angular.equals($scope.data.child.selectedMarkingCriteria, 'pass/fail')){
+        mark.type = 'mark';
+        $scope.course.syllabus[key].mark = mark;
+      }
+      else if(angular.equals($scope.data.child.selectedMarkingCriteria, 'no mark')){
+        mark.type = 'no mark';
+        $scope.course.syllabus[key].mark = mark;
+      }
+    }
+    index++;
+      if(angular.equals($scope.course.syllabus.length, index)){
+        if(!angular.equals(lastSelectedNode._id, node._id)){
+
+          changeChildAncestors(lastSelectedNode._id, node);
+        }
+        else{
+          $scope.data.syllabusTree = angular.copy($scope.course.syllabus);
+          $scope.data.syllabusTree = manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.data.syllabusTree, null), null);
+        }
+        
+        hide();
+      }
+  }
+};
+
+$scope.completeStep3 = function(course){
+  var index = 0;
+  for(var key in course.syllabus){
+     if(!angular.equals(course.syllabus[key].childrenObj, undefined)){
+          delete course.syllabus[key].childrenObj;
+        }
+        index++;
+        if(angular.equals(index, course.syllabus.length)){
+            var courseToBeSave = angular.copy(course);
+            courseToBeSave.companyId = $scope.cmp_id;
+            if(angular.equals(courseToBeSave.crmId.$oid,undefined)){
+              courseToBeSave.crmId = courseToBeSave.crmId;
+             } 
+            else{
+              courseToBeSave.crmId = courseToBeSave.crmId.$oid;
+            }
+            courseToBeSave.urmId = $scope.rm_id;
+            var toState='home.main.addCourse.step4';
+            $alert({title: 'Done..!', content: 'Step 3 completed successfuly :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
+            
+            addCourseService.saveCourseObject($scope, courseToBeSave, "", $scope.courseId ,toState);//saving to database
+        }
+  }
+  
+};
+
 
 }]);

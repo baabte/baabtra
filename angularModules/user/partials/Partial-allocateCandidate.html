@@ -10,11 +10,11 @@
 </div></div></div>
 <div class="row"  style="padding-top:20px;">
 
-  <div class="col-xs-10 col-xs-offset-1  col-md-8 col-md-offset-2  no-padding bg-white" ng-repeat="orderForm in orderFormList">
+ <div class="col-xs-10 col-xs-offset-1  col-md-8 col-md-offset-2  no-padding bg-white">
 <!--   <div > -->
 <!-- <pre>{{orderForm}}</pre> ng-if="fnStatusBasedFilter(course)"-->
-  <div class="col-xs-12 no-padding  bg-light"  ng-repeat="(key, course) in orderForm.orderDetails">
-    <span class="col-xs-12 m-v-md font-bold no-padding" style="text-transform:uppercase;">{{course.Name}}</span>
+  <div class="col-xs-12 no-padding  bg-light" ng-repeat="(courseName, userLists) in courseBasedUserList"><!-- ng-repeat="(key, course) in orderForm.orderDetails" -->
+    <span class="col-xs-12 m-v-md font-bold no-padding" style="text-transform:uppercase;">{{courseName}} </span>
 
     <div class="col-xs-12 shadow-z-1 bg-white">
         <!--  <div class="row m"> -->
@@ -25,13 +25,13 @@
                  <!--    <div class="col-xs-12" style="padding-top:5px;"> -->
                       <div class="checkbox no-padding">
                         <label>
-                          <input ng-model="selectAll" value="true" ng-change="checkAll(selectAll,course)"  type="checkbox">Select All
+                          <input ng-model="selectAll" value="true" ng-change="checkAll(selectAll,userLists[0])"  type="checkbox">Select All
                         </label> <!--  -->
                       </div>
                   <!--   </div> -->
                   </div>
                   <div class="col-xs-8 col-md-10 text-center h-full p-v ">
-                      <button class="btn btn-success baab-btn pull-right" translate="{{'Allocate to Batch'|translate}}" ng-click="fnAllocateToBatch('',course,$index,orderForm._id.$oid,'bulk')" data-ng-disabled=""></button>
+                      <button class="btn btn-success baab-btn pull-right" translate="{{'Allocate to Batch'|translate}}" ng-click="CallEnrollUserModalByCourse('',userLists,'bulk')" data-ng-disabled=""></button>
             
             <button ng-click="fnCreateBatch()" class="btn btn-success baab-btn pull-right" translate="{{'Create a New Batch'|translate}}"></button></div>
                  
@@ -39,9 +39,10 @@
               </div>
               </div>
         <!--Filter the users who have status Approved using ng-if-->
-            <div class="col-xs-12 p-sm no-padding" ng-if="mentee.status=='Approved'" ng-init="viewBox = true" ng-repeat="mentee in course.userInfo" style="margin-bottom:0px;">
-            <div style="cursor: pointer;">
+            <div class="col-xs-12 no-padding" ng-repeat="userList in userLists">
 
+            <div class="col-xs-12 p-sm no-padding" ng-if="mentee.status=='Approved'" ng-init="viewBox = true" ng-repeat="mentee in userList.userInfo" style="margin-bottom:0px;">
+            <div style="cursor: pointer;">
                 <div class="row">
                   <div class="col-xs-12 no-padding b b-light" style="margin-bottom:none;">
                     <div class="col-xs-3 col-md-2 text-center h-full p-v" style="display:table-cell;">
@@ -81,7 +82,6 @@
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">
-                                              <!-- <doc-viewer data="mentee.doc"></doc-viewer> -->
                                               <a href="{{mentee.passportCopy}}F" ng-if="mentee.passportCopy" target="_blank">
                                                 <img class="col-xs-12 img-responsive img-thumbnail" src="{{mentee.passportCopy}}">
                                               </a>
@@ -100,14 +100,14 @@
 
                     <div class="col-xs-2 col-md-1 text-right">
                       <span ng-model="mentee.$index"></span>
-                      <button class="btn no-padding" ng-click="CallEnrollUserModal(mentee,course,$index,orderForm._id.$oid,'single')" bs-tooltip data-placement="left" data-title="{{'Enroll this candidate'|translate}}">
+                      <button class="btn no-padding" ng-click="CallEnrollUserModalByCourse($index,userList,'single')" bs-tooltip data-placement="left" data-title="{{'Enroll this candidate'|translate}}">
                         <i class="mdi-social-person-add text-lg"></i>
                       </button>
 
-                    <button class="btn no-padding" >
-                        <i class="mdi-navigation-unfold-more text-lg" ng-show="!mentee.showDetails" ng-click="mentee.showDetails = true" bs-tooltip  data-title="Expand and view details"></i>
-                         <i class="mdi-navigation-unfold-less text-lg" ng-show="mentee.showDetails" ng-click="mentee.showDetails = false" bs-tooltip  data-title="Show less details"></i>
-                    </button>
+                      <button class="btn no-padding" >
+                          <i class="mdi-navigation-unfold-more text-lg" ng-show="!mentee.showDetails" ng-click="mentee.showDetails = true" bs-tooltip  data-title="Expand and view details"></i>
+                           <i class="mdi-navigation-unfold-less text-lg" ng-show="mentee.showDetails" ng-click="mentee.showDetails = false" bs-tooltip  data-title="Show less details"></i>
+                      </button>
 
                     </div>
 
@@ -118,9 +118,12 @@
                 </div>       
                    </div>
               </div>
+            </div>
+              </div>
      </div>
    </div><!--ngRepeat child ends-->
    </div><!--ngRepeat parent ends-->
+</div>
   </div>
 
 </div>
