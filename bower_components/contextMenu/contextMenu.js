@@ -29,8 +29,8 @@ angular.module('ui.bootstrap.contextMenu', [])
         });
 
       $scope.ExistingMaterials=angular.copy($scope.$parent.$parent.$parent.$parent.$parent.ExistingMaterials);
-      $scope.searchTextCourse;
-      $scope.searchTextMaterial;
+      // $scope.ExistingMaterials.searchTextCourse='';
+      // $scope.ExistingMaterials.searchTextMaterial='';
       $scope.status={};
       $scope.selectedCourse={};
       $scope.searchText={};
@@ -45,6 +45,7 @@ angular.module('ui.bootstrap.contextMenu', [])
 
         if ($scope.previewOut.courseElement){
             var courseElement=angular.copy($scope.previewOut.courseElement);
+            console.log(courseElement);
             $scope.fnSaveElement(courseElement);
         }
 
@@ -91,7 +92,6 @@ angular.module('ui.bootstrap.contextMenu', [])
           });
 
       };
-
 
 
  $scope.notifications=function(title,message,type){
@@ -269,9 +269,9 @@ angular.module('ui.bootstrap.contextMenu', [])
               +'<div class="navbar-header col-xs-3">'
                   +'<h4 class="font-bold" >Existing Course Elements</h4>'
               +'</div>'
-              +'<button type="button" class="btn baab-btn pull-right no-padding" style="margin-top:-5px;" ng-click="$hide()"><i class="mdi-navigation-close text-2x text-white"></i></button>'
+              +'<div type="button" class="btn pull-right no-padding" ng-click="$hide()"><i class="mdi-navigation-close text-lg text-white"></i></div>'
           +'</div>'
-      +'<div class="modal-body no-padding h-full" >'
+      +'<div class="modal-body no-padding " >'
           
           +'<div class="col-md-4 col-xs-6" >'
 
@@ -280,37 +280,44 @@ angular.module('ui.bootstrap.contextMenu', [])
               +'</div>'
               +'<div class="navbar-collapse collapse navbar-inverse-collapse">'
                   +'<form class="navbar-form  navbar-left col-xs-8">'
-                      +'<input type="text" class="form-control ng-model="ExistingMaterials.searchTextCourse" placeholder="Search">'
+                      +'<input type="text" class="form-control" ng-model="ExistingMaterials.searchTextCourse" placeholder="Search">'
                   +'</form>'
                
               +'</div>'
             +'<div class="list-group" style=" height:500px; overflow:scroll;">'
-                  +'<div ng-repeat="course in ExistingMaterials|filter:ExistingMaterials.searchTextCourse">'
-                   +'<a href ng-click="fnselectCourse(course);status.formCourse = $index" bs-tooltip data-title="click to see Elements"  class="list-group-item " >{{course.Name}}<i ng-show="status.formCourse==$index" class="pull-right fa fa-check-circle text-primary"></i></a>'
+                  +'<div ng-repeat="course in ExistingMaterials|filter:ExistingMaterials.searchTextCourse |orderBy:\'-draftFlag\'">'
+                 
+                   +'<a href ng-click="fnselectCourse(course);status.formCourse = $index" bs-tooltip data-title="click to see Elements"  class="list-group-item " >{{course.Name}}<i ng-show="status.formCourse==$index" class="pull-right fa fa-check-circle text-primary"></i></br>'
+                     +'<span ng-if="course.draftFlag==1" class="label label-success ">Published</span>'
+                    +'<span ng-if="course.draftFlag==0" class="label label-warning ">Drafted</span>'
+                   +'</a>'
+                    // +'<div class="">{{course.draftFlag}}</div>'
+                  
+
                   +'</div>'
 
             +'</div>'
             
           +'</div> '
 
-          +'<div class="col-md-8 col-xs-6 m-t-md"  style=" height:550px; overflow:scroll;"> '
+          +'<div class="col-md-8 col-xs-6 "  > '
               +'<div class="navbar-header col-xs-3">'
                   +'<h4 class="font-bold" >Course Materials</h4>'
               +'</div>'
               +'<div class="navbar-collapse collapse navbar-inverse-collapse">'
                   +'<form class="navbar-form  navbar-left col-xs-8">'
-                      +'<input type="text" class="form-control ng-model="selectedCourse.searchTextMaterial" " placeholder="Search">'
-                  +'</form>'
-               
-              +'</div>'
+                      +'<input type="text" class="form-control" ng-model="selectedCourse.searchTextMaterial" placeholder="Search">'
+                  +'</form>'                
 
+              +'</div>'
+            +'<div  style=" height:500px; overflow:scroll;">'
                  +'<div class="col-xs-12" ng-if="selectedCourse" ng-repeat="(tlpointkey,tlpointvalue) in selectedCourse.courseTimeline" >'
-                        +'<div ng-repeat="(courseElementskey,courseElementsvalue) in  tlpointvalue">'
+                        +'<div ng-repeat="(courseElementskey,courseElementsvalue) in  tlpointvalue ">'
                                
 
                                +'<div ng-repeat="(courseElementkey,courseElementvalue) in  courseElementsvalue |filter:selectedCourse.searchTextMaterial">'
                                  
-                                +'<div col-xs-10>'                          
+                                +'<div class="col-xs-12 m-t">'                          
                                 +'<material-preview  addmaterial="previewOut" data="courseElementvalue"></material-preview>'
                                 +'</div>'
 
@@ -320,6 +327,7 @@ angular.module('ui.bootstrap.contextMenu', [])
                         +'</div>'
 
                   +'</div> '
+            +'</div> '
           +'</div> '
           
 

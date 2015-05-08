@@ -73,7 +73,7 @@ angular.module('baabtra')
 
 angular.module('angular-custom-form',[]) /*Config constant for angular custom form */
 .constant('bbConfig',{ //used for storing enviornment variables
-     // "BWS": "http://127.0.0.1:8000/",//local
+     "BWS": "http://127.0.0.1:8000/",//local
       // "BWS": "http://services.baabtra.com/",//server - production
     // "BWS": "http://server.mb-test.in/",//server-test
      "SARID":1, // SuperAdminRoleID

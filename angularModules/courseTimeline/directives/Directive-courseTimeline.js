@@ -84,15 +84,13 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 					var containerCount = 0;
 					scope.containerHeight = 95;
 
-
 					for (var index in scope.elementOrderNewFormat ){
 						if(containerCount < scope.elementOrderNewFormat[index].length){
 							containerCount = scope.elementOrderNewFormat[index].length;
 						}
 					}
 					// console.log(containerCount)
-					scope.containerHeight = 70/containerCount + (containerCount*70);
-
+					scope.containerHeight = 20/containerCount + (containerCount*60);
 					
 					if(angular.equals(name,'Minute')){
 						scope.timeLineView = angular.copy(scope.syncData.courseTimeline);
