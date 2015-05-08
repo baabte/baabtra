@@ -5,6 +5,8 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
 		//scope:{selectedTpoint:'='},
 		templateUrl: 'angularModules/courseElements/directives/Directive-editCourseElement.html',
 		link: function(scope, element, attrs, fn) {
+
+
 			var randomKey=Math.floor(Math.random()*100000,1000);
 			//scope.instance = scope.selectedTpoint/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor-((1/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor))+1;
             scope.instance = scope.selectedTpoint;
@@ -34,6 +36,9 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
             	scope.coursePreviewObj.iconBackground=scope.$parent.courseElement.iconBackground; // icon bg colour
                
             	scope.coursePreviewObj.iconColor=scope.$parent.courseElement.iconColor; //icon colour
+                   
+
+                    
 
             	angular.forEach(scope.$parent.courseElement.courseElementTemplate.fields,function(item){ // looping through item template
                     fieldsTraversedCount++;
@@ -43,7 +48,18 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
                     	var loopCounter=0; // a counter for all loops comes inside custom list of properties
                     	var maxLoopValue=item.customlist.length;
                     	var weHaveGotPreviewKey=false;
+                        temp[item.name].displayName = item.displayName;
+                        if(!angular.equals(item.uniqueId, undefined)){
+                           temp[item.name].uniqueId = item.uniqueId;
+                        }
+                        if(!angular.equals(item.parentElementId, undefined)){
+                           temp[item.name].parentElementId = item.parentElementId;
+                        }
+
                     	angular.forEach(item.customlist,function(customProperty){
+
+                         
+
                     		loopCounter++;
                             // here we build object to store into db and to push into timeline
                             if(angular.equals(customProperty.value,'previewkey')){ // checking is there have a value for previewkey
@@ -62,6 +78,18 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
                                     });
                                 }
                             }
+                            else if(angular.equals(customProperty.key,'sub-element')){
+                              if(!temp[item.name].customAttributes){
+                                  temp[item.name].customAttributes ={};
+                                }
+                                temp[item.name].customAttributes['sub-element'] ='true';
+                            }
+                            else if(angular.equals(customProperty.key,'cef-remove-button')){
+                              if(!temp[item.name].customAttributes){
+                                  temp[item.name].customAttributes ={};
+                                }
+                                temp[item.name].customAttributes['cef-remove-button'] ='true';
+                            }
                             else{
                             	if((loopCounter==maxLoopValue)&&!weHaveGotPreviewKey){ // when count meets length of custom list and still
                                     temp[item.name]=scope.formData[item.name];
@@ -79,6 +107,9 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
                     // if(scope.formData[randomKeyForNested].nestedElements){
                     //     scope.coursePreviewObj.nestedElements = scope.formData[randomKeyForNested].nestedElements;
                     // }
+
+                   
+
                 });
 			};
 			//function for triggering when save button in aside

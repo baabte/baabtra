@@ -22,6 +22,27 @@ this.fnApproveUserRequest = function(userId, orderFormId, courseKey, statusType,
         });
         return promise;
       };
+      
+this.verifyCandidateByCourse = function(formList){
+    var result;
+      var promise=$http({
+           url: bbConfig.BWS+'verifyCandidateByCourse/',
+           data: angular.toJson({listData:formList}),
+           method: 'POST',
+           withCredentials: false,
+           contentType:'application/json',
+           dataType:'json',
+           }).
+              success(function(data, status, headers, config) {
+             
+                return promise;
+               
+              }).
+              error(function(data, status, headers, config) {
+                result='error';
+             });  
+      return promise;
+   };
 
 
 }]);
