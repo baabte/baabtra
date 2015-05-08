@@ -38,27 +38,32 @@ $scope.allUserSelected=false;
 $scope.expand=false;
 
 
-
+var searchTimeOut;
 $scope.searchUser=function(){
-	var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope,'','initial','',$scope.userObj.searchKey);
+	if(searchTimeOut) {
+	clearTimeout(searchTimeOut);
+	}
+	searchTimeOut=setTimeout(function(){
+		var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope,'','initial','',$scope.userObj.searchKey);
 	   fetchUsersToCourseAllocateCallback.then(function(data){
+	   	var searchKey=$scope.userObj.searchKey;
         $scope.userObj=angular.fromJson(JSON.parse(data.data));
+        $scope.userObj.searchKey=searchKey;
         // console.log('search initial')
         // console.log($scope.userObj)
        });
+	},500);
+	
 
 };
 
 $scope.nextOne=function(){//event  for showing next 9 items
-
 	  $scope.prevButtondisabled=false;
 	   var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope,$scope.userObj.firstId,'next',$scope.userObj.lastId,$scope.userObj.searchKey);
 	   fetchUsersToCourseAllocateCallback.then(function(data){
         $scope.userObj=angular.fromJson(JSON.parse(data.data));
         // console.log('next');
         // console.log($scope.userObj);
-
-
        });
 };
 
@@ -144,20 +149,18 @@ $scope.notifications(':)','Allocated to Course Successfully','success');
 };
 
 $scope.fnSelectAll=function(){
-
+	var index;
 	if(angular.equals($scope.userObj.SelectionAll,true)){
-		for(var index in $scope.userObj.userList){
+		for(index in $scope.userObj.userList){
 			$scope.userObj.userList[index].Selection=true;
 			$scope.allUserSelected=true;
-
 		}
 
 	}
 	else if(angular.equals($scope.userObj.SelectionAll,false)){
-		for(var index in $scope.userObj.userList){
-			$scope.userObj.userList[[index]].Selection=false;
+		for(index in $scope.userObj.userList){
+			$scope.userObj.userList[index].Selection=false;
 			$scope.allUserSelected=false;
-			
 		}
 	}
 	// console.log($scope.userObj.userList);
