@@ -125,7 +125,7 @@ app.run(['$http','$interval','bbConfig','$alert','$modal','$rootScope',function 
           // }
          
         }
-        $interval(ping, TIME);
+        // $interval(ping, TIME);
         
     }]);
 
