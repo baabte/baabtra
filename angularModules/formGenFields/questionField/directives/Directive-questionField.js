@@ -16,6 +16,13 @@ angular.module('baabtra').directive('questionField',['courseElementFieldsManagin
 		},
 		templateUrl: 'angularModules/formGenFields/questionField/directives/Directive-questionField.html',
 		link: function(scope, element, attrs, fn) {
+
+			
+
+			// console.clear()
+			// console.log('=========================')
+			// console.log(scope.)
+			// console.log('=========================')
 			//setting default tab
 			scope.selectedTab='question';
 			//output plain text from html

@@ -57,6 +57,7 @@
         'internationalPhoneNumber',
         'checklist-model',
         'angular-flipclock',
+        'angularTreeview',
         'chart.js'//,
         //function(){  return 'custom-form';}()
         
