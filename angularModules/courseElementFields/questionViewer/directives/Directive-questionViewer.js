@@ -10,15 +10,23 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 			courseId:'=',
 			//added by Anoop to hide the individual submit button when appearing inside a test, assignment or stuff like that
 			showSubmitButton:'@',
-			thisScope:"="
+			thisScope:"=",
+			//added by Anoop show assignment related options when the question happens to be inside an assignment
+			fromAssignment:"="
 		},
 		templateUrl: 'angularModules/courseElementFields/questionViewer/directives/Directive-questionViewer.html',
 		link: function(scope, element, attrs, fn) {
 			
-			// building the previewData object to pass to the sub element directive
-
+			//Anoop. building the previewData object to pass to the sub element directive
 			scope.previewData = scope.courseElement;
 
+			// Anoop . **** these are the things required when the question is appearing inside an assignment
+
+			scope.fromAssignment = JSON.parse(scope.fromAssignment);
+
+			
+
+			// End. Anoop . **** these are the things required when the question is appearing inside an assignment
 
 
 			var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId; // Role id of logged user
