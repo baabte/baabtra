@@ -40,7 +40,7 @@ angular.module('baabtra').directive('assignmentViewer',['$rootScope','$state','a
 			 	    	scope.totalMarks = 0;
 			 	    }			 	   
 			 		scope.totalMarks = parseInt(scope.totalMarks) + parseInt(currentElement.value.mark.totalMark);
-
+			 		
 			 	}
 			 }
 		}
@@ -59,7 +59,9 @@ angular.module('baabtra').directive('assignmentViewer',['$rootScope','$state','a
 			 currentElement = elementArray[i];
 			 if(!angular.equals(currentElement,null)){
 			 	
-			 	if(angular.equals(currentElement.type, 'question-viewer')){			 		
+			 	if(!angular.equals(exceptionArray.indexOf(currentElement.type), -1)){
+
+			 		 		
 			 		//calling the save answer function in the question viewer directive, but here we want the submit status to be saved as draft or whatever status which is sent from here, so if that function is passed with an argument, the function will replce those keys with the values passed from here.
 			 		var evStatus = 2;
 			 		if(angular.equals(submitStatus,"submitted")){

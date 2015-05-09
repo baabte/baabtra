@@ -56,9 +56,11 @@ angular.module('baabtra').directive('assignmentQuestionCreator',['bbConfig','com
 // **********************************************************************************************************************
 
 //setting up a watch on the total marks of question so that the total marks of the assignment gets set
-angular.$watch('ngModel.question.totalMarks', function(){
-	scope.ngModel.totalMarks = scope.ngModel.question.totalMarks
-});
+scope.$watch(function (){ return scope.ngModel.question.mark; }, function(){
+	
+	scope.ngModel.mark = scope.ngModel.question.mark;
+	
+}, true);
 
 
 

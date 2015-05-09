@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseService','$compile','questionAnsweringSrv','$rootScope','$state', function(bbConfig,addCourseService,$compile,questionAnsweringSrv,$rootScope,$state) {
+angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseService','$compile','questionAnsweringSrv','$rootScope','$state', '$modal', function(bbConfig,addCourseService,$compile,questionAnsweringSrv,$rootScope,$state,$modal) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -258,8 +258,9 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
                                 weHaveGotPreviewKey=true;
                                 temp[item.name].value=scope.userAnswer[0].primaryAnswer[item.name];
                                 temp[item.name].type=customProperty.text;
+
+
                                 if(angular.equals(customProperty.text,"doc-viewer")){ // if it is a file, it should be stored in server to show preview through
-                                                                                      // google doc preview
 
                                 if(!angular.equals(temp[item.name].value, undefined))  {
                                     scope.weHaveGotAprimaryFile=true;
@@ -369,6 +370,24 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
         };
 
         scope.thisScope = scope;
+
+        	// Pre-fetch an external template populated with a custom scope
+   			var submitModal = $modal({scope: scope, template: 'angularModules/courseElementFields/assignmentQuestionViewer/modals/showImage.html', show: false,placement:'center'});
+ 			// Show when some event occurs (use $promise property to ensure the template has been loaded)
+
+			// show the enlarged version of hthe image in a popup
+			scope.showImage = function(mode){			
+
+				if (angular.equals(mode,'input')){
+
+					scope.imgToBeShown = scope.fromAssignment.value.inputImage;
+				}
+				else if (angular.equals(mode,'output')) {
+					scope.imgToBeShown = scope.fromAssignment.value.outputImage;
+				}
+				
+				submitModal.$promise.then(submitModal.show);
+			}
 			
 		}
 	};
