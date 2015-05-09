@@ -56,7 +56,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 
 			scope.buildTlObject = function(selectedDuration){//function for building timeline object
 				// var selectedDuration = selectedDuration;
-				scope.$watch(function() {return scope.syncData.courseTimeline}, function(){
+				scope.$watch(function(){return scope.syncData.courseTimeline},function(){
 				if(!angular.equals(scope.syncData.courseTimeline,undefined)){
 					var name=scope.ddlBindObject[scope.selectedDuration-1].name.replace('(s)','');
 					var newTlPoint = 1;
@@ -90,7 +90,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 						}
 					}
 					// console.log(containerCount)
-					scope.containerHeight = 20/containerCount + (containerCount*60);
+					scope.containerHeight = 70/containerCount + (containerCount*70);
 					
 					if(angular.equals(name,'Minute')){
 						scope.timeLineView = angular.copy(scope.syncData.courseTimeline);
@@ -329,11 +329,11 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	 				elementTo.value = selectedCourseElement.elements[elementCount].value;
             	 				elementTo.displayName = selectedCourseElement.elements[elementCount].displayName;
             	 				if(!angular.equals(selectedCourseElement.elements[elementCount].uniqueId, undefined)){
-            	 					elementTo.uniqueId = selectedCourseElement.elements[elementCount].uniqueId
+            	 					elementTo.uniqueId = selectedCourseElement.elements[elementCount].uniqueId;
             	 				}
 
             	 				if(!angular.equals(selectedCourseElement.elements[elementCount].parentElementId, undefined)){
-            	 					elementTo.parentElementId = selectedCourseElement.elements[elementCount].parentElementId
+            	 					elementTo.parentElementId = selectedCourseElement.elements[elementCount].parentElementId;
             	 				}
             	 				
             	 				
