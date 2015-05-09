@@ -873,6 +873,16 @@
                 }
                 
               })
+               .state('home.main.questionBank', {
+                url: '/questionBank',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/questionBank/partials/Partial-questionBankView.html',
+                    controller: 'QuestionbankviewCtrl'
+                  }
+                }
+                
+              })
                .state('course', {
                 url: '/course/:companyId',
                 templateUrl: 'angularModules/publicAPIs/course/partials/Partial-companyCourseList.html',
