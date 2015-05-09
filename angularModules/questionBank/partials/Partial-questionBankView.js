@@ -9,6 +9,11 @@ if($rootScope.loggedIn===false){
  $state.go('login');
 }
 
+var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+var companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+
+
+
 
 
 
