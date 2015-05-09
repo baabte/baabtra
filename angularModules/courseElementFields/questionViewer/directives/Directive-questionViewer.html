@@ -44,14 +44,14 @@
 				<div class="col-xs-12">			
 					<div class="col-xs-5 p-lg bg-light" ng-if="fromAssignment.value.inputImage">
 						  <div class="col-xs-12 font-bold">Input image</div>
-				          <div class="col-xs-12 p-h-lg"><img ng-click="openLightboxModal(0)"  class="img-responsive img-thumbnail w-sm m-xs" ng-src="{{fromAssignment.value.inputImage}}" style="cursor:pointer;" bs-tooltip data-placement="top" data-title="Click to view an enlarged version"/>
+				          <div class="col-xs-12 p-h-lg text-center"><img ng-click="showImage('input')"  class="img-responsive img-thumbnail w-sm m-xs" ng-src="{{fromAssignment.value.inputImage}}" style="cursor:pointer;" bs-tooltip data-placement="top" data-title="Click to view an enlarged version"/>
 				          </div>
 				       
 					</div>
 					
 					<div class="col-xs-push-2 col-xs-5 p-lg bg-light" ng-if="fromAssignment.value.outputImage">				
 						  <div class="col-xs-12 font-bold">Output image</div>
-				         <div class="col-xs-12 p-h-lg"> <img ng-click="openLightboxModal(1)"  class="img-responsive img-thumbnail w-sm m-xs" ng-src="{{fromAssignment.value.outputImage}}" style="cursor:pointer;" bs-tooltip data-placement="top" data-title="Click to view an enlarged version"/>
+				         <div class="col-xs-12 p-h-lg text-center"> <img ng-click="showImage('output')"  class="img-responsive img-thumbnail w-sm m-xs" ng-src="{{fromAssignment.value.outputImage}}" style="cursor:pointer;" bs-tooltip data-placement="top" data-title="Click to view an enlarged version"/>
 				         </div>
 				      
 					</div>
