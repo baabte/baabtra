@@ -426,6 +426,17 @@
                 }
               })
 
+                .state('home.main.viewOrderFormByCourse', {
+                url: '/viewOrderFormByCourse/:key',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Nomination/partials/Partial-verifyOrderformByCourse.html',
+                    controller: 'VerifyorderformbycourseCtrl'
+                  }
+                }
+              })
+
+
                 .state('home.main.viewOrderForm.approveOrderFrom', {
                 url: '/approveOrderFrom/:ofId',
                 views:{
@@ -434,6 +445,8 @@
                   }
                 }
               })
+
+
 
               .state('home.main.viewCourse', {
                 url: '/viewCourse/:courseId',
