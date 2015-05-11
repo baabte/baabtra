@@ -3,7 +3,7 @@ angular.module('baabtra').service('questionBankService',['$http','bbConfig',func
 	 this.fnFetchAllQuestionBundles=function(courseAllocate){
     var promise = $http({
           method: 'POST',
-          url: bbConfig.BWS+'AllocateUsersToCourse/',
+          url: bbConfig.BWS+'FetchAllQuestionBundles/',
           data:angular.toJson(courseAllocate),
           contentType:'application/json; charset=UTF-8',
         })
@@ -11,16 +11,18 @@ angular.module('baabtra').service('questionBankService',['$http','bbConfig',func
         return promise;
       };
 
-       this.fnAddQuestionBundles=function(courseAllocate){
+       this.fnModifyQuestionBundles=function(courseAllocate){
     var promise = $http({
           method: 'POST',
-          url: bbConfig.BWS+'AllocateUsersToCourse/',
+          url: bbConfig.BWS+'ModifyQuestionBundles/',
           data:angular.toJson(courseAllocate),
           contentType:'application/json; charset=UTF-8',
         })
 
         return promise;
       };
+
+
 
 	
 }]);

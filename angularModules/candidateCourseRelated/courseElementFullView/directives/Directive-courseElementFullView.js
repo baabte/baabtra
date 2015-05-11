@@ -41,8 +41,7 @@ angular.module('baabtra').directive('courseElementFullView',['$compile', functio
 									}
 							 		var elementToBeCreated = $('<'+elemDirName+'>');							 		
 							 		
-							 		console.clear();
-							 		console.log(data);
+							 		
 							 		//checking for custom attributes and adding them
 							 		if(!angular.equals(data.customAttributes, undefined)) {
 							 			
