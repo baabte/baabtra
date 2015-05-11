@@ -21,9 +21,9 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 			scope.previewData = scope.courseElement;
 
 			// Anoop . **** these are the things required when the question is appearing inside an assignment
-
-			scope.fromAssignment = JSON.parse(scope.fromAssignment);
-
+			if(angular.isDefined(scope.fromAssignment)){
+				scope.fromAssignment = JSON.parse(scope.fromAssignment);
+			}
 			
 
 			// End. Anoop . **** these are the things required when the question is appearing inside an assignment
