@@ -10,7 +10,7 @@
                     <div class="m-t-md ">
                         <div class="input-group m-b pull-left col-xs-12">
                             <span class="input-group-addon"><i class="mdi-action-search text-2x"></i></span>
-                            <input type="text" ng-change="searchUser()" ng-model="userObj.searchKey" class="form-control" placeholder="Search Question Bundles" autocomplete="off">
+                            <input type="text" ng-change="searchUser()" ng-model="userObj.searchKey" class="form-control" placeholder="Search Question Set" autocomplete="off">
                         </div>                                
                     </div>
                 </div>
@@ -34,69 +34,34 @@
                 <div class="row">
                     <div class="col-xs-12">
 
-                    	 <div class="p shadow-z-1 col-xs-12 bg-white">
+                    	<!--  <div class="p shadow-z-1 col-xs-12 bg-white">
                              <div class="col-xs-12"></div>      
                                     
 
                         </div>
                         <div  class="p shadow-z-1 col-xs-12 btn-material-red-500">
-                                <h4 translate="{{'No users Found'| translate}}"></h4>    
+                                <h4 translate="{{'No question banks found'| translate}}"></h4>    
                                      
 
+                        </div> -->
+
+                        <div class="p shadow-z-1 col-xs-12 bg-white "  >
+                                    
+                            <div class="col-xs-12 pull-left">
+                                <a  class="btn btn-info" ng-click="fnCreateQuestionsetModalActivate()" translate="{{'Create New Question Set'|translate}}"></a>
+
+                            </div> 
+                                                               
+                             
                         </div>
 
-                        <div class="p shadow-z-1 col-xs-12 bg-white "ng-repeat="user in userObj.userList" >
-                                    <div class="hidden-xs">
-                                    <div ng-if="allUserSelected"  class="col-xs-2">
-                                        <div class="checkbox no-margin">
-                                            <label>
-                                                <input ng-model="user.Selection" type="checkbox">
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div ng-if="!allUserSelected" class="col-xs-2">
-                                        <div class="checkbox no-margin">
-                                            <label>
-                                                <i ng-click="fnUserSelection(user,$index)" class="mdi-content-add-box text-2x"></i>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <!-- <div class="col-xs-1"> -->
-                                        
-                                        <!-- <i class="iconCustomBg ui-icon fa {{element.Icon}} b-white text-lg b-2x" style="color:{{element.iconColor}}!important;background-color:{{element.iconBackground}}!important;border-radius: 12px;"></i>  -->
-                                        <!-- <i class="ui-icon fa {{element.Icon}} text-lg"></i> -->
-                                    <!-- </div> -->
-                                    <div class="col-xs-10 pull-left">
-                                        <span class="upper font-bold">{{user.profile.firstName}} {{user.profile.lastName}}</span>
-                                        <i  class="mdi-navigation-unfold-less pull-right text-lg link hidden-xs" ng-click="user.expandDetails=!expand;expand=!expand"></i>
-
-                                        <div class="hidden-xs" ng-if="user.expandDetails && user.expandDetails == true">
-                                            <div class="font-bold p-v-xs" translate="{{'User Details'|translate}}"></div>
-                                            <div class="">
-                                                <div class="bg-light p-xs m-b-xs">{{user.userName}}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="visible-xs">
-                                    <div ng-if="allUserSelected"  class="col-xs-2 ">
-                                        <div class="checkbox no-margin">
-                                            <label>
-                                                <input ng-model="user.Selection" type="checkbox">
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div ng-if="!allUserSelected" class="col-xs-2">
-                                        <div class="checkbox no-margin">
-                                            <label>
-                                                <i ng-click="fnUserSelection(user,$index)" class="mdi-content-add-box text-2x"></i>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    </div>
+                        <div class="p shadow-z-1 col-xs-12 bg-white "  >
                                     
+                            <div class="col-xs-12 pull-left">
+                                <span class="upper font-bold">{{user}}</span>
+                                <i  class="mdi-navigation-unfold-less pull-right text-lg link " ng-click="user.expandDetails=!expand;expand=!expand"></i>
+                            </div> 
+                            <div  ng-if="user.expandDetails && user.expandDetails == true"></div>
                              
                         </div>
 
