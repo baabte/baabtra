@@ -91,7 +91,8 @@ this.FnLoadGlobalValues=function(key)
            withCredentials: false,
            contentType:'application/json',
            dataType:'json',
-           })
+           });
+    // console.log(typeof fileToBeUpload,fileToBeUpload);
     return promise;
    };
 
