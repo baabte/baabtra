@@ -9,7 +9,7 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
     templateUrl: 'angularModules/Batches/directives/Directive-batchLoader.html',
     link: function(scope, element, attrs, fn) { 
       
-      scope.test={};
+      //scope.test={};
    // scope.$watch('courseobj', function(){//adding watch to couse id 
    //    $scope.courseId=scope.courseobj.course._id
    //      if(!angular.equals(scope.courseobj.doj,undefined)){
@@ -36,7 +36,7 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
    //          }else{
    //             joinDate="2015-03-15T18:30:00.000Z";//Date();
               
-   //          }
+   //15-03-2015          }
    //      }, true);
 
 
@@ -53,11 +53,11 @@ angular.module('baabtra').directive('batchLoader',['addBatches','$rootScope','$f
    }); 
 
   // scope.courseobj.doj=new Date();
-  // scope.$watch('courseobj.doj', function(){//adding watch to couse id
+   scope.$watch('courseobj.doj', function(){//adding watch to date
 
-  // scope.fetchBatch();
+   scope.fetchBatch();
         
-  // }, true); 
+   }, true); 
 
    scope.$watch('courseobj.coursetype', function(){//adding watch to couse id
     scope.fetchBatch();
@@ -73,18 +73,18 @@ scope.fetchBatch =function(){
              if(!angular.equals(scope.courseobj.course,undefined)){
                courseId=scope.courseobj.course._id;
              } 
-             // if(!angular.equals(scope.courseobj.doj,undefined)){
-             //      joinDate=scope.courseobj.doj.toISOString(); 
+             if(!angular.equals(scope.courseobj.doj,undefined)){
+                  joinDate=scope.courseobj.doj.toISOString(); 
 
-             //    }else{
-             //        joinDate=join.toISOString(); 
-             //    } 
-           joinDate=join.toISOString();
+                 }else{
+                     joinDate=join.toISOString(); 
+                } 
+           //joinDate=join.toISOString();
 
            courseType = scope.courseobj.coursetype?scope.courseobj.coursetype:'';
            scope.batchElements=[];
            if(!angular.equals(courseId,undefined)){
-
+           console.log(companyId+ " "+ courseId+" "+joinDate+" "+courseType);
         
                var promise = addBatches.loadCourseRelatedBatches(companyId,courseId,joinDate,courseType);
             promise.then(function(response){
