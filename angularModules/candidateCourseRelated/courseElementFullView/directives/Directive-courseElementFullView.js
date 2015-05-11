@@ -17,6 +17,8 @@ angular.module('baabtra').directive('courseElementFullView',['$compile', functio
 
 		scope.$watch('previewData', function(){
 
+			
+
 			scope.childElementScopes = {};
 				$(element).find('#elementContent'+scope.rand).html('');
 				if(!angular.equals(scope.previewData,undefined)){

@@ -20,7 +20,7 @@ angular.module('baabtra').directive('descriptiveAnswer', function() {
 					return 0;
 				}
 		
-				scope.userAnswer[0]=angular.copy(scope.enteredAnswer);
+				scope.userAnswer[0]=scope.enteredAnswer;
 				
 			},true);
 

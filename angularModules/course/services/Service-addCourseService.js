@@ -89,7 +89,8 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
            withCredentials: false,
            contentType:'application/json',
            dataType:'json',
-           })
+           });
+
 	 	return promise;
 	 };
 

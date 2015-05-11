@@ -37,7 +37,7 @@
         'schemaForm',
         'ui.select',
         function(){  return 'fg';}(),
-        // 'ui.bootstrap.contextMenu',
+        'ui.bootstrap.contextMenu',
         'ngFacebook',
         'perfect_scrollbar',
         'googleplus',
