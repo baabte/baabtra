@@ -126,6 +126,22 @@ angular.module('baabtra').directive('assignmentViewer',['$rootScope','$state','a
      	
      	if(angular.equals(response.result,"success")) {
 
+     		// in the event of success, update the current dat aobject to initiate rerendering of the controls
+     		data.lastUpdatedBy = $rootScope.userinfo.ActiveUserData.roleMappingObj._id;
+    		data.markScored = totalMarksScored;
+     		data.status = submitStatus;
+		    //objToBeSaved.answerArray = answerArray
+		    data.courseMappingId = $state.params.courseMappingId;
+
+	         if(objToBeSaved.statusHistory.length){
+	          data.statusHistory = objToBeSaved.statusHistory;
+	         }
+
+	          if(objToBeSaved.penaltyHistory.length){
+	          data.penaltyHistory = objToBeSaved.penaltyHistory;
+	         }
+	     
+
      		if(angular.equals(submitStatus, 'draft')){
 			$alert({title:'Success',content:'All changes have been saved', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'success', show:true});
 
