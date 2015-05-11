@@ -15,6 +15,11 @@ angular.module('baabtra').directive('courseElementFullView',['$compile', functio
 				"doc-viewer":'doc-viewer-frame'
 			};
 
+				console.clear()
+			console.log('==============================================================')			
+			console.log(scope.previewData)
+			console.log('==============================================================')
+
 		scope.$watch('previewData', function(){
 
 			
