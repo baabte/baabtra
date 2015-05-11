@@ -17,7 +17,13 @@ angular.module('baabtra').directive('questionViewerEv',['$modal', function($moda
 
 			// creating the preview data object to be shown as answer, the primary answer array is set as the elements property(array) of the preview data object
 			scope.answerPreviewData = {};
-			scope.answerPreviewData.elements = scope.data.value.userAnswer.primaryAnswer;
+			scope.answerPreviewData.elements = [];
+			if(scope.data.value.userAnswer){
+				for(key in scope.data.value.userAnswer[0].primaryAnswer){
+				scope.answerPreviewData.elements.push(scope.data.value.userAnswer[0].primaryAnswer[key]);
+			}
+			}
+			
 
 
 

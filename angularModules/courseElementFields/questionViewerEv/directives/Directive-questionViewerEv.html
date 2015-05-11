@@ -85,10 +85,11 @@
 
 				<div>
 					<div class="col-xs-1 course-description ">
-						<i class="pull-left" style="font-weight:bold; text-decoration:underline; margin-top:10px;color: #ff4081;" ng-if="answerPreviewData.keys.length">Answer:</i>
+						<i class="pull-left" style="font-weight:bold; text-decoration:underline; margin-top:10px;color: #ff4081;" ng-if="answerPreviewData.elements.length" >Answer:</i>
+						<!-- ng-if="answerPreviewData.keys.length" -->
 					</div>
 					<div class="col-xs-11 course-description m-t-xs">
-						<course-element-full-view preview-data = "answerPreviewData" ></course-element-full-view>
+						<course-element-full-view ng-if="answerPreviewData.elements.length"   preview-data="answerPreviewData" ></course-element-full-view>
 					</div>						
 				</div>
 			</div>

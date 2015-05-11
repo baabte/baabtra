@@ -7,7 +7,7 @@ angular.module('baabtra').directive('courseElementFullView',['$compile', functio
 			tlPosition:"@",
 			courseId:'='
 		},
-		templateUrl: 'angularModules/courseElementPreview/directives/Directive-courseElementPreview.html',
+		templateUrl: 'angularModules/candidateCourseRelated/courseElementFullView/directives/Directive-courseElementFullView.html',
 		link: function(scope, element, attrs, fn) {
 			scope.rand=Math.floor(Math.random()*100000); // for generating random id for elements
 			//alternative elements
@@ -15,10 +15,10 @@ angular.module('baabtra').directive('courseElementFullView',['$compile', functio
 				"doc-viewer":'doc-viewer-frame'
 			};
 
-				console.clear()
-			console.log('==============================================================')			
-			console.log(scope.previewData)
-			console.log('==============================================================')
+			// console.clear()
+			// console.log('==================courseElementPreview=====================')			
+			// console.log(scope.previewData)
+			// console.log('==============================================================')
 
 		scope.$watch('previewData', function(){
 
