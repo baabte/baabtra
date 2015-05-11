@@ -11,8 +11,15 @@ angular.module('baabtra').directive('questionViewerEv',['$modal', function($moda
 		templateUrl: 'angularModules/courseElementFields/questionViewerEv/directives/Directive-questionViewerEv.html',
 		link: function(scope, element, attrs, fn) {
 
+		
 			// Anoop . **** these are the things required when the question is appearing inside an assignment
 			//scope.fromAssignment = JSON.parse(scope.fromAssignment);
+
+			// creating the preview data object to be shown as answer, the primary answer array is set as the elements property(array) of the preview data object
+			scope.answerPreviewData = {};
+			scope.answerPreviewData.elements = scope.data.value.userAnswer.primaryAnswer;
+
+
 
 			if(angular.equals(typeof scope.result ,'String')){
 				scope.result = JSON.parse(scope.result);
