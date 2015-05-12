@@ -54,3 +54,10 @@ div[data-tree-model] li .selected {
   text-align: center;
 }
 
+.nodeItem {
+  /*background-color: #aaddff;*/
+  font-weight: bold;
+  padding: 14px;
+  text-align: center;
+}
+

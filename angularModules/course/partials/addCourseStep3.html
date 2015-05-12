@@ -2,16 +2,17 @@
 
 <div class="panel panel-default m-t p-md p-v-xs b-b b-5x {{borderClass}}">
 	<div class="row">
-
-	    <div class="col-xs-12 p-v">
-
-	    	<div data-angular-treeview="true" data-tree-id="syllabusTree" data-tree-model="data.syllabusTree" data-node-id="_id" data-node-label="_id" data-node-children="childrenObj" ></div>
+		<div class="col-xs-12">
+			<pre>{{course.syllabus}}</pre>
+		</div>
+	    <div class="col-xs-12 p-v b">
+	    	<div data-angular-treeview="true" data-tree-id="syllabusTree" data-tree-model="course.syllabus" data-node-id="name" data-node-label="name" data-node-children="children" ></div>
 	    </div>
 	</div>
 
 	<div class="row">
 		<div class="col-xs-12 text-right">
-			<button  type="submit" class="btn btn-info baab-btn" style="margin-right: 10px;" ng-disabled="generalInfo.$invalid || !totalCourseDuration" disabled="disabled" ng-click="completeStep3(course);"  translate="{{'Next'|translate}}"></button>
+			<button  type="submit" class="btn btn-info baab-btn" style="margin-right: 10px;" ng-disabled="generalInfo.$invalid || !totalCourseDuration" disabled="disabled" ng-click="completeStep3(course, 'step4');"  translate="{{'Next'|translate}}"></button>
 		</div>
 	</div>
 </div>

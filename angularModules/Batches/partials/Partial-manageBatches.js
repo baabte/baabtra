@@ -11,7 +11,8 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
    // $scope.repeatName={};
     //$scope.Batch.oneTime={};
     $scope.Batch.repeats={};
-    $scope.Batch.Admission={};$scope.Batch.repeats={};
+    $scope.Batch.Admission={};
+    $scope.Batch.repeats={};
     $scope.Batch.Admission={};
     $scope.Batch.repeats.excludedDaysRepeat=[];
     $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
@@ -42,7 +43,7 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
     }
    $scope.repeatArrays=[{id:0,text:'Daily',totalDays:1},{id:1,text:'Weekly',totalDays:7},{id:2,text:'Monthly',totalDays:30},{id:3,text:'Yearly',totalDays:365}];  
    $scope.repeatEvery=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
-   $scope.repeatTypeArray=[{id:0,text:'Days'},{id:1,text:'Weeks'},{id:2,text:'Months'},{id:3,text:'Years'}]
+   $scope.repeatTypeArray=[{id:0,text:'Days'},{id:1,text:'Weeks'},{id:2,text:'Months'},{id:3,text:'Years'}];
    $scope.days=[{id:'Sunday',text:'S'},{id:'Monday',text:'M'},{id:'Tuesday',text:'T'},{id:'Wednesday',text:'W'},{id:'Thursday',text:'Th'},{id:'Friday',text:'F'},{id:'Saturday',text:'S'}];
    $scope.fnLoadsubItem=function(id){
    	$scope.Batch.repeats.repeatType=$scope.repeatTypeArray[id].text;
@@ -61,9 +62,9 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
     $scope.savepopUpfn=function(hide){
       $scope.batchMode="repeat";
       $scope.excluded=$scope.excluded.substring(0, $scope.excluded.length - 1);
-   $scope.summary ='(Repeats Every '+ $scope.Batch.repeats.every +' '+ $scope.Batch.repeats.repeatType
+   $scope.summary ='(Repeats Every '+ $scope.Batch.repeats.every +' '+ $scope.Batch.repeats.repeatType;
    if($scope.excluded!=""){
-    $scope.summary=$scope.summary+ ' ,Dont start on '+$scope.excluded+')';  ;
+    $scope.summary=$scope.summary+ ' ,Dont start on '+$scope.excluded+')';
    }
    hide();
    }
@@ -142,7 +143,7 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
            $scope.Batch.repeats.excludedDaysRepeat.splice(idsel, 1);
         }else {// is newly selected
            $scope.Batch.repeats.excludedDaysRepeat.push(id);
-           $scope.excluded= $scope.excluded + id +','
+           $scope.excluded= $scope.excluded + id +',';
         }
    
     //console.log( $scope.Batch.repeats.excludedDaysRepeat)
@@ -172,13 +173,21 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
  
   
   $scope.fnEditBatches=function(id){
+      $scope.Batch={};
+        $scope.Batch.course=[];
    var batchInfo= addBatches.editBatch(id);
       batchInfo.then(function(response){
       $scope.batchInfo= angular.fromJson(JSON.parse(response.data));
+     //console.log($scope.batchInfo[0]);
       $scope.Batch=$scope.batchInfo[0];
       $scope.Batch.startDate= $filter('date')($scope.batchInfo[0].startDate.$date);
       $scope.Batch.endDate= $filter('date')($scope.batchInfo[0].endDate.$date);
       //$scope.Batch.batchMode=$scope.batchInfo[0].courseType
+      if($scope.batchInfo[0].batchMode=="repeat"){
+      $scope.summary="";  
+      }else{
+      $scope.summary=null;  
+      }
       if($scope.batchInfo[0].courseType=="offline"){
         $scope.Batch.offline=true;
         $scope.Batch.instructorLead=false;
@@ -186,7 +195,7 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
         $scope.Batch.instructorLead=true;
         $scope.Batch.offline=false;
       }
-      $scope.summary="";
+      
       $scope.excluded='';
       //$scope.Batch.repeats.every=$scope.batchInfo[0].repeats.every; 
        angular.forEach($scope.batchInfo[0].repeats.excludedDaysRepeat, function(item) {//for looping through the excluded days to show the excluded days
@@ -198,10 +207,9 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
     
   }
   $scope.fnDeleteBatches=function(id){
-   var deletedBatch= addBatches.deleteBatch(id,$scope.cmp_id)
+   var deletedBatch= addBatches.deleteBatch(id,$scope.cmp_id);
    deletedBatch.then(function(response){
     $scope.batchEelements=angular.fromJson(JSON.parse(response.data));
-    console.log($scope.batchEelements)
     $alert({title: 'Done..!', content: 'Successfuly Deleted the Batch :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
          hide();
 
