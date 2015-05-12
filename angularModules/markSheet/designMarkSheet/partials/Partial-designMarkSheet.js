@@ -56,13 +56,26 @@ $scope.searchKeyChanged = function () {
 
 };
 
-$scope.openPopup = function (course) {
+$scope.data.loaderProgressTab=0;
+$scope.progressStart=function () {
 
-	$scope.gotTheCourseDetails=true;
+		$scope.data.loaderProgressTab=$scope.data.loaderProgressTab==4?1:$scope.data.loaderProgressTab*1+1;
+		$scope.$digest();
+
+
+};
+	var interval=setInterval(function() {
+		$scope.progressStart();
+	},700);
+
+$scope.openPopup = function (course) {
 	console.log(course._id.$oid);
-	$scope.data.selectedCourse=course;
+
+
+	// $scope.data.selectedCourse=course;
 	//'angularModules/markSheet/designMarkSheet/popup/Popup-loadCourseData.html'
-    var loader=$modal({scope: $scope, template: 'angularModules/markSheet/designMarkSheet/popup/Popup-loadCourseData.html', show: true,placement:'center'});
+    var loader=$modal({scope: $scope,backdrop:'static', template: 'angularModules/markSheet/designMarkSheet/popup/Popup-loadCourseData.html', show: true,placement:'center'});
+    //loader.destroy();
     // $modal({scope: $scope, template: 'angularModules/markSheet/designMarkSheet/popup/Popup-DesignMarkSheet.html', show: true,placement:'center'});
 
 }
