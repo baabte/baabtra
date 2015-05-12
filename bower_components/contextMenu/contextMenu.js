@@ -53,6 +53,7 @@ angular.module('ui.bootstrap.contextMenu', [])
      
 
       $scope.fnSaveElement =function(courseElementvalue){
+
         var courseElementskey=courseElementvalue.Name;
         var key=$scope.instance+'.'+courseElementskey;
         var obj={key:key};
@@ -508,6 +509,20 @@ angular.module('ui.bootstrap.contextMenu', [])
                courseObj[courseObj.key].attendenceTrack = $scope.attendenceTrack;
 
                courseObj[courseObj.key].evaluable = $scope.evaluable;
+
+               if($scope.syncData.courseTimeline[$scope.instance]){
+                  if($scope.syncData.courseTimeline[$scope.instance][$scope.item.Name]){
+                      courseObj[courseObj.key].index=$scope.syncData.courseTimeline[$scope.instance][$scope.item.Name].length;
+                   }
+                   else{
+                        courseObj[courseObj.key].index=0;
+                      }
+              }
+                else{
+                  courseObj[courseObj.key].index=0;
+                }
+        
+              courseObj[courseObj.key].tlPointInMinute=$scope.instance;
               
               //end adding attendence track
               //adding attendence tack to timeline arun

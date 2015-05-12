@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseService','$compile','questionAnsweringSrv','$rootScope','$state', '$modal', function(bbConfig,addCourseService,$compile,questionAnsweringSrv,$rootScope,$state,$modal) {
+angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseService','$compile','questionAnsweringSrv','$rootScope','$state', '$modal','commonSrv', function(bbConfig,addCourseService,$compile,questionAnsweringSrv,$rootScope,$state,$modal,commonSrv) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -21,9 +21,9 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 			scope.previewData = scope.courseElement;
 
 			// Anoop . **** these are the things required when the question is appearing inside an assignment
-
-			scope.fromAssignment = JSON.parse(scope.fromAssignment);
-
+			if(angular.isDefined(scope.fromAssignment)){
+				scope.fromAssignment = JSON.parse(scope.fromAssignment);
+			}
 			
 
 			// End. Anoop . **** these are the things required when the question is appearing inside an assignment
@@ -256,6 +256,7 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
                             // here we build object to store into db and to push into timeline
                             if(angular.equals(customProperty.value,'previewkey')){ // checking is there have a value for previewkey
                                 weHaveGotPreviewKey=true;
+                                // console.log(scope.userAnswer[0].primaryAnswer[item.name]);
                                 temp[item.name].value=scope.userAnswer[0].primaryAnswer[item.name];
                                 temp[item.name].type=customProperty.text;
 
@@ -264,7 +265,7 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 
                                 if(!angular.equals(temp[item.name].value, undefined))  {
                                     scope.weHaveGotAprimaryFile=true;
-                                    var promise=addCourseService.fnCourseFileUpload(temp[item.name].value, path); // uploading file to the server
+                                    var promise=commonSrv.fnFileUpload(temp[item.name].value, path); // uploading file to the server
                                     promise.then(function(data){ // call back function for the fileupload
                                           temp[item.name].fileType = temp[item.name].value.type;
                                           temp[item.name].value='http://docs.google.com/gview?url='+bbConfig.BWS+'files/'+path+'/'+data.data.replace('"','').replace('"','')+'&embedded=true';
