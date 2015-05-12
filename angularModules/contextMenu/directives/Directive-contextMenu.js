@@ -44,18 +44,18 @@ angular.module('baabtra')
 
         if ($scope.previewOut.courseElement){
             var courseElement=angular.copy($scope.previewOut.courseElement);
-            console.log(courseElement);
             $scope.fnSaveElement(courseElement);
         }
 
       },true);
      
 
-      $scope.fnSaveElement =function(courseElementvalue){
+      $scope.fnSaveElement = function(courseElementvalue){
+
         var courseElementskey=courseElementvalue.Name;
         var key=$scope.instance+'.'+courseElementskey;
         var obj={key:key};
-        courseElementvalue.courseId=$scope.selectedCourse._id.$oid;
+        courseElementvalue.courseId = $scope.selectedCourse._id.$oid;
         delete courseElementvalue.order;
         if($scope.syncData.courseTimeline[$scope.instance]){
           if($scope.syncData.courseTimeline[$scope.instance][courseElementskey]){
@@ -68,6 +68,7 @@ angular.module('baabtra')
           courseElementvalue.index=0;
         }
         courseElementvalue.tlPointInMinute=$scope.instance;
+
 
         obj[key]=courseElementvalue;
 
@@ -157,12 +158,12 @@ angular.module('baabtra')
                              $scope.evaluable = item.evaluable;
                          }
 
-                         if(!angular.equals($scope.item.Name,"Payment_checkpoint")){
-                         $scope.evaluator=angular.copy($scope.$parent.$parent.$parent.syncData.evaluator);
-                         }
-                         else{
-                           $scope.evaluator=[];
-                         }
+                         // if(!angular.equals($scope.item.Name,"Payment_checkpoint")){
+                         // $scope.evaluator=angular.copy($scope.$parent.$parent.$parent.syncData.evaluator);
+                         // }
+                         // else{
+                         //   $scope.evaluator=[];
+                         // }
                        
 
                          //clearing data in preview object that is previously created
@@ -192,10 +193,6 @@ angular.module('baabtra')
                                     +'</label>'
                                   +'</div>'
                               +'</div>'
-                                          +'<div class="form-group col-xs-6 m-t-md">'
-                                          +'<label class="font-bold">Evaluator</label>'
-                                          +'<role-user-loader role-id="$root.userinfo.ActiveUserData.roleMappingObj.evalRoles[0]" placeholder-value="Please select a person" selection-type="2" ng-model="evaluator"></role-user-loader>'
-                                          +'</div>'
                                 +'<div class="form-group col-xs-12 m-t-md">'      
                                   +'<form xt-form novalidate class="form" name="courseElement" enctype="multipart/form-data">'
                                    +'<div class="p" sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"></div>'
@@ -206,8 +203,8 @@ angular.module('baabtra')
                                   //+'<div class="clearfix m-v-lg"><course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview></div>'
                             +'</div></div></div>'
                           +'</div>');
-        $aside({scope: $scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
-                        //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
+    $modal({scope: $scope, template:'angularModules/contextMenu/partials/Popup-syllabusSelector.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+                                              //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
                      });
                 });
 
@@ -479,6 +476,53 @@ angular.module('baabtra')
                 });
                     
         };
+
+        $scope.data = {};
+
+        $scope.addCourseElement = function(hide){
+
+          buildNodePath($scope.syncData.syllabus, $scope.data.selectednSyllabusItem.nodeId,'','',function(){
+            console.log($scope.data.nodePath);
+            hide();
+            $aside({scope: $scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+
+          });
+        };
+
+        var obj = '';
+        var name = '';
+        var data = {};
+       function buildNodePath(syllabus, nodeId,key,name, fnCallback){
+        for(var node in syllabus){
+          if(!angular.equals(obj, '')){
+             //obj = obj + '.' +  syllabus[node].name;//nodeId;
+          }
+
+          if(angular.equals(syllabus[node].nodeId, nodeId)){
+            
+            data.key = key+node;
+            data.name=name+syllabus[node].name;
+            $scope.data.nodePath = data ;
+
+            fnCallback();
+            break;
+          }
+          else{
+            if(syllabus[node].children.length){
+              buildNodePath(syllabus[node].children, nodeId,key+node+'.children.',name+syllabus[node].name+'.', fnCallback);
+            }
+          }
+        }
+      }
+
+        $scope.onSyllabusSelectionChanged = function(items){
+          if(!angular.equals(items,undefined)){
+            $scope.data.selectednSyllabusItem = items[0];
+          }
+          else{
+            $scope.data.selectednSyllabusItem = '';
+          }
+        };
         
         //function for triggering when save button in aside 
         $scope.saveMyFormData = function ($hide) {
@@ -511,11 +555,26 @@ angular.module('baabtra')
                courseObj[courseObj.key].attendenceTrack = $scope.attendenceTrack;
 
                courseObj[courseObj.key].evaluable = $scope.evaluable;
-              
+
+               if($scope.syncData.courseTimeline[$scope.instance]){
+                  if($scope.syncData.courseTimeline[$scope.instance][$scope.item.Name]){
+                      courseObj[courseObj.key].index=$scope.syncData.courseTimeline[$scope.instance][$scope.item.Name].length;
+                   }
+                   else{
+                        courseObj[courseObj.key].index=0;
+                      }
+              }
+                else{
+                  courseObj[courseObj.key].index=0;
+                }
+        
+              courseObj[courseObj.key].tlPointInMinute=$scope.instance;
+              courseObj[courseObj.key].syllabus = $scope.data.nodePath;
+
               //end adding attendence track
               //adding attendence tack to timeline arun
 
-               courseObj[courseObj.key].evaluator=$scope.evaluator;
+               // courseObj[courseObj.key].evaluator=$scope.evaluator;
               
               //end adding attendence track
               // below function will trigger only when the object is built

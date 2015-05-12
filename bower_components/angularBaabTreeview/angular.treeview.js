@@ -50,9 +50,9 @@
 							'<i class="mdi-navigation-unfold-less text-md "  data-ng-show="node.' + nodeChildren + '.length && !node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
 							'<i class="mdi-content-send text-md"  data-ng-hide="node.' + nodeChildren + '.length"></i> ' +
 							'<span class="nodeItem" data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +
-							'<span class="p-h nodeItem"><a href="" class="icon-grey p-h-xs"  data-nodrag ng-click="showPopupForAddChild(node)" data-placement="right" bs-tooltip data-title="Add a division under {{node._id}}"><i class="ti  ti-layers-alt" ></i><a/>'+
-							'<a href="" class="icon-grey p-h-xs" data-nodrag ng-click="editChild(node)" data-placement="right" bs-tooltip data-title="Edit {{node._id}}"><i class="fa fa-edit" ></i></a>'+
-							'<a href="" class="icon-grey p-h-xs" ng-if="!node.parent" data-nodrag ng-click="removeChild(node)" data-placement="right" bs-tooltip data-title="Remove {{node._id}}"><i class="fa fa-trash-o" ></i></a></span>'+
+							'<span class="p-h nodeItem"><a href="" class="icon-grey p-h-xs"  data-nodrag ng-click="showPopupForAddChild(node)" data-placement="right" bs-tooltip data-title="Add a division under {{node.name}}"><i class="ti  ti-layers-alt" ></i><a/>'+
+							'<a href="" class="icon-grey p-h-xs" data-nodrag ng-click="editChild(node)" data-placement="right" bs-tooltip data-title="Edit {{node.name}}"><i class="fa fa-edit" ></i></a>'+
+							'<a href="" class="icon-grey p-h-xs" ng-if="!node.parent" data-nodrag ng-click="removeChild(node)" data-placement="right" bs-tooltip data-title="Remove {{node.name}}"><i class="fa fa-trash-o" ></i></a></span>'+
 							'<div data-ng-hide="node.collapsed" data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' + nodeId + ' data-node-label=' + nodeLabel + ' data-node-children=' + nodeChildren + '></div>' +
 
 						'</li>' +

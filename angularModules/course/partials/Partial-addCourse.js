@@ -28,7 +28,7 @@ if(!angular.equals($state.params.courseId,"")){
     //checking this course have syllabus
     if(angular.equals($scope.course.syllabus,undefined)){
       // if undefined create a default syllabus
-      $scope.course.syllabus = [{ _id: $scope.course.Name, children: [], activeFlag:1, parent:"root"}];
+      $scope.course.syllabus = [{ name: $scope.course.Name, children: [], activeFlag:1, parent:"root"}];
     }
 
     if(!angular.equals($scope.course.evaluator,undefined)){
@@ -471,7 +471,7 @@ $scope.addNewChild = function(item, childName, hide){// function for add new chi
   var hashids = new Hashids("this is a id for syllabus");
   var node_id = 'SB-' + hashids.encode(time);
 
-  item.children.push({ _id: childName , children: [], mark:mark, nodeId:node_id, activeFlag:1});
+  item.children.push({ name: childName , children: [], mark:mark, nodeId:node_id, activeFlag:1});
   
   $scope.completeStep3($scope.course, 'step3');
   hide();
@@ -529,7 +529,7 @@ $scope.editChild = function(node){
   }
   
   $scope.data.headName = "Update";
-  $scope.data.childName = node._id;
+  $scope.data.childName = node.name;
   var addNewChild = $modal({scope: $scope, template: 'angularModules/course/partials/Popup-addNewChild.html', placement:'center', show: true});
 
 };
