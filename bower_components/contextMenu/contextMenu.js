@@ -158,12 +158,12 @@ angular.module('ui.bootstrap.contextMenu', [])
                              $scope.evaluable = item.evaluable;
                          }
 
-                         if(!angular.equals($scope.item.Name,"Payment_checkpoint")){
-                         $scope.evaluator=angular.copy($scope.$parent.$parent.$parent.syncData.evaluator);
-                         }
-                         else{
-                           $scope.evaluator=[];
-                         }
+                         // if(!angular.equals($scope.item.Name,"Payment_checkpoint")){
+                         // $scope.evaluator=angular.copy($scope.$parent.$parent.$parent.syncData.evaluator);
+                         // }
+                         // else{
+                         //   $scope.evaluator=[];
+                         // }
                        
 
                          //clearing data in preview object that is previously created
@@ -193,10 +193,6 @@ angular.module('ui.bootstrap.contextMenu', [])
                                     +'</label>'
                                   +'</div>'
                               +'</div>'
-                                          +'<div class="form-group col-xs-6 m-t-md">'
-                                          +'<label class="font-bold">Evaluator</label>'
-                                          +'<role-user-loader role-id="$root.userinfo.ActiveUserData.roleMappingObj.evalRoles[0]" placeholder-value="Please select a person" selection-type="2" ng-model="evaluator"></role-user-loader>'
-                                          +'</div>'
                                 +'<div class="form-group col-xs-12 m-t-md">'      
                                   +'<form xt-form novalidate class="form" name="courseElement" enctype="multipart/form-data">'
                                    +'<div class="p" sync-data="$parent.syncData" fg-form fg-form-data="myFormData" form-data="$parent.formData['+$scope.randomKey+'].mainData" fg-schema="itemTemplate"></div>'
@@ -516,7 +512,7 @@ angular.module('ui.bootstrap.contextMenu', [])
               //end adding attendence track
               //adding attendence tack to timeline arun
 
-               courseObj[courseObj.key].evaluator=$scope.evaluator;
+               // courseObj[courseObj.key].evaluator=$scope.evaluator;
               
               //end adding attendence track
               // below function will trigger only when the object is built
