@@ -84,7 +84,7 @@ scope.fetchBatch =function(){
            courseType = scope.courseobj.coursetype?scope.courseobj.coursetype:'';
            scope.batchElements=[];
            if(!angular.equals(courseId,undefined)){
-           console.log(companyId+ " "+ courseId+" "+joinDate+" "+courseType);
+           
         
                var promise = addBatches.loadCourseRelatedBatches(companyId,courseId,joinDate,courseType);
             promise.then(function(response){
