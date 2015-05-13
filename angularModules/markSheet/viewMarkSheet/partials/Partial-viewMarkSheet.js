@@ -35,7 +35,15 @@ angular.module('baabtra').controller('ViewmarksheetCtrl',['$scope', '$rootScope'
       }
     };
 
-
+  var checkElemWithMark = function(arr){
+    var count=0;
+    for(var key in arr){
+      if(arr[key].mark.markScored){
+        count++;
+      }
+    }
+    return count==0?1:count;
+  };
   var getMarkInAllLevel = function(syllabus,index){
     //for(var index in syllabus){
       if(syllabus[index].mark.type=='mark'&&syllabus[index].children.length==0){
@@ -45,13 +53,12 @@ angular.module('baabtra').controller('ViewmarksheetCtrl',['$scope', '$rootScope'
         var mark=getMarkInAllLevel(syllabus[index].children,0);
         console.log(mark);
         if(mark.type=='mark'){
-          syllabus[index].mark.markScored=((mark.markScored/mark.maxMark)*syllabus[index].mark.maxMark)/syllabus[index].children.length;
+          syllabus[index].mark.markScored=((mark.markScored/mark.maxMark)*syllabus[index].mark.maxMark)/checkElemWithMark(syllabus[index].children);
           return syllabus[index].mark;
         }
         else if(syllabus.length>(index+1)){
           return getMarkInAllLevel(syllabus,index+1);
         }
-        
         
       }
       else{
