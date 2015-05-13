@@ -8,5 +8,15 @@ angular.module('baabtra').service('markSheetService',['$http','bbConfig',functio
             contentType:'application/json; charset=UTF-8',
            });
       return promise;
-	}
+	};
+
+	this.saveMarksheetElements = function (courseId,markSheetElements) {
+		 var promise = $http({ 
+            method: 'post',
+            url: bbConfig.BWS+'saveMarksheetElements/',
+            data:{'courseId':courseId,'markSheetElements':markSheetElements},
+            contentType:'application/json; charset=UTF-8',
+           });
+      return promise;
+	};
 }]);
