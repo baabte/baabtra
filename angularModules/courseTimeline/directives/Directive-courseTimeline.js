@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService','addCourseElementService','courseElementFieldsManaging','bbConfig', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService,addCourseElementService,courseElementFieldsManaging,bbConfig) {
+angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService','addCourseElementService','courseElementFieldsManaging','bbConfig', '$modal', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService,addCourseElementService,courseElementFieldsManaging,bbConfig, $modal) {
 	return {
 		restrict: 'E', // to use as an element . Use 'A' to use as an attribute
 		scope: {
@@ -357,7 +357,8 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	 	}
             	 }
             	$templateCache.put('course-element-popup.html','<edit-course-element></edit-course-element>');
- 				$aside({scope: scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+ 				 $modal({scope: scope, template:'angularModules/contextMenu/partials/Popup-syllabusSelector.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+ 				//$aside({scope: scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
             };
 
             scope.removeCourseElement = function(ev) {
