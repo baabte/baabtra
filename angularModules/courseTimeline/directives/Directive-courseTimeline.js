@@ -11,7 +11,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 		},
 		templateUrl: 'angularModules/courseTimeline/directives/Directive-courseTimeline.html',
 		link: function(scope, element, attrs, fn) {
-
+			console.log(scope.coursePreviewObj)
 		scope.MURID = bbConfig.MURID;//mentee role id 
 
 		var courseElementFieldsResponse = courseElementFieldsManaging.fnGetCourseElementFields();
@@ -356,10 +356,74 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 
             	 	}
             	 }
-            	$templateCache.put('course-element-popup.html','<edit-course-element></edit-course-element>');
+            	
+ 				 var keyArray = scope.syncData.courseTimeline[scope.selectedTpoint][scope.courseElement.Name][scope.selectedIndex].syllabus.key.split('.');
+ 				
+
+ 				 var syllabus = scope.syncData.syllabus;
+ 				 var index = 0;
+ 				 for(var key in keyArray){
+ 				 	syllabus = syllabus[keyArray[key]];
+ 				 	index++;
+ 				 	if(angular.equals(keyArray.length, index)){
+ 				 		 console.log(syllabus);
+ 				 		 syllabus.selected = true;
+ 				 		 scope.selection = [syllabus];
+ 				 	}
+ 				 }
+
+
+
  				 $modal({scope: scope, template:'angularModules/contextMenu/partials/Popup-syllabusSelector.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
- 				//$aside({scope: scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+ 				
             };
+            scope.data = {};
+            scope.addCourseElement = function(hide){
+            	$templateCache.put('course-element-popup.html','<edit-course-element></edit-course-element>');
+            	
+            	buildNodePath(scope.syncData.syllabus,  scope.selection[0].nodeId,'','',function(){
+            		console.log(scope.data.nodePath);
+	            	
+	            	$aside({scope: scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+            		hide();
+            	});
+            };
+
+            scope.onSyllabusSelectionChanged = function(items){
+	          if(!angular.equals(items,undefined)){
+	            scope.selection = items;
+	          }
+	          else{
+	            scope.selection = '';
+	          }
+	        };
+
+
+        var obj = '';
+        var name = '';
+        var data = {};
+       function buildNodePath(syllabus, nodeId,key,name, fnCallback){
+        for(var node in syllabus){
+          if(!angular.equals(obj, '')){
+             //obj = obj + '.' +  syllabus[node].name;//nodeId;
+          }
+
+          if(angular.equals(syllabus[node].nodeId, nodeId)){
+            
+            data.key = key+node;
+            data.name=name+syllabus[node].name;
+            scope.data.nodePath = data ;
+
+            fnCallback();
+            break;
+          }
+          else{
+            if(syllabus[node].children.length){
+              buildNodePath(syllabus[node].children, nodeId,key+node+'.children.',name+syllabus[node].name+'.', fnCallback);
+            }
+          }
+        }
+      }
 
             scope.removeCourseElement = function(ev) {
             		angular.forEach(scope.popoverObject.courseElementlist,function(courseElement){

@@ -6,13 +6,14 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
 		templateUrl: 'angularModules/courseElements/directives/Directive-editCourseElement.html',
 		link: function(scope, element, attrs, fn) {
 
-
 			var randomKey=Math.floor(Math.random()*100000,1000);
 			//scope.instance = scope.selectedTpoint/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor-((1/scope.$parent.ddlBindObject[scope.$parent.selectedDuration-1].mFactor))+1;
             scope.instance = scope.selectedTpoint;
-            scope.attendenceTrack=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].attendenceTrack;
+            scope.attendenceTrack = scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].attendenceTrack;
             scope.evaluable = scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].evaluable;
-            var code=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
+            console.log(scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex]);
+
+            var code = scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
             //scope.evaluator=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].evaluator;
             //scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
              // if(angular.equals(scope.evaluator,undefined)){
@@ -121,6 +122,7 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
 				}
 				courseObj.key=scope.instance+'.'+scope.$parent.courseElement.Name;
 				courseObj[courseObj.key]=scope.coursePreviewObj;
+        courseObj[courseObj.key].syllabus = scope.data.nodePath;
 
 				if(!scope.$parent.syncData.courseTimeline[scope.instance]){
 					scope.$parent.syncData.courseTimeline[scope.instance] = {};
