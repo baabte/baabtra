@@ -32,13 +32,8 @@
 				var treeId = attrs.treeId;
 				
 				var nodeEdit = attrs.nodeEdit;
-				// if(angular.equals(attrs.nodeEdit, 'true')){
-				// 	var nodeEdit = 1;
-				// }
-				// else{
-				// 	var nodeEdit = 0;
-				// }
 				
+				var nodeOutput = attrs.nodeOutput;
 
 				//tree model
 				var treeModel = attrs.treeModel;
@@ -66,7 +61,7 @@
 							+'<a href="" class="icon-grey p-h-xs"  data-nodrag ng-click="showPopupForAddChild(node)" data-placement="right" bs-tooltip data-title="Add a division under {{node.name}}"><i class="ti  ti-layers-alt" ></i><a/>'+
 							'<a  href="" class="icon-grey p-h-xs" data-nodrag ng-click="editChild(node)" data-placement="right" bs-tooltip data-title="Edit {{node.name}}"><i class="fa fa-edit" ></i></a>'+
 							'<a href="" class="icon-grey p-h-xs" ng-if="!node.parent" data-nodrag ng-click="removeChild(node)" data-placement="right" bs-tooltip data-title="Remove {{node.name}}"><i class="fa fa-trash-o" ></i></a></span>'+
-							'<div data-node-edit="'+ nodeEdit +'" data-ng-hide="node.collapsed" data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' + nodeId + ' data-node-label=' + nodeLabel + ' data-node-children=' + nodeChildren + '></div>' +
+							'<div data-node-output="'+ nodeOutput +'" data-node-edit="'+ nodeEdit +'" data-ng-hide="node.collapsed" data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' + nodeId + ' data-node-label=' + nodeLabel + ' data-node-children=' + nodeChildren + '></div>' +
 
 						'</li>' +
 					'</ul>';
@@ -92,7 +87,7 @@
 
 							if(!selectedNode.children.length){
 
-								scope.selectedData = selectedNode;
+								scope[nodeOutput] = selectedNode;
 
 								//remove highlight from previous node
 								if( scope[treeId].currentNode && scope[treeId].currentNode.selected ) {
@@ -106,7 +101,7 @@
 								scope[treeId].currentNode = selectedNode;
 							}
 							else{
-								scope.selectedData = '';
+								scope[nodeOutput] = '';
 							}
 						};
 					}
