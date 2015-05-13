@@ -7,13 +7,28 @@ angular.module('baabtra').directive('randomQuestionExam', function() {
 		},
 		templateUrl: 'angularModules/courseElementFields/randomQuestionExam/directives/Directive-randomQuestionExam.html',
 		link: function(scope, element, attrs, fn) {
-			if(angular.equals(scope.ngModel,undefined)){	
-
 			scope.units=['minute(s)','hour(s)'];
-			scope.ngModel={};
-			scope.ngModel.duration={unit:"minute(s)"};
-			scope.ngModel.mark={};
+
+			if(angular.equals(scope.ngModel,undefined)){
+
+			scope.randomExam={};
+			scope.randomExam.duration={unit:"minute(s)"};
+			scope.randomExam.mark={};
+			scope.randomExam.questionView={mode:'single'};
+			scope.randomExam.resultMode='submit';
+			scope.randomExam.testModel=[];
+			
+			}else{
+			scope.randomExam=angular.copy(scope.ngModel);
+
 			}
+
+			 scope.$watch(function(){return scope.randomExam;},function(){
+
+			 	scope.ngModel=angular.copy(scope.randomExam);
+
+			 },true)
+
 			
 
 

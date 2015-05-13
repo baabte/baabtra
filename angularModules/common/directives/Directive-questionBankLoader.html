@@ -1,11 +1,10 @@
-<div class="formgen-dropdown" >
+<div >
 
-<div ng-show = "!multi">	
-	<select placeholder="{{'Select a Question Bank'|translate}}"  data-animation="am-fade-and-slide-top"  ng-options="questionBank.Name for questionBank in questionBanklist" ng-model="ngModel"  class="form-control"  data-html="true" bs-select>
-	</select>
-</div>
-<div class="col-xs-12" ng-show = "multi">
-	<div multi-selectable input-model="questionBanklist" output-model="ngModel" button-label="Name" item-label="Name" tick-property="ticked" helper-elements="all none reset filter" default-label="Please Select Courses">
-	</div>
-</div>
+
+<!-- 
+	<div multi-selectable input-model="questionBanklist" output-model="ngModel" button-label="Name" item-label="Name" tick-property="ticked" helper-elements="all none reset filter" default-label="Please Select Question Set">
+	</div> -->
+
+	<div multi-selectable selection-mode="single" input-model="questionBanklist" output-model="ngModel" button-label="icon Name" item-label="icon Name " tick-property="ticked" helper-elements="filter" default-label="Please Select Question Set" ></div>
+
 </div>	

@@ -9,6 +9,7 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','$modal'
 		},
 		templateUrl: 'angularModules/courseElementFields/questionGroupViewer/directives/Directive-questionGroupViewer.html',
 		link: function(scope, element, attrs, fn) {
+
 			var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId; // Role id of logged user
 			var userLoginId;
 			var courseMappingId;
@@ -44,6 +45,9 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','$modal'
 			}
 			if(roleId===bbConfig.CURID){
 				scope.startTest=true;
+				if(angular.equals(keyName,'randomExam')){
+					console.log('randomExam')
+				}
 			}
 
 			scope.dataValue= JSON.parse(scope.data);
