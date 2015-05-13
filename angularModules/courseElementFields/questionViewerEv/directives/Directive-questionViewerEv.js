@@ -11,7 +11,6 @@ angular.module('baabtra').directive('questionViewerEv',['$modal', function($moda
 		templateUrl: 'angularModules/courseElementFields/questionViewerEv/directives/Directive-questionViewerEv.html',
 		link: function(scope, element, attrs, fn) {
 
-		
 			// Anoop . **** these are the things required when the question is appearing inside an assignment
 			//scope.fromAssignment = JSON.parse(scope.fromAssignment);
 
@@ -21,10 +20,8 @@ angular.module('baabtra').directive('questionViewerEv',['$modal', function($moda
 			if(scope.data.value.userAnswer){
 				for(key in scope.data.value.userAnswer[0].primaryAnswer){
 				scope.answerPreviewData.elements.push(scope.data.value.userAnswer[0].primaryAnswer[key]);
+				}
 			}
-			}
-			
-
 
 
 			if(angular.equals(typeof scope.result ,'String')){
