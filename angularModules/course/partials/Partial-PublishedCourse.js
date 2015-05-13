@@ -128,7 +128,7 @@ $scope.searchCoursesAvailable=function(searchKey,type){//for seaeching the avail
 searchInProgress=setTimeout(function(){
 PublishedCourse.loadPublishedCourses($scope,searchKey,'',type,'');
 
-},500)
+},500);
 
 };
 $scope.prevButtondisabled=true;

@@ -28,5 +28,16 @@ this.courseByKeywords = function(companyId, searchKey){
 }
 
 
+this.loadPublishedCoursesWithPromise=function(companyId,searchKey,lastId,type,firstId){
+	 var promise=$http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'loadPublishedCourses/',
+	    data:JSON.stringify({"companyId":companyId,"searchKey":searchKey,"lastId":lastId,"type":type,"firstId":firstId}),
+	 });
+	 return promise;
+	
+};
+
+
 	
 }]);
