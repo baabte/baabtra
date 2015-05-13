@@ -25,6 +25,25 @@ angular.module('baabtra').directive('randomQuestionExam', function() {
 
 			 scope.$watch(function(){return scope.randomExam;},function(){
 
+			 		//if duration is in minutes duration will be maximum of 60
+			 	if(!angular.equals(scope.randomExam.duration.value,undefined)){
+			    	if(angular.equals(scope.randomExam.duration.unit,'minute(s)')){
+			    		if(scope.randomExam.duration.value>60){
+			    			scope.randomExam.duration.value=60;
+			    		}
+			    		scope.randomExam.actualDuration=scope.randomExam.duration.value*60000;
+			    		
+			    	}
+			    	//if duration is in hour duration will be maximum of 24
+			       	else if(angular.equals(scope.randomExam.duration.unit,'hour(s)')){
+			       		
+			    		if(scope.randomExam.duration.value>24){
+			    			scope.randomExam.duration.value=24;		    			
+			    		}
+			    		scope.randomExam.actualDuration=scope.randomExam.duration.value*3600000;
+			    	}
+		    	}
+
 			 	scope.ngModel=angular.copy(scope.randomExam);
 
 			 },true)
