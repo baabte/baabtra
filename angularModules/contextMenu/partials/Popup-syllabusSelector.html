@@ -5,6 +5,9 @@
         Hai
       </div>
       <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-12">{{coursePreviewObj}}</div>
+        </div>
         <form name="childForm">
           <hierarchical-selector data="syncData.syllabus" select-only-leafs="true" multi-select="false" on-selection-changed="onSyllabusSelectionChanged(items)" />
         </form>
