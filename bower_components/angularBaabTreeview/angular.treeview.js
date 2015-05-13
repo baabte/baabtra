@@ -55,12 +55,12 @@
 				//tree template
 				var template =
 					'<ul  >' +
-						'<li   data-ng-repeat="node in ' + treeModel + '">' +
+						'<li data-ng-repeat="node in ' + treeModel + '">' +
 							'<i class="mdi-navigation-unfold-more text-md"  data-ng-show="node.' + nodeChildren + '.length && node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)" ></i>' +
 
 							'<i class="mdi-navigation-unfold-less text-md "  data-ng-show="node.' + nodeChildren + '.length && !node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
 							'<i class="mdi-content-send text-md"  data-ng-hide="node.' + nodeChildren + '.length"></i> ' +
-							'<span class="nodeItem" data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +
+							'<span class="nodeItem" data-ng-click="' + treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +
 							'<span class="p-h nodeItem" ng-if="'+ nodeEdit +'">'
 
 							+'<a href="" class="icon-grey p-h-xs"  data-nodrag ng-click="showPopupForAddChild(node)" data-placement="right" bs-tooltip data-title="Add a division under {{node.name}}"><i class="ti  ti-layers-alt" ></i><a/>'+
@@ -74,7 +74,6 @@
 
 				//check tree id, tree model
 				if( treeId && treeModel ) {
-					console.log(attrs.nodeEdit);
 					//root node
 					if( attrs.angularTreeview ) {
 					
@@ -91,16 +90,24 @@
 						//if node label clicks,
 						scope[treeId].selectNodeLabel = scope[treeId].selectNodeLabel || function( selectedNode ){
 
-							//remove highlight from previous node
-							if( scope[treeId].currentNode && scope[treeId].currentNode.selected ) {
-								scope[treeId].currentNode.selected = undefined;
+							if(!selectedNode.children.length){
+
+								scope.selectedData = selectedNode;
+
+								//remove highlight from previous node
+								if( scope[treeId].currentNode && scope[treeId].currentNode.selected ) {
+									scope[treeId].currentNode.selected = undefined;
+								}
+
+								//set highlight to selected node
+								selectedNode.selected = 'selected';
+
+								//set currentNode
+								scope[treeId].currentNode = selectedNode;
 							}
-
-							//set highlight to selected node
-							selectedNode.selected = 'selected';
-
-							//set currentNode
-							scope[treeId].currentNode = selectedNode;
+							else{
+								scope.selectedData = '';
+							}
 						};
 					}
 
