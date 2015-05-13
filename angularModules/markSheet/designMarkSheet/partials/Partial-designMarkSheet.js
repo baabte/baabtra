@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('DesignmarksheetCtrl',['$modal','$scope', 'commonService', '$rootScope','PublishedCourse',function($modal,$scope, commonService, $rootScope,PublishedCourse){
+angular.module('baabtra').controller('DesignmarksheetCtrl',['$modal','$scope', 'commonService', '$rootScope','PublishedCourse','markSheetService',function($modal,$scope, commonService, $rootScope,PublishedCourse,markSheetService){
 
 	if(!$rootScope.userinfo){
 		commonService.GetUserCredentials($scope);
@@ -7,6 +7,7 @@ angular.module('baabtra').controller('DesignmarksheetCtrl',['$modal','$scope', '
 	if($rootScope.loggedIn == false){
 		$state.go('login');
 	}
+
 	$scope.rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 	$scope.roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
 	$scope.companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
@@ -70,12 +71,19 @@ $scope.progressStart=function () {
 
 $scope.openPopup = function (course) {
 	console.log(course._id.$oid);
-
-
-	// $scope.data.selectedCourse=course;
-	//'angularModules/markSheet/designMarkSheet/popup/Popup-loadCourseData.html'
     var loader=$modal({scope: $scope,backdrop:'static', template: 'angularModules/markSheet/designMarkSheet/popup/Popup-loadCourseData.html', show: true,placement:'center'});
-    //loader.destroy();
+	var gotSyllabus=markSheetService.getCourseSyllabus(course._id.$oid);
+		gotSyllabus.then(function (response) {
+			// console.log(JSON.parse(response.data));
+			$scope.data.selectedCourse={};
+			$scope.data.selectedCourse.courseId=course._id.$oid;
+			$scope.data.selectedCourse.syllabus=angular.fromJson(JSON.parse(response.data));
+			loader.destroy();
+			$modal({scope: $scope, template: 'angularModules/markSheet/designMarkSheet/popup/Popup-DesignMarkSheet.html', show: true,placement:'center'});
+		});
+
+
+	//'angularModules/markSheet/designMarkSheet/popup/Popup-loadCourseData.html'
     // $modal({scope: $scope, template: 'angularModules/markSheet/designMarkSheet/popup/Popup-DesignMarkSheet.html', show: true,placement:'center'});
 
 }
