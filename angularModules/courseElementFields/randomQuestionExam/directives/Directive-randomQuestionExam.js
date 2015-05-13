@@ -25,8 +25,11 @@ angular.module('baabtra').directive('randomQuestionExam', function() {
 
 			 scope.$watch(function(){return scope.randomExam;},function(){
 
+
+
 			 		//if duration is in minutes duration will be maximum of 60
 			 	if(!angular.equals(scope.randomExam.duration.value,undefined)){
+
 			    	if(angular.equals(scope.randomExam.duration.unit,'minute(s)')){
 			    		if(scope.randomExam.duration.value>60){
 			    			scope.randomExam.duration.value=60;
