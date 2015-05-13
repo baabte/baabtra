@@ -482,7 +482,6 @@ angular.module('baabtra')
         $scope.addCourseElement = function(hide){
 
           buildNodePath($scope.syncData.syllabus, $scope.data.selectednSyllabusItem.nodeId,'','',function(){
-            console.log($scope.data.nodePath);
             hide();
             $aside({scope: $scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
 
