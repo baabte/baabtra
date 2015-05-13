@@ -203,10 +203,11 @@ angular.module('baabtra')
                                   //+'<div class="clearfix m-v-lg"><course-element-preview tl-position="'+$scope.ddlBindObject[$scope.selectedDuration-1].name.replace('(s)','')+' '+$scope.$parent.tlpoint+'" preview-data="coursePreviewObj"></course-element-preview></div>'
                             +'</div></div></div>'
                           +'</div>');
-    $modal({scope: $scope, template:'angularModules/contextMenu/partials/Popup-syllabusSelector.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
-                                              //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
-                     });
-                });
+              $scope.selection = '';
+              $modal({scope: $scope, template:'angularModules/contextMenu/partials/Popup-syllabusSelector.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+                                                        //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
+                               });
+                          });
 
 
 
@@ -482,7 +483,6 @@ angular.module('baabtra')
         $scope.addCourseElement = function(hide){
 
           buildNodePath($scope.syncData.syllabus, $scope.data.selectednSyllabusItem.nodeId,'','',function(){
-            console.log($scope.data.nodePath);
             hide();
             $aside({scope: $scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
 

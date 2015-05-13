@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('DesignmarksheetCtrl',['$modal','$scope', 'commonService', '$rootScope','PublishedCourse','markSheetService',function($modal,$scope, commonService, $rootScope,PublishedCourse,markSheetService){
+angular.module('baabtra').controller('DesignmarksheetCtrl',['$modal','$scope', 'commonService', '$rootScope','PublishedCourse','markSheetService','$alert',function($modal,$scope, commonService, $rootScope,PublishedCourse,markSheetService,$alert){
 
 	if(!$rootScope.userinfo){
 		commonService.GetUserCredentials($scope);
@@ -57,6 +57,9 @@ $scope.searchKeyChanged = function () {
 
 };
 
+
+//====================================
+//this is to manage the progress popup
 $scope.data.loaderProgressTab=0;
 $scope.progressStart=function () {
 
@@ -68,9 +71,64 @@ $scope.progressStart=function () {
 	var interval=setInterval(function() {
 		$scope.progressStart();
 	},700);
+//=======================================
+
+
+//this will check if the element is already added or not
+$scope.checkSelectedElements = function (elementKey) {
+	if(!angular.equals($scope.data.selectedCourse.markSheetElements,undefined)){
+		// if($scope.data.selectedCourse.markSheetElements.in)
+		return $scope.data.selectedCourse.markSheetElements.indexOf(elementKey);
+	}
+	else{
+		return -1;
+	}
+};
+
+
+// function to add a new element to marksheet
+$scope.addToMarksheet = function (elementKey) {
+	if(angular.equals($scope.data.selectedCourse.markSheetElements,undefined)){
+		$scope.data.selectedCourse.markSheetElements=[];
+	}
+
+	if(angular.equals($scope.data.selectedCourse.markSheetElements.indexOf(elementKey),-1)){
+		$scope.data.selectedCourse.markSheetElements.push(elementKey);
+	}
+};
+
+$scope.removeFromMarksheet = function (elementKey) {
+	if(angular.equals($scope.data.selectedCourse.markSheetElements,undefined)){
+		$scope.data.selectedCourse.markSheetElements=[];
+	}
+	var currsentIndex=$scope.data.selectedCourse.markSheetElements.indexOf(elementKey);
+	if(!angular.equals(currsentIndex,-1)){
+		$scope.data.selectedCourse.markSheetElements.splice(currsentIndex,1);
+		// console.log($scope.data.selectedCourse.markSheetElements);
+		// $scope.data.selectedNode=$scope.data.selectedNode;
+	}
+};
+
+
+$scope.saveMarksheetToDb = function (hide) {
+	var loader=$modal({scope: $scope,backdrop:'static', template: 'angularModules/markSheet/designMarkSheet/popup/Popup-loadCourseData.html', show: true,placement:'center'});
+	var savedToDb=markSheetService.saveMarksheetElements($scope.data.selectedCourse.courseId,$scope.data.selectedCourse.markSheetElements);
+	savedToDb.then(function (response) {
+		hide();
+		loader.destroy();
+		$alert({title: 'Updated', content: 'Your marksheet configuration is updated.', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
+	});
+	savedToDb.error(function (argument) {
+		loader.destroy();
+		$alert({title: 'Error..!', content: 'Please try again.', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'danger', show: true});
+	})
+};
+
+
 
 $scope.openPopup = function (course) {
-	console.log(course._id.$oid);
+	delete $scope.elementsOfSelectedNode;
+	// console.log(course._id.$oid);
     var loader=$modal({scope: $scope,backdrop:'static', template: 'angularModules/markSheet/designMarkSheet/popup/Popup-loadCourseData.html', show: true,placement:'center'});
 	var gotSyllabus=markSheetService.getCourseSyllabus(course._id.$oid);
 		gotSyllabus.then(function (response) {
@@ -87,25 +145,38 @@ $scope.openPopup = function (course) {
     // $modal({scope: $scope, template: 'angularModules/markSheet/designMarkSheet/popup/Popup-DesignMarkSheet.html', show: true,placement:'center'});
 
 };
-// $scope.selectedNode={};
+
+
+
+//function to trigger when some one selected a node in popup
 $scope.$watch('data.selectedNode',function () {
-	console.log($scope.data.selectedNode);
-	if(angular.equals($scope.selectedNode,undefined)){
+	
+	if(angular.equals($scope.data.selectedNode,undefined)){
 		return;
 	}
+	// console.log($scope.data.selectedNode.mark.type);
 	$scope.elementsOfSelectedNode=[];
-	if(!angular.equals($scope.selectedNode.element,undefined)){
+	if(!angular.equals($scope.data.selectedNode.element,undefined)){
 
-		for(var key in $scope.selectedNode.element){
-			var elemNameArray=$scope.selectedNode.element[key].split('.');
+		for(var key in $scope.data.selectedNode.element){
+			var elemNameArray=$scope.data.selectedNode.element[key].split('.');
 			var elem=$scope.data.selectedCourse.courseTimeline;
 			for(index in elemNameArray){
 				elem=elem[elemNameArray[index]];
 			}
-			console.log(elem);
+
+			if(angular.equals($scope.data.selectedNode.mark.type,'mark')){
+				// console.log(elem);
+				if(elem.evaluable&&!angular.equals(elem.totalMark,undefined)){
+					$scope.elementsOfSelectedNode.push({element:elem,key:$scope.data.selectedNode.element[key]});
+				}
+			}
 
 		}
 	}
 },true);
+
+
+
 
 }]);
