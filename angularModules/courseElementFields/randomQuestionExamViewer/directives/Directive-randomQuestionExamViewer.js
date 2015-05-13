@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('questionGroupViewer',['$rootScope','$modal','bbConfig','$state','testRelated',function($rootScope,$modal,bbConfig,$state,testRelated) {
+angular.module('baabtra').directive('randomQuestionExamViewer',['$rootScope','$modal','bbConfig','$state','testRelated',function($rootScope,$modal,bbConfig,$state,testRelated) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -7,7 +7,7 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','$modal'
 			index:'=',
 			courseElement:'='
 		},
-		templateUrl: 'angularModules/courseElementFields/questionGroupViewer/directives/Directive-questionGroupViewer.html',
+		templateUrl: 'angularModules/courseElementFields/randomQuestionExamViewer/directives/Directive-randomQuestionExamViewer.html',
 		link: function(scope, element, attrs, fn) {
 
 			var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId; // Role id of logged user
@@ -48,40 +48,46 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','$modal'
 			}
 
 			scope.dataValue= JSON.parse(scope.data);
-			scope.noOfQuestions=scope.dataValue.value.testModel.length;
+			// console.log(scope.dataValue);
+			if (scope.dataValue.value.testModel.length>0){
+				for(var index in scope.dataValue.value.testModel){
+					var tempObj={};
+					scope.questionAnswer.push(tempObj);
+				}
+
+			}
 			
 
-			if (angular.equals(scope.questionAnswer.length,0)){
-			for(var index in scope.dataValue.value.testModel){
-				var tempObj={};
-				scope.questionAnswer.push(tempObj);
-			}
-
-			}
-			if(angular.equals(scope.dataValue.value.questionView.mode,'multiple')){
-				scope.questionPerPage=scope.dataValue.value.questionView.questionPerPage;
-				scope.stop=scope.questionPerPage;
-
-			}
-			else{
-				scope.questionPerPage=scope.noOfQuestions;
-				scope.stop=scope.questionPerPage;
-			}
+			
+			
 
 			scope.startTimer=function(){
 				var time=(new Date()).getTime();
 
-				var StartTimeObj={courseMappingId:courseMappingId,userLoginId:userLoginId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex,timeObj:{key:'testStartTime',value:time}};
+				var StartTimeObj={courseMappingId:courseMappingId,userLoginId:userLoginId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex,timeObj:{key:'testStartTime',value:time},questionBankId:scope.dataValue.value.questionBank[0]._id,noOfQuestion:scope.dataValue.value.noOfQuestion};
 
-				var FnSaveTestStartTimeCallBack= testRelated.FnSaveTestStartTime(StartTimeObj);
+				// console.log(StartTimeObj);
 
-				FnSaveTestStartTimeCallBack.then(function(data){
+				var FnSaveTestStartTimeRandomExamCallBack= testRelated.FnSaveTestStartTimeRandomExam(StartTimeObj);
+
+				FnSaveTestStartTimeRandomExamCallBack.then(function(data){
+
 
 					 var result=angular.fromJson(JSON.parse(data.data));
+					 console.log(result);
+					 scope.dataValue.value.testModel=result.testModel;
 					 scope.startTest=true;
 
 					scope.countdown();
-					scope.timerFunction();							
+					scope.timerFunction();	
+
+					if (angular.equals(scope.questionAnswer.length,0)){
+							for(var index in scope.dataValue.value.testModel){
+								var tempObj={};
+								scope.questionAnswer.push(tempObj);
+							}
+
+						}						
 				
 				});
 
@@ -212,6 +218,8 @@ angular.module('baabtra').directive('questionGroupViewer',['$rootScope','$modal'
             	return JSON.stringify({value:question});
             };
             
+
+
 
 
 		}

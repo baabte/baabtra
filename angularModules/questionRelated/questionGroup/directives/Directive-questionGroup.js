@@ -76,19 +76,14 @@ angular.module('baabtra').directive('questionGroup',['$modal', function($modal) 
 		    };
 
 		    scope.questionShowActivate =function(){
-		    	 questionModal.$promise.then(questionModal.show);
-		    	
+		    	 questionModal.$promise.then(questionModal.show);		    	
 		    };
 
-		     scope.questionShowDeactivate =function(){
+		    scope.questionShowDeactivate =function(){
 		     	scope.questionModel={mark:{}};
-		    	 questionModal.hide();
-		    	
+		    	questionModal.hide();		    	
 		    };
-		    //  scope.questionShowDeactivate =function(){
-		    // 	scope.questionShow=false;
-
-		    // };
+		    
 
 		     // Pre-fetch an external template populated with a custom scope
             var questionModal = $modal({scope: scope, template: 'angularModules/questionRelated/questionGroup/directives/Modal-question.html', show: false,placement:'top'});
@@ -181,8 +176,7 @@ angular.module('baabtra').directive('questionGroup',['$modal', function($modal) 
 
             	}
             	scope.ngModel={mark:scope.mark,questionView:scope.questionView,resultMode:scope.resultMode,duration:scope.duration,actualDuration:scope.actualDuration,testModel:scope.questionGroupModel};
-            	scope.questionModel={mark:{}};//questionmodel reset to default
-            	questionModal.hide();
+            	scope.questionShowDeactivate();
 
             };
 
