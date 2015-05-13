@@ -5,8 +5,9 @@
           Design Marksheet
         </div>
         <div class="modal-body">
-          <pre>{{data.selectedCourse.syllabus}}</pre>
-          <div data-angular-treeview="true" data-tree-id="syllabusTree" data-tree-model="data.selectedCourse.syllabus" data-node-id="nodeId" data-node-label="name" data-node-children="children" ></div>
+          <pre>{{data.selectedNode}}</pre>
+          <pre>{{data.selectedCourse.courseTimeline}}</pre>
+          <div data-angular-treeview="true" data-node-output="data.selectedNode" data-node-edit="false" data-tree-id="syllabusTree" data-tree-model="data.selectedCourse.syllabus" data-node-id="nodeId" data-node-label="name" data-node-children="children" ></div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary baab-btn" ng-click="$hide()">Cancel</button>

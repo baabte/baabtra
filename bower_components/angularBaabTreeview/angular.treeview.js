@@ -35,6 +35,20 @@
 				
 				var nodeOutput = attrs.nodeOutput;
 
+				//for finding the output variable in the scope #created by lijin on 13-5-2015
+				var	outKeyArray=nodeOutput.split('.');
+				var outKey='';
+					var outElem=scope;
+					for(var index in outKeyArray){
+						if(index<outKeyArray.length-1){
+							outElem=outElem[outKeyArray[index]];	
+						}
+						else{
+							outKey=outKeyArray[index]
+						}
+						
+					}
+
 				//tree model
 				var treeModel = attrs.treeModel;
 
@@ -87,7 +101,7 @@
 
 							if(!selectedNode.children.length){
 
-								scope[nodeOutput] = selectedNode;
+								outElem[outKey]=selectedNode;
 
 								//remove highlight from previous node
 								if( scope[treeId].currentNode && scope[treeId].currentNode.selected ) {
@@ -101,7 +115,7 @@
 								scope[treeId].currentNode = selectedNode;
 							}
 							else{
-								scope[nodeOutput] = '';
+								outElem[outKey]=''
 							}
 						};
 					}

@@ -76,8 +76,8 @@ $scope.openPopup = function (course) {
 		gotSyllabus.then(function (response) {
 			// console.log(JSON.parse(response.data));
 			$scope.data.selectedCourse={};
+			$scope.data.selectedCourse=angular.fromJson(JSON.parse(response.data));
 			$scope.data.selectedCourse.courseId=course._id.$oid;
-			$scope.data.selectedCourse.syllabus=angular.fromJson(JSON.parse(response.data));
 			loader.destroy();
 			$modal({scope: $scope, template: 'angularModules/markSheet/designMarkSheet/popup/Popup-DesignMarkSheet.html', show: true,placement:'center'});
 		});
@@ -86,6 +86,26 @@ $scope.openPopup = function (course) {
 	//'angularModules/markSheet/designMarkSheet/popup/Popup-loadCourseData.html'
     // $modal({scope: $scope, template: 'angularModules/markSheet/designMarkSheet/popup/Popup-DesignMarkSheet.html', show: true,placement:'center'});
 
-}
+};
+// $scope.selectedNode={};
+$scope.$watch('data.selectedNode',function () {
+	console.log($scope.data.selectedNode);
+	if(angular.equals($scope.selectedNode,undefined)){
+		return;
+	}
+	$scope.elementsOfSelectedNode=[];
+	if(!angular.equals($scope.selectedNode.element,undefined)){
+
+		for(var key in $scope.selectedNode.element){
+			var elemNameArray=$scope.selectedNode.element[key].split('.');
+			var elem=$scope.data.selectedCourse.courseTimeline;
+			for(index in elemNameArray){
+				elem=elem[elemNameArray[index]];
+			}
+			console.log(elem);
+
+		}
+	}
+},true);
 
 }]);
