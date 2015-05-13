@@ -1,4 +1,10 @@
-<div class="col-md-12">
-asdhajshdusuh
-
+<div class="col-md-12 bg-light">
+	<div class="row p-v">
+		<div class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 col-xs-12 ">
+			<pre class="bg-white" ng-if="menteeMarkSheet.syllabus != null">{{menteeMarkSheet.syllabus}}</pre>
+			<div ng-if="menteeMarkSheet.syllabus == null" class="col-xs-12 shadow-z-1 p bg-warning font-bold">
+				Mark sheet not available :-)
+			</div>
+		</div>
+	</div>
 </div>

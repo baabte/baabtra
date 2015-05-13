@@ -796,7 +796,7 @@
               })
 
               .state('home.main.viewMarkSheet', {
-                url: '/viewMarkSheet',
+                url: '/viewMarkSheet/:courseId/:userId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/markSheet/viewMarkSheet/partials/Partial-viewMarkSheet.html',
