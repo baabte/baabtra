@@ -6,7 +6,10 @@
       </div>
       <div class="panel-body">
         <div class="row" >
-          <div class="col-xs-12"> <a ng-show = "selection.length" href="" class="text-lg" ng-click="selection = ''">Edit</a></div>
+          <div class="col-xs-12">
+            <span  ng-show="selection.length" class="label label-info text-sm p-xs">{{selection[0].name}}<a href="" ng-click="selection = ''"><i class="fa fa-close text-sm text-white p-h-xs"></i></a></span>
+          </div>
+
         </div>
         <form name="childForm">
           <hierarchical-selector ng-if="!selection.length" data="syncData.syllabus" select-only-leafs="true" multi-select="false" on-selection-changed="onSyllabusSelectionChanged(items)"/>

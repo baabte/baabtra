@@ -38,6 +38,11 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 			"text": "<i class=\"fa fa-pie-chart\"></i>&nbsp;Attendance report",
 			"click": "fnMenteeReport()"
 
+			},
+			{
+			"text": "<i class=\"fa fa-pie-chart\"></i>&nbsp;View mark sheet",
+			"click": "fnviewMarkSheet()"
+
 			}
 			];
 
@@ -56,6 +61,8 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 				$state.go("home.main.assignCourseMaterial",{userId:scope.menteeObj.fkUserRoleMappingId.$oid});
 			};
 
+
+
 			//function to view course
 			/*scope.fnMarkAttendance=function(){
 				
@@ -67,6 +74,9 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 				$state.go("home.main.menteeEvaluation",{courseId:scope.menteeObj.fkCourseId.$oid, userId:scope.menteeObj.fkUserRoleMappingId.$oid});
 			};
 
+			scope.fnviewMarkSheet = function(){
+				$state.go("home.main.viewMarkSheet",{courseId:scope.menteeObj.fkCourseId.$oid, userId:scope.menteeObj.fkUserRoleMappingId.$oid})
+			};
 
 			//function to evaluate course materials
 			/*scope.fnMenteeReport=function(){
