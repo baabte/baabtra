@@ -202,7 +202,6 @@
                 }
                 
               })
-
                .state('home.main.registerReseller', {
                 url: '/registerReseller',
                 views:{
@@ -319,6 +318,16 @@
                 views:{
                   'addCourse-container':{
                     templateUrl: 'angularModules/course/partials/addCourseStep4.html'
+                  }
+                }
+                
+              })
+              .state('home.main.configMarkSheet', {
+                url: '/configMarkSheet',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/markSheet/designMarkSheet/partials/Partial-designMarkSheet.html',
+                    controller:'DesignmarksheetCtrl'
                   }
                 }
                 
