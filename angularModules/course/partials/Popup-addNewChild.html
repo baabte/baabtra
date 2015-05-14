@@ -8,21 +8,21 @@
         <form name="childForm">
           <div class="row">
             <div class="col-xs-12">
-              <input type="text" class="form-control" ng-model="data.child._id"  placeholder="{{'Child name'|translate}}" required>
+              <input type="text" class="form-control" ng-model="data.child._id"  placeholder="{{'Child name'|translate}}" required ng-disabled="data.child.parent">
             </div>
           </div>
           <div class="row m-t-xs" ng-if="data.markingCriteria">
             <div class="col-xs-6" >
               <label translate="{{'Evaluation Type'|translate}}"></label>
-              <button type="button" class="btn btn-default no-margin" ng-model="data.child.selectedMarkingCriteria" data-html="1" ng-options="icon.value as icon.label for icon in data.markingCriteria" bs-select>
+              <button type="button" class="btn btn-default no-margin" ng-model="data.child.mark.type" data-html="1" ng-options="icon.value as icon.label for icon in data.markingCriteria" bs-select>
               Action <span class="caret"></span>
             </div>
-            <div class="col-xs-6" ng-if="data.child.selectedMarkingCriteria == 'mark'">
+            <div class="col-xs-6" ng-if="data.child.mark.type == 'mark'">
               <div class="col-xs-6">
-                <input type="number" class="form-control " ng-model="data.child.mark.minMark"  placeholder="{{'Min Pass Mark'|translate}}" required>
+                <input type="number" class="form-control " ng-model="data.child.mark.minMark"  placeholder="{{'Min Pass Mark'|translate}}" ui-validate="'$value >= 0' && '$value <= data.child.mark.maxMark'" required>
               </div>
               <div class="col-xs-6">
-                <input type="number" class="form-control col-xs-6" ng-model="data.child.mark.maxMark"  placeholder="{{'Total Mark'|translate}}" required>
+                <input type="number" class="form-control col-xs-6" ng-model="data.child.mark.maxMark"  placeholder="{{'Max Mark'|translate}}" ui-validate="'$value >= 0' && '$value >= data.child.mark.minMark'"  required>
               </div>
             </div>
           </div>
@@ -31,7 +31,7 @@
       <div class="modal-footer no-padding">
         <button type="button" class="btn btn-warning baab-btn" style="margin-right: 10px;" ng-click="$hide();">Cancel</button>
         <button ng-if="data.headName == 'Add'" type="button" class="btn btn-info baab-btn" style="margin-right: 10px;margin-top: 0px;" ng-click="addNewChild(data.item, data.child._id, $hide)" ng-disabled="childForm.$invalid" disabled="disabled">{{data.headName}}</button>
-        <button ng-if="data.headName == 'Update'" type="button" class="btn btn-info baab-btn" style="margin-right: 10px;margin-top: 0px;" ng-click="updateNewChild(data.child, $hide)" ng-disabled="childForm.$invalid" disabled="disabled">{{data.headName}}</button>
+        <button ng-if="data.headName == 'Update'" type="button" class="btn btn-info baab-btn" style="margin-right: 10px;margin-top: 0px;" ng-click="updateNewChild($hide)" ng-disabled="childForm.$invalid" disabled="disabled">{{data.headName}}</button>
       </div>
     </div>
   </div>

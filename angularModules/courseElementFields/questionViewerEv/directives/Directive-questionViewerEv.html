@@ -84,8 +84,8 @@
 
 
 				<div>
-					<div class="btn-material-pink-400 font-bold p-xs col-xs-12" ng-if="answerPreviewData.elements.length">
-						Candidate's Answer
+					<div class="btn-material-pink-400 font-bold p-xs col-xs-12" ng-if="answerPreviewData.elements.length" translate="{{ 'Answer from the Candidate' | translate }}">
+						
 					</div>
 					<div class="col-xs-12 course-description m-t-xs" ng-if="answerPreviewData.elements.length">
 						<course-element-full-view preview-data="answerPreviewData" ></course-element-full-view>
@@ -93,7 +93,14 @@
 				</div>
 			</div>
 
-			<div class="col-xs-12 m-t-md b-b">
+			<div class="row">
+				<div class="col-xs-12">	
+					<div class="btn-material-pink-400 font-bold p-xs col-xs-12" translate="{{ 'Evaluation' | translate }}" ></div>
+				</div>
+			</div>
+
+
+			<div class="col-xs-12 m-t-md b-b m-b-lg">
 				<div class="col-xs-12 m-b-md">
 					<div class="col-md-6 col-xs-12" ng-if="data.value.mark.markCriteria.length">
 						<em translate="{{'Answer Key Points & Mark Weightage' | translate}}"></em>
@@ -107,23 +114,55 @@
 						</div>	
 					</div>
 
-					<div class="col-md-6 col-xs-12">
-						<div class="font-bold">
+
+				<div class="row">
+					<div class="col-xs-12  m-t-lg">
+						<div class="col-xs-2 font-bold">
 							Marks : {{data.value.mark.totalMark}}
 							<div ng-if="data.value.type=='objective'">
 							Mark Scored : {{data.value.markScored}}
 							</div>
 						</div>
-							
-						<div  ng-if="data.value.type=='descriptive'" class=" font-bold">
-							<div  class="col-md-4  pull-left">
-								<input type="number" placeholder="{{' Mark Scored '|translate}}" xt-validate required class="form-control" min="0" float-label name="markScored" ng-minlength="1" ng-model="data.value.markScored" ng-change="markChanged(data.value.markScored)" ui-validate=" '$value <= data.value.mark.totalMark' ">
-							</div>
+
+						<div class="col-xs-6" style="margin-top:-18px;"  ng-if="data.value.type=='descriptive'">
+							<button type="button" class="btn btn-default pull-left text-left" ng-model="result.data.value.resultStatus" data-html="1" ng-options="questionEvOption.value as questionEvOption.label for questionEvOption in questionEvOptions" bs-select style="padding-left:2px;" ng-change="setMarks()" ng-if="data.value">
 						</div>
+							
+						<div style="margin-top:-30px;"  ng-if="data.value.type=='descriptive'" class="col-xs-4">
+						
+								<input  ng-if="data.value" type="number" placeholder="{{' Marks Scored '|translate}}" xt-validate required class="form-control" min="0" float-label name="markScored" ng-minlength="1" ng-model="result.data.value.markScored" ng-change="markChanged()" ui-validate=" '$value <= data.value.mark.totalMark' ">
+						
+						</div>
+						
 					</div>
-					
+				  </div>
+
+
+				 <div class="row" class="row m-b" ng-if="fromAssignment.value.penaltyHistory.length">
+					<div class="col-xs-12 font-bold">
+						Applicable penalties
+					</div>
+				</div>
+
+				<div class="col-xs-12" ng-repeat="rule in fromAssignment.value.penaltyHistory">	
+					<div class="col-xs-12 col-md-12 m-t-xs btn-material-amber-A200">
+						<div class="col-xs-10">
+							<i class="text-danger">
+							{{$index + 1}}. When {{rule.submissionMode}} by {{rule.lateTime}} {{rule.lateTimeUnits}},{{fnShowBlockSubmission(rule.blockSubmission)}} reduce {{rule.reductionUnits}}{{rule.penaltyCalculationUnit}}{{fnSHowPenaltyFrequency(rule)}}
+							</i>
+						</div>
+
+						<div class="col-xs-2 pull-right text-right" ng-if="fnShowAppliedPenalty()">
+							<i class="mdi-action-assignment-turned-in font-bold text-success">Applied</i>
+						</div>
+					</div>				
+				</div>
+
+
 				</div>					
-			</div>	
+			</div>
+
+
 		</div>
 	</div>
 </div>

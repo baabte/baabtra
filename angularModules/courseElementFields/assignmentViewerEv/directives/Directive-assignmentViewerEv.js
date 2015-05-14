@@ -108,16 +108,16 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
  		// Looping throuth the elemets in the elements array, if any element has a markscored value defied, that will be added to the total mark scored for the assignment
  		
  		for (var i in scope.$parent.result){
- 			var curElement = scope.$parent.result[i];			
+ 			var curElement = scope.$parent.result[i];		
 
 
  			if(!angular.equals(curElement.data.value.markScored,undefined) && !angular.equals(curElement.data.value.markScored,{})){		
  		
  				
- 					scope.result.data.markScored = scope.result.data.markScored +  parseInt(curElement.data.value.markScored);
+ 					scope.result.data.markScored = scope.result.data.markScored +  curElement.data.value.markScored;
  					
  					
- 					scope.result.data.markScored = assignmentFunctions.applyPenalty(scope.$parent.previewData,  scope.result.data.markScored);
+ 					//scope.result.data.markScored = assignmentFunctions.applyPenalty(scope.$parent.previewData,  scope.result.data.markScored);
 
  					
 
@@ -131,9 +131,50 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
  		
  		scope.$parent.elementMark = scope.result.data.markScored;
  		
- 		return parseFloat(scope.result.data.markScored).toFixed(2);
+ 		return scope.result.data.markScored;
 
  }
+// -----------------------------------------------------------------------------------------------------
+// a function to set the status of the assignment in the assignment viewer when the underlying question data changes
+ scope.setStatus = function(){
+
+ 		
+
+			var exceptionArray = ['question-viewer', 'assignment-question-viewer'];
+			var currentElement = {};
+			var complete = true;
+
+
+ 				for (var i in scope.$parent.result){
+
+ 					currentElement = scope.$parent.result[i];
+
+					if(!angular.equals(exceptionArray.indexOf(currentElement.data.type), -1)){
+						
+						
+						
+						if(angular.equals(currentElement.data.value.submitStatus, 'to be resubmitted')){
+							scope.result.data.status = currentElement.data.value.submitStatus;							
+							return;
+						}
+						else if(!angular.equals(currentElement.data.value.submitStatus, 'correct') && !angular.equals(currentElement.data.value.submitStatus, 'custom mark')){
+							complete = false;
+							scope.result.data.status = "Incomplete";
+							return;
+						}
+					}
+
+				}
+
+				if(complete){
+					scope.result.data.status = 'completed';
+					return;
+				}
+
+				
+
+ 		}
+
 
 // -----------------------------------------------------------------------------------------------------
 //setting up a watch on the elements array to sense the change in the mark scored bject in each element to run the function that calculates the total marks of the assignment
@@ -143,7 +184,9 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
 	}
 		, function(){
 
+		scope.setStatus();
 		scope.fnCalulateTotalMarks();
+		
 	},true);
 
 // -----------------------------------------------------------------------------------------------------

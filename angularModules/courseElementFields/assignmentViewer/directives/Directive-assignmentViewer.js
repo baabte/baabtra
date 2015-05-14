@@ -48,12 +48,11 @@ angular.module('baabtra').directive('assignmentViewer',['$rootScope','$state','a
 
 
  //_______________________________________________________________________________________________
+ var totalMarksScored = 0;
  
   // function to save the answer of the assignment
-  scope.submitAssignment = function(submitStatus, $hide) {
-
+  scope.submitAssignment = function(submitStatus, $hide) { 	
   	
-  	var totalMarksScored = 0;
 
   	for (var i in elementArray)	{
 			 currentElement = elementArray[i];
@@ -61,38 +60,60 @@ angular.module('baabtra').directive('assignmentViewer',['$rootScope','$state','a
 			 	
 			 	if(!angular.equals(exceptionArray.indexOf(currentElement.type), -1)){
 
-			 		 		
-			 		//calling the save answer function in the question viewer directive, but here we want the submit status to be saved as draft or whatever status which is sent from here, so if that function is passed with an argument, the function will replce those keys with the values passed from here.
+			 		//setting the evaluation status, if the question is submitted the evalStatus object will change to 0, which corresponds to pending evaluation 		
 			 		var evStatus = 2;
 			 		if(angular.equals(submitStatus,"submitted")){
 			 			evStatus = 0;
-			 		}
-			 		scope.$parent.childElementScopes[i].saveAnswer({submitStatus:submitStatus,
-			 			evaluated:evStatus});
+			 		}			 		
 
+						// checking and applying penalties ***************************************************
+			 			
+			 			// initialising an array to hold the statuses to which penalty has to be applied(this is in the question level)
+			 			var statusesToApplyPenalty = [undefined,'to-be-resubmitted'];
 
+			 			//check for and apply penalties
+						if(angular.equals(submitStatus,'submitted')) {	//the penalties should be applied only when the candidate submits his/her answer and not when he/she saves it as a draft for future updations
+
+						// the penalty should be applied only when the answer is submitted or resubmitted	
+
+							if(!angular.equals(statusesToApplyPenalty.indexOf(currentElement.value.submitStatus), -1)) {
+									
+									if(scope.checkAndApplyPenalty){	
+
+										// the penalties will be applied on the question basis		
+										assignmentFunctions.findPenalty(scope,currentElement)							
+												
+									}
+
+							} //.End ** if(!angular.equals(statusesToApplyPenalty.indexOf(currentElement.value.submitStatus), -1))		
+						
+						} //.End ** if(angular.equals(submitStatus,'submitted'))
+
+//****************************************************************************************
 			 		if(!angular.equals(currentElement.value.markScored, undefined)){
 
+			 				if(scope.penaltyHistory.length > 0){
+								currentElement.value.markScored = assignmentFunctions.applyPenalty(scope,  currentElement.value.markScored);								
+							}
 			 			totalMarksScored = parseInt(totalMarksScored) + parseInt(currentElement.value.markScored);
 			 		}
+
 			 		
+
+
+			 		//calling the save answer function in the question viewer directive, but here we want the submit status to be saved as draft or whatever status which is sent from here, so if that function is passed with an argument, the function will replce those keys with the values passed from here.
+			 		scope.$parent.childElementScopes[i].saveAnswer({submitStatus:submitStatus,
+			 			evaluated:evStatus,
+			 			markScored:currentElement.value.markScored,
+			 			penaltyHistory:scope.penaltyHistory});
+		
 			 	}
 			 }
 	}
 
 	
 
-	//check for and apply penalties
-	if(angular.equals(submitStatus,'submitted')) {		
-		if(scope.checkAndApplyPenalty){			
-			assignmentFunctions.findPenalty(scope);
-			if(scope.penaltyHistory.length > 0){
-				totalMarksScored = assignmentFunctions.applyPenalty(scope,  totalMarksScored);
-			}
-
-					
-		}
-	}
+	
      
 
      // building the object to be saved in database
@@ -100,7 +121,7 @@ angular.module('baabtra').directive('assignmentViewer',['$rootScope','$state','a
  
  	 objToBeSaved.objDetails = scope.$parent.previewData;
      objToBeSaved.lastUpdatedBy = $rootScope.userinfo.ActiveUserData.roleMappingObj._id;
-     objToBeSaved.markScored = totalMarksScored;
+     objToBeSaved.markScored = totalMarksScored;   
      objToBeSaved.status = submitStatus;
      //objToBeSaved.answerArray = answerArray
      objToBeSaved.courseMappingId = $state.params.courseMappingId;
@@ -115,7 +136,7 @@ angular.module('baabtra').directive('assignmentViewer',['$rootScope','$state','a
      statusHistory.push({changedFrom:scope.$parent.previewData.status, changedTo:submitStatus, changedBy:$rootScope.userinfo.ActiveUserData.roleMappingObj._id.$oid, changedOn:date});
 
      objToBeSaved.statusHistory = statusHistory;
-     objToBeSaved.penaltyHistory = scope.penaltyHistory;
+    
 
    
     var response = assignmentFunctions.fnSubmitAssignment(objToBeSaved);

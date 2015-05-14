@@ -21,9 +21,11 @@ angular.module('baabtra').service('assignmentFunctions',['$http', 'bbConfig',fun
 
 	 this.checkForPenalty = function(scope) {
 
-				var duration = scope.$parent.previewData.duration.duration * calculationMetrics[scope.duration.durationUnit];					
-				
 
+
+				var duration = scope.data.value.duration.duration * calculationMetrics[scope.data.value.duration.durationUnit];					
+					
+		
 				//checking if there is an assigned date
 				if(!angular.equals(scope.$parent.previewData.assignedDate,undefined)){		
 
@@ -65,7 +67,7 @@ angular.module('baabtra').service('assignmentFunctions',['$http', 'bbConfig',fun
 // _______________________________________________________________________________________
 
 	//function to check for the penalties which are applicable to the specific submit cases
-	this.findPenalty = function(scope) {	
+	this.findPenalty = function(scope, element) {	
 
 	scope.penaltyHistory = [];    
 	
@@ -85,21 +87,23 @@ angular.module('baabtra').service('assignmentFunctions',['$http', 'bbConfig',fun
 
 		var currentDuration = parseInt(currentPenaltyObj.lateTime)*(calculationMetrics[currentPenaltyObj.lateTimeUnits]);
 
-		if(angular.equals(scope.$parent.previewData.status,"to be resubmitted")){
+		if(angular.equals(element.resultStatus,"to be resubmitted")){
 
 			
-			if (!angular.equals(scope.$parent.previewData.penaltyHistory,undefined) && !angular.equals(scope.$parent.previewData.penaltyHistory,null)){
-					scope.penaltyHistory = angular.copy(scope.$parent.previewData.penaltyHistory);
+			if (!angular.equals(element.penaltyHistory,undefined) && !angular.equals(element.penaltyHistory,null)){
+					scope.penaltyHistory = angular.copy(element.penaltyHistory);
 			}
 
 			if(angular.equals(currentPenaltyObj.submissionMode,"re-submitted")){
 				//pushing the penalty object into the penalty array
+				currentPenaltyObj.delayInMilliSeconds = scope.timeDiff
 				scope.penaltyHistory.push(currentPenaltyObj);
 			}
 
 			if(angular.equals(currentPenaltyObj.submissionMode,"re-submission is late")){
 				if(scope.timeDiff>currentDuration){
 						//pushing the penalty object into the penalty array
+						currentPenaltyObj.delayInMilliSeconds = scope.timeDiff
 						scope.penaltyHistory.push(currentPenaltyObj);
 				}
 			}			
@@ -123,6 +127,7 @@ angular.module('baabtra').service('assignmentFunctions',['$http', 'bbConfig',fun
 	}
 
 	//pushing the penalty object into the penalty array
+	objTobePushed.delayInMilliSeconds = scope.timeDiff
 	scope.penaltyHistory.push(objTobePushed);
 
 	return;
@@ -175,7 +180,7 @@ this.applyPenalty = function(scope, totalMarks){
 
 		//multiplying the reduction marks with the frequency
 		if(angular.equals(currentPenalty.penaltyCalculationUnit,"each day delayed")){
-			var diffDays = Math.ceil(scope.timeDiff / (1000 * 3600 * 24));
+			var diffDays = Math.ceil(currentPenalty.delayInMilliSeconds / (1000 * 3600 * 60 * 24));
 			reduce = reduce*diffDays;
 		}
 
