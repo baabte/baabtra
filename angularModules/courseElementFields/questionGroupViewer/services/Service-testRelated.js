@@ -17,6 +17,20 @@ angular.module('baabtra').service('testRelated',['$http','bbConfig',function tes
       return promise;
    };
 
+   this.FnSaveTestStartTimeRandomExam=function(StartTimeObj){
+    var result;
+   var promise=$http({
+           url: bbConfig.BWS+'SaveTestStartTimeRandomExam/',
+           data: angular.toJson(StartTimeObj),
+           method: 'POST',
+           withCredentials: false,
+           contentType:'application/json',
+           dataType:'json',
+           });
+   
+      return promise;
+   };
+
    this.FnTestTimeReCheck=function(data){
     var result;
    var promise=$http({

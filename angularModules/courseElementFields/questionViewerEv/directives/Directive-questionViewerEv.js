@@ -125,6 +125,7 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 				}
 				
 
+
 				if(angular.isDefined(scope.fromAssignment)){
 						scope.applyPenalty();
 				}	
@@ -148,6 +149,7 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 							}
 						}
 					},600);				
+
 
 				}
 

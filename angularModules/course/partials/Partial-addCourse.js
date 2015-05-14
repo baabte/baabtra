@@ -512,7 +512,7 @@ $scope.undo = function(){
 
 //var lastSelectedNode = "";
 $scope.editChild = function(node){
-
+  
   $scope.data.child = node;
   if(angular.equals($scope.data.child.nodeId, undefined)){
     var time=(new Date()).valueOf();

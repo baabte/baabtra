@@ -202,7 +202,6 @@
                 }
                 
               })
-
                .state('home.main.registerReseller', {
                 url: '/registerReseller',
                 views:{
@@ -319,6 +318,16 @@
                 views:{
                   'addCourse-container':{
                     templateUrl: 'angularModules/course/partials/addCourseStep4.html'
+                  }
+                }
+                
+              })
+              .state('home.main.configMarkSheet', {
+                url: '/configMarkSheet',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/markSheet/designMarkSheet/partials/Partial-designMarkSheet.html',
+                    controller:'DesignmarksheetCtrl'
                   }
                 }
                 
@@ -785,6 +794,17 @@
                 }
                 
               })
+
+              .state('home.main.viewMarkSheet', {
+                url: '/viewMarkSheet/:courseId/:userId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/markSheet/viewMarkSheet/partials/Partial-viewMarkSheet.html',
+                    controller:'ViewmarksheetCtrl'
+                  }
+                }
+              })
+              
               .state('home.main.batchWithOption', {
                 url: '/manageBatch/:key',
                 views:{
