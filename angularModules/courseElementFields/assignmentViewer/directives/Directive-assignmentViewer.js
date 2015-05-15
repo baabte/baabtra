@@ -271,6 +271,19 @@ var fnBlockSubmission = function(){
 				
 			}
 // -----------------------------------------------------------------------------------------------------
+	//function show by date
+			scope.fnShowByDate = function(submissionMode, lateTime,lateTimeUnits){
+
+				if (!angular.equals(submissionMode, 're-submitted')){
+					
+					return "by " + lateTime + " " + lateTimeUnits
+				}
+				else{
+					return "";
+				}
+			}
+// -----------------------------------------------------------------------------------------------------
+
 // Pre-fetch an external template populated with a custom scope
    var submitModal = $modal({scope: scope, template: 'angularModules/courseElementFields/assignmentViewer/modals/submitConfirmation.html', show: false,placement:'center'});
  // Show when some event occurs (use $promise property to ensure the template has been loaded)

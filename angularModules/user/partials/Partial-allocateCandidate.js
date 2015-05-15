@@ -197,8 +197,9 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 
 				}
 
-			//calling service for enrolling user
+			// calling service for enrolling user
 			fnRegisterUserCallBack=allocateCandidateService.fnenrollSingleUser($scope.selectedUser,$scope.orderFormData);
+			console.log({userRegister:$scope.selectedUser,courseObj:$scope.orderFormData})
 		}
 
 		else if(angular.equals(type,'bulk')){
@@ -244,6 +245,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 				}
 
 				fnRegisterUserCallBack=allocateCandidateService.fnenrollBulkUsers($scope.orderFormsData);
+				console.log({userList:$scope.orderFormsData})
 
 
 
@@ -255,6 +257,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 		fnRegisterUserCallBack.then(function(data){
 		
 			var result=angular.fromJson(JSON.parse(data.data));
+			console.log(result);
 			hide(); //to hide the modal
 			$scope.hideButtonEnrollFlag=false;
 			$scope.notifications('Yaay..!','Registered Successfully','success');   
@@ -312,103 +315,105 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 
 	}
 
-	//enrolling the candidate for specific batch/course
-	$scope.fnEnrollCandidate=function(obj,hide,type){
-		$scope.hideButtonEnrollFlag=true;
-		//delete some unwanted data
-		if(angular.equals(type,'single')){
-			delete mandatoryData.status;
-			delete mandatoryData.userId;
-			//delete mandatoryData.$index;
-		}
+	// //enrolling the candidate for specific batch/course
+	// $scope.fnEnrollCandidate=function(obj,hide,type){
+	// 	$scope.hideButtonEnrollFlag=true;
+	// 	//delete some unwanted data
+	// 	if(angular.equals(type,'single')){
+	// 		delete mandatoryData.status;
+	// 		delete mandatoryData.userId;
+	// 		//delete mandatoryData.$index;
+	// 	}
 
-		//setting course material assignment type to 'manual'
-		$scope.userRegister.materialAssignment="manual";
+	// 	//setting course material assignment type to 'manual'
+	// 	$scope.userRegister.materialAssignment="manual";
 
-		//condition to check there is any batch is selected or not.if not selectet then delete the batch object from scope
-		if(!angular.equals($scope.candidateObj.batch,undefined)&&(angular.equals(Object.keys($scope.candidateObj.batch).length,0))){
-		delete $scope.candidateObj.batch;
-		}
-		if(!angular.equals($scope.candidateObj.batch,undefined)&&($scope.candidateObj.batch.length>0)) { 
+	// 	//condition to check there is any batch is selected or not.if not selectet then delete the batch object from scope
+	// 	if(!angular.equals($scope.candidateObj.batch,undefined)&&(angular.equals(Object.keys($scope.candidateObj.batch).length,0))){
+	// 	delete $scope.candidateObj.batch;
+	// 	}
+	// 	if(!angular.equals($scope.candidateObj.batch,undefined)&&($scope.candidateObj.batch.length>0)) { 
 
-		delete $scope.candidateObj.batch[0].course;
-		$scope.userRegister.batchId=$scope.candidateObj.batch[0]._id;
-		delete $scope.candidateObj.batch[0]._id;
-		delete $scope.candidateObj.batch[0].companyId;
-		delete $scope.candidateObj.batch[0].updatedDate;
-		delete $scope.candidateObj.batch[0].createddDate;
-		delete $scope.candidateObj.batch[0].crmId;
-		delete $scope.candidateObj.batch[0].urmId;
-		$scope.candidateObj.batch[0].startDate=new Date($scope.candidateObj.batch[0].startDate).toISOString();
-		$scope.candidateObj.batch[0].endDate=new Date($scope.candidateObj.batch[0].endDate).toISOString();
-		$scope.candidateObj.batch[0].enrollmentAfter=new Date($scope.candidateObj.batch[0].enrollmentAfter.$date).toISOString();
-		$scope.candidateObj.batch[0].enrollmentBefore=new Date($scope.candidateObj.batch[0].enrollmentBefore.$date).toISOString();
-		$scope.candidateObj.batch=$scope.candidateObj.batch[0];
-		//setting the date time
-		var time=(new Date()).valueOf();
-		hashids = new Hashids("this is a batch id");
-		$scope.candidateObj.batch.batchCode = hashids.encode(time); 
+	// 	delete $scope.candidateObj.batch[0].course;
+	// 	$scope.userRegister.batchId=$scope.candidateObj.batch[0]._id;
+	// 	delete $scope.candidateObj.batch[0]._id;
+	// 	delete $scope.candidateObj.batch[0].companyId;
+	// 	delete $scope.candidateObj.batch[0].updatedDate;
+	// 	delete $scope.candidateObj.batch[0].createddDate;
+	// 	delete $scope.candidateObj.batch[0].crmId;
+	// 	delete $scope.candidateObj.batch[0].urmId;
+	// 	$scope.candidateObj.batch[0].startDate=new Date($scope.candidateObj.batch[0].startDate).toISOString();
+	// 	$scope.candidateObj.batch[0].endDate=new Date($scope.candidateObj.batch[0].endDate).toISOString();
+	// 	$scope.candidateObj.batch[0].enrollmentAfter=new Date($scope.candidateObj.batch[0].enrollmentAfter.$date).toISOString();
+	// 	$scope.candidateObj.batch[0].enrollmentBefore=new Date($scope.candidateObj.batch[0].enrollmentBefore.$date).toISOString();
+	// 	$scope.candidateObj.batch=$scope.candidateObj.batch[0];
+	// 	//setting the date time
+	// 	var time=(new Date()).valueOf();
+	// 	hashids = new Hashids("this is a batch id");
+	// 	$scope.candidateObj.batch.batchCode = hashids.encode(time); 
 
-		 $scope.userRegister.batch=angular.copy($scope.candidateObj.batch);
+	// 	 $scope.userRegister.batch=angular.copy($scope.candidateObj.batch);
 
-		} 
+	// 	} 
 
-		//build the user registration object
-		$scope.userRegister.course={};
-		$scope.userRegister.coursetype=$scope.candidateObj.coursetype;
-		$scope.userRegister.course=$scope.candidateObj.course;
-		if(angular.equals(type,'single')){
-			$scope.userRegister.mandatoryData=mandatoryData;
-			$scope.userRegister.mandatoryData.password=mandatoryData.eMail;
-		}else{
-			$scope.userRegister.mandatoryData=$scope.selectedCandidates; //assigning selected candidates into userRegister object.
-		}
-  		$scope.userRegister.loggedusercrmid=$scope.crmId;
-  		$scope.userRegister.companyId=$scope.companyId;
-  		$scope.userRegister.role={};
-  		$scope.userRegister.role.roleId=3; //initialising the role id as mentee
-		var fnRegisterUserCallBack;
-		if(angular.equals(type,'single')){
-			fnRegisterUserCallBack=allocateCandidateService.fnenrollSingleUser($scope.userRegister,obj);
-		}
-		else{
-			fnRegisterUserCallBack=allocateCandidateService.fnenrollBulkUsers($scope.userRegister,obj);
-		}
-		//getting the promise here
-		fnRegisterUserCallBack.then(function(data){
+	// 	//build the user registration object
+	// 	$scope.userRegister.course={};
+	// 	$scope.userRegister.coursetype=$scope.candidateObj.coursetype;
+	// 	$scope.userRegister.course=$scope.candidateObj.course;
+	// 	if(angular.equals(type,'single')){
+	// 		$scope.userRegister.mandatoryData=mandatoryData;
+	// 		$scope.userRegister.mandatoryData.password=mandatoryData.eMail;
+	// 	}else{
+	// 		$scope.userRegister.mandatoryData=$scope.selectedCandidates; //assigning selected candidates into userRegister object.
+	// 	}
+ //  		$scope.userRegister.loggedusercrmid=$scope.crmId;
+ //  		$scope.userRegister.companyId=$scope.companyId;
+ //  		$scope.userRegister.role={};
+ //  		$scope.userRegister.role.roleId=3; //initialising the role id as mentee
+	// 	var fnRegisterUserCallBack;
+	// 	if(angular.equals(type,'single')){
+	// 		fnRegisterUserCallBack=allocateCandidateService.fnenrollSingleUser($scope.userRegister,obj);
+	// 	}
+	// 	else{
+	// 		fnRegisterUserCallBack=allocateCandidateService.fnenrollBulkUsers($scope.userRegister,obj);
+	// 	}
+	// 	//getting the promise here
+	// 	fnRegisterUserCallBack.then(function(data){
 		
-			var result=angular.fromJson(JSON.parse(data.data));
-			hide(); //to hide the modal
-			$scope.hideButtonEnrollFlag=false;
-			$scope.notifications('Yaay..!','Registered Successfully','success');   
-		    //$state.go('home.main');
-
-		    var allocatedPromise=allocateCandidateService.FnLoadVerifiedCandidates($scope,['Approved']); 
-			allocatedPromise.then(function(response){ //getting service response here
-				var responseData=angular.fromJson(JSON.parse(response.data));
-				//console.log(responseData.orderFroms._firstBatch);
-				//$scope.orderFormList=responseData.orderFroms._firstBatch;
-				$scope.orderFormList=responseData.orderFroms;
-				$scope.buildUsersObjectByCourse(responseData);
-			}) 
-
-		    if(angular.equals(type,'single')){
-				//sending notification through email 
-				var  userEmail  = $rootScope.userinfo.ActiveUserData.eMail;
-				var  username   = $rootScope.userinfo.ActiveUserData.username;
-				var menteeEmail = $scope.userRegister.mandatoryData.eMail;
-				var menteeName  = $scope.userRegister.mandatoryData.firstName;
-				var companyName = $rootScope.userinfo.ActiveUserData.username;
-				var companyLogo = $rootScope.userinfo.ActiveUserData.appSettings.logo;
-				$timeout(function(){
-					var sendNotification=userRegistrationService.fnSendEmailSmsNotification(userEmail,username,menteeEmail,menteeName,result.evaluatorEmailLIst,companyName,companyLogo);
-			 	},200);
-			}
-
-		 });
+	// 		var result=angular.fromJson(JSON.parse(data.data));
+	// 		hide(); //to hide the modal
+	// 		$scope.hideButtonEnrollFlag=false;
+	// 		$scope.notifications('Yaay..!','Registered Successfully','success');   
+	// 	    //$state.go('home.main');
 
 
-	};
+	// 	    console.log(result);
+	// 	 //    var allocatedPromise=allocateCandidateService.FnLoadVerifiedCandidates($scope,['Approved']); 
+	// 		// allocatedPromise.then(function(response){ //getting service response here
+	// 		// 	var responseData=angular.fromJson(JSON.parse(response.data));
+	// 		// 	console.log(responseData.orderFroms._firstBatch);
+	// 		// 	//$scope.orderFormList=responseData.orderFroms._firstBatch;
+	// 		// 	$scope.orderFormList=responseData.orderFroms;
+	// 		// 	$scope.buildUsersObjectByCourse(responseData);
+	// 		// }) 
+
+	// 	 //    if(angular.equals(type,'single')){
+	// 		// 	//sending notification through email 
+	// 		// 	var  userEmail  = $rootScope.userinfo.ActiveUserData.eMail;
+	// 		// 	var  username   = $rootScope.userinfo.ActiveUserData.username;
+	// 		// 	var menteeEmail = $scope.userRegister.mandatoryData.eMail;
+	// 		// 	var menteeName  = $scope.userRegister.mandatoryData.firstName;
+	// 		// 	var companyName = $rootScope.userinfo.ActiveUserData.username;
+	// 		// 	var companyLogo = $rootScope.userinfo.ActiveUserData.appSettings.logo;
+	// 		// 	$timeout(function(){
+	// 		// 		var sendNotification=userRegistrationService.fnSendEmailSmsNotification(userEmail,username,menteeEmail,menteeName,result.evaluatorEmailLIst,companyName,companyLogo);
+	// 		//  	},200);
+	// 		// }
+
+	// 	 });
+
+
+	// };
 
 
 	//selectAll option
@@ -435,7 +440,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 
   //function to check and remove  unwanted feilds from userinfo and displays while clicking expand button
 	$scope.funCheckExludeList=function(key){
-		var inArr=['eMail','password','checkedStatus','statusHistory','doc','passportCopy','userPic','lastName','firstName','showDetails'];
+		var inArr=['eMail','password','userLoginId','checkedStatus','statusHistory','doc','passportCopy','userPic','lastName','firstName','showDetails'];
 		if(angular.equals(inArr.indexOf(key),-1)){
 			return true;
 		}else{

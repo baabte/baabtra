@@ -340,7 +340,8 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 
             	 				// setting custom attributes, if any
             	 				if(!angular.equals(selectedCourseElement.elements[elementCount].customAttributes, undefined)){
-            	 					if(!angular.equals(elementTo.customlist, undefined)){
+            	 					
+            	 					if(angular.equals(elementTo.customlist, undefined)){
 
             	 						elementTo.customlist = [];
             	 					}
