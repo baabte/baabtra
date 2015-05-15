@@ -7,7 +7,7 @@ angular.module('baabtra').directive('assignmentQuestionViewer',['$modal', functi
 			courseElement:'=',
 			courseId:'=',
 			showSubmitButton:'@',
-			thisScope:'=',
+			thisScope:'=?',
 			index:'='
 		},
 		templateUrl: 'angularModules/courseElementFields/assignmentQuestionViewer/directives/Directive-assignmentQuestionViewer.html',

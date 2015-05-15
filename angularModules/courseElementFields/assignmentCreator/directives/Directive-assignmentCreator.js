@@ -133,6 +133,18 @@ angular.module('baabtra').directive('assignmentCreator',['$modal',function($moda
 				
 			}
 
+			//function show by date
+			scope.fnShowByDate = function(submissionMode,lateTime,lateTimeUnits){
+
+				if (!angular.equals(submissionMode, 're-submitted')){
+					
+					return "by " + lateTime + " " + lateTimeUnits
+				}
+				else{
+					return "";
+				}
+			}
+
 
 
 

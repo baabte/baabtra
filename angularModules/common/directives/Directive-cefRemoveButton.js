@@ -27,17 +27,25 @@ angular.module('baabtra').directive('cefRemoveButton',['$compile','$rootScope','
 			//removing the field from the UI as well as the list of fields on click of the button
 			removeBtn.on("click", function(){
 
+
 				//getting the name of the field to a varaibale
 	            var name = scope.$parent.field.name;
+
+
 
 	            //getting the existing fields shema into an array
 	            var existingFields = scope.$parent.$parent.form.schema.fields;
 
+	            console.log(existingFields)
+
 	     
 	            // looping through the array to get the existing schema object so that the new schema  can be added after that	          
 	            for (var i in existingFields){
+
 	            	if(angular.equals(name,existingFields[i].name)){
+
 	            		existingFields.splice(i,1);
+	            		scope.$apply();
 	            		break;
 	            	}
 	            }
