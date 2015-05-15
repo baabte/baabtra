@@ -165,7 +165,6 @@ $scope.checkUserAlreadyExists = function(){
 
 $scope.fnUserRegister =function (draftFlag,fnCallback) {
 
-console.log(draftFlag);
 
 	
 	// $scope.allSync.FormData={};
@@ -210,7 +209,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
   				var imagePath = response.data.replace('"','').replace('"','');
 
   				//var imagePathArray = imagePath.split('_');
-          		$scope.allSync.FormData[imagePath.split('_')[0]] = bbConfig.BWS + 'files/'+ imagePath.split('_')[0] +'/' + imagePath;
+          		$scope.allSync.FormData[imagePath.split('.')[0].split('_')[0]] = bbConfig.BWS + 'files/'+ imagePath.split('.')[0].split('_')[0] +'/' + imagePath;
           		$scope.fileUpload++;
         	});
 		}
@@ -280,16 +279,14 @@ if(Object.keys($scope.allSync.FormData.course).length){
 			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 			nomintaionResponse.then(function(response){
 				var orderForm = angular.fromJson(JSON.parse(response.data));
-				console.log(orderForm);
 				if(!angular.equals(orderForm._id.$oid,undefined)){
 				orderForm._id = orderForm._id.$oid;
 				}
 				$scope.data.orderForm = orderForm;
-				console.log(orderForm);
+
 				$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 				
-				// console.log(fnCallback);
-				//changing the selected tab
+				console.log(fnCallback);
 				$scope.status.selected=1;
 
 				if(!angular.equals(fnCallback,undefined)){
@@ -332,7 +329,6 @@ if(Object.keys($scope.allSync.FormData.course).length){
 			$scope.data.orderForm.orderDetails[courseIndex].userCount++;
 			//added for incrementing pending approval status count
 			$scope.data.orderForm.orderDetails[courseIndex].PendingApprovalCount++;
-			console.log($scope.data.orderForm);
 			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 			nomintaionResponse.then(function(response){
 				var orderForm = angular.fromJson(JSON.parse(response.data));
@@ -413,7 +409,6 @@ if(Object.keys($scope.allSync.FormData.course).length){
 					}
 
 					$scope.data.orderForm = orderForm;
-					console.log(orderForm);
 
 					$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 					//changing the selected tab
@@ -454,9 +449,6 @@ if(Object.keys($scope.allSync.FormData.course).length){
 };
 
 	$scope.finshRegisteration = function(draftFlag){
-		
-		
-			
 			$scope.fnUserRegister(draftFlag,function(){
 				var orderFormModel = $modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-orderForm.html', show: true});
 				$scope.showModal = function() {
