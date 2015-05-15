@@ -130,7 +130,10 @@ if(!angular.equals($state.params.ofId,"")){
 	orderFormResponse.then(function(response){
 		var orderForm = angular.fromJson(JSON.parse(response.data));
 		orderForm._id = orderForm._id.$oid;
+		orderForm.companyId = orderForm.companyId.$oid;
 		$scope.data.orderForm = orderForm;
+		console.log(orderForm);
+
 	});
 }
 
@@ -160,9 +163,9 @@ $scope.checkUserAlreadyExists = function(){
 };
 
 
-$scope.fnUserRegister =function (fnCallback) {
+$scope.fnUserRegister =function (draftFlag,fnCallback) {
 
-
+console.log(draftFlag);
 
 	
 	// $scope.allSync.FormData={};
@@ -232,6 +235,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
 		var orderFormData = {};
 		
 		$scope.data.orderForm.companyId = companyId;
+		$scope.data.orderForm.draftFlag = draftFlag;
 		$scope.data.orderForm.orderFormId = orderFormId;
 		$scope.data.orderForm.orderDetails = [];
 
@@ -276,8 +280,12 @@ if(Object.keys($scope.allSync.FormData.course).length){
 			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 			nomintaionResponse.then(function(response){
 				var orderForm = angular.fromJson(JSON.parse(response.data));
+				console.log(orderForm);
+				if(!angular.equals(orderForm._id.$oid,undefined)){
 				orderForm._id = orderForm._id.$oid;
+				}
 				$scope.data.orderForm = orderForm;
+				console.log(orderForm);
 				$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 				
 				// console.log(fnCallback);
@@ -319,15 +327,24 @@ if(Object.keys($scope.allSync.FormData.course).length){
 
 			
 		if(courseExits){
+			$scope.data.orderForm.draftFlag=draftFlag;
 			$scope.data.orderForm.orderDetails[courseIndex].userInfo.push(userinfo);
 			$scope.data.orderForm.orderDetails[courseIndex].userCount++;
 			//added for incrementing pending approval status count
 			$scope.data.orderForm.orderDetails[courseIndex].PendingApprovalCount++;
+			console.log($scope.data.orderForm);
 			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 			nomintaionResponse.then(function(response){
 				var orderForm = angular.fromJson(JSON.parse(response.data));
+				if(!angular.equals(orderForm._id.$oid,undefined)){
 				orderForm._id = orderForm._id.$oid;
+				}
+				if(!angular.equals(orderForm.companyId.$oid,undefined)){
+				orderForm.companyId = orderForm.companyId.$oid;
+				}
 				$scope.data.orderForm = orderForm;
+				console.log(orderForm);
+
 				$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 
 				//changing the selected tab
@@ -382,14 +399,22 @@ if(Object.keys($scope.allSync.FormData.course).length){
 
 		    	courseDetails.userInfo.push(userinfo);
 		    	courseDetails.coursetype = $scope.allSync.FormData.coursetype;
-
+		    	$scope.data.orderForm.draftFlag=draftFlag;
 		    	$scope.data.orderForm.orderDetails.push(courseDetails);
 						    	
 				var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 				nomintaionResponse.then(function(response){
 					var orderForm = angular.fromJson(JSON.parse(response.data));
+					if(!angular.equals(orderForm._id.$oid,undefined)){
 					orderForm._id = orderForm._id.$oid;
+					}
+					if(!angular.equals(orderForm.companyId.$oid,undefined)){
+					orderForm.companyId = orderForm.companyId.$oid;
+					}
+
 					$scope.data.orderForm = orderForm;
+					console.log(orderForm);
+
 					$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 					//changing the selected tab
 					$scope.status.selected=1;
@@ -428,17 +453,18 @@ if(Object.keys($scope.allSync.FormData.course).length){
 	}
 };
 
-	$scope.finshRegisteration = function(userRegistrationForm){
+	$scope.finshRegisteration = function(draftFlag){
 		
 		
 			
-			$scope.fnUserRegister(function(){
+			$scope.fnUserRegister(draftFlag,function(){
 				var orderFormModel = $modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-orderForm.html', show: true});
 				$scope.showModal = function() {
               		orderFormModel.$promise.then(orderFormModel.show);
             	};
 			});
 	};
+
 	$scope.hideOrderForm = function(){
 		$state.go('home.main');
 	};

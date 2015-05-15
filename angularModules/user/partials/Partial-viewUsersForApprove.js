@@ -74,7 +74,7 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 
 	$scope.approvalFlow = [{currentStage:'Verification',displayName:"Verify Applicants", loadStatus:["Pending Approval","Resubmit"], nextStatus:"Verified", privilegedRoles:['a','b','c'], buttonText:"Verify", paymentStage:false, viewStage:false,canReject:true },
 	{currentStage:'Payment',displayName:"Collect Payment", loadStatus:["Verified", "Partially Paid"], nextStatus:"Paid", privilegedRoles:['a','b'], buttonText:"Make Payment", paymentStage:true, viewStage:false,canReject:false },
-	{currentStage:'Approval',displayName:"Approve Applicants", loadStatus:["Paid"], nextStatus:"Approved", privilegedRoles:['a','c'], buttonText:"Approve", paymentStage:false, viewStage:false,canReject:true},
+	{currentStage:'Approval',displayName:"Approve Applicants", loadStatus:["Verified","Paid"], nextStatus:"Approved", privilegedRoles:['a','c'], buttonText:"Approve", paymentStage:false, viewStage:false,canReject:true},
 	{currentStage:'Approved',displayName:"Approved Applicants", loadStatus:["Approved"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Approved", paymentStage:false, viewStage:true,canReject:false},
 	{currentStage:'Rejected',displayName:"Rejected Applicants", loadStatus:["Rejected"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Rejected", paymentStage:false, viewStage:true,canReject:false},
 	{currentStage:'Allocated',displayName:"Allocated Applicants", loadStatus:["Allocated"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Allocated", paymentStage:false, viewStage:true,canReject:false}
@@ -955,7 +955,7 @@ else{
 
 	//function to check and remove  unwanted feilds from userinfo and displays while clicking expand button
 	$scope.funCheckExludeList=function(key){
-		var inArr=['eMail','password','statusHistory','doc','passportCopy','userPic','lastName','firstName','showDetails'];
+		var inArr=['eMail','password','orderFormId','userLoginId','statusHistory','doc','passportCopy','userPic','lastName','firstName','showDetails'];
 		if(angular.equals(inArr.indexOf(key),-1)){
 			return true;
 		}else{
