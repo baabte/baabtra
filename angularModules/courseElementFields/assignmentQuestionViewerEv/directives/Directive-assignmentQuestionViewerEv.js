@@ -3,12 +3,14 @@ angular.module('baabtra').directive('assignmentQuestionViewerEv', function() {
 		restrict: 'E',
 		replace: true,
 		scope: {
-			data:"="
+			data:"@"
 		},
 		templateUrl: 'angularModules/courseElementFields/assignmentQuestionViewerEv/directives/Directive-assignmentQuestionViewerEv.html',
 		link: function(scope, element, attrs, fn) {
 
-			
+			if(angular.equals(typeof scope.data, 'string')){
+				scope.data = JSON.parse(scope.data)
+			}
 
 			// initialising the return variable
 			if(angular.equals(scope.result, undefined)){

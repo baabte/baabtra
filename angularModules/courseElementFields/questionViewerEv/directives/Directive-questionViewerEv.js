@@ -190,6 +190,47 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 			}
 
 
+		// -----------------------------------------------------------------------------------------------------
+
+//function to show or hide the from parameter based on selected values
+			scope.fnShowBlockSubmission = function(blockSubmission) {
+
+				if (blockSubmission) {
+					return "block submission and ";
+				}
+				else{
+					return "";
+				}
+			}
+
+// -----------------------------------------------------------------------------------------------------
+//if block submission is true, don't show the penalty frequency
+			scope.fnShowPenaltyFrequency = function(rule){
+
+				if (rule.blockSubmission) {
+					return "";
+				}
+				else{
+					return "for" + rule.penaltyFrequency;
+				}
+				
+			}
+// -----------------------------------------------------------------------------------------------------
+	//function show by date
+			scope.fnShowByDate = function(submissionMode, lateTime,lateTimeUnits){
+
+				if (!angular.equals(submissionMode, 're-submitted')){
+					
+					return "by " + lateTime + " " + lateTimeUnits
+				}
+				else{
+					return "";
+				}
+			}
+// -----------------------------------------------------------------------------------------------------
+
+
+
 		}
 	};
 }]);

@@ -18,15 +18,16 @@ angular.module('baabtra').directive('courseElementEvaluator',['$compile', functi
 			scope.$watch('previewData', function(){
 				$(element).find('#elementContent'+scope.rand).html('');
 				if(!angular.equals(scope.previewData,undefined)){
-				
+
+								
 					angular.forEach(scope.previewData.elements, function(data,key){//looping through each type of course elements at this point in the object
 							if(data instanceof Object){
 							 		var elementToBeCreated=$('<'+data.type+'-ev>');
 							 		//checking for custom attributes and adding them
 							 		if(!angular.equals(data.customAttributes, undefined)) {
 							 			
-							 			for (var key in data.customAttributes){
-							 				elementToBeCreated.attr(key,data.customAttributes[key]);
+							 			for (var keyAttrib in data.customAttributes){
+							 				elementToBeCreated.attr(keyAttrib,data.customAttributes[keyAttrib]);
 							 			}
 							 		}
 							 		elementToBeCreated.attr('data',JSON.stringify(data));

@@ -75,6 +75,18 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
 				
 			}
 // -----------------------------------------------------------------------------------------------------
+	//function show by date
+			scope.fnShowByDate = function(submissionMode, lateTime,lateTimeUnits){
+
+				if (!angular.equals(submissionMode, 're-submitted')){
+					
+					return "by " + lateTime + " " + lateTimeUnits
+				}
+				else{
+					return "";
+				}
+			}
+// -----------------------------------------------------------------------------------------------------
 	//function to show the status if a penalty rule is applicable 
 	scope.fnShowPenaltyAppliedStatus = function(rule){
 		for (var i in scope.$parent.previewData.penaltyHistory){
