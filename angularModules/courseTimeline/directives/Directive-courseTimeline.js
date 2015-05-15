@@ -357,19 +357,19 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	 	}
             	 }
             	
+             	if(!angular.equals(scope.syncData.courseTimeline[scope.selectedTpoint][scope.courseElement.Name][scope.selectedIndex].syllabus, undefined)){
  				 var keyArray = scope.syncData.courseTimeline[scope.selectedTpoint][scope.courseElement.Name][scope.selectedIndex].syllabus.key.split('.');
  				
-
  				 var syllabus = scope.syncData.syllabus;
  				 var index = 0;
  				 for(var key in keyArray){
  				 	syllabus = syllabus[keyArray[key]];
  				 	index++;
  				 	if(angular.equals(keyArray.length, index)){
- 				 		 console.log(syllabus);
  				 		 syllabus.selected = true;
  				 		 scope.selection = [syllabus];
  				 	}
+ 				 }
  				 }
 
 
