@@ -26,7 +26,7 @@ angular.module('baabtra').controller('ViewmarksheetCtrl',['$scope', '$rootScope'
   var checkElemWithMark = function(arr){
     var count=0;
     for(var key in arr){
-      if(arr[key].mark.markScored){
+      if(angular.equals(arr[key].mark.type,'mark')){
         count++;
       }
     }
