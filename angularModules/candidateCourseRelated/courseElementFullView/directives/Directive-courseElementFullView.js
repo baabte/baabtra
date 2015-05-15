@@ -14,12 +14,7 @@ angular.module('baabtra').directive('courseElementFullView',['$compile', functio
 			var secondaryElements={
 				"doc-viewer":'doc-viewer-frame'
 			};
-
-			// console.clear()
-			// console.log('==================courseElementPreview=====================')			
-			// console.log(scope.previewData)
-			// console.log('==============================================================')
-
+	
 		scope.$watch('previewData', function(){
 
 			
@@ -62,7 +57,7 @@ angular.module('baabtra').directive('courseElementFullView',['$compile', functio
 							 		elementToBeCreated.attr('index',key);
 							 		elementToBeCreated.attr('this-scope','childElementScopes.'+key+'');
 							 		elementToBeCreated.attr('course-id','courseId');
-							 		elementToBeCreated.addClass('elementField');
+							 		elementToBeCreated.addClass('elementField m-v-lg');
 
 							 		
 							 		$('#elementContent'+scope.rand).append(elementToBeCreated);

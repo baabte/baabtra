@@ -8,11 +8,12 @@ angular.module('baabtra').directive('assignmentQuestionViewerEv', function() {
 		templateUrl: 'angularModules/courseElementFields/assignmentQuestionViewerEv/directives/Directive-assignmentQuestionViewerEv.html',
 		link: function(scope, element, attrs, fn) {
 
+			
+
 			// initialising the return variable
 			if(angular.equals(scope.result, undefined)){
 				scope.result = scope.$parent.result[parseInt(attrs.index)];
 				scope.result.data = angular.copy(scope.data);
-
 			}
 
 			scope.questionData={};
@@ -27,7 +28,7 @@ angular.module('baabtra').directive('assignmentQuestionViewerEv', function() {
 				scope.questionData.value.userAnswer = data.value.userAnswer;
 				scope.questionData.value.evaluated = data.value.evaluated;
 				scope.questionData.value.markScored = data.value.markScored;
-
+				scope.questionData.value.resultStatus = scope.$parent.previewData.status;
 			}
 
 			
@@ -36,6 +37,7 @@ angular.module('baabtra').directive('assignmentQuestionViewerEv', function() {
 			scope.$watch('result.data.markScored', function(){
 
 
+			
 				if(!angular.equals(scope.result.data.markScored, undefined)){	
 					//scope.$parent.elementMark = 0;				
 					scope.$parent.elementMark = scope.$parent.elementMark +  scope.result.data.markScored;
@@ -43,7 +45,11 @@ angular.module('baabtra').directive('assignmentQuestionViewerEv', function() {
 
 				}
 
+
+
 			});
+
+			
 
 		}
 	};

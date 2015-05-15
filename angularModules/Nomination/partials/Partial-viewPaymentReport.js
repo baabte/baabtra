@@ -55,6 +55,10 @@ angular.module('baabtra').controller('ViewpaymentreportCtrl',['$scope','$rootSco
 	};
 
 	$scope.clearReport=function () {
+		$scope.searchObj={};
+		$scope.searchObj.searchObj={};
+		delete $scope.filter.customerType;
+		delete $scope.filter.courses;
 		delete $scope.obj.report;
 	};
 
