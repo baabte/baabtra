@@ -43,6 +43,11 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 			"text": "<i class=\"fa fa-pie-chart\"></i>&nbsp;View mark sheet",
 			"click": "fnviewMarkSheet()"
 
+			},
+			{
+			"text": "<i class=\"fa fa-pie-chart\"></i>&nbsp;View certificate",
+			"click": "fnviewCertificate()"
+
 			}
 			];
 
@@ -76,6 +81,11 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 
 			scope.fnviewMarkSheet = function(){
 				$state.go("home.main.viewMarkSheet",{courseId:scope.menteeObj.fkCourseId.$oid, userId:scope.menteeObj.fkUserRoleMappingId.$oid})
+			};
+
+
+			scope.fnviewCertificate = function(){
+				$state.go("home.main.viewCertificate",{courseId:scope.menteeObj.fkCourseId.$oid, userId:scope.menteeObj.fkUserRoleMappingId.$oid})
 			};
 
 			//function to evaluate course materials
