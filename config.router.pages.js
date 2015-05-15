@@ -804,6 +804,16 @@
                   }
                 }
               })
+
+                .state('home.main.viewCertificate', {
+                url: '/viewCertificate/:courseId/:userId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Certificate/viewCertificate/partials/Partial-viewCertificate.html',
+                    controller:'ViewcertificateCtrl'
+                  }
+                }
+              })
               
               .state('home.main.batchWithOption', {
                 url: '/manageBatch/:key',

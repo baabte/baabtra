@@ -24,6 +24,9 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 			if(angular.isDefined(scope.fromAssignment)){
 				scope.fromAssignment = JSON.parse(scope.fromAssignment);
 			}
+
+			//JSON-ifying the data object :)
+			scope.data = JSON.parse(scope.data)
 			
 
 			// End. Anoop . **** these are the things required when the question is appearing inside an assignment
@@ -62,22 +65,37 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 					var dbSaverUnbind=scope.$watch(function() { return scope.ItsTimeToSavePrimaryToDB+''+scope.ItsTimeToSaveSecondaryToDB; },function(){
 						// alert(scope.ItsTimeToSavePrimaryToDB+''+scope.ItsTimeToSaveSecondaryToDB);
 						if(scope.ItsTimeToSavePrimaryToDB && scope.ItsTimeToSaveSecondaryToDB){
-			// console.log('murid',courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
+			
 
-								//Edited by ANOOP - if the function has an argument specified, the key value pairs in the answer object should be replaced with the key value pairs in the oargument. This is to make this waork with elements in which a question comes as a sub element, for eg. assignment, test etc. So the status or any key can be controlled by the directive which calls this function
+								//Edited by ANOOP - if the function has an argument specified, the key value pairs in the answer object should be replaced with the key value pairs in the argument. This is to make this work with elements in which a question comes as a sub element, for eg. assignment, test etc. So the status or any key can be controlled by the directive which calls this function
 								var ansObj = {userAnswer:scope.answerToDb,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time, submitStatus:'submitted'};
 
 								if(!angular.equals(argKeys, undefined)){
-									for (var key in argKeys){
-										
+									for (var key in argKeys){										
 										ansObj[key] = argKeys[key];
 									}
 								}
 								//.End
 
+								//building a status history object for the question element
+						 		var statusHistory = [];
+
+			 					if(!angular.equals(ansObj.statusHistory, undefined) && !angular.equals(ansObj.statusHistory, null)){
+							     	
+							     	statusHistory = angular.copy(ansObj.statusHistory);
+							     }
+
+							     var date = new Date();
+							     statusHistory.push({changedFrom:scope.data.status, changedTo:ansObj.submitStatus, changedBy:$rootScope.userinfo.ActiveUserData.roleMappingObj._id.$oid, changedOn:date});
+
+							     ansObj.statusHistory = statusHistory;
+							     // ****************************************************
+
 								var promise = questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,ansObj);
 									promise.then(function (data) {
-										data=angular.fromJson(JSON.parse(data.data));
+										if(!angular.equals(typeof data, 'Object')) {
+											data=angular.fromJson(JSON.parse(data.data));
+										}
 										if(data.success){
 											scope.question.userAnswer=scope.answerToDb;
 											scope.dbAnswer=scope.answerToDb;
@@ -99,7 +117,9 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 				else{
 					var promise=questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,{userAnswer:scope.userAnswer,markScored:scope.mark,evaluated:evStatus,dateOfSubmission:time});
 						promise.then(function (data) {
-							data=angular.fromJson(JSON.parse(data.data));
+							if(!angular.equals(typeof data, 'Object')) {
+								data=angular.fromJson(JSON.parse(data.data));
+							}
 							if(data.success){
 								scope.question.userAnswer=scope.userAnswer;
 								scope.dbAnswer=scope.userAnswer;
@@ -147,7 +167,9 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 		
 
 				if(!(scope.data instanceof Object)){
-					scope.data=JSON.parse(scope.data);					
+					if(!angular.equals(typeof data, 'Object')) {
+						scope.data=JSON.parse(scope.data);
+					}					
 				}
 				scope.question=scope.data.value;
 

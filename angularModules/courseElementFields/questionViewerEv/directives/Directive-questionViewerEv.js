@@ -1,17 +1,39 @@
-angular.module('baabtra').directive('questionViewerEv',['$modal', function($modal) {
+angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunctions', function($modal, assignmentFunctions) {
 	return {
 		restrict: 'E',
 		replace: true,
 		scope: {
-			data:"=",
-			//added by Anoop show assignment related options when the question happens to be inside an assignment
-			fromAssignment:"=",
-			result:"="
+			data:"=?",
+			//added by Anoop to show assignment related options when the question happens to be inside an assignment
+			fromAssignment:"=?",
+			result:"=?"
 		},
 		templateUrl: 'angularModules/courseElementFields/questionViewerEv/directives/Directive-questionViewerEv.html',
 		link: function(scope, element, attrs, fn) {
 
-		
+			
+
+			if(angular.equals(typeof scope.data ,'string')){
+
+				scope.data = JSON.parse(scope.data);
+			}
+
+			
+
+			// initialisisng the return variable
+			if(angular.equals(scope.result, undefined)){
+				scope.result = scope.$parent.result[parseInt(attrs.index)];
+				scope.result.data = angular.copy(scope.data);
+			}
+			else{
+
+				if(angular.equals(typeof scope.result ,'string')){
+					scope.result = JSON.parse(scope.result);
+				}
+			}
+
+			var timeOut;
+
 			// Anoop . **** these are the things required when the question is appearing inside an assignment
 			//scope.fromAssignment = JSON.parse(scope.fromAssignment);
 
@@ -21,38 +43,124 @@ angular.module('baabtra').directive('questionViewerEv',['$modal', function($moda
 			if(scope.data.value.userAnswer){
 				for(key in scope.data.value.userAnswer[0].primaryAnswer){
 				scope.answerPreviewData.elements.push(scope.data.value.userAnswer[0].primaryAnswer[key]);
-			}
-			}
-			
+				}
+			} 
 
-
-
-			if(angular.equals(typeof scope.result ,'String')){
-				scope.result = JSON.parse(scope.result);
-			}
-
-			// initialisisng the return variable
-			if(angular.equals(scope.result, undefined)){
-				scope.result = scope.$parent.result[parseInt(attrs.index)];
-				scope.result.data = angular.copy(scope.data);
-			}
+			//Anoop , reating an array to show the statuses for questions.
+			//an array to hold the unit of the penalty
+			scope.questionEvOptions = [{label:"Not Evaluated", value:"not evaluated"},
+			{label:"Correct", value:"correct"}
+			, {label:"Custom Mark", value:"custom mark"},
+			{label:'Ask for Resubmission', value:'to be resubmitted'}];
 
 			
-			
+			if(angular.isDefined(scope.result)){			
+				if(!angular.isDefined(scope.result.data.value.resultStatus)){
+									
+					scope.result.data.value.resultStatus = "not evaluated";
+				}
+			}
 
-			scope.markChanged = function(mark){
+			if(angular.isDefined(scope.fromAssignment)){
+
+							// **********************************************************
+					scope.fnShowAppliedPenalty = function() {
+
+						if(!angular.equals(scope.penaltyApplicationStatuses.indexOf(scope.result.data.value.resultStatus), -1) && scope.result.data.value.markScored > 0){
+							return true;
+						}
+						else{
+							return false;
+						}
+					}
+
+					scope.$watch('fnShowAppliedPenalty', function(){});
+					// **********************************************************
+			}
+			
+			scope.penaltyApplicationStatuses = ["correct", "custom mark" ]
+
+			//function to handle the resultStatus change event
+			scope.setMarks=function(){
 				
-				if(!angular.equals(mark, undefined)){	
-					console.log(scope.result);
-					//scope.$parent.elementMark = 0;
-					scope.result.data.markScored = scope.data.value.markScored;
-					scope.result.data.value.markScored = scope.data.value.markScored;
+				if(angular.equals(scope.result.data.value.resultStatus,'correct')){
+					scope.result.data.value.markScored = scope.result.data.value.mark.totalMark;
+					if(angular.isDefined(scope.fromAssignment)){
+						scope.applyPenalty();
+					}					
+				}
+				if(angular.equals(scope.penaltyApplicationStatuses.indexOf(scope.result.data.value.resultStatus),-1)){
+					scope.result.data.value.markScored = 0;
+				}
+
+				// scope.result.data.value.resultStatus = scope.data.value.resultStatus;
+				// scope.result.data.value.submitStatus = scope.data.value.resultStatus;
+				
+			}
+
+			// ***************************************************
+
+
+			//setting up a watch on the mark scored object to bubble up the change
+			scope.$watch(function() {  return scope.result.data.value.markScored; }, function(){
+
+				if(angular.isDefined(scope.result)){
+					scope.result.data.markScored = scope.result.data.value.markScored;
+					//scope.result.data.value.markScored = scope.data.value.markScored;
 					scope.$parent.elementMark = scope.$parent.elementMark +  scope.result.data.markScored;
-					
+				}
+			})
+
+			
+
+			// ***************************************************
+			// a function to change the result status from not evaluated to custom marks when somebody changes the marks manually
+			scope.markChanged = function () {
+
+				if(angular.equals(scope.result.data.value.markScored,scope.result.data.value.mark.totalMark)){
+					scope.result.data.value.resultStatus = "correct";
+				}
+				else {
+					scope.result.data.value.resultStatus = "custom mark";
+				}
+				
+
+
+				if(angular.isDefined(scope.fromAssignment)){
+						scope.applyPenalty();
+				}	
+			}
+
+			//a function to apply the penalty
+			scope.applyPenalty = function() {
+
+				if(!angular.equals(scope.result.data.value.markScored, undefined)){	
+				
+					// applying penalties if any, if the question is inside an assignment with  a time out
+				if(timeOut) {clearTimeout(timeOut);}
+					timeOut = setTimeout(function(){					
+						
+						if(angular.isDefined(scope.fromAssignment)){				
+							
+							if(scope.fromAssignment.value.penaltyHistory.length){
+								scope.penaltyHistory = scope.fromAssignment.value.penaltyHistory;
+								scope.result.data.value.markScored = assignmentFunctions.applyPenalty(scope,  scope.result.data.value.markScored);
+								scope.$apply();
+							}
+						}
+					},600);				
+
 
 				}
 
-			};
+			}
+
+			//.End Anoop
+
+
+			
+			
+
 
 			// //setting up a watch on the markscoredObject of data to update the total marks scored
 			// scope.$watch('data.value.markScored', function(){

@@ -151,10 +151,10 @@ $scope.openPopup = function (course) {
 //function to trigger when some one selected a node in popup
 $scope.$watch('data.selectedNode',function () {
 	
-	if(angular.equals($scope.data.selectedNode,undefined)){
+	if(angular.equals($scope.data.selectedNode,undefined)||angular.equals($scope.data.selectedNode,'')){
 		return;
 	}
-	// console.log($scope.data.selectedNode.mark.type);
+	console.log($scope.data.selectedNode.mark.type);
 	$scope.elementsOfSelectedNode=[];
 	if(!angular.equals($scope.data.selectedNode.element,undefined)){
 
@@ -166,10 +166,20 @@ $scope.$watch('data.selectedNode',function () {
 			}
 
 			if(angular.equals($scope.data.selectedNode.mark.type,'mark')){
-				// console.log(elem);
+				$scope.data.markType='mark';
 				if(elem.evaluable&&!angular.equals(elem.totalMark,undefined)){
 					$scope.elementsOfSelectedNode.push({element:elem,key:$scope.data.selectedNode.element[key]});
 				}
+			}
+			else if(angular.equals($scope.data.selectedNode.mark.type,'pass/fail')){
+				$scope.data.markType='pass/fail';
+				 // console.log(elem);
+				if(elem.evaluable&&angular.equals(elem.totalMark,undefined)){
+					$scope.elementsOfSelectedNode.push({element:elem,key:$scope.data.selectedNode.element[key]});
+				}
+			}
+			else{
+				$scope.data.markType='no mark';
 			}
 
 		}

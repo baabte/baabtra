@@ -7,7 +7,7 @@ angular.module('baabtra').service('courseAllocateService',['$http','bbConfig',fu
           url: bbConfig.BWS+'FetchUsersToCourseAllocate/',
           data:{"companyId":$scope.companyId,"firstId":firstId,"type":type,"lastId":lastId,searchKey:searchKey},
           contentType:'application/json; charset=UTF-8',
-        })
+        });
 
         return promise;
       };
@@ -19,7 +19,7 @@ angular.module('baabtra').service('courseAllocateService',['$http','bbConfig',fu
           url: bbConfig.BWS+'AllocateUsersToCourse/',
           data:angular.toJson(courseAllocate),
           contentType:'application/json; charset=UTF-8',
-        })
+        });
 
         return promise;
       };
