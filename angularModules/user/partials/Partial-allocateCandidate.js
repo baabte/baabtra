@@ -245,7 +245,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 				}
 
 				fnRegisterUserCallBack=allocateCandidateService.fnenrollBulkUsers($scope.orderFormsData);
-				console.log({userList:$scope.orderFormData})
+				console.log({userList:$scope.orderFormsData})
 
 
 
@@ -257,6 +257,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 		fnRegisterUserCallBack.then(function(data){
 		
 			var result=angular.fromJson(JSON.parse(data.data));
+			console.log(result);
 			hide(); //to hide the modal
 			$scope.hideButtonEnrollFlag=false;
 			$scope.notifications('Yaay..!','Registered Successfully','success');   
