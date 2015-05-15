@@ -11,7 +11,6 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 		},
 		templateUrl: 'angularModules/courseTimeline/directives/Directive-courseTimeline.html',
 		link: function(scope, element, attrs, fn) {
-			console.log(scope.coursePreviewObj)
 		scope.MURID = bbConfig.MURID;//mentee role id 
 
 		var courseElementFieldsResponse = courseElementFieldsManaging.fnGetCourseElementFields();
@@ -383,7 +382,6 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	$templateCache.put('course-element-popup.html','<edit-course-element></edit-course-element>');
             	
             	buildNodePath(scope.syncData.syllabus,  scope.selection[0].nodeId,'','',function(){
-            		console.log(scope.data.nodePath);
 	            	
 	            	$aside({scope: scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
             		hide();
