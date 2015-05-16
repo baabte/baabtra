@@ -37,6 +37,7 @@ angular.module('baabtra').controller('ViewmarksheetCtrl',['$scope', '$rootScope'
 
     if(!angular.equals(syllabus[index].mark, undefined)){
       if(syllabus[index].mark.type=='mark'&&syllabus[index].children.length==0){
+
         return syllabus[index].mark;
       }
       else if(syllabus[index].mark.type=='mark'){
@@ -69,10 +70,8 @@ angular.module('baabtra').controller('ViewmarksheetCtrl',['$scope', '$rootScope'
     $scope.menteeMarkSheet.course = result[0];
     $scope.menteeMarkSheet.markSheet = $scope.menteeMarkSheet.course.syllabus[0].children;
     //fnBuildmarkSheet(syllabus, markSheet);
-    console.log($scope.menteeMarkSheet.course.syllabus[0].children);
 
     var objTest = getMarkInAllLevel($scope.menteeMarkSheet.course.syllabus,0);
-    console.log($scope.menteeMarkSheet.course.syllabus);
   });
 
 }]);

@@ -8,7 +8,7 @@
         <form name="childForm">
           <div class="row">
             <div class="col-xs-12">
-              <input type="text" class="form-control" ng-model="data.child.name"  placeholder="{{'Child name'|translate}}" required ng-disabled="data.child.parent">
+              <input type="text" class="form-control" ng-model="data.child.name"  placeholder="{{'Child name'|translate}}" required >
             </div>
           </div>
           <div class="row m-t-xs" ng-if="data.markingCriteria">
@@ -30,7 +30,7 @@
       </div>
       <div class="modal-footer no-padding">
         <button type="button" class="btn btn-warning baab-btn" style="margin-right: 10px;" ng-click="$hide();">Cancel</button>
-        <button ng-if="data.headName == 'Add'" type="button" class="btn btn-info baab-btn" style="margin-right: 10px;margin-top: 0px;" ng-click="addNewChild(data.item, data.child._id, $hide)" ng-disabled="childForm.$invalid" disabled="disabled">{{data.headName}}</button>
+        <button ng-if="data.headName == 'Add'" type="button" class="btn btn-info baab-btn" style="margin-right: 10px;margin-top: 0px;" ng-click="addNewChild(data.item, data.child.name, $hide)" ng-disabled="childForm.$invalid" disabled="disabled">{{data.headName}}</button>
         <button ng-if="data.headName == 'Update'" type="button" class="btn btn-info baab-btn" style="margin-right: 10px;margin-top: 0px;" ng-click="updateNewChild($hide)" ng-disabled="childForm.$invalid" disabled="disabled">{{data.headName}}</button>
       </div>
     </div>
