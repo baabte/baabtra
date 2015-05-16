@@ -102,8 +102,15 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 
 
 			//setting up a watch on the mark scored object to bubble up the change
-			scope.$watch(function() {  return scope.result.data.value.markScored; }, function(){
+			scope.$watch(function() {  return scope.result.data.value.markScored; }, function(newVal, oldVal){
 
+				if(angular.isDefined(oldVal)){
+					var markToBeAdded = newVal - oldVal;
+				}
+				else {
+					var markToBeAdded = newVal;
+				}
+				
 				if(angular.isDefined(scope.result)){
 
 					scope.result.data.markScored = scope.result.data.value.markScored;
@@ -113,10 +120,10 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 						scope.$parent.elementMark = 0;
 					}
 					
-					console.log(scope.result.data.markScored);
-
-					scope.$parent.elementMark = scope.$parent.elementMark +  scope.result.data.markScored;
 					
+					scope.$parent.elementMark = scope.$parent.elementMark +  markToBeAdded;
+					alert(scope.$parent.elementMark);
+
 				}
 			})
 
@@ -133,7 +140,7 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 				}
 				
 
-				console.log(scope.result.data);
+				
 				if(angular.isDefined(scope.fromAssignment)){
 						scope.applyPenalty();
 				}	

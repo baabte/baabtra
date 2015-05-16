@@ -36,13 +36,22 @@ angular.module('baabtra').directive('assignmentQuestionViewerEv', function() {
 			
 			
 			//updating the mark element when the data is updated in the questionviewerevdirective
-			scope.$watch('result.data.markScored', function(){
+			scope.$watch('result.data.markScored', function(newVal, oldVal){
 
 
 			
-				if(!angular.equals(scope.result.data.markScored, undefined)){	
+				if(!angular.equals(scope.result.data.markScored, undefined)){
+				
+				
+					if(angular.isDefined(oldVal)){
+						var markToBeAdded = newVal - oldVal;
+					}
+					else {
+						var markToBeAdded = newVal;
+					}
+
 					//scope.$parent.elementMark = 0;				
-					scope.$parent.elementMark = scope.$parent.elementMark +  scope.result.data.markScored;
+					scope.$parent.elementMark = scope.$parent.elementMark +  markToBeAdded;
 					
 
 				}
