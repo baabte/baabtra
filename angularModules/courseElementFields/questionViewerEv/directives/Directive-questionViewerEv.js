@@ -122,7 +122,7 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 					
 					
 					scope.$parent.elementMark = scope.$parent.elementMark +  markToBeAdded;
-					alert(scope.$parent.elementMark);
+					
 
 				}
 			})
