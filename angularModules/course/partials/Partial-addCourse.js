@@ -453,25 +453,25 @@ $scope.showPopupForAddChild = function(item){
 };
 
 $scope.addNewChild = function(item, childName, hide){// function for add new child under a node
-  
-  var mark = {};
-      if(angular.equals($scope.data.child.type, 'mark')){
-        mark.type = 'mark';
-        mark.minMark = $scope.data.child.mark.minMark;
-        mark.maxMark = $scope.data.child.mark.maxMark;
-      }
-      else if(angular.equals($scope.data.child.type, 'pass/fail')){
-        mark.type = 'pass/fail';
-      }
-      else if(angular.equals($scope.data.child.type, 'no mark')){
-        mark.type = 'no mark';
-  }
+
+  // var mark = {};
+  //     if(angular.equals($scope.data.child.type, 'mark')){
+  //       mark.type = 'mark';
+  //       mark.minMark = $scope.data.child.mark.minMark;
+  //       mark.maxMark = $scope.data.child.mark.maxMark;
+  //     }
+  //     else if(angular.equals($scope.data.child.type, 'pass/fail')){
+  //       mark.type = 'pass/fail';
+  //     }
+  //     else if(angular.equals($scope.data.child.type, 'no mark')){
+  //       mark.type = 'no mark';
+  // }
   
   var time = (new Date()).valueOf();
   var hashids = new Hashids("this is a id for syllabus");
   var node_id = 'SB-' + hashids.encode(time);
 
-  item.children.push({ name: childName , children: [], mark:mark, nodeId:node_id, activeFlag:1});
+  item.children.push({ name: childName , children: [], mark:$scope.data.child.mark, nodeId:node_id, activeFlag:1});
   
   $scope.completeStep3($scope.course, 'step3');
   hide();
@@ -488,7 +488,7 @@ function removeNode(syllabus, nodeId){
     if(angular.equals(syllabus[node].nodeId, nodeId)){
 
       $scope.data.syllabusCopy = angular.copy($scope.course.syllabus);
-      $alert({scope: $scope,container:'body',keyboard:true,animation:'am-fade-and-slide-top',template:'views/ui/angular-strap/alert.tpl.html',title:'Undo',content: syllabus[node]._id +' has been deleted', placement: 'top-right', type: 'warning'});
+      $alert({scope: $scope,container:'body',keyboard:true,animation:'am-fade-and-slide-top',template:'views/ui/angular-strap/alert.tpl.html',title:'Undo',content: syllabus[node].name +' has been deleted', placement: 'top-right', type: 'warning'});
 
       syllabus.splice(node, 1);
       $scope.completeStep3($scope.course, 'step3');
