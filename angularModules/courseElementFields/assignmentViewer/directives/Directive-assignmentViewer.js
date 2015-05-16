@@ -137,14 +137,16 @@ angular.module('baabtra').directive('assignmentViewer',['$rootScope','$state','a
 
      objToBeSaved.statusHistory = statusHistory;
     
-
-   
+     console.log(objToBeSaved);
+   	
     var response = assignmentFunctions.fnSubmitAssignment(objToBeSaved);
      
      response.then(function(response){
 
      	response = angular.fromJson(JSON.parse(response.data));
      	
+     	console.log(response);
+
      	if(angular.equals(response.result,"success")) {
 
      	// 	// in the event of success, update the current dat aobject to initiate rerendering of the controls

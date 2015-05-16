@@ -24,7 +24,7 @@
 					<div class="col-xs-2 text-center font-bold">Mark Scored</div>
 					<div class="col-xs-2 text-center font-bold">Max Mark</div>
 				</div> -->
-				<div class="shadow-z-1 col-xs-12 bg-white p-v" ng-if="menteeMarkSheet.noMarkSheet">
+				<div ng-if="menteeMarkSheet.course.syllabus[0].children.length" class="shadow-z-1 col-xs-12 bg-white p-v" ng-if="menteeMarkSheet.noMarkSheet">
 					<mark-sheet mark-sheet-obj='menteeMarkSheet.markSheet'>
 					</mark-sheet>
 				</div>
