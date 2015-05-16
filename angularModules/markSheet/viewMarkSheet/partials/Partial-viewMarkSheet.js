@@ -68,6 +68,7 @@ angular.module('baabtra').controller('ViewmarksheetCtrl',['$scope', '$rootScope'
   courseDetailsResponse.then(function(response){
   	var result = angular.fromJson(JSON.parse(response.data));
     $scope.menteeMarkSheet.course = result[0];
+    console.log(result[0]);
     $scope.menteeMarkSheet.markSheet = $scope.menteeMarkSheet.course.syllabus[0].children;
     //fnBuildmarkSheet(syllabus, markSheet);
 

@@ -105,9 +105,18 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 			scope.$watch(function() {  return scope.result.data.value.markScored; }, function(){
 
 				if(angular.isDefined(scope.result)){
+
 					scope.result.data.markScored = scope.result.data.value.markScored;
 					//scope.result.data.value.markScored = scope.data.value.markScored;
+					
+					if(angular.equals(scope.$parent.elementMark, undefined)){
+						scope.$parent.elementMark = 0;
+					}
+					
+					console.log(scope.result.data.markScored);
+
 					scope.$parent.elementMark = scope.$parent.elementMark +  scope.result.data.markScored;
+					
 				}
 			})
 
@@ -116,7 +125,6 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 			// ***************************************************
 			// a function to change the result status from not evaluated to custom marks when somebody changes the marks manually
 			scope.markChanged = function () {
-
 				if(angular.equals(scope.result.data.value.markScored,scope.result.data.value.mark.totalMark)){
 					scope.result.data.value.resultStatus = "correct";
 				}
@@ -125,7 +133,7 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 				}
 				
 
-
+				console.log(scope.result.data);
 				if(angular.isDefined(scope.fromAssignment)){
 						scope.applyPenalty();
 				}	
@@ -135,7 +143,7 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 			scope.applyPenalty = function() {
 
 				if(!angular.equals(scope.result.data.value.markScored, undefined)){	
-				
+					
 					// applying penalties if any, if the question is inside an assignment with  a time out
 				if(timeOut) {clearTimeout(timeOut);}
 					timeOut = setTimeout(function(){					
