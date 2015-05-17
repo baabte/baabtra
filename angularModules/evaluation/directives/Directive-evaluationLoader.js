@@ -40,7 +40,9 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 				}
 
 				scope.evaluated = function(element, elementTotalMarks, outElement, elementOrder, courseMappingId, evaluatorId){
-					
+					console.clear();
+					console.log(elementTotalMarks);
+
 					element.evalDetails = {};
 					var result = angular.copy(outElement);
 
@@ -56,8 +58,6 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 					
 					element.markScored = parseFloat(elementTotalMarks);
 					
-					console.log(element.markScored);
-					
 					var index = 0;
 					for(var field in result){
 						if(!angular.equals(result[field], undefined)){
@@ -71,8 +71,6 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 							evaluationResponse.then(function(response){
 								var result = angular.fromJson(JSON.parse(response.data));
 
-								console.log(result);
-								
 								if(angular.equals(result.result, "Added")){
 									$alert({title: 'Evaluated!', content: element.Name + ' evaluated successfuly', placement: 'top-right', type: 'success', duration:3, show: true});
 								}
@@ -104,6 +102,7 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 				//this function trigers when click resubmit button
 				scope.fnResubmit = function(element, outElement, elementOrder, courseMappingId, evaluatorId){
 					
+
 					var result = angular.copy(outElement);
 					
 					if(angular.equals(element.statusHistory,undefined)){
@@ -124,7 +123,6 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 					
 
 					element.evalStatus = "to be resubmitted";
-					console.clear();
 					
 					var index = 0;
 					for(var field in result){
