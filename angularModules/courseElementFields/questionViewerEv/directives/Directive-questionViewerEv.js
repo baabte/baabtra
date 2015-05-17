@@ -106,8 +106,16 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 			//setting up a watch on the mark scored object to bubble up the change
 			scope.$watch(function() {  return scope.result.data.value.markScored; }, function(newVal, oldVal){
 
+
+
 				if(angular.isDefined(oldVal)){
-					var markToBeAdded = newVal - oldVal;
+					
+					if(angular.equals(scope.$parent.elementMark, undefined)){
+						scope.$parent.elementMark = oldVal;
+					}
+
+					scope.$parent.elementMark = scope.$parent.elementMark - oldVal;
+					var markToBeAdded = newVal;;
 				}
 				else {
 					var markToBeAdded = newVal;
@@ -122,9 +130,7 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 						scope.$parent.elementMark = 0;
 					}
 					
-					
 					scope.$parent.elementMark = scope.$parent.elementMark +  markToBeAdded;
-					
 
 				}
 			})
@@ -134,6 +140,7 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 			// ***************************************************
 			// a function to change the result status from not evaluated to custom marks when somebody changes the marks manually
 			scope.markChanged = function () {
+
 				if(angular.equals(scope.result.data.value.markScored,scope.result.data.value.mark.totalMark)){
 					scope.result.data.value.resultStatus = "correct";
 				}
@@ -144,6 +151,7 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 
 				
 				if(angular.isDefined(scope.fromAssignment)){
+
 						scope.applyPenalty();
 				}	
 			}
