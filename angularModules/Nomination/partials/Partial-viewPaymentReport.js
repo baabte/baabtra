@@ -40,6 +40,8 @@ angular.module('baabtra').controller('ViewpaymentreportCtrl',['$scope','$rootSco
 		promise.then(function  (data) {
 
 			$scope.obj.report=angular.fromJson(JSON.parse(data.data));
+
+			console.log($scope.obj.report);
 			$scope.totalCredit={};
 			for(key in $scope.obj.report){
 				if(angular.equals($scope.totalCredit[$scope.obj.report[key]._id.currency],undefined)){
