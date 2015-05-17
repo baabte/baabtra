@@ -93,6 +93,7 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 
 								var promise = questionAnsweringSrv.saveAnswer(courseId,userLoginId,keyName,tlPointInmins,outerIndex,innerIndex,ansObj);
 									promise.then(function (data) {
+										console.log(angular.fromJson(JSON.parse(data.data)));
 										if(!angular.equals(typeof data, 'Object')) {
 											data=angular.fromJson(JSON.parse(data.data));
 										}

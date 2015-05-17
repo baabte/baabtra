@@ -354,10 +354,10 @@ var fillActTransaction = function(updatedOrderForm, currentOrderDetail, mode, ac
 							actTransaction.actHead.name=updatedOrderForm.requesteeDetails.companyName;
 						}
 						else if(angular.equals(actTransaction.actHead.requesteeType,'individual')){
-							actTransaction.actHead.name=updatedOrderForm.requesteeDetails.fname+' '+updatedOrderForm.requesteeDetails.lname;
+							actTransaction.actHead.name=updatedOrderForm.requesteeDetails.firstName+' '+updatedOrderForm.requesteeDetails.firstName?updatedOrderForm.requesteeDetails.firstName:'';
 						}
 						else{
-							actTransaction.actHead.name=updatedOrderForm.requesteeDetails.firstName+' '+updatedOrderForm.requesteeDetails.lastName;
+							actTransaction.actHead.name=updatedOrderForm.requesteeDetails.firstName+' '+updatedOrderForm.requesteeDetails.firstName?updatedOrderForm.requesteeDetails.firstName:'';
 						}
 					}
 					actTransaction.debit = {};

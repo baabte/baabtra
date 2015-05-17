@@ -76,7 +76,7 @@ $scope.progressStart=function () {
 
 //this will check if the element is already added or not
 $scope.checkSelectedElements = function (elementKey) {
-	if(!angular.equals($scope.data.selectedCourse.markSheetElements,undefined)){
+	if(!angular.equals($scope.data.selectedCourse.markSheetElements,undefined)&&!angular.equals($scope.data.selectedCourse.markSheetElements,null)){
 		// if($scope.data.selectedCourse.markSheetElements.in)
 		return $scope.data.selectedCourse.markSheetElements.indexOf(elementKey);
 	}
@@ -88,7 +88,7 @@ $scope.checkSelectedElements = function (elementKey) {
 
 // function to add a new element to marksheet
 $scope.addToMarksheet = function (elementKey) {
-	if(angular.equals($scope.data.selectedCourse.markSheetElements,undefined)){
+	if(angular.equals($scope.data.selectedCourse.markSheetElements,undefined)||angular.equals($scope.data.selectedCourse.markSheetElements,null)){
 		$scope.data.selectedCourse.markSheetElements=[];
 	}
 
@@ -98,7 +98,7 @@ $scope.addToMarksheet = function (elementKey) {
 };
 
 $scope.removeFromMarksheet = function (elementKey) {
-	if(angular.equals($scope.data.selectedCourse.markSheetElements,undefined)){
+	if(angular.equals($scope.data.selectedCourse.markSheetElements,undefined)||angular.equals($scope.data.selectedCourse.markSheetElements,null)){
 		$scope.data.selectedCourse.markSheetElements=[];
 	}
 	var currsentIndex=$scope.data.selectedCourse.markSheetElements.indexOf(elementKey);
@@ -154,7 +154,7 @@ $scope.$watch('data.selectedNode',function () {
 	if(angular.equals($scope.data.selectedNode,undefined)||angular.equals($scope.data.selectedNode,'')){
 		return;
 	}
-	console.log($scope.data.selectedNode.mark.type);
+	//console.log($scope.data.selectedNode.mark.type);
 	$scope.elementsOfSelectedNode=[];
 	if(!angular.equals($scope.data.selectedNode.element,undefined)){
 
