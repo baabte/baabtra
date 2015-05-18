@@ -24,7 +24,6 @@ if(!angular.equals($state.params.courseId,"")){
   var promise = addCourseService.fnLoadCourseDetails($scope, $scope.courseId);
   promise.then(function(course){
     $scope.course = angular.fromJson(JSON.parse(course.data)).courseDetails;
-
     //checking this course have syllabus
     if(angular.equals($scope.course.syllabus,undefined)){
       // if undefined create a default syllabus

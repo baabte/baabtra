@@ -25,6 +25,7 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 							   {"value":"approved","label":"Approved"},
 							   {"value":"rejected","label":"Rejected"}];	
 	$scope.data.approveOrderFormStatus = false;
+
 	$scope.viewOrderForm = function(orderForm){
 		$scope.data.orderForm = orderForm;
 		$modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-orderForm.html', show: true});
@@ -34,6 +35,7 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 		var orderFormResponse = nomination.fnLoadOrderFormById($state.params.ofId);
 			orderFormResponse.then(function(response){
 			var orderForm = angular.fromJson(JSON.parse(response.data));
+			console.log(orderForm);
 			orderForm._id = orderForm._id.$oid;
 			$scope.data.approveOrderForm = orderForm;
 			
