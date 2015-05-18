@@ -11,7 +11,6 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 		},
 		templateUrl: 'angularModules/courseTimeline/directives/Directive-courseTimeline.html',
 		link: function(scope, element, attrs, fn) {
-			console.log(scope.coursePreviewObj)
 		scope.MURID = bbConfig.MURID;//mentee role id 
 
 		var courseElementFieldsResponse = courseElementFieldsManaging.fnGetCourseElementFields();
@@ -358,19 +357,19 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	 	}
             	 }
             	
+             	if(!angular.equals(scope.syncData.courseTimeline[scope.selectedTpoint][scope.courseElement.Name][scope.selectedIndex].syllabus, undefined)){
  				 var keyArray = scope.syncData.courseTimeline[scope.selectedTpoint][scope.courseElement.Name][scope.selectedIndex].syllabus.key.split('.');
- 				
-
+ 				console.log(keyArray);
  				 var syllabus = scope.syncData.syllabus;
  				 var index = 0;
  				 for(var key in keyArray){
  				 	syllabus = syllabus[keyArray[key]];
  				 	index++;
  				 	if(angular.equals(keyArray.length, index)){
- 				 		 console.log(syllabus);
  				 		 syllabus.selected = true;
  				 		 scope.selection = [syllabus];
  				 	}
+ 				 }
  				 }
 
 
@@ -383,7 +382,6 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	$templateCache.put('course-element-popup.html','<edit-course-element></edit-course-element>');
             	
             	buildNodePath(scope.syncData.syllabus,  scope.selection[0].nodeId,'','',function(){
-            		console.log(scope.data.nodePath);
 	            	
 	            	$aside({scope: scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
             		hide();

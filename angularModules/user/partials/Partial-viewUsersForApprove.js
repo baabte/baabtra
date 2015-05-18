@@ -25,6 +25,7 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 							   {"value":"approved","label":"Approved"},
 							   {"value":"rejected","label":"Rejected"}];	
 	$scope.data.approveOrderFormStatus = false;
+
 	$scope.viewOrderForm = function(orderForm){
 		$scope.data.orderForm = orderForm;
 		$modal({scope: $scope, template: 'angularModules/Nomination/partials/popup-orderForm.html', show: true});
@@ -34,6 +35,7 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 		var orderFormResponse = nomination.fnLoadOrderFormById($state.params.ofId);
 			orderFormResponse.then(function(response){
 			var orderForm = angular.fromJson(JSON.parse(response.data));
+			console.log(orderForm);
 			orderForm._id = orderForm._id.$oid;
 			$scope.data.approveOrderForm = orderForm;
 			
@@ -354,10 +356,10 @@ var fillActTransaction = function(updatedOrderForm, currentOrderDetail, mode, ac
 							actTransaction.actHead.name=updatedOrderForm.requesteeDetails.companyName;
 						}
 						else if(angular.equals(actTransaction.actHead.requesteeType,'individual')){
-							actTransaction.actHead.name=updatedOrderForm.requesteeDetails.fname+' '+updatedOrderForm.requesteeDetails.lname;
+							actTransaction.actHead.name=updatedOrderForm.requesteeDetails.firstName+' '+updatedOrderForm.requesteeDetails.firstName?updatedOrderForm.requesteeDetails.firstName:'';
 						}
 						else{
-							actTransaction.actHead.name=updatedOrderForm.requesteeDetails.firstName+' '+updatedOrderForm.requesteeDetails.lastName;
+							actTransaction.actHead.name=updatedOrderForm.requesteeDetails.firstName+' '+updatedOrderForm.requesteeDetails.firstName?updatedOrderForm.requesteeDetails.firstName:'';
 						}
 					}
 					actTransaction.debit = {};

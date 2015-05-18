@@ -46,7 +46,6 @@ this.findRoots = function(branch,index){
     if (!angular.equals(branch.children,null) && branch.children.length) {
 
     if(branch.children.indexOf(branches[index]._id)!=-1){
-      console.log(branch);
       if (angular.equals(branch.childrenObj,undefined)){
         branch.childrenObj=[];
       }

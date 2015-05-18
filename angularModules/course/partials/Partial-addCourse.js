@@ -24,7 +24,6 @@ if(!angular.equals($state.params.courseId,"")){
   var promise = addCourseService.fnLoadCourseDetails($scope, $scope.courseId);
   promise.then(function(course){
     $scope.course = angular.fromJson(JSON.parse(course.data)).courseDetails;
-
     //checking this course have syllabus
     if(angular.equals($scope.course.syllabus,undefined)){
       // if undefined create a default syllabus
@@ -453,25 +452,25 @@ $scope.showPopupForAddChild = function(item){
 };
 
 $scope.addNewChild = function(item, childName, hide){// function for add new child under a node
-  
-  var mark = {};
-      if(angular.equals($scope.data.child.type, 'mark')){
-        mark.type = 'mark';
-        mark.minMark = $scope.data.child.mark.minMark;
-        mark.maxMark = $scope.data.child.mark.maxMark;
-      }
-      else if(angular.equals($scope.data.child.type, 'pass/fail')){
-        mark.type = 'pass/fail';
-      }
-      else if(angular.equals($scope.data.child.type, 'no mark')){
-        mark.type = 'no mark';
-  }
+
+  // var mark = {};
+  //     if(angular.equals($scope.data.child.type, 'mark')){
+  //       mark.type = 'mark';
+  //       mark.minMark = $scope.data.child.mark.minMark;
+  //       mark.maxMark = $scope.data.child.mark.maxMark;
+  //     }
+  //     else if(angular.equals($scope.data.child.type, 'pass/fail')){
+  //       mark.type = 'pass/fail';
+  //     }
+  //     else if(angular.equals($scope.data.child.type, 'no mark')){
+  //       mark.type = 'no mark';
+  // }
   
   var time = (new Date()).valueOf();
   var hashids = new Hashids("this is a id for syllabus");
   var node_id = 'SB-' + hashids.encode(time);
 
-  item.children.push({ name: childName , children: [], mark:mark, nodeId:node_id, activeFlag:1});
+  item.children.push({ name: childName , children: [], mark:$scope.data.child.mark, nodeId:node_id, activeFlag:1});
   
   $scope.completeStep3($scope.course, 'step3');
   hide();
@@ -488,7 +487,7 @@ function removeNode(syllabus, nodeId){
     if(angular.equals(syllabus[node].nodeId, nodeId)){
 
       $scope.data.syllabusCopy = angular.copy($scope.course.syllabus);
-      $alert({scope: $scope,container:'body',keyboard:true,animation:'am-fade-and-slide-top',template:'views/ui/angular-strap/alert.tpl.html',title:'Undo',content: syllabus[node]._id +' has been deleted', placement: 'top-right', type: 'warning'});
+      $alert({scope: $scope,container:'body',keyboard:true,animation:'am-fade-and-slide-top',template:'views/ui/angular-strap/alert.tpl.html',title:'Undo',content: syllabus[node].name +' has been deleted', placement: 'top-right', type: 'warning'});
 
       syllabus.splice(node, 1);
       $scope.completeStep3($scope.course, 'step3');
@@ -539,7 +538,14 @@ $scope.updateNewChild = function(hide){
    hide();
 };
 
-
+$scope.markChanged = function(childForm){
+  if(($scope.data.child.mark.minMark <= $scope.data.child.mark.maxMark) && ($scope.data.child.mark.minMark > 0 && $scope.data.child.mark.maxMark > 0) && $scope.data.child.name){
+    childForm.$invalid = false;
+  }
+  else{
+    childForm.$invalid = true;
+  }
+};
 
 $scope.completeStep3 = function(course, state){
   var index = 0;

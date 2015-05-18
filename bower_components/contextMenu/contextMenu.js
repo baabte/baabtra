@@ -45,8 +45,9 @@ angular.module('ui.bootstrap.contextMenu', [])
 
         if ($scope.previewOut.courseElement){
             var courseElement=angular.copy($scope.previewOut.courseElement);
-            console.log(courseElement);
-            $scope.fnSaveElement(courseElement);
+
+            
+            //$scope.fnSaveElement(courseElement);
         }
 
       },true);

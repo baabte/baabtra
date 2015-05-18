@@ -169,6 +169,7 @@ $scope.fnUserRegister =function (draftFlag,fnCallback) {
 	$scope.finshRegisterationClicked=true;
 
 
+
 	
 	// $scope.allSync.FormData={};
 	$scope.fnInitializeFormRelatedDatas();
@@ -212,7 +213,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
   				var imagePath = response.data.replace('"','').replace('"','');
 
   				//var imagePathArray = imagePath.split('_');
-          		$scope.allSync.FormData[imagePath.split('_')[0]] = bbConfig.BWS + 'files/'+ imagePath.split('_')[0] +'/' + imagePath;
+          		$scope.allSync.FormData[imagePath.split('.')[0].split('_')[0]] = bbConfig.BWS + 'files/'+ imagePath.split('.')[0].split('_')[0] +'/' + imagePath;
           		$scope.fileUpload++;
         	});
 		}
@@ -287,9 +288,9 @@ if(Object.keys($scope.allSync.FormData.course).length){
 				}
 				$scope.data.orderForm = orderForm;
 				$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
-				
-				
+							
 				//changing the selected tab
+
 				$scope.status.selected=1;
 
 				if(!angular.equals(fnCallback,undefined)){
@@ -449,12 +450,14 @@ if(Object.keys($scope.allSync.FormData.course).length){
 	});
 }
 	else{
-		if(!angular.equals(fnCallback,undefined)){
-						fnCallback();
-					}
-					else{
-						$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
-					}
+		console.log(fnCallback);
+		$alert({title: 'Select..!', content: 'Please select a course to complete your registration :-)', placement: 'top-right',duration:4 ,animation:'am-slide-bottom', type: 'warning', show: true});
+		// if(!angular.equals(fnCallback,undefined)){
+		// 				fnCallback();
+		// 			}
+		// 			else{
+		// 				$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
+		// 			}
 	}
 };
 

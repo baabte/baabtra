@@ -137,14 +137,16 @@ angular.module('baabtra').directive('assignmentViewer',['$rootScope','$state','a
 
      objToBeSaved.statusHistory = statusHistory;
     
-
-   
+     console.log(objToBeSaved);
+   	
     var response = assignmentFunctions.fnSubmitAssignment(objToBeSaved);
      
      response.then(function(response){
 
      	response = angular.fromJson(JSON.parse(response.data));
      	
+     	console.log(response);
+
      	if(angular.equals(response.result,"success")) {
 
      	// 	// in the event of success, update the current dat aobject to initiate rerendering of the controls
@@ -164,16 +166,26 @@ angular.module('baabtra').directive('assignmentViewer',['$rootScope','$state','a
 	    
 
      		if(angular.equals(submitStatus, 'draft')){
-			$alert({title:'Success',content:'All changes have been saved', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'success', show:true});
+			
+				$alert({title:'Success',content:'All changes have been saved', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'success', show:true});
 
      		}
-     		else{
+     		else {
+
      			$alert({title:'Success',content:'The assignment has been submitted. Your assignment will be evaluated by the concerned evaluator soon', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'success', show:true});
+     			
+     			scope.blockSubmission = true;
+		     	var d = new Date();
+
+		    	scope.penaltyMessage = "Submitted on " + scope.convertDate(d).day + ', ' + scope.convertDate(d).time;
+		  
+		    	scope.$parent.previewData.evalStatus = "Pending Evaluation";
      		}
 
 
      	  //changing the submit status in the scope. This will disable the save and submit button
      	  scope.status = submitStatus;
+     	  
 
 
      	}

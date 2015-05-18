@@ -26,7 +26,7 @@ angular.module('baabtra').controller('ViewmarksheetCtrl',['$scope', '$rootScope'
   var checkElemWithMark = function(arr){
     var count=0;
     for(var key in arr){
-      if(arr[key].mark.markScored){
+      if(angular.equals(arr[key].mark.type,'mark')){
         count++;
       }
     }
@@ -36,15 +36,17 @@ angular.module('baabtra').controller('ViewmarksheetCtrl',['$scope', '$rootScope'
   var getMarkInAllLevel = function(syllabus,index){
 
     if(!angular.equals(syllabus[index].mark, undefined)){
-      if(syllabus[index].mark.type=='mark'&&syllabus[index].children.length==0){
+      console.log(syllabus[index].mark);
+      if(syllabus[index].mark.type=='mark' && syllabus[index].children.length==0){
+        syllabus[index].mark.markScored = parseFloat(syllabus[index].mark.markScored.toFixed(2));
         return syllabus[index].mark;
       }
       else if(syllabus[index].mark.type=='mark'){
         var mark=getMarkInAllLevel(syllabus[index].children,0);
         if(mark.type=='mark'){
 
-          syllabus[index].mark.markScored=((mark.markScored/mark.maxMark)*syllabus[index].mark.maxMark)/checkElemWithMark(syllabus[index].children);
-
+          syllabus[index].mark.markScored = ((mark.markScored/mark.maxMark)*syllabus[index].mark.maxMark)/checkElemWithMark(syllabus[index].children);
+          syllabus[index].mark.markScored = parseFloat(syllabus[index].mark.markScored.toFixed(2));
           return syllabus[index].mark;
         }
         else if(syllabus.length>(index+1)){
@@ -67,12 +69,11 @@ angular.module('baabtra').controller('ViewmarksheetCtrl',['$scope', '$rootScope'
   courseDetailsResponse.then(function(response){
   	var result = angular.fromJson(JSON.parse(response.data));
     $scope.menteeMarkSheet.course = result[0];
+    console.log(result[0]);
     $scope.menteeMarkSheet.markSheet = $scope.menteeMarkSheet.course.syllabus[0].children;
     //fnBuildmarkSheet(syllabus, markSheet);
-    console.log($scope.menteeMarkSheet.course.syllabus[0].children);
 
     var objTest = getMarkInAllLevel($scope.menteeMarkSheet.course.syllabus,0);
-    console.log($scope.menteeMarkSheet.course.syllabus);
   });
 
 }]);
