@@ -26,7 +26,7 @@
         <div class="form-group">
                 <label  class="col-xs-3">Email</label>
                 <div class="col-xs-9">
-                    <input type="email"  ng-model="data.requesteeDetails.eMail" class="form-control" placeholder="Email ID" ng-blur="checkUserAlreadyExists()">
+                    <input type="email" required  ng-model="data.requesteeDetails.eMail" class="form-control" placeholder="Email ID" ng-blur="checkUserAlreadyExists()">
                 </div>
         </div>
       </div>
@@ -84,7 +84,7 @@
         <div class="form-group">
                 <label  class="col-xs-2">Email</label>
                 <div class="col-xs-10">
-                    <input type="email" ng-model="data.requesteeDetails.eMail" class="form-control" placeholder="Email" ng-blur="checkUserAlreadyExists()">
+                    <input type="email" ng-model="data.requesteeDetails.eMail" class="form-control" placeholder="Email" required ng-blur="checkUserAlreadyExists()">
                 </div>
         </div>
       </div>
@@ -95,7 +95,7 @@
         <div class="form-group">
                 <label  class="col-xs-2">Phone</label>
                 <div class="col-xs-10">
-                    <input type="text" ng-model="data.requesteeDetails.phone" class="form-control" placeholder="Phone">
+                    <input type="text" required ng-model="data.requesteeDetails.phone" class="form-control" placeholder="Phone">
                 </div>
         </div>
       </div>
@@ -106,7 +106,7 @@
         <div class="form-group">
                 <label  class="col-xs-2">First Name</label>
                 <div class="col-xs-10">
-                    <input type="text"  ng-model="data.requesteeDetails.firstName" class="form-control" placeholder="First Name">
+                    <input type="text" required ng-model="data.requesteeDetails.firstName" class="form-control" placeholder="First Name">
                 </div>
         </div>
       </div>
