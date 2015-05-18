@@ -538,7 +538,14 @@ $scope.updateNewChild = function(hide){
    hide();
 };
 
-
+$scope.markChanged = function(childForm){
+  if(($scope.data.child.mark.minMark <= $scope.data.child.mark.maxMark) && ($scope.data.child.mark.minMark > 0 && $scope.data.child.mark.maxMark > 0) && $scope.data.child.name){
+    childForm.$invalid = false;
+  }
+  else{
+    childForm.$invalid = true;
+  }
+};
 
 $scope.completeStep3 = function(course, state){
   var index = 0;
