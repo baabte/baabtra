@@ -8,7 +8,6 @@ angular.module('baabtra').directive('courseLoader',['addCourseService','$rootSco
 		templateUrl: 'angularModules/common/directives/Directive-courseLoader.html',
 		link: function(scope, element, attrs, ctrls) {
 			
-
 			scope.multi = false;
 		
 			if(!angular.equals(attrs.multiSelect,undefined)){
@@ -17,8 +16,6 @@ angular.module('baabtra').directive('courseLoader',['addCourseService','$rootSco
 			
 		//------------------------------------------
 
-		var companyId = "54978cc57525614f6e3e710b";
-		// var companyId = "54978cc57525614f6e3e70d3"
 			if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId){
 			  companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
 			  
@@ -42,7 +39,8 @@ angular.module('baabtra').directive('courseLoader',['addCourseService','$rootSco
 			// ctrls.$setValidity('courseLoader',false);
 
 
-			scope.onCourseSelectionChanged = function(course){				
+			scope.onCourseSelectionChanged = function(course){		
+
 					scope.ngModel=course;
 					ctrls.$setValidity('courseLoader',true);				
 			};
