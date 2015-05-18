@@ -439,12 +439,14 @@ if(Object.keys($scope.allSync.FormData.course).length){
 	});
 }
 	else{
-		if(!angular.equals(fnCallback,undefined)){
-						fnCallback();
-					}
-					else{
-						$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
-					}
+		console.log(fnCallback);
+		$alert({title: 'Select..!', content: 'Please select a course to complete your registration :-)', placement: 'top-right',duration:4 ,animation:'am-slide-bottom', type: 'warning', show: true});
+		// if(!angular.equals(fnCallback,undefined)){
+		// 				fnCallback();
+		// 			}
+		// 			else{
+		// 				$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
+		// 			}
 	}
 };
 
