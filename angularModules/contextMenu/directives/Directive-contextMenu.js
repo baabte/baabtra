@@ -43,8 +43,10 @@ angular.module('baabtra')
       $scope.$watch('previewOut', function(){
 
         if ($scope.previewOut.courseElement){
-            var courseElement=angular.copy($scope.previewOut.courseElement);
-            $scope.fnSaveElement(courseElement);
+            $scope.courseElement=angular.copy($scope.previewOut.courseElement);
+            $scope.elementAddType = 1;
+            $modal({scope: $scope, template:'angularModules/contextMenu/partials/Popup-syllabusSelector.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+            //$scope.fnSaveElement(courseElement);
         }
 
       },true);
@@ -68,7 +70,7 @@ angular.module('baabtra')
           courseElementvalue.index=0;
         }
         courseElementvalue.tlPointInMinute=$scope.instance;
-
+        courseElementvalue.syllabus = $scope.data.nodePath;
 
         obj[key]=courseElementvalue;
 
@@ -204,6 +206,7 @@ angular.module('baabtra')
                             +'</div></div></div>'
                           +'</div>');
               $scope.selection = '';
+              $scope.elementAddType = 0;
               $modal({scope: $scope, template:'angularModules/contextMenu/partials/Popup-syllabusSelector.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
                                                         //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
                                });
@@ -334,7 +337,7 @@ angular.module('baabtra')
     +'</div>'
   +'</div>'
 +'</div>');
-
+$scope.elementAddType = 0;
  $modal({scope: $scope, template:'course-material-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
                         //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
                      });
@@ -480,13 +483,20 @@ angular.module('baabtra')
 
         $scope.data = {};
 
-        $scope.addCourseElement = function(hide){
+        $scope.addCourseElement = function(addCourseElement, hide){
+          if(!addCourseElement){
+            buildNodePath($scope.syncData.syllabus, $scope.data.selectednSyllabusItem.nodeId,'','',function(){
+              hide();
+              $aside({scope: $scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
 
-          buildNodePath($scope.syncData.syllabus, $scope.data.selectednSyllabusItem.nodeId,'','',function(){
-            hide();
-            $aside({scope: $scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
-
-          });
+            });
+          }else{
+            buildNodePath($scope.syncData.syllabus, $scope.data.selectednSyllabusItem.nodeId,'','',function(){
+              hide();
+              $scope.fnSaveElement($scope.courseElement);
+            });
+            
+          }
         };
 
         var obj = '';
