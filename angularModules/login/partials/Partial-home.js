@@ -149,9 +149,9 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
           if(($localStorage.linkPath.length-1)){
             $scope.linkPath = $localStorage.linkPath.splice($localStorage.linkPath.length-1, 1);
             }
-            else{
-              $scope.linkPath = [];
-              $localStorage.linkPath = [];
+            else if(!($localStorage.linkPath.length-1)){
+             // $scope.linkPath = $localStorage.linkPath.splice($localStorage.linkPath.length-1, 1);
+             //$scope.linkPath = $localStorage.linkPath = [];
             }
           }
        getMenuByLink($scope.userMenusOrigin,null,null,toState.name, function(){

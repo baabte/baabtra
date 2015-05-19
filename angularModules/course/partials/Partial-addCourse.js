@@ -512,6 +512,8 @@ $scope.undo = function(){
 //var lastSelectedNode = "";
 $scope.editChild = function(node){
   
+  $scope.data.syllabusCopy =  angular.copy($scope.course.syllabus);
+
   $scope.data.child = node;
   if(angular.equals($scope.data.child.nodeId, undefined)){
     var time=(new Date()).valueOf();
@@ -531,6 +533,11 @@ $scope.editChild = function(node){
   $scope.data.childName = node.name;
   var addNewChild = $modal({scope: $scope, template: 'angularModules/course/partials/Popup-addNewChild.html', placement:'center', show: true});
 
+};
+
+$scope.cancelNodeEdit = function(hide){
+  $scope.course.syllabus =  angular.copy($scope.data.syllabusCopy);
+  hide();
 };
 
 $scope.updateNewChild = function(hide){
