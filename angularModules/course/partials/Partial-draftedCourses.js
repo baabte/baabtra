@@ -19,7 +19,6 @@ angular.module('baabtra').controller('DraftedcoursesCtrl',['$scope', '$rootScope
 		var daraftedCourse = draftedCourses.fnLoadDraftedCourses($scope.cmp_id)//this fn load in-completed course details
 		daraftedCourse.then(function(response){
 		$scope.draftedCourses = angular.fromJson(JSON.parse(response.data));
-		console.log($scope.draftedCourses);
 		if(!$scope.draftedCourses.length){
 			$scope.WarringMessage="Drafted Courses Not Found..."
 		}

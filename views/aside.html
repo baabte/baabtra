@@ -1,7 +1,7 @@
 <div class="app-aside-inner" bs-affix >
 	<!-- <perfect-scrollbar> -->
     
-		<div class="app-aside-body scrollable hover" ng-if="$root.userinfo.ActiveUserData.modernView == 'modern'" ui-view="aside@" style="margin-top: 12px;">   
+		<div class="app-aside-body scrollable hover" ng-if="$root.userinfo.ActiveUserData.modernView == 'modern' && linkPath.length" ui-view="aside@" style="margin-top: 12px;">   
   	</div>
    
 	<!-- </perfect-scrollbar> -->
