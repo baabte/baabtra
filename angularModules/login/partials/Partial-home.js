@@ -299,8 +299,6 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
           for (var action in menu[sub].actions){
 
             if (angular.equals($scope.stateSplitAll(menu[sub].actions[action].stateName),state)&&(angular.equals(menu[sub].MenuName,$localStorage.currentMenuName))) {
-               
-              console.log(menu[sub]);
               $rootScope.menuExist = true;
               path_obj.push(menu[sub]);
               $scope.navBar=true;
