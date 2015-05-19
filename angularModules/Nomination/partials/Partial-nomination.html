@@ -26,7 +26,7 @@
         <div class="form-group">
                 <label  class="col-xs-3">Email</label>
                 <div class="col-xs-9">
-                    <input type="email" required  ng-model="data.requesteeDetails.eMail" class="form-control" placeholder="Email ID" ng-blur="checkUserAlreadyExists()">
+                    <input type="email"  ng-model="data.requesteeDetails.eMail" class="form-control" placeholder="Email ID" ng-blur="checkUserAlreadyExists()">
                 </div>
         </div>
       </div>
@@ -58,7 +58,7 @@
         <div class="form-group">
                 <label  class="col-xs-3">Phone</label>
                 <div class="col-xs-9">
-                    <input type="text" ng-model="data.requesteeDetails.phone" class="form-control" placeholder="Phone">
+                    <input type="number" ng-model="data.requesteeDetails.phone" class="form-control" placeholder="Phone">
                 </div>
         </div>
       </div>
@@ -95,7 +95,7 @@
         <div class="form-group">
                 <label  class="col-xs-2">Phone</label>
                 <div class="col-xs-10">
-                    <input type="text" required ng-model="data.requesteeDetails.phone" class="form-control" placeholder="Phone">
+                    <input type="number" ng-model="data.requesteeDetails.phone" class="form-control" placeholder="Phone">
                 </div>
         </div>
       </div>
@@ -155,7 +155,7 @@
       </div>
     </div>
     <div class="panel-footer text-right">
-     <button ng-disabled="requesteDetails.$invalid" type="button" ng-click="requesteDetailsCompleted()" class="btn btn-success baab-btn">Next</button>
+     <button ng-disabled="(requesteDetails.$invalid) || !(data.requesteeDetails.eMail || data.requesteeDetails.phone)" type="button" ng-click="requesteDetailsCompleted()" class="btn btn-success baab-btn">Next</button>
     </div>
   </form>
     
