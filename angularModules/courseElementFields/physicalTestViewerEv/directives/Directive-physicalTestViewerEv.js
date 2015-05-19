@@ -59,9 +59,6 @@ angular.module('baabtra').directive('physicalTestViewerEv', function() {
 			//taking the test object into an array
 			scope.tests = scope.result.data.value.tests;			
 
-
-			console.log(scope.tests);
-
 			// looping through tests to build an array to get the screens for evaluation
 			scope.evaluateArray = [];//this array will only have the data relevant to the added type and data present in it			
 			var currentType = {};

@@ -143,11 +143,16 @@ $scope.$watch('userMenusOrigin',function(){
 
 $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
   if($rootScope.userinfo)
-   {
-     
+   { 
     $rootScope.menuExist=false;
          if(angular.equals(toState.name,'home.main')){
-            $scope.linkPath = $localStorage.linkPath;
+          if(($localStorage.linkPath.length-1)){
+            $scope.linkPath = $localStorage.linkPath.splice($localStorage.linkPath.length-1, 1);
+            }
+            else{
+              $scope.linkPath = [];
+              $localStorage.linkPath = [];
+            }
           }
        getMenuByLink($scope.userMenusOrigin,null,null,toState.name, function(){
           if (!$rootScope.menuExist && !angular.equals(toState.name,'home.main')) {
@@ -272,7 +277,7 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
 
 
   function getMenuByLink(menu,sub,path_obj,state, fnCallback){
-
+    
     if (sub==null) {
       sub=0;
     }
@@ -297,9 +302,8 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
             path_obj=[];
           }
           for (var action in menu[sub].actions){
+
             if (angular.equals($scope.stateSplitAll(menu[sub].actions[action].stateName),state)&&(angular.equals(menu[sub].MenuName,$localStorage.currentMenuName))) {
-               
-              
               $rootScope.menuExist = true;
               path_obj.push(menu[sub]);
               $scope.navBar=true;
@@ -311,7 +315,6 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
             }
 
             else if(angular.equals($scope.stateSplitAll(menu[sub].actions[action].stateName),state)&&(!angular.equals($localStorage.currentMenuLink,$scope.linkSeprate(state)))){
-
               $rootScope.menuExist=true;
               path_obj.push(menu[sub]);
               $scope.navBar=true;
