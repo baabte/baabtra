@@ -122,7 +122,7 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
  		for (var i in scope.$parent.result){
  			var curElement = scope.$parent.result[i];		
 
-
+ 			if(curElement.data.value){
  			if(!angular.equals(curElement.data.value.markScored,undefined) && !angular.equals(curElement.data.value.markScored,{})){		
  		
  				
@@ -133,6 +133,7 @@ angular.module('baabtra').directive('assignmentViewerEv',  ['$rootScope','$state
 
  					
 
+ 			}
  			}
 
  		}

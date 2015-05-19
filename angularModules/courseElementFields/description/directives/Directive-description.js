@@ -10,8 +10,7 @@ angular.module('baabtra').directive('description', function() {
 		link: function(scope, element, attrs, fn) {
 
 
-			scope.docObj = JSON.parse(scope.data);	
-			console.log(scope.docObj);		
+			scope.docObj = JSON.parse(scope.data);
 			scope.docObjParent = scope.courseElement;
 
 		}
