@@ -134,7 +134,6 @@ PublishedCourse.loadPublishedCourses($scope,searchKey,'',type,'');
 $scope.prevButtondisabled=true;
 $scope.nextOne=function(){//event  for showing next 12 items
 	  $scope.prevButtondisabled=false;
-     console.log($scope.publishedCourses);
 	  PublishedCourse.loadPublishedCourses($scope,'',$scope.publishedCourses.lastId.$oid,'next',$scope.publishedCourses.firstId.$oid);
 };
 

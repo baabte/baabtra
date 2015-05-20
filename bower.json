@@ -49,6 +49,7 @@
     "ngImgCrop": "~0.3.2",
     "angular-qrcode": "monospaced/angular-qrcode#~5.1.0",
     "angular-datepicker": "~1.0.4",
+    "angular-rangeslider": "~0.0.13",
     "contextMenu": "~0.0.0",
     "StreamLine": "~1.0",
     "ngHierarchicalSelector": "~1.0",

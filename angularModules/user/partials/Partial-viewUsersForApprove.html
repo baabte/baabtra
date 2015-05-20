@@ -11,7 +11,7 @@
                   
                   <div class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12">
 
-                        <input ng-model="data.searchText" type="text" class="form-control col-xs-8" placeholder="Search Order Form" />
+                        <input ng-model="data.searchText" ng-change="serachInOrderform()" type="text" class="form-control col-xs-8" placeholder="Search Order Form" />
                   </div>
                 </div>
                 <div class="col-xs-7 text-right">
@@ -26,11 +26,11 @@
         </div>
 		<div class="" style="margin-top:100px;" ng-if="data.companOrderForms && $state.current.name == 'home.main.viewOrderForm'"  >		
 		<!-- ng-if="showOrderFormOnStatus(orderForm.status) && getOptions(orderForm.status,$index).length"	 -->
-		<span class="col-md-push-2 col-xs-push-1 col-md-8 col-xs-12 col-sm-12 font-bold no-padding m-b" style="text-transform:uppercase;">{{currentStage.displayName}}</span>
-		<div ng-if="data.companOrderForms.orderFroms.length==0" class="col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-sm shadow-z-1 alert alert-danger">
+		<span ng-if="data.companOrderForms.orderFroms.length" class="col-md-push-2 col-xs-push-1 col-md-8 col-xs-12 col-sm-12 font-bold no-padding m-b" style="text-transform:uppercase;">{{currentStage.displayName}}</span>
+		<div ng-if="data.companOrderForms.orderFroms.length==0" class="col-md-push-2 col-md-8 col-xs-12 col-sm-12 p shadow-z-1 alert alert-warning">
       	<strong translate="{{'There are no any order form found.!'|translate}}"></strong> 
 		</div>
-			<div class="col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-h-sm shadow-z-1  pull-left bg-white" ng-repeat="orderForm in data.companOrderForms.orderFroms | filter:data.searchText" style="cursor: pointer;">
+			<div class="col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-h-sm shadow-z-1  pull-left bg-white" ng-repeat="orderForm in data.companOrderForms.orderFroms" style="cursor: pointer;">
 				<!-- <div class="set-full-height  p-sm no-padding" style="cursor: pointer;">
 					<div class="pull-left shadow-z-1 col-xs-12 p">	 -->					
 						<!-- <span>&nbsp;</span>

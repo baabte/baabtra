@@ -89,6 +89,7 @@ scope.fetchBatch =function(){
                var promise = addBatches.loadCourseRelatedBatches(companyId,courseId,joinDate,courseType);
             promise.then(function(response){
               scope.batchElements = angular.fromJson(JSON.parse(response.data));
+              console.log(scope.batchElements);
                angular.forEach(scope.batchElements, function(batch){
                 batch.Name = batch.batchName+batch._id.$oid;
                 batch._id = batch._id.$oid;
@@ -98,13 +99,21 @@ scope.fetchBatch =function(){
                 delete batch.start;
                 delete batch.seat;
                 delete batch.end;
-              if(batch.batchMode=="onetime"){
+              //if(batch.batchMode=="onetime"){
                // batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Duration:'+batch.duration+'days</div>';
+               if(batch.startTime ==undefined ||batch.endTime==undefined){
                batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'</div>';
                }else{
+               batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'('+$filter('date')(batch.startTime,'shortTime')+ "-" +$filter('date')(batch.endTime,'shortTime') +')'+'<br/>Remaining seats:'+batch.seats+'</div>';
+               }
+               /*}else{
                 // batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Repeats After:'+batch.repeats.every +" "+ batch.repeats.repeatType +'</div>';
+                if(batch.startTime ==undefined ||batch.endTime==undefined){
                 batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'</div>';
+                }else{
+                  batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'('+$filter('date')(batch.startTime,'shortTime') + "-" +$filter('date')(batch.endTime,'shortTime') +')'+'<br/>Remaining seats:'+batch.seats+'</div>';
                 }
+                }*/
                });
 
              // console.log(scope.batchElements );

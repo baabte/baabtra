@@ -58,7 +58,9 @@
         'checklist-model',
         'angular-flipclock',
         'angularTreeview',
-        'chart.js'//,
+        'chart.js',
+        'datePicker',
+        'ui-rangeSlider'
         //function(){  return 'custom-form';}()
         
       ])
@@ -80,6 +82,11 @@
 
     //     var preLang = 'en';
     // }
+    if(angular.equals($rootScope.userinfo,undefined)){
+      return;
+    }
+
+    
      if(!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage, null)&&!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage, undefined)){
           if(!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage.langCode,undefined)&&!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage.langCode, null))
           {

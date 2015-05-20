@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('GlobalsettingsCtrl',['$scope','$stateParams','$rootScope','manageCompanyRoleService','globalSettings','$alert','UnigueCodeGenerator','localStorageService','$modal',function($scope,$stateParams,$rootScope,manageCompanyRoleService,globalSettings,$alert,UnigueCodeGenerator,localStorageService,$modal){
+angular.module('baabtra').controller('GlobalsettingsCtrl',['$scope','commonService','$stateParams','$rootScope','manageCompanyRoleService','globalSettings','$alert','UnigueCodeGenerator','localStorageService','$modal',function($scope,commonService,$stateParams,$rootScope,manageCompanyRoleService,globalSettings,$alert,UnigueCodeGenerator,localStorageService,$modal){
 
 
 if(localStorageService.get('latestGlobalConfigState')){
@@ -8,21 +8,39 @@ else{
 	$scope.selectedTab="SetEvaluator";	
 }
 
+// for getting looged users data.
+    if(!$rootScope.userinfo){
+    commonService.GetUserCredentials($scope);
+    $rootScope.hide_when_root_empty=false;
+    }
+    if(angular.equals($rootScope.loggedIn,false)){
+    $state.go('login');
+    }
 
+
+var companyId;
 $scope.entities=[];
 $scope.incrementTypes=[{"Name":"<i class='fa fa-sort-numeric-asc p-xs'></i>Number","value":"Number"},{"Name":"<i class='ti-uppercase p-xs'></i>Alphabetics(In Capital Letter)","value":"Alphabetics(C)"},{"Name":"<i class='ti-smallcap p-xs'></i>Alphabetics(In Small Letter)","value":"Alphabetics(s)"}];
 $scope.enableaddEvaluator=true;
 
-// watch function for retireve userinfo
-$scope.$watch(function() {
-  return $rootScope.userinfo;
-}, function() {
+// watch function for retireve userinfo # commented by lijin for avoiding watch on 20-5-2015
+// $scope.$watch(function() {
+//   return $rootScope.userinfo;
+// }, function() {
   $scope.userinfo = $rootScope.userinfo;
   // console.log($scope.userinfo.ActiveUserData.roleMappingObj);
   companyId=$scope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
   var existingConf= globalSettings.retrieveExistingConf(companyId);
 	existingConf.then(function  (data) {
 	  existingConfCallBack=angular.fromJson(JSON.parse(data.data));
+	  $scope.existingConfiguration=existingConfCallBack.existingConf;
+			 //variable for setting candidate age limit for registration
+			if(angular.equals($scope.existingConfiguration.candidateAgeLimit,undefined)){
+				$scope.existingConfiguration.candidateAgeLimit={};
+				$scope.existingConfiguration.candidateAgeLimit.min=10;
+				$scope.existingConfiguration.candidateAgeLimit.max=25;
+
+			}
 	  $scope.roles=[];
 	  $scope.roles=existingConfCallBack.CompanyRoles;
 	  var rolesArrayForSuperVisor=existingConfCallBack.CompanyRoles;
@@ -34,7 +52,7 @@ $scope.$watch(function() {
 	  		$scope.existingItemAndCodes=existingConfCallBack.existingConf.itemCodes;
 	  		ExistingsupervisorRoles=existingConfCallBack.existingConf.supervisorRoles;
 	  		orderFormConfigurable=existingConfCallBack.existingConf.orderFormConfigurable;
-	  		console.log(orderFormConfigurable);
+	  		// console.log(orderFormConfigurable);
 	  }
 	  else{
 	  		existingEvalroles=null;
@@ -153,7 +171,8 @@ $scope.$watch(function() {
 	// });
 
 
-}, true);
+// }, true);
+
 
 $scope.setEvaluator=function(){
 	$scope.enableaddEvaluator=false;
@@ -352,7 +371,7 @@ $scope.removeExistingSupervisors=function(removeEvaluatorSupervisor,index){
 				  				$scope.selectedSupervisorsRoles.splice(index,1);
 								$scope.supervisorrolelist.push({"Name":removeEvaluatorSupervisor.Name,"value":removeEvaluatorSupervisor.value});
 								$scope.notifications("Success","Supervisor Removed","success");
-								console.log();
+								//console.log();
 					}
 				});
 }
@@ -415,7 +434,7 @@ $scope.setOrderFormConfOrNot=function(data){
 	}
 	OrderFormSendData.companyId=companyId;
 	OrderFormSendData.userLoginId=$rootScope.userinfo.userLoginId
-	console.log(OrderFormSendData);
+	//console.log(OrderFormSendData);
 	var OrderFormSendDatacallBack=globalSettings.setOrderFormConfOrNot(OrderFormSendData);
 	OrderFormSendDatacallBack.then(function  (data) {
 			  if(data.status==200&&data.statusText=="OK"){
@@ -544,5 +563,25 @@ $scope.notifications=function(title,message,type){
      // Notify(message, 'top-right', '2000', type, symbol, true); \
      $alert({title: title, content: message , placement: 'top-right',duration:3, type: type});// calling notification message function
     };
+
+$scope.saveAgeLimitRange = function () {
+	$scope.updatingCandidateAgeLimit = true;
+	var updatedGlobal = globalSettings.fnUpdateCandidateAgeLimit(companyId,$scope.existingConfiguration.candidateAgeLimit);
+		updatedGlobal.then(function (response) {
+			$scope.updatingCandidateAgeLimit = false;
+			$scope.notifications('','Updated age limit.','success');
+			$scope.existingConfiguration = angular.fromJson(JSON.parse(response.data)); 
+		});
+		updatedGlobal.error(function(){
+			$scope.notifications('Sorry..!','Something went wrong, please try again.','danger');
+			$scope.updatingCandidateAgeLimit = false;
+		});
+};
+
+
+
+
+
+
 
 }]);
