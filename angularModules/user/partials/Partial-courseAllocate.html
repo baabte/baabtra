@@ -6,7 +6,7 @@
             <div ng-if="classic" set-sub-heading-and-background-color  class="panel-heading font-bold text-white  p baab-shadow"   translate="{{'Allocate to Course'|translate}}"></div>
                         <div  class="col-xs-12 shadow-z-1 bg-white" >
                             <div class="col-md-5 col-xs-12">
-                                <div class="m-t-md ">
+                                <div class="m-t-lg ">
                                     <div class="input-group m-b pull-left col-xs-8">
                                         <span class="input-group-addon"><i class="mdi-action-search text-2x"></i></span>
                                             <input type="text" ng-change="searchUser()" ng-model="userObj.searchKey" class="form-control" placeholder="Search Users" autocomplete="off">
@@ -19,7 +19,17 @@
                                   
                                 </div>
                             </div>
-                            <div class="col-md-2 hidden-xs">
+
+                            <div class="col-md-2 col-xs-12" ng-show="showFields">
+                                <div class="m-t-md " >
+                                    
+                                    <course-loader ng-model="courseAllocate.selectedCourse"></course-loader>
+                                  
+                                </div>
+                              
+                            </div>
+
+                            <div class="col-md-3 hidden-xs text-left">
                                 <div ng-if="showFields" class="m-t-sm">
                                     <div class=" btn" ng-click="showSelectedUsers()">
                                         Selected Users
@@ -28,14 +38,7 @@
                                 </div>
                             </div>
                             
-                            <div class="col-md-3 col-xs-12" ng-show="showFields">
-                                <div class="m-t-sm " >
-                                    
-                                    <course-loader ng-model="courseAllocate.selectedCourse"></course-loader>
-                                  
-                                </div>
-                              
-                            </div>
+                            
 
                             <div class="col-md-2 col-xs-12">
                                 <div class="m-t-sm  hidden-xs">
