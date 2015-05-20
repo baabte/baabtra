@@ -1,12 +1,12 @@
 angular.module('baabtra').service('viewUsersForApprove',['$http','bbConfig',function ($http, bbConfig) {
 
 
-this.fnLoadMenteesForApprove=function(companyId, statusType, pageNumber, nPerPage)//To Load Mentees For Approve
+this.fnLoadMenteesForApprove=function(companyId, statusType, pageNumber, nPerPage, searchKey)//To Load Mentees For Approve
       {
         var promise = $http({
           method: 'post',
           url: bbConfig.BWS+'fnLoadMenteesForApprove/',
-          data:{companyId:companyId, statusType:statusType, pageNumber:pageNumber, nPerPage:nPerPage},
+          data:{companyId:companyId, statusType:statusType, pageNumber:pageNumber, nPerPage:nPerPage, searchKey:searchKey},
           contentType:'application/json; charset=UTF-8',
         });
         return promise;
