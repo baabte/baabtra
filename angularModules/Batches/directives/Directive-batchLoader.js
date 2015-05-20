@@ -99,12 +99,13 @@ scope.fetchBatch =function(){
                 delete batch.start;
                 delete batch.seat;
                 delete batch.end;
+                console.log(batch);
               //if(batch.batchMode=="onetime"){
                // batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Duration:'+batch.duration+'days</div>';
                if(batch.startTime ==undefined ||batch.endTime==undefined){
-               batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'</div>';
+               batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Type:'+ batch.courseType+'</div>';
                }else{
-               batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'('+$filter('date')(batch.startTime,'shortTime')+ "-" +$filter('date')(batch.endTime,'shortTime') +')'+'<br/>Remaining seats:'+batch.seats+'</div>';
+               batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'('+$filter('date')(batch.startTime,'shortTime')+ "-" +$filter('date')(batch.endTime,'shortTime') +')'+'<br/>Remaining seats:'+batch.seats+'<br/>Type:'+batch.courseType+'</div>';
                }
                /*}else{
                 // batch.icon = '<div class="col-xs-12  text-xs">Starts on: '+$filter('date')(batch.startDate)+'<br/>Remaining seats:'+batch.seats+'<br/>Repeats After:'+batch.repeats.every +" "+ batch.repeats.repeatType +'</div>';
