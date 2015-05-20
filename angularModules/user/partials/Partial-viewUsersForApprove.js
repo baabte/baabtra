@@ -35,7 +35,6 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 		var orderFormResponse = nomination.fnLoadOrderFormById($state.params.ofId);
 			orderFormResponse.then(function(response){
 			var orderForm = angular.fromJson(JSON.parse(response.data));
-			console.log(orderForm);
 			orderForm._id = orderForm._id.$oid;
 			$scope.data.approveOrderForm = orderForm;
 			
@@ -133,7 +132,7 @@ $scope.data.selectedStatusTypes = $scope.currentStage.loadStatus;
 			return false;
 		}
 
-	}
+	};
 
 	//**End**
 
@@ -783,7 +782,6 @@ $scope.updateOrderFormStatus = function(type,hide){
 			else{
 				$scope.data.companOrderForms.orderFroms[$scope.currentOrderFormIndex]=angular.copy($scope.data.approveOrderForm);
 			}
-			console.log($scope.data.approveOrderForm);
 			//--------------------------------------------------------------------------------------
 			//cheking the status is rejected or not
 			if(!angular.equals(type,'reject')){
@@ -823,20 +821,36 @@ $scope.updateOrderFormStatus = function(type,hide){
 //ANOOP ***************************************************************************************
 
 	$scope.data.pageNumber = 1;
-	var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8);
+	var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8 , "");
 	LoadMenteesResponse.then(function(response){
 		$scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
+		
 		//$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
 	});
 
 	$scope.pageNavigation = function(pageNumber){
 		$scope.data.pageNumber = pageNumber;
-		var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8);
+		var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8, $scope.data.searchText);
 		LoadMenteesResponse.then(function(response){
 			$scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
 			//$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
 		});
-	}
+	};
+	var searchTimeout;
+	$scope.serachInOrderform = function(){
+		 if(!angular.equals(searchTimeout, undefined)){
+		 	clearTimeout(searchTimeout);
+		 }
+		 searchTimeout = setTimeout(function(){ 
+		 	
+		 	$scope.data.pageNumber = 1;
+			var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8 , $scope.data.searchText);
+			LoadMenteesResponse.then(function(response){
+			$scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
+			//$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
+			});
+		 }, 400);
+	};//serachInOrderform fn end
 
 	
 	$scope.checkAllMentees = function(value, key) {
