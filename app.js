@@ -58,7 +58,8 @@
         'checklist-model',
         'angular-flipclock',
         'angularTreeview',
-        'chart.js'//,
+        'chart.js',
+        'datePicker'
         //function(){  return 'custom-form';}()
         
       ])
