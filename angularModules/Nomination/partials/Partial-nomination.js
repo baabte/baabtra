@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('NominationCtrl',['$scope','bbConfig','$rootScope', '$state', '$modal','commonService', 'formCustomizerService', 'addCourseService', 'nomination', '$alert', 'commonSrv', function($scope,bbConfig, $rootScope, $state, $modal, commonService, formCustomizerService, addCourseService, nomination, $alert, commonSrv){
+angular.module('baabtra').controller('NominationCtrl',['$scope','bbConfig','globalSettings','$rootScope', '$state', '$modal','commonService', 'formCustomizerService', 'addCourseService', 'nomination', '$alert', 'commonSrv', function($scope,bbConfig,globalSettings, $rootScope, $state, $modal, commonService, formCustomizerService, addCourseService, nomination, $alert, commonSrv){
 
 	/*login detils start*/
 	if(!$rootScope.userinfo){
@@ -14,6 +14,7 @@ angular.module('baabtra').controller('NominationCtrl',['$scope','bbConfig','$roo
 	var roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
 	var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 	/*login detils ends*/
+	
 
 
 $scope.status={};
@@ -31,6 +32,33 @@ $scope.fnUserRegisterClicked=false;
 $scope.finshRegisterationClicked=false;
 //sevice call to fetch form 
 var FnFetchCustomFormCallBack= formCustomizerService.FnFetchCustomForm(formFetchData);
+
+
+	var gotGlobalSettings = globalSettings.retrieveExistingConf(companyId);
+		gotGlobalSettings.then(function (response) {
+			var responseData = angular.fromJson(JSON.parse(response.data));
+			// console.log();
+			var dateRange = {};
+			var minDate;
+			var maxDate;
+			if(!angular.equals(responseData.existingConf.candidateAgeLimit,undefined)){
+				var today = new Date();
+				maxDate =new Date(today.getTime() - (responseData.existingConf.candidateAgeLimit.min*365*24*60*60*1000));
+				minDate =new Date(today.getTime() - ((responseData.existingConf.candidateAgeLimit.max)*365*24*60*60*1000));
+			}
+			else{
+				var today = new Date();
+				maxDate =new Date(today.getTime() - (1*365*24*60*60*1000));
+				minDate =new Date(today.getTime() - (100*365*24*60*60*1000));
+				    // console.log(dateRange.minDate,dateRange.maxDate);	
+			}
+
+			dateRange.minDate = 1+'/'+1+'/'+minDate.getFullYear();
+			dateRange.maxDate = 1+'/'+1+'/'+maxDate.getFullYear();
+			$scope.allSync.dateRange = dateRange;
+
+		});
+
 
 FnFetchCustomFormCallBack.then(function(data){
 

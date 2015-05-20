@@ -187,7 +187,9 @@ angular.module('baabtra')
 
       var unbindThis = $rootScope.$watch(function(){ return $rootScope.userinfo; }, function(){
      
-
+            if(angular.equals($rootScope.userinfo,undefined)){
+                return;
+              }
 
             if(!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage, null)&&!angular.equals($rootScope.userinfo.ActiveUserData.Preferedlanguage, undefined)){
                 // var preLang = $rootScope.userinfo.ActiveUserData.Preferedlanguage.langCode;

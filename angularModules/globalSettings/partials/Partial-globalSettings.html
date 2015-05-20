@@ -35,6 +35,9 @@
        <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='OrderForm'}" ng-click="selectedTab='OrderForm';setState('OrderForm')">
         <a href="">Order Form</a>
       </li>
+      <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='candidateAge'}" ng-click="selectedTab='candidateAge';setState('candidateAge')">
+        <a href="">Candidate age limit</a>
+      </li>
     </ul>
   </div>
   <div class="col-md-9 b-l bg-white" >
@@ -152,7 +155,7 @@
           </div>            
         </div>
        
-         <div class="row p-sm"  ng-show="prefix&&selectedPattern">
+         <div class="row p-sm"  ng-if="prefix&&selectedPattern">
            <div class="col-md-4" ><!-- Preview of Your Pattern<span class="pull-right">:</span> --></div>
            <div class="col-md-4 " >
                 <div class="panel p-v-md b-success">
@@ -256,7 +259,25 @@
         </div>
     </div>
 </div>
-   
+
+
+<!-- tab for managing candidate age limit - by lijin on 20-5-2015 -->
+<div ng-if="selectedTab=='candidateAge'" class="row bg-light m-sm p-sm">
+    <div class="row p-sm">
+        <div class="col-xs-12">
+          <span class="font-bold" translate="{{'Set age limit range for candidate registration.'|translate}}"></span>
+          <!-- <span class="hidden-xs" translate="{{'Set age limit range'|translate}}"></span> -->
+          <!-- <span class="pull-right hidden-xs">:</span> -->
+        </div>
+        <div class="col-md-8 col-xs-12">
+            <div range-slider min="1" max="85" model-min="existingConfiguration.candidateAgeLimit.min" model-max="existingConfiguration.candidateAgeLimit.max"></div>                 
+        </div>
+         <div class="col-md-12 text-right">
+              <button class="btn btn-success" ng-disabled="updatingCandidateAgeLimit" ng-click="saveAgeLimitRange()">Save</button>                    
+        </div>
+    </div>
+</div>
+   <!-- end of candidate age limit tab -->
       
   </div>
 </div>
