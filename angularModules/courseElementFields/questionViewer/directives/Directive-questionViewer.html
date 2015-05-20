@@ -40,7 +40,7 @@
 						<div class="col-xs-12 p-h-lg">{{fromAssignment.value.input}}</div>			
 					</div>
 					
-					<div class="col-xs-push-2 col-xs-5 bg-light p" ng-if="fromAssignment.value.input">
+					<div class="col-xs-5 bg-light p" ng-if="fromAssignment.value.input" ng-class="{'col-xs-push-2':fromAssignment.value.input}">
 						<div class="col-xs-12 font-bold">Output</div>
 						<div class="col-xs-12 p-h-lg">{{fromAssignment.value.output}}</div>			
 					</div>
@@ -59,7 +59,7 @@
 				       
 					</div>
 					
-					<div class="col-xs-push-2 col-xs-5 p-lg bg-light" ng-if="fromAssignment.value.outputImage">				
+					<div class="col-xs-5 p-lg bg-light" ng-if="fromAssignment.value.outputImage" ng-class="{'col-xs-push-2':fromAssignment.value.inputImage}">				
 						  <div class="col-xs-12 font-bold">Output image</div>
 				         <div class="col-xs-12 p-h-lg text-center"> <img ng-click="showImage('output')"  class="img-responsive img-thumbnail w-sm m-xs" ng-src="{{fromAssignment.value.outputImage}}" style="cursor:pointer;" bs-tooltip data-placement="top" data-title="Click to view an enlarged version"/>
 				         </div>
