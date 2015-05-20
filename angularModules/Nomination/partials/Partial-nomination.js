@@ -167,7 +167,7 @@ $scope.fnUserRegister =function (draftFlag,fnCallback) {
 
 	$scope.fnUserRegisterClicked=true;
 	$scope.finshRegisterationClicked=true;
-
+	console.log($scope.allSync.FormData);
 
 
 	
