@@ -31,7 +31,6 @@ formFetchData.formName='orderForm';//to fetch all the froms give specific name t
 $scope.fnUserRegisterClicked=false;
 $scope.finshRegisterationClicked=false;
 //sevice call to fetch form 
-var FnFetchCustomFormCallBack= formCustomizerService.FnFetchCustomForm(formFetchData);
 
 
 	var gotGlobalSettings = globalSettings.retrieveExistingConf(companyId);
@@ -57,30 +56,34 @@ var FnFetchCustomFormCallBack= formCustomizerService.FnFetchCustomForm(formFetch
 			dateRange.maxDate = 1+'/'+1+'/'+maxDate.getFullYear();
 			$scope.allSync.dateRange = dateRange;
 
+
+			var FnFetchCustomFormCallBack= formCustomizerService.FnFetchCustomForm(formFetchData);
+
+					FnFetchCustomFormCallBack.then(function(data){
+
+					 var result=angular.fromJson(JSON.parse(data.data));
+					 $scope.formlist=result.formlist;
+					 
+					$scope.stepCount=$scope.formlist.formSteps;
+					//to get the mandtory from field name in an array 
+					    for(var i in $scope.formlist.formSchema){
+					      for(var x in $scope.formlist.formSchema[i].stepFormSchema.fields){
+					       if(angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'role')||angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'Branch'))
+					       {}
+					       else{
+					      mandatoryFields.push($scope.formlist.formSchema[i].stepFormSchema.fields[x].name);
+					      
+					     }
+					    } 
+					    $scope.formlistCopy = angular.copy($scope.formlist);
+					    }
+
+					    $scope.fnInitializeFormRelatedDatas();
+					});
+
 		});
 
 
-FnFetchCustomFormCallBack.then(function(data){
-
- var result=angular.fromJson(JSON.parse(data.data));
- $scope.formlist=result.formlist;
- 
-$scope.stepCount=$scope.formlist.formSteps;
-//to get the mandtory from field name in an array 
-    for(var i in $scope.formlist.formSchema){
-      for(var x in $scope.formlist.formSchema[i].stepFormSchema.fields){
-       if(angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'role')||angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'Branch'))
-       {}
-       else{
-      mandatoryFields.push($scope.formlist.formSchema[i].stepFormSchema.fields[x].name);
-      
-     }
-    } 
-    $scope.formlistCopy = angular.copy($scope.formlist);
-    }
-
-    $scope.fnInitializeFormRelatedDatas();
-});
 
 
 $scope.fnInitializeFormRelatedDatas = function (argument) {
@@ -192,11 +195,11 @@ $scope.checkUserAlreadyExists = function(){
 
 
 $scope.fnUserRegister =function (draftFlag,fnCallback) {
-
+	var currentCourseId = angular.copy($scope.allSync.FormData.course._id);
 	$scope.fnUserRegisterClicked=true;
 	$scope.finshRegisterationClicked=true;
-	console.log($scope.allSync.FormData);
-
+	// console.log(JSON.stringify($scope.allSync.FormData));
+	// console.log($scope.allSync.FormData);
 
 	
 	// $scope.allSync.FormData={};
@@ -249,6 +252,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
 	$scope.$watch('fileUpload', function(){
 		var userinfo = angular.copy($scope.allSync.FormData);
 		if(!angular.equals(userinfo.course,undefined)){
+			// currentCourseId=userinfo.course._id;
 			delete userinfo.course;
 		}
 
@@ -274,7 +278,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
 		$scope.data.orderForm.requesteeDetails = $scope.data.requesteeDetails;
 		
 		
-		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
+		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, currentCourseId);
 
 		courseLoadResponse.then(function(course){
 	    	var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
@@ -329,9 +333,11 @@ if(Object.keys($scope.allSync.FormData.course).length){
 				
 				//Re-initialize formdata
 				for(key in $scope.allSync.FormData){
-					$scope.allSync.FormData[key]='';
+					if(!angular.equals(key,'course')){
+							$scope.allSync.FormData[key]='';
+						}
 				}
-
+				$scope.fnInitializeFormRelatedDatas();
 				$scope.fnUserRegisterClicked=false;
 				$scope.finshRegisterationClicked=false;
 
@@ -344,7 +350,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
 	}
 	else{
 		var courseIndex = 0;
-		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
+		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, currentCourseId);
 		courseLoadResponse.then(function(course){
      		var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
      		
@@ -388,8 +394,11 @@ if(Object.keys($scope.allSync.FormData.course).length){
 
 				//Re-initialize formdata
 				for(key in $scope.allSync.FormData){
-					$scope.allSync.FormData[key]='';
+					if(!angular.equals(key,'course')){
+						$scope.allSync.FormData[key]='';
+					}
 				}
+				$scope.fnInitializeFormRelatedDatas();
 
 					$scope.fnUserRegisterClicked=false;
 				$scope.finshRegisterationClicked=false;
@@ -404,7 +413,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
 				$scope.data.orderForm.requesteeDetails = $scope.data.requesteeDetails;
 			}
 
-			var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
+			var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, currentCourseId);
 
 			courseLoadResponse.then(function(course){
 		    	var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
@@ -462,9 +471,11 @@ if(Object.keys($scope.allSync.FormData.course).length){
 
 					//Re-initialize formdata
 					for(key in $scope.allSync.FormData){
-						$scope.allSync.FormData[key]='';
+						if(!angular.equals(key,'course')){
+							$scope.allSync.FormData[key]='';
+						}
 					}
-
+					$scope.fnInitializeFormRelatedDatas();
 					$scope.fnUserRegisterClicked=false;
 					$scope.finshRegisterationClicked=false;
 
@@ -490,6 +501,10 @@ if(Object.keys($scope.allSync.FormData.course).length){
 };
 
 	$scope.finshRegisteration = function(draftFlag){
+		
+		if($scope.finshRegisterationClicked){
+			return;
+		}
 		
 		$scope.finshRegisterationClicked=true;
 			
