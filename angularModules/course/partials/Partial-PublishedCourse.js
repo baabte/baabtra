@@ -14,6 +14,8 @@ $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 	$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 	PublishedCourse.loadPublishedCourses($scope,'','','','');
 //}
+
+
 //$scope.showCourseFilter = false;
 var courseDomainResponse = addCourseDomainSrv.FnLoadDomain();
 courseDomainResponse.then(function(response){
@@ -87,8 +89,12 @@ $scope.cmp_id=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid
 $scope.navigateToCourse = function( courseId ){
     $state.go('home.main.viewCourse',{id:courseId});
 }
-$scope.editCourse=function(courseId){
-	$state.go('home.main.addCourse.step1',{courseId:courseId});
+$scope.editCourse = function(courseId, type){
+
+  if(angular.equals(type, undefined)){
+    type = 'course';
+  }
+	$state.go('home.main.addCourse.step1',{key:type,courseId:courseId});
 };
 
 $scope.undo = function(){
@@ -98,12 +104,14 @@ $scope.undo = function(){
 		});
 	};
 
-$scope.deleteCourseDetails = function(courseId){
-	$scope.lastDeletedCourseId = courseId;		
+$scope.deleteCourseDetails = function(courseId, courseName){
+	$scope.lastDeletedCourseId = courseId;
+  	
 	var deleteCourse = draftedCourses.fnDeleteCourse({activeFlag:0},courseId, $scope.rm_id , "Publish",$scope.companyId);
-	deleteCourse.then(function (data) {
+
+  deleteCourse.then(function (data) {
 		$scope.publishedCourses = angular.fromJson(JSON.parse(data.data));
-		$alert({scope: $scope, container:'body', keyboard:true, animation:'am-fade-and-slide-top', template:'views/ui/angular-strap/alert.tpl.html', title:'Undo', content:'The course has been moved to the Trash <i class="fa fa-smile-o"></i>', placement: 'top-right', type: 'warning'});
+		$alert({scope: $scope, container:'body', keyboard:true, animation:'am-fade-and-slide-top', template:'views/ui/angular-strap/alert.tpl.html', title:'Undo', content:courseName+' has been moved to the Trash <i class="fa fa-smile-o"></i>', placement: 'top-right', type: 'warning'});
 	});
 		
 };
@@ -115,11 +123,11 @@ $scope.data.courseDropdown = [
   },
   {
     "text": "<i class=\"fa fa-fw fa-edit\"></i>&nbsp;Edit course",
-    "click": "this.editCourse(course._id.$oid);"
+    "click": "this.editCourse(course._id.$oid, course.type);"
   },
   {
     "text": "<i class=\"fa fa-fw fa-trash\"></i>&nbsp;Delete course",
-    "click": "this.deleteCourseDetails(course._id.$oid);"
+    "click": "this.deleteCourseDetails(course._id.$oid, course.Name);"
   }];
 
 var searchInProgress;

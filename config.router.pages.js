@@ -275,16 +275,6 @@
                 
               })
 
-              .state('home.main.addCourse.step1', {
-                url: '/step1/:courseId',
-                views:{
-                  'addCourse-container':{
-                    templateUrl: 'angularModules/course/partials/addCourseStep1.html'
-                  }
-                }
-                
-              })
-
               .state('home.main.course', {
                 url: '/course/:courseId',
                 views:{
@@ -295,8 +285,19 @@
                 }
                 
               })
+
+              .state('home.main.addCourse.step1', {
+                url: '/step1/:key/:courseId',
+                views:{
+                  'addCourse-container':{
+                    templateUrl: 'angularModules/course/partials/addCourseStep1.html'
+                  }
+                }
+                
+              })
+
               .state('home.main.addCourse.step2', {
-                url: '/step2/:courseId',
+                url: '/step2/:key/:courseId',
                 views:{
                   'addCourse-container':{
                     templateUrl: 'angularModules/course/partials/addCourseStep2.html'
@@ -305,7 +306,7 @@
                 
               })
               .state('home.main.addCourse.step3', {
-                url: '/step3/:courseId',
+                url: '/step3/:key/:courseId',
                 views:{
                   'addCourse-container':{
                     templateUrl: 'angularModules/course/partials/addCourseStep3.html'
@@ -314,7 +315,7 @@
                 
               })
               .state('home.main.addCourse.step4', {
-                url: '/step4/:courseId',
+                url: '/step4/:key/:courseId',
                 views:{
                   'addCourse-container':{
                     templateUrl: 'angularModules/course/partials/addCourseStep4.html'

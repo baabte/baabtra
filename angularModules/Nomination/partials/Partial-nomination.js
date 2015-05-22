@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('NominationCtrl',['$scope','bbConfig','$rootScope', '$state', '$modal','commonService', 'formCustomizerService', 'addCourseService', 'nomination', '$alert', 'commonSrv', function($scope,bbConfig, $rootScope, $state, $modal, commonService, formCustomizerService, addCourseService, nomination, $alert, commonSrv){
+angular.module('baabtra').controller('NominationCtrl',['$scope','bbConfig','globalSettings','$rootScope', '$state', '$modal','commonService', 'formCustomizerService', 'addCourseService', 'nomination', '$alert', 'commonSrv', function($scope,bbConfig,globalSettings, $rootScope, $state, $modal, commonService, formCustomizerService, addCourseService, nomination, $alert, commonSrv){
 
 	/*login detils start*/
 	if(!$rootScope.userinfo){
@@ -14,6 +14,7 @@ angular.module('baabtra').controller('NominationCtrl',['$scope','bbConfig','$roo
 	var roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
 	var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 	/*login detils ends*/
+	
 
 
 $scope.status={};
@@ -30,29 +31,59 @@ formFetchData.formName='orderForm';//to fetch all the froms give specific name t
 $scope.fnUserRegisterClicked=false;
 $scope.finshRegisterationClicked=false;
 //sevice call to fetch form 
-var FnFetchCustomFormCallBack= formCustomizerService.FnFetchCustomForm(formFetchData);
 
-FnFetchCustomFormCallBack.then(function(data){
 
- var result=angular.fromJson(JSON.parse(data.data));
- $scope.formlist=result.formlist;
- 
-$scope.stepCount=$scope.formlist.formSteps;
-//to get the mandtory from field name in an array 
-    for(var i in $scope.formlist.formSchema){
-      for(var x in $scope.formlist.formSchema[i].stepFormSchema.fields){
-       if(angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'role')||angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'Branch'))
-       {}
-       else{
-      mandatoryFields.push($scope.formlist.formSchema[i].stepFormSchema.fields[x].name);
-      
-     }
-    } 
-    $scope.formlistCopy = angular.copy($scope.formlist);
-    }
+	var gotGlobalSettings = globalSettings.retrieveExistingConf(companyId);
+		gotGlobalSettings.then(function (response) {
+			var responseData = angular.fromJson(JSON.parse(response.data));
+			// console.log();
+			var dateRange = {};
+			var minDate;
+			var maxDate;
+			if(!angular.equals(responseData.existingConf.candidateAgeLimit,undefined)){
+				var today = new Date();
+				maxDate =new Date(today.getTime() - (responseData.existingConf.candidateAgeLimit.min*365*24*60*60*1000));
+				minDate =new Date(today.getTime() - ((responseData.existingConf.candidateAgeLimit.max)*365*24*60*60*1000));
+			}
+			else{
+				var today = new Date();
+				maxDate =new Date(today.getTime() - (1*365*24*60*60*1000));
+				minDate =new Date(today.getTime() - (100*365*24*60*60*1000));
+				    // console.log(dateRange.minDate,dateRange.maxDate);	
+			}
 
-    $scope.fnInitializeFormRelatedDatas();
-});
+			dateRange.minDate = 1+'/'+1+'/'+minDate.getFullYear();
+			dateRange.maxDate = 1+'/'+1+'/'+maxDate.getFullYear();
+			$scope.allSync.dateRange = dateRange;
+
+
+			var FnFetchCustomFormCallBack= formCustomizerService.FnFetchCustomForm(formFetchData);
+
+					FnFetchCustomFormCallBack.then(function(data){
+
+					 var result=angular.fromJson(JSON.parse(data.data));
+					 $scope.formlist=result.formlist;
+					 
+					$scope.stepCount=$scope.formlist.formSteps;
+					//to get the mandtory from field name in an array 
+					    for(var i in $scope.formlist.formSchema){
+					      for(var x in $scope.formlist.formSchema[i].stepFormSchema.fields){
+					       if(angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'role')||angular.equals($scope.formlist.formSchema[i].stepFormSchema.fields[x].name,'Branch'))
+					       {}
+					       else{
+					      mandatoryFields.push($scope.formlist.formSchema[i].stepFormSchema.fields[x].name);
+					      
+					     }
+					    } 
+					    $scope.formlistCopy = angular.copy($scope.formlist);
+					    }
+
+					    $scope.fnInitializeFormRelatedDatas();
+					});
+
+		});
+
+
 
 
 $scope.fnInitializeFormRelatedDatas = function (argument) {
@@ -164,15 +195,15 @@ $scope.checkUserAlreadyExists = function(){
 
 
 $scope.fnUserRegister =function (draftFlag,fnCallback) {
-
+	var currentCourseId = angular.copy($scope.allSync.FormData.course._id);
 	$scope.fnUserRegisterClicked=true;
 	$scope.finshRegisterationClicked=true;
-
-
+	// console.log(JSON.stringify($scope.allSync.FormData));
+	// console.log($scope.allSync.FormData);
 
 	
 	// $scope.allSync.FormData={};
-	$scope.fnInitializeFormRelatedDatas();
+	//$scope.fnInitializeFormRelatedDatas();
 
 if(Object.keys($scope.allSync.FormData.course).length){
 	if(angular.equals($scope.data.requesteeDetails.type,'self')){
@@ -221,6 +252,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
 	$scope.$watch('fileUpload', function(){
 		var userinfo = angular.copy($scope.allSync.FormData);
 		if(!angular.equals(userinfo.course,undefined)){
+			// currentCourseId=userinfo.course._id;
 			delete userinfo.course;
 		}
 
@@ -246,7 +278,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
 		$scope.data.orderForm.requesteeDetails = $scope.data.requesteeDetails;
 		
 		
-		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
+		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, currentCourseId);
 
 		courseLoadResponse.then(function(course){
 	    	var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
@@ -301,9 +333,11 @@ if(Object.keys($scope.allSync.FormData.course).length){
 				
 				//Re-initialize formdata
 				for(key in $scope.allSync.FormData){
-					$scope.allSync.FormData[key]='';
+					if(!angular.equals(key,'course')){
+							$scope.allSync.FormData[key]='';
+						}
 				}
-
+				$scope.fnInitializeFormRelatedDatas();
 				$scope.fnUserRegisterClicked=false;
 				$scope.finshRegisterationClicked=false;
 
@@ -316,7 +350,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
 	}
 	else{
 		var courseIndex = 0;
-		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
+		var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, currentCourseId);
 		courseLoadResponse.then(function(course){
      		var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
      		
@@ -360,8 +394,11 @@ if(Object.keys($scope.allSync.FormData.course).length){
 
 				//Re-initialize formdata
 				for(key in $scope.allSync.FormData){
-					$scope.allSync.FormData[key]='';
+					if(!angular.equals(key,'course')){
+						$scope.allSync.FormData[key]='';
+					}
 				}
+				$scope.fnInitializeFormRelatedDatas();
 
 					$scope.fnUserRegisterClicked=false;
 				$scope.finshRegisterationClicked=false;
@@ -376,7 +413,7 @@ if(Object.keys($scope.allSync.FormData.course).length){
 				$scope.data.orderForm.requesteeDetails = $scope.data.requesteeDetails;
 			}
 
-			var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $scope.allSync.FormData.course._id);
+			var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, currentCourseId);
 
 			courseLoadResponse.then(function(course){
 		    	var course = angular.fromJson(JSON.parse(course.data)).courseDetails;
@@ -434,9 +471,11 @@ if(Object.keys($scope.allSync.FormData.course).length){
 
 					//Re-initialize formdata
 					for(key in $scope.allSync.FormData){
-						$scope.allSync.FormData[key]='';
+						if(!angular.equals(key,'course')){
+							$scope.allSync.FormData[key]='';
+						}
 					}
-
+					$scope.fnInitializeFormRelatedDatas();
 					$scope.fnUserRegisterClicked=false;
 					$scope.finshRegisterationClicked=false;
 
@@ -444,13 +483,12 @@ if(Object.keys($scope.allSync.FormData.course).length){
 				});
 			});	
 		}
-    });
-}
+    });//loda course
+}//else
 		}
 	});
 }
 	else{
-		console.log(fnCallback);
 		$alert({title: 'Select..!', content: 'Please select a course to complete your registration :-)', placement: 'top-right',duration:4 ,animation:'am-slide-bottom', type: 'warning', show: true});
 		// if(!angular.equals(fnCallback,undefined)){
 		// 				fnCallback();
@@ -462,6 +500,10 @@ if(Object.keys($scope.allSync.FormData.course).length){
 };
 
 	$scope.finshRegisteration = function(draftFlag){
+		
+		if($scope.finshRegisterationClicked){
+			return;
+		}
 		
 		$scope.finshRegisterationClicked=true;
 			

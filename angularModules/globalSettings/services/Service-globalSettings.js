@@ -188,4 +188,23 @@ this.setOrderFormConfOrNot=function(data){ //
     return promise;
 };
 
+this.fnUpdateCandidateAgeLimit=function(comapanyId,limitRange){ // 
+
+    var promise=$http({
+          url: bbConfig.BWS+'fnUpdateCandidateAgeLimit/',
+           data:{comapanyId:comapanyId,candidateAgeLimit:limitRange}, //it will save saveAttendanceAlertSettings under a comapany
+           method: "POST",
+           withCredentials: false,
+           contentType:"application/json",
+           dataType:"json",
+       }).
+         success(function(data, status, headers, config) { 
+          return data;                   
+             }).
+         error(function(data, status, headers, config) {
+          
+         }); 
+    return promise;
+};
+
 }]);

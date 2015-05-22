@@ -821,7 +821,8 @@ $scope.updateOrderFormStatus = function(type,hide){
 //ANOOP ***************************************************************************************
 
 	$scope.data.pageNumber = 1;
-	var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8 , "");
+	$scope.data.searchText = '';
+	var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8 , $scope.data.searchText);
 	LoadMenteesResponse.then(function(response){
 		$scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
 		

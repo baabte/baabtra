@@ -8,7 +8,7 @@ this.loadPublishedCourses=function($scope,searchKey,lastId,type,firstId){
 	 }).success(function(data, status, headers, config)
 	 {
 	 	$scope.publishedCourses = angular.fromJson(JSON.parse(data));
-	 	console.log($scope.publishedCourses);
+
 	 	$scope.notfoundCourse=false;
 	 }).error(function(data, status, headers, config)
 	 {

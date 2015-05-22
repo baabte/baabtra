@@ -14,7 +14,7 @@
 	</div>
 	<div class="col-xs-3 p bg-03A9F4 text-center" style="cursor: pointer;" ng-class="{'shadow-z-4':currentState=='home.main.addCourse.step4'}" ng-click="nextPart('home.main.addCourse.step4','b-03A9F4')">
 		<i class="fa fa-puzzle-piece text-2x p-h"></i>
-		<span class="font-bold hidden-xs">Design Course</span>
+		<span class="font-bold hidden-xs">Design <span class="text-name">{{course.type}}</span></span>
 	</div>
 	<div name="addCourse-container"  role="main" ui-view></div>
 </div>
