@@ -19,6 +19,7 @@ angular.module('baabtra').controller('AddcourseCtrl',['$scope','bbConfig','$root
 
 $scope.data = {};
 if(!angular.equals($state.params.courseId,"")){
+
   //this function loads course details by course Id
   $scope.courseId = $state.params.courseId;
   var promise = addCourseService.fnLoadCourseDetails($scope, $scope.courseId);
@@ -103,7 +104,11 @@ $scope.nextPart = function(state,borderClass){//for change step, when click tab
     if(!angular.equals($scope.courseId,"")){
       $scope.borderClass = borderClass;
       $scope.currentState=state;
-      $state.go(state,{'courseId':$scope.courseId});
+      if(angular.equals($scope.course.type, undefined)){
+        $scope.course.type = 'course';
+      }
+
+      $state.go(state,{key:$scope.course.type, 'courseId':$scope.courseId});
     }
 };
 $scope.onDomainSelectionChanged = function(items) {
@@ -220,6 +225,7 @@ $scope.course.Delivery.offline=true;//setting delevery mode default option to tr
 $scope.course.courseDetails = [];
 $scope.course.publishToWebsite = false;
 $scope.course.publishToBaabtra = false;
+$scope.course.type = $state.params.key;
 
 
 

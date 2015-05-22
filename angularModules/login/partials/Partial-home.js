@@ -314,15 +314,15 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
 
             }
 
-            else if(angular.equals($scope.stateSplitAll(menu[sub].actions[action].stateName),state)&&(!angular.equals($localStorage.currentMenuLink,$scope.linkSeprate(state)))){
-              $rootScope.menuExist=true;
-              path_obj.push(menu[sub]);
-              $scope.navBar=true;
-              $localStorage.linkPath=path_obj;
-              $scope.linkPath=$localStorage.linkPath;
-              fnCallback();
-              break;
-            }
+            // else if(angular.equals($scope.stateSplitAll(menu[sub].actions[action].stateName),state)&&(!angular.equals($localStorage.currentMenuLink,$scope.linkSeprate(state)))){
+            //   $rootScope.menuExist=true;
+            //   path_obj.push(menu[sub]);
+            //   $scope.navBar=true;
+            //   $localStorage.linkPath=path_obj;
+            //   $scope.linkPath=$localStorage.linkPath;
+            //   fnCallback();
+            //   break;
+            // }
 
           }
         }

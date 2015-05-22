@@ -26,12 +26,12 @@
         <div class="row">
             <div class="form-group">
               
-                  <input type="text" class="form-control" float-label ng-model="course.Name" name="courseName" xt-validate required placeholder="{{'Name of the course'|translate}}">
+                  <input type="text" class="form-control" float-label ng-model="course.Name" name="courseName" xt-validate required placeholder="Name of the {{course.type}}">
          
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" ng-if="course.type == 'course' || !course.type">
           <div class="form-group" >
 
             <div class="checkbox">
@@ -56,7 +56,7 @@
 
 
         <!-- course details viewer -->
-          <course-detail-viewer course-details="course.courseDetails" editable="true">
+          <course-detail-viewer  course-details="course.courseDetails" editable="true">
           </course-detail-viewer>
 
         <!-- dynamic fields directive -->
@@ -69,7 +69,7 @@
     <!-- Left Half .End -->
 
     <!-- Right half -->
-    <div class="col-xs-12 col-sm-6 m-v-lg">
+    <div class="col-xs-12 col-sm-6 m-v-lg" ng-if="course.type == 'course' || !course.type">
 
       <!-- Course domains -->
       <hierarchical-selector data="domains" multi-select="true" on-selection-changed="onDomainSelectionChanged(items)" selection="{{course.Domains}}"></hierarchical-selector>
