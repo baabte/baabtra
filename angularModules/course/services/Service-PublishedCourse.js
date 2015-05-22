@@ -25,7 +25,7 @@ this.courseByKeywords = function(companyId, searchKey){
 	    data:{"companyId":companyId,"searchKey":searchKey}
 	 });
 	return promise;
-}
+};
 
 
 this.loadPublishedCoursesWithPromise=function(companyId,searchKey,lastId,type,firstId){

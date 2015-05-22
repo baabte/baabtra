@@ -110,11 +110,17 @@ $scope.deleteCourseDetails = function(courseId){
 
 
 
-$scope.duplicateCourse = function(courseId){	
+$scope.duplicateCourse = function(courseId,index){	
 	var duplicateCourse = PublishedCourse.fnDuplicateCourse(courseId,$scope.rm_id,$scope.companyId);
 	duplicateCourse.then(function (data) {
-		 
-   $alert({title: 'Done!', content: 'Course Duplicated Successfully..' , placement: 'top-right',duration:3, type: 'success'});
+		 var duplicateCourse= angular.fromJson(JSON.parse(data.data));
+     console.log(duplicateCourse);
+     console.log($scope.publishedCourses.courses.length);
+     $scope.publishedCourses.courses.splice(index,0,duplicateCourse);
+     $scope.publishedCourses.courseLength=$scope.publishedCourses.courses.length;
+     console.log($scope.publishedCourses.courses.length);
+     
+   $alert({title: 'Done!', content: 'A duplicate copy of the course has been created' , placement: 'top-right',duration:3, type: 'success'});
 		// $alert({scope: $scope, container:'body', keyboard:true, animation:'am-fade-and-slide-top', template:'views/ui/angular-strap/alert.tpl.html', title:'Undo', content:'The course has been moved to the Trash <i class="fa fa-smile-o"></i>', placement: 'top-right', type: 'warning'});
 	});
 		
@@ -131,7 +137,7 @@ $scope.data.courseDropdown = [
   },
   {
     "text": "<i class=\"fa fa-fw fa-copy\"></i>&nbsp;Duplicate course",
-    "click": "this.duplicateCourse(course._id.$oid);"
+    "click": "this.duplicateCourse(course._id.$oid,$index);"
   },
   {
     "text": "<i class=\"fa fa-fw fa-trash\"></i>&nbsp;Delete course",
