@@ -48,7 +48,7 @@ angular.module('baabtra').controller('DraftedcoursesCtrl',['$scope', '$rootScope
 	var deleteCourse = draftedCourses.fnDeleteCourse({activeFlag:0},courseId, $scope.rm_id , "Draft", $scope.cmp_id);
 	deleteCourse.then(function (data) {
 		$scope.draftedCourses = angular.fromJson(JSON.parse(data.data));
-		$alert({scope: $scope, container:'body', keyboard:true, animation:'am-fade-and-slide-top', template:'views/ui/angular-strap/alert.tpl.html', title:'Undo', content:'The course has been moved to the Trash <i class="fa fa-smile-o"></i>', placement: 'top-right', type: 'warning'});
+		$alert({scope: $scope, container:'body', keyboard:true, animation:'am-fade-and-slide-top', template:'views/ui/angular-strap/alert.tpl.html', title:'Undo', content:'The course has been moved to the Trash <i class="fa fa-smile-o"></i>', duration:15, placement: 'top-right', type: 'warning'});
 	});
 	
 	};

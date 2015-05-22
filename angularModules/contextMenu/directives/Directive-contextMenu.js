@@ -59,6 +59,7 @@ angular.module('baabtra')
         var obj={key:key};
         courseElementvalue.courseId = $scope.selectedCourse._id.$oid;
         delete courseElementvalue.order;
+        console.log($scope.syncData.courseTimeline);
         if($scope.syncData.courseTimeline[$scope.instance]){
           if($scope.syncData.courseTimeline[$scope.instance][courseElementskey]){
           courseElementvalue.index=$scope.syncData.courseTimeline[$scope.instance][courseElementskey].length;
