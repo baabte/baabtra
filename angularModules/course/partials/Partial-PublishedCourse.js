@@ -111,8 +111,8 @@ $scope.deleteCourseDetails = function(courseId, courseName){
 
   deleteCourse.then(function (data) {
 		$scope.publishedCourses = angular.fromJson(JSON.parse(data.data));
-		$alert({scope: $scope, container:'body', keyboard:true, animation:'am-fade-and-slide-top', template:'views/ui/angular-strap/alert.tpl.html', title:'Undo', content:courseName+' has been moved to the Trash <i class="fa fa-smile-o"></i>', placement: 'top-right', type: 'warning'});
 
+		$alert({scope: $scope, container:'body', keyboard:true, animation:'am-fade-and-slide-top', template:'views/ui/angular-strap/alert.tpl.html', title:'Undo', content:courseName+' has been moved to the Trash <i class="fa fa-smile-o"></i>', duration:15, placement: 'top-right', type: 'warning'});
 	});
 
    };
