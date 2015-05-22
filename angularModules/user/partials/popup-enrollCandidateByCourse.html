@@ -51,7 +51,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button ng-disabled="!selectedCourse.batch.length||hideButtonEnrollFlag" ng-click="fnEnrollCandidateByCourse(enrollType,$hide)" type="button" print-page print-element-id="orderForm" class="btn btn-primary baab-btn"><i class="fa fa-print"></i>&nbsp;Enroll</button>
+        <button ng-disabled="!(selectedCourse.batch.length&&(selectedUser.mandatoryData||orderFormsData.length))||hideButtonEnrollFlag" ng-click="fnEnrollCandidateByCourse(enrollType,$hide)" type="button" print-page print-element-id="orderForm" class="btn btn-primary baab-btn"><i class="fa fa-print"></i>&nbsp;Enroll</button>
         <button type="button" class="btn btn-success baab-btn" ng-click="$hide()">Close</button>
       </div>
     </div>

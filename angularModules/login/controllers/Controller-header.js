@@ -61,7 +61,7 @@ angular.module('baabtra').controller('header',['$scope','$rootScope','$state','l
    		};
    		$scope.navigateToProfile=function(){
 
-   			$state.go('home.main.userProfile');
+   			$state.go('home.main.userProfile',{userId:''});
    		}
 
 }]);

@@ -208,7 +208,7 @@
                        </div> 
                        <div ng-show="secemailandmob" class="panel-body p-sm in b dk p-sm " bs-collapse-target="">
                        
-                       <div class="col-xs-12 m-b-xs "><span class="font-bold">Primary Email </span>: <span class="p-h-xs">{{userinfo.ActiveUserData.eMail}}</span></div>
+                       <div class="col-xs-12 m-b-xs "><span class="font-bold">Primary Email </span>: <span class="p-h-xs">{{profileData.email}}</span></div>
                        <div class="col-xs-5" >
                        <!-- x edit form for secondary email -->
                        <form ng-show="!profileData.profile.secondaryEmail" editable-form name="editSecEmail" onaftersave="updateUserProfileDatas()">

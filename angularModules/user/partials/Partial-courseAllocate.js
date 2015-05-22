@@ -99,7 +99,11 @@ $scope.fnUserRemove=function(userobj){
 
 	var user=angular.copy(userobj);
 	var index=user.index;
-	 $scope.userObj.userList.splice(index,0,user);
+	console.log($scope.userObj.userList.indexOf(user));
+	// if(angular.equals($scope.userObj.userList.indexOf(user),-1)){
+		$scope.userObj.userList.splice(index,0,user);	
+	// }
+	 
 	 delete $scope.courseAllocate.selectedUsers[user.fkUserLoginId];
 	// console.log($scope.courseAllocate.selectedUsers);
 
