@@ -38,6 +38,23 @@ this.loadPublishedCoursesWithPromise=function(companyId,searchKey,lastId,type,fi
 	
 };
 
+this.fnDuplicateCourse = function (courseId,rmId,companyId){ // this function delete drafted courses
+var promise = $http({
+		url: bbConfig.BWS+'duplicateCourse/',
+		method: "POST",
+		data:{'courseId':courseId, 'rmId':rmId,'companyId':companyId},
+		withCredentials: false,
+		contentType:"application/json",
+		dataType:"json",
+	}).
+	success(function(data, status, headers, config) {
+	}).
+	error(function(data, status, headers, config) {
+
+	});
+return promise;
+};
+
 
 	
 }]);

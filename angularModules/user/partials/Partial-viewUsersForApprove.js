@@ -689,9 +689,9 @@ $scope.updateOrderFormStatus = function(type,hide){
 	// exiting the function if no entry has been selected for status change
 	if(!minimumSelection){
 		if(!angular.equals(type,'reject')){
-			$alert({title:'Operation Aborted. ',content:'Please select at least one entry to ' + $scope.currentStage.buttonText, placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'warning', show:true});
+			$alert({title:'Cannot continue. ',content:'Please select at least one entry to ' + $scope.currentStage.buttonText, placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'warning', show:true});
 			}else{
-				$alert({title:'Operation Aborted. ',content:'Please select at least one entry to Reject', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'warning', show:true});
+				$alert({title:'Cannot continue. ',content:'Please select at least one entry to Reject', placement:'top-right', duration:'4', animation:'am-fade-and-slide-bottom', type:'warning', show:true});
 			}
 			return false;
 	}
