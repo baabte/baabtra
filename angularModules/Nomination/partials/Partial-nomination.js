@@ -203,7 +203,7 @@ $scope.fnUserRegister =function (draftFlag,fnCallback) {
 
 	
 	// $scope.allSync.FormData={};
-	$scope.fnInitializeFormRelatedDatas();
+	//$scope.fnInitializeFormRelatedDatas();
 
 if(Object.keys($scope.allSync.FormData.course).length){
 	if(angular.equals($scope.data.requesteeDetails.type,'self')){
@@ -483,13 +483,12 @@ if(Object.keys($scope.allSync.FormData.course).length){
 				});
 			});	
 		}
-    });
-}
+    });//loda course
+}//else
 		}
 	});
 }
 	else{
-		console.log(fnCallback);
 		$alert({title: 'Select..!', content: 'Please select a course to complete your registration :-)', placement: 'top-right',duration:4 ,animation:'am-slide-bottom', type: 'warning', show: true});
 		// if(!angular.equals(fnCallback,undefined)){
 		// 				fnCallback();

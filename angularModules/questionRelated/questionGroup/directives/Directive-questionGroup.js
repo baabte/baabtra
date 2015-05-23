@@ -14,14 +14,16 @@ angular.module('baabtra').directive('questionGroup',['$modal', function($modal) 
 			scope.courseElement={index:1,tlPointInMinute:1000,Name:'Test'};
 			//dummy object created to view the question here
 			// scope.questionShow=false;
-			scope.questionModel={mark:{}};
-			scope.duration={unit:"minute(s)"};
-			scope.units=['minute(s)','hour(s)'];
-			scope.mark={totalMark:{}};
-			scope.resultMode={};
-			scope.questionView={};
+			scope.questionModel = {mark:{}};
+			scope.duration = {unit:"minute(s)"};
+			scope.units = ['minute(s)','hour(s)'];
+			scope.mark = {totalMark:{}};
+			scope.resultMode = 'live';
+			scope.questionView = {};
+			scope.questionView.mode = 'single';
 			}
 			else{
+
 			scope.mark=scope.ngModel.mark;
 			scope.duration=scope.ngModel.duration;
 			scope.units=['minute(s)','hour(s)'];
@@ -115,35 +117,37 @@ angular.module('baabtra').directive('questionGroup',['$modal', function($modal) 
 		    },true);
 		    	//watch function to keep track of the the duration 
 		     scope.$watch(function(){return scope.duration;},function(){
-		     	//0 duration not allowed will set it to 1
-		    	if(scope.duration.value<=0){
-		     		scope.duration.value=1;
-		     	}
-		     	//if duration is in minutes duration will be maximum of 60
-		    	if(angular.equals(scope.duration.unit,'minute(s)')){
-		    		if(scope.duration.value>60){
-		    			scope.duration.value=60;
-		    		}
-		    		scope.actualDuration=scope.duration.value*60000;
-		    		
+		     	if(!angular.equals(scope.duration, undefined)){
+			     	//0 duration not allowed will set it to 1
+			    	if(scope.duration.value<=0){
+			     		scope.duration.value=1;
+			     	}
+			     	//if duration is in minutes duration will be maximum of 60
+			    	if(angular.equals(scope.duration.unit,'minute(s)')){
+			    		if(scope.duration.value>60){
+			    			scope.duration.value=60;
+			    		}
+			    		scope.actualDuration=scope.duration.value*60000;
+			    		
+			    	}
+			    	//if duration is in hour duration will be maximum of 24
+			       	else if(angular.equals(scope.duration.unit,'hour(s)')){
+			       		
+			    		if(scope.duration.value>24){
+			    			scope.duration.value=24;		    			
+			    		}
+			    		scope.actualDuration=scope.duration.value*3600000;
+			    		
+			    	}
 		    	}
-		    	//if duration is in hour duration will be maximum of 24
-		       	else if(angular.equals(scope.duration.unit,'hour(s)')){
-		       		
-		    		if(scope.duration.value>24){
-		    			scope.duration.value=24;		    			
-		    		}
-		    		scope.actualDuration=scope.duration.value*3600000;
-		    		
-		    	}
-
 		    },true);
 		     	//watch function to keep track of the the duration 
-		     scope.$watch(function(){return scope.mark;},function(){		     			    			     	
-		    	if(scope.mark.qualifyScore>scope.mark.totalMark){
-		    		scope.mark.qualifyScore=scope.mark.totalMark;
-		    	}
-		    				    	
+		     scope.$watch(function(){return scope.mark;},function(){	
+			     if(!angular.equals(scope.mark, undefined)){     			    			     	
+			    	if(scope.mark.qualifyScore>scope.mark.totalMark){
+			    		scope.mark.qualifyScore=scope.mark.totalMark;
+			    	}
+			    }			    	
 		    },true);
 
           scope.addQuestion =function(questionModel,placeindex){

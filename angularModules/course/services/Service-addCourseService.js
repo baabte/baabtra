@@ -12,9 +12,12 @@ angular.module('baabtra').service('addCourseService',['$http','bbConfig','$uploa
 	 	}).
 	 	success(function(data, status, headers, config) {
 	 			var result=angular.fromJson(JSON.parse(data));
+	 			if(angular.equals(courseDetails.type, undefined)){
+	 				courseDetails.type = 'course';
+	 			}
 	 			$scope.courseId = result.str;
 	 			$scope.currentState=toState;
-	 			$state.go(toState,{'courseId':$scope.courseId});//go to next state,after completing each step
+	 			$state.go(toState,{key:courseDetails.type, 'courseId':$scope.courseId});//go to next state,after completing each step
                }).
 	 	error(function(data, status, headers, config) {
 	 		

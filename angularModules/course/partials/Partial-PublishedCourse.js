@@ -14,6 +14,8 @@ $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 	$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 	PublishedCourse.loadPublishedCourses($scope,'','','','');
 //}
+
+
 //$scope.showCourseFilter = false;
 var courseDomainResponse = addCourseDomainSrv.FnLoadDomain();
 courseDomainResponse.then(function(response){
@@ -30,7 +32,7 @@ globalValuesResponse.then(function(data){
   });
   $scope.technologies = $scope.globalValues.technologies;
   $scope.taggs = $scope.globalValues.tags;
-  $scope.Designation =$scope.globalValues.Designation;
+  $scope.Designation =$scope.globalValues.Designation
 
 });
 
@@ -86,9 +88,13 @@ $scope.cmp_id=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid
 
 $scope.navigateToCourse = function( courseId ){
     $state.go('home.main.viewCourse',{id:courseId});
-};
-$scope.editCourse=function(courseId){
-	$state.go('home.main.addCourse.step1',{courseId:courseId});
+}
+$scope.editCourse = function(courseId, type){
+
+  if(angular.equals(type, undefined)){
+    type = 'course';
+  }
+	$state.go('home.main.addCourse.step1',{key:type,courseId:courseId});
 };
 
 $scope.undo = function(){
@@ -98,27 +104,33 @@ $scope.undo = function(){
 		});
 	};
 
-$scope.deleteCourseDetails = function(courseId){
-  $scope.lastDeletedCourseId = courseId;    
-  var deleteCourse = draftedCourses.fnDeleteCourse({activeFlag:0},courseId, $scope.rm_id , "Publish",$scope.companyId);
+$scope.deleteCourseDetails = function(courseId, courseName){
+	$scope.lastDeletedCourseId = courseId;
+  	
+	var deleteCourse = draftedCourses.fnDeleteCourse({activeFlag:0},courseId, $scope.rm_id , "Publish",$scope.companyId);
+
   deleteCourse.then(function (data) {
-    $scope.publishedCourses = angular.fromJson(JSON.parse(data.data));
-    $alert({scope: $scope, container:'body', keyboard:true, animation:'am-fade-and-slide-top', template:'views/ui/angular-strap/alert.tpl.html', title:'Undo', content:'The course has been moved to the Trash <i class="fa fa-smile-o"></i>', placement: 'top-right', type: 'warning'});
-  });
-    
-};
+		$scope.publishedCourses = angular.fromJson(JSON.parse(data.data));
 
-
-
-$scope.duplicateCourse = function(courseId){	
-	var duplicateCourse = PublishedCourse.fnDuplicateCourse(courseId,$scope.rm_id,$scope.companyId);
-	duplicateCourse.then(function (data) {
-		 
-   $alert({title: 'Done!', content: 'Course Duplicated Successfully..' , placement: 'top-right',duration:3, type: 'success'});
-		// $alert({scope: $scope, container:'body', keyboard:true, animation:'am-fade-and-slide-top', template:'views/ui/angular-strap/alert.tpl.html', title:'Undo', content:'The course has been moved to the Trash <i class="fa fa-smile-o"></i>', placement: 'top-right', type: 'warning'});
+		$alert({scope: $scope, container:'body', keyboard:true, animation:'am-fade-and-slide-top', template:'views/ui/angular-strap/alert.tpl.html', title:'Undo', content:courseName+' has been moved to the Trash <i class="fa fa-smile-o"></i>', duration:15, placement: 'top-right', type: 'warning'});
 	});
-		
-};
+
+   };
+
+  $scope.duplicateCourse = function(courseId,index){  
+  var duplicateCourse = PublishedCourse.fnDuplicateCourse(courseId,$scope.rm_id,$scope.companyId);
+  duplicateCourse.then(function (data) {
+     var duplicateCourse= angular.fromJson(JSON.parse(data.data));
+     console.log(duplicateCourse);
+     console.log($scope.publishedCourses.courses.length);
+     $scope.publishedCourses.courses.splice(index,0,duplicateCourse);
+     $scope.publishedCourses.courseLength=$scope.publishedCourses.courses.length;
+     console.log($scope.publishedCourses.courses.length);
+     
+   $alert({title: 'Done!', content: 'A duplicate copy of the course has been created' , placement: 'top-right',duration:3, type: 'success'});
+
+    });
+  };
 
 $scope.data.courseDropdown = [
   {
@@ -131,11 +143,12 @@ $scope.data.courseDropdown = [
   },
   {
     "text": "<i class=\"fa fa-fw fa-copy\"></i>&nbsp;Duplicate course",
-    "click": "this.duplicateCourse(course._id.$oid);"
+    "click": "this.duplicateCourse(course._id.$oid,$index);"
+
   },
   {
     "text": "<i class=\"fa fa-fw fa-trash\"></i>&nbsp;Delete course",
-    "click": "this.deleteCourseDetails(course._id.$oid);"
+    "click": "this.deleteCourseDetails(course._id.$oid, course.Name);"
   }];
 
 var searchInProgress;
@@ -157,10 +170,10 @@ $scope.prevOne=function(){//event  for showing previous 12 items
    
    PublishedCourse.loadPublishedCourses($scope,'',$scope.publishedCourses.lastId.$oid,'prev',$scope.publishedCourses.firstId.$oid);
   
-};
+}
 
 $scope.viewCourseDetails = function(courseId){
 	$state.go("home.main.course",{courseId:courseId});
-};
+}
 
 }]);
