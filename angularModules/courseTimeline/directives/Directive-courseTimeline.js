@@ -402,9 +402,16 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
         var name = '';
         var data = {};
        function buildNodePath(syllabus, nodeId,key,name, fnCallback){
+       
+
         for(var node in syllabus){
           if(!angular.equals(obj, '')){
              //obj = obj + '.' +  syllabus[node].name;//nodeId;
+          }
+
+          if(!angular.equals(syllabus[node].selected, undefined)){
+          	delete syllabus[node].selected;
+          	delete syllabus[node]. _hsmeta;
           }
 
           if(angular.equals(syllabus[node].nodeId, nodeId)){

@@ -120,6 +120,7 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
 				}
 				courseObj.key=scope.instance+'.'+scope.$parent.courseElement.Name;
 				courseObj[courseObj.key]=scope.coursePreviewObj;
+        console.log(scope.data.nodePath);
         courseObj[courseObj.key].syllabus = scope.data.nodePath;
 
 				if(!scope.$parent.syncData.courseTimeline[scope.instance]){
