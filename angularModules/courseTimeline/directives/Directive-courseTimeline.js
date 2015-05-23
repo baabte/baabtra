@@ -378,7 +378,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
  				
             };
             scope.data = {};
-            scope.addCourseElement = function(hide){
+            scope.addCourseElement = function(addCourseElement, hide){
             	$templateCache.put('course-element-popup.html','<edit-course-element></edit-course-element>');
             	
             	buildNodePath(scope.syncData.syllabus,  scope.selection[0].nodeId,'','',function(){

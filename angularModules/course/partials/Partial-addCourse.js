@@ -306,6 +306,7 @@ $scope.completeStep1 = function(course){//created for build step1 object
       $scope.course.draftFlag = 0;
       $scope.course.activeFlag = 1;
       $scope.course.createdDate = Date();
+      $scope.course.syllabus = [{ name: $scope.course.Name, children: [], activeFlag:1, parent:"root"}];
     }
     var courseToBeSave = angular.copy($scope.course);
     if (!angular.equals(courseToBeSave.Name, undefined)) {

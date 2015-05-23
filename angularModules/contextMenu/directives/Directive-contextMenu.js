@@ -487,17 +487,15 @@ $scope.elementAddType = 0;
         $scope.addCourseElement = function(addCourseElement, hide){
           if(!addCourseElement){
             buildNodePath($scope.syncData.syllabus, $scope.data.selectednSyllabusItem.nodeId,'','',function(){
-              hide();
               $aside({scope: $scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
 
             });
           }else{
             buildNodePath($scope.syncData.syllabus, $scope.data.selectednSyllabusItem.nodeId,'','',function(){
-              hide();
               $scope.fnSaveElement($scope.courseElement);
             });
-            
           }
+          hide();
         };
 
         var obj = '';
