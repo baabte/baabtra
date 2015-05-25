@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div class="row" ng-if="course.type == 'course' || !course.type">
+        <div class="row" >
           <div class="form-group" >
 
             <div class="checkbox">
@@ -69,7 +69,7 @@
     <!-- Left Half .End -->
 
     <!-- Right half -->
-    <div class="col-xs-12 col-sm-6 m-v-lg" ng-if="course.type == 'course' || !course.type">
+    <div class="col-xs-12 col-sm-6 m-v-lg" >
 
       <!-- Course domains -->
       <hierarchical-selector data="domains" multi-select="true" on-selection-changed="onDomainSelectionChanged(items)" selection="{{course.Domains}}"></hierarchical-selector>

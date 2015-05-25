@@ -377,7 +377,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
  				
             };
             scope.data = {};
-            scope.addCourseElement = function(hide){
+            scope.addCourseElement = function(addCourseElement, hide){
             	$templateCache.put('course-element-popup.html','<edit-course-element></edit-course-element>');
             	
             	buildNodePath(scope.syncData.syllabus,  scope.selection[0].nodeId,'','',function(){
@@ -401,9 +401,16 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
         var name = '';
         var data = {};
        function buildNodePath(syllabus, nodeId,key,name, fnCallback){
+       
+
         for(var node in syllabus){
           if(!angular.equals(obj, '')){
              //obj = obj + '.' +  syllabus[node].name;//nodeId;
+          }
+
+          if(!angular.equals(syllabus[node].selected, undefined)){
+          	delete syllabus[node].selected;
+          	delete syllabus[node]. _hsmeta;
           }
 
           if(angular.equals(syllabus[node].nodeId, nodeId)){

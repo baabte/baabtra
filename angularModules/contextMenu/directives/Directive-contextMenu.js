@@ -59,7 +59,6 @@ angular.module('baabtra')
         var obj={key:key};
         courseElementvalue.courseId = $scope.selectedCourse._id.$oid;
         delete courseElementvalue.order;
-        console.log($scope.syncData.courseTimeline);
         if($scope.syncData.courseTimeline[$scope.instance]){
           if($scope.syncData.courseTimeline[$scope.instance][courseElementskey]){
           courseElementvalue.index=$scope.syncData.courseTimeline[$scope.instance][courseElementskey].length;
@@ -411,30 +410,35 @@ $scope.elementAddType = 0;
         $scope.data = {};
 
         $scope.addCourseElement = function(addCourseElement, hide){
+
           if(!addCourseElement){
             buildNodePath($scope.syncData.syllabus, $scope.data.selectednSyllabusItem.nodeId,'','',function(){
-              hide();
               $aside({scope: $scope, template:'course-element-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
 
             });
           }else{
             buildNodePath($scope.syncData.syllabus, $scope.data.selectednSyllabusItem.nodeId,'','',function(){
-              hide();
               $scope.fnSaveElement($scope.courseElement);
             });
-            
           }
+          hide();
         };
 
         var obj = '';
         var name = '';
         var data = {};
        function buildNodePath(syllabus, nodeId,key,name, fnCallback){
+
         for(var node in syllabus){
           if(!angular.equals(obj, '')){
              //obj = obj + '.' +  syllabus[node].name;//nodeId;
           }
 
+          if(!angular.equals(syllabus[node].selected, undefined)){
+            delete syllabus[node].selected;
+            delete syllabus[node]. _hsmeta;
+          }
+          
           if(angular.equals(syllabus[node].nodeId, nodeId)){
             
             data.key = key+node;
