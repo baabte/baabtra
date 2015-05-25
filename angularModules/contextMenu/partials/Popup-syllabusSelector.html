@@ -13,6 +13,9 @@
         </div>
         <form name="childForm">
           <hierarchical-selector ng-if="!selection.length" data="syncData.syllabus" select-only-leafs="true" multi-select="false" on-selection-changed="onSyllabusSelectionChanged(items)"/>
+
+          <!--  <div data-angular-treeview="true" data-node-output="data.selectedNode" data-node-edit="false" data-tree-id="syllabusTree" data-tree-model="data.selectedCourse.syllabus" data-node-id="nodeId" data-node-label="name" data-node-children="children" >
+            </div> -->
          
         </form>
       </div>

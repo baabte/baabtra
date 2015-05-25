@@ -77,7 +77,6 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 							elementOrderNewFormat[tlPoint].push(elementOrderSplitArray);							
 						}
 					}
-					
 					scope.elementOrderNewFormat=elementOrderNewFormat;
 
 					var containerCount = 0;

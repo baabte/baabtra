@@ -134,9 +134,9 @@ angular.module('baabtra')
                 $li.on('click', function ($event) {
                     $event.preventDefault();
                     $scope.randomKey=Math.floor(Math.random()*1000,1000); // used to override some scope errors due to duplication
-                    $scope.$parent.formData[$scope.instance]=new Object();//used to save datas from timeline
-                    $scope.$parent.formData[$scope.randomKey]=new Object();
-                    $scope.$parent.formData[$scope.randomKey].mainData=new Object();
+                    $scope.$parent.formData[$scope.instance]={};//used to save datas from timeline
+                    $scope.$parent.formData[$scope.randomKey]={};
+                    $scope.$parent.formData[$scope.randomKey].mainData={};
                     clickedChiled=true;
                     $scope.$apply(function () {
                          $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
@@ -239,9 +239,9 @@ angular.module('baabtra')
                   $footerA.on('click', function ($event) {
                     $event.preventDefault();
                     $scope.randomKey=Math.floor(Math.random()*1000,1000); // used to override some scope errors due to duplication
-                    $scope.$parent.formData[$scope.instance]=new Object();//used to save datas from timeline
-                    $scope.$parent.formData[$scope.randomKey]=new Object();
-                    $scope.$parent.formData[$scope.randomKey].mainData=new Object();
+                    $scope.$parent.formData[$scope.instance]={};//used to save datas from timeline
+                    $scope.$parent.formData[$scope.randomKey]={};
+                    $scope.$parent.formData[$scope.randomKey].mainData={};
                     clickedChiled=true;
                     $scope.$apply(function () {
                          $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
@@ -263,83 +263,9 @@ angular.module('baabtra')
                          //   $scope.evaluator=[];
                          // }
 
-                $templateCache.put('course-material-popup.html','<div class="modal modal-full-width" tabindex="-1" role="dialog" >'
-+'<div class="modal-dialog-full-width  modal-full-width">'
-    +'<div class="modal-content bg-white">'
-          +'<div class="navbar navbar-inverse btn-material-blue-A700 ">'
-              +'<div class="navbar-header col-xs-3">'
-                  +'<h4 class="font-bold" >Existing Course Elements</h4>'
-              +'</div>'
-              +'<div type="button" class="btn pull-right no-padding" ng-click="$hide()"><i class="mdi-navigation-close text-lg text-white"></i></div>'
-          +'</div>'
-      +'<div class="modal-body no-padding " >'
-          
-          +'<div class="col-md-4 col-xs-6" >'
-
-              +'<div class="navbar-header col-xs-3">'
-                  +'<h4 class="font-bold" >Courses</h4>'
-              +'</div>'
-              +'<div class="navbar-collapse collapse navbar-inverse-collapse">'
-                  +'<form class="navbar-form  navbar-left col-xs-8">'
-                      +'<input type="text" class="form-control" ng-model="ExistingMaterials.searchTextCourse" placeholder="Search">'
-                  +'</form>'
-               
-              +'</div>'
-            +'<div class="list-group" style=" height:500px; overflow:scroll;">'
-                  +'<div ng-repeat="course in ExistingMaterials|filter:ExistingMaterials.searchTextCourse |orderBy:\'-draftFlag\'">'
-                 
-                   +'<a href ng-click="fnselectCourse(course);status.formCourse = $index" bs-tooltip data-title="click to see Elements"  class="list-group-item " >{{course.Name}}<i ng-show="status.formCourse==$index" class="pull-right fa fa-check-circle text-primary"></i></br>'
-                     +'<span ng-if="course.draftFlag==1" class="label label-success ">Published</span>'
-                    +'<span ng-if="course.draftFlag==0" class="label label-warning ">Drafted</span>'
-                   +'</a>'
-                    // +'<div class="">{{course.draftFlag}}</div>'
-                  
-
-                  +'</div>'
-
-            +'</div>'
-            
-          +'</div> '
-
-          +'<div class="col-md-8 col-xs-6 "  > '
-              +'<div class="navbar-header col-xs-3">'
-                  +'<h4 class="font-bold" >Course Materials</h4>'
-              +'</div>'
-              +'<div class="navbar-collapse collapse navbar-inverse-collapse">'
-                  +'<form class="navbar-form  navbar-left col-xs-8">'
-                      +'<input type="text" class="form-control" ng-model="selectedCourse.searchTextMaterial" placeholder="Search">'
-                  +'</form>'                
-
-              +'</div>'
-            +'<div  style=" height:500px; overflow:scroll;">'
-                 +'<div class="col-xs-12" ng-if="selectedCourse" ng-repeat="(tlpointkey,tlpointvalue) in selectedCourse.courseTimeline" >'
-                        +'<div ng-repeat="(courseElementskey,courseElementsvalue) in  tlpointvalue ">'
-                               
-
-                               +'<div ng-repeat="(courseElementkey,courseElementvalue) in  courseElementsvalue |filter:selectedCourse.searchTextMaterial">'
-                                 
-                                +'<div class="col-xs-12 m-t">'                          
-                                +'<material-preview  addmaterial="previewOut" data="courseElementvalue"></material-preview>'
-                                +'</div>'
-
-
-                             +'</div>'
-
-                        +'</div>'
-
-                  +'</div> '
-            +'</div> '
-          +'</div> '
-          
-
-      +'</div>'
-      +'<div class="modal-footer">'
-      +'</div>'
-    +'</div>'
-  +'</div>'
-+'</div>');
+                
 $scope.elementAddType = 0;
- $modal({scope: $scope, template:'course-material-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+ $modal({scope: $scope, template:'angularModules/contextMenu/partials/course-material-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
                         //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
                      });
                 });
@@ -631,8 +557,8 @@ $scope.elementAddType = 0;
                 $scope.formModal[randomKeyForNested].nestedElements[$scope.nestedElemSelected[randomKeyForNested].Name]=[];
             }
 
-        $scope.tempFormData=new Object();
-        $scope.tempFormData[randomKeyForNested]=new Object();
+        $scope.tempFormData={};
+        $scope.tempFormData[randomKeyForNested]={};
         var state=$state.current.name.split('.');
             state=state[state.length-1];
 
