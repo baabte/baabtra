@@ -5,7 +5,6 @@ $rootScope.valid=true;
 $rootScope.errTooltip = "Please choose an image for the course";
 // End. Global variables for validating fileupload control
 
-
 $scope.viewMenu = false;//for controll menu view in mobile
 
 $rootScope.$watch('userinfo',function(){
@@ -142,6 +141,7 @@ $scope.$watch('userMenusOrigin',function(){
 });
 
 $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
+
   if($rootScope.userinfo)
    { 
     $rootScope.menuExist=false;
