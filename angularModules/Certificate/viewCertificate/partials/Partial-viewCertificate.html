@@ -35,11 +35,9 @@
 					            <img  class="img-responsive" height="100" src="{{companyLogo}}">
 					        </div>
 					    </div>
-
 					<div class="row text-center text-2x font-bold">Certificate</div>
-
 				    <div class="row p m-t m">
-				    	This is to certify that <b><u>{{userDetails.Name}}</u></b> has undergone <b><u>{{candidate.mark.name}}</u></b> program.
+				    	This is to certify that <b><u>{{userDetails.Name}}</u></b> has undergone <b><u>{{candidate.courseName}}</u></b> program.
 				    </div>
 
 				    <div class="row p m-b text-right">
@@ -50,7 +48,7 @@
             </div>
     	</div>
     	<div class="col-xs-12 text-right">
-    		<button type="button" print-page print-element-id="certificate" class="btn btn-primary baab-btn"><i class="fa fa-print"></i>&nbsp;Print</button>
+    		<button type="button" print-page print-element-id="certificate" class="btn {{candidate.orderForm?'btn-primary':'btn-danger'}} baab-btn"><i class="fa fa-print"></i>&nbsp;Print</button>
     	</div>
      </div>
    </div><!--ngRepeat child ends-->

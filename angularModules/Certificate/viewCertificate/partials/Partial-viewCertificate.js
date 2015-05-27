@@ -80,7 +80,7 @@ var gotCertificateDetails=CertificateSrv.getCandidateCertificateDetails(usersLis
       $scope.candidate={};
       var responseData=angular.fromJson(JSON.parse(response.data));
       // console.log(responseData);
-      if(!angular.equals(responseData.syllabus,undefined)){
+      if(!angular.equals(responseData.syllabus,undefined)&&!angular.equals(responseData.syllabus,null)){
         getMarkInAllLevel(responseData.syllabus,0);
         $scope.candidate.mark=responseData.syllabus[0];
       }
@@ -90,6 +90,10 @@ var gotCertificateDetails=CertificateSrv.getCandidateCertificateDetails(usersLis
       if(!angular.equals(responseData.companyDetails,undefined)){
         $scope.companyDetails=responseData.companyDetails;
       }
+
+      $scope.candidate.courseName = responseData.courseName;
+      $scope.candidate.orderForm = responseData.orderForm;
+      console.log($scope.candidate.orderForm);
       $scope.userDetails=responseData.userDetails;
 
     });

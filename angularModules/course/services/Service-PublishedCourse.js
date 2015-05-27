@@ -1,10 +1,10 @@
 angular.module('baabtra').service('PublishedCourse',['$http','bbConfig','$rootScope',function PublishedCourse($http,bbConfig,$rootScope) {
 
-this.loadPublishedCourses=function($scope,searchKey,lastId,type,firstId){
+this.loadPublishedCourses=function($scope,searchKey,lastId,type,firstId, courseType){
 	 $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'loadPublishedCourses/',
-	    data:JSON.stringify({"companyId":$scope.companyId,"searchKey":searchKey,"lastId":lastId,"type":type,"firstId":firstId}),
+	    data:JSON.stringify({"companyId":$scope.companyId,"searchKey":searchKey,"lastId":lastId,"type":type,"firstId":firstId, courseType:courseType}),
 	 }).success(function(data, status, headers, config)
 	 {
 	 	$scope.publishedCourses = angular.fromJson(JSON.parse(data));
@@ -32,7 +32,7 @@ this.loadPublishedCoursesWithPromise=function(companyId,searchKey,lastId,type,fi
 	 var promise=$http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'loadPublishedCourses/',
-	    data:JSON.stringify({"companyId":companyId,"searchKey":searchKey,"lastId":lastId,"type":type,"firstId":firstId}),
+	    data:JSON.stringify({"companyId":companyId,"searchKey":searchKey,"lastId":lastId,"type":type,"firstId":firstId,"courseType":'course'}),
 	 });
 	 return promise;
 	

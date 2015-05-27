@@ -169,7 +169,20 @@ $scope.data.selectedStatusTypes = $scope.currentStage.loadStatus;
 //the approval popup functions, the functions and operations below are for the activities in the pupup which comes when somebody clicks on any of the options in an approval form ======================================================================================
 
 //function to show or hide requests on the basis of the status of the request
-$scope.showHideIndividualRequestForApproval = function(requestStatus){
+$scope.showHideIndividualRequestForApproval = function(requestStatus,mentee){
+
+	//for managing payment after enrolling too
+	if(angular.equals($scope.currentStage.currentStage,'Payment')){
+		var flag=true;
+
+		for(statusIndex in mentee.statusHistory){
+			if(angular.equals(mentee.statusHistory[statusIndex].statusChangedTo.toLowerCase(),'paid')){
+				flag = false;
+			}
+		}
+		return flag;
+	}
+
 
 	if(!angular.equals($scope.currentStage.loadStatus.indexOf(requestStatus),-1)){
 
@@ -184,6 +197,24 @@ $scope.showHideIndividualRequestForApproval = function(requestStatus){
 //function to show or hide a course title when there is nobody in the current status in concern, for eg. if the user is trying to verify requests if there are no requests in the status "pending verification", the course title should not be shown
 $scope.checkRequestsForStatus = function(course, statusArray){
 
+	//for managing payment after enrolling too
+		if(angular.equals($scope.currentStage.currentStage,'Payment')){
+			var counter = 0;
+			for (var i in course.userInfo) {
+				for(var j in course.userInfo[i].statusHistory){
+					if(angular.equals(course.userInfo[i].statusHistory[j].statusChangedTo.toLowerCase(),'paid')){
+						counter++;
+					}
+				}
+			}
+			if(course.userInfo.length==counter){
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+	
 	//looping through the order details section of the order form to check for the existence of atleast one request in the specified status
 
 	var status = '';
@@ -438,7 +469,6 @@ $scope.updateOrderFormStatus = function(type,hide){
 
 	// creating a copy of the original orderForm to hold the updated values, this is done like this to prevent a false notification to the user before the actual database update gets carried out
 	var updatedOrderForm = angular.copy($scope.data.approveOrderForm);
-
 	//set the status of the userinfo by looping inside the updatedOrderForm object
 	var request = {};
 
@@ -485,14 +515,25 @@ $scope.updateOrderFormStatus = function(type,hide){
 				statusHistory.statusChangedby = $scope.rmId;
 
 				request.statusHistory.push(statusHistory);
-				if(!angular.equals(type,'reject')){
+				if(angular.equals($scope.currentStage.currentStage,'Payment')){
+					if(!angular.equals($scope.currentStage.loadStatus.indexOf(request.status),-1)){
+						// updatedOrderForm.status =$scope.currentStage.nextStatus;
+						if(!angular.equals(type,'reject')){
+							//change the current status
+							request.status = request.statusTobeChangedTo;
+						}else{
+							request.status = "Rejected";
+						}
+					}
+				}
+				else if(!angular.equals(type,'reject')){
 					//change the current status
 					request.status = request.statusTobeChangedTo;
 				}else{
 					request.status = "Rejected";
 				}
 					//var orderDetails=$scope.data.approveOrderForm.orderDetails[key];
-			
+				
 
 				// if the stage is a payment stage set the data for the in a different object
 				if($scope.currentStage.paymentStage){
@@ -718,10 +759,18 @@ $scope.updateOrderFormStatus = function(type,hide){
 
 		updatedOrderForm.statusHistory.push(orderFormStatusHistory);
 		
-		updatedOrderForm.status =$scope.currentStage.nextStatus; 
+		//to be updated
+		if(angular.equals($scope.currentStage.currentStage,'Payment')){
+			//console.log(orderFormStatusHistory);
+			if(!angular.equals($scope.currentStage.loadStatus.indexOf(updatedOrderForm.status),-1)){
+				updatedOrderForm.status =$scope.currentStage.nextStatus;
+			}
+		}
+		else{
+			updatedOrderForm.status =$scope.currentStage.nextStatus; 			
+		}
 
 	}
-
 
 	delete updatedOrderForm.showDetails;
 	//updating the details to the database
@@ -738,6 +787,10 @@ $scope.updateOrderFormStatus = function(type,hide){
 	updatedOrderForm.createdDate = new Date($filter('date')(updatedOrderForm.createdDate.$date));	
 	}
 
+	//to be commenetd
+	// {then:function (argument) {
+	// 	console.log(updatedOrderForm);
+	// }};
 	var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm,actTransactions, $scope.paymentReceipt);
 	updateOrderForm.then(function(response){
 		var result = angular.fromJson(JSON.parse(response.data));
@@ -822,20 +875,65 @@ $scope.updateOrderFormStatus = function(type,hide){
 
 	$scope.data.pageNumber = 1;
 	$scope.data.searchText = '';
-	var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8 , $scope.data.searchText);
+	var LoadMenteesResponse ;
+	 if(angular.equals($scope.currentStage.currentStage,'Payment')){
+	 	LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForPayment($scope.cmpId, $scope.data.pageNumber, 8 , $scope.data.searchText);
+	 }
+	 else{
+		LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8 , $scope.data.searchText); 	
+	 }
+	
 	LoadMenteesResponse.then(function(response){
-		$scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
+		 $scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
+		// if(angular.equals($scope.currentStage.currentStage,'Payment')){
+		// 	var gotPendingPaymentList = viewUsersForApprove.fnLoadMenteesForPayment($scope.cmpId, $scope.data.pageNumber, 8 , $scope.data.searchText);
+		// 		gotPendingPaymentList.then(function (resData) {
+		// 			var responseData = angular.fromJson(JSON.parse(resData.data));
+		// 			$scope.data.companOrderForms.orderFroms=$scope.data.companOrderForms.orderFroms.concat(responseData.orderFroms);
+		// 		});
+			
+		// }
 		
 		//$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
 	});
 
 	$scope.pageNavigation = function(pageNumber){
 		$scope.data.pageNumber = pageNumber;
-		var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8, $scope.data.searchText);
-		LoadMenteesResponse.then(function(response){
-			$scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
-			//$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
-		});
+		// var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8, $scope.data.searchText);
+		// LoadMenteesResponse.then(function(response){
+		// 	$scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
+		// 	if(angular.equals($scope.currentStage.currentStage,'Payment')){
+		// 	var gotPendingPaymentList = viewUsersForApprove.fnLoadMenteesForPayment($scope.cmpId, $scope.data.pageNumber, 8 , $scope.data.searchText);
+		// 		gotPendingPaymentList.then(function (resData) {
+		// 			var responseData = angular.fromJson(JSON.parse(resData.data));
+		// 			$scope.data.companOrderForms.orderFroms=$scope.data.companOrderForms.orderFroms.concat(responseData.orderFroms);
+		// 		});
+			
+		// }
+		// 	//$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
+		// });
+
+		var LoadMenteesResponse ;
+	 if(angular.equals($scope.currentStage.currentStage,'Payment')){
+	 	LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForPayment($scope.cmpId, $scope.data.pageNumber, 8 , $scope.data.searchText);
+	 }
+	 else{
+		LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8 , $scope.data.searchText); 	
+	 }
+	
+	LoadMenteesResponse.then(function(response){
+		 $scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
+		// if(angular.equals($scope.currentStage.currentStage,'Payment')){
+		// 	var gotPendingPaymentList = viewUsersForApprove.fnLoadMenteesForPayment($scope.cmpId, $scope.data.pageNumber, 8 , $scope.data.searchText);
+		// 		gotPendingPaymentList.then(function (resData) {
+		// 			var responseData = angular.fromJson(JSON.parse(resData.data));
+		// 			$scope.data.companOrderForms.orderFroms=$scope.data.companOrderForms.orderFroms.concat(responseData.orderFroms);
+		// 		});
+			
+		// }
+		
+		//$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
+	});
 	};
 	var searchTimeout;
 	$scope.serachInOrderform = function(){
@@ -845,11 +943,27 @@ $scope.updateOrderFormStatus = function(type,hide){
 		 searchTimeout = setTimeout(function(){ 
 		 	
 		 	$scope.data.pageNumber = 1;
-			var LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8 , $scope.data.searchText);
-			LoadMenteesResponse.then(function(response){
-			$scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
-			//$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
-			});
+			var LoadMenteesResponse ;
+	 if(angular.equals($scope.currentStage.currentStage,'Payment')){
+	 	LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForPayment($scope.cmpId, $scope.data.pageNumber, 8 , $scope.data.searchText);
+	 }
+	 else{
+		LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8 , $scope.data.searchText); 	
+	 }
+	
+	LoadMenteesResponse.then(function(response){
+		 $scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
+		// if(angular.equals($scope.currentStage.currentStage,'Payment')){
+		// 	var gotPendingPaymentList = viewUsersForApprove.fnLoadMenteesForPayment($scope.cmpId, $scope.data.pageNumber, 8 , $scope.data.searchText);
+		// 		gotPendingPaymentList.then(function (resData) {
+		// 			var responseData = angular.fromJson(JSON.parse(resData.data));
+		// 			$scope.data.companOrderForms.orderFroms=$scope.data.companOrderForms.orderFroms.concat(responseData.orderFroms);
+		// 		});
+			
+		// }
+		
+		//$scope.data.menteesListLength = Object.keys($scope.data.menteesList).length;
+	});
 		 }, 400);
 	};//serachInOrderform fn end
 
