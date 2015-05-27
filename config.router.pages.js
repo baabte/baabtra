@@ -919,6 +919,12 @@
                 templateUrl: 'angularModules/publicAPIs/course/partials/Partial-companyCourseList.html',
                 controller:'CompanycourselistCtrl'
               })
+               .state('courseUserRegistration', {
+                url: '/courseUserRegistration/:courseId',
+                templateUrl: 'angularModules/publicAPIs/course/partials/Partial-userRegistrationAPI.html',
+                controller:'UserregistrationapiCtrl'
+              })
+
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'
