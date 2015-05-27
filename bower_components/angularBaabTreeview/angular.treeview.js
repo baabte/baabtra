@@ -37,8 +37,6 @@
 
 				var treeMode=attrs.treeMode;
 
-				console.log(treeMode)
-
 				//for finding the output variable in the scope #created by lijin on 13-5-2015
 				var	outKeyArray=nodeOutput.split('.');
 				var outKey='';
@@ -76,12 +74,11 @@
 							'<span class="nodeItem " ng-class="{"font-normal":!node.children.length}" data-ng-click="' + treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +
 							'<span class="p-h nodeEdit" ng-if="'+ nodeEdit +'">'+
 
-							'<span ng-if="treeMode!=\'add\'">'+
+							
 							'<a href="" class="icon-grey p-h-xs"  data-nodrag ng-click="showPopupForAddChild(node)" data-placement="right" bs-tooltip data-title="Add a section under {{node.name}}"><i class="ti  ti-layers-alt" ></i><a/>'+
 							'<a  href="" class="icon-grey p-h-xs" data-nodrag ng-click="editChild(node)" data-placement="right" bs-tooltip data-title="Edit {{node.name}}"><i class="fa fa-edit" ></i></a>'+
 							'<a href="" class="icon-grey p-h-xs" ng-if="!node.parent" data-nodrag ng-click="removeChild(node)" data-placement="right" bs-tooltip data-title="Remove {{node.name}}"><i class="fa fa-trash-o" ></i></a></span>'+
-							'<div data-node-output="'+ nodeOutput +'" data-node-edit="'+ nodeEdit +'" data-ng-hide="node.collapsed" data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' + nodeId + ' data-node-label=' + nodeLabel + ' data-node-children=' + nodeChildren + '></div>' +
-							'</span>'+
+							'<div data-node-output="'+ nodeOutput +'" data-node-edit="'+ nodeEdit +'" data-tree-mode="'+ treeMode +'" data-ng-hide="node.collapsed" data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' + nodeId + ' data-node-label=' + nodeLabel + ' data-node-children=' + nodeChildren + '></div>' +
 
 						'</li>' +
 					'</ul>';
@@ -105,7 +102,7 @@
 						//if node label clicks,
 						scope[treeId].selectNodeLabel = scope[treeId].selectNodeLabel || function( selectedNode ){
 
-							if(!selectedNode.children.length){
+							if(!selectedNode.children.length||treeMode=='add'){
 
 								outElem[outKey]=selectedNode;
 

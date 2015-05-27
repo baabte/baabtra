@@ -147,4 +147,23 @@ this.getExistingMaterials = function(companyId){
 	return promise;
 };
 
+this.saveExistingElement = function (courseElements){ 
+	 	var promise = $http({
+	 		url: bbConfig.BWS+'SaveExistingElement/',
+	 		data: {courseElements:courseElements},
+	 		method: "POST",
+	 		withCredentials: false,
+	 		contentType:"application/json",
+	 		dataType:"json",
+	 	}).
+	 	success(function(data, status, headers, config) {
+	 			var result=angular.fromJson(JSON.parse(data));
+               }).
+	 	error(function(data, status, headers, config) {
+	 		
+	 	}); 
+	 	return promise;
+
+	 };
+
 }]);

@@ -10,8 +10,16 @@
 			</div>
 
 			<div ng-if="buttonShow">
-			<a ng-click="addmaterial.courseElement=data"><i bs-tooltip data-title="Add Material to Course" data-placement="left" class="mdi-content-add-circle-outline text-2x pull-right"></i></a>
-			<a ng-click="elementPreview()"><i bs-tooltip data-title="{{'Element preview'}}" data-placement="left" class="mdi-action-visibility pull-right text-2x"></i></a>
+			<!-- <a ng-click="addElement()"><i bs-tooltip data-title="Add Material to Course" data-placement="left" class="mdi-content-add-circle-outline text-2x pull-right"></i></a> -->
+			<!-- <div class="col-xs-12"> -->
+			<a ng-click="elementPreview()"><i bs-tooltip data-title="{{'Element preview'}}" data-placement="left" class="mdi-action-visibility text-2x"></i></a>
+
+			<span class="checkbox pull-right">
+                    <label>
+                        <input ng-model="data.selection" type="checkbox"> 
+                    </label>
+            </span>
+            <!-- </div> -->
 			
 			</div>
 
@@ -19,4 +27,4 @@
 		</div>
 
 	</div>
-</div>
+</div>in

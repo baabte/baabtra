@@ -32,28 +32,87 @@ angular.module('baabtra')
       // $scope.ExistingMaterials.searchTextMaterial='';
       $scope.status={};
       $scope.selectedCourse={};
+      $scope.selectedSyllabus={};
+      $scope.selectedSyllabus.syllabus='';
+      $scope.syllabusElements={};
+      $scope.selectedElements=[];
       $scope.searchText={};
+      $scope.courseElements=[];
+      $scope.selection=false;
       $scope.fnselectCourse =function(course){
-        $scope.selectedCourse=course;
+        $scope.selectedCourse=angular.copy(course);
+        $scope.selectedSyllabus.syllabus='';
+        $scope.syllabusElements={};
+        $scope.selectedElements=[];
+        $scope.courseElements=[];
+
+
       };
 
       $scope.previewOut={};
 
+      $scope.$watch('selectedSyllabus', function(){
 
-      $scope.$watch('previewOut', function(){
+        if(angular.equals($scope.selectedSyllabus.syllabus,'')){
+            return;
+        }
+        else{
+                      var syllabusElements=[];
+                         syllabusElements=$scope.fetchElementsInSyllabus($scope.selectedSyllabus.syllabus,syllabusElements);
+                         var syllabusElementsArray=[];
+                         for(var index in syllabusElements){                
+                         var tempArray=syllabusElements[index].split('.');
+                         syllabusElementsArray.push(tempArray);
+                         }
+                         $scope.syllabusElements=syllabusElementsArray;
 
-        if ($scope.previewOut.courseElement){
-            $scope.courseElement=angular.copy($scope.previewOut.courseElement);
-            $scope.elementAddType = 1;
-            $modal({scope: $scope, template:'angularModules/contextMenu/partials/Popup-syllabusSelector.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
-            //$scope.fnSaveElement(courseElement);
         }
 
       },true);
-     
 
-      $scope.fnSaveElement = function(courseElementvalue){
+            // $scope.elementAddType = 1;
+            // $modal({scope: $scope, template:'angularModules/contextMenu/partials/Popup-syllabusSelector.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+            //$scope.fnSaveElement(courseElement);
 
+      $scope.fnAddElements=function(){
+          $scope.disableAdd=true;
+         $scope.selectedElements=[];
+        for(var index in $scope.syllabusElements){
+
+            if(($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]])&&($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]])&&($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]])){
+
+               if(angular.equals($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]].selection,true)){
+
+              if($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]].tlSelectedPoint){
+                delete $scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]].tlSelectedPoint;
+              }
+                $scope.selectedElements.push($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]]);
+
+             }
+
+
+            }
+
+            
+
+          }
+
+
+          if (angular.equals($scope.selectedElements.length,0)) {
+                  $scope.notifications('','None of the elements has been selected','danger'); 
+                   $scope.disableAdd=false;  
+
+          }else{
+            $scope.elementAddType = 1;
+            $modal({scope: $scope, template:'angularModules/contextMenu/partials/Popup-syllabusSelector.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+
+          }
+      };     
+
+      $scope.fnSaveElements = function(courseElements){
+        $scope.courseElements=[];
+        for(var index in courseElements){
+        var courseElementvalue=courseElements[index];
         var courseElementskey=courseElementvalue.Name;
         var key=$scope.instance+'.'+courseElementskey;
         var obj={key:key};
@@ -74,25 +133,74 @@ angular.module('baabtra')
 
         obj[key]=courseElementvalue;
 
-        var saveCourseTimelineElementPromise= addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, obj);//saving to database
-        
-         saveCourseTimelineElementPromise.then(function(data){
+         $scope.courseElements.push({courseId:$scope.$parent.courseId,courseElement:obj})
+         
+         }
+
+         var saveExistingElementPromise= addCourseService.saveExistingElement($scope.courseElements);//saving to database
+
+         saveExistingElementPromise.then(function(data){
           var updatedElementOrder = angular.fromJson(JSON.parse(data.data));
           $scope.syncData.elementOrder=updatedElementOrder;
-             if(!$scope.syncData.courseTimeline[$scope.instance]){
+                  if(!$scope.syncData.courseTimeline[$scope.instance]){
                         $scope.syncData.courseTimeline[$scope.instance]={};
                     }
-                    if(!$scope.syncData.courseTimeline[$scope.instance][courseElementskey]){
-                        $scope.syncData.courseTimeline[$scope.instance][courseElementskey]=[];
-                    }
+                  for(var index in $scope.courseElements){
+                      var courseElement=$scope.courseElements[index].courseElement;
+                     if(!$scope.syncData.courseTimeline[$scope.instance][courseElement[courseElement.key].Name]){
+                        $scope.syncData.courseTimeline[$scope.instance][courseElement[courseElement.key].Name]=[];
+                      }
+                  $scope.syncData.courseTimeline[$scope.instance][courseElement[courseElement.key].Name].push(courseElement[courseElement.key]);
 
-
-                  $scope.syncData.courseTimeline[$scope.instance][courseElementskey].push(courseElementvalue);
-
+                  }
                   $scope.notifications('','Material Added Successfully','info');   
-      
+                  $scope.disableAdd=false;
+                  $scope.selectedElements=[];
+                  $scope.selection=false;
+                  $scope.fnSelectAll($scope.selection);
+
+                  
+
+
           });
 
+
+      };
+
+      
+      $scope.fetchElementsInSyllabus = function(syllabus,Elements){
+            if(!angular.equals(syllabus.element,undefined)){
+            Elements=Elements.concat(syllabus.element);
+            }
+
+            if(syllabus.children.length>0){
+                for(var index in syllabus.children){
+                 var tmpElements=[];
+                 tmpElements=$scope.fetchElementsInSyllabus(syllabus.children[index],tmpElements);
+                 Elements=Elements.concat(tmpElements);
+                }
+            }
+
+            return Elements;
+
+      };
+
+      $scope.fnSelectAll= function(selection){
+        if(angular.equals(selection,true)){
+          for(var index in $scope.syllabusElements){
+            if(($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]])&&($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]])&&($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]])){
+             $scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]].selection=true;
+           }
+          }
+        }
+        if(angular.equals(selection,false)){
+           for(var index in $scope.syllabusElements){
+            if(($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]])&&($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]])&&($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]])){
+             $scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]].selection=false;
+           }
+          }
+
+        }
       };
 
 
@@ -418,7 +526,7 @@ $scope.elementAddType = 0;
             });
           }else{
             buildNodePath($scope.syncData.syllabus, $scope.data.selectednSyllabusItem.nodeId,'','',function(){
-              $scope.fnSaveElement($scope.courseElement);
+                $scope.fnSaveElements($scope.selectedElements);
             });
           }
           hide();
