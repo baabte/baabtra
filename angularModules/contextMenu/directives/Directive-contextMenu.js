@@ -75,7 +75,7 @@ angular.module('baabtra')
             //$scope.fnSaveElement(courseElement);
 
       $scope.fnAddElements=function(){
-          $scope.disableAdd=true;
+         
          $scope.selectedElements=[];
         for(var index in $scope.syllabusElements){
 
@@ -100,7 +100,6 @@ angular.module('baabtra')
 
           if (angular.equals($scope.selectedElements.length,0)) {
                   $scope.notifications('','None of the elements has been selected','danger'); 
-                   $scope.disableAdd=false;  
 
           }else{
             $scope.elementAddType = 1;
@@ -527,6 +526,7 @@ $scope.elementAddType = 0;
           }else{
             buildNodePath($scope.syncData.syllabus, $scope.data.selectednSyllabusItem.nodeId,'','',function(){
                 $scope.fnSaveElements($scope.selectedElements);
+                 $scope.disableAdd=true;
             });
           }
           hide();
