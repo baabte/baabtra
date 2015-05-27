@@ -74,7 +74,7 @@ angular.module('baabtra').controller('ViewcertificateCtrl',['$scope','$rootScope
     }
   };
 
-
+$scope.gotTheResponseFromDb = false;
 var gotCertificateDetails=CertificateSrv.getCandidateCertificateDetails(usersList,courseId);
     gotCertificateDetails.then(function (response) {
       $scope.candidate={};
@@ -93,8 +93,9 @@ var gotCertificateDetails=CertificateSrv.getCandidateCertificateDetails(usersLis
 
       $scope.candidate.courseName = responseData.courseName;
       $scope.candidate.orderForm = responseData.orderForm;
-      console.log($scope.candidate.orderForm);
+      $scope.candidate.orderFormId = responseData.orderFormId;
       $scope.userDetails=responseData.userDetails;
+      $scope.candidate.gotTheResponseFromDb = true;
 
     });
 
