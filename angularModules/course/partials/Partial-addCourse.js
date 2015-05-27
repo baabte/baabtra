@@ -421,7 +421,6 @@ $scope.fnTotalFeeChanged = function(){// this function trigers, when user change
         promiseExistingMaterials.then(function(data){
 
            $scope.ExistingMaterials = angular.fromJson(JSON.parse(data.data));
-      
         });
 
 $scope.completeStep4 = function(){

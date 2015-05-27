@@ -77,8 +77,9 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 							elementOrderNewFormat[tlPoint].push(elementOrderSplitArray);							
 						}
 					}
-					
+					scope.elementOrderNewFormat={};
 					scope.elementOrderNewFormat=elementOrderNewFormat;
+					// console.log(scope.elementOrderNewFormat)
 
 					var containerCount = 0;
 					scope.containerHeight = 95;
@@ -359,7 +360,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	
              	if(!angular.equals(scope.syncData.courseTimeline[scope.selectedTpoint][scope.courseElement.Name][scope.selectedIndex].syllabus, undefined)){
  				 var keyArray = scope.syncData.courseTimeline[scope.selectedTpoint][scope.courseElement.Name][scope.selectedIndex].syllabus.key.split('.');
- 				console.log(keyArray);
+ 				// console.log(keyArray);
  				 var syllabus = scope.syncData.syllabus;
  				 var index = 0;
  				 for(var key in keyArray){
