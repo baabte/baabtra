@@ -32,7 +32,7 @@ this.loadPublishedCoursesWithPromise=function(companyId,searchKey,lastId,type,fi
 	 var promise=$http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'loadPublishedCourses/',
-	    data:JSON.stringify({"companyId":companyId,"searchKey":searchKey,"lastId":lastId,"type":type,"firstId":firstId}),
+	    data:JSON.stringify({"companyId":companyId,"searchKey":searchKey,"lastId":lastId,"type":type,"firstId":firstId,"courseType":'course'}),
 	 });
 	 return promise;
 	

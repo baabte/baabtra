@@ -32,7 +32,7 @@ else{
 }
 profile.then(function (data) {
 			$scope.profileData = angular.fromJson(JSON.parse(data.data));
-			console.log($scope.profileData );
+			//console.log($scope.profileData );
 			if(!$scope.profileData.profile.Preferedlanguage){
 				$scope.profileData.profile.Preferedlanguage=$scope.availlangualges[0];
 				$scope.oldLang=$scope.availlangualges[0].langCode;	
@@ -91,7 +91,7 @@ $scope.updateUserProfileDatas=function(data){
 	else{
 		$scope.profileDataId=$scope.profileData._id.$oid;
 	}
-	console.log($scope.profileDataId);
+	//console.log($scope.profileDataId);
 	var profileUpdateConfirmation = userProfile.updateUserProfileData($scope.profileDataId,userLoginId,$scope.profileData.profile);
 		profileUpdateConfirmation.then(function (data) {
 			if(data.status==200&&data.statusText=="OK"){
@@ -132,7 +132,7 @@ $scope.editAboutOpt=function(variable){
 
 $scope.changePassword=function(){
 
-	var changePwdObj = userProfile.changeUserPassword($scope.userinfo.userLoginId,$scope.currentPassword,$scope.newPassword);
+	var changePwdObj = userProfile.changeUserPassword(userLoginId,$scope.currentPassword,$scope.newPassword);
 		changePwdObj.then(function (data) {
 			if(data.status==200&&data.statusText=="OK"){
 				var response=angular.fromJson(JSON.parse(data.data));

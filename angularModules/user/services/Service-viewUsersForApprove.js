@@ -12,6 +12,17 @@ this.fnLoadMenteesForApprove=function(companyId, statusType, pageNumber, nPerPag
         return promise;
       };
 
+this.fnLoadMenteesForPayment=function(companyId, pageNumber, nPerPage, searchKey)//To Load Mentees For Approve
+      {
+        var promise = $http({
+          method: 'post',
+          url: bbConfig.BWS+'fnLoadMenteesForPayment/',
+          data:{companyId:companyId, pageNumber:pageNumber, nPerPage:nPerPage, searchKey:searchKey},
+          contentType:'application/json; charset=UTF-8',
+        });
+        return promise;
+      };
+
 this.fnApproveUserRequest = function(userId, orderFormId, courseKey, statusType, rmId, companyId)//To Load Mentees For Approve
       {
         var promise = $http({

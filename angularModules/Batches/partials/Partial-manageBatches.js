@@ -10,6 +10,8 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
     $scope.buttonType="Add Batch";
    // $scope.repeatName={};
     //$scope.Batch.oneTime={};
+    // console.log();
+    var courseId = $state.params.courseId;
     $scope.Batch.repeats={};
     $scope.Batch.Admission={};
     $scope.Batch.repeats={};

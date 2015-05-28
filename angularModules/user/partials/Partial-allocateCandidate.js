@@ -93,15 +93,18 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 	$scope.CallEnrollUserModalByCourse=function (index,userList,type) {
 
 		$scope.enrollType=type;
+		$scope.orderFormData={};
+		$scope.selectedUser={};
+		$scope.orderFormsData=[];
 
 		//for enrolling single user into a batch
 		if(angular.equals(type,'single')){
-			$scope.orderFormData={};
+			
 			$scope.orderFormData.index=index;
 			$scope.orderFormData.courseObj={};
 			$scope.orderFormData.courseObj.courseId=userList.courseId;
 			$scope.orderFormData.orderFormId=userList.orderFormId;
-			$scope.selectedUser={};
+			
 			$scope.selectedUser.mandatoryData=angular.copy(userList.userInfo[index]);
 			$scope.selectedCourse.course={};
 			$scope.selectedCourse.course._id=userList.courseId;
@@ -110,7 +113,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 		}
 		//for enrolling multiple users to a batch at one click
 		else if(angular.equals(type,'bulk')){
-			$scope.orderFormsData=[];
+			
 			for(key in userList){
 				var orderFormId=userList[key].orderFormId;
 				// checkedStatus
@@ -144,7 +147,12 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 
 		}
 
-		$modal({scope: $scope, template: 'angularModules/user/partials/popup-enrollCandidateByCourse.html', show: true});
+		if(($scope.selectedUser.mandatoryData||$scope.orderFormsData.length)){
+			$modal({scope: $scope, template: 'angularModules/user/partials/popup-enrollCandidateByCourse.html', show: true});			
+		}
+		else{
+			$scope.notifications('','Please select atleast one candidate.','danger');
+		}
 	};
 	//flag for disabling the enroll key in popup
 	$scope.hideButtonEnrollFlag=false;
@@ -199,7 +207,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 
 			// calling service for enrolling user
 			fnRegisterUserCallBack=allocateCandidateService.fnenrollSingleUser($scope.selectedUser,$scope.orderFormData);
-			console.log({userRegister:$scope.selectedUser,courseObj:$scope.orderFormData})
+			//console.log({userRegister:$scope.selectedUser,courseObj:$scope.orderFormData})
 		}
 
 		else if(angular.equals(type,'bulk')){
@@ -245,7 +253,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 				}
 
 				fnRegisterUserCallBack=allocateCandidateService.fnenrollBulkUsers($scope.orderFormsData);
-				console.log({userList:$scope.orderFormsData})
+				//console.log({userList:$scope.orderFormsData})
 
 
 
@@ -257,7 +265,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 		fnRegisterUserCallBack.then(function(data){
 		
 			var result=angular.fromJson(JSON.parse(data.data));
-			console.log(result);
+			//console.log(result);
 			hide(); //to hide the modal
 			$scope.hideButtonEnrollFlag=false;
 			$scope.notifications('Yaay..!','Registered Successfully','success');   
@@ -271,6 +279,7 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 				$scope.orderFormList=responseData.orderFroms;
 				$scope.buildUsersObjectByCourse(responseData);
 			}); 
+			
 
 		    if(angular.equals(type,'single')){
 				//sending notification through email 
@@ -286,6 +295,13 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 			}
 
 		 });
+
+		fnRegisterUserCallBack.error(function (argument) {
+			$scope.hideButtonEnrollFlag=false;
+
+			$scope.notifications('Sorry..!','Something went wrong, please try again','danger');   
+				
+			});
 
 	};
 

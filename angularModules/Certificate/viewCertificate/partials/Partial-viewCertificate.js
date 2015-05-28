@@ -74,13 +74,13 @@ angular.module('baabtra').controller('ViewcertificateCtrl',['$scope','$rootScope
     }
   };
 
-
+$scope.gotTheResponseFromDb = false;
 var gotCertificateDetails=CertificateSrv.getCandidateCertificateDetails(usersList,courseId);
     gotCertificateDetails.then(function (response) {
       $scope.candidate={};
       var responseData=angular.fromJson(JSON.parse(response.data));
       // console.log(responseData);
-      if(!angular.equals(responseData.syllabus,undefined)){
+      if(!angular.equals(responseData.syllabus,undefined)&&!angular.equals(responseData.syllabus,null)){
         getMarkInAllLevel(responseData.syllabus,0);
         $scope.candidate.mark=responseData.syllabus[0];
       }
@@ -90,7 +90,12 @@ var gotCertificateDetails=CertificateSrv.getCandidateCertificateDetails(usersLis
       if(!angular.equals(responseData.companyDetails,undefined)){
         $scope.companyDetails=responseData.companyDetails;
       }
+
+      $scope.candidate.courseName = responseData.courseName;
+      $scope.candidate.orderForm = responseData.orderForm;
+      $scope.candidate.orderFormId = responseData.orderFormId;
       $scope.userDetails=responseData.userDetails;
+      $scope.candidate.gotTheResponseFromDb = true;
 
     });
 
