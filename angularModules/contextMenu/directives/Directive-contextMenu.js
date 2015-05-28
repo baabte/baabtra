@@ -117,7 +117,7 @@ angular.module('baabtra')
         var obj={key:key};
         courseElementvalue.courseId = $scope.selectedCourse._id.$oid;
         delete courseElementvalue.order;
-        if($scope.syncData.courseTimeline[$scope.instance]){
+        if(($scope.syncData.courseTimeline)&&($scope.syncData.courseTimeline[$scope.instance])){
           if($scope.syncData.courseTimeline[$scope.instance][courseElementskey]){
           courseElementvalue.index=$scope.syncData.courseTimeline[$scope.instance][courseElementskey].length;
           }
@@ -141,6 +141,9 @@ angular.module('baabtra')
          saveExistingElementPromise.then(function(data){
           var updatedElementOrder = angular.fromJson(JSON.parse(data.data));
           $scope.syncData.elementOrder=updatedElementOrder;
+                  if(!$scope.syncData.courseTimeline){
+                        $scope.syncData.courseTimeline={};
+                    }
                   if(!$scope.syncData.courseTimeline[$scope.instance]){
                         $scope.syncData.courseTimeline[$scope.instance]={};
                     }
