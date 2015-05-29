@@ -677,7 +677,7 @@
                 }
               })
                .state('home.main.batches', {
-                url: '/manageBatches',
+                url: '/manageBatches/:courseId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-manageBatches.html',

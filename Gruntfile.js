@@ -158,7 +158,7 @@ module.exports = function (grunt) {
       },
       update: {
         options: {
-          remove: ['script[data-remove!="false"]','link[data-remove!="false"]'],
+          remove: ['script[data-remove!="false"]','link[rel="stylesheet"][data-remove!="false"]'],
           append: [
             {selector:'body',html:'<script src="js/app.full.min.js"></script>'},
             {selector:'head',html:'<link rel="stylesheet" href="css/app.full.min.css">'}

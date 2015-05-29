@@ -3,10 +3,10 @@
 </div>
 <div class="box bg-white" >
   <div class="col-md-3" >
-    <div style="background:url({{$stateParams.userId && profileData.ProfilePic  || userinfo.ActiveUserData.roleMappingObj.avatar}}) center center; background-size:cover; " ng-mouseenter="showHideFotoDive()" ng-mouseleave="showHideFotoDive()">
+    <div style="background:url({{$stateParams.userId && profileData.ProfilePic  ||profileData.ProfilePic|| userinfo.ActiveUserData.roleMappingObj.avatar}}) center center; background-size:cover; " ng-mouseenter="showHideFotoDive()" ng-mouseleave="showHideFotoDive()">
       <div class="p-lg bg-white-opacity text-center">
         <a href class="w-sm inline ">
-          <img ng-src="{{$stateParams.userId && profileData.ProfilePic  || userinfo.ActiveUserData.roleMappingObj.avatar}}" class="img-circle img-responsive">
+          <img ng-src="{{$stateParams.userId && profileData.ProfilePic ||profileData.ProfilePic || userinfo.ActiveUserData.roleMappingObj.avatar}}" class="img-circle img-responsive">
          
         </a>
         <div class="m-b m-t-sm h4">
@@ -208,7 +208,7 @@
                        </div> 
                        <div ng-show="secemailandmob" class="panel-body p-sm in b dk p-sm " bs-collapse-target="">
                        
-                       <div class="col-xs-12 m-b-xs "><span class="font-bold">Primary Email </span>: <span class="p-h-xs">{{userinfo.ActiveUserData.eMail}}</span></div>
+                       <div class="col-xs-12 m-b-xs "><span class="font-bold">Primary Email </span>: <span class="p-h-xs">{{profileData.email}}</span></div>
                        <div class="col-xs-5" >
                        <!-- x edit form for secondary email -->
                        <form ng-show="!profileData.profile.secondaryEmail" editable-form name="editSecEmail" onaftersave="updateUserProfileDatas()">

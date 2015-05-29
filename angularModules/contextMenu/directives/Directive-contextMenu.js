@@ -32,34 +32,92 @@ angular.module('baabtra')
       // $scope.ExistingMaterials.searchTextMaterial='';
       $scope.status={};
       $scope.selectedCourse={};
+      $scope.selectedSyllabus={};
+      $scope.selectedSyllabus.syllabus='';
+      $scope.syllabusElements={};
+      $scope.selectedElements=[];
       $scope.searchText={};
+      $scope.courseElements=[];
+      $scope.selection=false;
       $scope.fnselectCourse =function(course){
-        $scope.selectedCourse=course;
+        $scope.selectedCourse=angular.copy(course);
+        $scope.selectedSyllabus.syllabus='';
+        $scope.syllabusElements={};
+        $scope.selectedElements=[];
+        $scope.courseElements=[];
+
+
       };
 
       $scope.previewOut={};
 
+      $scope.$watch('selectedSyllabus', function(){
 
-      $scope.$watch('previewOut', function(){
+        if(angular.equals($scope.selectedSyllabus.syllabus,'')){
+            return;
+        }
+        else{
+                      var syllabusElements=[];
+                         syllabusElements=$scope.fetchElementsInSyllabus($scope.selectedSyllabus.syllabus,syllabusElements);
+                         var syllabusElementsArray=[];
+                         for(var index in syllabusElements){                
+                         var tempArray=syllabusElements[index].split('.');
+                         syllabusElementsArray.push(tempArray);
+                         }
+                         $scope.syllabusElements=syllabusElementsArray;
 
-        if ($scope.previewOut.courseElement){
-            $scope.courseElement=angular.copy($scope.previewOut.courseElement);
-            $scope.elementAddType = 1;
-            $modal({scope: $scope, template:'angularModules/contextMenu/partials/Popup-syllabusSelector.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
-            //$scope.fnSaveElement(courseElement);
         }
 
       },true);
-     
 
-      $scope.fnSaveElement = function(courseElementvalue){
+            // $scope.elementAddType = 1;
+            // $modal({scope: $scope, template:'angularModules/contextMenu/partials/Popup-syllabusSelector.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+            //$scope.fnSaveElement(courseElement);
 
+      $scope.fnAddElements=function(){
+         
+         $scope.selectedElements=[];
+        for(var index in $scope.syllabusElements){
+
+            if(($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]])&&($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]])&&($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]])){
+
+               if(angular.equals($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]].selection,true)){
+
+              if($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]].tlSelectedPoint){
+                delete $scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]].tlSelectedPoint;
+              }
+                $scope.selectedElements.push($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]]);
+
+             }
+
+
+            }
+
+            
+
+          }
+
+
+          if (angular.equals($scope.selectedElements.length,0)) {
+                  $scope.notifications('','None of the elements has been selected','danger'); 
+
+          }else{
+            $scope.elementAddType = 1;
+            $modal({scope: $scope, template:'angularModules/contextMenu/partials/Popup-syllabusSelector.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+
+          }
+      };     
+
+      $scope.fnSaveElements = function(courseElements){
+        $scope.courseElements=[];
+        for(var index in courseElements){
+        var courseElementvalue=courseElements[index];
         var courseElementskey=courseElementvalue.Name;
         var key=$scope.instance+'.'+courseElementskey;
         var obj={key:key};
         courseElementvalue.courseId = $scope.selectedCourse._id.$oid;
         delete courseElementvalue.order;
-        if($scope.syncData.courseTimeline[$scope.instance]){
+        if(($scope.syncData.courseTimeline)&&($scope.syncData.courseTimeline[$scope.instance])){
           if($scope.syncData.courseTimeline[$scope.instance][courseElementskey]){
           courseElementvalue.index=$scope.syncData.courseTimeline[$scope.instance][courseElementskey].length;
           }
@@ -74,25 +132,77 @@ angular.module('baabtra')
 
         obj[key]=courseElementvalue;
 
-        var saveCourseTimelineElementPromise= addCourseService.saveCourseTimelineElement($scope, $scope.$parent.courseId, obj);//saving to database
-        
-         saveCourseTimelineElementPromise.then(function(data){
+         $scope.courseElements.push({courseId:$scope.$parent.courseId,courseElement:obj})
+         
+         }
+
+         var saveExistingElementPromise= addCourseService.saveExistingElement($scope.courseElements);//saving to database
+
+         saveExistingElementPromise.then(function(data){
           var updatedElementOrder = angular.fromJson(JSON.parse(data.data));
           $scope.syncData.elementOrder=updatedElementOrder;
-             if(!$scope.syncData.courseTimeline[$scope.instance]){
+                  if(!$scope.syncData.courseTimeline){
+                        $scope.syncData.courseTimeline={};
+                    }
+                  if(!$scope.syncData.courseTimeline[$scope.instance]){
                         $scope.syncData.courseTimeline[$scope.instance]={};
                     }
-                    if(!$scope.syncData.courseTimeline[$scope.instance][courseElementskey]){
-                        $scope.syncData.courseTimeline[$scope.instance][courseElementskey]=[];
-                    }
+                  for(var index in $scope.courseElements){
+                      var courseElement=$scope.courseElements[index].courseElement;
+                     if(!$scope.syncData.courseTimeline[$scope.instance][courseElement[courseElement.key].Name]){
+                        $scope.syncData.courseTimeline[$scope.instance][courseElement[courseElement.key].Name]=[];
+                      }
+                  $scope.syncData.courseTimeline[$scope.instance][courseElement[courseElement.key].Name].push(courseElement[courseElement.key]);
 
-
-                  $scope.syncData.courseTimeline[$scope.instance][courseElementskey].push(courseElementvalue);
-
+                  }
                   $scope.notifications('','Material Added Successfully','info');   
-      
+                  $scope.disableAdd=false;
+                  $scope.selectedElements=[];
+                  $scope.selection=false;
+                  $scope.fnSelectAll($scope.selection);
+
+                  
+
+
           });
 
+
+      };
+
+      
+      $scope.fetchElementsInSyllabus = function(syllabus,Elements){
+            if(!angular.equals(syllabus.element,undefined)){
+            Elements=Elements.concat(syllabus.element);
+            }
+
+            if(syllabus.children.length>0){
+                for(var index in syllabus.children){
+                 var tmpElements=[];
+                 tmpElements=$scope.fetchElementsInSyllabus(syllabus.children[index],tmpElements);
+                 Elements=Elements.concat(tmpElements);
+                }
+            }
+
+            return Elements;
+
+      };
+
+      $scope.fnSelectAll= function(selection){
+        if(angular.equals(selection,true)){
+          for(var index in $scope.syllabusElements){
+            if(($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]])&&($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]])&&($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]])){
+             $scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]].selection=true;
+           }
+          }
+        }
+        if(angular.equals(selection,false)){
+           for(var index in $scope.syllabusElements){
+            if(($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]])&&($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]])&&($scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]])){
+             $scope.selectedCourse.courseTimeline[$scope.syllabusElements[index][0]][$scope.syllabusElements[index][1]][$scope.syllabusElements[index][2]].selection=false;
+           }
+          }
+
+        }
       };
 
 
@@ -133,9 +243,9 @@ angular.module('baabtra')
                 $li.on('click', function ($event) {
                     $event.preventDefault();
                     $scope.randomKey=Math.floor(Math.random()*1000,1000); // used to override some scope errors due to duplication
-                    $scope.$parent.formData[$scope.instance]=new Object();//used to save datas from timeline
-                    $scope.$parent.formData[$scope.randomKey]=new Object();
-                    $scope.$parent.formData[$scope.randomKey].mainData=new Object();
+                    $scope.$parent.formData[$scope.instance]={};//used to save datas from timeline
+                    $scope.$parent.formData[$scope.randomKey]={};
+                    $scope.$parent.formData[$scope.randomKey].mainData={};
                     clickedChiled=true;
                     $scope.$apply(function () {
                          $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
@@ -238,9 +348,9 @@ angular.module('baabtra')
                   $footerA.on('click', function ($event) {
                     $event.preventDefault();
                     $scope.randomKey=Math.floor(Math.random()*1000,1000); // used to override some scope errors due to duplication
-                    $scope.$parent.formData[$scope.instance]=new Object();//used to save datas from timeline
-                    $scope.$parent.formData[$scope.randomKey]=new Object();
-                    $scope.$parent.formData[$scope.randomKey].mainData=new Object();
+                    $scope.$parent.formData[$scope.instance]={};//used to save datas from timeline
+                    $scope.$parent.formData[$scope.randomKey]={};
+                    $scope.$parent.formData[$scope.randomKey].mainData={};
                     clickedChiled=true;
                     $scope.$apply(function () {
                          $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
@@ -262,83 +372,9 @@ angular.module('baabtra')
                          //   $scope.evaluator=[];
                          // }
 
-                $templateCache.put('course-material-popup.html','<div class="modal modal-full-width" tabindex="-1" role="dialog" >'
-+'<div class="modal-dialog-full-width  modal-full-width">'
-    +'<div class="modal-content bg-white">'
-          +'<div class="navbar navbar-inverse btn-material-blue-A700 ">'
-              +'<div class="navbar-header col-xs-3">'
-                  +'<h4 class="font-bold" >Existing Course Elements</h4>'
-              +'</div>'
-              +'<div type="button" class="btn pull-right no-padding" ng-click="$hide()"><i class="mdi-navigation-close text-lg text-white"></i></div>'
-          +'</div>'
-      +'<div class="modal-body no-padding " >'
-          
-          +'<div class="col-md-4 col-xs-6" >'
-
-              +'<div class="navbar-header col-xs-3">'
-                  +'<h4 class="font-bold" >Courses</h4>'
-              +'</div>'
-              +'<div class="navbar-collapse collapse navbar-inverse-collapse">'
-                  +'<form class="navbar-form  navbar-left col-xs-8">'
-                      +'<input type="text" class="form-control" ng-model="ExistingMaterials.searchTextCourse" placeholder="Search">'
-                  +'</form>'
-               
-              +'</div>'
-            +'<div class="list-group" style=" height:500px; overflow:scroll;">'
-                  +'<div ng-repeat="course in ExistingMaterials|filter:ExistingMaterials.searchTextCourse |orderBy:\'-draftFlag\'">'
-                 
-                   +'<a href ng-click="fnselectCourse(course);status.formCourse = $index" bs-tooltip data-title="click to see Elements"  class="list-group-item " >{{course.Name}}<i ng-show="status.formCourse==$index" class="pull-right fa fa-check-circle text-primary"></i></br>'
-                     +'<span ng-if="course.draftFlag==1" class="label label-success ">Published</span>'
-                    +'<span ng-if="course.draftFlag==0" class="label label-warning ">Drafted</span>'
-                   +'</a>'
-                    // +'<div class="">{{course.draftFlag}}</div>'
-                  
-
-                  +'</div>'
-
-            +'</div>'
-            
-          +'</div> '
-
-          +'<div class="col-md-8 col-xs-6 "  > '
-              +'<div class="navbar-header col-xs-3">'
-                  +'<h4 class="font-bold" >Course Materials</h4>'
-              +'</div>'
-              +'<div class="navbar-collapse collapse navbar-inverse-collapse">'
-                  +'<form class="navbar-form  navbar-left col-xs-8">'
-                      +'<input type="text" class="form-control" ng-model="selectedCourse.searchTextMaterial" placeholder="Search">'
-                  +'</form>'                
-
-              +'</div>'
-            +'<div  style=" height:500px; overflow:scroll;">'
-                 +'<div class="col-xs-12" ng-if="selectedCourse" ng-repeat="(tlpointkey,tlpointvalue) in selectedCourse.courseTimeline" >'
-                        +'<div ng-repeat="(courseElementskey,courseElementsvalue) in  tlpointvalue ">'
-                               
-
-                               +'<div ng-repeat="(courseElementkey,courseElementvalue) in  courseElementsvalue |filter:selectedCourse.searchTextMaterial">'
-                                 
-                                +'<div class="col-xs-12 m-t">'                          
-                                +'<material-preview  addmaterial="previewOut" data="courseElementvalue"></material-preview>'
-                                +'</div>'
-
-
-                             +'</div>'
-
-                        +'</div>'
-
-                  +'</div> '
-            +'</div> '
-          +'</div> '
-          
-
-      +'</div>'
-      +'<div class="modal-footer">'
-      +'</div>'
-    +'</div>'
-  +'</div>'
-+'</div>');
+                
 $scope.elementAddType = 0;
- $modal({scope: $scope, template:'course-material-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+ $modal({scope: $scope, template:'angularModules/contextMenu/partials/course-material-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
                         //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
                      });
                 });
@@ -492,7 +528,8 @@ $scope.elementAddType = 0;
             });
           }else{
             buildNodePath($scope.syncData.syllabus, $scope.data.selectednSyllabusItem.nodeId,'','',function(){
-              $scope.fnSaveElement($scope.courseElement);
+                $scope.fnSaveElements($scope.selectedElements);
+                 $scope.disableAdd=true;
             });
           }
           hide();
@@ -635,8 +672,8 @@ $scope.elementAddType = 0;
                 $scope.formModal[randomKeyForNested].nestedElements[$scope.nestedElemSelected[randomKeyForNested].Name]=[];
             }
 
-        $scope.tempFormData=new Object();
-        $scope.tempFormData[randomKeyForNested]=new Object();
+        $scope.tempFormData={};
+        $scope.tempFormData[randomKeyForNested]={};
         var state=$state.current.name.split('.');
             state=state[state.length-1];
 

@@ -41,12 +41,12 @@ $scope.pageNavigation=function(type){//event  for showing next/prev 12 items
 };
 var searchKeyTimeout;
 $scope.searchKeyChanged = function () {
-	$scope.data.pageNumber=1;	
 	if(searchKeyTimeout){
 		clearTimeout(searchKeyTimeout);
 	}
 
 		searchKeyTimeout = setTimeout(function () {
+			$scope.data.pageNumber=1;
 			var gotPublishedCourses = PublishedCourse.loadPublishedCoursesWithPromise($scope.companyId,$scope.data.searchText,'','','');
 		      gotPublishedCourses.then(function (response) {
 		    	$scope.gotPublishedCourses(response);
@@ -128,6 +128,7 @@ $scope.saveMarksheetToDb = function (hide) {
 
 $scope.openPopup = function (course) {
 	delete $scope.elementsOfSelectedNode;
+	$scope.data.selectedNode='';
 	// console.log(course._id.$oid);
     var loader=$modal({scope: $scope,backdrop:'static', template: 'angularModules/markSheet/designMarkSheet/popup/Popup-loadCourseData.html', show: true,placement:'center'});
 	var gotSyllabus=markSheetService.getCourseSyllabus(course._id.$oid);
