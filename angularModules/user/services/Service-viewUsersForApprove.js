@@ -1,23 +1,23 @@
 angular.module('baabtra').service('viewUsersForApprove',['$http','bbConfig',function ($http, bbConfig) {
 
 
-this.fnLoadMenteesForApprove=function(companyId, statusType, pageNumber, nPerPage, searchKey)//To Load Mentees For Approve
+this.fnLoadMenteesForApprove=function(companyId, statusType, pageNumber, nPerPage, searchKey,orderFormType)//To Load Mentees For Approve
       {
         var promise = $http({
           method: 'post',
           url: bbConfig.BWS+'fnLoadMenteesForApprove/',
-          data:{companyId:companyId, statusType:statusType, pageNumber:pageNumber, nPerPage:nPerPage, searchKey:searchKey},
+          data:{companyId:companyId, statusType:statusType, pageNumber:pageNumber, nPerPage:nPerPage, searchKey:searchKey,orderFormType:orderFormType},
           contentType:'application/json; charset=UTF-8',
         });
         return promise;
       };
 
-this.fnLoadMenteesForPayment=function(companyId, pageNumber, nPerPage, searchKey)//To Load Mentees For Approve
+this.fnLoadMenteesForPayment=function(companyId, pageNumber, nPerPage, searchKey,orderFormType)//To Load Mentees For Approve
       {
         var promise = $http({
           method: 'post',
           url: bbConfig.BWS+'fnLoadMenteesForPayment/',
-          data:{companyId:companyId, pageNumber:pageNumber, nPerPage:nPerPage, searchKey:searchKey},
+          data:{companyId:companyId, pageNumber:pageNumber, nPerPage:nPerPage, searchKey:searchKey,orderFormType:orderFormType},
           contentType:'application/json; charset=UTF-8',
         });
         return promise;
