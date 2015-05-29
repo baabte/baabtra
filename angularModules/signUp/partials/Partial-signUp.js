@@ -66,7 +66,7 @@ $scope.fnSignUp= function(){
   // console.log(bbConfig.MURID);
   $scope.userSignUp=$scope.allSync.FormData;
   $scope.userSignUp.mandatoryData=mandatoryData;
-  // console.log($scope.userSignUp);
+  console.log($scope.userSignUp);
 
 //service call to register user 
 var fnRegisterUserCallBack=userRegistrationService.FnRegisterUser($scope.userSignUp);

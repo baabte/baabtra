@@ -10,7 +10,7 @@
 			<th translate="{{'Key'|translate}}"></th>
 			<th translate="{{'Text'|translate}}"></th>
 			<th>
-				<a href="\" class="" ng-show="attType==='other'" ng-click="addOption()" data-title="{{'Add a new option to the list'|translate}}" bs-tooltip>
+				<a  class="" ng-show="attType==='other'" ng-click="addOption()" data-title="{{'Add a new option to the list'|translate}}" bs-tooltip>
 					<i class="glyphicon glyphicon-plus"></i>
 				</a>
 			</th>
@@ -24,11 +24,11 @@
 			</td>
 			<td>
 				<input type="text" name="text{{$index}}" ng-if="attType!='mandatory'" ng-disabled="attType=='uneditable'" ng-model="option.text" class="form-control">  <!--  xt-validate required -->
-				<input type="text" name="text{{$index}}" ng-if="attType=='mandatory'" ng-disabled="attType=='uneditable'" ng-model="option.text" xt-validate required class="form-control" xt-validate required> 
+				<input type="text" name="text{{$index}}" ng-if="attType=='mandatory'" ng-disabled="attType=='uneditable' || option.key == 'ng-model'" ng-model="option.text" xt-validate required class="form-control" xt-validate required> 
 			</td>
 			<td>
 				<i bs-tooltip data-title="This field is required" data-placement="right" ng-if="attType=='mandatory'" class="text-md text-warning mdi-alert-error"></i><!-- validation for mandatory fields-->
-				<a href="\" class="" ng-click="removeOption($index)"  ng-show="attType==='other'" data-title="{{'Remove this option from the list'|translate}}" bs-tooltip>
+				<a class="" ng-click="removeOption($index)"  ng-show="attType==='other'" data-title="{{'Remove this option from the list'|translate}}" bs-tooltip>
 					<i class="glyphicon glyphicon-trash"></i>
 
 				</a>

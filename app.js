@@ -60,8 +60,8 @@
         'angularTreeview',
         'chart.js',
         'datePicker',
-        'ui-rangeSlider'
-        //function(){  return 'custom-form';}()
+        'ui-rangeSlider',
+        function(){  return 'custom-form';}()
         
       ])
 

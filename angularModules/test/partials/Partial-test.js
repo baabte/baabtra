@@ -16,7 +16,8 @@ angular.module('baabtra').controller('TestCtrl',['$scope', '$rootScope', 'common
 	/*login detils ends*/
 
 	$scope.data = {};
-
+	$scope.schemaObj = {};
+	$scope.fields=[];
 
 }]);																																																																								 																			
 

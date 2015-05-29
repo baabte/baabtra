@@ -914,15 +914,25 @@
                 }
                 
               })
+               .state('home.main.createForm', {
+                url: '/createForm',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/common/formCreator/partials/Partial-formCreator.html',
+                    controller: 'FormcreatorCtrl'
+                  }
+                }
+                
+              })
                .state('course', {
                 url: '/course/:companyId',
                 templateUrl: 'angularModules/publicAPIs/course/partials/Partial-companyCourseList.html',
                 controller:'CompanycourselistCtrl'
               })
                .state('courseUserRegistration', {
-                url: '/courseUserRegistration/:courseId',
-                templateUrl: 'angularModules/publicAPIs/course/partials/Partial-userRegistrationAPI.html',
-                controller:'UserregistrationapiCtrl'
+                url: '/courseUserRegistration/:companyId/:formId',
+                templateUrl: 'angularModules/common/formLoader/partials/Partial-formLoader.html',
+                controller:'FormloaderCtrl'
               })
 
               .state('page.document', {

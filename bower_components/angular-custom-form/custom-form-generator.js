@@ -19,6 +19,7 @@ angular.module('custom-form').run(['$templateCache','loadTemplateSrv',function($
           var templateData=templateElement.DefaultTemplate;
             $templateCache.put('angular-custom-form/'+templateElement.Name+'.ng.html',templateData);
          });
+
   	});
   }]);
 
@@ -45,10 +46,11 @@ acf.directive('acfForm',['$templateCache','$compile','$sce',function($templateCa
             }
             else{ //takes the newest value
               if(Object.keys(scope.inputModel).length>0){
+
                 //creating dynamic object as per the formname
-                scope[scope.inputModel['formName']]={};
+                scope[scope.inputModel['formName'].replace(/ /g,'')]={};
                 //passing the object into outputObj to get it in parent scope.
-                scope.outputObj=scope[scope.inputModel['formName']];
+                scope.outputObj=scope[scope.inputModel['formName'].replace(/ /g,'')];
                 //adding the template into templateChache for retrival
                 $templateCache.put('angular-custom-form/template.ng.html',scope.inputModel.template);
                 var templateData=$templateCache.get('angular-custom-form/template.ng.html');
@@ -103,10 +105,11 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
       $scope.fieldList=responseData; //storing the list of fileds from response data to scope varible.
       //$scope.form={};
       //$scope.form={};
-     // $scope.fields=fieldSchema;
+      //$scope.fields=[];
       $scope.customFieldId=0;
-
-
+      $scope.currentTab='';
+console.log("----------");
+console.log($scope.fields);
     //***validation patters ***
     $scope.validationPatterns=[
       {'name':'None','value': undefined},
@@ -126,7 +129,7 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
       //***function to add new field into the custom form ***
       $scope.addNewField=function(){
         $scope.customFieldId++; //to uniquely identify
-
+        console.log($scope.selectedField);
         /*deleting unesessary fields*/
         delete $scope.selectedField[0]._id;
         delete $scope.selectedField[0].urmId;
@@ -152,6 +155,10 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
         //fieldObj.options=[{"text":"","key":"option1"}]; //for options
         if(!angular.equals($scope.selectedField.length,0)){
           fieldObj.id='field'+$scope.customFieldId;
+          console.log($scope.fields);
+          //if(angular.equals($scope.fields, undefined)){
+          //  $scope.fields = [];
+          //}
           $scope.fields.push(fieldObj);
         }
       };
@@ -160,6 +167,33 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
       $scope.deleteField=function(index){
         $scope.fields.splice(index,1);
       };
+
+      $scope.fnFieldItemClicked = function(field){
+        $scope.selectedField = [];
+        $scope.selectedField.push(field);
+      };
+
+      var displayNameChangeTimeout;
+      $scope.displayNameChanged = function(DisplayName,index){
+        if(!angular.equals(displayNameChangeTimeout, undefined)){
+          clearTimeout(displayNameChangeTimeout);
+        }
+        displayNameChangeTimeout = setTimeout(function(){ 
+          for(var attrIndex in $scope.fields[index].mandatoryAttributes){
+            if(angular.equals($scope.fields[index].mandatoryAttributes[attrIndex].key, 'ng-model')){
+              if(!angular.equals(DisplayName,undefined)){
+                $scope.fields[index].mandatoryAttributes[attrIndex].text = DisplayName.replace(' ','');
+              }
+              else{
+                $scope.fields[index].mandatoryAttributes[attrIndex].text = "";
+              }
+              $scope.$digest();
+            }
+          }
+        }, 400);
+
+      };
+
 
 
       //****field.otherPattern should be removed from the object while saving***
@@ -203,8 +237,8 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
           
           //split the template by '>' to add custom attributes
           var beforeCustom = templateData.split(">");
-         
-          var formLabel='<div class="form-group"><label class="col-lg-2 control-label">'+item.DisplayName+'</label><div class="col-lg-10">';
+         //<label class="col-lg-2 control-label">'+item.DisplayName+'</label>
+          var formLabel='<div class="form-group"><div class="col-lg-12">';
 
           //loping through custom attributes to add it into default template
           angular.forEach(item.customAttributes,function(cutsomAtt){
@@ -214,7 +248,7 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
           //loping through mandatory Attributes to add it into default template
           angular.forEach(item.mandatoryAttributes,function(mandAtt){
             if(angular.equals(mandAtt.key,'ng-model')){
-              beforeCustom[0] = beforeCustom[0] + ' '+ mandAtt.key +'=\"'+$scope.form.formName+'.'+mandAtt.text+'\"';
+              beforeCustom[0] = beforeCustom[0] + ' '+ mandAtt.key +'=\"'+$scope.form.formName.replace(/ /g,'')+'.'+mandAtt.text+'\"';
             }else{
               beforeCustom[0] = beforeCustom[0] + ' '+ mandAtt.key +'=\"'+mandAtt.text+'\"';
             }
@@ -223,7 +257,7 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
                 tmpRdList=tempTemplateData.split('checked="">');
                 angular.forEach(tmpRdList,function(rdItem,index){
                   if(!angular.equals(index+1,tmpRdList.length)){ //adding the mandatory attributes into the element.
-                    tmpRdList[index]=tmpRdList[index]+' '+ mandAtt.key +'=\"'+$scope.form.formName+'.'+mandAtt.text+'\" ';
+                    tmpRdList[index]=tmpRdList[index]+' '+ mandAtt.key +'=\"'+$scope.form.formName.replace(/ /g,'')+'.'+mandAtt.text+'\" ';
 
                   }
                 });
@@ -236,7 +270,7 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
                 tmpCbList=tempTemplateData.split('type="checkbox">');
                 angular.forEach(tmpCbList,function(cbItem,index){ //adding mandatory attributes into the element
                   if(!angular.equals(index+1,tmpCbList.length)){
-                    tmpCbList[index]=tmpCbList[index]+' checklist-model=\"'+$scope.form.formName+'.'+mandAtt.text+'\" ';
+                    tmpCbList[index]=tmpCbList[index]+' checklist-model=\"'+$scope.form.formName.replace(/ /g,'')+'.'+mandAtt.text+'\" ';
                   }
                 });
                 tempTemplateData=tmpCbList.join('type="checkbox">'); //joining the the splited string
@@ -247,7 +281,7 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
             //checking the element type is file or not
             if(angular.equals(item.Name,'file')){ 
                 if(angular.equals(mandAtt.key,'ng-model')){
-                  beforeCustom[0] = beforeCustom[0] + ' fileupload-dir=\"'+$scope.form.formName+'.'+mandAtt.text+'\"';
+                  beforeCustom[0] = beforeCustom[0] + ' fileupload-dir=\"'+$scope.form.formName.replace(/ /g,'')+'.'+mandAtt.text+'\"';
                
                 }
             }
