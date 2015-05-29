@@ -78,7 +78,13 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 	{currentStage:'Approval',displayName:"Approve Applicants", loadStatus:["Verified","Paid"], nextStatus:"Approved", privilegedRoles:['a','c'], buttonText:"Approve", paymentStage:false, viewStage:false,canReject:true},
 	{currentStage:'Approved',displayName:"Approved Applicants", loadStatus:["Approved"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Approved", paymentStage:false, viewStage:true,canReject:false},
 	{currentStage:'Rejected',displayName:"Rejected Applicants", loadStatus:["Rejected"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Rejected", paymentStage:false, viewStage:true,canReject:false},
-	{currentStage:'Allocated',displayName:"Allocated Applicants", loadStatus:["Allocated"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Allocated", paymentStage:false, viewStage:true,canReject:false}
+	{currentStage:'Allocated',displayName:"Allocated Applicants", loadStatus:["Allocated"], nextStatus:"", privilegedRoles:['a','c'], buttonText:"View Allocated", paymentStage:false, viewStage:true,canReject:false},
+	{currentStage:'Verification',displayName:"Verify Applicants", loadStatus:["Pending Approval","Resubmit"], nextStatus:"Verified", privilegedRoles:['a','b','c'], buttonText:"Verify", paymentStage:false, viewStage:false,canReject:true,orderFormType:"company"},
+	{currentStage:'Payment',displayName:"Collect Payment", loadStatus:["Verified", "Partially Paid"], nextStatus:"Paid", privilegedRoles:['a','b'], buttonText:"Make Payment", paymentStage:true, viewStage:false,canReject:false,orderFormType:"company"},
+	{currentStage:'Approval',displayName:"Approve Applicants", loadStatus:["Verified","Paid"], nextStatus:"Approved", privilegedRoles:['a','c'], buttonText:"Approve", paymentStage:false, viewStage:false,canReject:true,orderFormType:"company"},
+	{currentStage:'Verification',displayName:"Verify Applicants", loadStatus:["Pending Approval","Resubmit"], nextStatus:"Verified", privilegedRoles:['a','b','c'], buttonText:"Verify", paymentStage:false, viewStage:false,canReject:true,orderFormType:"individual"},
+	{currentStage:'Payment',displayName:"Collect Payment", loadStatus:["Verified", "Partially Paid"], nextStatus:"Paid", privilegedRoles:['a','b'], buttonText:"Make Payment", paymentStage:true, viewStage:false,canReject:false,orderFormType:"individual"},
+	{currentStage:'Approval',displayName:"Approve Applicants", loadStatus:["Verified","Paid"], nextStatus:"Approved", privilegedRoles:['a','c'], buttonText:"Approve", paymentStage:false, viewStage:false,canReject:true,orderFormType:"individual"}
 	];	
 
 	//.End == creating a mock of the global configuration of the company for the approval flow and access privileges for roles
@@ -95,9 +101,25 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 	//setting 0 as default key if we not passed any aky as $stateParams
 	if(angular.equals($stateParams.key,'')){
 		currentStageIndex=0;
+	}else if($stateParams.key*1>$scope.approvalFlow.length-1){
+		currentStageIndex=$scope.approvalFlow.length-1;
 	}	
 	$scope.currentStage = {};
 	$scope.currentStage = $scope.approvalFlow[currentStageIndex];
+
+
+		// console.log($scope.approvalFlow[currentStageIndex].orderFormType);
+
+
+	if ($scope.approvalFlow[currentStageIndex].orderFormType) {
+		$scope.orderFormType=$scope.approvalFlow[currentStageIndex].orderFormType;
+		// console.log($scope.orderFormType);
+	}else{
+		$scope.orderFormType='';
+		// console.log($scope.orderFormType);
+
+	}
+	
 
 	// checking whether the current role has access to change the status
 	if(angular.equals($scope.currentStage.privilegedRoles.indexOf($scope.currentUserRole), -1)) {
@@ -179,7 +201,15 @@ $scope.showHideIndividualRequestForApproval = function(requestStatus,mentee){
 			if(angular.equals(mentee.statusHistory[statusIndex].statusChangedTo.toLowerCase(),'paid')){
 				flag = false;
 			}
+			
 		}
+		if(angular.equals(mentee.status.toLowerCase(),'rejected')){
+				flag = false;
+			}
+			else if(angular.equals(mentee.status.toLowerCase(),'pending approval')){
+				flag = false;
+			}
+
 		return flag;
 	}
 
@@ -206,6 +236,14 @@ $scope.checkRequestsForStatus = function(course, statusArray){
 						counter++;
 					}
 				}
+
+				if(angular.equals(course.userInfo[i].status.toLowerCase(),'rejected')){
+				counter++;
+			}
+			else if(angular.equals(course.userInfo[i].status.toLowerCase(),'pending approval')){
+				counter++;
+			}
+
 			}
 			if(course.userInfo.length==counter){
 				return false;
@@ -213,6 +251,7 @@ $scope.checkRequestsForStatus = function(course, statusArray){
 			else{
 				return true;
 			}
+
 		}
 	
 	//looping through the order details section of the order form to check for the existence of atleast one request in the specified status
@@ -877,10 +916,10 @@ $scope.updateOrderFormStatus = function(type,hide){
 	$scope.data.searchText = '';
 	var LoadMenteesResponse ;
 	 if(angular.equals($scope.currentStage.currentStage,'Payment')){
-	 	LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForPayment($scope.cmpId, $scope.data.pageNumber, 8 , $scope.data.searchText);
+	 	LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForPayment($scope.cmpId, $scope.data.pageNumber, 8 , $scope.data.searchText,$scope.orderFormType);
 	 }
 	 else{
-		LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8 , $scope.data.searchText); 	
+		LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8 , $scope.data.searchText,$scope.orderFormType); 	
 	 }
 	
 	LoadMenteesResponse.then(function(response){
@@ -915,10 +954,10 @@ $scope.updateOrderFormStatus = function(type,hide){
 
 		var LoadMenteesResponse ;
 	 if(angular.equals($scope.currentStage.currentStage,'Payment')){
-	 	LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForPayment($scope.cmpId, $scope.data.pageNumber, 8 , $scope.data.searchText);
+	 	LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForPayment($scope.cmpId, $scope.data.pageNumber, 8 , $scope.data.searchText,$scope.orderFormType);
 	 }
 	 else{
-		LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8 , $scope.data.searchText); 	
+		LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8 , $scope.data.searchText,$scope.orderFormType); 	
 	 }
 	
 	LoadMenteesResponse.then(function(response){
@@ -945,10 +984,10 @@ $scope.updateOrderFormStatus = function(type,hide){
 		 	$scope.data.pageNumber = 1;
 			var LoadMenteesResponse ;
 	 if(angular.equals($scope.currentStage.currentStage,'Payment')){
-	 	LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForPayment($scope.cmpId, $scope.data.pageNumber, 8 , $scope.data.searchText);
+	 	LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForPayment($scope.cmpId, $scope.data.pageNumber, 8 , $scope.data.searchText,$scope.orderFormType);
 	 }
 	 else{
-		LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8 , $scope.data.searchText); 	
+		LoadMenteesResponse = viewUsersForApprove.fnLoadMenteesForApprove($scope.cmpId, $scope.data.selectedStatusTypes, $scope.data.pageNumber, 8 , $scope.data.searchText,$scope.orderFormType); 	
 	 }
 	
 	LoadMenteesResponse.then(function(response){
