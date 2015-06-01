@@ -99,7 +99,7 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
       fields: "=acfFields", //scope object to load the existing schema
       form:"=acfModel"
     },
-    templateUrl: 'bower_components/angular-custom-form/formTemplates/formEdit.ng.html',
+    templateUrl: 'angularModules/common/customForm/formEdit.ng.html',
     link: function ($scope, $element, $attrs) {
    
       $scope.fieldList=responseData; //storing the list of fileds from response data to scope varible.
