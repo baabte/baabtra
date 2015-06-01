@@ -1,11 +1,11 @@
 <div class="col-xs-12 bg-white" style="margin-top: -62px;">
-	<div class="row" ng-if="data.courseList">
-        <div class="col-xs-12"  ng-repeat="(key, courses) in data.courseList" >
+	<div class="row" ng-if="data.courseList.length"><!-- 
+        <div class="col-xs-12"  ng-repeat="(key, courses) in data.courseList" > -->
         	<!-- <div class="col-xs-12 text-u-c font-bold text-lg p-v-xs">{{key}}</div> -->
         	<div class="col-xs-12">
         	<div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
         		
-        		<div masonry-tile class="tile col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-left masonry-brick" ng-repeat="course in courses"> 
+        		<div masonry-tile class="tile col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-left masonry-brick" ng-repeat="course in data.courseList"> 
         			<div class="panel course-box m-v" >
 	                 	<div class="p text-right">
 	                 		<a ng-if="course.companyId.$oid==companyId" data-placement="bottom-right" data-html="true" bs-dropdown="data.courseDropdown"><i class="mdi-navigation-more-vert text-lg" ></i></a>
@@ -18,15 +18,15 @@
 	                 		<div class="text-black  course-description text-muted content-limiter" ng-bind-html="course.courseDetails[0].value"></div>
 	                 	</div>
 	                 	<div class="panel-footer text-center no-padding " style="background-color:#fff;">
-	                 		<a class="btn btn-info baab-btn" style="line-height: 15px;" ui-sref="courseUserRegistration({courseId:course._id.$oid,formId:'556c2c143b0366e831cf2fa9'})" target="_blank">Take {{course.type}}</a>
+	                 		<a class="btn btn-success baab-btn" style="line-height: 15px;" ui-sref="courseUserRegistration({courseId:course._id.$oid,formId:'556c2c143b0366e831cf2fa9'})" target="_blank">Register now</a>
 	                 	</div>
                 	</div>
            		</div>
            	</div>
            	</div>
-        </div> 
+        <!-- </div>  -->
     </div>
-    <div class="row" ng-if="!data.courseList">
+    <div class="row" ng-if="!data.courseList.length && data.courseList">
     	<div class="col-xs-12 p bg-warning shadow-z-1">
     		There are no course(s) found
     	</div>
