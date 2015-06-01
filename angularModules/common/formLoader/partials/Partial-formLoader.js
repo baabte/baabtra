@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'formLoader', 'userRegistrationService', 'addCourseService', 'nomination', function ($scope, $state ,formLoader, userRegistrationService, addCourseService, nomination){
+angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'formLoader', 'userRegistrationService', 'addCourseService', 'nomination', '$alert', function ($scope, $state ,formLoader, userRegistrationService, addCourseService, nomination, $alert){
 
 	$scope.data = {};
 	var courseDetails = {};
@@ -130,7 +130,7 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 
 			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, "5562fe9394214e36a96600e5");
 			nomintaionResponse.then(function(response){
-				alert("success");
+				$alert({title: 'Done..!', content: 'You Have Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 			})
 			
 
