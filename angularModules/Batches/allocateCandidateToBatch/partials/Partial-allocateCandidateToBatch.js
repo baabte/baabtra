@@ -185,12 +185,11 @@ $scope.buildUsersObjectByCourse=function (responseData) {
 				
 			}
 
-			console.log($scope.courseBasedUserList);
 };
 
 $scope.addCandidatesToBatchFromOrderform = function (userList,hide) {
 	$scope.orderFormsData=[];
-				for(key in userList){
+				for(var key in userList){
 				var orderFormId=userList[key].orderFormId;
 				// checkedStatus
 				for(candidKey in userList[key].userInfo){
@@ -199,13 +198,13 @@ $scope.addCandidatesToBatchFromOrderform = function (userList,hide) {
 						groupOfOneOrderForm.orderFormData={};
 						groupOfOneOrderForm.orderFormData.index=candidKey;
 						groupOfOneOrderForm.orderFormData.courseObj={};
-						groupOfOneOrderForm.orderFormData.courseObj.courseId=userList[key].courseId;
-						groupOfOneOrderForm.orderFormData.orderFormId=userList[key].orderFormId;
+						groupOfOneOrderForm.orderFormData.courseObj.courseId=$state.params.courseId;
+						groupOfOneOrderForm.orderFormData.orderFormId=orderFormId;
 						groupOfOneOrderForm.selectedUser={};
 						groupOfOneOrderForm.selectedUser.mandatoryData=angular.copy(userList[key].userInfo[candidKey]);
 						delete groupOfOneOrderForm.selectedUser.mandatoryData.status;
 						delete groupOfOneOrderForm.selectedUser.mandatoryData.userId;
-
+						// console.log(groupOfOneOrderForm.orderFormData);
 						$scope.orderFormsData.push(groupOfOneOrderForm);
 					}
 				}
@@ -213,17 +212,22 @@ $scope.addCandidatesToBatchFromOrderform = function (userList,hide) {
 				
 			}
 
-			for(key in $scope.orderFormsData){
-
+			for(var key in $scope.orderFormsData){
 
 					$scope.orderFormsData[key].selectedUser.batch={};
 					$scope.orderFormsData[key].selectedUser.batch=angular.copy($scope.data.selectedBatchObj);
+					$scope.orderFormsData[key].selectedUser.batch.endDate=$scope.orderFormsData[key].selectedUser.batch.endDate.$date;
+					$scope.orderFormsData[key].selectedUser.batch.enrollmentAfter = $scope.orderFormsData[key].selectedUser.batch.enrollmentAfter.$date;
+					$scope.orderFormsData[key].selectedUser.batch.enrollmentBefore = $scope.orderFormsData[key].selectedUser.batch.enrollmentBefore.$date;
+					$scope.orderFormsData[key].selectedUser.batch.fkCourseId = $scope.orderFormsData[key].selectedUser.batch.fkCourseId.$oid;
+					$scope.orderFormsData[key].selectedUser.batch.batchId = $scope.orderFormsData[key].selectedUser.batch.batchId.$oid;
+					$scope.orderFormsData[key].selectedUser.batch.startDate=$scope.orderFormsData[key].selectedUser.batch.startDate.$date;
 					$scope.orderFormsData[key].selectedUser.batch._id=$scope.orderFormsData[key].selectedUser.batch._id.$oid;
-					$scope.orderFormsData[key].selectedUser.batchId=$scope.orderFormsData[key].selectedUser.batch._id;
+					$scope.orderFormsData[key].selectedUser.batchId=$scope.orderFormsData[key].selectedUser.batch.batchId;
 
 				 	$scope.orderFormsData[key].selectedUser.course={};
 					$scope.orderFormsData[key].selectedUser.coursetype=userList[0].coursetype?userList[0].coursetype:'offline';
-					$scope.orderFormsData[key].selectedUser.course._id=$scope.selectedCourseId;
+					$scope.orderFormsData[key].selectedUser.course._id=$state.params.courseId;
 					// $scope.orderFormsData[key].selectedUser.mandatoryData=
 					$scope.orderFormsData[key].selectedUser.mandatoryData.password=$scope.orderFormsData[key].selectedUser.mandatoryData.eMail;
 					
@@ -236,7 +240,10 @@ $scope.addCandidatesToBatchFromOrderform = function (userList,hide) {
 			var fnRegisterUserCallBack=allocateCandidateService.fnenrollBulkUsers($scope.orderFormsData);
 					fnRegisterUserCallBack.then(function(data){
 						var result=angular.fromJson(JSON.parse(data.data));
+						loadBatches();
 						hide();
+						$alert({title: '', content: 'Enrolled candidates..!', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
+
 					});
 };
 
@@ -249,7 +256,6 @@ $scope.showUnallocatedMentees = function (batch) {
 	var gotOrderForms = candidateCourseSrv.loadUnallocatedMenteees($scope.companyId,$state.params.courseId);
 		gotOrderForms.then(function (response) {
 			var responseData = angular.fromJson(JSON.parse(response.data));
-			console.log(responseData);
 			$scope.buildUsersObjectByCourse(responseData);
 			loader.destroy();
 			$modal({scope: $scope,backdrop:'static', template: 'angularModules/Batches/allocateCandidateToBatch/popup/popup-candidateListUnallocated.html', show: true,placement:'center'});

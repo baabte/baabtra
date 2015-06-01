@@ -7,7 +7,7 @@
         <div class="modal-body">
           <!-- <pre>{{elementsOfSelectedNode}}</pre> -->
           <div class="col-xs-12" ng-repeat="course in courseBasedUserList[data.selectedCourseId]">
-              <div ng-repeat="mentee in course.userInfo" class="col-lg-push-2 col-sm-12 col-lg-8 col-xs-12  p-h-sm shadow-z-1  pull-left bg-white" style="cursor: pointer;" ng-class="{'bg-success text-white':batch._id.$oid==data.selectedBatchId}">
+              <div ng-if="mentee.status=='Approved'" ng-repeat="mentee in course.userInfo" class="col-lg-push-2 col-sm-12 col-lg-8 col-xs-12  p-h-sm shadow-z-1  pull-left bg-white" style="cursor: pointer;" ng-class="{'bg-success text-white':batch._id.$oid==data.selectedBatchId}">
                 <!-- ng-click="goToThisStateWithBatchID(batch._id.$oid)" -->
                     <div class="row  p-v-sm b-b" >
                       <div class="col-xs-1">
@@ -43,7 +43,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-primary baab-btn" ng-click="$hide()">Cancel</button>
 
-          <button type="button" class="btn btn-success baab-btn" ng-click="addCandidatesToBatchFromOrderform(courseBasedUserList[data.selectedCourseId][0],$hide)">Add</button>
+          <button type="button" class="btn btn-success baab-btn" ng-click="addCandidatesToBatchFromOrderform(courseBasedUserList[data.selectedCourseId],$hide)">Add</button>
         </div>
       </div>
     </div>
