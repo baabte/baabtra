@@ -5,6 +5,7 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 	var LoadCustomForm = formLoader.LoadCustomFormforRegistration($state.params.formId);
 	LoadCustomForm.then(function(response){
 		var result = angular.fromJson(JSON.parse(response.data));
+		console.log(result);
 		if(Object.keys(result).length){
 			$scope.data.companyId = result.companyId.$oid;
 			$scope.data.form = result.form;
