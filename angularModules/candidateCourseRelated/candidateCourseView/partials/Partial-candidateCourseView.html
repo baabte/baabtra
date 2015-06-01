@@ -1,80 +1,50 @@
-<style type="text/css">
+<div class="co-xs-12">
+  
+  <!-- header -->
+  <div class="row no-margin ">
+    <div class="col-xs-12 p-h p-v-sm bg-white b-b fixed-tab">
 
-      .footer-bar-bottom{
-        position: fixed;
-        bottom:10px;
-      }
+      <div class="row">
+        <div class="col-xs-6">
+          <!-- View course timeline btn -->
+          <a class="btn btn-info no-margin hidden-xs" ng-disabled="!courseId.$oid" ng-click="navigateToTimeline(courseId)">View course timeline</a>
 
+          <!-- View course summary btn -->
+          <a class="btn btn-success no-margin hidden-xs" ng-click="navigateToSummary(courseId)">View course summary</a>
+        </div>
+        <div class="col-xs-12 col-sm-6">
 
-</style>
-
-<div class="row">
-  <div class="col-xs-12">
-    <div class="panel col-xs-12 b-t b-03A9F4 bg-white dk" style="min-height:100%;height:auto !important;position:absolute;">
-      
-      <div class="panel-body">
-
-          <!-- header container -->
-          <div>
-            <div class="col-xs-12 col-sm-6">
-              <div class="col-xs-12 col-sm-5 btn btn-material-deep-purple-400 text-center" ng-disabled="!courseId.$oid" ng-click="navigateToTimeline(courseId)">View timeline</div>
-              <div class="col-xs-12 col-sm-5 btn btn-material-blue-400 text-center" ng-click="navigateToSummary(courseId)">View summary</div>
-            </div>
-            
-
-            <div class="col-xs-12 col-sm-5 m-l-lg pull-right">
-                <percent-indicator value-suffix="Your score is " show-percentage="true" total-value="totalMark" obtain-value="markScored">
-                </percent-indicator>
-            </div>
-            <hr class="col-xs-12 b-dark">
-          </div>
-          <!-- header container end -->
-
-          <!-- body container -->
-          <div class="col-xs-12 p-v">
-            <div>
-              <div class="col-xs-12 btn btn-material-red-A400 font-bold" ng-if="!lastElement" >{{tlPointName}}</div>
-            </div>
-                <div class="col-xs-12 col-md-12 text-right m-b">
-                  <span class="label label-warning" ng-if="(!PrevObj.evalStatus)&&PrevObj.evaluable">Pending submission</span>
-                  <span class="label label-info" ng-if="PrevObj.evalStatus">{{PrevObj.evalStatus}}</span>
-                </div>
-            <!-- course element preview box  -->
-
-            <div class="col-xs-12 b">
-              <div class="col-xs-12">
-                <course-element-full-view course-id="courseId.$oid" preview-data="PrevObj"></course-element-full-view>
-              </div>
-              <div ng-show="lastElement&&courseId.$oid" class="col-xs-12 p">
-                <div class="alert alert-dismissable alert-danger">
-                    <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
-                    <strong>Oh sorry..!</strong> There are no more meterials to show.
-                </div>
-              </div>
-
-              
-            </div>
-            <!-- course element preview box end  -->
-
-
-            <!-- chat box container -->
-            <!-- <div class="col-xs-12 col-lg-2 col-sm-4" >
-              <div ng-include="'views/partials/chat.html'"></div>
-
-            </div> -->
-            <!-- chat box container end -->
-
-          </div>
-          
-          <!-- body container end  -->
-
+          <percent-indicator value-suffix="Your score is " show-percentage="true" total-value="totalMark" obtain-value="markScored"></percent-indicator>
+      </div>
       </div>
     </div>
   </div>
 
-<div class="col-xs-12 footer-bar-bottom">
-      <div class="btn btn-raised  btn-material-red-A200 mdi-navigation-chevron-left btn-fab" ng-disabled="lastViewedOrder==0" ng-click="getElement('previous')"></div>
-      <div class="btn btn-raised  btn-material-red-A200 mdi-navigation-chevron-right btn-fab pull-right" ng-disabled="lastElement" ng-click="getElement('next')"></div>
-</div>
-</div>
+  <!-- assignment view -->
 
+  <div class="row" style="margin-top: 56px;">
+    <div class="col-xs-12 p bg-light">
+      <div ng-show="!lastElement&&courseId.$oid" class="col-xs-push-1 col-md-push-2 col-md-8 col-xs-10 p shadow-z-1 btn-material-green-A200">
+        <span class="font-bold" ng-if="!lastElement" >{{tlPointName}}</span>
+        
+        <span class="label label-warning pull-right" ng-if="(!PrevObj.evalStatus)&&PrevObj.evaluable">Pending submission</span>
+        
+        <span class="label label-info pull-right" ng-if="PrevObj.evalStatus">{{PrevObj.evalStatus}}</span>
+      
+      </div>
+      <div  class="col-xs-push-1 col-md-push-2 col-md-8 col-xs-10 p shadow-z-1 bg-white btn-container">
+        <button style="position: absolute;left: -20px;"  class="btn btn-fab btn-fab-mini btn-raised btn-white am-fadeIn" ng-if="lastViewedOrder != 0" ng-click="getElement('previous')"><i class="mdi-navigation-chevron-left" style="  font-size: x-large;right: 6px;"></i></button>
+         <button style="  position: absolute;right: -20px;"  class="btn btn-fab btn-fab-mini btn-raised btn-white pull-right am-fadeIn" ng-if="!lastElement" ng-click="getElement('next')"><i class="mdi-navigation-chevron-right font-bold" style="font-size: x-large;right: 4px;" ></i></button>
+        <course-element-full-view course-id="courseId.$oid" preview-data="PrevObj"></course-element-full-view>
+       
+
+        <div ng-show="lastElement&&courseId.$oid" class="col-xs-12 p">
+                <div class="alert alert-dismissable alert-danger">
+                    <strong>Oh sorry..!</strong> There are no more meterials to show.
+                </div>
+              </div>
+      </div>
+    </div>
+  </div>
+
+</div>

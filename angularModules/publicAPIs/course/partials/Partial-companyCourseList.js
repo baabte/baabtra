@@ -1,6 +1,7 @@
 angular.module('baabtra').controller('CompanycourselistCtrl',['$scope', 'companyCourseList', '$state', '$modal', function ($scope, companyCourseList, $state, $modal){
 
 	$scope.data = {};
+	$scope.data.companyId = $state.params.companyId;
 	var courseResponse = companyCourseList.loadCourseToWebSite($state.params.companyId);
 	courseResponse.then(function(response){
 		$scope.data.result = angular.fromJson(JSON.parse(response.data));
@@ -11,11 +12,6 @@ angular.module('baabtra').controller('CompanycourselistCtrl',['$scope', 'company
 			}
 			$scope.data.courseList[course.type].push(course);
 		})
-		console.log($scope.data.courseList);
-
-		$scope.onClickTakeCourse = function(courseId){
-			$modal({scope: $scope, placement:'center',  template: 'angularModules/publicAPIs/course/partials/Popup-courseRegistration.html', show: true});
-		};
 	});
 
 

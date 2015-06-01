@@ -902,6 +902,21 @@ body {
   color: white;
 }
 
+.fixed-tab{
+  box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+
+  position: fixed;
+  width: 100.4%;
+  z-index: 2400;
+}
+
+.btn-container > button{
+  display: none;
+}
+.btn-container:hover > button{
+  display: block;
+}
+
 
 
 

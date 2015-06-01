@@ -136,10 +136,11 @@ $scope.fnAddAllUsers=function(){
 
 
 $scope.fnAllocateUser=function(){
-var today=new Date();
-$scope.courseAllocate.date=today.toISOString();
-$scope.courseAllocate.companyId=$scope.companyId;
+var today = new Date();
+$scope.courseAllocate.date = today.toISOString();
+$scope.courseAllocate.companyId = $scope.companyId;
 $scope.courseAllocate.loggedusercrmid=$scope.loggedusercrmid;
+console.log($scope.courseAllocate);
 var fnAllocateUsersToCourseCallback=courseAllocateService.fnAllocateUsersToCourse($scope.courseAllocate);
 fnAllocateUsersToCourseCallback.then(function(data){
 	var result=angular.fromJson(JSON.parse(data.data));

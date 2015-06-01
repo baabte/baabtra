@@ -436,6 +436,16 @@
                 }
               })
 
+                .state('home.main.allocateCandidateToBatch', {
+                url: '/allocateCandidateToBatch/:courseId/:batchId',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/allocateCandidateToBatch/partials/Partial-allocateCandidateToBatch.html',
+                    controller: 'AllocatecandidatetobatchCtrl'
+                  }
+                }
+              })
+
                 .state('home.main.viewOrderFormByCourse', {
                 url: '/viewOrderFormByCourse/:key',
                 views:{
@@ -930,7 +940,7 @@
                 controller:'CompanycourselistCtrl'
               })
                .state('courseUserRegistration', {
-                url: '/courseUserRegistration/:companyId/:formId',
+                url: '/courseUserRegistration/:courseId/:formId',
                 templateUrl: 'angularModules/common/formLoader/partials/Partial-formLoader.html',
                 controller:'FormloaderCtrl'
               })

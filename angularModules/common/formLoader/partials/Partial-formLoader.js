@@ -1,11 +1,13 @@
-angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'formLoader', 'userRegistrationService',function ($scope, $state ,formLoader, userRegistrationService){
+angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'formLoader', 'userRegistrationService', 'addCourseService', 'nomination', function ($scope, $state ,formLoader, userRegistrationService, addCourseService, nomination){
 
 	$scope.data = {};
-	var LoadCustomForm = formLoader.LoadCustomFormforRegistration($state.params.companyId, $state.params.formId);
+	var courseDetails = {};
+	var LoadCustomForm = formLoader.LoadCustomFormforRegistration($state.params.formId);
 	LoadCustomForm.then(function(response){
 		var result = angular.fromJson(JSON.parse(response.data));
 		if(Object.keys(result).length){
-			$scope.data.form = result;
+			$scope.data.companyId = result.companyId.$oid;
+			$scope.data.form = result.form;
 			$scope.data.formSteps = Object.keys($scope.data.form);
 			$scope.data.currentStepIndex = 0;
 			$scope.data.currentStep = $scope.data.formSteps[$scope.data.currentStepIndex];
@@ -13,6 +15,49 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 			$scope.data.formOut = {};
 		}
 	});
+
+	var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $state.params.courseId);
+		courseLoadResponse.then(function(course){
+	    	
+	    	$scope.data.course = angular.fromJson(JSON.parse(course.data)).courseDetails;
+	    	$scope.data.orderForm = {};
+			var time=(new Date()).valueOf();
+			hashids = new Hashids("this is a order form id");
+			var orderFormId = 'OF-' + hashids.encode(time);
+			var orderFormData = {};
+
+	    	$scope.data.orderForm.draftFlag = 1;
+			$scope.data.orderForm.orderFormId = orderFormId;
+			$scope.data.orderForm.orderDetails = [];
+			$scope.data.orderForm.companyId =$scope.data.course.companyId.$oid;
+
+			
+
+	    	courseDetails.courseId = $scope.data.course._id.$oid;
+
+	    	courseDetails.Name = $scope.data.course.Name;
+	    	courseDetails.PendingApprovalCount=1;
+			courseDetails.VerifiedCount=0;
+			courseDetails.PaidCount=0;
+			courseDetails.ApprovedCount=0;
+			courseDetails.RejectedCount=0;
+			courseDetails.Resubmit=0;
+
+	    	if(!$scope.data.course.Fees.free){
+	    		courseDetails.currency = $scope.data.course.Fees.currency.currency;
+	    		courseDetails.coursePrice = $scope.data.course.Fees.totalAmount;
+	    	}
+	    	else{
+	    		courseDetails.coursePrice = "free";
+	    		courseDetails.currency="free";
+	    	}
+	    	
+
+	    	courseDetails.userCount = 1;
+
+	    	courseDetails.userInfo = [];
+	    	console.log(courseDetails);
+	    })
 
 	$scope.nextStep = function(){
 		$scope.data.currentStepIndex = $scope.data.formSteps.indexOf($scope.data.currentStep) + 1;
@@ -35,23 +80,59 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 		
 		var userDetails = {};
 		userDetails.role = {roleId:3};
-		userDetails.companyId = $state.params.companyId;
+
+		userDetails.companyId = $scope.data.companyId;
+
+		userDetails.course = {};
+		userDetails.course._id = $state.params.courseId;
+		userDetails.coursetype = "instructorLead";
+		userDetails.materialAssignment = "automatic";
+		userDetails.doj = new Date();
 
 		var output = {};
 		for(var step in $scope.data.formOut){
 			
 		output = jsonConcat(output, $scope.data.formOut[step]);
 		}
-		var mandatoryData = output;
 
-		userDetails.mandatoryData = mandatoryData;
 		
+		output.satus = "Enrolled"
+		output.statusHistory = [{
+                            "statusChangedOn" : Date(),
+                            "previousStatus" : "Pending Approval",
+                            "statusChangedby" : "54978cc57525614f6e3e7109",
+                            "statusChangedTo" : "Verified"},
+                            {"statusChangedOn" : Date(),
+                            "previousStatus" : "Verified",
+                            "statusChangedby" : "54978cc57525614f6e3e7109",
+                            "statusChangedTo" : "Approved"},
+                            {"statusChangedOn" : Date(),
+                            "previousStatus" : "Approved",
+                            "statusChangedby" : "54978cc57525614f6e3e7109",
+                            "statusChangedTo" : "Paid"},{
+                            "statusChangedOn" : Date(),
+                            "previousStatus" : "Approved",
+                            "statusChangedby" : "54978cc57525614f6e3e7109",
+                            "statusChangedTo" : "Enrolled"
+                        	}];
+		userDetails.mandatoryData = output;
+
 		var fnRegisterUserCallBack = userRegistrationService.FnRegisterUser(userDetails);
 
 		fnRegisterUserCallBack.then(function(data){
-			var result=angular.fromJson(JSON.parse(data.data));
-			console.log(userDetails);
-			console.log(result);
+			
+			var result = angular.fromJson(JSON.parse(data.data));
+			courseDetails.userInfo.push(output);
+			$scope.data.orderForm.orderDetails.push(courseDetails);
+			$scope.data.orderForm.requesteeDetails = output;
+			$scope.data.orderForm.requesteeDetails.type = 'individual'
+
+			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, "5562fe9394214e36a96600e5");
+			nomintaionResponse.then(function(response){
+				alert("success");
+			})
+			
+
 		})
 	};
 
