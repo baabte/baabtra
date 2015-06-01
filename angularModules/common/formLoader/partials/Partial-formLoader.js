@@ -2,20 +2,22 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 
 	$scope.data = {};
 	var courseDetails = {};
-	var LoadCustomForm = formLoader.LoadCustomFormforRegistration($state.params.formId);
-	LoadCustomForm.then(function(response){
-		var result = angular.fromJson(JSON.parse(response.data));
-		console.log(result);
-		if(Object.keys(result).length){
-			$scope.data.companyId = result.companyId.$oid;
-			$scope.data.form = result.form;
-			$scope.data.formSteps = Object.keys($scope.data.form);
-			$scope.data.currentStepIndex = 0;
-			$scope.data.currentStep = $scope.data.formSteps[$scope.data.currentStepIndex];
-			$scope.data.width = 100/$scope.data.formSteps.length;
-			$scope.data.formOut = {};
-		}
-	});
+	
+	function loadFormDetails(companyId){
+		var LoadCustomForm = formLoader.LoadCustomFormforRegistration(companyId, 'User test registration');
+		LoadCustomForm.then(function(response){
+				var result = angular.fromJson(JSON.parse(response.data));
+				if(Object.keys(result).length){
+					$scope.data.companyId = result.companyId.$oid;
+					$scope.data.form = result.form;
+					$scope.data.formSteps = Object.keys($scope.data.form);
+					$scope.data.currentStepIndex = 0;
+					$scope.data.currentStep = $scope.data.formSteps[$scope.data.currentStepIndex];
+					$scope.data.width = 100/$scope.data.formSteps.length;
+					$scope.data.formOut = {};
+				}
+			});	
+	}
 
 	var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $state.params.courseId);
 		courseLoadResponse.then(function(course){
@@ -30,9 +32,10 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 	    	$scope.data.orderForm.draftFlag = 1;
 			$scope.data.orderForm.orderFormId = orderFormId;
 			$scope.data.orderForm.orderDetails = [];
-			$scope.data.orderForm.companyId =$scope.data.course.companyId.$oid;
-
+			$scope.data.orderForm.companyId = $scope.data.course.companyId.$oid;
+			$scope.data.orderForm.registrationType = "API";
 			
+			loadFormDetails($scope.data.orderForm.companyId);
 
 	    	courseDetails.courseId = $scope.data.course._id.$oid;
 
@@ -57,7 +60,6 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 	    	courseDetails.userCount = 1;
 
 	    	courseDetails.userInfo = [];
-	    	console.log(courseDetails);
 	    })
 
 	$scope.nextStep = function(){
