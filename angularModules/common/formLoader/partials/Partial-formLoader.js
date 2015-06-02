@@ -133,6 +133,7 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, "5562fe9394214e36a96600e5");
 			nomintaionResponse.then(function(response){
 				$alert({title: 'Done..!', content: 'You Have Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
+				$state.go('login');
 			})
 			
 
