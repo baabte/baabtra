@@ -185,33 +185,13 @@ $scope.CalctotalCount=function(ArrayVar)
 
 }
 ///////////////////////////////////////////////////////////////////
-function firstDayOfWeek(week, year,type) {
-
-    var date       = firstWeekOfYear(year,type),
-        weekTime   = weeksToMilliseconds(week),
-        targetTime = weekTime + date.getTime();
-
-    return date.setTime(targetTime);
-
-}
 
 
 function weeksToMilliseconds(weeks) {
     return 1000 * 60 * 60 * 24 * 7 * (weeks - 1);
-}
+};
 
-function firstWeekOfYear(year,type) {
-    var date = new Date();
-    date = firstDayOfYear(date,year);
-    if(type=='first'){
-      date = firstWeekday(date);
-    }
-    else{
-      date = LastWeekday(date);
-    }
-    
-    return date;
-}
+
 
 function firstDayOfYear(date, year) {
     date.setYear(year);
@@ -222,7 +202,8 @@ function firstDayOfYear(date, year) {
     date.setSeconds(0);
     date.setMilliseconds(0);
     return date;
-}
+};
+
 
 function firstWeekday(date) {
     
@@ -237,7 +218,7 @@ function firstWeekday(date) {
     }
     
     return date;
-}
+};
 
 function LastWeekday(date) {
     
@@ -252,7 +233,33 @@ function LastWeekday(date) {
     }
     
     return date;
-}
+};
+
+function firstWeekOfYear(year,type) {
+    var date = new Date();
+    date = firstDayOfYear(date,year);
+    if(type=='first'){
+      date = firstWeekday(date);
+    }
+    else{
+      date = LastWeekday(date);
+    }
+    
+    return date;
+};
+
+
+function firstDayOfWeek(week, year,type) {
+
+    var date       = firstWeekOfYear(year,type),
+        weekTime   = weeksToMilliseconds(week),
+        targetTime = weekTime + date.getTime();
+
+    return date.setTime(targetTime);
+
+};
+
+
 
 function getISOWeeks(y) {
     var d,
@@ -264,7 +271,7 @@ function getISOWeeks(y) {
     //check for a Jan 1 that's a Thursday or a leap year that has a 
     //Wednesday jan 1. Otherwise it's 52
     return d.getDay() === 4 || isLeap && d.getDay() === 3 ? 53 : 52
-}
+};
 
 $scope.changeChartType=function(chart){
   if(chart=='Bar'||chart=='Radar'||chart=='Line'){
