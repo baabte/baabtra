@@ -940,7 +940,7 @@
                 controller:'CompanycourselistCtrl'
               })
                .state('courseUserRegistration', {
-                url: '/courseUserRegistration/:courseId/:formId',
+                url: '/courseUserRegistration/:courseId',
                 templateUrl: 'angularModules/common/formLoader/partials/Partial-formLoader.html',
                 controller:'FormloaderCtrl'
               })
