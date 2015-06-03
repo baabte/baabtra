@@ -4,7 +4,7 @@ if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       $rootScope.hide_when_root_empty=true;
       commonService.GetUserCredentials($scope);
 }
-if($rootScope.loggedIn==false){
+if(angular.equals($rootScope.loggedIn,false)){
   $state.go('login');
 }
 $scope.notfoundCourse=true;
@@ -12,7 +12,7 @@ $scope.showNavMenu=false;
 $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 //if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId==2){
 	$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-	PublishedCourse.loadPublishedCourses($scope,'','','','','course');
+	PublishedCourse.loadPublishedCourses($scope,'','','','',$state.params.key);
 //}
 
 
@@ -32,7 +32,7 @@ globalValuesResponse.then(function(data){
   });
   $scope.technologies = $scope.globalValues.technologies;
   $scope.taggs = $scope.globalValues.tags;
-  $scope.Designation =$scope.globalValues.Designation
+  $scope.Designation =$scope.globalValues.Designation;
 
 });
 
@@ -88,9 +88,9 @@ $scope.cmp_id=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid
 
 $scope.navigateToCourse = function( courseId ){
     $state.go('home.main.viewCourse',{id:courseId});
-}
-$scope.editCourse = function(courseId, type){
+};
 
+$scope.editCourse = function(courseId, type){
   if(angular.equals(type, undefined)){
     type = 'course';
   }
@@ -139,7 +139,7 @@ $scope.data.courseDropdown = [
   },
   {
     "text": "<i class=\"fa fa-fw fa-edit\"></i>&nbsp;Edit course",
-    "click": "this.editCourse(course._id.$oid);"
+    "click": "this.editCourse(course._id.$oid, course.type);"
   },
   {
     "text": "<i class=\"fa fa-fw fa-copy\"></i>&nbsp;Duplicate course",
@@ -170,10 +170,10 @@ $scope.prevOne=function(){//event  for showing previous 12 items
    
    PublishedCourse.loadPublishedCourses($scope,'',$scope.publishedCourses.lastId.$oid,'prev',$scope.publishedCourses.firstId.$oid,'course');
   
-}
+};
 
 $scope.viewCourseDetails = function(courseId){
 	$state.go("home.main.course",{courseId:courseId});
-}
+};
 
 }]);

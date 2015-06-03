@@ -416,7 +416,7 @@
                 }
               })
                 .state('home.main.PublishedCourse', {
-                url: '/PublishedCourse',
+                url: '/PublishedCourse/:key',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/course/partials/Partial-PublishedCourse.html',
