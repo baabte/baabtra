@@ -6,7 +6,12 @@ if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
 }
 var courses = candidateCourseView.loadCoursesForCandidates($rootScope.userinfo.userLoginId);
 	courses.then(function (data) {
-		$scope.courses = angular.fromJson(JSON.parse(data.data));
+		if(angular.fromJson(JSON.parse(data.data)).length){
+			$scope.courses = angular.fromJson(JSON.parse(data.data));
+		}else{
+			$scope.courses = {};
+		}
+		
 });
 
 $scope.navigateToDetails=function(courseId){
