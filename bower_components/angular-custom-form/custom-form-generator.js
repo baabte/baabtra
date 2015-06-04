@@ -108,8 +108,6 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
       //$scope.fields=[];
       $scope.customFieldId=0;
       $scope.currentTab='';
-console.log("----------");
-console.log($scope.fields);
     //***validation patters ***
     $scope.validationPatterns=[
       {'name':'None','value': undefined},
@@ -241,10 +239,13 @@ console.log($scope.fields);
           var formLabel='<div class="form-group"><div class="col-lg-12">';
 
           //loping through custom attributes to add it into default template
-          angular.forEach(item.customAttributes,function(cutsomAtt){
-            beforeCustom[0] = beforeCustom[0] + ' '+ customAtt.key +'=\"'+customAtt.text+'\"';
-          });
-
+          
+          if(!angular.equals(item.customAttributes, undefined)){
+            for(customAtt in item.customAttributes){
+              console.log(item.customAttributes[customAtt]);
+              beforeCustom[0] = beforeCustom[0] + ' '+ item.customAttributes[customAtt].key +(item.customAttributes[customAtt].text.length?item.customAttributes[customAtt].text:'');
+            }
+          }
           //loping through mandatory Attributes to add it into default template
           angular.forEach(item.mandatoryAttributes,function(mandAtt){
             if(angular.equals(mandAtt.key,'ng-model')){

@@ -10,4 +10,14 @@ angular.module('baabtra').service('formLoader', ['$http','$upload','bbConfig',fu
 		return promise;
 	};
 
+	this.CustomFormUserRegistration=function(orderObject, rmId){
+		var promise = $http({
+			method: 'post',
+			url: bbConfig.BWS+'CustomFormUserRegistration/',
+			data:{orderObject:orderObject, rmId:rmId},
+			contentType:'application/json; charset=UTF-8',
+		});
+		return promise;
+	};
+
 }]);

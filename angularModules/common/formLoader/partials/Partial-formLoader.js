@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'formLoader', 'userRegistrationService', 'addCourseService', 'nomination', '$alert', function ($scope, $state ,formLoader, userRegistrationService, addCourseService, nomination, $alert){
+angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'formLoader', 'userRegistrationService', 'addCourseService', 'nomination', '$alert', 'courseAllocateService',function ($scope, $state ,formLoader, userRegistrationService, addCourseService, nomination, $alert, courseAllocateService){
 
 	$scope.data = {};
 	var courseDetails = {};
@@ -120,24 +120,26 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
                         	}];
 		userDetails.mandatoryData = output;
 
-		var fnRegisterUserCallBack = userRegistrationService.FnRegisterUser(userDetails);
+		courseDetails.userInfo.push(output);
+		$scope.data.orderForm.orderDetails.push(courseDetails);
+		$scope.data.orderForm.requesteeDetails = output;
+		$scope.data.orderForm.requesteeDetails.type = 'individual'
 
-		fnRegisterUserCallBack.then(function(data){
-			
-			var result = angular.fromJson(JSON.parse(data.data));
-			courseDetails.userInfo.push(output);
-			$scope.data.orderForm.orderDetails.push(courseDetails);
-			$scope.data.orderForm.requesteeDetails = output;
-			$scope.data.orderForm.requesteeDetails.type = 'individual'
-
-			var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, "5562fe9394214e36a96600e5");
+			var nomintaionResponse = formLoader.CustomFormUserRegistration($scope.data.orderForm, "5562fe9394214e36a96600e5");
 			nomintaionResponse.then(function(response){
-				$alert({title: 'Done..!', content: 'You Have Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
-				$state.go('login');
+					$alert({title: 'Done..!', content: 'You Have Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
+					$state.go('login');	
 			})
+
+		// var fnRegisterUserCallBack = userRegistrationService.FnRegisterUser(userDetails);
+		//
+		// fnRegisterUserCallBack.then(function(data){
+			
+		// 	var result = angular.fromJson(JSON.parse(data.data));
+			
 			
 
-		})
+		// })
 	};
 
 }]);

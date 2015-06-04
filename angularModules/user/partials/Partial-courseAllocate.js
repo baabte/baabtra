@@ -99,7 +99,6 @@ $scope.fnUserRemove=function(userobj){
 
 	var user=angular.copy(userobj);
 	var index=user.index;
-	console.log($scope.userObj.userList.indexOf(user));
 	// if(angular.equals($scope.userObj.userList.indexOf(user),-1)){
 		$scope.userObj.userList.splice(index,0,user);	
 	// }
@@ -140,7 +139,6 @@ var today = new Date();
 $scope.courseAllocate.date = today.toISOString();
 $scope.courseAllocate.companyId = $scope.companyId;
 $scope.courseAllocate.loggedusercrmid=$scope.loggedusercrmid;
-console.log($scope.courseAllocate);
 var fnAllocateUsersToCourseCallback=courseAllocateService.fnAllocateUsersToCourse($scope.courseAllocate);
 fnAllocateUsersToCourseCallback.then(function(data){
 	var result=angular.fromJson(JSON.parse(data.data));

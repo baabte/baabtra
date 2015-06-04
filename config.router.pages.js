@@ -416,7 +416,7 @@
                 }
               })
                 .state('home.main.PublishedCourse', {
-                url: '/PublishedCourse',
+                url: '/PublishedCourse/:key',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/course/partials/Partial-PublishedCourse.html',
@@ -940,7 +940,7 @@
                 controller:'CompanycourselistCtrl'
               })
                .state('courseUserRegistration', {
-                url: '/courseUserRegistration/:courseId/:formId',
+                url: '/courseUserRegistration/:courseId',
                 templateUrl: 'angularModules/common/formLoader/partials/Partial-formLoader.html',
                 controller:'FormloaderCtrl'
               })
