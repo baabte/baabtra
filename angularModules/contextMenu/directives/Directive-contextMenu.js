@@ -27,7 +27,7 @@ angular.module('baabtra')
             top: (event.pageY/2.1)-130+'px'
         });
 
-      $scope.ExistingMaterials=angular.copy($scope.$parent.$parent.$parent.$parent.$parent.ExistingMaterials);
+      // $scope.ExistingMaterials=angular.copy($scope.$parent.$parent.$parent.$parent.$parent.ExistingMaterials);
       // $scope.ExistingMaterials.searchTextCourse='';
       // $scope.ExistingMaterials.searchTextMaterial='';
       $scope.status={};
@@ -336,7 +336,7 @@ angular.module('baabtra')
                 var $a1 = $('<a>');
 
                 $a1.addClass('context-menu-icon');
-                $a1.attr({ tabindex: '-1', href: '#' });
+                $a1.attr({ tabindex: '-1'});
                 var $i1 = $('<i>');
                 $i1.addClass('fa text-lt text-lg pull-left m-r-xs ');
                 $a1.append($i1);
@@ -346,6 +346,16 @@ angular.module('baabtra')
                 $a1.append($span1);
 
                   $footerA.on('click', function ($event) {
+
+                     var promiseExistingMaterials=addCourseService.getExistingMaterials($scope.$parent.$parent.$parent.$parent.$parent.cmp_id); // fetching exsisting course Material
+        
+                      promiseExistingMaterials.then(function(data){
+
+                         $scope.ExistingMaterials = angular.fromJson(JSON.parse(data.data));
+                     $modal({scope: $scope, template:'angularModules/contextMenu/partials/course-material-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+
+                      });
+
                     $event.preventDefault();
                     $scope.randomKey=Math.floor(Math.random()*1000,1000); // used to override some scope errors due to duplication
                     $scope.$parent.formData[$scope.instance]={};//used to save datas from timeline
@@ -355,26 +365,9 @@ angular.module('baabtra')
                     $scope.$apply(function () {
                          $(event.currentTarget).parent().parent().parent().parent().removeClass('context');
                          $contextMenu.remove();
-                         // $scope.item=item;
-                         // //taking template for form builder to take required inputs of 
-                         // //selected context menu
-                         // $scope.itemTemplate = item.courseElementTemplate;
-                         // //elements that comes under this element
-                         // $scope.subElements = item.nestableElements;
-                         // $scope.attendenceTrack=item.attendenceTrack;
-                         // if(angular.equals($scope.attendenceTrack,undefined)){
-                         //    $scope.attendenceTrack=false;
-                         // }
-                         // if(!angular.equals($scope.item.Name,"Payment_checkpoint")){
-                         // $scope.evaluator=angular.copy($scope.$parent.$parent.$parent.syncData.evaluator);
-                         // }
-                         // else{
-                         //   $scope.evaluator=[];
-                         // }
-
                 
 $scope.elementAddType = 0;
- $modal({scope: $scope, template:'angularModules/contextMenu/partials/course-material-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+ // $modal({scope: $scope, template:'angularModules/contextMenu/partials/course-material-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
                         //item.call($scope,$scope.$parent.tlpoint/$scope.ddlBindObject[$scope.selectedDuration-1].mFactor);
                      });
                 });
