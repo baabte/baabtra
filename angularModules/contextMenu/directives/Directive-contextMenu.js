@@ -39,13 +39,23 @@ angular.module('baabtra')
       $scope.searchText={};
       $scope.courseElements=[];
       $scope.selection=false;
+
+
       $scope.fnselectCourse =function(course){
-        $scope.selectedCourse=angular.copy(course);
+        if((!course.courseTimeline)||(!course.syllabus)){
+        var promiseExistingMaterials=addCourseService.getExistingMaterials(course._id.$oid); // fetching exsisting course Material
+                      promiseExistingMaterials.then(function(data){
+                      $scope.selectedCourse=angular.fromJson(JSON.parse(data.data));
+                      course.courseTimeline=angular.copy($scope.selectedCourse.courseTimeline);
+                      course.syllabus=angular.copy($scope.selectedCourse.syllabus);
+        });
+        }else{
+           $scope.selectedCourse=angular.copy(course);
+        }
         $scope.selectedSyllabus.syllabus='';
         $scope.syllabusElements={};
         $scope.selectedElements=[];
         $scope.courseElements=[];
-
 
       };
 
@@ -132,7 +142,7 @@ angular.module('baabtra')
 
         obj[key]=courseElementvalue;
 
-         $scope.courseElements.push({courseId:$scope.$parent.courseId,courseElement:obj})
+         $scope.courseElements.push({courseId:$scope.$parent.courseId,courseElement:obj});
          
          }
 
@@ -347,11 +357,19 @@ angular.module('baabtra')
 
                   $footerA.on('click', function ($event) {
 
-                     var promiseExistingMaterials=addCourseService.getExistingMaterials($scope.$parent.$parent.$parent.$parent.$parent.cmp_id); // fetching exsisting course Material
+                     // var promiseExistingMaterials=addCourseService.getExistingMaterials($scope.$parent.$parent.$parent.$parent.$parent.cmp_id); // fetching exsisting course Material
         
-                      promiseExistingMaterials.then(function(data){
+                     //  promiseExistingMaterials.then(function(data){
 
-                         $scope.ExistingMaterials = angular.fromJson(JSON.parse(data.data));
+                     //     $scope.ExistingMaterials = angular.fromJson(JSON.parse(data.data));
+                     // $modal({scope: $scope, template:'angularModules/contextMenu/partials/course-material-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
+
+                     //  });
+
+                    var promiseGetCourses=addCourseService.getCourses($scope.$parent.$parent.$parent.$parent.$parent.cmp_id); // fetching exsisting course Material
+        
+                      promiseGetCourses.then(function(data){
+                         $scope.Courses = angular.fromJson(JSON.parse(data.data));
                      $modal({scope: $scope, template:'angularModules/contextMenu/partials/course-material-popup.html', placement:"top", animation:"am-slide-top aside-open-backdrop", html:true});
 
                       });

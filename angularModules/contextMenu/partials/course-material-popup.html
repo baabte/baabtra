@@ -13,19 +13,19 @@
 
       <div class="modal-body no-padding ">
 
-        <div class="col-xs-3 b-r" >
+        <div class="col-md-3 col-xs-12  b-r" >
           <div class="navbar-header col-xs-3">
             <h4 class="font-bold" >Courses</h4>
           </div>
 
           <div class="navbar-collapse collapse navbar-inverse-collapse">
             <form class="navbar-form  navbar-left col-xs-8">
-                <input type="text" class="form-control" ng-model="ExistingMaterials.searchTextCourse" placeholder="Search">
+                <input type="text" class="form-control" ng-model="Courses.searchTextCourse" placeholder="Search">
             </form>               
           </div>
 
-          <div class="list-group" style=" height:410px; overflow-x:hidden;">
-            <div ng-repeat="course in ExistingMaterials|filter:ExistingMaterials.searchTextCourse |orderBy:'-draftFlag'">                 
+          <div class="list-group" style=" height:405px; overflow-x:hidden;">
+            <div ng-repeat="course in Courses|filter:Courses.searchTextCourse |orderBy:'-draftFlag'">                 
               <a href ng-click="fnselectCourse(course);status.formCourse = $index" bs-tooltip data-title="click to see Elements"  class="list-group-item " >{{course.Name}}
                 <i ng-show="status.formCourse==$index" class="pull-right fa fa-check-circle text-primary"></i></br>
                 <span ng-if="course.draftFlag==1" class="label label-success ">Published</span>
@@ -36,7 +36,7 @@
           </div>  
         </div> 
 
-        <div class=" col-xs-5 b-r"  >           
+        <div class=" col-md-5 col-xs-12 b-r"  >           
           <!-- <div class="navbar-header col-xs-3">
           </div> -->
 
@@ -44,7 +44,7 @@
             <h4 class="font-bold" >Course Syllabus</h4>    
           </div>
 
-          <div  style=" height:410px; overflow-x:hidden;">
+          <div  style=" height:405px; overflow-x:hidden;">
            
             <!-- {{selectedCourse.syllabus}} -->
             <div ng-if="selectedCourse.syllabus" data-angular-treeview="true" data-tree-id="syllabusTree" data-tree-model="selectedCourse.syllabus" data-node-output="selectedSyllabus.syllabus" data-tree-mode="add" data-node-edit="false" data-node-id="nodeId" data-node-label="name" data-node-children="children" ></div>
@@ -53,7 +53,7 @@
           </div> 
         </div>
 
-        <div class=" col-xs-4 b-r"  >           
+        <div class=" col-md-4 col-xs-12 b-r"  >           
           <!-- <div class="navbar-header col-xs-3">
           </div> -->
 
@@ -66,7 +66,7 @@
             </span> 
           </div>
 
-          <div  style=" height:410px; overflow-x:hidden;">
+          <div  style=" height:405px; overflow-x:hidden;">
 
 
             <div ng-if="syllabusElements.length==0" class="p shadow-z-1 col-xs-12 btn-material-red-500">
