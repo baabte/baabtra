@@ -138,10 +138,19 @@ this.fnFetchCourseList = function (courseFetchData){ // this function load compl
 };
 
 
-this.getExistingMaterials = function(companyId){
+this.getExistingMaterials = function(courseId){
 	var promise = $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'ExistingMaterials/',
+	    data:{courseId:courseId}
+	 });
+	return promise;
+};
+
+this.getCourses = function(companyId){
+	var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'GetCourses/',
 	    data:{companyId:companyId}
 	 });
 	return promise;

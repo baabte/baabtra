@@ -42,7 +42,7 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
       }
 
       
-    }
+    };
    $scope.repeatArrays=[{id:0,text:'Daily',totalDays:1},{id:1,text:'Weekly',totalDays:7},{id:2,text:'Monthly',totalDays:30},{id:3,text:'Yearly',totalDays:365}];  
    $scope.repeatEvery=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
    $scope.repeatTypeArray=[{id:0,text:'Days'},{id:1,text:'Weeks'},{id:2,text:'Months'},{id:3,text:'Years'}];
@@ -54,7 +54,7 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
     //console.log( $scope.Batch.repeats.repeatTypeName);
     //console.log($scope.repeatArrays[id].totalDays);
     $scope.totalDays=$scope.repeatArrays[id].totalDays;
-   } 
+   }; 
    //$scope.saveRepeatfn=function(hide){
    // hide();
   // }
@@ -65,11 +65,11 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
       $scope.batchMode="repeat";
       $scope.excluded=$scope.excluded.substring(0, $scope.excluded.length - 1);
    $scope.summary ='(Repeats Every '+ $scope.Batch.repeats.every +' '+ $scope.Batch.repeats.repeatType;
-   if($scope.excluded!=""){
+   if($scope.excluded!==""){
     $scope.summary=$scope.summary+ ' ,Dont start on '+$scope.excluded+')';
    }
    hide();
-   }
+   };
    $scope.saveBatch=function(){//for saving the Batch
     $scope.Batch.crmId = $scope.rm_id;
     $scope.Batch.companyId =  $scope.cmp_id;
@@ -108,18 +108,24 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
     $scope.Batch.Admission.afterDaysCount=365;
    } 
    $scope.Batch.Admission.afterDaysCount=parseInt($scope.Batch.Admission.onAfter)*$scope.Batch.Admission.afterDaysCount;
-      //var time=(new Date()).valueOf();
-        // hashids = new Hashids("this is a batch id");
-         // $scope.Batch.batchCode = hashids.encode(time);  
+      $scope.Batch.Codes=[];
+
+      for(var index in $scope.Batch.course){
+         var time=(new Date()).valueOf();
+      var hashids = new Hashids("this is a batch id "+index);
+      $scope.Batch.Codes.push(hashids.encode(time));
+      }
+
    var promise=addBatches.addNewBatches($scope.Batch,$scope.buttonType);
    promise.then(function(response){
-    if(response.data)
+    if(response.data){
       if($scope.buttonType=="Update Batch"){
         $alert({title: 'Done..!', content: 'Successfuly updated the Batch :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
         $scope.buttonType="Add Batch";
         $scope.summary=null; 
       }else{
         $alert({title: 'Done..!', content: 'Successfuly added the Batch :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
+      }
       }   
          //$scope.Batch.oneTime={};
          
@@ -135,7 +141,7 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
          //$scope.newCourse={};
          
    });
-   }
+   };
    $scope.Batch.repeats.excludedDaysRepeat=[];
    $scope.excluded='';
    $scope.fnExcludedDays=function(id){
@@ -149,7 +155,7 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
         }
    
     //console.log( $scope.Batch.repeats.excludedDaysRepeat)
-   }      
+   };      
    //$scope.Batch.oneTime.excludedDaysOnetime=[];
    /*$scope.fnexcludeDaysOneTime=function(id){
     var idsel=$scope.Batch.oneTime.excludedDaysOnetime.indexOf(id);
@@ -168,10 +174,10 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
        //$scope.totalClicks=$scope.totalClicks+1;
 
       });  
-  } 
+  }; 
   $scope.fnCalcDays = function(num){
    $scope.Batch.repeats.repeatsAfter=parseInt(num)* parseInt($scope.totalDays);
-  }
+  };
  
   
   $scope.fnEditBatches=function(id){
@@ -207,21 +213,21 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
          $scope.buttonType="Update Batch";  
       });
     
-  }
+  };
   $scope.fnDeleteBatches=function(id){
    var deletedBatch= addBatches.deleteBatch(id,$scope.cmp_id);
    deletedBatch.then(function(response){
     $scope.batchEelements=angular.fromJson(JSON.parse(response.data));
     $alert({title: 'Done..!', content: 'Successfuly Deleted the Batch :-)', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'success', show: true});
-         hide();
+         // hide();
 
    });
 
-  }
+  };
   $scope.fnLoadMoreOptions =function(id){
       $scope.batchId=id;
 
-      var existingCourses= addBatches.loadExistingCoursesUnderBatch($scope.batchId)
+      var existingCourses= addBatches.loadExistingCoursesUnderBatch($scope.batchId);
         existingCourses.then(function(response){
         $scope.existingCourses=angular.fromJson(JSON.parse(response.data));
         //console.log($scope.existingCourses[0]) 
@@ -229,7 +235,7 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
       $modal({scope: $scope, template: 'angularModules/Batches/partials/partial-popUpOptions.html',
           show: true
          });
-  }
+  };
   $scope.addCoursestoBatch=function(hide){//updating the batch details
     // console.log($scope.existingCourses[0]); 
      //console.log($scope.Batch.newCourse);
@@ -249,13 +255,13 @@ angular.module('baabtra').controller('ManagebatchesCtrl',['$scope','$modal','bbC
          hide();
     
     });
-  }
+  };
 
   $scope.fnRemoveCourse=function(index){//fn for  remove the selected item 
     //var index = $scope.existingCourses[0].course.indexOf(id);
     $scope.existingCourses[0].course.splice(index, 1);
     //console.log($scope.existingCourses[0].course);
-  }
+  };
 $scope.resetBatch =function(){
   delete $scope.batchInfo[0];
   $scope.Batch={};  
@@ -263,11 +269,11 @@ $scope.resetBatch =function(){
   $scope.summary=null; 
    $scope.buttonType="Add Batch";
    $scope.excluded='';
-}
+};
 $scope.fnChangeMode=function(hide){
   hide();
   $scope.Batch.batchMode="onetime";
-}
+};
  $scope.batchDropdown = [
   {
     "text": "<i class=\"fa fa-plus-square-o \" ></i>&nbsp;Add Courses",
