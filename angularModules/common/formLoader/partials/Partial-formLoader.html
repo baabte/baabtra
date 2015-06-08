@@ -14,7 +14,7 @@
 
 				<a class="btn btn-success baab-btn" style="line-height: 14px;" ng-if="data.currentStepIndex > 0" ng-click="previousStep()">Previous</a>
 				<a class="btn btn-success baab-btn" style="line-height: 14px;" ng-if="data.currentStepIndex != data.formSteps.length-1" ng-disabled="msform.$invalid" disabled="disabled" ng-click="nextStep()">Next</a>
-				<a class="btn btn-success baab-btn" ng-if="data.currentStepIndex == data.formSteps.length-1" style="line-height: 14px;" ng-disabled="msform.$invalid" disabled="disabled" ng-click="submitUserDetails()">Submit</a>
+				<a class="btn btn-success baab-btn" ng-if="data.currentStepIndex == data.formSteps.length-1" style="line-height: 14px;" ng-disabled="msform.$invalid || data.registerButtonClicked" disabled="disabled" ng-click="submitUserDetails()">Submit</a>
 			</fieldset>
 		</form>
 	</div>

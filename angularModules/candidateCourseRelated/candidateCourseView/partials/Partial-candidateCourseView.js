@@ -18,7 +18,10 @@ angular.module('baabtra').controller('viewCandidateCourseCtrl',
 		 $scope.totalMark=0;
 		 $scope.markScored=0;
 
+		 $scope.getElementClicked = false;
+
 		 $scope.getElement=function (direction) {
+		 	$scope.getElementClicked = true;
 		 	var gotCurrentElement=CCFV.getCurrentElement(userLoginId,courseMappingId,direction);
 		    gotCurrentElement.then(function (data) {
 		    	
@@ -44,6 +47,8 @@ angular.module('baabtra').controller('viewCandidateCourseCtrl',
 		 		$scope.lastElement=dataElement.lastElement;
 		 		$scope.totalMark=dataElement.totalMark;
 				$scope.markScored=dataElement.markScored;
+				$scope.getElementClicked = false;
+
 		    });
 		 };
 
