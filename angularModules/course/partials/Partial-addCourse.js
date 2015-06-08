@@ -416,12 +416,7 @@ $scope.fnTotalFeeChanged = function(){// this function trigers, when user change
 
 // *********************** STEP 3 .Start ***********************************
  
-        var promiseExistingMaterials=addCourseService.getExistingMaterials($scope.cmp_id); // fetching exsisting course Material
-        
-        promiseExistingMaterials.then(function(data){
-
-           $scope.ExistingMaterials = angular.fromJson(JSON.parse(data.data));
-        });
+       
 
 $scope.completeStep4 = function(){
   delete $scope.course._id;

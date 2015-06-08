@@ -77,4 +77,13 @@ angular.module('baabtra').service('viewBatches',['bbConfig','$http',function(bbC
 	return promise;
 	};
 
+	this.ChangeBatchStatus = function(courseBatchMappingId,status,companyId,rmId){
+		var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'ChangeBatchStatus/',
+	    data:{"courseBatchMappingId":courseBatchMappingId,"status":status,"companyId":companyId,"rmId":rmId}
+	 });
+	return promise;
+	};
+
 }]);

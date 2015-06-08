@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('batchView',['$filter','$state', function($filter,$state) {
+angular.module('baabtra').directive('batchView',['$filter','$state','$modal','viewBatches','$rootScope', function($filter,$state,$modal,viewBatches,$rootScope) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -10,6 +10,10 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 		},
 		templateUrl: 'angularModules/common/directives/Directive-batchView.html',
 		link: function(scope, element, attrs, fn) {
+			 var rmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+
+  			 var companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;//
+
 			scope.$watch('batch',function(){
 
 				scope.actions = [
@@ -42,6 +46,10 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 				{
 				"text": "<i class=\"fa fa-hand-o-up\"></i>&nbsp;Update attendance",
 				 "click": "fnEditAttendance()"
+				},
+				{
+				"text": "<i class=\"mdi-av-repeat\"></i>&nbsp;Change Status",
+				 "click": "changeStatus()"
 				}
 				];
 				
@@ -96,8 +104,35 @@ angular.module('baabtra').directive('batchView',['$filter','$state', function($f
 					scope[functionName]();
 				};
 
+				scope.changeStatus=function(){
+					console.log(scope.batch._id.$oid);
+					scope.statusChangeModalshowModal();
+				};
 
-				});
+				// Pre-fetch an external template populated with a custom scope
+	            var statusChangeModal = $modal({scope: scope, template: 'angularModules/common/directives/statusChange-popup.html', show: false,placement:'center'});
+	            // Show when some event occurs (use $promise property to ensure the template has been loaded)
+	           
+	            scope.statusChangeModalshowModal = function() {
+	              statusChangeModal.$promise.then(statusChangeModal.show);
+	            };
+
+	            if (scope.batch.status){
+	             scope.status=scope.batch.status;
+	            }
+
+	            scope.fnChangeStatus= function(status,$hide){
+	            	scope.disableButton=true;
+	            	var ChangeBatchStatusPromise=viewBatches.ChangeBatchStatus(scope.batch._id.$oid,status,companyId,rmid);
+	            	ChangeBatchStatusPromise.then(function(data){
+	            	 var response=angular.fromJson(JSON.parse(data.data));
+	            	 scope.batch.status=response.status;
+	            	 $hide();
+	            	});
+	            };
+
+
+			});
 
 
 		}
