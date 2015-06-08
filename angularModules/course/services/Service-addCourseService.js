@@ -174,5 +174,13 @@ this.saveExistingElement = function (courseElements){
 	 	return promise;
 
 	 };
+	this.moveCourseElement = function(moveObject){
+		var promise = $http({
+		 	method: 'POST',
+		    url: bbConfig.BWS+'moveCourseElement/',
+		    data:{moveObject:moveObject}
+		 });
+		return promise;
+	};
 
 }]);

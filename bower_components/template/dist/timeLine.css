@@ -231,7 +231,7 @@ margin-left: -100px;
 
 .timeline-outer-container::before{
   content: "";
-border-left: 1px #cccccc solid;
+border-left: 2px #BDBDBD solid;
 position: relative;
 left: 22px;
 top: -19px;
@@ -251,7 +251,6 @@ z-index: 0;
   overflow-x:hidden;
 }*/
 .timeline-outer-container:hover{
-  position: relative;
   /*overflow:visible;*/
   z-index: 1;
 }

@@ -1,6 +1,7 @@
 angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'formLoader', 'userRegistrationService', 'addCourseService', 'nomination', '$alert', 'courseAllocateService',function ($scope, $state ,formLoader, userRegistrationService, addCourseService, nomination, $alert, courseAllocateService){
 
 	$scope.data = {};
+	$scope.data.registerButtonClicked = false;
 	var courseDetails = {};
 	
 	function loadFormDetails(companyId){
@@ -80,6 +81,8 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 	}
 
 	$scope.submitUserDetails = function(){
+
+		$scope.data.registerButtonClicked = true;
 		
 		var userDetails = {};
 		userDetails.role = {roleId:3};
@@ -93,9 +96,8 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 		userDetails.doj = new Date();
 
 		var output = {};
-		for(var step in $scope.data.formOut){
-			
-		output = jsonConcat(output, $scope.data.formOut[step]);
+		for(var step in $scope.data.formOut){	
+			output = jsonConcat(output, $scope.data.formOut[step]);
 		}
 
 		
@@ -127,6 +129,7 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 
 			var nomintaionResponse = formLoader.CustomFormUserRegistration($scope.data.orderForm, "5562fe9394214e36a96600e5");
 			nomintaionResponse.then(function(response){
+					$scope.data.registerButtonClicked = false;
 					$alert({title: 'Done..!', content: 'You Have Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 					$state.go('login');	
 			})

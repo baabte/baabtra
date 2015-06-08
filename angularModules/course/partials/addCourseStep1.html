@@ -33,23 +33,43 @@
 
         <div class="row" >
           <div class="form-group" >
-
-            <div class="checkbox">
+            <!-- <label class="col-lg-2 control-label">Radios</label> -->
+            <div class="col-xs-12">
+                <div class="radio radio-primary">
+                    <label>
+                        <input type="radio" ng-model="course.Delivery" name="optionsRadios" id="optionsRadios1" value="Class room training" checked="">
+                        Class room training
+                    </label>
+                </div>
+                <div class="radio radio-primary">
+                    <label>
+                        <input type="radio" ng-model="course.Delivery" name="optionsRadios" id="optionsRadios2" value="Instructor led training">
+                        Instructor led training
+                    </label>
+                </div>
+                 <div class="radio radio-primary">
+                    <label>
+                        <input type="radio" ng-model="course.Delivery" name="optionsRadios" id="optionsRadios3" value="Instructor led training">
+                        Online training
+                    </label>
+                </div>
+            </div>
+            <!-- <div class="checkbox">
               <label>
 
                 <input type="checkbox" ng-model="course.Delivery.online" value="course.Delivery.online" checked>
                 <b class="font-normal" translate="{{'Online'|translate}}"></b>
               </label>
-            </div>
+            </div> 
 
             <div class="checkbox">
               <label>
                 <input type="checkbox" ng-model="course.Delivery.offline" value="course.Delivery.offline" checked>
                 <b class="font-normal" translate="{{'Offline'|translate}}"></b>
-                <!-- <span translate="{{'Offline'|translate}}"></span> -->
+               
               </label>
 
-            </div>        
+            </div>-->        
           <em class="text-muted text-E91E63" translate="{{'(Please specifiy  the mode of delivery of the course)'|translate}}"></em>
         </div>
       </div>

@@ -448,6 +448,37 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
 				});
             };
 
+            scope.moveCourseElement = function(element){
+            	scope.data.selectedElement = angular.copy(element);
+            	element.moveable = true;
+            	scope.data.moveable = true;
+            };
+            scope.moveTo = function(element, addType){
+            	
+            	if(element.moveable){
+	            	delete element.moveable;
+	            	scope.data.moveable = false;
+            	}
+            	else if(!angular.equals(addType, undefined)){
+            		if(angular.equals(addType,'new')){
+            			var elementTo = Math.ceil((element*(1/scope.ddlBindObject[scope.selectedDuration-1].mFactor))-1439) + '.' + scope.data.selectedElement.Name + '.0';
+	            		var elementFrom = scope.data.selectedElement.tlPointInMinute + '.' + scope.data.selectedElement.Name + '.' + scope.data.selectedElement.index;
+            		}
+            		else{
+	            		//[element.tlPointInMinute][element.Name][element.Name]
+	            		var elementTo = element.tlPointInMinute + '.' + element.Name + '.' + element.index;
+	            		var elementFrom = scope.data.selectedElement.tlPointInMinute + '.' + scope.data.selectedElement.Name + '.' + scope.data.selectedElement.index;
+            		}
+            		var moveObject = {courseId:scope.courseId, elementFrom:elementFrom, elementTo:elementTo, addType:addType};
+            		var courseElementMoveCallback = addCourseService.moveCourseElement(moveObject);
+            		courseElementMoveCallback.then(function(response){
+            			var course = angular.fromJson(JSON.parse(response.data));
+            			console.log(course);
+            		})
+            	}
+            	
+            }
+
 		}
 
 	};
