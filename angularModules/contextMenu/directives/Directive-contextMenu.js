@@ -15,6 +15,7 @@ angular.module('baabtra')
         //adding a class to the container of context menu
         $(event.currentTarget).parent().parent().parent().parent().addClass('context');
         var $contextMenu = $('<div id="tlContextMenu">');
+        //$contextMenu.attr({'ng-class':'{\'hide-dropdown\':true}'});
         $contextMenu.addClass('dropdown clearfix');
         $contextMenu.css({height:'0px !important'});
         var $ul = $('<ul>');

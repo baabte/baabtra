@@ -32,9 +32,9 @@
         <span class="label label-info pull-right" ng-if="PrevObj.evalStatus">{{PrevObj.evalStatus}}</span>
       
       </div>
-      <div  class="col-xs-push-1 col-md-push-2 col-md-8 col-xs-10 p shadow-z-1 bg-white btn-container">
-        <button style="position: absolute;left: -20px;"  class="btn btn-fab btn-fab-mini btn-raised btn-white am-fadeIn" ng-if="lastViewedOrder != 0" ng-click="getElement('previous')"><i class="mdi-navigation-chevron-left" style="  font-size: x-large;right: 6px;"></i></button>
-         <button style="  position: absolute;right: -20px;"  class="btn btn-fab btn-fab-mini btn-raised btn-white pull-right am-fadeIn" ng-if="!lastElement" ng-click="getElement('next')"><i class="mdi-navigation-chevron-right font-bold" style="font-size: x-large;right: 4px;" ></i></button>
+      <div  class="col-xs-push-1 col-md-push-2 col-md-8 col-xs-10 p shadow-z-1 bg-white ">
+        <button style="position: absolute;left: -20px;"  class="btn btn-fab btn-fab-mini btn-raised btn-white am-fadeIn" ng-disabled="(lastViewedOrder == 0) || getElementClicked" ng-click="getElement('previous')" ng-><i class="mdi-navigation-chevron-left" style="  font-size: x-large;right: 6px;"></i></button>
+         <button style="  position: absolute;right: -20px;"  class="btn btn-fab btn-fab-mini btn-raised btn-white pull-right am-fadeIn" ng-disabled="lastElement || getElementClicked" ng-click="getElement('next')"><i class="mdi-navigation-chevron-right font-bold" style="font-size: x-large;right: 4px;" ></i></button>
         <course-element-full-view course-id="courseId.$oid" preview-data="PrevObj"></course-element-full-view>
        
 

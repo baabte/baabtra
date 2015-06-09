@@ -187,6 +187,7 @@ border-radius: 3px;
   position: fixed!important;
 top: 45px;
 height: 66px;
+z-index: 1001;
 }
 /*padding for the main content to adjust the height of the fixed elements at the top and bottom*/
 .app-content
@@ -919,5 +920,7 @@ body {
 
 
 
-
+.hide-dropdown + .dropdown-menu{
+  display: none!important;
+}
   
