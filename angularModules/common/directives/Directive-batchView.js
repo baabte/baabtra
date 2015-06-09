@@ -117,19 +117,44 @@ angular.module('baabtra').directive('batchView',['$filter','$state','$modal','vi
 	              statusChangeModal.$promise.then(statusChangeModal.show);
 	            };
 
+	             scope.fnDate= function(date){
+	            	var isodatestring=new Date(date.$date).toISOString();
+	            	return isodatestring;
+
+	            };
+
 	            if (scope.batch.status){
 	             scope.status=scope.batch.status;
+
+	            }
+	            scope.date={};
+
+	            if (scope.batch.startDate){
+	            	scope.previousStartDate=scope.fnDate(scope.batch.startDate)
+	            	// scope.previousStartDateFormated='02/10/86';
+	            	// 02/10/86
+	            	scope.previousStartDateFormated={};
+	            	var date = new Date(scope.previousStartDate);
+					scope.previousStartDateFormated=(date.getMonth()+1)+'/'+date.getDate()+'/'+date.getFullYear();//prints expected format.
+					console.log(scope.previousStartDateFormated);
 	            }
 
 	            scope.fnChangeStatus= function(status,$hide){
-	            	scope.disableButton=true;
-	            	var ChangeBatchStatusPromise=viewBatches.ChangeBatchStatus(scope.batch._id.$oid,status,companyId,rmid);
+	            	console.log(scope.date.startDate);
+
+	            	if((angular.equals(status,'postponed'))&&(angular.equals(status,'postponed'))){	           		
+	            	}else{
+	            		
+	            	}
+	            	var ChangeBatchStatusPromise=viewBatches.ChangeBatchStatus(scope.batch._id.$oid,status,companyId,rmid,scope.date.startDate);
 	            	ChangeBatchStatusPromise.then(function(data){
 	            	 var response=angular.fromJson(JSON.parse(data.data));
 	            	 scope.batch.status=response.status;
 	            	 $hide();
 	            	});
 	            };
+
+	           
 
 
 			});
