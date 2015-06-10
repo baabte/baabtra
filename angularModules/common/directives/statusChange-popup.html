@@ -22,30 +22,38 @@
                     </select>
                 </div>
             </div>
-            <div class="m-b-lg">
+            <div class="m-b-lg" ng-if="status=='postponed'||status=='advance'">
 
                 <div ng-if="status=='postponed'">
-                <label for="select" class="col-xs-2 control-label">Batch Starts On</label>
-                <div class="col-xs-10">
-                    <!-- startDate -->
-                       <input  type="text" class="form-control" float-label ng-init="date.startDate=previousStartDate" ng-model="date.startDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="date" data-autoclose="true" data-min-date="{{previousStartDateFormated}}" name="date1" bs-datepicker required >
-                       {{date.startDate}}                                        
+                    <label for="select" class="col-xs-2 control-label">Batch Starts On</label>
+                    <div class="col-xs-10">
+                        <!-- startDate -->
+                           <input  type="text" class="form-control" float-label ng-init="date.startDate=previousStartDate" ng-model="date.startDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="date" data-autoclose="true" data-min-date="{{previousStartDateFormated}}" name="date1" bs-datepicker required >
 
-                </div>  
+                    </div>  
+                   <!--  <label for="select" class="col-xs-2 control-label">Batch Ends On</label>
+                    <div class="col-xs-10">
+                           <input  type="text" class="form-control" float-label ng-init="date.endDate=previousEndDate" ng-model="date.endDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="date" data-autoclose="true" data-min-date="{{previousStartDateFormated}}" name="date1" bs-datepicker required >
+
+                    </div>   -->
                 </div>
 
                 <div ng-if="status=='advance'">
-                <label for="select" class="col-xs-2 control-label" translate="{{'Batch Starts On'|translate}}"></label>
-                <div class="col-xs-10">
-                       <input  type="text" class="form-control" float-label ng-init="date.startDate=previousStartDate" ng-model="date.startDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="date" data-autoclose="true" data-max-date="{{previousStartDateFormated}}" name="date2" bs-datepicker required >
-                       {{date.startDate}}                                        
+                    <label for="select" class="col-xs-2 control-label" translate="{{'Batch Starts On'|translate}}"></label>
+                    <div class="col-xs-10">
+                           <input  type="text" class="form-control" float-label ng-init="date.startDate=previousStartDate" ng-model="date.startDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="date" data-autoclose="true" data-max-date="{{previousStartDateFormated}}" name="date2" bs-datepicker required >
 
-                    
-                </div>  
+                        
+                    </div> 
+                   <!--  <label for="select" class="col-xs-2 control-label">Batch Ends On</label>
+                    <div class="col-xs-10">
+                           <input  type="text" class="form-control" float-label ng-init="date.endDate=previousEndDate" ng-model="date.endDate" data-date-format="dd-MM-yyyy" data-placement="top" data-date-type="date" data-autoclose="true" data-min-date="{{previousStartDateFormated}}" name="date1" bs-datepicker required >
+
+                    </div>    -->
                 </div>
 
             </div>
-            <br><br>
+            <br>
         </div>
 
 

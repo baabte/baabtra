@@ -26,6 +26,7 @@ angular.module('baabtra').controller('viewCandidateCourseCtrl',
 		    gotCurrentElement.then(function (data) {
 		    	
 		    	var dataElement=angular.fromJson(JSON.parse(data.data));
+		    	console.log(dataElement);
 		    	if(dataElement=="error"){
 					$state.go('home.main.CandidateCourseView');
 		    	}
