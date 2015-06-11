@@ -607,6 +607,18 @@
                 }
                 
               })
+
+              .state('home.main.notificationConfiguration', {
+                url: '/notificationConfiguration',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Notification/notificationConfiguration/partials/Partial-notificationConfiguration.html',
+                    controller: 'NotificationconfigurationCtrl'
+                  }
+                }
+                
+              })
+
                .state('home.main.candidateRegistrationReport', {
                 url: '/candidateRegistrationReport',
                 views:{

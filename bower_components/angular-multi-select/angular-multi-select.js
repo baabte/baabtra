@@ -126,8 +126,10 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelectable' , [ '$sce'
 
 
             $scope.$watch('outputModel', function(){  
-                if ( typeof $scope.outputModel !== 'undefined' ) {
-
+                if ( typeof $scope.outputModel != 'undefined' ) {
+                    // console.log($scope.inputModel);
+                    // console.log($scope.outputModel);
+                    
                         angular.forEach($scope.inputModel, function(item){
                            angular.forEach($scope.outputModel, function(itemOuter){
                             if (angular.equals(itemOuter.Name, item.Name)){
@@ -466,8 +468,8 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelectable' , [ '$sce'
 
             // refresh output model as well
             $scope.refreshOutputModel = function() {                
-                if ( typeof attrs.outputModel !== 'undefined' ) {            
-                    $scope.outputModel = angular.copy( $scope.selectedItems );                    
+                if ( typeof attrs.outputModel !== 'undefined' ) {           
+                    $scope.outputModel = angular.copy( $scope.selectedItems );  
                     angular.forEach( $scope.outputModel, function( value, key ) {
                         // remove the index number and spacing number from output model
                         delete value[ $scope.indexProperty ];
@@ -865,6 +867,7 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelectable' , [ '$sce'
             // https://github.com/isteven/angular-multi-select/issues/8
             $scope.$watch( 'inputModel' , function( newVal ) {                                 
                 if ( newVal ) {
+
                     $scope.refreshSelectedItems();                                   
                     $scope.refreshOutputModel();
                     $scope.refreshButton();                              
@@ -887,7 +890,7 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelectable' , [ '$sce'
                     $scope.prepareIndex();                                                
                     $scope.refreshSelectedItems();                                   
                     $scope.refreshOutputModel();                
-                    $scope.refreshButton();                                                                                                                 
+                    $scope.refreshButton();                                                                                                             
                 }
             });            
 
