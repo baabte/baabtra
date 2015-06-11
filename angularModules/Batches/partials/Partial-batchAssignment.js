@@ -33,7 +33,7 @@ angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatche
 			$scope.batchObj.selectedCourseList[key].courseElement.excludeList=$scope.excludeList;
 		});
 
-
+		console.log($scope.batchObj.selectedCourseList);
 		var assignCourseMaterialsResponse=viewBatches.assignCourseMaterials4Batch($scope);
 		assignCourseMaterialsResponse.then(function(response){ //promise for batch load
 			var result=angular.fromJson(JSON.parse(response.data));

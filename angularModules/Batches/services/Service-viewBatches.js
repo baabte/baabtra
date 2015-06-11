@@ -77,11 +77,11 @@ angular.module('baabtra').service('viewBatches',['bbConfig','$http',function(bbC
 	return promise;
 	};
 
-	this.ChangeBatchStatus = function(courseBatchMappingId,status,companyId,rmId){
+	this.ChangeBatchStatus = function(courseBatchMappingId,status,companyId,rmId,startDate){
 		var promise = $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'ChangeBatchStatus/',
-	    data:{"courseBatchMappingId":courseBatchMappingId,"status":status,"companyId":companyId,"rmId":rmId}
+	    data:{"courseBatchMappingId":courseBatchMappingId,"status":status,"companyId":companyId,"rmId":rmId,"startDate":startDate}
 	 });
 	return promise;
 	};

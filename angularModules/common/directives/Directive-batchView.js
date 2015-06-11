@@ -105,7 +105,6 @@ angular.module('baabtra').directive('batchView',['$filter','$state','$modal','vi
 				};
 
 				scope.changeStatus=function(){
-					console.log(scope.batch._id.$oid);
 					scope.statusChangeModalshowModal();
 				};
 
@@ -117,19 +116,53 @@ angular.module('baabtra').directive('batchView',['$filter','$state','$modal','vi
 	              statusChangeModal.$promise.then(statusChangeModal.show);
 	            };
 
+	             scope.fnDate= function(date){
+	            	var isodatestring=new Date(date.$date).toISOString();
+	            	return isodatestring;
+
+	            };
+
 	            if (scope.batch.status){
 	             scope.status=scope.batch.status;
+
+	            }
+	            scope.date={};
+
+	            if (scope.batch.startDate){
+	            	scope.previousStartDate=scope.fnDate(scope.batch.startDate)
+	            	// scope.previousEndDate=scope.fnDate(scope.batch.endDate)
+	            	scope.previousStartDateFormated={};
+	            	var date = new Date(scope.previousStartDate);
+					scope.previousStartDateFormated=(date.getMonth()+1)+'/'+date.getDate()+'/'+date.getFullYear();//prints expected format.
 	            }
 
 	            scope.fnChangeStatus= function(status,$hide){
-	            	scope.disableButton=true;
-	            	var ChangeBatchStatusPromise=viewBatches.ChangeBatchStatus(scope.batch._id.$oid,status,companyId,rmid);
+
+	            	if((angular.equals(status,'postponed'))||(angular.equals(status,'advance'))){	
+
+	            	}else{
+	            		scope.date.startDate=null;
+	            	}
+
+	            	var ChangeBatchStatusPromise=viewBatches.ChangeBatchStatus(scope.batch._id.$oid,status,companyId,rmid,scope.date.startDate);
 	            	ChangeBatchStatusPromise.then(function(data){
 	            	 var response=angular.fromJson(JSON.parse(data.data));
 	            	 scope.batch.status=response.status;
-	            	 $hide();
+	            	 $hide();	            	 
+	            	 if(!angular.equals(response.startDate,null)){
+	            	 scope.batch.startDate.$date=scope.date.startDate.getTime();	
+
+	            	scope.previousStartDate=scope.fnDate(scope.batch.startDate)
+	            	// scope.previousEndDate=scope.fnDate(scope.batch.endDate)
+	            	scope.previousStartDateFormated={};
+	            	var date = new Date(scope.previousStartDate);
+					scope.previousStartDateFormated=(date.getMonth()+1)+'/'+date.getDate()+'/'+date.getFullYear();//prints expected format.
+	                     	 	
+	            	 }
 	            	});
 	            };
+
+	           
 
 
 			});
