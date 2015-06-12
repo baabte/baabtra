@@ -55,7 +55,6 @@ $scope.finshRegisterationClicked=false;
 			dateRange.minDate = 1+'/'+1+'/'+minDate.getFullYear();
 			dateRange.maxDate = 1+'/'+1+'/'+maxDate.getFullYear();
 			$scope.allSync.dateRange = dateRange;
-			console.log($scope.allSync.dateRange);
 
 
 			var FnFetchCustomFormCallBack= formCustomizerService.FnFetchCustomForm(formFetchData);
@@ -262,18 +261,18 @@ $scope.fnUserRegister =function (draftFlag,fnCallback) {
 		//for take course details
 		var courseExits = false;
 		var courseDetails = {};
+		$scope.courseCount = 0;
 		for(var order in $scope.data.orderForm.orderDetails){
 			if(angular.equals($scope.data.orderForm.orderDetails[order].courseId, currentCourseId)){
-
 				courseDetails = $scope.data.orderForm.orderDetails[order];
 				courseExits = true;
-				break;
 			}
+			$scope.courseCount++;
 		}
 
 
-		$scope.$watch('fileUpload', function(){
-			if(angular.equals($scope.fileUpload, filePaths.length)){
+		$scope.$watch('fileUpload + courseCount', function(){
+			if(angular.equals($scope.fileUpload, filePaths.length) && angular.equals($scope.courseCount, $scope.data.orderForm.orderDetails.length)){
 
 				var userinfo = angular.copy($scope.allSync.FormData);
 				if(!angular.equals(userinfo.course,undefined)){

@@ -173,6 +173,7 @@ $scope.data.selectedStatusTypes = $scope.currentStage.loadStatus;
 		//taking the current orderform into a variable
 		$scope.currentOrderForm = orderForm;
 
+
 		$scope.createCurrencyArray();
 
 
@@ -407,7 +408,7 @@ $scope.createCurrencyArray = function() {
 			}		
 
 		}
-}
+};
 
 //creating a function to set the common details of the accountTransaction oobject
 var fillActTransaction = function(updatedOrderForm, currentOrderDetail, mode, actHead, narration, paymentMode){
