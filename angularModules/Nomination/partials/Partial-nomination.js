@@ -165,6 +165,7 @@ if(!angular.equals($state.params.ofId,"")){
 	var orderFormResponse = nomination.fnLoadOrderFormById($state.params.ofId);
 	orderFormResponse.then(function(response){
 		var orderForm = angular.fromJson(JSON.parse(response.data));
+		console.log(orderForm);
 		orderForm._id = orderForm._id.$oid;
 		orderForm.companyId = orderForm.companyId.$oid;
 		$scope.data.orderForm = orderForm;
@@ -310,18 +311,18 @@ $scope.fnUserRegister =function (draftFlag,fnCallback) {
 
 			    	courseDetails.coursetype = $scope.allSync.FormData.coursetype;
 
-			    	$scope.data.orderForm.draftFlag = draftFlag;
+			    	
 			    	courseDetails.userInfo.push(userinfo);
 			    	$scope.data.orderForm.orderDetails.push(courseDetails);
-			    	saveOrderForm(fnCallback);
+			    	saveOrderForm(draftFlag,fnCallback);
      			})
 			}
 			else{
-				$scope.data.orderForm.draftFlag = draftFlag;
+				
 				courseDetails.userCount++;
 				courseDetails.PendingApprovalCount++;
 				courseDetails.userInfo.push(userinfo);
-				saveOrderForm(fnCallback);
+				saveOrderForm(draftFlag, fnCallback);
 			}
 			}
 		})
@@ -344,7 +345,8 @@ $scope.fnUserRegister =function (draftFlag,fnCallback) {
 	}
 };//fnUserRegister - end
 
-function saveOrderForm(fnCallback){
+function saveOrderForm(draftFlag, fnCallback){
+	$scope.data.orderForm.draftFlag = draftFlag;
 	var nomintaionResponse = nomination.fnAddUserNomination($scope.data.orderForm, $scope.rm_id);
 				nomintaionResponse.then(function(response){
 					var orderForm = angular.fromJson(JSON.parse(response.data));
