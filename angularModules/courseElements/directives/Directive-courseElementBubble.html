@@ -11,7 +11,7 @@
 		<li ng-class="{'hide-dropdown':data.moveable}" bs-dropdown="dropdown" data-html="true"  data-animation="am-flip-x" data-placement="right" ng-click="manageCourseElement(element,tlpoint,$index);" class="timeline-item " style="z-index: 1;position: relative;" ng-repeat="element in timeLineView[tlpoint][elements[0]]" >
 			<i ng-if="$index==elements[1] && !data.moveable" data-title="{{element.elements[0].value}}"  bs-tooltip data-placement="left" data-html="true" class="iconCustomBg ui-icon fa {{element.Icon}}  b-2x text-lg bg-info am-fade" style="border-color:{{element.iconBackground}}!important;background-color: {{element.iconBackground}}!important; color: {{element.iconColor}}!important;border-radius: 9px;"></i>
 
-			<i bs-dropdown="moveDropdown" data-html="true"  data-animation="am-flip-x" data-placement="left" title="{{element.elements[0].value}}" class="ui-icon fa b-2x text-lg bg-white" ng-class="{'text-danger hide-dropdown':element.moveable}" style="" ng-if="$index==elements[1] && data.moveable" ng-click="moveTo(element)"><span ng-class="{'text-sm font-bold':element.order > 99}" style="position: relative;z-index: 1;">{{element.order+1}}</span></i>
+			<i bs-dropdown="moveDropdown" data-html="true"  data-animation="am-flip-x" data-placement="left" title="{{element.elements[0].value}}" class="ui-icon fa b-2x text-lg bg-white" ng-class="{'text-danger hide-dropdown':element.moveable}" style="" ng-if="$index==elements[1] && data.moveable" ng-click="moveTo(element)"><span ng-class="{'text-sm font-bold':element.order > 99}" style="position: relative;z-index: 1;">{{element.order}}</span></i>
 
 		</li>
 	</ul>

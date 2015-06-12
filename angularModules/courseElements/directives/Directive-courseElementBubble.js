@@ -20,8 +20,8 @@ angular.module('baabtra').directive('courseElementBubble',['$dropdown','$rootSco
 			}
 			if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,2)){
 				scope.dropdown = [{text:'<i class=\"fa fa-fw fa-edit\"></i>&nbsp;Edit', click:"editCourseElement()"},
-								  {text:'<i class=\"fa fa-fw fa-trash\"></i>&nbsp;Remove', click:"removeCourseElement($event)"}];
-								  //{text:'<i class=\"fa fa-fw fa-sort\"></i>&nbsp;Move', click:"moveCourseElement(element)"}
+								  {text:'<i class=\"fa fa-fw fa-trash\"></i>&nbsp;Remove', click:"removeCourseElement($event)"},
+								  {text:'<i class=\"fa fa-fw fa-sort\"></i>&nbsp;Move', click:"moveCourseElement(element)"}];
 
 				scope.moveDropdown =[{text:'<i class=\"fa fa-fw fa-level-up\"></i>&nbsp;Above', click:"moveTo(element,'Above')"},
 								  	{text:'<i class=\"fa fa-fw  fa-level-down\"></i>&nbsp;Below', click:"moveTo(element,'Below')"}]

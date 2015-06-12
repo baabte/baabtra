@@ -32,6 +32,7 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 	};
 
 	if(!angular.equals($state.params,"")){
+
 		var orderFormResponse = nomination.fnLoadOrderFormById($state.params.ofId);
 			orderFormResponse.then(function(response){
 			var orderForm = angular.fromJson(JSON.parse(response.data));
@@ -172,6 +173,7 @@ $scope.data.selectedStatusTypes = $scope.currentStage.loadStatus;
 		//taking the current orderform into a variable
 		$scope.currentOrderForm = orderForm;
 
+
 		$scope.createCurrencyArray();
 
 
@@ -226,6 +228,7 @@ $scope.showHideIndividualRequestForApproval = function(requestStatus,mentee){
 
 //function to show or hide a course title when there is nobody in the current status in concern, for eg. if the user is trying to verify requests if there are no requests in the status "pending verification", the course title should not be shown
 $scope.checkRequestsForStatus = function(course, statusArray){
+
 
 	//for managing payment after enrolling too
 		if(angular.equals($scope.currentStage.currentStage,'Payment')){
@@ -405,7 +408,7 @@ $scope.createCurrencyArray = function() {
 			}		
 
 		}
-}
+};
 
 //creating a function to set the common details of the accountTransaction oobject
 var fillActTransaction = function(updatedOrderForm, currentOrderDetail, mode, actHead, narration, paymentMode){
