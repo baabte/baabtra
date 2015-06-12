@@ -172,6 +172,9 @@ $scope.buildUsersObjectByCourse=function (responseData) {
 					}
 					// console.log(responseData.orderFroms[key].orderDetails[detailsKey].Name,$scope.courseBasedUserList[responseData.orderFroms[key].orderDetails[detailsKey].Name][0].userInfo);
 					var userCount=0;
+					if(angular.equals($scope.courseBasedUserList[$state.params.courseId][0],undefined)){
+						return 0;
+					}
 					for(userIndex in $scope.courseBasedUserList[$state.params.courseId][0].userInfo){
 						if(angular.equals($scope.courseBasedUserList[$state.params.courseId][0].userInfo[userIndex].status,'Approved')){
 							userCount++;
