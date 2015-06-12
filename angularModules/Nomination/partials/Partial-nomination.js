@@ -55,6 +55,7 @@ $scope.finshRegisterationClicked=false;
 			dateRange.minDate = 1+'/'+1+'/'+minDate.getFullYear();
 			dateRange.maxDate = 1+'/'+1+'/'+maxDate.getFullYear();
 			$scope.allSync.dateRange = dateRange;
+			console.log($scope.allSync.dateRange);
 
 
 			var FnFetchCustomFormCallBack= formCustomizerService.FnFetchCustomForm(formFetchData);
