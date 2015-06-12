@@ -466,6 +466,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             		}
             		else{
 	            		//[element.tlPointInMinute][element.Name][element.Name]
+	            		var elemIndex = 0;
 	            		var elementTo = element.tlPointInMinute + '.' + element.Name + '.' + element.index;
 	            		var elementFrom = scope.data.selectedElement.tlPointInMinute + '.' + scope.data.selectedElement.Name + '.' + scope.data.selectedElement.index;
             		}
@@ -473,7 +474,11 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             		var courseElementMoveCallback = addCourseService.moveCourseElement(moveObject);
             		courseElementMoveCallback.then(function(response){
             			var course = angular.fromJson(JSON.parse(response.data));
+            			//scope.syncData.courseTimeline = course.courseTimeline;
+            			//scope.syncData.elementOrder = course.elementOrder;
+            			//scope.data.moveable = false;
             			console.log(course);
+            			
             		})
             	}
             	

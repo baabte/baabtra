@@ -84,6 +84,7 @@
         <!-- Area to load the user cards -->
 <div class="row orderDetails"  style="padding-top:150px; padding-bottom:50px;">
   <div class="col-xs-10 col-xs-offset-1  col-md-8 col-md-offset-2  no-padding bg-white">
+
   <div class="col-xs-12 no-padding  bg-light" ng-if="checkRequestsForStatus(course,currentStage.loadStatus)" ng-repeat="(key, course) in data.approveOrderForm.orderDetails">
 
     <span class="col-xs-12 m-v-md font-bold no-padding" style="text-transform:uppercase;">{{course.Name}}</span>

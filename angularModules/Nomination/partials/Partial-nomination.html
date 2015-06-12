@@ -1,6 +1,6 @@
 <div class="col-xs-12 bg-light">
   <!-- Requestee details -->
-  <div class="row p-h" style="padding-bottom: 15px;" ng-if="!data.requesteeDetailsCompleted && data.requesteeDetails.type != 'self'">
+  <div class="row p-h" style="padding-bottom: 15px;" ng-if="!data.requesteeDetailsCompleted && data.orderForm.requesteeDetails.type != 'self'">
     <!-- Requiste type -->
    <!--  <div class="p-sm b-b b-2x b-success">
         <div class="p-h pull-left">Requisting as a</div>
@@ -18,7 +18,7 @@
     <form name="requesteDetails">
       <div class="panel-body">
     <!-- shows Requestee details, based on there type -->
-    <div  ng-if="data.requesteeDetails.type =='company'">
+    <div  ng-if="data.orderForm.requesteeDetails.type =='company'">
       
       <div class="col-xs-6 m-h-n">
 
@@ -26,7 +26,7 @@
         <div class="form-group">
                 <label  class="col-xs-3">Email*</label>
                 <div class="col-xs-9">
-                    <input type="email"  ng-model="data.requesteeDetails.eMail" class="form-control" placeholder="Email ID" ng-blur="checkUserAlreadyExists()">
+                    <input type="email"  ng-model="data.orderForm.requesteeDetails.eMail" class="form-control" placeholder="Email ID" ng-blur="checkUserAlreadyExists()">
                 </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
         <div class="form-group">
                 <label  class="col-xs-3">Company Name*</label>
                 <div class="col-xs-9">
-                    <input type="text" required ng-model="data.requesteeDetails.companyName" class="form-control" placeholder="Company Name">
+                    <input type="text" required ng-model="data.orderForm.requesteeDetails.companyName" class="form-control" placeholder="Company Name">
                 </div>
         </div>
       </div>
@@ -47,7 +47,7 @@
         <div class="form-group">
           <label  class="col-xs-3">Contact person*</label>
           <div class="col-xs-9">
-            <input type="text" required ng-model="data.requesteeDetails.contactPerson" class="form-control" placeholder="Contact person">
+            <input type="text" required ng-model="data.orderForm.requesteeDetails.contactPerson" class="form-control" placeholder="Contact person">
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@
         <div class="form-group">
                 <label  class="col-xs-3">Phone*</label>
                 <div class="col-xs-9">
-                    <input type="number" ng-model="data.requesteeDetails.phone" class="form-control" placeholder="Phone">
+                    <input type="number" ng-model="data.orderForm.requesteeDetails.phone" class="form-control" placeholder="Phone">
                 </div>
         </div>
       </div>
@@ -69,14 +69,14 @@
         <div class="form-group">
                 <label  class="col-xs-3">Address</label>
                 <div class="col-xs-9">
-                    <textarea class="form-control" rows="3" ng-model="data.requesteeDetails.address" placeholder="Address"></textarea>
+                    <textarea class="form-control" rows="3" ng-model="data.orderForm.requesteeDetails.address" placeholder="Address"></textarea>
                 </div>
         </div>
       </div>
 
     </div>
 
-    <div ng-if="data.requesteeDetails.type =='individual'">
+    <div ng-if="data.orderForm.requesteeDetails.type =='individual'">
       
       <div class="col-xs-6 m-h-n">
 
@@ -84,7 +84,7 @@
         <div class="form-group">
                 <label  class="col-xs-2">Email*</label>
                 <div class="col-xs-10">
-                    <input type="email" ng-model="data.requesteeDetails.eMail" class="form-control" placeholder="Email" required ng-blur="checkUserAlreadyExists()">
+                    <input type="email" ng-model="data.orderForm.requesteeDetails.eMail" class="form-control" placeholder="Email" required ng-blur="checkUserAlreadyExists()">
                 </div>
         </div>
       </div>
@@ -95,7 +95,7 @@
         <div class="form-group">
                 <label  class="col-xs-2">Phone</label>
                 <div class="col-xs-10">
-                    <input type="number" ng-model="data.requesteeDetails.phone" class="form-control" placeholder="Phone">
+                    <input type="number" ng-model="data.orderForm.requesteeDetails.phone" class="form-control" placeholder="Phone">
                 </div>
         </div>
       </div>
@@ -106,7 +106,7 @@
         <div class="form-group">
                 <label  class="col-xs-2">First Name*</label>
                 <div class="col-xs-10">
-                    <input type="text" required ng-model="data.requesteeDetails.firstName" class="form-control" placeholder="First Name">
+                    <input type="text" required ng-model="data.orderForm.requesteeDetails.firstName" class="form-control" placeholder="First Name">
                 </div>
         </div>
       </div>
@@ -119,7 +119,7 @@
         <div class="form-group">
                 <label  class="col-xs-2">Last Name</label>
                 <div class="col-xs-10">
-                    <input type="text"  ng-model="data.requesteeDetails.lastName" class="form-control" placeholder="Last Name">
+                    <input type="text"  ng-model="data.orderForm.requesteeDetails.lastName" class="form-control" placeholder="Last Name">
                 </div>
         </div>
       </div>
@@ -131,12 +131,12 @@
         <div class="col-xs-10 p-v">
           <div class="radio radio-inline radio-info no-padding no-margin">
             <label>
-              <input type="radio" name="Gender" ng-model="data.requesteeDetails.gender" value="Male" checked="">Male
+              <input type="radio" name="Gender" ng-model="data.orderForm.requesteeDetails.gender" value="Male" checked="">Male
             </label>
           </div>
           <div class="radio radio-inline radio-info">
             <label>
-              <input type="radio" name="Gender" ng-model="data.requesteeDetails.gender" value="Female">Female
+              <input type="radio" name="Gender" ng-model="data.orderForm.requesteeDetails.gender" value="Female">Female
             </label>
           </div>
         </div>
@@ -148,20 +148,20 @@
         <div class="form-group">
                 <label  class="col-xs-2">Address</label>
                 <div class="col-xs-10">
-                    <textarea class="form-control" rows="3" ng-model="data.requesteeDetails.address" placeholder="Address"></textarea>
+                    <textarea class="form-control" rows="3" ng-model="data.orderForm.requesteeDetails.address" placeholder="Address"></textarea>
                 </div>
         </div>
       </div>
       </div>
     </div>
     <div class="panel-footer text-right">
-     <button ng-disabled="(requesteDetails.$invalid) || !(data.requesteeDetails.eMail || data.requesteeDetails.phone)" type="button" ng-click="data.requesteeDetailsCompleted = true" class="btn btn-success baab-btn">Next</button>
+     <button ng-disabled="(requesteDetails.$invalid) || !(data.requesteeDetails.eMail || data.orderForm.requesteeDetails.phone)" type="button" ng-click="data.requesteeDetailsCompleted = true" class="btn btn-success baab-btn">Next</button>
     </div>
   </form>
     
   </div>
 
-<div class="row" ng-if="data.requesteeDetailsCompleted || data.requesteeDetails.type == 'self'">
+<div class="row" ng-if="data.requesteeDetailsCompleted || data.orderForm.requesteeDetails.type == 'self'">
 
   <div class="col-sm-8 col-sm-offset-2 m-v">
 
@@ -181,7 +181,7 @@
           </div>
 
           <div ng-if="status.selected == 1" class="col-xs-6 col-xs-offset-3">
-              <a ng-click="status.selected = status.selected+1" ng-disabled="!userRegistrationForm.$valid" class="btn btn-block btn-info"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+              <a ng-click="status.selected = status.selected+1; data.firstFormValid = true;" ng-disabled="!userRegistrationForm.$valid" class="btn btn-block btn-info"> Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
           </div>
           <!-- ng-disabled="userRegistrationForm.$invalid" -->
           <div ng-if="false" ng-show="status.selected == 2">
@@ -195,7 +195,7 @@
           </div>
           <!-- ng-disabled="userRegistrationForm.$invalid" -->
           <div ng-show="status.selected==2" class="col-xs-12 text-center">
-            <button ng-if="data.requesteeDetails.type != 'self'" ng-disabled="userRegistrationForm.$invalid||fnUserRegisterClicked" type="button" class="btn btn-info baab-btn" ng-click="fnUserRegister(0)">Register & Register Another</button>
+            <button ng-if="data.orderForm.requesteeDetails.type != 'self'" ng-disabled="userRegistrationForm.$invalid||fnUserRegisterClicked" type="button" class="btn btn-info baab-btn" ng-click="fnUserRegister(0)">Register & Register Another</button>
             <button ng-disabled="userRegistrationForm.$invalid||finshRegisterationClicked" type="submit" class="btn btn-success baab-btn" ng-click="finshRegisteration(1)">Finish & Generate Order Form</button>
           </div>
 
