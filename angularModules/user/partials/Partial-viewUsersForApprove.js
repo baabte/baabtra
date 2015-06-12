@@ -927,6 +927,7 @@ $scope.updateOrderFormStatus = function(type,hide){
 	
 	LoadMenteesResponse.then(function(response){
 		 $scope.data.companOrderForms = angular.fromJson(JSON.parse(response.data));
+
 		// if(angular.equals($scope.currentStage.currentStage,'Payment')){
 		// 	var gotPendingPaymentList = viewUsersForApprove.fnLoadMenteesForPayment($scope.cmpId, $scope.data.pageNumber, 8 , $scope.data.searchText);
 		// 		gotPendingPaymentList.then(function (resData) {
