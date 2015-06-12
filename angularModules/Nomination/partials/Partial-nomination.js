@@ -254,7 +254,6 @@ $scope.fnUserRegister =function (draftFlag,fnCallback) {
 			hashids = new Hashids("this is a order form id");
 			$scope.data.orderForm.orderFormId = 'OF-' + hashids.encode(time);
 			$scope.data.orderForm.companyId = companyId;
-			$scope.data.orderForm.draftFlag = draftFlag;
 			$scope.data.orderForm.orderDetails = [];
 		}
 
@@ -318,6 +317,7 @@ $scope.fnUserRegister =function (draftFlag,fnCallback) {
      			})
 			}
 			else{
+				$scope.data.orderForm.draftFlag = draftFlag;
 				courseDetails.userCount++;
 				courseDetails.PendingApprovalCount++;
 				courseDetails.userInfo.push(userinfo);
