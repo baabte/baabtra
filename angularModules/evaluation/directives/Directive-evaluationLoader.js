@@ -167,6 +167,14 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 
 				};// fn resubmit
 
+				scope.checkViewOfElement = function(elementType){
+					var evaluableElementArray = ['Physical Test', "Interview"];
+					if(evaluableElementArray.indexOf(elementType) >= 0){
+						return true;
+					}
+					return false;
+				};
+
 			}//link end
 		};
 	}]);
