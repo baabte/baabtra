@@ -957,6 +957,26 @@
                 controller:'FormloaderCtrl'
               })
 
+                .state('home.main.paymentRefund', {
+                url: '/paymentRefund/:key',
+                 views:{
+                  'innercontent':{
+                templateUrl: 'angularModules/payment/paymentRefund/partials/Partial-paymentRefund.html',
+                controller:'PaymentrefundCtrl'
+                  }
+                }
+              })
+
+                .state('home.main.refundRequest', {
+                url: '/refundRequest/:userId',
+                 views:{
+                  'innercontent':{
+                templateUrl: 'angularModules/payment/refundRequest/partials/Partial-refundRequest.html',
+                controller:'RefundrequestCtrl'
+                  }
+                }
+              })
+
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'
