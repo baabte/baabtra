@@ -362,8 +362,8 @@ function saveOrderForm(draftFlag, fnCallback){
 					$alert({title: 'Done..!', content: 'Mentees Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 					//changing the selected tab
 					$scope.status.selected=1;
-					$state.go('home.main.nominateEmployee',{ofId:$scope.data.orderForm.orderFormId});
-					
+
+					console.log(fnCallback);
 					if(!angular.equals(fnCallback,undefined)){
 						fnCallback();
 					}
