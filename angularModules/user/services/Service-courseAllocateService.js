@@ -1,11 +1,11 @@
 angular.module('baabtra').service('courseAllocateService',['$http','bbConfig',function($http,bbConfig) {
 
 
-	 this.fnfetchUsersToCourseAllocate=function($scope,firstId,type,lastId,searchKey){
+	 this.fnfetchUsersToCourseAllocate=function(companyId,firstId,type,lastId,searchKey){
     var promise = $http({
           method: 'POST',
           url: bbConfig.BWS+'FetchUsersToCourseAllocate/',
-          data:{"companyId":$scope.companyId,"firstId":firstId,"type":type,"lastId":lastId,searchKey:searchKey},
+          data:{"companyId":companyId,"firstId":firstId,"type":type,"lastId":lastId,searchKey:searchKey},
           contentType:'application/json; charset=UTF-8',
         });
 

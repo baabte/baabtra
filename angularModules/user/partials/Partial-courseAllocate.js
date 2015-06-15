@@ -18,7 +18,7 @@ $rootScope.$watch('userinfo',function(){
     	$scope.classic=true;
     }
     var searchKey='';
-    var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope,'','initial','',searchKey); 
+    var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope.companyId,'','initial','',searchKey); 
     fetchUsersToCourseAllocateCallback.then(function(data){
         $scope.userObj=angular.fromJson(JSON.parse(data.data));
         // console.log('initial')
@@ -44,7 +44,7 @@ $scope.searchUser=function(){
 	clearTimeout(searchTimeOut);
 	}
 	searchTimeOut=setTimeout(function(){
-		var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope,'','initial','',$scope.userObj.searchKey);
+		var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope.companyId,'','initial','',$scope.userObj.searchKey);
 	   fetchUsersToCourseAllocateCallback.then(function(data){
 	   	var searchKey=$scope.userObj.searchKey;
         $scope.userObj=angular.fromJson(JSON.parse(data.data));
@@ -59,7 +59,7 @@ $scope.searchUser=function(){
 
 $scope.nextOne=function(){//event  for showing next 9 items
 	  $scope.prevButtondisabled=false;
-	   var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope,$scope.userObj.firstId,'next',$scope.userObj.lastId,$scope.userObj.searchKey);
+	   var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope.companyId,$scope.userObj.firstId,'next',$scope.userObj.lastId,$scope.userObj.searchKey);
 	   fetchUsersToCourseAllocateCallback.then(function(data){
         $scope.userObj=angular.fromJson(JSON.parse(data.data));
         // console.log('next');
@@ -75,7 +75,7 @@ $scope.prevOne=function(){
 		$scope.prevButtondisabled=true;
 	  }
 	  else{
-	   var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope,$scope.userObj.firstId,'prev',$scope.userObj.lastId,$scope.userObj.searchKey);
+	   var fetchUsersToCourseAllocateCallback=courseAllocateService.fnfetchUsersToCourseAllocate($scope.companyId,$scope.userObj.firstId,'prev',$scope.userObj.lastId,$scope.userObj.searchKey);
 	   fetchUsersToCourseAllocateCallback.then(function(data){
 	        $scope.userObj=angular.fromJson(JSON.parse(data.data));
 	        // console.log('prev');
