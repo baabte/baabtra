@@ -25,17 +25,16 @@
   <div class="row" style="margin-top: 56px;">
     <div class="col-xs-12 p bg-light">
       <div ng-show="!lastElement&&courseId.$oid" class="col-xs-push-1 col-md-push-2 col-md-8 col-xs-10 p shadow-z-1 btn-material-green-A200">
-        <span class="font-bold" ng-if="!lastElement" >{{tlPointName}}</span>
-        
+        <span class="font-bold" ng-if="PrevObj.elements[0].value">{{PrevObj.elements[0].value}}</span>
         <span class="label label-warning pull-right" ng-if="(!PrevObj.evalStatus)&&PrevObj.evaluable">Pending submission</span>
         
         <span class="label label-info pull-right" ng-if="PrevObj.evalStatus">{{PrevObj.evalStatus}}</span>
       
       </div>
+
       <div  class="col-xs-push-1 col-md-push-2 col-md-8 col-xs-10 p shadow-z-1 bg-white ">
-        <button style="position: absolute;left: -20px;"  class="btn btn-fab btn-fab-mini btn-raised btn-white am-fadeIn" ng-disabled="(lastViewedOrder == 0) || getElementClicked" ng-click="getElement('previous')" ng-><i class="mdi-navigation-chevron-left" style="  font-size: x-large;right: 6px;"></i></button>
-         <button style="  position: absolute;right: -20px;"  class="btn btn-fab btn-fab-mini btn-raised btn-white pull-right am-fadeIn" ng-disabled="lastElement || getElementClicked" ng-click="getElement('next')"><i class="mdi-navigation-chevron-right font-bold" style="font-size: x-large;right: 4px;" ></i></button>
-        <course-element-full-view course-id="courseId.$oid" preview-data="PrevObj"></course-element-full-view>
+        
+          <course-element-full-view course-id="courseId.$oid" preview-data="PrevObj"></course-element-full-view>
        
 
         <div ng-show="lastElement&&courseId.$oid" class="col-xs-12 p">
@@ -43,6 +42,11 @@
                     <strong>Oh sorry..!</strong> There are no more meterials to show.
                 </div>
               </div>
+      </div>
+
+      <div  class="col-xs-push-1 col-md-push-2 col-md-8 col-xs-10 p-sm shadow-z-1 b-t bg-white ">
+        <button  class="btn btn-fab btn-fab-mini btn-raised btn-info am-fadeIn" ng-disabled="(lastViewedOrder == 0) || getElementClicked" ng-click="getElement('previous')" ng-><i class="mdi-navigation-chevron-left" style="  font-size: x-large;right: 6px;"></i></button>
+         <button class="btn btn-fab btn-fab-mini btn-raised btn-info pull-right am-fadeIn" ng-disabled="lastElement || getElementClicked" ng-click="getElement('next')"><i class="mdi-navigation-chevron-right font-bold" style="font-size: x-large;right: 4px;" ></i></button>
       </div>
     </div>
   </div>
