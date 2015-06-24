@@ -12,25 +12,15 @@ if($rootScope.loggedIn===false){
 
 
 $rootScope.$watch('userinfo',function(){
-	var userId='';
-
-	if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,bbConfig.MURID)){
-		var userId=$rootScope.userinfo.userLoginId;
-	}else{
-	var userId=$state.params.userId;
-	}
-
-	if(angular.equals(userId,'')){
-	var userId='557bf47734b7716a5336e678'
-
-	}
+	
+	var ofId=$state.params.ofId;
 
     $scope.loggedusercrmid = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
     if(angular.equals($rootScope.userinfo.ActiveUserData.modernView,'classic')){
     	$scope.classic=true;
     }
-    var userCourseDetailsOFPromise=refundRequest.userCourseDetailsOF(userId);
+    var userCourseDetailsOFPromise=refundRequest.userCourseDetailsOF(ofId);
 	userCourseDetailsOFPromise.then(function(data){
 	 $scope.userCourseList=angular.fromJson(JSON.parse(data.data));
 	 console.log($scope.userCourseList)

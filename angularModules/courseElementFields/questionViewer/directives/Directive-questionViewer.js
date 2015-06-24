@@ -175,7 +175,7 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 				scope.question=scope.data.value;
 
 			
-				{
+				
 					if(scope.question.userAnswer){
 
 						scope.dbAnswer=scope.question.userAnswer;
@@ -254,7 +254,7 @@ angular.module('baabtra').directive('questionViewer',['bbConfig','addCourseServi
 					$compile(descriptiveElem)(scope);
 				}
 				
-				}
+				
 			},true);
 
 

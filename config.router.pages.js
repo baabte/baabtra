@@ -968,11 +968,21 @@
               })
 
                 .state('home.main.refundRequest', {
-                url: '/refundRequest/:userId',
+                url: '/refundRequest/:ofId',
                  views:{
                   'innercontent':{
                 templateUrl: 'angularModules/payment/refundRequest/partials/Partial-refundRequest.html',
                 controller:'RefundrequestCtrl'
+                  }
+                }
+              })
+
+                 .state('home.main.manageOrderForms', {
+                url: '/manageOrderForms/',
+                 views:{
+                  'innercontent':{
+                templateUrl: 'angularModules/orderForm/manageOrderForms/partials/Partial-manageOrderForms.html',
+                controller:'ManageorderformsCtrl'
                   }
                 }
               })
