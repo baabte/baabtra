@@ -39,7 +39,7 @@
 						</div>
 					</div>
 					<div  class="col-xs-12 bg-warning font-bold p b shadow-z-1" ng-if="!batchObj.unAssignedList.length">
-					No materials assigned
+					No materials to assign
 					</div>
 
 
@@ -66,14 +66,15 @@
 						<batch-view ng-if="batchObj.batchDetails" shadow="false" batch="batchObj.batchDetails"></batch-view>
 					</div>
 				</div> -->
-				<div class="row" ng-show="false">
-					<div class="col-xs-12 col-md-12">
+				
+			</div>
+	</div>
+	<div class="row b-t" >
+					<div class="col-xs-12 bg-white p-v-sm">
 						<batch-mentee-list ng-if="batchObj.userList" user-list="batchObj.userList" ng-model="batchObj.selectedList"> </batch-mentee-list>
 						<div class="text-center" ng-if="!batchObj.userList">
 							<i class="fa fa-spinner fa-spin"></i>
 						</div>
 					</div>
 				</div>
-			</div>
-	</div>
 </div>
