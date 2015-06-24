@@ -16,6 +16,8 @@ angular.module('baabtra').directive('batchView',['$filter','$state','$modal','vi
 
 			scope.$watch('batch',function(){
 
+				console.log(scope.batch);
+
 				scope.actions = [
 				/*{
 				"text": "<i class=\"fa fa-users\"></i>&nbsp;View mentees",
@@ -24,11 +26,6 @@ angular.module('baabtra').directive('batchView',['$filter','$state','$modal','vi
 				{
 				"text": "<i class=\"fa fa-hand-o-up\"></i>&nbsp;Mark attendance",
 				 "click": "fnMarkAttendance()"
-				},
-				{
-				"text": "<i class=\"fa fa-paperclip\"></i>&nbsp;Assign a course material",
-				"click": "fnAssignMaterial()"
-
 				},
 				{
 				"text": "<i class=\"fa fa-check\"></i>&nbsp;Evalute",
@@ -59,6 +56,13 @@ angular.module('baabtra').directive('batchView',['$filter','$state','$modal','vi
 					var days=scope.batch.repeats.every;
 					scope.description = 'Starting date '+$filter('date')(scope.batch.startDate.$date)+'<br />Total joinings:'+scope.batch.totalJoining+'<br />Duration: Repeats each '+days+' months';
 				}*/
+
+				if(!angular.equals(scope.batch.materialAssignment,"automatic")){
+					scope.actions.push({
+					"text": "<i class=\"fa fa-paperclip\"></i>&nbsp;Assign a course material",
+					"click": "fnAssignMaterial()"
+					});
+				}
 
 				scope.dateConvertion=function(date){
 					return $filter('date')(date);

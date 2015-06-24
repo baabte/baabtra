@@ -2,8 +2,8 @@ angular.module('baabtra').directive('coursElementTitle', function() {
 	return {
 		restrict: 'E',
 		replace: true,
-		scope: {data:"@data"
-
+		scope: {data:"@data",
+		hideTitle:"@"
 		},
 		templateUrl: 'angularModules/courseElementFields/courseElementTitle/directives/Directive-coursElementTitle.html',
 		link: function(scope, element, attrs, fn) {

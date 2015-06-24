@@ -120,6 +120,7 @@ angular.module('baabtra')
       };     
 
       $scope.fnSaveElements = function(courseElements){
+
         $scope.courseElements=[];
         for(var index in courseElements){
         var courseElementvalue=courseElements[index];
@@ -147,35 +148,35 @@ angular.module('baabtra')
          
          }
 
-         var saveExistingElementPromise= addCourseService.saveExistingElement($scope.courseElements);//saving to database
+         // var saveExistingElementPromise= addCourseService.saveExistingElement($scope.courseElements);//saving to database
 
-         saveExistingElementPromise.then(function(data){
-          var updatedElementOrder = angular.fromJson(JSON.parse(data.data));
-          $scope.syncData.elementOrder=updatedElementOrder;
-                  if(!$scope.syncData.courseTimeline){
-                        $scope.syncData.courseTimeline={};
-                    }
-                  if(!$scope.syncData.courseTimeline[$scope.instance]){
-                        $scope.syncData.courseTimeline[$scope.instance]={};
-                    }
-                  for(var index in $scope.courseElements){
-                      var courseElement=$scope.courseElements[index].courseElement;
-                     if(!$scope.syncData.courseTimeline[$scope.instance][courseElement[courseElement.key].Name]){
-                        $scope.syncData.courseTimeline[$scope.instance][courseElement[courseElement.key].Name]=[];
-                      }
-                  $scope.syncData.courseTimeline[$scope.instance][courseElement[courseElement.key].Name].push(courseElement[courseElement.key]);
+         // saveExistingElementPromise.then(function(data){
+         //  var updatedElementOrder = angular.fromJson(JSON.parse(data.data));
+         //  $scope.syncData.elementOrder=updatedElementOrder;
+         //          if(!$scope.syncData.courseTimeline){
+         //                $scope.syncData.courseTimeline={};
+         //            }
+         //          if(!$scope.syncData.courseTimeline[$scope.instance]){
+         //                $scope.syncData.courseTimeline[$scope.instance]={};
+         //            }
+         //          for(var index in $scope.courseElements){
+         //              var courseElement=$scope.courseElements[index].courseElement;
+         //             if(!$scope.syncData.courseTimeline[$scope.instance][courseElement[courseElement.key].Name]){
+         //                $scope.syncData.courseTimeline[$scope.instance][courseElement[courseElement.key].Name]=[];
+         //              }
+         //          $scope.syncData.courseTimeline[$scope.instance][courseElement[courseElement.key].Name].push(courseElement[courseElement.key]);
 
-                  }
-                  $scope.notifications('','Material Added Successfully','info');   
-                  $scope.disableAdd=false;
-                  $scope.selectedElements=[];
-                  $scope.selection=false;
-                  $scope.fnSelectAll($scope.selection);
+         //          }
+         //          $scope.notifications('','Material Added Successfully','info');   
+         //          $scope.disableAdd=false;
+         //          $scope.selectedElements=[];
+         //          $scope.selection=false;
+         //          $scope.fnSelectAll($scope.selection);
 
                   
 
 
-          });
+         //  });
 
 
       };
@@ -275,7 +276,7 @@ angular.module('baabtra')
                          }
 
                          if(angular.equals(item.evaluable,undefined)){
-                            $scope.attendenceTrack = false;
+                            $scope.evaluable = true;
                          }
                          else{
                              $scope.evaluable = item.evaluable;

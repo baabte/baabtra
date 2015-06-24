@@ -908,7 +908,7 @@ body {
 
   position: fixed;
   width: 100.4%;
-  z-index: 1050;
+  z-index: 1040;
 }
 
 .btn-container > button{
@@ -924,3 +924,12 @@ body {
   display: none!important;
 }
   
+.show-in-one-line {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 1; /* number of lines to show */
+   line-height: 16px;        /* fallback */
+   max-height: 16px;       /* fallback */
+}
