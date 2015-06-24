@@ -25,6 +25,10 @@
           </div>
 
           <div class="list-group" style=" height:405px; overflow-x:hidden;">
+
+            <div ng-if="Courses.length==0" class="p shadow-z-1 col-xs-12 btn-material-red-500">
+                <h4 translate="{{'No Courses'| translate}}"></h4>
+            </div>
             <div ng-repeat="course in Courses|filter:Courses.searchTextCourse |orderBy:'-draftFlag'">                 
               <a href ng-click="fnselectCourse(course);status.formCourse = $index" bs-tooltip data-title="click to see Elements"  class="list-group-item " >{{course.Name}}
                 <i ng-show="status.formCourse==$index" class="pull-right fa fa-check-circle text-primary"></i></br>
@@ -45,6 +49,9 @@
           </div>
 
           <div  style=" height:405px; overflow-x:hidden;">
+           <!--  <div ng-if="selectedCourse!=undefined&&!selectedCourse.syllabus" class="p shadow-z-1 col-xs-12 btn-material-red-500">
+                <h4 translate="{{'No syllabus defined for the Course'| translate}}"></h4>
+            </div> -->
            
             <!-- {{selectedCourse.syllabus}} -->
             <div ng-if="selectedCourse.syllabus" data-angular-treeview="true" data-tree-id="syllabusTree" data-tree-model="selectedCourse.syllabus" data-node-output="selectedSyllabus.syllabus" data-tree-mode="add" data-node-edit="false" data-node-id="nodeId" data-node-label="name" data-node-children="children" ></div>

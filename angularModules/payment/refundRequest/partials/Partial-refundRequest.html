@@ -1,0 +1,51 @@
+<div  class="panel b-t b-00C853 bg-light dk">
+
+<div class="" style="margin-top: -1px;">
+    <div class="bg-light p-h">
+        <div class="row m-b-lg" style="position:fixed; width:101%; z-index:100;">
+            <div ng-if="classic" set-sub-heading-and-background-color  class="panel-heading font-bold text-white  p baab-shadow"   translate="{{'Refund Request'|translate}}"></div>
+                        
+        </div>
+        <div class="row" style="padding-top: 80px;padding-bottom: 15px;">
+
+            <div class="m-t-lg col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 col-xs-12">
+
+                <div class="row">
+                    <div class="col-xs-12">
+                       
+                        <div ng-if="userCourseList.length==0" class="p shadow-z-1 col-xs-12 btn-material-red-500">
+                                <h4 translate="{{'Customer not eligible for any refunds'| translate}}"></h4>    
+                                     
+
+                        </div>
+                        
+                        <div class="p shadow-z-1 col-xs-12 bg-white " ng-repeat="userCourse in userCourseList" >
+                                    
+                                    <!-- {{userCourse}} -->
+                                    <div class="col-xs-9 pull-left">
+	                                    <div class="upper font-bold">{{userCourse.courseName}}</div>
+	                                    <div class="upper font-bold">{{userCourse.coursePrice}} {{userCourse.currency}}</div>
+                						<div class="label label-success">{{userCourse.userInfo.status}}</div>
+
+	                                    <!-- <div class="upper font-bold">{{userCourse.courseName}}</div> -->
+	                                    <!-- <div class="upper font-bold">{{userCourse.courseName}}</div> -->
+                                    </div>
+                                    <div  class="col-xs-3 pull-left">
+                                        <a  class="btn btn-danger">Request Refund</a>
+
+                                    </div>
+                                        
+                                                                                                                                           
+                                    
+                             
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>   
+    </div>
+</div>
+
+</div>
