@@ -17,7 +17,7 @@ angular.module('baabtra').controller('ManageorderformsCtrl',['$scope','commonSer
 
 	$scope.data = {};
 
-	$scope.data.userDropdown = [{"text" : "<i class=\"fa fa-fw fa-rotate-left\"></i>&nbsp;Refund Request","click" : "refundRequest(orderForm.fkUserLoginId)"}];
+	$scope.data.userDropdown = [{"text" : "<i class=\"fa fa-fw fa-rotate-left\"></i>&nbsp;Refund Request","click" : "refundRequest(orderForm._id)"}];
 
 
 	var searchKey='';
@@ -70,6 +70,7 @@ $scope.prevOne=function(){
 
 
 	$scope.refundRequest = function(ofId){
+		console.log(ofId);
 		$state.go("home.main.refundRequest",{ofId:ofId});
 	};
 
