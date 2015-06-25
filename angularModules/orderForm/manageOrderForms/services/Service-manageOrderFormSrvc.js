@@ -13,5 +13,18 @@ angular.module('baabtra').service('manageOrderFormSrvc',['$http','bbConfig',func
         return promise;
       };
 
+      this.fnOFDetails=function(OFId){
+    var promise = $http({
+          method: 'POST',
+          url: bbConfig.BWS+'OFDetails/',
+          data:{OFId:OFId},
+          contentType:'application/json; charset=UTF-8',
+        });
+
+        return promise;
+      };
+
+
+
 
 }]);
