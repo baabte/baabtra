@@ -16,8 +16,6 @@ angular.module('baabtra').directive('batchView',['$filter','$state','$modal','vi
 
 			scope.$watch('batch',function(){
 
-				console.log(scope.batch);
-
 				scope.actions = [
 				/*{
 				"text": "<i class=\"fa fa-users\"></i>&nbsp;View mentees",

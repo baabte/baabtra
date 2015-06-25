@@ -19,20 +19,22 @@ angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatche
 			$scope.batchObj.assignedList = [];
 			$scope.batchObj.unAssignedList = [];
 
+
 			var elementOrderLength = Object.keys($scope.batchObj.course.elementOrder).length;
+			
 			for (var elemCount = 0; elemCount < elementOrderLength; elemCount++) {
 				var elementArray = $scope.batchObj.course.elementOrder[elemCount].split(".");
 				
-				console.log(elementArray);
 				var element = $scope.batchObj.batchDetails.courseTimeline;
 				for(var elemOrder in elementArray){
 					if(!angular.equals(element, undefined)){
 						element = element[elementArray[elemOrder]];
 					}
 				}
-				console.log(element);
+
+
 				if(!angular.equals(element, undefined) &&  !angular.equals(element, '')){
-					if(!angular.equals(element.order, undefined)){
+					if(!angular.equals(element.code, undefined)){
 						$scope.batchObj.assignedList.push({courseElement:element});
 					}
 				}

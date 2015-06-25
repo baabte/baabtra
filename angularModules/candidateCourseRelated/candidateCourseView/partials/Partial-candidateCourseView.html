@@ -33,7 +33,9 @@
       </div>
 
       <div  class="col-xs-push-1 col-md-push-2 col-md-8 col-xs-10 p shadow-z-1 bg-white ">
-        
+          
+           <button style="position: fixed;left: 15%;" class="btn btn-fab btn-fab-mini btn-raised btn-info am-fadeIn" ng-disabled="(lastViewedOrder == 0) || getElementClicked" ng-click="getElement('previous')" ng-><i class="mdi-navigation-chevron-left" style="  font-size: x-large;right: 6px;"></i></button>
+          <button style="position: fixed;right: 15%;"  class="btn btn-fab btn-fab-mini btn-raised btn-info pull-right am-fadeIn" ng-disabled="lastElement || getElementClicked" ng-click="getElement('next')"><i class="mdi-navigation-chevron-right font-bold" style="font-size: x-large;right: 4px;" ></i></button>
           <course-element-full-view course-id="courseId.$oid" preview-data="PrevObj"></course-element-full-view>
        
 
@@ -42,11 +44,6 @@
                     <strong>Oh sorry..!</strong> There are no more meterials to show.
                 </div>
               </div>
-      </div>
-
-      <div  class="col-xs-push-1 col-md-push-2 col-md-8 col-xs-10 p-sm shadow-z-1 b-t bg-white ">
-        <button  class="btn btn-fab btn-fab-mini btn-raised btn-info am-fadeIn" ng-disabled="(lastViewedOrder == 0) || getElementClicked" ng-click="getElement('previous')" ng-><i class="mdi-navigation-chevron-left" style="  font-size: x-large;right: 6px;"></i></button>
-         <button class="btn btn-fab btn-fab-mini btn-raised btn-info pull-right am-fadeIn" ng-disabled="lastElement || getElementClicked" ng-click="getElement('next')"><i class="mdi-navigation-chevron-right font-bold" style="font-size: x-large;right: 4px;" ></i></button>
       </div>
     </div>
   </div>
