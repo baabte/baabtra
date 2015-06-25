@@ -21,9 +21,9 @@ angular.module('baabtra').directive('questionField',['courseElementFieldsManagin
 
 			// console.clear()
 			// console.log('=========================')
-			// console.log(scope.)
+			// console.log(JSON.stringify(scope.question));
 			// console.log('=========================')
-			//setting default tab
+			// setting default tab
 			scope.selectedTab='question';
 			//output plain text from html
 			scope.outputPlainText=function(str){
@@ -85,7 +85,11 @@ angular.module('baabtra').directive('questionField',['courseElementFieldsManagin
 				scope.question.answer=[];
 				scope.question.multiAnswer=scope.multiAnswer;
 			}
+			if(!scope.question.type){
 			 scope.question.type="descriptive";
+			 }
+				
+			
 			// scope.question.answerType="singleAnswer";
 
 		}

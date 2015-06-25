@@ -17,11 +17,10 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 
 	$scope.data = {};
 
-	$scope.data.userDropdown = [{"text" : "<i class=\"fa fa-fw fa-rotate-left\"></i>&nbsp;Refund Request",
-    							"click" : "refundRequest(user.fkUserLoginId)"},
-    							{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View Profile",
+	$scope.data.userDropdown = [{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View Profile",
     							"click":"viewProfile(user.fkUserLoginId)"}];
 
+// {"text" : "<i class=\"fa fa-fw fa-rotate-left\"></i>&nbsp;Refund Request","click" : "refundRequest(user.fkUserLoginId)"}
 
 
 	var searchKey='';
@@ -77,9 +76,9 @@ $scope.prevOne=function(){
 		$state.go("home.main.userProfile",{userId:userId});
 	};
 
-	$scope.refundRequest = function(userId){
-		$state.go("home.main.refundRequest",{userId:userId});
-	};
+	// $scope.refundRequest = function(userId){
+	// 	$state.go("home.main.refundRequest",{userId:userId});
+	// };
 
 
 

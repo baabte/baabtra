@@ -45,7 +45,7 @@ createQuestionsetAside.hide();
 };
 
 // Pre-fetch an external template populated with a custom scope
-    var questionModal = $modal({scope: $scope, template: 'angularModules/questionRelated/questionGroup/directives/Modal-question.html', show: false,placement:'top'});
+    var questionModal = $modal({scope: $scope, template: 'angularModules/questionBank/partials/Modal-question.html', show: false,placement:'top'});
 // Show when some event occurs (use $promise property to ensure the template has been loaded)
 
 

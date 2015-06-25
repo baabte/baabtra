@@ -12,6 +12,9 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
             scope.attendenceTrack = scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].attendenceTrack;
             scope.evaluable = scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].evaluable;
             var code = scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
+            var elementIndex = scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].index;
+            var tlPointInMinute = scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].tlPointInMinute;
+            //console.log(scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex]);
             //scope.evaluator=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].evaluator;
             //scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
              // if(angular.equals(scope.evaluator,undefined)){
@@ -24,8 +27,9 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
                         code = hashids.encode(time);
                      }
             scope.createPreviewElement = function(path){
-				scope.ItsTimeToSaveDataToDB=false; // check for object built successfully or not
-				scope.weHaveGotAfile=false;
+
+      				scope.ItsTimeToSaveDataToDB=false; // check for object built successfully or not
+      				scope.weHaveGotAfile=false;
             	var fieldsTraversedCount=0;
             	var totalFields = scope.$parent.courseElement.courseElementTemplate.fields.length;
             	var temp = {}; // temp object for storing each elements in a course element
@@ -33,10 +37,12 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
             	scope.coursePreviewObj.Name=scope.$parent.courseElement.Name; // course element name
             	scope.coursePreviewObj.Icon=scope.$parent.courseElement.Icon; // course element icon
             	scope.coursePreviewObj.iconBackground=scope.$parent.courseElement.iconBackground; // icon bg colour
-               
-            	scope.coursePreviewObj.iconColor=scope.$parent.courseElement.iconColor; //icon colour
-                   
+              
+              //scope.coursePreviewObj.order = scope.$parent.courseElement.order;
+              //scope.coursePreviewObj.index = scope.$parent.courseElement.index;
+              //scope.coursePreviewObj.tlPointInMinute = scope.$parent.courseElement.tlPointInMinute;
 
+            	scope.coursePreviewObj.iconColor=scope.$parent.courseElement.iconColor; //icon colour
                     
 
             	angular.forEach(scope.$parent.courseElement.courseElementTemplate.fields,function(item){ // looping through item template
@@ -113,6 +119,8 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
 			};
 			//function for triggering when save button in aside
 			scope.saveMyFormData = function($hide){
+
+
 				scope.createPreviewElement('courseDocs'); // building the needed object
 				var courseObj = {};
 				if(!scope.$parent.syncData.courseTimeline){
@@ -120,7 +128,6 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
 				}
 				courseObj.key=scope.instance+'.'+scope.$parent.courseElement.Name;
 				courseObj[courseObj.key]=scope.coursePreviewObj;
-        console.log(scope.data.nodePath);
         courseObj[courseObj.key].syllabus = scope.data.nodePath;
 
 				if(!scope.$parent.syncData.courseTimeline[scope.instance]){
@@ -140,6 +147,9 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
                      scope.coursePreviewObj.attendenceTrack=scope.attendenceTrack; // attendece track
                      scope.coursePreviewObj.evaluable=scope.evaluable; 
                      scope.coursePreviewObj.code=code; // code backto object
+                     scope.coursePreviewObj.index=elementIndex;
+                     scope.coursePreviewObj.tlPointInMinute = tlPointInMinute;
+
                      //scope.coursePreviewObj.evaluator=scope.evaluator; //adding evaluator to course element
                      if(scope.coursePreviewObj.datas){
                         delete scope.coursePreviewObj.datas;

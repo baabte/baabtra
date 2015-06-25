@@ -120,6 +120,7 @@ angular.module('baabtra')
       };     
 
       $scope.fnSaveElements = function(courseElements){
+
         $scope.courseElements=[];
         for(var index in courseElements){
         var courseElementvalue=courseElements[index];
@@ -275,7 +276,7 @@ angular.module('baabtra')
                          }
 
                          if(angular.equals(item.evaluable,undefined)){
-                            $scope.attendenceTrack = false;
+                            $scope.evaluable = true;
                          }
                          else{
                              $scope.evaluable = item.evaluable;

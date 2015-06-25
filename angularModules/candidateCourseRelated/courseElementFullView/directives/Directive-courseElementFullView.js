@@ -55,6 +55,7 @@ angular.module('baabtra').directive('courseElementFullView',['$compile', functio
 							 		elementToBeCreated.attr('data',JSON.stringify(data));
 							 		elementToBeCreated.attr('course-element',JSON.stringify(scope.previewData));
 							 		elementToBeCreated.attr('index',key);
+							 		elementToBeCreated.attr('hide-title',true);
 							 		elementToBeCreated.attr('this-scope','childElementScopes.'+key+'');
 							 		elementToBeCreated.attr('course-id','courseId');
 							 		elementToBeCreated.addClass('elementField m-v-lg');

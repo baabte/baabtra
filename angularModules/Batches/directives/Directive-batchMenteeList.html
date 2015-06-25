@@ -1,12 +1,12 @@
-<div class="box-row"> 
+<div class="box-row" > 
 	<div class="box-cell">
 		<div class="box-inner">
-			<div class="col-xs-12 m-t bg-light"><span class="m-r m-t m-b pull-left text-md" translate="{{'Mentees under this Batch'|translate}}"></span>
+			<div class="col-xs-12 m-t"><span class="m-r m-t m-b pull-left font-bold" translate="{{'Mentees under this Batch'|translate}}"></span>
 			<i href="" ng-click="checkAll()" class="mdi-toggle-check-box m-r m-t m-b pull-right text-lg" style="cursor:pointer;"  bs-tooltip data-title="{{'check all'|translate}}"></i>  <!-- translate="{{'Check all'|translate}}" -->
 			<i href="" ng-click="uncheckAll()" class="mdi-toggle-check-box-outline-blank m-r m-t m-b pull-right text-lg" style="cursor:pointer;" bs-tooltip data-title="{{'uncheck all'|translate}}"></i>
 			<!-- translate="{{'Uncheck all'|translate}}" -->
 			</div>
-			<div class="list-group p-xs list-group-sm b no-margin border top scrollable" style="max-height:400px;">
+			<div class="list-group p-xs list-group-sm no-margin border top scrollable" style="max-height:400px;">
 				<div class="list-group-item col-xs-12 col-sm-12 col-md-5 fl-parent-height shadow-z-1 m-xs" ng-repeat="user in userList">
 					<div set-parent-height  parent-cl-name="'fl-parent-height'" class="col-xs-3 random-background-color text-center h-full" style="display:table-cell;">
 						<i class="mdi-action-perm-contact-cal text-3x"></i><br/>
