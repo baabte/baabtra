@@ -29,17 +29,24 @@
 			<h2 translate="{{'No Fields selected'|translate}}"></h2>
 			<p class="lead" translate="{{'You can add new fields by clicking above button.'|translate}}"></p>
 		</div>
-        <div ng-model="panels.activePanel" bs-collapse >
+        <div ng-model="panels.activePanel"  bs-collapse >
       <!-- ngRepeat: panel in panels -->
-      	<div class="panel panel-info" ng-repeat="field in fields">
+      	<div class="panel" ng-class="{'panel-success':field.moveingFiled, 'panel-info':!field.moveingFiled}" ng-repeat="field in fields">
         <div class="panel-heading">
           <h4 style="cursor:pointer;" bs-collapse-toggle data-toggle="collapse" class="panel-title col-xs-10">          
               Configur {{field.DisplayName}} field
           </h4>
 			<div class="btn-toolbar btn-toolbar-right">
-	          	<a class="pull-right m-r" ng-click="deleteField($index)" data-title="Remove this field" bs-tooltip="" data-placement="left">
+	          	<a class="pull-right" ng-click="deleteField($index)" data-title="Remove this field" bs-tooltip="" data-placement="left">
 				<i class="text-lg text-white fa fa-trash"></i>
 				</a>
+				<a class="pull-right m-r" ng-hide="$index == 0"  ng-click="upField($index)">
+				<i class="text-lg text-white fa fa-arrow-up"></i>
+				</a>
+				<a class="pull-right m-r" ng-hide="fields.length-1 == $index" ng-click="downField($index)">
+				<i class="text-lg text-white fa fa-arrow-down" ></i>
+				</a>
+				
 			</div>
 		</div>
         <div class="panel-collapse" bs-collapse-target>
@@ -50,7 +57,7 @@
 		        <div class="form-group">
 		            <label for="type" class="col-lg-2 control-label"  translate="{{'Field type'|translate}}"></label>
 		            <div class="col-lg-10">
-		            <input type="text" ng-disabled="true" class="form-control"  ng-model="field.Name" id="type">
+		            <input type="text"  class="form-control"  ng-model="field.Name" id="type">
 		            </div>
 		        </div>
 		        <div class="form-group">
