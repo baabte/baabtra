@@ -165,10 +165,11 @@ $scope.$watch('data.selectedNode',function () {
 			for(index in elemNameArray){
 				elem=elem[elemNameArray[index]];
 			}
-
+			console.log($scope.data.selectedNode,elem,elemNameArray);
 			if(angular.equals($scope.data.selectedNode.mark.type,'mark')){
 				$scope.data.markType='mark';
-				if(elem.evaluable&&!angular.equals(elem.totalMark,undefined)){
+				//elem.evaluable&&
+				if(!angular.equals(elem.totalMark,undefined)){
 					$scope.elementsOfSelectedNode.push({element:elem,key:$scope.data.selectedNode.element[key]});
 				}
 			}
