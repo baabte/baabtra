@@ -17,6 +17,7 @@ angular.module('custom-form').run(['$templateCache','loadTemplateSrv',function($
       //adding the existing templates into templateCache.
    		angular.forEach(responseData, function(templateElement){
           var templateData=templateElement.DefaultTemplate;
+
             $templateCache.put('angular-custom-form/'+templateElement.Name+'.ng.html',templateData);
          });
 
@@ -45,10 +46,10 @@ acf.directive('acfForm',['$templateCache','$compile','$sce',function($templateCa
                 return; // simply skip that
             }
             else{ //takes the newest value
-              if(Object.keys(scope.inputModel).length>0){
+              if(Object.keys(scope.inputModel).length>0 && scope.inputModel['formName']){
 
                 //creating dynamic object as per the formname
-                scope[scope.inputModel['formName'].replace(/ /g,'')]={};
+                //scope[scope.inputModel['formName'].replace(/ /g,'')]={};
                 //passing the object into outputObj to get it in parent scope.
                 scope.outputObj=scope[scope.inputModel['formName'].replace(/ /g,'')];
                 //adding the template into templateChache for retrival
@@ -127,7 +128,6 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
       //***function to add new field into the custom form ***
       $scope.addNewField=function(){
         $scope.customFieldId++; //to uniquely identify
-        console.log($scope.selectedField);
         /*deleting unesessary fields*/
         delete $scope.selectedField[0]._id;
         delete $scope.selectedField[0].urmId;
@@ -153,7 +153,6 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
         //fieldObj.options=[{"text":"","key":"option1"}]; //for options
         if(!angular.equals($scope.selectedField.length,0)){
           fieldObj.id='field'+$scope.customFieldId;
-          console.log($scope.fields);
           //if(angular.equals($scope.fields, undefined)){
           //  $scope.fields = [];
           //}
@@ -164,6 +163,28 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
       //to remove the field from the form
       $scope.deleteField=function(index){
         $scope.fields.splice(index,1);
+      };
+
+      $scope.upField = function(index){
+        var tempField = $scope.fields[index-1];
+        $scope.fields[index-1] = $scope.fields[index];
+        $scope.fields[index] = tempField;
+        $scope.fields[index-1].moveingFiled = true;
+        setTimeout(function(){ delete $scope.fields[index-1].moveingFiled;
+          $scope.$digest();
+         }, 1000);
+        
+      };
+
+      $scope.downField = function(index){
+        var tempField = $scope.fields[index+1];
+        $scope.fields[index+1] = $scope.fields[index];
+        $scope.fields[index] = tempField;
+
+        $scope.fields[index+1].moveingFiled = true;
+        setTimeout(function(){ delete $scope.fields[index+1].moveingFiled;
+          $scope.$digest();
+         }, 1000);
       };
 
       $scope.fnFieldItemClicked = function(field){
@@ -205,12 +226,16 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
 
         /*loop to add each attributes into the element*/
         angular.forEach($scope.form.fields,function(item,index){
-          console.log(item);
+         
           delete $scope.form.fields[index].otherPattern;
           var templateData = item.DefaultTemplate;
+          
+          
+          
           $scope.tempField=item;
           var optionsForAdd;
-
+          
+          
           //for adding options to select list
           if(angular.equals(item.Name,'select')){ 
            optionsForAdd =templateData.split('</select>')[0];
@@ -236,7 +261,16 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
           }
           
           //split the template by '>' to add custom attributes
+          
+          if(!angular.equals(item.Name,"text") && (templateData.split('<input').length > 1)){
+            var d = document.createElement('div');
+            d.innerHTML = item.DefaultTemplate;
+            d.firstChild.setAttribute("type", item.Name);
+            templateData = d.innerHTML;
+          }
+          
           var beforeCustom = templateData.split(">");
+
          //<label class="col-lg-2 control-label">'+item.DisplayName+'</label>
           var formLabel='<div class="form-group"><div class="col-lg-12">';
 
@@ -244,7 +278,6 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
           
           if(!angular.equals(item.customAttributes, undefined)){
             for(customAtt in item.customAttributes){
-              console.log(item.customAttributes[customAtt]);
               beforeCustom[0] = beforeCustom[0] + ' '+ item.customAttributes[customAtt].key +(item.customAttributes[customAtt].text.length?item.customAttributes[customAtt].text:'');
             }
           }
@@ -309,6 +342,8 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
           //other attributes
 
           beforeCustom[0] = beforeCustom[0] + ' '+ 'name=\"'+item.id+'\"';
+
+
 
           //looping the validation object
           angular.forEach(item.validation, function(value , key) {
