@@ -53,7 +53,7 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 	function(){
 
 		$(".orderDetails").css("padding-top",($(".header").height() + 20) +'px');
-	})
+	});
 
 
 	//function to expand and collapse the details of all applicants
@@ -69,7 +69,7 @@ angular.module('baabtra').controller('ViewusersforapproveCtrl',['$scope', '$root
 
 			}
 		}
-	}
+	};
 
 
 	//creating a mock of the global configuration of the company for the approval flow and access privileges for roles
@@ -199,7 +199,7 @@ $scope.showHideIndividualRequestForApproval = function(requestStatus,mentee){
 	if(angular.equals($scope.currentStage.currentStage,'Payment')){
 		var flag=true;
 
-		for(statusIndex in mentee.statusHistory){
+		for(var statusIndex in mentee.statusHistory){
 			if(angular.equals(mentee.statusHistory[statusIndex].statusChangedTo.toLowerCase(),'paid')){
 				flag = false;
 			}
@@ -224,7 +224,7 @@ $scope.showHideIndividualRequestForApproval = function(requestStatus,mentee){
 		return false;
 	}
 
-}
+};
 
 //function to show or hide a course title when there is nobody in the current status in concern, for eg. if the user is trying to verify requests if there are no requests in the status "pending verification", the course title should not be shown
 $scope.checkRequestsForStatus = function(course, statusArray){
@@ -276,12 +276,12 @@ $scope.checkRequestsForStatus = function(course, statusArray){
 	}
 
 	return false;
-}
+};
 
 
 //creating a function to update the status of a mentee when the user checks a checkbox
 $scope.updateStatus = function (mentee, checked, course){
-
+	var currentCurrencyRow=[];
 	if(checked){	
 		mentee.statusTobeChangedTo = $scope.currentStage.nextStatus;
 
@@ -290,7 +290,7 @@ $scope.updateStatus = function (mentee, checked, course){
 
 			// updating the model for the respective currency
 			for (var i in $scope.currencyArray) {
-				var currentCurrencyRow = $scope.currencyArray[i];
+				 currentCurrencyRow = $scope.currencyArray[i];
 
 				if(angular.equals(course.currency, currentCurrencyRow.currency)){
 
@@ -313,7 +313,7 @@ $scope.updateStatus = function (mentee, checked, course){
 
 			// updating the model for the respective currency
 			for (var i in $scope.currencyArray) {
-				var currentCurrencyRow = $scope.currencyArray[i];
+				 currentCurrencyRow = $scope.currencyArray[i];
 
 				if(angular.equals(course.currency, currentCurrencyRow.currency) && !angular.equals(currentCurrencyRow.amount,0)){
 
@@ -331,7 +331,7 @@ $scope.updateStatus = function (mentee, checked, course){
 		}
 	}
 
-}
+};
 
 //function to check all the checkboxes when the check all checkbox is clicked
 $scope.checkAll = function(checked){
@@ -362,7 +362,7 @@ $scope.checkAll = function(checked){
 		 	}
 		 }
 	
-}
+};
 
 //create an ng-change function update the total amount when discount amount is applied
 
@@ -377,7 +377,7 @@ $scope.updateDiscount = function(currency){
 		else {
 			currency.amount = currency.actualAmount;
 		}
-}
+};
 
 //get the array of currencies in the courses to show the payment screen, this is needed since each course may be configured to have a differnet currency
 $scope.createCurrencyArray = function() {
@@ -412,7 +412,7 @@ $scope.createCurrencyArray = function() {
 
 //creating a function to set the common details of the accountTransaction oobject
 var fillActTransaction = function(updatedOrderForm, currentOrderDetail, mode, actHead, narration, paymentMode){
-
+					
 					var actTransaction = {};
 
 					actTransaction.companyId = updatedOrderForm.companyId.$oid;
@@ -442,7 +442,12 @@ var fillActTransaction = function(updatedOrderForm, currentOrderDetail, mode, ac
 					for (var k in $scope.currencyArray){
 						var currentCurrency = $scope.currencyArray[k];
 						if(angular.equals(currentCurrency.currency,currentOrderDetail.currency)){
-							discount = currentCurrency.discount; 
+							if(currentCurrency.discount){
+								discount = currentCurrency.discount;
+							}
+							else{
+								discount=0;
+							}
 						}
 					}
 
@@ -487,7 +492,7 @@ var fillActTransaction = function(updatedOrderForm, currentOrderDetail, mode, ac
 					actTransaction.orderFormId = $scope.currentOrderForm._id.$oid;
 
 					return actTransaction;
-}
+};
 
 
 //function to popup the receipt print
@@ -586,14 +591,19 @@ $scope.updateOrderFormStatus = function(type,hide){
 					for (var k in $scope.currencyArray){
 						var currentCurrency = $scope.currencyArray[k];
 						if(angular.equals(currentCurrency.currency,currentOrderDetail.currency)){
-							discount = currentCurrency.discount; 
+							if(currentCurrency.discount){
+								discount = currentCurrency.discount;
+							}
+							else{
+								discount=0;
+							}
 							currency = currentCurrency.currency; 
 						}
 					}
 
 
 					if(angular.equals(actTransactions, undefined)){
-						var actTransactions = [];			
+						actTransactions = [];			
 					}
 					
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -602,11 +612,11 @@ $scope.updateOrderFormStatus = function(type,hide){
 					
 					var actHead = {};
 					actHead.type = 'Course';
-					actHead.details = {courseId:currentOrderDetail.courseId,
+					actHead.details = {userLoginId:request.userLoginId,courseId:currentOrderDetail.courseId,
 						courseName:currentOrderDetail.Name,
 						courseType:currentOrderDetail.coursetype};
 
-					var actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'credit', actHead, 'Course Sales','By Cash');
+					 actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'credit', actHead, 'Course Sales','By Cash');
 					
 					actTransactions.push(actTransaction);
 
@@ -617,9 +627,9 @@ $scope.updateOrderFormStatus = function(type,hide){
 
 						actHead = {};					
 						actHead.type = 'Discount';
-						actHead.details = {};
+						actHead.details = {userLoginId:request.userLoginId};
 
-						var actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'debit', actHead, 'Course Sales','By Cash');
+						 actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'debit', actHead, 'Course Sales','By Cash');
 						
 						actTransactions.push(actTransaction);
 					}
@@ -633,11 +643,11 @@ $scope.updateOrderFormStatus = function(type,hide){
 
 					actHead = {};					
 					actHead.type = 'Requestee';
-					actHead.details = {userId:request.userId,
+					actHead.details = {userLoginId:request.userLoginId,userId:request.userId,
 						Name:request.firstName + ' ' + request.lastName,
 						eMail:request.eMail};
 
-					var actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'debit', actHead, 'Course Sales','By Cash');
+					 actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'debit', actHead, 'Course Sales','By Cash');
 					
 					actTransactions.push(actTransaction);
 
@@ -648,11 +658,11 @@ $scope.updateOrderFormStatus = function(type,hide){
 					//crediting the requestee
 					actHead = {};					
 					actHead.type = 'Requestee';
-					actHead.details = {userId:request.userId,
+					actHead.details = {userLoginId:request.userLoginId,userId:request.userId,
 						Name:request.firstName + ' ' + request.lastName,
 						eMail:request.eMail};
 
-					var actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'credit', actHead, 'Course Sales','By Cash');
+					 actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'credit', actHead, 'Course Sales','By Cash');
 					
 					actTransactions.push(actTransaction);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -662,9 +672,9 @@ $scope.updateOrderFormStatus = function(type,hide){
 
 					actHead = {};					
 					actHead.type = 'Cash';
-					actHead.details = {};
+					actHead.details = {userLoginId:request.userLoginId};
 
-					var actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'debit', actHead, 'Course Sales','By Cash');
+					 actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'debit', actHead, 'Course Sales','By Cash');
 					
 					actTransactions.push(actTransaction);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -833,6 +843,10 @@ $scope.updateOrderFormStatus = function(type,hide){
 	// {then:function (argument) {
 	// 	console.log(updatedOrderForm);
 	// }};
+
+
+	// console.log({'updatedOrderForm':updatedOrderForm,'actTransactions':actTransactions,'paymentReceipt':$scope.paymentReceipt});
+	
 	var updateOrderForm = nomination.fnUpdateOrderFormStatus(updatedOrderForm,actTransactions, $scope.paymentReceipt);
 	updateOrderForm.then(function(response){
 		var result = angular.fromJson(JSON.parse(response.data));
@@ -909,7 +923,7 @@ $scope.updateOrderFormStatus = function(type,hide){
 
 
 
-}
+};
 
 
 // ======================================================================================

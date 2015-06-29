@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('RefundrequestCtrl',['$scope','$rootScope','$state','commonService','bbConfig','refundRequest',function($scope,$rootScope,$state,commonService,bbConfig,refundRequest){
+angular.module('baabtra').controller('RefundrequestCtrl',['$scope','$rootScope','$state','commonService','bbConfig','refundRequest','manageOrderFormSrvc',function($scope,$rootScope,$state,commonService,bbConfig,refundRequest,manageOrderFormSrvc){
 
 	if(!$rootScope.userinfo){
    commonService.GetUserCredentials($scope);
@@ -20,12 +20,21 @@ $rootScope.$watch('userinfo',function(){
     if(angular.equals($rootScope.userinfo.ActiveUserData.modernView,'classic')){
     	$scope.classic=true;
     }
-    var userCourseDetailsOFPromise=refundRequest.userCourseDetailsOF(ofId);
-	userCourseDetailsOFPromise.then(function(data){
-	 $scope.userCourseList=angular.fromJson(JSON.parse(data.data));
-	 console.log($scope.userCourseList)
 
-	});
+       var fnOFDetailsPromise=manageOrderFormSrvc.fnOFDetails(ofId);
+  fnOFDetailsPromise.then(function(data){
+   $scope.orderFormDetails=angular.fromJson(JSON.parse(data.data));
+   console.log($scope.orderFormDetails)
+
+  });
+
+
+ //    var userCourseDetailsOFPromise=refundRequest.userCourseDetailsOF(ofId);
+	// userCourseDetailsOFPromise.then(function(data){
+	//  $scope.userCourseList=angular.fromJson(JSON.parse(data.data));
+	//  console.log($scope.userCourseList)
+
+	// });
     
 });
 

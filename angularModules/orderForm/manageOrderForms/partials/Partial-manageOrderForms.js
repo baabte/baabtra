@@ -17,7 +17,7 @@ angular.module('baabtra').controller('ManageorderformsCtrl',['$scope','commonSer
 
 	$scope.data = {};
 
-	$scope.data.userDropdown = [{"text" : "<i class=\"fa fa-fw fa-rotate-left\"></i>&nbsp;Refund Request","click" : "refundRequest(orderForm._id)"}];
+	$scope.data.userDropdown = [{"text" : "<i class=\"fa fa-fw fa-rotate-left\"></i>&nbsp;Refund Request","click" : "refundRequest(orderForm._id.$oid)"}];
 
 
 	var searchKey='';
