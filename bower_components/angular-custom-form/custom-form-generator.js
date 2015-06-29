@@ -198,12 +198,14 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
       
       /*save the custom form after configuration*/
       $scope.generateCustomiseForm=function(){
+
         /*creating the custom form object*/
         $scope.form.fields=$scope.fields;
         $scope.form.template='';
 
         /*loop to add each attributes into the element*/
         angular.forEach($scope.form.fields,function(item,index){
+          console.log(item);
           delete $scope.form.fields[index].otherPattern;
           var templateData = item.DefaultTemplate;
           $scope.tempField=item;

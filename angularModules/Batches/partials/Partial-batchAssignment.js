@@ -69,7 +69,6 @@ angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatche
 			$scope.batchObj.selectedCourseList[key].courseElement.excludeList=$scope.excludeList;
 		});
 
-		
 
 		var assignCourseMaterialsResponse=viewBatches.assignCourseMaterials4Batch($scope);
 		assignCourseMaterialsResponse.then(function(response){ //promise for batch load
@@ -79,10 +78,22 @@ angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatche
 			
 			if(angular.equals(result,'success')){
 				$alert({title: "Success", content: 'Sucessfully Added course material to this batch' , placement: 'top-right',duration:3, type: 'info'});
-				for(var assignedElement in $scope.batchObj.selectedCourseList){
-					$scope.batchObj.assignedList.push({courseElement:$scope.batchObj.selectedCourseList[assignedElement].courseElement});
-					var indexOfAssignedElement = $scope.batchObj.unAssignedList.indexOf($scope.batchObj.selectedCourseList[assignedElement]);
-					$scope.batchObj.unAssignedList.splice(indexOfAssignedElement,1);
+				
+				var selectedCourseList = angular.copy($scope.batchObj.selectedCourseList);
+				for(var assignedElement in selectedCourseList){
+					$scope.batchObj.assignedList.push({courseElement:selectedCourseList[assignedElement].courseElement});
+					
+					for(var unAssignedIndex in  $scope.batchObj.unAssignedList){
+
+						if(angular.equals($scope.batchObj.unAssignedList[unAssignedIndex].elementOrder, selectedCourseList[assignedElement].elementOrder)){
+							
+							$scope.batchObj.unAssignedList.splice(unAssignedIndex,1);
+						}
+					}
+
+					// var indexOfAssignedElement = $scope.batchObj.unAssignedList.indexOf(selectedCourseList[assignedElement]);
+					// console.log(indexOfAssignedElement);
+					// $scope.batchObj.unAssignedList.splice(indexOfAssignedElement,1);
 					$scope.batchObj.selectedCourseList = [];
 					$scope.batchObj.assignedButton = false;
 				}
@@ -97,6 +108,8 @@ angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatche
 
 	$scope.clickedOnElement = function (element){
 		
+		
+
 		if(angular.equals(element.ticked,undefined)){
 			element.ticked = true;
 		}
