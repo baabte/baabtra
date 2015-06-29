@@ -40,8 +40,6 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 				}
 
 				scope.evaluated = function(element, elementTotalMarks, outElement, elementOrder, courseMappingId, evaluatorId){
-					console.clear();
-					console.log(elementTotalMarks);
 
 					element.evalDetails = {};
 					var result = angular.copy(outElement);
@@ -66,16 +64,14 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 
 						index++;
 						if(angular.equals(result.length, index)){
-
 							var evaluationResponse = evaluationService.evaluateAnswer(courseMappingId, element, elementOrder);
 							evaluationResponse.then(function(response){
 								var result = angular.fromJson(JSON.parse(response.data));
-
 								if(angular.equals(result.result, "Added")){
-									$alert({title: 'Evaluated!', content: element.Name + ' evaluated successfuly', placement: 'top-right', type: 'success', duration:3, show: true});
+									$alert({title: 'Evaluated!', content: element.Name + ' evaluated successfuly', placement: 'bottom-right', type: 'success', duration:2, show: true});
 								}
 								else if(angular.equals(result.result, "Updated")){
-									$alert({title: 'Updated!', content: element.Name + ' updated successfuly', placement: 'top-right', type: 'success', duration:3, show: true});
+									$alert({title: 'Updated!', content: element.Name + ' updated successfuly', placement: 'bottom-right', type: 'success', duration:2, show: true});
 								}
 							});	
 						}

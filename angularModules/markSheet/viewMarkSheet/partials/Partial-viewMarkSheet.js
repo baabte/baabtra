@@ -33,35 +33,58 @@ angular.module('baabtra').controller('ViewmarksheetCtrl',['$scope', '$rootScope'
     return count==0?1:count;
   };
 
-  var getMarkInAllLevel = function(syllabus,index){
+  // var getMarkInAllLevel = function(syllabus,index){
 
+  //   if(!angular.equals(syllabus[index].mark, undefined)){
+  //     console.log(syllabus[index].mark);
+  //     if(syllabus[index].mark.type=='mark' && syllabus[index].children.length==0){
+  //       syllabus[index].mark.markScored = parseFloat(syllabus[index].mark.markScored.toFixed(2));
+  //       return syllabus[index].mark;
+  //     }
+  //     else if(syllabus[index].mark.type=='mark'){
+  //       var mark=getMarkInAllLevel(syllabus[index].children,0);
+  //       if(mark.type=='mark'){
+
+  //         syllabus[index].mark.markScored = ((mark.markScored/mark.maxMark)*syllabus[index].mark.maxMark)/checkElemWithMark(syllabus[index].children);
+  //         syllabus[index].mark.markScored = parseFloat(syllabus[index].mark.markScored.toFixed(2));
+  //         return syllabus[index].mark;
+  //       }
+  //       else if(syllabus.length>(index+1)){
+  //         return getMarkInAllLevel(syllabus,index+1);
+  //       }
+        
+  //     }
+  //     else{
+  //         return {type:'no-mark'};
+  //       }
+  //   }
+  //   else{
+  //     $scope.menteeMarkSheet.noMarkSheet = false;
+  //   }
+  // };
+
+  var getMarkInAllLevel = function(syllabus,index){
+    
     if(!angular.equals(syllabus[index].mark, undefined)){
-      console.log(syllabus[index].mark);
-      if(syllabus[index].mark.type=='mark' && syllabus[index].children.length==0){
-        syllabus[index].mark.markScored = parseFloat(syllabus[index].mark.markScored.toFixed(2));
+
+      if(syllabus[index].children.length){
+        for (var i = 0; i < syllabus[index].children.length; i++) {
+          var mark = getMarkInAllLevel(syllabus[index].children, i);
+           if(angular.equals(syllabus[index].mark.markScored,undefined)){
+              syllabus[index].mark.markScored = 0;
+           }
+           mark.markScored = parseFloat(mark.markScored.toFixed(2));
+           syllabus[index].mark.markScored = syllabus[index].mark.markScored + parseFloat(mark.markScored.toFixed(2)); 
+        }
+      }
+      if(syllabus[index].mark){
         return syllabus[index].mark;
       }
-      else if(syllabus[index].mark.type=='mark'){
-        var mark=getMarkInAllLevel(syllabus[index].children,0);
-        if(mark.type=='mark'){
-
-          syllabus[index].mark.markScored = ((mark.markScored/mark.maxMark)*syllabus[index].mark.maxMark)/checkElemWithMark(syllabus[index].children);
-          syllabus[index].mark.markScored = parseFloat(syllabus[index].mark.markScored.toFixed(2));
-          return syllabus[index].mark;
-        }
-        else if(syllabus.length>(index+1)){
-          return getMarkInAllLevel(syllabus,index+1);
-        }
-        
-      }
-      else{
-          return {type:'no-mark'};
-        }
     }
     else{
       $scope.menteeMarkSheet.noMarkSheet = false;
     }
-  };
+  }
 
 
 
@@ -69,7 +92,6 @@ angular.module('baabtra').controller('ViewmarksheetCtrl',['$scope', '$rootScope'
   courseDetailsResponse.then(function(response){
   	var result = angular.fromJson(JSON.parse(response.data));
     $scope.menteeMarkSheet.course = result[0];
-    console.log(result[0]);
     $scope.menteeMarkSheet.markSheet = $scope.menteeMarkSheet.course.syllabus[0].children;
     //fnBuildmarkSheet(syllabus, markSheet);
 
