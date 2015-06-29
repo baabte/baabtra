@@ -7,12 +7,16 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 			index:'=',
 			courseElement:'=',
 			multiAnswer:'=',
-			questionResponse:'='
+			questionResponse:'=',
+			questionIndex:'='
 		},
 		templateUrl: 'angularModules/courseElementFields/testQuestionView/directives/Directive-testQuestionView.html',
 		link: function(scope, element, attrs, fn) {
 			
-			
+
+			if(!angular.equals(scope.questionIndex,undefined)){
+				scope.questionNumber=true;
+			}
 
 			var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId; // Role id of logged user
 			var userLoginId;

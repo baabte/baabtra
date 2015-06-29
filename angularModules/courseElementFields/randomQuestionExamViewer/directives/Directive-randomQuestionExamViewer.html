@@ -1,9 +1,13 @@
 
 <div>
-	<div class="col-xs-12">
-		<div ng-if="startTest && !examFinished && isMentee" class="pull-right">
-			<flip-clock countdown="true" count-down-time="countDownTime"></flip-clock>
+    <div  style="position:fixed; width:101%; z-index:10000; margin-top:-290px;" >
+		<div ng-if="startTest && !examFinished && isMentee" >
+				<flip-clock countdown="true" count-down-time="countDownTime"></flip-clock>
 		</div>
+	</div>
+
+	<div class="col-xs-12">
+		
 		<percent-indicator ng-if="examFinished" show-percentage="true" total-value="dataValue.value.mark.totalMark" obtain-value="courseElement.markScored" ng-model="form"></percent-indicator>
 
 		<div ng-hide="startTest==true" class="col-xs-12 text-center">
@@ -13,8 +17,8 @@
 		<div ng-if="startTest">
 		<div  ng-repeat="question in dataValue.value.testModel">
 				
-				
-					<test-question-view  data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" question-response="questionAnswer[start+$index]" course-element="courseElement"></test-question-view>
+					
+					<test-question-view  data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" question-response="questionAnswer[start+$index]" question-index="$index+1" course-element="courseElement"></test-question-view>
 
 
 		</div>
