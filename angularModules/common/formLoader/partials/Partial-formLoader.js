@@ -25,7 +25,7 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 	    	
 	    	$scope.data.course = angular.fromJson(JSON.parse(course.data)).courseDetails;
 	    	$scope.data.orderForm = {};
-			var time=(new Date()).valueOf();
+			var time = (new Date()).valueOf();
 			hashids = new Hashids("this is a order form id");
 			var orderFormId = 'OF-' + hashids.encode(time);
 			var orderFormData = {};

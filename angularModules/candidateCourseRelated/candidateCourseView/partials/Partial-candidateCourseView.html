@@ -36,9 +36,10 @@
           
            
           <course-element-full-view course-id="courseId.$oid" preview-data="PrevObj"></course-element-full-view>
-          <button  class="btn btn-fab btn-fab-mini btn-raised btn-info am-fadeIn" ng-disabled="(lastViewedOrder == 0) || getElementClicked" ng-click="getElement('previous')" ng-><i class="mdi-navigation-chevron-left" style="  font-size: x-large;right: 6px;"></i></button>
+          <button  class="btn btn-info btn-raised am-fadeIn" ng-disabled="(lastViewedOrder == 0) || getElementClicked" ng-click="getElement('previous')" ng->Previous<!-- <i class="mdi-navigation-chevron-left" style="  font-size: x-large;right: 6px;"></i> --></button>
           <!-- style="position: fixed;left: 15%;" -->
-          <button   class="btn btn-fab btn-fab-mini btn-raised btn-info pull-right am-fadeIn" ng-disabled="lastElement || getElementClicked" ng-click="getElement('next')"><i class="mdi-navigation-chevron-right font-bold" style="font-size: x-large;right: 4px;" ></i></button>
+          <!-- <a  class="btn btn-info btn-raised">Info</a> -->
+          <button   class="btn btn-info btn-raised pull-right am-fadeIn" ng-disabled="lastElement || getElementClicked" ng-click="getElement('next')">Next<!-- <i class="mdi-navigation-chevron-right font-bold" style="font-size: x-large;right: 4px;" ></i> --></button>
           <!-- style="position: fixed;right: 15%;" -->
        
 
