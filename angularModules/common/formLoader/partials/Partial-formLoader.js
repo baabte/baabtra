@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'formLoader', 'userRegistrationService', 'addCourseService', 'nomination', '$alert', 'courseAllocateService',function ($scope, $state ,formLoader, userRegistrationService, addCourseService, nomination, $alert, courseAllocateService){
+angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'formLoader', 'userRegistrationService', 'addCourseService', 'nomination', '$alert', 'courseAllocateService', 'LoginService', 'localStorageService','$rootScope', function ($scope, $state ,formLoader, userRegistrationService, addCourseService, nomination, $alert, courseAllocateService, LoginService, localStorageService, $rootScope){
 
 	$scope.data = {};
 	$scope.data.registerButtonClicked = false;
@@ -123,6 +123,7 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 		userDetails.mandatoryData = output;
 
 		courseDetails.userInfo.push(output);
+
 		$scope.data.orderForm.orderDetails.push(courseDetails);
 		$scope.data.orderForm.requesteeDetails = output;
 		$scope.data.orderForm.requesteeDetails.type = 'individual'
@@ -130,6 +131,13 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 			var nomintaionResponse = formLoader.CustomFormUserRegistration($scope.data.orderForm, "5562fe9394214e36a96600e5");
 			nomintaionResponse.then(function(response){
 					$scope.data.registerButtonClicked = false;
+					$scope.loginCredential={};
+
+					$scope.loginCredential.userName = output.eMail;
+					$scope.loginCredential.password = output.password;
+					$scope.from_where="direct";
+
+					LoginService.fnloginService($scope);
 					$alert({title: 'Done..!', content: 'You Have Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 					$state.go('login');	
 			})
@@ -144,5 +152,30 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 
 		// })
 	};
+
+	$scope.loginSuccessCallback=function(data){
+		$scope.logData=angular.fromJson(JSON.parse(data));
+			if($scope.logData.result==='true') {
+			   	  var logdata=$scope.logData.ActiveUserDataId.$oid.concat($scope.logData.userLoginId);
+			  	  localStorageService.add('logDatas',logdata);
+			  	  $rootScope.userinfo=$scope.logData;//if login is ok put it in the login info variable.
+            $rootScope.loggedIn=true;//if login is ok ,changin the variable in rootscope.
+          $state.go('home.main');//routing to home after success login by user
+				  $scope.login_or_not='login Success'; 
+
+				}
+				else
+			    {
+			      $scope.progress=false; //setting button enable
+			      $scope.btnSignupText='Sign in'; //re setting the value of nutton to signup
+			      $scope.loginCredential.password="";
+			      $scope.signinform.$setPristine();
+			      $scope.Error_msg=true; 
+			      $scope.login_error="wrong email or password. Try again!";   
+			      $scope.login_frequency++;  
+            $scope.isLoggedIn = true;
+			    }
+	   
+	}; 
 
 }]);

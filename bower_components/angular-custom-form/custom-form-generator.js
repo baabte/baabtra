@@ -127,7 +127,6 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
       //***function to add new field into the custom form ***
       $scope.addNewField=function(){
         $scope.customFieldId++; //to uniquely identify
-        console.log($scope.selectedField);
         /*deleting unesessary fields*/
         delete $scope.selectedField[0]._id;
         delete $scope.selectedField[0].urmId;
@@ -153,7 +152,6 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
         //fieldObj.options=[{"text":"","key":"option1"}]; //for options
         if(!angular.equals($scope.selectedField.length,0)){
           fieldObj.id='field'+$scope.customFieldId;
-          console.log($scope.fields);
           //if(angular.equals($scope.fields, undefined)){
           //  $scope.fields = [];
           //}
@@ -164,6 +162,28 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
       //to remove the field from the form
       $scope.deleteField=function(index){
         $scope.fields.splice(index,1);
+      };
+
+      $scope.upField = function(index){
+        var tempField = $scope.fields[index-1];
+        $scope.fields[index-1] = $scope.fields[index];
+        $scope.fields[index] = tempField;
+        $scope.fields[index-1].moveingFiled = true;
+        setTimeout(function(){ delete $scope.fields[index-1].moveingFiled;
+          $scope.$digest();
+         }, 1000);
+        
+      };
+
+      $scope.downField = function(index){
+        var tempField = $scope.fields[index+1];
+        $scope.fields[index+1] = $scope.fields[index];
+        $scope.fields[index] = tempField;
+
+        $scope.fields[index+1].moveingFiled = true;
+        setTimeout(function(){ delete $scope.fields[index+1].moveingFiled;
+          $scope.$digest();
+         }, 1000);
       };
 
       $scope.fnFieldItemClicked = function(field){
@@ -205,7 +225,6 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
 
         /*loop to add each attributes into the element*/
         angular.forEach($scope.form.fields,function(item,index){
-          console.log(item);
           delete $scope.form.fields[index].otherPattern;
           var templateData = item.DefaultTemplate;
           $scope.tempField=item;
@@ -234,6 +253,13 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
             });
             tempTemplateData=optionsForAdd; //assigning the added option into a variable
           }
+
+          if(!angular.equals(item.Name,"text") && (templateData.split('<input').length > 1)){
+            var outerElem = document.createElement('div');
+            outerElem.innerHTML = item.DefaultTemplate;
+            outerElem.firstChild.setAttribute("type", item.Name);
+            templateData = outerElem.innerHTML;
+          }
           
           //split the template by '>' to add custom attributes
           var beforeCustom = templateData.split(">");
@@ -244,7 +270,6 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
           
           if(!angular.equals(item.customAttributes, undefined)){
             for(customAtt in item.customAttributes){
-              console.log(item.customAttributes[customAtt]);
               beforeCustom[0] = beforeCustom[0] + ' '+ item.customAttributes[customAtt].key +(item.customAttributes[customAtt].text.length?item.customAttributes[customAtt].text:'');
             }
           }
@@ -312,11 +337,15 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
 
           //looping the validation object
           angular.forEach(item.validation, function(value , key) {
-              if(!angular.equals(key,'message')){
-                 beforeCustom[0] = beforeCustom[0] + ' '+key+'=\"'+value+'\"';
+              if(!angular.equals(key,'message') && !angular.equals(value,'')){
+                if(angular.equals(key,"minlength")){
+                   beforeCustom[0] = beforeCustom[0] +'ng-minlength'+'=\"'+value+'\"';
+                }else{
+                 beforeCustom[0] = beforeCustom[0] +' '+key+'=\"'+value+'\"';
+                 }
               }
               else{ //for validation messages
-                if(item.validation.pattern){
+                if(item.validation.pattern && !angular.equals(value,'')){
                   beforeCustom[0] = beforeCustom[0] + ' msg-pattern=\"'+value+'\"';
                   beforeCustom[0] = beforeCustom[0] + ' ng-pattern=\"'+item.validation.pattern+'\"';
                 }else{
