@@ -1,6 +1,13 @@
 <div class="row">
   <div class="col-xs-12 p bg-light">
-  	search
+  	<div class="col-xs-12 m">
+        <div class="form-group col-xs-6 col-md-3">
+            <input class="form-control floating-label" type="text" ng-model="data.searchKey" placeholder="Search" data-hint="You can search any value that mathces a Parent, like e-mail,First name , Last name... etc.">
+        </div>
+        <div class="form-group col-xs-6 col-md-3">
+             <button ng-click="searchParents()" class="btn btn-primary">Search</button>
+        </div>
+    </div>
   </div>
   <div class="col-xs-12 p ">
   	<div class="col-lg-10 col-xs-12 col-lg-offset-2">

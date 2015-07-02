@@ -147,5 +147,14 @@ this.FnLoadGlobalValues=function(key)
     return promise;
   }; 
 
+  this.checkUserIdExistence=function(userId){ 
+    var promise = $http({
+        method: 'POST',
+        url: bbConfig.BWS + 'checkUserIdExistence/',
+        data:{userId:userId}
+     });
+    return promise;
+  }; 
+
 
 }]);

@@ -10,6 +10,26 @@ if($rootScope.loggedIn===false){
  $state.go('login');
 }
 
+$scope.data={}; /* for managing all the datas generated from this controller
+				  otherwise sometimes we cant delete or reset some data from variables, so 
+				  we will keep it binded to this object.*/
+
+
+
+  var rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+  // var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
+  $scope.companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+// manageParent.getParent(searchKey,$scope.companyId)
+
+ 	$scope.searchParents = function (argument) {
+ 		var gotParents = manageParent.getParent($scope.data.searchKey,$scope.companyId);
+ 			gotParents.then(function (response) {
+ 				var responseData = JSON.parse(response.data);
+ 				console.log(responseData);
+ 			});
+ 	};
+
+
 
 	$scope.actions = [
 				{
