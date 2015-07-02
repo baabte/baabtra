@@ -25,7 +25,7 @@
      <form name="signinform" ng-submit="fnCheckLogin()" class="form-validation" role="form" xt-form novalidate >
     <div class="input-group m-b " >
           <span class="input-group-addon">@</span>
-          <input type="text" class="form-control hg" placeholder="{{'Username'|translate}}" id="email" ng-model="loginCredential.userName" ng-pattern="emailPattern" xt-validate name="email"  msg-pattern='{{emailMsg}}' ng-focus="Show_hide_val_msg()" ng-minlength="1">
+          <input type="text" class="form-control hg" placeholder="{{'Username'|translate}}" id="email" ng-model="loginCredential.userName" required ng-focus="Show_hide_val_msg()" ng-minlength="1">
     </div>
     <div class="input-group m-b h-md" >
           <span class="input-group-addon"><i class="ti-unlock"></i></span>

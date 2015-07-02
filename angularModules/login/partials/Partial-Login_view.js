@@ -133,6 +133,15 @@ $scope.fnCheckLogin=function(){//FnCheckLogin() is the functoin which is to be f
   $scope.isLoggedIn = false;
   $scope.btnSignupText='Inprogress...'; //While login to show the inprogress status as value of button. 
   $scope.from_where="direct";
+
+  
+  var re = /\S+@\S+\.\S+/;
+
+  if(!re.test($scope.loginCredential.userName)){
+    $scope.loginCredential.userId = angular.copy($scope.loginCredential.userName);
+    delete $scope.loginCredential.userName;
+  }
+  $scope.loginCredential.activeFlag = 1;
   LoginService.fnloginService($scope);
 }; 
 

@@ -12,6 +12,8 @@ angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatche
 			$scope.batchObj.selectedCourseList = [];
 			$scope.batchObj.batchDetails=angular.fromJson(JSON.parse(response.data)).batchList;
 			$scope.batchObj.course=angular.fromJson(JSON.parse(response.data)).course;
+			
+
 			//$scope.batchObj.courseTimeline=angular.fromJson(JSON.parse(response.data)).courseObj;
 			$scope.batchObj.userArray=angular.fromJson(JSON.parse(response.data)).userList;
 			$scope.batchObj.userList=angular.fromJson(JSON.parse(response.data)).userDetails;
@@ -43,7 +45,7 @@ angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatche
 					for(var elemOrder in elementArray){
 						unAssignedElement = unAssignedElement[elementArray[elemOrder]];
 					}
-					if(!angular.equals(unAssignedElement.order, undefined)){
+					if(!angular.equals(unAssignedElement.code, undefined)){
 						
 						$scope.batchObj.unAssignedList.push({Name:unAssignedElement.elements[0].value,elementOrder:$scope.batchObj.course.elementOrder[elemCount],userCourseElementType:unAssignedElement.Name,innerIndex:unAssignedElement.index,tlpoint:unAssignedElement.tlPointInMinute,courseElement:unAssignedElement});
 					}
