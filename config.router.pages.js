@@ -100,7 +100,6 @@
                   } 
                 }
               })
-
               .state('page.profile', {
                 url: '/profile',
                 templateUrl: 'views/pages/profile.html'
@@ -123,6 +122,24 @@
                 url: '/main',
                 templateUrl: 'angularModules/login/partials/Partial-home.html',
                 controller:'HomeCtrl'
+              })
+              .state('home.main.newParent', {
+                url: '/newParent',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/manageParent/newParent/partials/Partial-registerParent.html',
+                    controller:'RegisterparentCtrl'
+                  }
+                }
+              })
+              .state('home.main.addCandidate', {
+                url: '/addCandidate',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/manageParent/addCandidate/partials/Partial-addCandidateUnderParent.html',
+                    controller:'AddcandidateunderparentCtrl'
+                  }
+                }
               })
               .state('home.main.company.manage.role', {
                 url: '/role',
@@ -983,6 +1000,15 @@
                   'innercontent':{
                 templateUrl: 'angularModules/orderForm/manageOrderForms/partials/Partial-manageOrderForms.html',
                 controller:'ManageorderformsCtrl'
+                  }
+                }
+              })
+                 .state('home.main.resultReport', {
+                url: '/resultReport/',
+                 views:{
+                  'innercontent':{
+                templateUrl: 'angularModules/result/resultReport/partials/Partial-resultReport.html',
+                controller:'ResultreportCtrl'
                   }
                 }
               })
