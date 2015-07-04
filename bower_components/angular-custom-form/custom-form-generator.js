@@ -9,25 +9,24 @@ var responseData;
 /* Storing the templates into $templateCache to load it in future*/
 angular.module('custom-form').run(['$templateCache','loadTemplateSrv',function($templateCache,loadTemplateSrv){
 
-  	//var responseData;
+    //var responseData;
     /*promise for loading template service*/
-   	var promise=loadTemplateSrv.loadFormTemplates();
-   	promise.then(function(response){ 
-   		responseData=angular.fromJson(JSON.parse(response.data));
+    var promise=loadTemplateSrv.loadFormTemplates();
+    promise.then(function(response){ 
+      responseData=angular.fromJson(JSON.parse(response.data));
       //adding the existing templates into templateCache.
-   		angular.forEach(responseData, function(templateElement){
+      angular.forEach(responseData, function(templateElement){
           var templateData=templateElement.DefaultTemplate;
-
             $templateCache.put('angular-custom-form/'+templateElement.Name+'.ng.html',templateData);
          });
 
-  	});
+    });
   }]);
 
 
 /* directive to load the dynamic form data*/
 acf.directive('acfForm',['$templateCache','$compile','$sce',function($templateCache,$compile,$sce){
-	 return {
+   return {
     restrict: 'A',
     replace:true,
     require: ['^?acfForm','^?outputModel','^?inputModel'],
@@ -35,7 +34,7 @@ acf.directive('acfForm',['$templateCache','$compile','$sce',function($templateCa
       inputModel:'=',
       outputObj:'=outputModel'
     },
-   	//templateUrl: 'angular-custom-form/fieldView.ng.html', /*template url to field view */
+    //templateUrl: 'angular-custom-form/fieldView.ng.html', /*template url to field view */
     link: function (scope, element, attrs){
       scope.outputObj={};
 
@@ -46,10 +45,10 @@ acf.directive('acfForm',['$templateCache','$compile','$sce',function($templateCa
                 return; // simply skip that
             }
             else{ //takes the newest value
-              if(Object.keys(scope.inputModel).length>0 && scope.inputModel['formName']){
+              if(Object.keys(scope.inputModel).length>0){
 
                 //creating dynamic object as per the formname
-                //scope[scope.inputModel['formName'].replace(/ /g,'')]={};
+                scope[scope.inputModel['formName'].replace(/ /g,'')]={};
                 //passing the object into outputObj to get it in parent scope.
                 scope.outputObj=scope[scope.inputModel['formName'].replace(/ /g,'')];
                 //adding the template into templateChache for retrival
@@ -67,7 +66,7 @@ acf.directive('acfForm',['$templateCache','$compile','$sce',function($templateCa
 
 /*directive to load the single field from template cache*/
 acf.directive('acfField',['$templateCache','$compile',function($templateCache,$compile){
-	 return {
+   return {
     restrict: 'EA',
     require: ['^?acfForm','^?acfModel'],
     replace:true,
@@ -77,12 +76,12 @@ acf.directive('acfField',['$templateCache','$compile',function($templateCache,$c
     },
     link: function ($scope, $element, $attrs) {
      /*Here the code to load the dynamic template in the page*/
-    	var templateData = $templateCache.get('angular-custom-form/'+$scope.fieldSchema.type+'.ng.html');
+      var templateData = $templateCache.get('angular-custom-form/'+$scope.fieldSchema.type+'.ng.html');
       var beforeCustom = templateData.split(">");
       beforeCustom[0] = beforeCustom[0] + ' ng-model=acfModel[\''+$scope.fieldSchema.name+'\']'; //this line will add the ng-model to specific control
       templateData= beforeCustom.join('>');
       $element.html(templateData);              //adding the controle to the page.                                                        
-    	$compile($element.contents())($scope);   //compiles the specific control
+      $compile($element.contents())($scope);   //compiles the specific control
     }
   }
 
@@ -226,16 +225,11 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
 
         /*loop to add each attributes into the element*/
         angular.forEach($scope.form.fields,function(item,index){
-         
           delete $scope.form.fields[index].otherPattern;
           var templateData = item.DefaultTemplate;
-          
-          
-          
           $scope.tempField=item;
           var optionsForAdd;
-          
-          
+
           //for adding options to select list
           if(angular.equals(item.Name,'select')){ 
            optionsForAdd =templateData.split('</select>')[0];
@@ -259,18 +253,16 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
             });
             tempTemplateData=optionsForAdd; //assigning the added option into a variable
           }
-          
-          //split the template by '>' to add custom attributes
-          
+
           if(!angular.equals(item.Name,"text") && (templateData.split('<input').length > 1)){
-            var d = document.createElement('div');
-            d.innerHTML = item.DefaultTemplate;
-            d.firstChild.setAttribute("type", item.Name);
-            templateData = d.innerHTML;
+            var outerElem = document.createElement('div');
+            outerElem.innerHTML = item.DefaultTemplate;
+            outerElem.firstChild.setAttribute("type", item.Name);
+            templateData = outerElem.innerHTML;
           }
           
+          //split the template by '>' to add custom attributes
           var beforeCustom = templateData.split(">");
-
          //<label class="col-lg-2 control-label">'+item.DisplayName+'</label>
           var formLabel='<div class="form-group"><div class="col-lg-12">';
 
@@ -343,15 +335,17 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
 
           beforeCustom[0] = beforeCustom[0] + ' '+ 'name=\"'+item.id+'\"';
 
-
-
           //looping the validation object
           angular.forEach(item.validation, function(value , key) {
-              if(!angular.equals(key,'message')){
-                 beforeCustom[0] = beforeCustom[0] + ' '+key+'=\"'+value+'\"';
+              if(!angular.equals(key,'message') && !angular.equals(value,'')){
+                if(angular.equals(key,"minlength")){
+                   beforeCustom[0] = beforeCustom[0] +'ng-minlength'+'=\"'+value+'\"';
+                }else{
+                 beforeCustom[0] = beforeCustom[0] +' '+key+'=\"'+value+'\"';
+                 }
               }
               else{ //for validation messages
-                if(item.validation.pattern){
+                if(item.validation.pattern && !angular.equals(value,'')){
                   beforeCustom[0] = beforeCustom[0] + ' msg-pattern=\"'+value+'\"';
                   beforeCustom[0] = beforeCustom[0] + ' ng-pattern=\"'+item.validation.pattern+'\"';
                 }else{
@@ -389,7 +383,7 @@ acf.directive('acfEditForm',['$templateCache','$compile',function($templateCache
 /*service to load the added build in templates from database*/
 acf.service('loadTemplateSrv',['$http','bbConfig',function($http,bbConfig){
 
-	this.loadFormTemplates = function(){
+  this.loadFormTemplates = function(){
     var promise = $http({
       url: bbConfig.BWS+'fnLoadCustomFormTemplates/',
       method: "POST",
