@@ -612,7 +612,7 @@ $scope.updateOrderFormStatus = function(type,hide){
 					
 					var actHead = {};
 					actHead.type = 'Course';
-					actHead.details = {userLoginId:request.userLoginId,courseId:currentOrderDetail.courseId,
+					actHead.details = {userLoginId:request.userLoginId,Name:request.firstName + ' ' + request.lastName,courseId:currentOrderDetail.courseId,
 						courseName:currentOrderDetail.Name,
 						courseType:currentOrderDetail.coursetype};
 
@@ -627,7 +627,7 @@ $scope.updateOrderFormStatus = function(type,hide){
 
 						actHead = {};					
 						actHead.type = 'Discount';
-						actHead.details = {userLoginId:request.userLoginId};
+						actHead.details = {userLoginId:request.userLoginId,Name:request.firstName + ' ' + request.lastName};
 
 						 actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'debit', actHead, 'Course Sales','By Cash');
 						
@@ -672,7 +672,7 @@ $scope.updateOrderFormStatus = function(type,hide){
 
 					actHead = {};					
 					actHead.type = 'Cash';
-					actHead.details = {userLoginId:request.userLoginId};
+					actHead.details = {userLoginId:request.userLoginId,Name:request.firstName + ' ' + request.lastName};
 
 					 actTransaction = fillActTransaction(updatedOrderForm,currentOrderDetail,'debit', actHead, 'Course Sales','By Cash');
 					
