@@ -1,0 +1,27 @@
+<div class="modal  fade w-auto-xs" tabindex="-1" role="dialog" >
+	<div class="modal-dialog modal-xl">
+    	<div class="modal-content">
+    		<div class="modal-header" >
+        		<button type="button" class="close" ng-click="$hide()">×</button>
+        		<h4 class="modal-title ng-binding" ng-bind-html="title" translate="{{'Request Refund'|translate}}" ></h4>	
+      	</div>
+        <div class="modal-body m-b-lg">
+          
+               <div class="form-group">
+                  <label for="textArea" class="col-lg-2 control-label">Reason for Refund</label>
+                  <div class="col-lg-10">
+                      <textarea class="form-control" required ng-model="request.reason" rows="3" id="reason"></textarea>
+                  </div>
+              </div><br>
+        </div>
+
+
+     		<div class="modal-footer m-t-lg">
+        		<button type="button" class="btn btn-default" ng-click="$hide()" translate="{{'Close'|translate}}"></button>
+        		<button type="button" class="btn btn-primary" ng-disabled="!request.reason" ng-click="fnRequestRefund($hide)" translate="{{'Submit'|translate}}"></button>
+      		</div>   
+   		</div>
+	</div> 
+</div>      
+
+

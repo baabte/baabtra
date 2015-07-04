@@ -1003,6 +1003,15 @@
                   }
                 }
               })
+                 .state('home.main.resultReport', {
+                url: '/resultReport/',
+                 views:{
+                  'innercontent':{
+                templateUrl: 'angularModules/result/resultReport/partials/Partial-resultReport.html',
+                controller:'ResultreportCtrl'
+                  }
+                }
+              })
 
               .state('page.document', {
                 url: '/document',
