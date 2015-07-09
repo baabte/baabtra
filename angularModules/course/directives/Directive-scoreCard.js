@@ -41,7 +41,6 @@ angular.module('baabtra').directive('scoreCard',['$compile', function($compile) 
 			// 	}
 			// };
 			var getMarkInAllLevel = function(syllabus,index){
-				console.log(syllabus);
 				if(!angular.equals(syllabus[index].mark, undefined)){
 					if(syllabus[index].children.length){
 						for (var i = 0; i < syllabus[index].children.length; i++) {

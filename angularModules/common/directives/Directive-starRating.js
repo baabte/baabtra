@@ -26,7 +26,6 @@ angular.module('baabtra').directive('starRating', function() {
                     scope.stars.push({filled:'-o'});
                 }
             }
-            console.log(scope.stars);
         }
     };
 });

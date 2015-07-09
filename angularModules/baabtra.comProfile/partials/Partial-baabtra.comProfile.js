@@ -21,7 +21,6 @@ userData.then(function (data) {
 		}
 		
 	}
-	console.log($scope.baabtraProfile.result);
 });
 
 $scope.calculateAge = function calculateAge(birthday) { // birthday is a date
