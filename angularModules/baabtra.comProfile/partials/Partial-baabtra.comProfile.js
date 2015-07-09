@@ -39,13 +39,23 @@ $scope.convertDate = function convertDate(date){
 $scope.getCourseDuration = function getCourseDuration(duration){
 	return duration[Object.keys(duration)[0]] +" "+ Object.keys(duration)[0];
 };
-
+$scope.baabtraProfile.showInPrint = true;
 $scope.showId = function showId(){
 	$scope.baabtraProfile.showId = true;
+	$scope.baabtraProfile.showInPrint = false;
 	setTimeout(function(){ 
 	angular.element('#myElement').click();
-}, 1);
+}, 5);
 };
+
+$scope.fullPrint = function fullPrint(){
+	$scope.baabtraProfile.showInPrint = false;
+	setTimeout(function(){ 
+	angular.element('#myElement').click();
+}, 5);
+};
+
+
 
 $scope.baabtraProfile.current = 4;
 $scope.baabtraProfile.max = 5;
