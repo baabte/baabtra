@@ -1,0 +1,30 @@
+<div class="col-md-12">
+
+<div class="col-xs-12 col-md-9 p " masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
+            <div class="col-xs-12 p shadow-z-1 bg-danger" ng-if="data.usersObject.userList&&!data.usersObject.userList.length">
+              There are no matching candidates for you..!
+            </div>
+                <div  masonry-tile class="tile col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-left masonry-brick" ng-repeat="user in data.usersObject.userList">
+                 <div class="panel " >
+                      <div class="p" style="position: absolute;right: 15px;">
+                        <a data-placement="bottom-right" bs-dropdown="buildActions($index)" html="true"><i class="mdi-navigation-more-vert text-xl" ></i></a>
+
+                      </div>
+                      <div >
+                       
+                         <div style="max-height: 226px;  overflow: hidden;">
+                           <img class="img-responsive" ng-if="!user.profile.userPic" style="min-height: 226px;"  src="images/default_person.png">
+                            <img  class="img-responsive" ng-if="user.profile.userPic" style="min-height: 226px;  overflow: hidden;" src="{{user.profile.userPic}}">
+                         </div>
+                         <div class="panel-body">
+                         <div class="font-bold text-black  m-h-sm text-name show-in-one-line">{{user.profile.firstName}}&nbsp;{{user.profile.lastName}}</div>
+                         <div class="text-black m-h-sm show-in-one-line" >{{user.userName}}</div>
+                         <div class="text-black m-h-sm " >DOB:&nbsp;{{user.profile.dob | date:'dd/MMM/yyyy'}}</div>
+                           </div>
+                      </div>
+                 
+                </div>
+              </div>
+          </div>
+
+</div>
