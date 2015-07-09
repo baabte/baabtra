@@ -41,6 +41,8 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 
 				scope.evaluated = function(element, elementTotalMarks, outElement, elementOrder, courseMappingId, evaluatorId){
 
+					
+
 					element.evalDetails = {};
 					var result = angular.copy(outElement);
 

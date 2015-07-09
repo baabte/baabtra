@@ -933,3 +933,39 @@ body {
    line-height: 16px;        /* fallback */
    max-height: 16px;       /* fallback */
 }
+
+.rating {
+    color: #a9a9a9;
+    margin: 0!important;
+    padding: 0!important;
+}
+ul.rating {
+    display: inline-block!important;
+}
+.rating li {
+    list-style-type: none!important;
+    float: inline-block!important;
+    padding: 1px!important;
+    text-align: center!important;
+    font-weight: bold!important;
+    cursor: pointer!important;
+    font-size:30px!important;
+}
+.text-yellow{
+    color: yellow!important;
+}
+.score-card-box{
+  border: 2px #5484be dashed;
+  border-radius: 20px;
+}
+
+.baabtra-profile-bg{
+  background-color: rgba(19, 53, 95, 0.84)!important;
+  color: #FFFFFF!important;
+}
+.text-pdf-white{
+  color: #FFFFFF!important;
+}
+.text-pdf-success{
+  color: #0f9d58!important;
+}

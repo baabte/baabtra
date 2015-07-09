@@ -42,8 +42,13 @@ angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatche
 				}
 				else{
 					var unAssignedElement = $scope.batchObj.course.courseTimeline;
+
 					for(var elemOrder in elementArray){
-						unAssignedElement = unAssignedElement[elementArray[elemOrder]];
+						
+						if(!angular.equals(unAssignedElement[elementArray[elemOrder]], undefined)){
+							unAssignedElement = unAssignedElement[elementArray[elemOrder]];
+						}
+						
 					}
 					if(!angular.equals(unAssignedElement.code, undefined)){
 						
