@@ -535,7 +535,7 @@
                 
               })
               .state('home.main.baabtraProfile', {
-                url: '/baabtraProfile/:userLoginId',
+                url: '/baabtraProfile/:type/:userLoginId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/baabtra.comProfile/partials/Partial-baabtra.comProfile.html',
