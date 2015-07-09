@@ -141,6 +141,15 @@
                   }
                 }
               })
+              .state('home.main.viewRelatedCandidates', {
+                url: '/viewRelatedCandidates',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/parent/viewCandidates/partials/Partial-viewCandidatesForParent.html',
+                    controller:'ViewcandidatesforparentCtrl'
+                  }
+                }
+              })
               .state('home.main.company.manage.role', {
                 url: '/role',
                 templateUrl: 'angularModules/company/partials/Partial-manage_user_role.html',
