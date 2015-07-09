@@ -12,6 +12,7 @@ $rootScope.$watch('userinfo',function(){
     
     $scope.rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.userinfo = $rootScope.userinfo;
+
     if(angular.equals($rootScope.userinfo.ActiveUserData.modernView,undefined)){
       $rootScope.userinfo.ActiveUserData.modernView = "modern";
     }
@@ -82,7 +83,9 @@ if(angular.equals($rootScope.loggedIn,false)){
 
 $scope.changeProfilePic = function(avatarImg, $hide){
       $scope.btnName = "Uploading...";
-      var response = commonSrv.fnUploadProfilePic(avatarImg, $scope.rm_id);
+
+      
+      var response = commonSrv.fnUploadProfilePic(avatarImg, $rootScope.userinfo.ActiveUserData.userLoginId);
       response.then(function(data){
         $scope.btnName = "Change";
         $hide();

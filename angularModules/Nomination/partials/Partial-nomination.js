@@ -209,9 +209,9 @@ $scope.fnUserRegister =function (draftFlag,fnCallback) {
 		//taking the selected course id
 		var currentCourseId = angular.copy($scope.allSync.FormData.course._id);
 		
-		var time=(new Date()).valueOf();
-		hashids = new Hashids("this is a id for mentees");
-		var userUniqueId = 'RQ-' + hashids.encode(time);
+		// var time=(new Date()).valueOf();
+		// hashids = new Hashids("this is a id for mentees");
+		// var userUniqueId = 'RQ-' + hashids.encode(time);
 			
 		
 		var filePaths = [];
@@ -226,7 +226,7 @@ $scope.fnUserRegister =function (draftFlag,fnCallback) {
 
 			if(angular.equals(Object.keys($scope.allSync.FormData).length, (keyCount+1) )){
 				$scope.allSync.FormData.status = "Pending Approval";
-				$scope.allSync.FormData.userId = userUniqueId;
+				//$scope.allSync.FormData.userId = userUniqueId;
 			}
 			keyCount++;
 		}

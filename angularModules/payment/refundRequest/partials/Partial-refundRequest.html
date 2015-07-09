@@ -2,36 +2,85 @@
 
 <div class="" style="margin-top: -1px;">
     <div class="bg-light p-h">
+
         <div class="row m-b-lg" style="position:fixed; width:101%; z-index:100;">
             <div ng-if="classic" set-sub-heading-and-background-color  class="panel-heading font-bold text-white  p baab-shadow"   translate="{{'Refund Request'|translate}}"></div>
+            
+            <div  class="col-xs-12 shadow-z-1 bg-white" >
+                <div ng-if="orderFormDetails" class="col-xs-12 m-t-md m-b-md  ">
+                    <div class="col-xs-3">
+
+                        <div class="font-bold col-xs-12">Order Form ID : {{orderFormDetails.orderForm.customCompanyCode}}</div>
+                        <div class="col-xs-12">
+                            <span class="label label-success ">{{orderFormDetails.orderForm.status}}</span>
+                        </div>
                         
+                    </div>
+                    <div class="col-xs-7 m-n-l">
+                        <div ng-if="orderFormDetails.orderForm.requesteeDetails.type=='individual'" >
+                        <div class="font-bold col-xs-12">Name : {{orderFormDetails.orderForm.requesteeDetails.firstName}} {{orderFormDetails.orderForm.requesteeDetails.lastName}} </div>
+                        <div class="font-bold col-xs-12">@ : {{orderFormDetails.orderForm.requesteeDetails.eMail}}</div>
+
+
+                        </div>
+                        <div ng-if="orderFormDetails.orderForm.requesteeDetails.type=='company'">
+                            <div ng-if="orderFormDetails.orderForm.requesteeDetails.companyName" class="font-bold col-xs-12">Company : {{orderFormDetails.orderForm.requesteeDetails.companyName}}</div>
+                            <div  ng-if="orderFormDetails.orderForm.requesteeDetails.contactPerson" class="font-bold col-xs-12">Contact Person : {{orderFormDetails.orderForm.requesteeDetails.contactPerson}}</div> 
+                            <div ng-if="orderFormDetails.orderForm.requesteeDetails.phone" class="font-bold col-xs-12">Phone : {{orderFormDetails.orderForm.requesteeDetails.phone}}</div>
+
+                            <div ng-if="orderFormDetails.orderForm.requesteeDetails.eMail" class="font-bold col-xs-12">@ : {{orderFormDetails.orderForm.requesteeDetails.eMail}}</div>
+
+                        
+                        </div>
+
+
+                    </div>
+                    <div  class="col-xs-2">
+
+                        <div ng-if="orderFormDetails" ng-init="CreatedDate=convertDate(orderFormDetails.orderForm.createdDate.$date)" class=" pull-left m-t-xs col-xs-12"> 
+                            <span class="font-bold">Created on </span>
+                            <div> 
+                                <i class="text-md mdi-action-event"></i>{{CreatedDate.day}}<br>
+                            </div>
+                        </div>
+                        <div ng-if="orderFormDetails" ng-init="UpdatedDate=convertDate(orderFormDetails.orderForm.updatedDate.$date)" class=" pull-left m-t-xs col-xs-12"> 
+                            <span class="font-bold">Last Updated on </span>
+                            <div> 
+                                <i class="text-md mdi-action-event"></i>{{UpdatedDate.day}}<br>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>               
+
+
+            </div>               
         </div>
-        <div class="row" style="padding-top: 80px;padding-bottom: 15px;">
+        <div class="row" style="padding-top: 120px;padding-bottom: 15px;">
 
             <div class="m-t-lg col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 col-xs-12">
 
                 <div class="row">
                     <div class="col-xs-12">
                        
-                        <div ng-if="userCourseList.length==0" class="p shadow-z-1 col-xs-12 btn-material-red-500">
+                        <div ng-if="orderFormDetails.ActTransactions.length==0&&orderFormDetails.paymentReceipts.length==0" class="p shadow-z-1 col-xs-12 btn-material-red-500">
                                 <h4 translate="{{'Customer not eligible for any refunds'| translate}}"></h4>    
                                      
 
                         </div>
                         
-                        <div class="p shadow-z-1 col-xs-12 bg-white " ng-repeat="userCourse in userCourseList" >
+                        <div class="p shadow-z-1 col-xs-12 bg-white " ng-repeat="transaction in orderFormDetails.ActTransactions" >
                                     
-                                    <!-- {{userCourse}} -->
                                     <div class="col-xs-9 pull-left">
-	                                    <div class="upper font-bold">{{userCourse.courseName}}</div>
-	                                    <div class="upper font-bold">{{userCourse.coursePrice}} {{userCourse.currency}}</div>
-                						<div class="label label-success">{{userCourse.userInfo.status}}</div>
+                                        <div class="upper font-bold">{{transaction.actHead.details.Name}}</div>
 
-	                                    <!-- <div class="upper font-bold">{{userCourse.courseName}}</div> -->
-	                                    <!-- <div class="upper font-bold">{{userCourse.courseName}}</div> -->
+	                                    <div class="upper font-bold">{{transaction.transactionFor.courseName}}</div>
+	                                    <div class="upper font-bold">{{transaction.debit.amount}} {{transaction.debit.currency}}</div>
+
                                     </div>
                                     <div  class="col-xs-3 pull-left">
-                                        <a  class="btn btn-danger">Request Refund</a>
+                                        <a ng-if="transaction.debit.amount!='free'" ng-click="refundRequestModalshowModal(transaction)" class="btn btn-danger">Request Refund</a>
 
                                     </div>
                                         

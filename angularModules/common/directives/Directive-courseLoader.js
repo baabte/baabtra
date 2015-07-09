@@ -20,9 +20,11 @@ angular.module('baabtra').directive('courseLoader',['addCourseService','$rootSco
 			  companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;				
 			  
 			}
+
+			scope.type='all';
 					
 		//service call for course fetch
-			var courseFetchData={fkcompanyId:companyId};
+			var courseFetchData={fkcompanyId:companyId,type:scope.type};
 
 			var FetchCourseListCallBack= addCourseService.fnFetchCourseList(courseFetchData);
 
