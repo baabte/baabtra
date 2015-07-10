@@ -1,5 +1,28 @@
-angular.module('baabtra').controller('BaabtraComprofileCtrl',['$scope','$rootScope','$stateParams','baabtraProfile',function ($scope,$rootScope,$stateParams,baabtraProfile){
+angular.module('baabtra').controller('BaabtraComprofileCtrl',['$scope', '$rootScope', '$stateParams', 'baabtraProfile', 'bbConfig', 'commonService', '$state', function ($scope,$rootScope,$stateParams,baabtraProfile, bbConfig, commonService, $state){
 
+	/*login detils start*/
+	if(!$rootScope.userinfo){
+		commonService.GetUserCredentials($scope);
+		$rootScope.hide_when_root_empty=false;
+	}
+
+	if(angular.equals($rootScope.loggedIn,false)){
+		$state.go('login');
+	}
+
+	var rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+	var roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
+	var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+	/*login detils ends*/
+
+
+
+if(angular.equals(bbConfig.MURID, roleId)){
+	$stateParams.userLoginId = $rootScope.userinfo.ActiveUserData.userLoginId;
+	$stateParams.type = 'detailed';
+	//$state.go('home.main.baabtraProfile',{type:$stateParams.type, userLoginId:$stateParams.userLoginId});
+
+}
 
 $scope.baabtraProfile = {};
 $scope.baabtraProfile.type = $stateParams.type;
