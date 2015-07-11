@@ -2,37 +2,37 @@
   <div class="col-xs-12 p bg-light">
   	<div class="col-xs-12 m">
         <div class="form-group col-xs-6 col-md-3">
-            <input class="form-control floating-label" type="text" ng-model="data.searchKey" placeholder="Search" data-hint="You can search any value that mathces a Parent, like e-mail,First name , Last name... etc.">
+            <input class="form-control floating-label" type="text" ng-model="data.searchKey" placeholder="Search" data-hint="You can search any key-word that mathces a Parent, like e-mail,First name , Last name... etc.">
         </div>
         <div class="form-group col-xs-6 col-md-3">
-             <button ng-click="searchParents()" class="btn btn-primary">Search</button>
+             <button ng-click="searchParents()" class="btn btn-primary">Get parents</button>
         </div>
     </div>
   </div>
   <div class="col-xs-12 p ">
   	<div class="col-lg-10 col-xs-12 col-lg-offset-2">
 <!-- <pre>{{$root.userinfo.ActiveUserData.appSettings.asideColor.split('btn-material-')[1]}}</pre> -->
-  		<div ng-repeat="a in [1,2,3,4,5,66,88,99,77,44,55,666,556]" class="col-xs-10 col-md-5 col-lg-3 m shadow-z-2 bg-white p-md ">
+  		<div ng-repeat="parent in data.parents" class="col-xs-10 col-md-5 col-lg-2 m shadow-z-2 bg-white p-md">
   			<!-- <div class="col-xs-12"> -->
-  				<div class="col-xs-1 pull-right mdi-navigation-more-vert link" data-placement="bottom-right" bs-dropdown="actions" html="true">
+  				<div class="col-xs-1 pull-right mdi-navigation-more-vert link" data-placement="bottom-right" bs-dropdown="buildActions($index)" html="true">
   				</div>
-  				<div class="col-xs-2">
+  				<div class="col-xs-12">
   					<!-- shows if there have profile image -->
-  					<div class="w-thumb-md " ng-if="true"><img src="http://services.baabtra.com/files/userPic/userPic_m7DfXvK.png" class="img-responsive rounded"></div>
+  					<div class="text-center" ng-if="parent.profile.userPic"><img src="{{parent.profile.userPic}}" class=""></div>
 
   					<!-- shows if there is no profile pic -->
-					<i ng-if="false"  class="mdi-action-assignment-ind text-lg  random-background-color img-circle p-xs  btn-material-purple-500 btn-material-red-900"></i>
+					<i ng-if="!parent.profile.userPic"  class="mdi-action-assignment-ind text-lg random-background-color img-circle p-xs  btn-material-purple-500 btn-material-red-900"></i>
 
   				</div>
-  				<div class="col-xs-9">
-  					<span class="col-xs-10">Lijin AR</span>
+  				<div class="col-xs-12 m-t-xs">
+  					<span class="col-xs-10 font-bold">{{parent.profile.firstName+' '+parent.profile.lastName}}</span>
   					<span class="col-xs-10" >
               
-              <a href="mailto:lijin@baabte.com" class="text-info"><i class="mdi-communication-email"></i>&nbsp;lijin@baabte.com</a>
+              <a href="mailto:{{parent.userName}}" class="text-info"><i class="mdi-communication-email"></i>&nbsp;{{parent.userName}}</a>
             </span>
   					<span class="col-xs-10">
               
-              <a href="callto:8547522836" class="text-info"><i class="mdi-communication-call"></i>&nbsp;8547522836</a>              
+              <a href="callto:{{parent.profile.phone}}" class="text-info"><i class="mdi-communication-call"></i>&nbsp;{{parent.profile.phone}}</a>              
             </span>
   				</div>
 

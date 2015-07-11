@@ -143,11 +143,14 @@
                   <div class="container-fluid">
                     <div class="scrollable hover m-h-n" style="height: 400px;overflow-x: hidden!important;">
                       <ul class="nav navbar-nav col-xs-12">
-                        <li class="col-xs-12 no-padding" class="dropdown" ng-repeat="menus in tree1" data-placement="top" ng-if="menus.MenuLink"><a class="pull-right" style="z-index:2;"><i ng-if="selectedMenuGroup" class="fa fa-mail-forward" ng-click="insertMenuToGroup(menus, $index)" bs-tooltip data-title="Add this menu to the selected group" data-placement="left"></i></a><a ng-mouseover="visibleAddIcon=true" ng-mouseleave="visibleAddIcon=false" class="dropdown-toggle" data-toggle="dropdown"><i class="fa {{menus.menuIcon}} fa-md" ></i>&nbsp;{{menus.MenuName}}
-                          <i ng-if="visibleAddIcon" class="mdi-content-remove pull-right text-lg font-bold" bs-tooltip data-title="Remove menu" data-placement="left" ng-click="removeMenu($index)"></i>
-
-                        </a>
-                        
+                        <li class="col-xs-12 p-v-xs" class="dropdown" ng-repeat="menus in tree1" data-placement="top" ng-if="menus.MenuLink" ng-mouseover="visibleAddIcon=true" ng-mouseleave="visibleAddIcon=false">
+                          <div class="col-xs-8">{{menus.MenuName}}</div>
+                          <div class="col-xs-4">
+                            <i class="fa fa-eye" ng-if="!menus.canView" ng-click="menus.canView = !menus.canView"></i>
+                            <i class="fa fa-eye-slash" ng-if="menus.canView" ng-click="menus.canView = !menus.canView"></i>
+                            <i ng-if="selectedMenuGroup" class="fa fa-mail-forward  no-margin" ng-click="insertMenuToGroup(menus, $index)" bs-tooltip data-title="Add this menu to the selected group" data-placement="left"></i>
+                            <i ng-if="visibleAddIcon" class="mdi-content-remove  text-lg font-bold  no-margin" bs-tooltip data-title="Remove menu" data-placement="left" ng-click="removeMenu($index)"></i>
+                          </div>
                         </li>
                       </ul>
                     </div>

@@ -1,0 +1,25 @@
+<div  class="modal modal-full-width" tabindex="-1" role="dialog">
+    <div class="modal-dialog-full-width  modal-full-width">
+      <div class="modal-content">
+        <div class="p bg-info font-bold baab-shadow">
+          Payment details.
+        </div>
+        <div class="modal-body">
+          <!-- <pre>{{elementsOfSelectedNode}}</pre> -->
+          <div class="col-xs-12">
+          	<div class="col-xs-12 p shadow-z-1 bg-danger" ng-if="data.candidateDetails.length==0">
+              There is no payment history for this candidate..!
+            </div>
+          	<div ng-repeat="Payment in data.candidateDetails" class="col-xs-12 p shadow-z-1 bg-white">
+              <span class="col-xs-12 font-bold">
+              Course:&nbsp;{{Payment.courseName}}
+              </span>
+              <span class="col-xs-12">
+              	<span>Fee:&nbsp;{{Payment.coursePrice}} {{Payment.currency}}</span>
+              </span>
+            </div>
+          </div>
+      	</div>
+      </div>
+    </div>
+</div>
