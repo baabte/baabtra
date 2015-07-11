@@ -1013,6 +1013,16 @@
                 }
               })
 
+                 .state('home.main.collegeRegistration', {
+                url: '/collegeRegistration/',
+                 views:{
+                  'innercontent':{
+                templateUrl: 'angularModules/college/collegeRegistration/partials/Partial-collegeRegistration.html',
+                controller:'CollegeregistrationCtrl'
+                  }
+                }
+              })
+
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'
