@@ -30,14 +30,13 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 	var fetchFormFeildsResp = viewUsers.fnFetchFormFeildsForSearch("User test registration", companyId);
 	fetchFormFeildsResp.then(function(response){
 		$scope.data.Feilds = angular.fromJson(JSON.parse(response.data));
-		console.log($scope.data.Feilds);
 	})
 
-	var searchKey='';
+	var searchTimeOut;
 		$scope.$watch('data.profile', function(){
 		if(!angular.equals($scope.data.profile,undefined)){
 		if(searchTimeOut) {
-		clearTimeout(searchTimeOut);
+			clearTimeout(searchTimeOut);
 		}
 		searchTimeOut=setTimeout(function(){
 	    var fetchUsersToCourseAllocateCallback = viewUsers.fnFetchUsersByDynamicSearch(companyId,'','','initial',$scope.data.profile); 
@@ -47,7 +46,6 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 	        $scope.data.firstUserId = $scope.data.result.firstUserId;
 	        $scope.data.lastUserId = $scope.data.result.lastUserId;
 	        $scope.data.prevButtondisabled = true;
-	         console.log($scope.data.result);
 	    });
 	    },500);
 		}
