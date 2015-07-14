@@ -2,20 +2,30 @@
   
   <!-- header -->
   <div class="row no-margin ">
-    <div class="col-xs-12 p-h p-v-sm bg-white b-b fixed-tab">
+    <div class="col-xs-12  bg-white b-b fixed-tab">
 
       <div class="row">
+
+        <!--  commented by arun to change the sudent view -->
         <div class="col-xs-6">
           <!-- View course timeline btn -->
-          <a class="btn btn-info no-margin hidden-xs" ng-disabled="!courseId.$oid" ng-click="navigateToTimeline(courseId)">View course timeline</a>
+          <a class="btn btn-info  hidden-xs" ng-disabled="!courseId.$oid" ng-click="navigateToTimeline(courseId)">View course timeline</a>
 
           <!-- View course summary btn -->
-          <a class="btn btn-success no-margin hidden-xs" ng-click="navigateToSummary(courseId)">View course summary</a>
+          <a class="btn btn-success  hidden-xs" ng-click="navigateToSummary(courseId)">View course summary</a>
         </div>
-        <div class="col-xs-12 col-sm-6">
+       <!--  <div class="col-xs-12 col-sm-6">
 
           <percent-indicator value-suffix="Your score is " show-percentage="true" total-value="totalMark" obtain-value="markScored"></percent-indicator>
-      </div>
+        </div> -->
+        <!--  commented by arun to change the sudent view ends-->
+
+        <!-- change made in student view by arun -->
+        <div class="col-xs-12 col-sm-6 text-right">
+        <i class="btn no-padding mdi-action-view-list text-2x" ng-click="showSyllabus()"></i>
+        </div>
+        <!-- change made in student view by arun ends -->
+
       </div>
     </div>
   </div>
