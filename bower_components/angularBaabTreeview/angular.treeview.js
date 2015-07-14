@@ -49,15 +49,14 @@
 							outKey=outKeyArray[index]
 						}
 						
-					}
-
+					}				
 				//tree model
 				var treeModel = attrs.treeModel;
 
 
 				//node id
 				var nodeId = attrs.nodeId || 'id';
-
+				
 				//node label
 				var nodeLabel = attrs.nodeLabel || 'label';
 
@@ -68,8 +67,8 @@
 				var template =
 					'<ul  >' +
 						'<li data-ng-repeat="node in ' + treeModel + '">' +
-							'<i class="mdi-navigation-unfold-more text-md"  data-ng-show="node.' + nodeChildren + '.length && node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)" ></i>' +
-							'<i class="mdi-navigation-unfold-less text-md "  data-ng-show="node.' + nodeChildren + '.length && !node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
+							'<i class="fa fa-plus-square btn no-padding text-md"  data-ng-show="node.' + nodeChildren + '.length && node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)" ></i>' +
+							'<i class="fa fa-minus-square btn no-padding text-md "  data-ng-show="node.' + nodeChildren + '.length && !node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
 							'<i class="mdi-content-send text-md"  data-ng-hide="node.' + nodeChildren + '.length"></i> ' +
 							'<span class="nodeItem " ng-class="{"font-normal":!node.children.length}" data-ng-click="' + treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +
 							'<span class="p-h nodeEdit" ng-if="'+ nodeEdit +'">'+
