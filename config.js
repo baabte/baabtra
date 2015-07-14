@@ -71,9 +71,7 @@ angular.module('baabtra')
      "CURID":2, // CompanyUser
      "MURID":3, // MenteeUser
      "RURID":4,  // ResellerUser
-     "PUSRID":5,  // ParentUser
-     "CUSRID":6  // CollegeUser
-
+     "PUSRID":5  // ParentUser
 
  });
 
@@ -86,8 +84,7 @@ angular.module('angular-custom-form',[]) /*Config constant for angular custom fo
      "CURID":2, // CompanyUser
      "MURID":3, // MenteeUser
      "RURID":4,  // ResellerUser
-     "PUSRID":5,  // ParentUser
-     "CUSRID":6  // CollegeUser
+     "PUSRID":5  // ParentUser
  });
 
 // added by lijin for offline online check

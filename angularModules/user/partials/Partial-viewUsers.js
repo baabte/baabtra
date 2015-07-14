@@ -33,27 +33,27 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 	})
 
 	var searchTimeOut;
-		$scope.$watch('data.profile', function(){
+	$scope.$watch('data.profile', function(){
 		if(!angular.equals($scope.data.profile,undefined)){
-		if(searchTimeOut) {
-			clearTimeout(searchTimeOut);
-		}
-		searchTimeOut=setTimeout(function(){
-	    var fetchUsersToCourseAllocateCallback = viewUsers.fnFetchUsersByDynamicSearch(companyId,'','','initial',$scope.data.profile); 
-	    fetchUsersToCourseAllocateCallback.then(function(data){
-	        $scope.data.result = angular.fromJson(JSON.parse(data.data));
-	        $scope.data.usersObject = $scope.data.result.users;
-	        $scope.data.firstUserId = $scope.data.result.firstUserId;
-	        $scope.data.lastUserId = $scope.data.result.lastUserId;
-	        $scope.data.prevButtondisabled = true;
-	    });
-	    },500);
-		}
-	},true)
+				if(searchTimeOut) {
+					clearTimeout(searchTimeOut);
+				}
+				searchTimeOut=setTimeout(function(){
+			    var fetchUsersToCourseAllocateCallback = viewUsers.fnFetchUsersByDynamicSearch(companyId,'','','initial',$scope.data.profile); 
+			    fetchUsersToCourseAllocateCallback.then(function(data){
+			        $scope.data.result = angular.fromJson(JSON.parse(data.data));
+			        $scope.data.usersObject = $scope.data.result.users;
+			        $scope.data.firstUserId = $scope.data.result.firstUserId;
+			        $scope.data.lastUserId = $scope.data.result.lastUserId;
+			        $scope.data.prevButtondisabled = true;
+			    });
+			    },500);
+			}
+		}, true)
 
 	$scope.nextOne=function(){//event  for showing next 12 items
 	  
-	   var fetchUsersToCourseAllocateCallback = viewUsers.fnFetchUsersByDynamicSearch(companyId,$scope.data.firstUserId,$scope.data.lastUserId,'next',searchKey); 
+	   var fetchUsersToCourseAllocateCallback = viewUsers.fnFetchUsersByDynamicSearch(companyId,$scope.data.firstUserId,$scope.data.lastUserId,'next',$scope.data.profile); 
     	fetchUsersToCourseAllocateCallback.then(function(data){
 	        $scope.data.result = angular.fromJson(JSON.parse(data.data));
 	        if(!angular.equals($scope.data.firstUserId, $scope.data.result.firstUserId)){
@@ -71,7 +71,7 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 	//event  for showing previous 9 items
 $scope.prevOne=function(){
 	  
-	 var fetchUsersToCourseAllocateCallback = viewUsers.fnFetchUsersByDynamicSearch(companyId,$scope.data.firstUserId,$scope.data.lastUserId,'prev',searchKey); 
+	 var fetchUsersToCourseAllocateCallback = viewUsers.fnFetchUsersByDynamicSearch(companyId,$scope.data.firstUserId,$scope.data.lastUserId,'prev',$scope.data.profile); 
     	fetchUsersToCourseAllocateCallback.then(function(data){
 	        $scope.data.result = angular.fromJson(JSON.parse(data.data));
 	        if(!angular.equals($scope.data.firstUserId, $scope.data.result.firstUserId)){
