@@ -37,6 +37,8 @@
 
 				var treeMode=attrs.treeMode;
 
+				var status=attrs.status;
+				
 				//for finding the output variable in the scope #created by lijin on 13-5-2015
 				var	outKeyArray=nodeOutput.split('.');
 				var outKey='';
@@ -52,7 +54,7 @@
 					}				
 				//tree model
 				var treeModel = attrs.treeModel;
-
+				// console.log(scope.node)
 
 				//node id
 				var nodeId = attrs.nodeId || 'id';
@@ -64,7 +66,33 @@
 				var nodeChildren = attrs.nodeChildren || 'children';
 
 				//tree template
-				var template =
+
+				if(status=='true'){
+					var statusArray=["Pending Submission","Pending Evaluation","Evaluated"]
+					// console.log(statusArray)
+					var template =
+					'<ul  >' +
+						'<li data-ng-repeat="node in ' + treeModel + '">' +
+							'<i class="fa fa-plus-square btn no-padding text-md"  data-ng-show="node.' + nodeChildren + '.length && node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)" ></i>' +
+							'<i class="fa fa-minus-square btn no-padding text-md "  data-ng-show="node.' + nodeChildren + '.length && !node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
+							'<i class="mdi-content-send text-md"  data-ng-hide="node.' + nodeChildren + '.length"></i> ' +
+							'<span class="nodeItem " ng-if="!node.status" ng-class="{"font-normal":!node.children.length}" data-ng-click="' + treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +	
+							'<span class="nodeItem text-warning" ng-if="node.status ==\'' +statusArray[0]+ '\'" ng-class="{"font-normal":!node.children.length}" data-ng-click="' + treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +
+							'<span class="nodeItem text-info" ng-if="node.status ==\'' +statusArray[1]+ '\'" ng-class="{"font-normal":!node.children.length}" data-ng-click="' + treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +	
+							'<span class="nodeItem text-success" ng-if="node.status ==\'' +statusArray[2]+ '\'" ng-class="{"font-normal":!node.children.length}" data-ng-click="' + treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +	
+	
+
+	
+
+							'<div data-node-output="'+ nodeOutput +'" data-node-edit="'+ nodeEdit +'" data-tree-mode="'+ treeMode +'" data-ng-hide="node.collapsed" data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' + nodeId + ' data-node-label=' + nodeLabel + ' data-node-children=' + nodeChildren + ' data-status=' + status + '></div>' +
+
+						'</li>' +
+					'</ul>';
+
+
+				}else{
+
+					var template =
 					'<ul  >' +
 						'<li data-ng-repeat="node in ' + treeModel + '">' +
 							'<i class="fa fa-plus-square btn no-padding text-md"  data-ng-show="node.' + nodeChildren + '.length && node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)" ></i>' +
@@ -77,11 +105,14 @@
 							'<a href="" class="icon-grey p-h-xs"  data-nodrag ng-click="showPopupForAddChild(node)" data-placement="right" bs-tooltip data-title="Add a section under {{node.name}}"><i class="ti  ti-layers-alt" ></i><a/>'+
 							'<a  href="" class="icon-grey p-h-xs" data-nodrag ng-click="editChild(node)" data-placement="right" bs-tooltip data-title="Edit {{node.name}}"><i class="fa fa-edit" ></i></a>'+
 							'<a href="" class="icon-grey p-h-xs" ng-if="!node.parent" data-nodrag ng-click="removeChild(node)" data-placement="right" bs-tooltip data-title="Remove {{node.name}}"><i class="fa fa-trash-o" ></i></a></span>'+
-							'<div data-node-output="'+ nodeOutput +'" data-node-edit="'+ nodeEdit +'" data-tree-mode="'+ treeMode +'" data-ng-hide="node.collapsed" data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' + nodeId + ' data-node-label=' + nodeLabel + ' data-node-children=' + nodeChildren + '></div>' +
+							'<div data-node-output="'+ nodeOutput +'" data-node-edit="'+ nodeEdit +'" data-tree-mode="'+ treeMode +'" data-ng-hide="node.collapsed" data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' + nodeId + ' data-node-label=' + nodeLabel + ' data-node-children=' + nodeChildren +'></div>' +
 
 						'</li>' +
 					'</ul>';
 
+
+				}
+				
 
 				//check tree id, tree model
 				if( treeId && treeModel ) {
