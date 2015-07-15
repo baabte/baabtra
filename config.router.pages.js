@@ -238,7 +238,6 @@
                 }
                 
               })
-
                .state('home.main.addCourseElement', {
                 url: '/courseElement',
                 views:{
@@ -266,9 +265,7 @@
                     controller: 'AddexitcriteriaCtrl'
                   }
                 }
-                
               })
-
               .state('home.main.addMenu', {
                 url: '/addMenu',
                 views:{
@@ -277,7 +274,6 @@
                     controller: 'AddmenuCtrl'
                   }
                 }
-                
               })
               .state('home.main.addCourse', {
                 url: '/addCourse',
@@ -287,7 +283,6 @@
                     controller: 'AddcourseCtrl'
                   }
                 }
-                
               })
 
               .state('home.main.draftedCourses', {
@@ -298,7 +293,16 @@
                     controller: 'DraftedcoursesCtrl'
                   }
                 }
-                
+              })
+
+              .state('home.main.manageHomeScreen', {
+                url: '/manageHomeScreen',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/homeScreen/partials/Partial-configureHomeScreen.html',
+                    controller: 'ConfigurehomescreenCtrl'
+                  }
+                }
               })
 
               .state('home.main.course', {
