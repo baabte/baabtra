@@ -1,5 +1,5 @@
-<div>
-	<div class="col-xs-6" ng-repeat="children in scoreCard.markSheet[0].children">
+<div class="row">
+	<div class="col-xs-6 "  ng-repeat="children in scoreCard.markSheet[0].children">
 		<div class="col-xs-12 score-card-box m-t p-v">
 			<div class="col-xs-9 font-bold text-md">{{children.name}}</div>
 			<div class="col-xs-3 text-right font-bold text-md text-pdf-success" ng-if="children.mark.markScored">{{children.mark.markScored}}/{{children.mark.maxMark}}</div>
