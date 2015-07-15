@@ -94,14 +94,19 @@ $scope.prevOne=function(){
     	});
 };
 
-	
+	$scope.courseSelectionChanged = function(courseId){
+		if(!$scope.data.searchKey.coursesSelected){
+			$scope.data.searchKey.coursesSelected = [];
+		}
+		
 
-
-
-
-
-
-
+		if(angular.equals($scope.data.searchKey.coursesSelected.indexOf(courseId), -1)){
+			$scope.data.searchKey.coursesSelected.push(courseId);
+		}
+		else{
+			$scope.data.searchKey.coursesSelected.splice($scope.data.searchKey.coursesSelected.indexOf(courseId), 1);
+		}
+	};
 
     var searchTimeOut;
 	$scope.searchUser=function(){

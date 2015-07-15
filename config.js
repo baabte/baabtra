@@ -64,27 +64,32 @@ angular.module('baabtra')
   .constant('bbConfig',{ //used for storing enviornment variables
 
     "BWS": "http://127.0.0.1:8000/",//local
-    //"BWS": "http://services.baabtra.com/",//server - production
-    // "BWS": "http://server.mb-test.in/",//server-test
+  // "BWS": "http://services.baabtra.com/",//server - production
+    // "BWS": "http://server.baabtra.in/",//server-test
 
      "SARID":1, // SuperAdminRoleID
      "CURID":2, // CompanyUser
      "MURID":3, // MenteeUser
      "RURID":4,  // ResellerUser
-     "PUSRID":5  // ParentUser
+     "PUSRID":5,  // ParentUser
+     "CUSRID":6  // CollegeUser
+
 
  });
 
 angular.module('angular-custom-form',[]) /*Config constant for angular custom form */
 .constant('bbConfig',{ //used for storing enviornment variables
-        "BWS": "http://127.0.0.1:8000/",//locall
-    //"BWS": "http://services.baabtra.com/",//server - production
-    // "BWS": "http://server.mb-test.in/",//server-test
+
+
+      "BWS": "http://127.0.0.1:8000/",//local
+     // "BWS": "http://services.baabtra.com/",//server - production
+
      "SARID":1, // SuperAdminRoleID
      "CURID":2, // CompanyUser
      "MURID":3, // MenteeUser
      "RURID":4,  // ResellerUser
-     "PUSRID":5  // ParentUser
+     "PUSRID":5,  // ParentUser
+     "CUSRID":6  // CollegeUser
  });
 
 // added by lijin for offline online check

@@ -18,10 +18,11 @@
   				</div>
   				<div class="col-xs-12">
   					<!-- shows if there have profile image -->
-  					<div class="text-center" ng-if="parent.profile.userPic"><img src="{{parent.profile.userPic}}" class=""></div>
+            <div class="text-center" ng-if="parent.profile.userPic"><img src="{{parent.profile.userPic}}" class=""></div>
+  					<div class="text-center" ng-if="!parent.profile.userPic"><img src="images/default_person.png" class=""></div>
 
   					<!-- shows if there is no profile pic -->
-					<i ng-if="!parent.profile.userPic"  class="mdi-action-assignment-ind text-lg random-background-color img-circle p-xs  btn-material-purple-500 btn-material-red-900"></i>
+					<!-- <i ng-if="!parent.profile.userPic"  class="mdi-action-assignment-ind text-lg random-background-color img-circle p-xs  btn-material-purple-500 btn-material-red-900"></i> -->
 
   				</div>
   				<div class="col-xs-12 m-t-xs">

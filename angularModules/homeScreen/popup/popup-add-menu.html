@@ -1,0 +1,28 @@
+<div  class="modal modal-full-width" tabindex="-1" role="dialog">
+    <div class="modal-dialog-full-width  modal-full-width">
+      <div class="modal-content">
+        <div class="p bg-info font-bold baab-shadow">
+          Add a menu
+        </div>
+        <div class="modal-body">
+          <form name="menuForm" xt-form no-validate>
+          <div class="col-xs-12">
+            <div class="form-group col-xs-6">
+                <input class="form-control floating-label" name="Name" required xt-validate ng-model="data.menu.name" type="text" placeholder="Menu name">
+            </div>
+            <div class="form-group col-xs-6">
+                <input class="form-control floating-label" name="Link" required xt-validate ng-model="data.menu.link" type="text" placeholder="Menu link">
+            </div>
+            <div>
+              <icon-chooser selected-icon="data.menu.icon"></icon-chooser>
+            </div>
+          </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary baab-btn" ng-click="$hide()">Cancel</button>
+          <button type="button" class="btn btn-success baab-btn" ng-disabled="menuForm.$invalid" ng-click="saveMenu($hide)">Save</button>
+        </div>
+      </div>
+    </div>
+</div>

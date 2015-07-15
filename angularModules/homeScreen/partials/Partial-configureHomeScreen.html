@@ -1,0 +1,72 @@
+<div class="row m-t-n">
+	<div class="col-xs-12 bg-light h-full p-v" style="min-height:800px;">
+
+	 	<div class="row no-padding m-b bg-white shadow-z-1 header" style="position:fixed; width:105%; z-index:100;" >
+          	<div class="col-xs-12 no-padding">
+		        <!-- HEADER -->
+		        <div class="row m">
+		                <div class="col-xs-4 ">
+		                  
+		                  <div class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12">
+		                  	<!-- search box here -->		                       
+		                  </div>
+		                </div>
+		                <div class="col-xs-7 text-right">
+		                	<!-- <div class="btn-group no-margin">
+								<button type="button" ng-disabled="data.pageNumber==1" class="btn btn-info" ng-click="pageNavigation('prev')"><i class="fa fa-fw fa-angle-left"></i></button>
+								
+								<button type="button" ng-disabled="data.courses.courses.length<12" class="btn btn-info" ng-click="pageNavigation('next')"><i class="fa fa-fw fa-angle-right"></i></button>
+							</div> -->
+		                </div>
+		        </div>
+        	</div>
+        </div>
+        <div class="row m bg-white" style="margin-top:100px;">
+        		<div class="p bg-info font-bold baab-shadow" >
+			          Select company type
+			    </div>
+        		<div class="p col-xs-12">
+        			<div ng-repeat="type in data.companyTypes" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 p-sm" style="cursor: pointer;">
+        				<div class="box bg-light shadow-z-1" ng-click="loadHomeScreen(type.code)" >
+        					<div class="box-col w-xs text-center random-background-color">
+	                  			<i class="{{type.icon}} text-4x p-v"></i>
+	                  		</div>
+		                  	<div class="box-col p-v font-bold p-h text-dark">
+		                  		<span>{{type.type}}</span>
+		                  	</div>
+		                </div>
+        			</div>
+        		</div>
+        </div>
+
+        <div class="" ng-if="data.selectedType&&data.selectedType!=''">
+        	<div class="col-sm-12 col-xs-12 bg-white">
+        		<div class="p bg-info font-bold baab-shadow" >
+        			<div class="row">
+        				<div class="col-xs-6 text-left">Menu list of selected type</div>
+        				<div class="col-xs-6 text-right" style="cursor:pointer;" ng-click="addMenu()">+</div>
+        			</div>
+        			<!-- <span class="pull-left">Menu list of selected type</span>
+        			<span class="pull-right" style="">+</span> -->
+			          
+				</div>
+				<div class="col-xs-12 bg-danger p-v m-t" ng-if="(data.menuListOfSelectedType.menus.length==0||!data.menuListOfSelectedType.menus)&&data.menuListOfSelectedType"> There is no menu list for this type..! </div>
+        		<div ng-repeat="menu in data.menuListOfSelectedType.menus" class="col-xs-4 p-h-sm  p-v" style="cursor:pointer;">
+
+        			<div class="box bg-light shadow-z-1" >
+        					
+        					<div class="box-col w-xs text-center ">
+	                  			<i class="fa {{menu.icon}} text-4x p-v"></i>
+	                  		</div>
+		                  	<div class="box-col p-v font-bold p-h text-dark">
+		                  		<span>{{menu.name}}</span>
+		                  	</div>
+		                  	<div class="" style="position: absolute;right: 15px;" ng-click="removeMenuPopup($index)">
+                   					<i class="mdi-content-clear text-xl text-dark" ></i>
+                 			</div>
+		                </div>
+        		</div>
+        	</div>
+		</div>
+    </div>
+</div>
