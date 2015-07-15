@@ -21,46 +21,54 @@
                     <div set-sub-heading-and-background-color class="panel-heading  font-bold" translate="{{'Company Info'|translate}}">
                     </div>
                     <div class="panel-body">
-                      <div >
-                          
-                                    <!-- <div class="form-group col-sm-2" >
-                                    <img ng-bind="company.companyLogo" >
-                                    </div> -->
-                                    <div class="form-group col-sm-2" >
+                     <div class="col-md-2 col-xs-12 ">
+                        <div class="form-group col-xs-12" >
+  
+                            <img ng-show="company.companyLogo" render-image file-source="companyLogo" img-to-render="company.companyLogo" ng-model="company.companyLogo" ng-src="{{company.companyLogo}}" class="img-responsive img-thumbnail">
+                            </br class="m-xs">
+                            <input type="text" readonly="" class="form-control m-v-md" float-label placeholder="{{'Please choose a logo...'|translate}}">
+                            <input type="file" ng-model="company.companyLogo" fileupload-dir="company.companyLogo" name="companyLogo" f-max-size="500" data-placement="top" data-html="true" data-container="body" data-title="Please choose a logo..."  bs-tooltip>
 
-                                        
-                                    <img ng-show="company.companyLogo" render-image file-source="companyLogo" img-to-render="company.companyLogo" ng-model="company.companyLogo" ng-src="{{company.companyLogo}}" class="img-responsive img-thumbnail">
-                                </br class="m-xs">
-                                <input type="text" readonly="" class="form-control m-v-md" float-label placeholder="{{'Please choose a logo...'|translate}}">
-                                        <input type="file" ng-model="company.companyLogo" fileupload-dir="company.companyLogo" name="companyLogo" f-max-size="500" data-placement="top" data-html="true" data-container="body" data-title="Please choose a logo..."  bs-tooltip>
-                                    </div>
-                           
-                                    <div class="form-group col-sm-5" >                                  
-                                    <input type="text" ng-model="company.companyName" class="form-control" float-label id="definput" xt-validate placeholder="{{'Company Name'|translate}}" name="companyName" required>
-                                    </div>                                       
-                                   
-                          
-                                    <div class="form-group col-sm-5">                                   
-                                    <input type="text" ng-model="company.eMail" ng-pattern="emailPattern" class="form-control email" float-label ui-validate=" '$value!==existingEmail' " ui-validate-watch=" 'existingEmail'" msg-pattern='{{emailMsg}}' msg-validator='{{emailEMsg}}'  xt-validate id="definput" placeholder="{{'Company Email Address'|translate}}" name="companyEmail" ng-change="userVal(company)" required>
-                                    </div>
-
-                                    <div class="form-group col-sm-5">                                   
-                                    <input type="text" ng-model="company.alternateEmail" class="form-control" float-label id="definput" placeholder="{{'Alternate E-mail Address'|translate}}"name="alternateEmail" xt-validate msg-pattern='{{emailMsg}}' ng-pattern="emailPattern" required>
-                                    </div>
-
-                                     <div class="form-group col-sm-5">                                  
-                                    <select  class="form-control" float-label placeholder = "Sector" xt-validate name="sector" data-bv-field="sectors" ng-model="selection.sectors" ng-options="sectorNames.sectorName for sectorNames in sectorlist"  required >
-                                    <option value="" translate="{{'Select a Sector'|translate}}"></option>
-                                    <option value="other">Other</option>                         
-                                    </select>
-                                    </div>
-
-                                    <div class="form-group col-md-10 col-xs-12 pull-right" >    
-                                      <input type="text" class="form-control" float-label name="Tagline" ng-model="company.tagLine"  rows="1" placeholder="{{'Company Tagline'|translate}}">
-                                    </div> 
-                            
-                         
                         </div>
+                     </div>
+                     <div class="col-md-10 col-xs-12 ">
+                      
+                        <div class="col-md-6 col-xs-12">
+                                                            
+                            <input type="text" ng-model="company.companyName" class="form-control" float-label id="definput" xt-validate placeholder="{{'Company Name'|translate}}" name="companyName" required>
+                           
+
+                            <input type="text" ng-model="company.alternateEmail" class="form-control" float-label id="definput" placeholder="{{'Alternate E-mail Address'|translate}}"name="alternateEmail" xt-validate msg-pattern='{{emailMsg}}' ng-pattern="emailPattern" required>
+
+
+                            <input type="text" class="form-control" float-label name="Tagline" ng-model="company.tagLine"  rows="1" placeholder="{{'Company Tagline'|translate}}">
+                                   
+                           
+
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+
+                             <input type="text" ng-model="company.eMail" ng-pattern="emailPattern" class="form-control email" float-label ui-validate=" '$value!==existingEmail' " ui-validate-watch=" 'existingEmail'" msg-pattern='{{emailMsg}}' msg-validator='{{emailEMsg}}'  xt-validate id="definput" placeholder="{{'Company Email Address'|translate}}" name="companyEmail" ng-change="userVal(company)" required>
+
+                             <select  class="form-control m-t-lg" float-label  xt-validate name="sector" data-bv-field="sectors" ng-model="selection.sectors" ng-options="sectorNames.sectorName for sectorNames in sectorlist"  required >
+                              <option value="" translate="{{'Select a Sector'|translate}}"></option>
+                              <option value="other">Other</option>                         
+                            </select>
+
+                           
+                            <select  class="form-control " float-label  xt-validate name="companyType"  ng-model="company.companyType"   required >
+                              <option value="" translate="{{'Select Company Type'|translate}}"></option>
+                              <option value="CM" >Company</option>
+                              <option value="TI" >Training Institute</option>
+                              <option value="SC" >School / College</option>                        
+                            </select>
+                            
+
+                        </div>                    
+                      
+                     </div>
+
+                       
                     </div>
                   </div>
             </div>
