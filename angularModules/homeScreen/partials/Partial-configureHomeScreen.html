@@ -50,16 +50,20 @@
         			<span class="pull-right" style="">+</span> -->
 			          
 				</div>
-				<div class="col-xs-12 bg-danger p-v m-t" ng-if="data.menuListOfSelectedType.menus.length==0||!data.menuListOfSelectedType.menus"> There is no menu list for this type..! </div>
+				<div class="col-xs-12 bg-danger p-v m-t" ng-if="(data.menuListOfSelectedType.menus.length==0||!data.menuListOfSelectedType.menus)&&data.menuListOfSelectedType"> There is no menu list for this type..! </div>
         		<div ng-repeat="menu in data.menuListOfSelectedType.menus" class="col-xs-4 p-h-sm  p-v" style="cursor:pointer;">
 
-        			<div class="box bg-light shadow-z-1" ng-click="loadHomeScreen(type.code)" >
+        			<div class="box bg-light shadow-z-1" >
+        					
         					<div class="box-col w-xs text-center ">
 	                  			<i class="fa {{menu.icon}} text-4x p-v"></i>
 	                  		</div>
 		                  	<div class="box-col p-v font-bold p-h text-dark">
 		                  		<span>{{menu.name}}</span>
 		                  	</div>
+		                  	<div class="" style="position: absolute;right: 15px;" ng-click="removeMenuPopup($index)">
+                   					<i class="mdi-content-clear text-xl text-dark" ></i>
+                 			</div>
 		                </div>
         		</div>
         	</div>

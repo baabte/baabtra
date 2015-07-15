@@ -34,7 +34,7 @@ $scope.loadHomeScreen = function (code) {
 	    	else{
 	    		$scope.data.menuListOfSelectedType = {};
 	    	}
-	    	console.log($scope.data.menuListOfSelectedType);
+	    	// console.log($scope.data.menuListOfSelectedType);
 	    	
 	    });
 };
@@ -64,6 +64,30 @@ $scope.saveMenu = function (hide) {
 			$alert({title: 'Error..!', content: 'Please try again.', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'danger', show: true});
 
 		});
-}
+};
+
+$scope.removeMenuPopup = function (index) {
+	// $scope.data.menuListOfSelectedType.menus.splice(index,1);
+	$scope.data.toBeDeleted = index;
+	$modal({scope: $scope, template:'angularModules/homeScreen/popup/popup-confirm-delete.html', show: true,placement:'center'});
+
+};
+
+$scope.removeMenu = function (hide) {
+	$scope.data.startSubmit = true;
+	$scope.data.menuListOfSelectedType.menus.splice($scope.data.toBeDeleted,1);
+	var savedMenu = homeScreenSrv.saveMenu($scope.data.menuListOfSelectedType);
+		savedMenu.then(function(response) {
+			hide();
+			$scope.data.startSubmit = false;
+		});
+		savedMenu.error(function(err) {
+			// hide();
+			$scope.data.startSubmit = false;
+			$alert({title: 'Error..!', content: 'Please try again.', placement: 'top-right',duration:3 ,animation:'am-fade-and-slide-bottom', type: 'danger', show: true});
+
+		});
+
+};
 
 }]);
