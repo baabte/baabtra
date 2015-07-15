@@ -1036,6 +1036,17 @@
                 }
               })
 
+                    .state('home.main.offlineSyncCourse', {
+                url: '/offlineSyncCourse/',
+                 views:{
+                  'innercontent':{
+                templateUrl: 'angularModules/offlineSync/offlineSyncCourse/partials/Partial-offlineSyncCourse.html',
+                controller:'OfflinesynccourseCtrl'
+                  }
+                }
+              })
+
+
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'
