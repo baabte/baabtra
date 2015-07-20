@@ -770,6 +770,11 @@ display: block;
 .aside{
   z-index:1051 !important;
 }
+.aside-heading{
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+}
 /*custom font*/
 @import url(http://fonts.googleapis.com/css?family=Montserrat);
 
