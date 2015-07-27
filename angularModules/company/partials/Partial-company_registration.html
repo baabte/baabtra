@@ -34,37 +34,57 @@
                      <div class="col-md-10 col-xs-12 ">
                       
                         <div class="col-md-6 col-xs-12">
-                                                            
+                                                        
+                            <div>
                             <input type="text" ng-model="company.companyName" class="form-control" float-label id="definput" xt-validate placeholder="{{'Company Name'|translate}}" name="companyName" required>
-                           
+                           </div>                                                              
 
+                            <div>                           
                             <input type="text" ng-model="company.alternateEmail" class="form-control" float-label id="definput" placeholder="{{'Alternate E-mail Address'|translate}}"name="alternateEmail" xt-validate msg-pattern='{{emailMsg}}' ng-pattern="emailPattern" required>
+                           </div>                                                              
 
 
-                            <input type="text" class="form-control" float-label name="Tagline" ng-model="company.tagLine"  rows="1" placeholder="{{'Company Tagline'|translate}}">
+
+                            
+                           <div>  
+                             <input type="text" float-label class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-pattern ng-touched"  name="Tagline" ng-model="company.domainName" ng-pattern="/^[A-Za-z][A-Za-z0-9]*$/" ng-change="checkDomainExits()" rows="1" placeholder="{{'Company Domain Name'|translate}}" required>
+                           </div>                                                              
+                           
                                    
                            
 
                         </div>
                         <div class="col-md-6 col-xs-12">
+                           <div>  
 
                              <input type="text" ng-model="company.eMail" ng-pattern="emailPattern" class="form-control email" float-label ui-validate=" '$value!==existingEmail' " ui-validate-watch=" 'existingEmail'" msg-pattern='{{emailMsg}}' msg-validator='{{emailEMsg}}'  xt-validate id="definput" placeholder="{{'Company Email Address'|translate}}" name="companyEmail" ng-change="userVal(company)" required>
+                           </div>                                                              
 
-                             <select  class="form-control m-t-lg" float-label  xt-validate name="sector" data-bv-field="sectors" ng-model="selection.sectors" ng-options="sectorNames.sectorName for sectorNames in sectorlist"  required >
+                            
+                           <div>  
+
+                             <select  class="form-control m-t-lg" float-label  placeholder="{{'Sector'|translate}}"  xt-validate name="sector" data-bv-field="sectors" ng-model="selection.sectors" ng-options="sectorNames.sectorName for sectorNames in sectorlist"  required >
                               <option value="" translate="{{'Select a Sector'|translate}}"></option>
                               <option value="other">Other</option>                         
-                            </select>
+                             </select>
+                           </div>                                                              
 
+                           <div>  
                            
-                            <select  class="form-control " float-label  xt-validate name="companyType"  ng-model="company.companyType"   required >
+                            <select  class="form-control " float-label  placeholder="{{'Company Type'|translate}}"  xt-validate name="companyType"  ng-model="company.companyType"   required >
                               <option value="" translate="{{'Select Company Type'|translate}}"></option>
                               <option value="CM" >Company</option>
                               <option value="TI" >Training Institute</option>
                               <option value="SC" >School / College</option>                        
                             </select>
+                           </div>                                                              
                             
 
-                        </div>                    
+                        </div>   
+
+                        <div class="col-xs-12">
+                          <input type="text" class="form-control" float-label  name="Tagline" ng-model="company.tagLine"  rows="1" placeholder="{{'Company Tagline'|translate}}">
+                        </div>                 
                       
                      </div>
 

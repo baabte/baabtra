@@ -123,6 +123,11 @@
                 templateUrl: 'angularModules/login/partials/Partial-home.html',
                 controller:'HomeCtrl'
               })
+              .state('home.redirect', {
+                url: '/redirect',
+                templateUrl: 'angularModules/redirect/partials/Partial-redirect.html',
+                controller:'RedirectCtrl'
+              })
               .state('home.main.newParent', {
                 url: '/newParent',
                 views:{

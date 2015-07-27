@@ -14,7 +14,8 @@ if(localStorageService.get('logDatas')){
 }
 
 
-
+$rootScope.hide_when_root_empty=false;
+$rootScope.loggedIn=true;
 
 $scope.login_frequency=0;
 $scope.loginCredential={};
