@@ -46,6 +46,10 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 				for(key in scope.data.value.userAnswer[0].primaryAnswer){
 				scope.answerPreviewData.elements.push(scope.data.value.userAnswer[0].primaryAnswer[key]);
 				}
+
+				for(var secAns in scope.data.value.userAnswer[0].secondaryAnswer){
+				scope.answerPreviewData.elements.push(scope.data.value.userAnswer[0].secondaryAnswer[secAns]);	
+				}
 			} 
 
 			//Anoop , reating an array to show the statuses for questions.
