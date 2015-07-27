@@ -19,7 +19,7 @@ angular.module('baabtra').controller('DesignmarksheetCtrl',['$modal','$scope', '
 		$scope.data.courses=angular.fromJson(JSON.parse(response.data));
 	};
 
-	var gotPublishedCourses = PublishedCourse.loadPublishedCoursesWithPromise($scope.companyId,'','','','');
+	var gotPublishedCourses = PublishedCourse.loadPublishedCoursesWithType($scope.companyId, '' , '', '', '','test');
 	    gotPublishedCourses.then(function (response) {
 	    	$scope.gotPublishedCourses(response);
 	    });
@@ -34,7 +34,7 @@ $scope.pageNavigation=function(type){//event  for showing next/prev 12 items
 		$scope.data.pageNumber=$scope.data.pageNumber==1?1:$scope.data.pageNumber-1;
 	}
 
-	  var gotPublishedCourses = PublishedCourse.loadPublishedCoursesWithPromise($scope.companyId,$scope.data.searchText,$scope.data.courses.lastId.$oid,type,$scope.data.courses.firstId.$oid);
+	  var gotPublishedCourses = PublishedCourse.loadPublishedCoursesWithType($scope.companyId,$scope.data.searchText,$scope.data.courses.lastId.$oid,type,$scope.data.courses.firstId.$oid, 'all');
 	      gotPublishedCourses.then(function (response) {
 	    	$scope.gotPublishedCourses(response);
 	    });
@@ -47,7 +47,7 @@ $scope.searchKeyChanged = function () {
 
 		searchKeyTimeout = setTimeout(function () {
 			$scope.data.pageNumber=1;
-			var gotPublishedCourses = PublishedCourse.loadPublishedCoursesWithPromise($scope.companyId,$scope.data.searchText,'','','');
+			var gotPublishedCourses = PublishedCourse.loadPublishedCoursesWithType($scope.companyId,$scope.data.searchText,'','','', 'allloadPublishedCoursesWithType');
 		      gotPublishedCourses.then(function (response) {
 		    	$scope.gotPublishedCourses(response);
 		    });		
@@ -165,9 +165,10 @@ $scope.$watch('data.selectedNode',function () {
 			for(index in elemNameArray){
 				elem=elem[elemNameArray[index]];
 			}
-			console.log($scope.data.selectedNode,elem,elemNameArray);
+			
 			if(angular.equals($scope.data.selectedNode.mark.type,'mark')){
 				$scope.data.markType='mark';
+				console.log($scope.data.selectedNode,elem,elemNameArray);
 				if(!angular.equals(elem.totalMark,undefined)){
 					$scope.elementsOfSelectedNode.push({element:elem,key:$scope.data.selectedNode.element[key]});
 				}

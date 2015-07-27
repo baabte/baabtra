@@ -69,7 +69,6 @@ angular.module('baabtra').service('commonService',['$http','bbConfig','$state','
 
 			this.GetUserCredentials=function($scope)
 				 {
-				 	console.log($rootScope.hide_when_root_empty);
 					if(!$rootScope.userinfo){ //whenever the user refresh the page it will check the credential variable 
 						if(localStorageService.get('logDatas')){ // then it will chack the local storage for neccessary datas
 							   	 var request = new XMLHttpRequest();
@@ -109,7 +108,7 @@ angular.module('baabtra').service('commonService',['$http','bbConfig','$state','
 					  						 $rootScope.hide_when_root_empty=false;
 					  						 $rootScope.loggedIn=true;
 
-				 							console.log($rootScope.hide_when_root_empty);
+				 							
 						       			}		  
 									}
 						}

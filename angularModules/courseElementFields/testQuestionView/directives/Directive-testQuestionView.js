@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseService','$compile','questionAnsweringSrv','$rootScope','$state', function(bbConfig,addCourseService,$compile,questionAnsweringSrv,$rootScope,$state) {
+angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseService','$compile','questionAnsweringSrv','$rootScope','$state', 'testRelated', function(bbConfig,addCourseService,$compile,questionAnsweringSrv,$rootScope,$state, testRelated) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -31,13 +31,34 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 			
 			//if user is mentee copying all required datas 
 			if(roleId===bbConfig.MURID){
+
 				userLoginId=$rootScope.userinfo.userLoginId;
-				courseId=$state.params.courseId;
+
+				courseId=$state.params.courseMappingId;
 				scope.isMentee=true;
 			}
 
 			
+			// scope.$watch('questionResponse', function(){
+			// 	if(scope.questionResponse.userAnswer && angular.equals(scope.question.type, 'objective')){
+			// 		if(scope.questionResponse.userAnswer.length){
+			// 			var time=(new Date()).getTime();
 
+			// 			var userAnswer = {};
+			// 			userAnswer[scope.questionIndex-1] = scope.questionResponse;
+			// 			SubmitTestObj={courseMappingId:courseId,userLoginId:userLoginId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex,totalMarkScored:scope.questionResponse.markScored,timeObj:{key:'dateOfSubmission',value:time},userAnswers:userAnswer};
+			// 			console.log(SubmitTestObj);
+			// 			var FnSubmitTestCallBack= testRelated.FnSubmitTest(SubmitTestObj);
+			// 			FnSubmitTestCallBack.then(function(data){
+					
+			// 	 		var result=angular.fromJson(JSON.parse(data.data));
+			// 	 		console.log(result);
+				
+			// 			});
+						
+			// 		}
+			// 	}
+			// },true)
 
 
 
@@ -57,7 +78,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 			scope.questionResponse.markScored=0;
 
 			//this is to format the data attribute of this directive into JSON object
-			var unbind=scope.$watch('data',function (argument) {
+			var unbind= scope.$watch('data',function (argument) {
 				if(!(scope.data instanceof Object)){
 					scope.data=JSON.parse(scope.data);					
 				}

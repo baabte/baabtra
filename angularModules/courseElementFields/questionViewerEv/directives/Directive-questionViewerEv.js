@@ -109,13 +109,17 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 
 
 				if(angular.isDefined(oldVal)){
+
 					
 					if(angular.equals(scope.$parent.elementMark, undefined)){
+
 						scope.$parent.elementMark = oldVal;
+
 					}
 
 					scope.$parent.elementMark = scope.$parent.elementMark - oldVal;
-					var markToBeAdded = newVal;;
+					var markToBeAdded = newVal;
+					
 				}
 				else {
 					var markToBeAdded = newVal;
@@ -129,10 +133,11 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 					if(angular.equals(scope.$parent.elementMark, undefined)){
 						scope.$parent.elementMark = 0;
 					}
-					
-					scope.$parent.elementMark = scope.$parent.elementMark +  markToBeAdded;
 
+					//scope.$parent.elementMark = scope.$parent.elementMark +  markToBeAdded; replace with below code
+					scope.$parent.elementMark = markToBeAdded;
 				}
+
 			})
 
 			

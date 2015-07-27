@@ -41,8 +41,6 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 
 				scope.evaluated = function(element, elementTotalMarks, outElement, elementOrder, courseMappingId, evaluatorId){
 
-					
-
 					element.evalDetails = {};
 					var result = angular.copy(outElement);
 
@@ -74,6 +72,9 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 								}
 								else if(angular.equals(result.result, "Updated")){
 									$alert({title: 'Updated!', content: element.Name + ' updated successfuly', placement: 'bottom-right', type: 'success', duration:2, show: true});
+								}
+								else{
+									$alert({title: 'Wrong!', content: 'Operation faild', placement: 'bottom-right', type: 'danger', duration:2, show: true});
 								}
 							});	
 						}
