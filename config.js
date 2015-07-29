@@ -63,8 +63,8 @@ angular.module('baabtra')
   // }])
   .constant('bbConfig',{ //used for storing enviornment variables
 
-    //"BWS": "http://127.0.0.1:8000/",//local
-  "BWS": "http://services.baabtra.com/",//server - production
+    "BWS": "http://127.0.0.1:8000/",//local
+  //"BWS": "http://services.baabtra.com/",//server - production
     // "BWS": "http://server.baabtra.in/",//server-test
 
      "SARID":1, // SuperAdminRoleID
@@ -80,8 +80,8 @@ angular.module('baabtra')
 angular.module('angular-custom-form',[]) /*Config constant for angular custom form */
 .constant('bbConfig',{ //used for storing enviornment variables
 
-      //"BWS": "http://127.0.0.1:8000/",//local
-     "BWS": "http://services.baabtra.com/",//server - production
+      "BWS": "http://127.0.0.1:8000/",//local
+     //"BWS": "http://services.baabtra.com/",//server - production
 
      "SARID":1, // SuperAdminRoleID
      "CURID":2, // CompanyUser

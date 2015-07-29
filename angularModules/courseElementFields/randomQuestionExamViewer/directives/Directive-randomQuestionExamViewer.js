@@ -167,8 +167,6 @@ angular.module('baabtra').directive('randomQuestionExamViewer',['$rootScope','$m
 				
 				var SubmitTestObj={courseMappingId:courseMappingId,userLoginId:userLoginId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex,totalMarkScored:totalMarkScored,timeObj:{key:'dateOfSubmission',value:time},userAnswers:scope.questionAnswer};
 				
-				console.log(SubmitTestObj);
-				
 				var FnSubmitTestCallBack= testRelated.FnSubmitTest(SubmitTestObj);
 
 				FnSubmitTestCallBack.then(function(data){
@@ -178,8 +176,6 @@ angular.module('baabtra').directive('randomQuestionExamViewer',['$rootScope','$m
 				 scope.isMentee=false;
 				 scope.examFinished=true;
 				 location.reload();
-
-				
 
 				});
 

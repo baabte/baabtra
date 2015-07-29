@@ -174,8 +174,7 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 				if(timeOut) {clearTimeout(timeOut);}
 					timeOut = setTimeout(function(){					
 						
-						if(angular.isDefined(scope.fromAssignment)){				
-							console.log(scope.fromAssignment);
+						if(angular.isDefined(scope.fromAssignment)){
 							if(scope.fromAssignment.value.penaltyHistory.length){
 								scope.penaltyHistory = scope.fromAssignment.value.penaltyHistory;
 								scope.result.data.value.markScored = assignmentFunctions.applyPenalty(scope,  scope.result.data.value.markScored);

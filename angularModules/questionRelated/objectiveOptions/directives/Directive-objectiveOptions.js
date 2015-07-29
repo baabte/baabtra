@@ -9,16 +9,22 @@ angular.module('baabtra').directive('objectiveOptions', function() {
 			markScored:'=',
 			markObj:'=',
 			userAnswer:'=',
-			dbAnswer:'='
+			dbAnswer:'=',
+			disableOpt:'=?'
 		},
 		templateUrl: 'angularModules/questionRelated/objectiveOptions/directives/Directive-objectiveOptions.html',
 		link: function(scope, element, attrs, fn) {
+
 
 			if(!scope.userAnswer){ // if he already answered no need to reset the marks
 				scope.markScored=0;
 			}
 			else{
 				scope.selectedAnswer=scope.userAnswer;
+			}
+
+			if(angular.equals(scope.disableOpt, undefined)){
+				scope.disableOpt = true;
 			}
 			
 			scope.$watch('selectedAnswer',function () {

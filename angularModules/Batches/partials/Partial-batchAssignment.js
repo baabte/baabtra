@@ -25,34 +25,38 @@ angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatche
 			var elementOrderLength = Object.keys($scope.batchObj.course.elementOrder).length;
 			
 			for (var elemCount = 0; elemCount < elementOrderLength; elemCount++) {
-				var elementArray = $scope.batchObj.course.elementOrder[elemCount].split(".");
+
 				
-				var element = $scope.batchObj.batchDetails.courseTimeline;
-				for(var elemOrder in elementArray){
-					if(!angular.equals(element, undefined)){
-						element = element[elementArray[elemOrder]];
-					}
-				}
-
-
-				if(!angular.equals(element, undefined) &&  !angular.equals(element, '')){
-					if(!angular.equals(element.code, undefined)){
-						$scope.batchObj.assignedList.push({courseElement:element});
-					}
-				}
-				else{
-					var unAssignedElement = $scope.batchObj.course.courseTimeline;
-
+				if($scope.batchObj.course.elementOrder[elemCount])
+				{
+					var elementArray = $scope.batchObj.course.elementOrder[elemCount].split(".");
+					var element = $scope.batchObj.batchDetails.courseTimeline;
 					for(var elemOrder in elementArray){
-						
-						if(!angular.equals(unAssignedElement[elementArray[elemOrder]], undefined)){
-							unAssignedElement = unAssignedElement[elementArray[elemOrder]];
+						if(!angular.equals(element, undefined)){
+							element = element[elementArray[elemOrder]];
 						}
-						
 					}
-					if(!angular.equals(unAssignedElement.code, undefined)){
-						
-						$scope.batchObj.unAssignedList.push({Name:unAssignedElement.elements[0].value,elementOrder:$scope.batchObj.course.elementOrder[elemCount],userCourseElementType:unAssignedElement.Name,innerIndex:unAssignedElement.index,tlpoint:unAssignedElement.tlPointInMinute,courseElement:unAssignedElement});
+
+
+					if(!angular.equals(element, undefined) &&  !angular.equals(element, '')){
+						if(!angular.equals(element.code, undefined)){
+							$scope.batchObj.assignedList.push({courseElement:element});
+						}
+					}
+					else{
+						var unAssignedElement = $scope.batchObj.course.courseTimeline;
+
+						for(var elemOrder in elementArray){
+							
+							if(!angular.equals(unAssignedElement[elementArray[elemOrder]], undefined)){
+								unAssignedElement = unAssignedElement[elementArray[elemOrder]];
+							}
+							
+						}
+						if(!angular.equals(unAssignedElement.code, undefined)){
+							
+							$scope.batchObj.unAssignedList.push({Name:unAssignedElement.elements[0].value,elementOrder:$scope.batchObj.course.elementOrder[elemCount],userCourseElementType:unAssignedElement.Name,innerIndex:unAssignedElement.index,tlpoint:unAssignedElement.tlPointInMinute,courseElement:unAssignedElement});
+						}
 					}
 				}
 			}
