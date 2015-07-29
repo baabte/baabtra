@@ -14,5 +14,18 @@ this.FnRegisterCollege=function(college){
   return promise;
  }
 
+ this.FetchColleges=function(college){
+  var promise = $http({
+    method: 'POST',
+      url: bbConfig.BWS+'FetchColleges/',
+      data:{"college":college},
+      method: 'POST',
+      withCredentials: false,
+      contentType:'application/json',
+      dataType:'json'
+   });
+  return promise;
+ }
+
 
 }]);
