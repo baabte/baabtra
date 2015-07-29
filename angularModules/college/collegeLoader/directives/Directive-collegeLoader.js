@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('collegeLoader',['','$rootScope', function(,$rootScope) {
+angular.module('baabtra').directive('collegeLoader',['collegeServices','$rootScope', function(collegeServices,$rootScope) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -14,4 +14,4 @@ angular.module('baabtra').directive('collegeLoader',['','$rootScope', function(,
 
 		}
 	};
-});
+}]);
