@@ -1042,7 +1042,7 @@
               })
 
                     .state('home.main.offlineSyncCourse', {
-                url: '/offlineSyncCourse/',
+                url: '/offlineSyncCourse',
                  views:{
                   'innercontent':{
                 templateUrl: 'angularModules/offlineSync/offlineSyncCourse/partials/Partial-offlineSyncCourse.html',

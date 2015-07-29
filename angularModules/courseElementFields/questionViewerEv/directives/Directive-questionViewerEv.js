@@ -46,6 +46,10 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 				for(key in scope.data.value.userAnswer[0].primaryAnswer){
 				scope.answerPreviewData.elements.push(scope.data.value.userAnswer[0].primaryAnswer[key]);
 				}
+
+				for(var secAns in scope.data.value.userAnswer[0].secondaryAnswer){
+				scope.answerPreviewData.elements.push(scope.data.value.userAnswer[0].secondaryAnswer[secAns]);	
+				}
 			} 
 
 			//Anoop , reating an array to show the statuses for questions.
@@ -109,13 +113,17 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 
 
 				if(angular.isDefined(oldVal)){
+
 					
 					if(angular.equals(scope.$parent.elementMark, undefined)){
+
 						scope.$parent.elementMark = oldVal;
+
 					}
 
 					scope.$parent.elementMark = scope.$parent.elementMark - oldVal;
-					var markToBeAdded = newVal;;
+					var markToBeAdded = newVal;
+					
 				}
 				else {
 					var markToBeAdded = newVal;
@@ -129,10 +137,11 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 					if(angular.equals(scope.$parent.elementMark, undefined)){
 						scope.$parent.elementMark = 0;
 					}
-					
-					scope.$parent.elementMark = scope.$parent.elementMark +  markToBeAdded;
 
+					//scope.$parent.elementMark = scope.$parent.elementMark +  markToBeAdded; replace with below code
+					scope.$parent.elementMark = markToBeAdded;
 				}
+
 			})
 
 			
@@ -165,8 +174,7 @@ angular.module('baabtra').directive('questionViewerEv',['$modal','assignmentFunc
 				if(timeOut) {clearTimeout(timeOut);}
 					timeOut = setTimeout(function(){					
 						
-						if(angular.isDefined(scope.fromAssignment)){				
-							console.log(scope.fromAssignment);
+						if(angular.isDefined(scope.fromAssignment)){
 							if(scope.fromAssignment.value.penaltyHistory.length){
 								scope.penaltyHistory = scope.fromAssignment.value.penaltyHistory;
 								scope.result.data.value.markScored = assignmentFunctions.applyPenalty(scope,  scope.result.data.value.markScored);

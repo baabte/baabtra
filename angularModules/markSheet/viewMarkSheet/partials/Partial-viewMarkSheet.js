@@ -74,10 +74,12 @@ angular.module('baabtra').controller('ViewmarksheetCtrl',['$scope', '$rootScope'
               syllabus[index].mark.markScored = 0;
            }
            mark.markScored = parseFloat(mark.markScored.toFixed(2));
-           syllabus[index].mark.markScored = syllabus[index].mark.markScored + parseFloat(mark.markScored.toFixed(2)); 
+           syllabus[index].mark.markScored = syllabus[index].mark.markScored + parseFloat(mark.markScored).toFixed(2); 
         }
       }
       if(syllabus[index].mark){
+        syllabus[index].mark = parseFloat(syllabus[index].mark).toFixed(2);
+        
         return syllabus[index].mark;
       }
     }

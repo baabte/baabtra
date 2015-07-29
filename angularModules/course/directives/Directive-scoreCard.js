@@ -7,7 +7,6 @@ angular.module('baabtra').directive('scoreCard',['$compile', function($compile) 
 		},
 		templateUrl: 'angularModules/course/directives/Directive-scoreCard.html',
 		link: function(scope, element, attrs, fn) {
-
 			// var checkElemWithMark = function(arr){
 			// 	var count=0;
 			// 	for(var key in arr){
@@ -49,10 +48,19 @@ angular.module('baabtra').directive('scoreCard',['$compile', function($compile) 
               					syllabus[index].mark.markScored = 0;
            					}
            					if(!angular.equals(mark.markScored, undefined)){
-	           					mark.markScored = parseFloat(mark.markScored.toFixed(2));
-	           					syllabus[index].mark.markScored = syllabus[index].mark.markScored + parseFloat(mark.markScored.toFixed(2)); 
+           						
+           						if(mark.markScored > 0){
+           							mark.markScored = parseFloat(mark.markScored).toFixed(2);
+	           						syllabus[index].mark.markScored = parseFloat(syllabus[index].mark.markScored) + parseFloat(mark.markScored);
+	           						//console.log(syllabus[index].mark.markScored);
+	           					}
+
 							}
 						}
+
+						syllabus[index].mark.markScored = syllabus[index].mark.markScored/syllabus[index].children.length;
+						
+						syllabus[index].mark.markScored = syllabus[index].mark.markScored.toFixed(2);
 					}
 				      if(syllabus[index].mark){
 				        return syllabus[index].mark;

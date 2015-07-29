@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseService','$compile','questionAnsweringSrv','$rootScope','$state', function(bbConfig,addCourseService,$compile,questionAnsweringSrv,$rootScope,$state) {
+angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseService','$compile','questionAnsweringSrv','$rootScope','$state', 'testRelated', function(bbConfig,addCourseService,$compile,questionAnsweringSrv,$rootScope,$state, testRelated) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -31,13 +31,40 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 			
 			//if user is mentee copying all required datas 
 			if(roleId===bbConfig.MURID){
+
 				userLoginId=$rootScope.userinfo.userLoginId;
-				courseId=$state.params.courseId;
+
+				courseId=$state.params.courseMappingId;
 				scope.isMentee=true;
 			}
+			var firstSubmit = false;
+			scope.$watch('questionResponse', function(){
+				
+				if(scope.questionResponse.userAnswer && angular.equals(scope.question.type, 'objective') && (angular.equals(scope.courseElement.evalStatus, 'pending submission') || angular.equals(scope.courseElement.evalStatus, undefined))){
+					if(scope.questionResponse.userAnswer.length && firstSubmit){
+						var time=(new Date()).getTime();
 
-			
+						var userAnswer = {};
+						//scope.questionResponse.evaluated = "pending submission";
 
+						userAnswer[scope.questionIndex-1] = angular.copy(scope.questionResponse);
+						userAnswer[scope.questionIndex-1].evaluated = "pending submission";
+						var SubmitTestObj={courseMappingId:courseId,userLoginId:userLoginId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex,totalMarkScored:scope.questionResponse.markScored,timeObj:{key:'dateOfInterSubmission',value:time},userAnswers:userAnswer};
+						var FnSubmitTestCallBack= testRelated.FnSubmitTest(SubmitTestObj);
+						FnSubmitTestCallBack.then(function(data){
+					
+				 		// var result=angular.fromJson(JSON.parse(data.data));
+				 		// console.log(result);
+				
+						});
+						
+					}
+					else if(!firstSubmit){
+						firstSubmit = true;
+					}
+				}
+				
+			},true);
 
 
 
@@ -57,7 +84,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 			scope.questionResponse.markScored=0;
 
 			//this is to format the data attribute of this directive into JSON object
-			var unbind=scope.$watch('data',function (argument) {
+			var unbind= scope.$watch('data',function (argument) {
 				if(!(scope.data instanceof Object)){
 					scope.data=JSON.parse(scope.data);					
 				}
@@ -67,10 +94,13 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 				{
 					if(scope.question.userAnswer){
 						scope.dbAnswer=scope.question.userAnswer;
+						//console.log(scope.question);
+						scope.questionResponse.userAnswer = scope.dbAnswer;
+						// console.log(scope.questionResponse);
+					}else{
+						scope.questionResponse.userAnswer=[];
 					}
 				
-					
-			 				scope.questionResponse.userAnswer=[];		
 				
 				//Creating directive elements according to type of question
 				var answerArea=$('#answers'+scope.randomKey);
@@ -83,6 +113,11 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 					    optionsElem.attr('answer',"question.answer");
 					    optionsElem.attr('mark-scored','questionResponse.markScored');
 					    optionsElem.attr('user-answer','questionResponse.userAnswer');
+
+					    if(angular.equals(scope.courseElement.evalStatus, 'pending submission')){
+					    	optionsElem.attr('disable-opt',false);
+					    }
+
 					    optionsElem.attr('db-answer','dbAnswer');
 					    optionsElem.attr('mark-obj',JSON.stringify(scope.question.mark));
 					answerArea.html(optionsElem);
@@ -106,7 +141,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 						var debugVal=JSON.parse(scope.question.primaryAnswer[primaryLoop].Debug);
 
 						if(!angular.equals(scope.dbAnswer,undefined)){
-							if (!scope.dbAnswer.length==0) {
+							if (!angular.equals(scope.dbAnswer.length, 0)) {
 								 //this code is for re-binding the users answer from db
 								if(scope.dbAnswer[0].primaryAnswer[debugVal.name]){
 									debugVal.value=scope.dbAnswer[0].primaryAnswer[debugVal.name];
@@ -122,7 +157,7 @@ angular.module('baabtra').directive('testQuestionView',['bbConfig','addCourseSer
 						var debugVal=JSON.parse(scope.question.secondaryAnswer[secondaryLoop].Debug);
 
 						if(!angular.equals(scope.dbAnswer,undefined)){
-							if (!scope.dbAnswer.length==0) {
+							if (!angular.equals(scope.dbAnswer.length, 0)) {
 								if(scope.dbAnswer[0].secondaryAnswer[debugVal.name]){
 									debugVal.value=scope.dbAnswer[0].secondaryAnswer[debugVal.name];
 

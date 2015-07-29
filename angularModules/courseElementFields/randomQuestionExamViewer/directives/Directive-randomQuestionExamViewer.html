@@ -19,10 +19,10 @@
          	</div>
         </div>
 		<div ng-if="startTest">
-		<div  ng-repeat="question in dataValue.value.testModel">
+		<div ng-if="dataValue.value.testModel"  ng-repeat="question in dataValue.value.testModel">
 				
 					
-					<test-question-view  data="{{fnFormatObj(question)}}" index="innerIndex" multi-answer="true" question-response="questionAnswer[start+$index]" question-index="$index+1" course-element="courseElement"></test-question-view>
+					<test-question-view   data="{{fnFormatObj(question)}}" index="index" multi-answer="true" question-response="questionAnswer[start+$index]" question-index="$index+1" course-element="courseElement"></test-question-view>
 
 
 		</div>

@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('OfflinesynccourseCtrl', ['$scope', '$rootScope', '$state', 'commonService', 'viewUsers', 'addCourseService' , function ($scope, $rootScope, $state, commonService, viewUsers, addCourseService){
+angular.module('baabtra').controller('OfflinesynccourseCtrl', ['$scope', '$rootScope', '$state', 'commonService', 'viewUsers', 'addCourseService', 'offlineSyncCourse', function ($scope, $rootScope, $state, commonService, viewUsers, addCourseService, offlineSyncCourse){
 
 	/*login detils start*/
 	if(!$rootScope.userinfo){
@@ -17,13 +17,13 @@ angular.module('baabtra').controller('OfflinesynccourseCtrl', ['$scope', '$rootS
 
 	$scope.offlineSyncCourseData = {};
 	$scope.offlineSyncCourseData.searchKey = {};
-	$scope.offlineSyncCourseData.searchKey.profile = {}
+	$scope.offlineSyncCourseData.searchKey.profile = {};
 	$scope.offlineSyncCourseData.searchKey.profile.gender = "";
 
 	var fetchFormFeildsResp = viewUsers.fnFetchFormFeildsForSearch("User test registration", companyId);
 	fetchFormFeildsResp.then(function(response){
 		$scope.offlineSyncCourseData.Feilds = angular.fromJson(JSON.parse(response.data));
-	})
+	});
 
 	var courseFetchData={fkcompanyId:companyId,type:'all'};
 
@@ -31,7 +31,7 @@ angular.module('baabtra').controller('OfflinesynccourseCtrl', ['$scope', '$rootS
 
 	FetchCourseListCallBack.then(function(response){
 		$scope.offlineSyncCourseData.courseList = angular.fromJson(JSON.parse(response.data));
-	})
+	});
 
 	$scope.courseSelectionChanged = function(courseId){
 		if(!$scope.offlineSyncCourseData.searchKey.coursesSelected){
@@ -72,7 +72,7 @@ $scope.prevOne=function(){
 	        $scope.offlineSyncCourseData.result = angular.fromJson(JSON.parse(data.data));
 	        if(!angular.equals($scope.offlineSyncCourseData.firstUserId, $scope.offlineSyncCourseData.result.firstUserId)){
 		        
-		        $scope.offlineSyncCourseData.usersObject = $scope.offlineSyncCourseData.result.users.reverse();;
+		        $scope.offlineSyncCourseData.usersObject = $scope.offlineSyncCourseData.result.users.reverse();
 		        $scope.offlineSyncCourseData.firstUserId = $scope.offlineSyncCourseData.result.lastUserId;
 		        $scope.offlineSyncCourseData.lastUserId = $scope.offlineSyncCourseData.result.firstUserId;
 		       
@@ -99,6 +99,15 @@ $scope.prevOne=function(){
 			    });
 			    },500);
 			}
-		}, true)
+		}, true);
+
+	// function for sync download data
+	$scope.offlineSyncUserCourse = function(){
+		var offlineSyncUserCourseResponse = offlineSyncCourse.fnGetUserCourseDetails4Sync($scope.offlineSyncCourseData.selectedUsersLoginid);
+		offlineSyncUserCourseResponse.then(function(response){
+			console.log(angular.fromJson(JSON.parse(response.data)));
+		});
+		
+	};
 
 }]);

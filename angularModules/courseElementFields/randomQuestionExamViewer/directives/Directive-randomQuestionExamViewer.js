@@ -63,7 +63,6 @@ angular.module('baabtra').directive('randomQuestionExamViewer',['$rootScope','$m
 
 			scope.startTimer=function(){
 				var time=(new Date()).getTime();
-
 				var StartTimeObj={courseMappingId:courseMappingId,userLoginId:userLoginId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex,timeObj:{key:'testStartTime',value:time},questionBankId:scope.dataValue.value.questionBank[0]._id,noOfQuestion:scope.dataValue.value.noOfQuestion};
 
 				// console.log(StartTimeObj);
@@ -74,7 +73,6 @@ angular.module('baabtra').directive('randomQuestionExamViewer',['$rootScope','$m
 
 
 					 var result=angular.fromJson(JSON.parse(data.data));
-					 console.log(result);
 					 scope.dataValue.value.testModel=result.testModel;
 					 scope.startTest=true;
 
@@ -131,10 +129,11 @@ angular.module('baabtra').directive('randomQuestionExamViewer',['$rootScope','$m
 
 					FnTestTimeReCheckCallBack.then(function(data){
 					scope.timeObj=angular.fromJson(JSON.parse(data.data));
-					 
 						if(!angular.equals(scope.timeObj.startTime,undefined)){
 							var timeNow=(new Date()).getTime();
 							var timeDiff=timeNow-scope.timeObj.startTime;
+							scope.countDownTime=(scope.timeObj.startTime+scope.timeObj.timeDetails.actualDuration)-(new Date()).getTime();
+							scope.countDownTime=Math.ceil(scope.countDownTime/1000);
 							if(timeDiff>=scope.timeObj.timeDetails.actualDuration){
 								 scope.timeOutModalshowModal();
 								 scope.submitTest();
@@ -168,8 +167,6 @@ angular.module('baabtra').directive('randomQuestionExamViewer',['$rootScope','$m
 				
 				var SubmitTestObj={courseMappingId:courseMappingId,userLoginId:userLoginId,keyName:keyName,tlPointInmins:tlPointInmins,outerIndex:outerIndex,innerIndex:innerIndex,totalMarkScored:totalMarkScored,timeObj:{key:'dateOfSubmission',value:time},userAnswers:scope.questionAnswer};
 				
-				console.log(SubmitTestObj);
-
 				var FnSubmitTestCallBack= testRelated.FnSubmitTest(SubmitTestObj);
 
 				FnSubmitTestCallBack.then(function(data){
@@ -179,8 +176,6 @@ angular.module('baabtra').directive('randomQuestionExamViewer',['$rootScope','$m
 				 scope.isMentee=false;
 				 scope.examFinished=true;
 				 location.reload();
-
-				
 
 				});
 
