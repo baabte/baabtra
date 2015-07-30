@@ -47,6 +47,10 @@
               </div>
             </div>
 
+            <div class="col-xs-12 b-b p-v" ng-if="(data.searchKey.coursesSelected.length == 1) && data.courseList.length && (data.selectedCourse.totalMark > 0)">
+              <span class="font-bold">Mark Range</span>
+               <div style="margin: 10px 0 10px;" range-slider min="1" max="data.selectedCourse.totalMark" model-min="data.searchKey.course.minMark" model-max="data.searchKey.course.maxMark"></div>     
+            </div>
             <!-- course based -->
             <div class="col-xs-12 b-b p-v" ng-if="data.courseList.length">
               <div class="font-bold">Courses & Tests ({{data.courseList.length}})</div>
@@ -54,7 +58,7 @@
                 <div class="sample1" ng-repeat="course in data.courseList">
                   <div class="checkbox show-in-one-line" style="line-height: 19px;max-height: 25px;">
                     <label title="{{course.Name}}">
-                      <input  type="checkbox"  ng-model="data.coures[$index]" ng-change="courseSelectionChanged(course._id.$oid)"> {{course.Name}}
+                      <input  type="checkbox"  ng-model="data.coures[$index]" ng-change="courseSelectionChanged(course)"> {{course.Name}}
                     </label>
                   </div>
                 </div>

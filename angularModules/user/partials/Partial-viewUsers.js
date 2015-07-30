@@ -22,6 +22,9 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 
 	$scope.data = {};
 	$scope.data.searchKey = {};
+	$scope.data.searchKey.course = {};
+	$scope.data.searchKey.course.minMark = 1;
+
 	$scope.data.searchKey.status = {};
 	$scope.data.searchKey.profile = {};
 	$scope.data.searchKey.profile.gender = "";
@@ -101,7 +104,9 @@ $scope.prevOne=function(){
     	});
 };
 
-	$scope.courseSelectionChanged = function(courseId){
+	$scope.courseSelectionChanged = function(course){
+		
+		var courseId = course._id.$oid;
 		if(!$scope.data.searchKey.coursesSelected){
 			$scope.data.searchKey.coursesSelected = [];
 		}
@@ -112,6 +117,16 @@ $scope.prevOne=function(){
 		}
 		else{
 			$scope.data.searchKey.coursesSelected.splice($scope.data.searchKey.coursesSelected.indexOf(courseId), 1);
+		}
+
+		if($scope.data.searchKey.coursesSelected.length){
+
+			for(var course in $scope.data.courseList){
+				if(angular.equals($scope.data.courseList[course]._id.$oid, $scope.data.searchKey.coursesSelected[0])){
+					$scope.data.selectedCourse = $scope.data.courseList[course];
+					$scope.data.searchKey.course.maxMark = $scope.data.selectedCourse.totalMark;
+				}
+			}
 		}
 	};
 
