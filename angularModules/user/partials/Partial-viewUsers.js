@@ -22,6 +22,7 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 
 	$scope.data = {};
 	$scope.data.searchKey = {};
+	$scope.data.searchKey.status = {};
 	$scope.data.searchKey.profile = {};
 	$scope.data.searchKey.profile.gender = "";
 	$scope.value = "State";

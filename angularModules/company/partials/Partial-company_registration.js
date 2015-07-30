@@ -13,7 +13,7 @@ if($rootScope.loggedIn===false){
 }
 
 
-// console.log($rootScope.userinfo.ActiveUserData.roleMappingId.$oid);
+console.log($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId);
 
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 

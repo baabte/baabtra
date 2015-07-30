@@ -61,6 +61,40 @@
               </div>
             </div>
 
+             <!-- form feilds -->
+            <div class="col-xs-12 b-b p-v">
+              <div class="font-bold">Account Status</div>
+              <div  class="box-cell scrollable hover" style="max-height: 170px;">
+               <!-- <input type="text" class="form-control floating-label" ng-model="data.searchKey.status.Account" class="form-control" placeholder="{{feild.text}}"> -->
+               <select class="form-control m-t-xs" ng-model="data.searchKey.status.Account" id="select">
+                        <option value="">Select Status</option>
+                        <option value="Registered">Registered</option>
+                        <option value="Attending Course">Attending Course</option>
+                        <option value="Searching Job">Searching Job</option>
+                        <option value="Interview Attended">Interview Attended</option>
+                        <option value="Going for Higher Studies">Going for Higher Studies</option>
+                    </select>
+              </div>
+            </div>
+
+              <!-- form feilds -->
+            <div class="col-xs-12 b-b p-v">
+              <div class="font-bold">Job Status</div>
+              <div  class="box-cell scrollable hover" style="max-height: 170px;">
+               <!-- <input type="text" class="form-control floating-label" ng-model="data.searchKey.status.Job" class="form-control" placeholder="{{feild.text}}">  -->
+                <select class="form-control m-t-xs" ng-model="data.searchKey.status.Job" id="select">
+                        <option value="">Select Status</option>                        
+                        <option value="Working">Working</option>
+                        <option value="Looking for Job Change">Looking for Job Change</option>
+                        <option value="Ready for Job Change">Ready for Job Change</option>
+                        <option value="Not Interested in Job">Not Interested in Job</option>
+                        <option value="Offer Received">Offer Received</option>
+                        <option value="Offer Delayed">Offer Delayed</option>                       
+                    </select>   
+                                           
+              </div>
+            </div>
+
             <!-- form feilds -->
             <div class="col-xs-12 b-b p-v">
               <div class="font-bold">Custom fields</div>
@@ -70,6 +104,8 @@
                 </div>
               </div>
             </div>
+
+            
 
 
           </div>
