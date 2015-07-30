@@ -10,18 +10,23 @@
       </div>
 
       <div class="col-xs-8 p-v-sm baabtra-profile-bg" >
-        
-        <div class="text-xl text-name text-pdf-white" ng-class="{'blurry-text':baabtraProfile.showId}" >{{baabtraProfile.userDetails.profile.firstName}}&nbsp;{{baabtraProfile.userDetails.profile.lastName}}
+        <div class="no-padding" ng-class="{'col-xs-12':!baabtraProfile.userDetails.status, 'col-xs-12 col-md-6':baabtraProfile.userDetails.status}">
+          <div class="text-xl text-name text-pdf-white" ng-class="{'blurry-text':baabtraProfile.showId}" >{{baabtraProfile.userDetails.profile.firstName}}&nbsp;{{baabtraProfile.userDetails.profile.lastName}}
+          </div>
+
+          <div><a class="text-pdf-white" ng-class="{'blurry-text':baabtraProfile.showId}">{{baabtraProfile.userDetails.userName}}</a></div>
+
+          <div class="text-pdf-white" ng-if="baabtraProfile.userDetails.profile.mobile || baabtraProfile.userDetails.profile.contactNoMob" ng-class="{'blurry-text':baabtraProfile.showId}">{{baabtraProfile.userDetails.profile.mobile}}{{baabtraProfile.userDetails.profile.contactNoMob}}
+          </div>
+
+          <div class="col-xs-6 no-padding-h text-pdf-white" ng-if="baabtraProfile.userDetails.profile.dob" ng-class="{'blurry-text':baabtraProfile.showId}">Age&nbsp;:&nbsp;{{calculateAge(baabtraProfile.userDetails.profile.dob)}}&nbsp;</div>
+          <div class="col-xs-6 font-bold text-pdf-white text-right" ng-if="baabtraProfile.userDetails.profile.userCode && !baabtraProfile.userDetails.status" >ID&nbsp;:&nbsp;{{baabtraProfile.userDetails.profile.userCode}}</div>
         </div>
-
-        <div><a class="text-pdf-white" ng-class="{'blurry-text':baabtraProfile.showId}">{{baabtraProfile.userDetails.userName}}</a></div>
-
-        <div class="text-pdf-white" ng-if="baabtraProfile.userDetails.profile.mobile || baabtraProfile.userDetails.profile.contactNoMob" ng-class="{'blurry-text':baabtraProfile.showId}">{{baabtraProfile.userDetails.profile.mobile}}{{baabtraProfile.userDetails.profile.contactNoMob}}
+        <div class="col-xs-12 col-md-6 no-padding" ng-if="baabtraProfile.userDetails.status && baabtraProfile.showInPrint">
+          <div ng-if="baabtraProfile.userDetails.status.Account">Account status&nbsp;:&nbsp;<span class="font-bold">{{baabtraProfile.userDetails.status.Account}}</span></div>
+          <div ng-if="baabtraProfile.userDetails.status.Job">Job status&nbsp;:&nbsp;<span class="font-bold">{{baabtraProfile.userDetails.status.Job}}</span></div>
+          <div class="font-bold text-pdf-white" ng-if="baabtraProfile.userDetails.profile.userCode" >ID&nbsp;:&nbsp;{{baabtraProfile.userDetails.profile.userCode}}</div>
         </div>
-
-        <div class="col-xs-6 no-padding-h text-pdf-white" ng-if="baabtraProfile.userDetails.profile.dob" ng-class="{'blurry-text':baabtraProfile.showId}">Age&nbsp;:&nbsp;{{calculateAge(baabtraProfile.userDetails.profile.dob)}}&nbsp;</div>
-
-        <div class="col-xs-6 no-padding-h text-right font-bold text-pdf-white" ng-if="baabtraProfile.userDetails.profile.userCode" >ID&nbsp;:&nbsp;{{baabtraProfile.userDetails.profile.userCode}}</div>
       </div>
 
       <!-- profile picture -->
@@ -41,28 +46,31 @@
     
     <!-- right side  -->
     <div class="col-xs-11  set-full-height" >
-
       <!-- test summary -->
       <div ng-if="baabtraProfile.tests.length">
         <div class="col-xs-12 font-bold no-padding-h m-b">Screening : List of the tests attended here</div>
-        <table class="table table-bordered bg-white">
-          <thead>
-            <tr  class="baabtra-profile-bg">
-              <th>#</th>
-              <th>Name</th>
-              <th>Score</th>
-              <th>Date of appearing</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-if="course.type == 'test'" ng-repeat="course in baabtraProfile.tests">
-              <td>{{$index+1}}</td>
-              <td>{{course.Name}}</td>
-              <td>{{course.markScored}}&nbsp;/&nbsp;{{course.totalMark}}</td>
-              <td>{{convertDate(course.createdDate) | date:'dd/MMM/yyyy'}}</td>
+        <div class="table-responsive">
+          <table class="table table-bordered bg-white">
+            <thead>
+              <tr  class="baabtra-profile-bg">
+                <th>#</th>
+                <th>Name</th>
+                <th>Score</th>
+                <th>Status</th>
+                <th>Date of appearing</th>
               </tr>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <tr ng-if="course.type == 'test'" ng-repeat="course in baabtraProfile.tests">
+                <td>{{$index+1}}</td>
+                <td>{{course.Name}}</td>
+                <td>{{course.markScored}}&nbsp;/&nbsp;{{course.totalMark}}</td>
+                <td>{{course.status?course.status:'NA'}}</td>
+                <td>{{convertDate(course.createdDate) | date:'dd/MMM/yyyy'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- course summary -->
@@ -86,7 +94,7 @@
                 <td>{{course.Name}}</td>
                 <td>{{course.markScored}}&nbsp;/&nbsp;{{course.totalMark}}</td>
                 <td>{{getCourseDuration(course.Duration.DurationDetails)}}</td>
-                <td>NA</td>
+                <td>{{course.status?course.status:'NA'}}</td>
                 <td>NA</td>
                 </tr>
             </tbody>
