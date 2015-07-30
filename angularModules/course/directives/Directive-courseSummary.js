@@ -26,10 +26,11 @@ angular.module('baabtra').directive('courseSummary', function() {
 							if(!angular.equals(elem.Name,"Payment_checkpoint")){
 								scope.summaryDetails[Math.ceil(key*scope.summaryViewIn.mFactor)].push({icon:elem.Icon,title:elem.elements[0].value});
 							}
-						})
+						});
 					}
 				});
 			});
+			scope.courseSummaryLength = Object.keys(scope.summaryDetails).length;
 		}//link
 	};
 });
