@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService','addCourseElementService','courseElementFieldsManaging','bbConfig', '$modal', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService,addCourseElementService,courseElementFieldsManaging,bbConfig, $modal) {
+angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$popover','$templateCache','$aside','addCourseService','addCourseElementService','courseElementFieldsManaging','bbConfig', '$modal', '$alert', function($state,$rootScope,$popover,$templateCache,$aside,addCourseService,addCourseElementService,courseElementFieldsManaging,bbConfig, $modal, $alert) {
 	return {
 		restrict: 'E', // to use as an element . Use 'A' to use as an attribute
 		scope: {
@@ -442,10 +442,12 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	
             	removeCourseTimelineElementCallback.then(function(data){
 				var updatedElementOrder = angular.fromJson(JSON.parse(data.data));
-				console.log(updatedElementOrder);
-				//scope.syncData.elementOrder=updatedElementOrder;
+				if(angular.equals(updatedElementOrder,"Error")){
+					$alert({title: 'Error', content: 'Something went wrong :)', placement: 'top-right', type: 'danger', duration:3,show: true});
+				}
+				scope.syncData.elementOrder=updatedElementOrder;
             	//scope.syncData.courseTimeline=updatedElementOrder.courseTimeline;
-            	//scope.syncData.courseTimeline[scope.selectedTpoint][selectedCourseElement.Name].splice(scope.selectedIndex,1);
+            	scope.syncData.courseTimeline[scope.selectedTpoint][selectedCourseElement.Name].splice(scope.selectedIndex,1);
 				});
             };
 
