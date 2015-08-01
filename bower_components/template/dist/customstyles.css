@@ -754,7 +754,7 @@ display: block;
   cursor: pointer;
 }
 .link-hover:hover{
-  box-shadow: rgb(50, 46, 46) 0px 0px 9px 0px;
+  text-decoration: underline;
 }
 .upper{
   text-transform: uppercase;
@@ -770,11 +770,6 @@ display: block;
 .aside{
   z-index:1051 !important;
 }
-.aside-heading{
-  position: fixed;
-  width: 100%;
-  z-index: 10;
-}
 /*custom font*/
 @import url(http://fonts.googleapis.com/css?family=Montserrat);
 
@@ -784,11 +779,11 @@ display: block;
 html {
   height: 100%;
   /*Image only BG fallback*/
-  background: url('http://thecodeplayer.com/uploads/media/gs.png');
+ /* background: url('http://thecodeplayer.com/uploads/media/gs.png');
   /*background = gradient + image pattern combo*/
-  background: 
+/*  background: 
     linear-gradient(rgba(196, 102, 0, 0.2), rgba(155, 89, 182, 0.2)), 
-    url('http://thecodeplayer.com/uploads/media/gs.png');
+    url('http://thecodeplayer.com/uploads/media/gs.png');*/
 }
 
 body {
@@ -975,4 +970,11 @@ ul.rating {
 .blurry-text {
   color: transparent!important;
   text-shadow: 0 0 10px rgba(255, 255, 255, 1)!important;
+}
+.bg-white{
+  background: #fff!important;
+}
+
+.iframe-width iframe{
+  width: 100% !important;
 }
