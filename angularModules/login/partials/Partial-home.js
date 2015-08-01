@@ -134,6 +134,8 @@ $scope.$watch('userMenusOrigin',function(){
     $localStorage.linkPath=[];
     $scope.linkPath = $localStorage.linkPath;
     $rootScope.menuExist=false;
+    
+
     getMenuByLink($scope.userMenusOrigin,null,null,$state.current.name, function(){
       if(!$rootScope.menuExist){
       $state.go('home.main');
@@ -280,7 +282,7 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
 
 
   function getMenuByLink(menu,sub,path_obj,state, fnCallback){
-    
+   
     if (sub==null) {
       sub=0;
     }
@@ -304,9 +306,14 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
           if(path_obj==null){
             path_obj=[];
           }
+
           for (var action in menu[sub].actions){
 
-            if (angular.equals($scope.stateSplitAll(menu[sub].actions[action].stateName),state)&&(angular.equals(menu[sub].MenuName,$localStorage.currentMenuName))) {
+            var stateParams = '';
+            if(!angular.equals($state.params.key, undefined)){
+              stateParams = '|key:'+$state.params.key;
+            }
+            if (angular.equals(menu[sub].actions[action].stateName,(state+stateParams))&&(angular.equals(menu[sub].MenuName,$localStorage.currentMenuName))) {
               $rootScope.menuExist = true;
               path_obj.push(menu[sub]);
               $scope.navBar=true;
@@ -317,7 +324,7 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
 
             }
 
-            else if(angular.equals($scope.stateSplitAll(menu[sub].actions[action].stateName),state)&&(!angular.equals($localStorage.currentMenuLink,$scope.linkSeprate(state)))){
+            else if(angular.equals(menu[sub].actions[action].stateName,(state+stateParams))&&(!angular.equals($localStorage.currentMenuLink,$scope.linkSeprate(state)))){
               $rootScope.menuExist=true;
               path_obj.push(menu[sub]);
               $scope.navBar=true;
@@ -346,7 +353,7 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
 
 
     $scope.menuHover = function(element){
-      console.log(getComputedStyle(element));
+     // console.log(getComputedStyle(element));
     };
 
     $scope.viewMobileMenu = function(){
