@@ -15,7 +15,11 @@
 
           </span>
         <!-- brand -->
-        <a bs-tooltip data-title="Click to change logo" data-placement="right" class="navbar-brand text-lt" ng-if="$root.userinfo.ActiveUserData.appSettings.logo" ng-click="appSettings()" style="width: auto;">
+        <a data-placement="right" class="navbar-brand text-lt" ng-if="$root.userinfo.ActiveUserData.appSettings.logo&&roleId != $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" style="width: auto;">
+          <img src="{{$root.userinfo.ActiveUserData.appSettings.logo}}" class="img-responsive" style="max-height: 40px !important;">
+        </a>
+
+         <a  bs-tooltip data-title="Click to change logo" data-placement="right" class="navbar-brand text-lt" ng-if="$root.userinfo.ActiveUserData.appSettings.logo&&roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId"  ng-click="appSettings()" style="width: auto;">
           <img src="{{$root.userinfo.ActiveUserData.appSettings.logo}}" class="img-responsive" style="max-height: 40px !important;">
         </a>
 

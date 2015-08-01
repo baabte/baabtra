@@ -359,7 +359,7 @@
                 
               })
               .state('home.main.configMarkSheet', {
-                url: '/configMarkSheet',
+                url: '/configMarkSheet/:key',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/markSheet/designMarkSheet/partials/Partial-designMarkSheet.html',
