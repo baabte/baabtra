@@ -1,7 +1,6 @@
 angular.module('baabtra').service('viewUsers',['$http','bbConfig',function($http,bbConfig) {
 
-this.fnLoadCompnayUsers=function($scope,firstId,type,lastId)//To Load The Existing Company Details
-      {
+  this.fnLoadCompnayUsers=function($scope,firstId,type,lastId){//To Load The Existing Company Details
     var promise = $http({
           method: 'post',
           url: bbConfig.BWS+'fnLoadCompnayUsers/',
@@ -21,8 +20,7 @@ this.fnLoadCompnayUsers=function($scope,firstId,type,lastId)//To Load The Existi
           return promise;
       };
 
-  this.fnFetchUsersByDynamicSearch=function(companyId,firstId,lastId,type,searchKey)
-      {
+  this.fnFetchUsersByDynamicSearch=function(companyId,firstId,lastId,type,searchKey){
     var promise = $http({
           method: 'post',
           url: bbConfig.BWS+'fetchUsersByDynamicSearch/',
@@ -32,12 +30,21 @@ this.fnLoadCompnayUsers=function($scope,firstId,type,lastId)//To Load The Existi
           return promise;
       };
 
-       this.fnFetchFormFeildsForSearch=function(formName, companyId)
-      {
+  this.fnFetchFormFeildsForSearch=function(formName, companyId){
     var promise = $http({
           method: 'post',
           url: bbConfig.BWS+'fnFetchFormFeildsForSearch/',
           data:{"formName":formName,"companyId":companyId},
+          contentType:'application/json; charset=UTF-8',
+        })
+          return promise;
+      };
+      
+  this.fnFetchUsersReportBasedOnDynamicSearch=function(companyId,firstId,lastId,type,searchKey){
+    var promise = $http({
+          method: 'post',
+          url: bbConfig.BWS+'fetchUsersReportBasedOnDynamicSearch/',
+          data:{"companyId":companyId,"firstId":firstId,"lastId":lastId,"type":type,searchKey:searchKey},
           contentType:'application/json; charset=UTF-8',
         })
           return promise;
