@@ -159,11 +159,13 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
              //$scope.linkPath = $localStorage.linkPath = [];
             }
           }
-       getMenuByLink($scope.userMenusOrigin,null,null,toState.name, function(){
-          if (!$rootScope.menuExist && !angular.equals(toState.name,'home.main')) {
-            event.preventDefault();
+          if($scope.userMenusOrigin){
+            getMenuByLink($scope.userMenusOrigin,null,null,toState.name, function(){
+              if (!$rootScope.menuExist && !angular.equals(toState.name,'home.main')) {
+                event.preventDefault();
+              }
+            });
           }
-       });
      }
 });
 
@@ -287,7 +289,6 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
       sub=0;
     }
     
-
     if(!angular.equals(menu[sub],undefined)){
       getMenuByLink(menu,sub+1,path_obj,state, fnCallback);
       if(menu[sub].childMenuStructure.length){
