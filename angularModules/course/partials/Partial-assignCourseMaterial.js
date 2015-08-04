@@ -22,6 +22,7 @@ angular.module('baabtra').controller('AssigncoursematerialCtrl',['$scope','$root
 	loadCourseDDl = assignCourseMaterial.loadCourses4AssigningCourseMaterial(companyId, $stateParams.userId);
 	loadCourseDDl.then(function(response){
 		var result = angular.fromJson(JSON.parse(response.data));
+		console.log(result);
 		$scope.assignCourseObj.courses = [];
 		for(var course in result.courses){
 			$scope.assignCourseObj.courses.push({"text":result.courses[course].Name,"click":"loadCourseMatrials(\""+result.courses[course].fkCourseId.$oid+"\")"});
