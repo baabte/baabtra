@@ -23,7 +23,7 @@
 	    </div>
 	    <div class="col-md-3 col-xs-12 text-right m-t-xs ">
 	        <div class="btn-group">
-			    <a  class="btn btn-info" ng-disabled="!reportObj.searchKey||!reportObj.selectedTest[0]._id" ng-click="searchUser()">Generate Report</a>
+			    <a  class="btn btn-info" ng-disabled="!reportObj.selectedTest[0]._id" ng-click="searchUser()">Generate Report</a>
 			    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
 			    <ul class="dropdown-menu">
 			        <li><a ng-click="generateReport()" ng-disabled="!reportObj.searchKey||!reportObj.selectedTest[0]._id">Export to Spreadsheet</a></li>

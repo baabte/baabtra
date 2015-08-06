@@ -55,6 +55,9 @@ $scope.progressStart=function () {
 
 
 	$scope.searchUser=function(){
+		if(angular.equals($scope.reportObj.searchKey,undefined)){
+			$scope.reportObj.searchKey="";
+		}
 		if(!angular.equals($scope.fromDate,undefined)){
 		$scope.reportObj.date.fromDate=$scope.DateFormatChange($scope.fromDate);
 		}
@@ -88,6 +91,9 @@ $scope.saveContent=function(fileContents){
 };
 	//funtion to generate report 
 	$scope.generateReport=function(){
+		if(angular.equals($scope.reportObj.searchKey,undefined)){
+			$scope.reportObj.searchKey="";
+		}
 		if(!angular.equals($scope.fromDate,undefined)){
 		$scope.reportObj.date.fromDate=$scope.DateFormatChange($scope.fromDate);
 		}
