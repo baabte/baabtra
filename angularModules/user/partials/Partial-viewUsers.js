@@ -31,11 +31,13 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 	$scope.data.searchKey.profile.gender = "";
 	$scope.value = "State";
 
-	
-		$scope.data.userDropdown = [{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View Profile Summary",
+	$scope.data.userDropdown = [{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View Profile Summary",
     							"click":"viewProfile(user.fkUserLoginId.$oid, 'summary')"},
     							{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View Detailed Profile",
-    							"click":"viewProfile(user.fkUserLoginId.$oid, 'detailed')"},{"text" : "<i class=\"mdi-av-repeat\"></i>&nbsp;Change User Status",
+    							"click":"viewProfile(user.fkUserLoginId.$oid, 'detailed')"},
+    							{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View Profile By Course",
+    							"click":"viewProfile(user.fkUserLoginId.$oid, 'byCourse')"},
+    							{"text" : "<i class=\"mdi-av-repeat\"></i>&nbsp;Change User Status",
     							"click":"changeStatus(user.fkUserLoginId.$oid)"}];
     
 

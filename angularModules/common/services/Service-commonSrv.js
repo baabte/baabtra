@@ -44,7 +44,7 @@ this.FnLoadGlobalValues=function(key)
       dataType:"json",
     });
     return promise;
-   }
+   };
 
    this.fnLoadMentees = function(companyId){
     var promise = $http({
@@ -104,7 +104,7 @@ this.FnLoadGlobalValues=function(key)
            withCredentials: false,
            contentType:'application/json',
            dataType:'json',
-           })
+           });
     return promise;
     };
     

@@ -58,6 +58,7 @@
               <span class="font-bold">Mark Range</span>
                <div style="margin: 10px 0 10px;" range-slider min="1" max="data.selectedCourse.totalMark" model-min="data.searchKey.course.minMark" model-max="data.searchKey.course.maxMark"></div>     
             </div>
+
             <!-- course based -->
             <div class="col-xs-12 b-b p-v" ng-if="data.courseList.length">
               <div class="font-bold">Courses & Tests ({{data.courseList.length}})</div>
@@ -77,13 +78,13 @@
               <div class="font-bold">Account Status</div>
               <div  class="box-cell scrollable hover" style="max-height: 170px;">
                <select class="form-control m-t-xs" ng-model="data.searchKey.status.Account" id="select">
-                        <option value="">Select Status</option>
-                        <option value="Registered">Registered</option>
-                        <option value="Attending Course">Attending Course</option>
-                        <option value="Searching Job">Searching Job</option>
-                        <option value="Interview Attended">Interview Attended</option>
-                        <option value="Going for Higher Studies">Going for Higher Studies</option>
-                    </select>
+                  <option value="">Select Status</option>
+                  <option value="Registered">Registered</option>
+                  <option value="Attending Course">Attending Course</option>
+                  <option value="Searching Job">Searching Job</option>
+                  <option value="Interview Attended">Interview Attended</option>
+                  <option value="Going for Higher Studies">Going for Higher Studies</option>
+                </select>
               </div>
             </div>
 
