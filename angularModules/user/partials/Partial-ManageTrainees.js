@@ -20,12 +20,12 @@ angular.module('baabtra').controller('ManagetraineesCtrl',['$scope', '$rootScope
 	//$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 	$scope.batchObj = {};
 	$scope.activeTab="false";
-		$scope.batchObj.mtype='initial'
+		$scope.batchObj.mtype='initial';
 		$scope.batchObj.mlastId='';
 		$scope.batchObj.mfirstId='';
 		/*Checking for first load. ie by checking its length or the list is undefind */
 		if(angular.equals($scope.batchObj.menteeList,undefined)||angular.equals($scope.batchObj.menteeList.length,0)){
-			loadMenteePromise=viewBatches.viewMenteesForManage($scope,$scope.batchObj.mfirstId,'initial',$scope.batchObj.mlastId,'');
+			var loadMenteePromise=viewBatches.viewMenteesForManage($scope,$scope.batchObj.mfirstId,'initial',$scope.batchObj.mlastId,'');
 			loadMenteePromise.then(function(response){ //promise for mentee load
 				var result = angular.fromJson(JSON.parse(response.data));
 				$scope.batchObj.menteeList = result.userList;
@@ -52,7 +52,7 @@ angular.module('baabtra').controller('ManagetraineesCtrl',['$scope', '$rootScope
 					else{
 						$scope.batchObj.menteeList = [];
 					}
-				})
+				});
   	};
 
   	$scope.pagination=function(type){

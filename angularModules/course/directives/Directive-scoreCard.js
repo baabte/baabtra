@@ -7,38 +7,7 @@ angular.module('baabtra').directive('scoreCard',['$compile', function($compile) 
 		},
 		templateUrl: 'angularModules/course/directives/Directive-scoreCard.html',
 		link: function(scope, element, attrs, fn) {
-			// var checkElemWithMark = function(arr){
-			// 	var count=0;
-			// 	for(var key in arr){
-			// 		if(angular.equals(arr[key].mark.type,'mark')){
-			// 			count++;
-			// 		}
-			// 	}
-			// 	return count==0?1:count;
-			// };
 
-			// var getMarkInAllLevel = function(syllabus,index){
-			// 	if(!angular.equals(syllabus[index].mark, undefined)){
-			// 		if(syllabus[index].mark.type=='mark' && syllabus[index].children.length==0){
-			// 			syllabus[index].mark.markScored = parseFloat(syllabus[index].mark.markScored.toFixed(2));
-			// 			return syllabus[index].mark;
-			// 		}
-			// 		else if(syllabus[index].mark.type=='mark'){
-			// 			var mark=getMarkInAllLevel(syllabus[index].children,0);
-			// 			if(mark.type=='mark'){
-			// 				syllabus[index].mark.markScored = ((mark.markScored/mark.maxMark)*syllabus[index].mark.maxMark)/checkElemWithMark(syllabus[index].children);
-			// 				syllabus[index].mark.markScored = parseFloat(syllabus[index].mark.markScored.toFixed(2));
-			// 				return syllabus[index].mark;
-			// 			}
-			// 			else if(syllabus.length>(index+1)){
-			// 				return getMarkInAllLevel(syllabus,index+1);
-			// 			}
-			// 		}
-			// 		else{
-			// 			return {type:'no-mark'};
-			// 		}
-			// 	}
-			// };
 			var getMarkInAllLevel = function(syllabus,index){
 				if(!angular.equals(syllabus[index].mark, undefined)){
 					if(syllabus[index].children.length){
@@ -65,7 +34,7 @@ angular.module('baabtra').directive('scoreCard',['$compile', function($compile) 
 				    }
 
 				}
-			}
+			};
 
 			scope.scoreCard = {};
 			scope.scoreCard.markSheet = scope.scoreObj;
