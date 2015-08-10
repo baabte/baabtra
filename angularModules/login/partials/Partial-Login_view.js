@@ -166,7 +166,19 @@ $scope.loginSuccessCallback=function(data){
 			  	  $rootScope.userinfo=$scope.logData;//if login is ok put it in the login info variable.
             // console.log($rootScope.userinfo);
             $rootScope.loggedIn=true;//if login is ok ,changin the variable in rootscope.
-          $state.go('home.main');//routing to home after success login by user
+          // $state.go('home.main');//routing to home after success login by user
+          if(angular.equals($rootScope.fromState,undefined)){
+            $state.go("home.main");            
+          }
+          else{
+            if(!angular.equals($rootScope.stateParams,undefined)){
+              $state.go($rootScope.fromState,$rootScope.stateParams);   
+            }
+            else{
+              $state.go($rootScope.fromState);
+            }
+            
+          }
 				  $scope.login_or_not='login Success'; 
 
 				}
