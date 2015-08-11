@@ -84,8 +84,6 @@ angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatche
 		var assignCourseMaterialsResponse=viewBatches.assignCourseMaterials4Batch($scope);
 		assignCourseMaterialsResponse.then(function(response){ //promise for batch load
 			var result=angular.fromJson(JSON.parse(response.data));
-
-			
 			
 			if(angular.equals(result,'success')){
 				$alert({title: "Success", content: 'Sucessfully Added course material to this batch' , placement: 'top-right',duration:3, type: 'info'});
@@ -108,6 +106,9 @@ angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatche
 					$scope.batchObj.selectedCourseList = [];
 					$scope.batchObj.assignedButton = false;
 				}
+			}
+			else{
+				$alert({title: "Warning !", content: 'Somthing went wrong while \n Add course material to this batch' , placement: 'top-right',duration:3, type: 'warning'});
 			}
 		});
 
