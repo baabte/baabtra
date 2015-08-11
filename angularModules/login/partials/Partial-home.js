@@ -13,6 +13,7 @@ $rootScope.$watch('userinfo',function(){
     $scope.rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
     $scope.userinfo = $rootScope.userinfo;
 
+
     if(angular.equals($rootScope.userinfo.ActiveUserData.modernView,undefined)){
       $rootScope.userinfo.ActiveUserData.modernView = "modern";
     }
@@ -30,13 +31,13 @@ $rootScope.$watch('userinfo',function(){
         $scope.userMenus = $scope.userMenusOrigin = angular.fromJson(JSON.parse(data.data)).menuStructure[0].regionMenuStructure;
         
         // calling service for geting user notification
-        var userNotificationResponse = notification.fnLoadUserNotification($scope.rm_id);
+        var userNotificationResponse = notification.fnLoadUserNotification($scope.userinfo.userLoginId);
         userNotificationResponse.then(function(response){
           $rootScope.data = {};
           $rootScope.data.userNotification = angular.fromJson(JSON.parse(response.data));
-          if(!angular.equals($rootScope.data.userNotification,null)){
-            $rootScope.data.userNotification.notification = $rootScope.data.userNotification.notification.reverse();
-          }
+          // if(!angular.equals($rootScope.data.userNotification,null)){
+          //   $rootScope.data.userNotification.notification = $rootScope.data.userNotification.notifications;
+          // }
         });
 
       });
@@ -360,5 +361,24 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
     $scope.viewMobileMenu = function(){
       $scope.viewMenu = !$scope.viewMenu;
     };
+
+
+
+
+$rootScope.notificationLink = function (notificationObj,mainObj) {
+  var link = notificationObj.link;
+  var id = notificationObj._id.$oid;
+  // console.log(link,id);
+  if(notificationObj.read==0){
+    var updated = notification.markNotificationAsRead($scope.userinfo.userLoginId,id);
+      updated.then(function (response) {
+        notificationObj.read = 1;
+        if(!angular.equals(mainObj,undefined)){
+          mainObj.unreadCount = mainObj.unreadCount-1;
+        }
+      });  
+  }
+  $state.go(link.state,link.params);
+};
 
 }]);
