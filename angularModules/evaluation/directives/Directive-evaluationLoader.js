@@ -64,6 +64,7 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 
 						index++;
 						if(angular.equals(result.length, index)){
+							console.log(courseMappingId, element, elementOrder);
 							var evaluationResponse = evaluationService.evaluateAnswer(courseMappingId, element, elementOrder);
 							evaluationResponse.then(function(response){
 								var result = angular.fromJson(JSON.parse(response.data));

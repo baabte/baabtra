@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('checkUserExistence',['companyRegistrationService','$alert', function (companyRegistrationService,$alert) {
+angular.module('baabtra').directive('checkUserExistence',['companyRegistrationService','$alert','$rootScope', function (companyRegistrationService,$alert,$rootScope) {
 	return {
 		restrict: 'A',
 		require :["^?form",'ngModel'],
@@ -6,7 +6,7 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
 		link: function(scope, element, attrs, ctrls) {
 			// console.log(ctrls);
 			 
-			 
+			 var companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 
 			scope.$watch(function (){return ctrls[1].$modelValue;/* define what to watch*/
 				}, function(){
@@ -18,7 +18,7 @@ angular.module('baabtra').directive('checkUserExistence',['companyRegistrationSe
 						if(ctrls[1].$valid){
 							// console.log(ctrls[1].$modelValue);
 
-							var userValObj={eMail:$(element).val(),fetch:attrs.checkMode};
+							var userValObj={eMail:$(element).val(),fetch:attrs.checkMode,companyId:companyId};
 							var fnUserNameValidCallBack= companyRegistrationService.fnUserNameValid(userValObj);
 
 								fnUserNameValidCallBack.then(function(data){

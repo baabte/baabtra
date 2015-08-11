@@ -13,8 +13,7 @@ if($rootScope.loggedIn===false){
 }
 
 
-console.log($rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId);
-
+var companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId;
  var loggedusercrmid=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 
 
@@ -101,7 +100,7 @@ $scope.checkPassword = function () {
 
 //function for user name validation
 $scope.userVal = function (){
-      var userValObj=$scope.company;//object to fetch the user details
+      var userValObj={"eMail":$scope.company.eMail,"companyId":companyId};//object to fetch the user details
      // console.log(userNameId.eMail);
      userValObj.fetch='';//to fetch related details of the user pass '' to just user check
     // companyRegistrationService.fnUserNameValid(userNameId);
@@ -154,6 +153,29 @@ fnUserNameValidCallBack.then(function(data){
   };
  
 
+var searchTimeOut;
+  $scope.checkDomainExits = function(){
+    if(searchTimeOut) {
+    clearTimeout(searchTimeOut);
+    }
+    searchTimeOut=setTimeout(function(){
+      try{
+         if($scope.company.domainName.length){
+           var checkDomainExitsResponse = companyRegistrationService.fnCheckDomainExits($scope.company.domainName);
+           checkDomainExitsResponse.then(function(response){
+              var result = angular.fromJson(JSON.parse(response.data));
+              if(angular.equals(result.result,'Exits')){
+                $scope.notifications('Already in use','This Domain name is already in use','warning');
+              }
+             })
+        }
+      }
+      catch(e){
+        $scope.notifications('Invalid','Invalid Domain name','warning');
+      }
+    },500);
+  };
+ 
 
 
 
