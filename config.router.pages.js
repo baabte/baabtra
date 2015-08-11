@@ -651,6 +651,16 @@
                     controller: 'NotificationconfigurationCtrl'
                   }
                 }
+              })
+
+              .state('home.main.notifications', {
+                url: '/notifications',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Notification/partials/Partial-notification.html',
+                    controller: 'NotificationCtrl'
+                  }
+                }
                 
               })
 

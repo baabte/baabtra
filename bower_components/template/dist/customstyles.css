@@ -921,7 +921,7 @@ body {
 
 
 
-.hide-dropdown + .dropdown-menu{
+.hide-dropdown.dropdown-menu{
   display: none!important;
 }
   

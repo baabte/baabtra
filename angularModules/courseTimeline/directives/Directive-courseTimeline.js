@@ -442,6 +442,7 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	
             	removeCourseTimelineElementCallback.then(function(data){
 				var updatedElementOrder = angular.fromJson(JSON.parse(data.data));
+				console.log(updatedElementOrder);
 				if(angular.equals(updatedElementOrder,"Error")){
 					$alert({title: 'Error', content: 'Something went wrong :)', placement: 'top-right', type: 'danger', duration:3,show: true});
 				}
