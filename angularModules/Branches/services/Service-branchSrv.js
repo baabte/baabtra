@@ -26,28 +26,13 @@ angular.module('baabtra').service('branchSrv',['$http','bbConfig','$rootScope',f
           });
       };
 
-      this.fnLoadBranch=function($scope, cmp_id){
-        var promise=$http({
+      this.fnLoadBranch=function(cmp_id){
+        var promise = $http({
           method: 'post',
           url: bbConfig.BWS+'LoadBranches/',
           data:{"cmp_id":cmp_id},
           contentType:'application/json; charset=UTF-8',
-        }).
-        success(function(data, status, headers, config) {//success respond from server
-        	var result=angular.fromJson(JSON.parse(data));
-        	if (result.length) {
-            $scope.branchTree=[];
-            $scope.branches=[];
-        		$scope.branches=result[0].branches;
-        	}
-        	else{
-        		$scope.branches=[{ '_id': $rootScope.userinfo.ActiveUserData.username, 'parent': null , 'children': null }];
-        	}
-          }).
-          error(function(data, status, headers, config) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-          });
+        });
         return promise;
       };
 }]);

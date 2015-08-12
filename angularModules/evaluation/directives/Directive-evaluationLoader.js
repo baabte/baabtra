@@ -68,6 +68,9 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 							var evaluationResponse = evaluationService.evaluateAnswer(courseMappingId, element, elementOrder);
 							evaluationResponse.then(function(response){
 								var result = angular.fromJson(JSON.parse(response.data));
+
+								console.log(result);
+								
 								if(angular.equals(result.result, "Added")){
 									$alert({title: 'Evaluated!', content: element.Name + ' evaluated successfuly', placement: 'bottom-right', type: 'success', duration:2, show: true});
 								}

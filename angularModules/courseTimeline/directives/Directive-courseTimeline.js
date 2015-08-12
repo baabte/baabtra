@@ -442,12 +442,15 @@ angular.module('baabtra').directive('courseTimeline',['$state','$rootScope','$po
             	
             	removeCourseTimelineElementCallback.then(function(data){
 				var updatedElementOrder = angular.fromJson(JSON.parse(data.data));
+				console.log(updatedElementOrder);
 				if(angular.equals(updatedElementOrder,"Error")){
 					$alert({title: 'Error', content: 'Something went wrong :)', placement: 'top-right', type: 'danger', duration:3,show: true});
 				}
-				scope.syncData.elementOrder=updatedElementOrder;
-            	//scope.syncData.courseTimeline=updatedElementOrder.courseTimeline;
-            	scope.syncData.courseTimeline[scope.selectedTpoint][selectedCourseElement.Name].splice(scope.selectedIndex,1);
+				else{
+					scope.syncData.elementOrder=updatedElementOrder;
+	            	//scope.syncData.courseTimeline=updatedElementOrder.courseTimeline;
+	            	scope.syncData.courseTimeline[scope.selectedTpoint][selectedCourseElement.Name].splice(scope.selectedIndex,1);
+            	}
 				});
             };
 

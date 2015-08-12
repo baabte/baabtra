@@ -44,7 +44,7 @@ this.FnLoadGlobalValues=function(key)
       dataType:"json",
     });
     return promise;
-   }
+   };
 
    this.fnLoadMentees = function(companyId){
     var promise = $http({
@@ -104,7 +104,7 @@ this.FnLoadGlobalValues=function(key)
            withCredentials: false,
            contentType:'application/json',
            dataType:'json',
-           })
+           });
     return promise;
     };
     
@@ -138,11 +138,11 @@ this.FnLoadGlobalValues=function(key)
   return promise;
  };
 
-  this.LoadInterviewQuestionBank=function(companyId, noQuestion){ 
+  this.LoadInterviewQuestionBank=function(interviewQuestionObj){ 
     var promise = $http({
         method: 'POST',
         url: bbConfig.BWS + 'LoadInterviewQuestionBank/',
-        data:{companyId:companyId, noQuestion:noQuestion}
+        data:{interviewQuestionObj:interviewQuestionObj}
      });
     return promise;
   }; 

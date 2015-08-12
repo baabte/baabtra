@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('editCourseElement',['addCourseService','bbConfig', function(addCourseService,bbConfig) {
+angular.module('baabtra').directive('editCourseElement',['addCourseService','bbConfig', '$alert', function(addCourseService,bbConfig,$alert) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -14,6 +14,7 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
             var code = scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
             var elementIndex = scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].index;
             var tlPointInMinute = scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].tlPointInMinute;
+            var order = scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].order;
             //console.log(scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex]);
             //scope.evaluator=scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].evaluator;
             //scope.$parent.syncData.courseTimeline[scope.instance][scope.$parent.courseElement.Name][scope.$parent.selectedIndex].code;
@@ -147,6 +148,7 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
                      scope.coursePreviewObj.attendenceTrack=scope.attendenceTrack; // attendece track
                      scope.coursePreviewObj.evaluable=scope.evaluable; 
                      scope.coursePreviewObj.code=code; // code backto object
+                     scope.coursePreviewObj.order=order; // order backto object
                      scope.coursePreviewObj.index=elementIndex;
                      scope.coursePreviewObj.tlPointInMinute = tlPointInMinute;
 
@@ -157,8 +159,13 @@ angular.module('baabtra').directive('editCourseElement',['addCourseService','bbC
 
                     var promise = addCourseService.editCourseTimelineElement(scope.$parent.courseId, scope.$parent.courseElement.Name, scope.instance,{index:scope.selectedIndex,element:scope.coursePreviewObj}, scope.$parent.$parent.rm_id);//saving to database
                     promise.then(function(response){
-                        scope.$parent.syncData = angular.fromJson(JSON.parse(response.data))[0];
-
+                        var result = angular.fromJson(JSON.parse(response.data));
+                        if(angular.equals(result, "Error")){
+                          $alert({title: 'Warning !', content: 'Something went wrong while editing<br>' + scope.coursePreviewObj.elements[0].value, placement: 'top-right', type: 'warning', show: true, duration:3});
+                        }else{
+                          console.clear();
+                           scope.$parent.syncData = result;
+                        }
                     });
 
                     unbindWatchOnThis(); // used to unbind this watch after triggering it once

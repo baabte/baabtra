@@ -921,7 +921,7 @@ body {
 
 
 
-.hide-dropdown + .dropdown-menu{
+.hide-dropdown.dropdown-menu{
   display: none!important;
 }
   
@@ -979,3 +979,10 @@ ul.rating {
 .iframe-width iframe{
   width: 100% !important;
 }
+
+  .fa-baabtra{
+    background-image: url("../images/fa-icon/fa-baabtra.png");
+    height: 40px;
+    width: 40px;
+    background-size: cover;
+  }
