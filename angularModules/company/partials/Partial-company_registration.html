@@ -47,7 +47,7 @@
 
                             
                            <div>  
-                             <input type="text" float-label class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-pattern ng-touched"  name="Tagline" ng-model="company.domainName" ng-pattern="/^[A-Za-z][A-Za-z0-9]*$/" ng-change="checkDomainExits()" rows="1" placeholder="{{'Company Domain Name'|translate}}" required>
+                             <input type="text" float-label class="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-pattern ng-touched"  name="domainName" ng-model="company.domainName" ng-pattern="/^[A-Za-z][A-Za-z0-9]*$/" ng-change="checkDomainExits()" rows="1" placeholder="{{'Company Domain Name'|translate}}" required>
                            </div>                                                              
                            
                                    
@@ -76,7 +76,9 @@
                               <option value="CM" >Company</option>
                               <option value="RA" >Recruitment Agency</option>
                               <option value="TI" >Training Institute</option>
-                              <option value="SC" >School / College</option>                        
+                              <option value="SC" >School</option>  
+                              <option value="CO" >College</option>                        
+
                             </select>
                            </div>                                                              
                             

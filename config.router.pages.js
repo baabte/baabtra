@@ -1061,6 +1061,15 @@
                 }
               })
 
+               .state('home.main.Registration', {
+                url: '/Registration/:key',
+                 views:{
+                  'innercontent':{
+                templateUrl: 'angularModules/Registration/partials/Partial-multiRegistration.html',
+                controller:'MultiregistrationCtrl'
+                  }
+                }
+              })
 
               .state('page.document', {
                 url: '/document',

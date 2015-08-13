@@ -20,6 +20,13 @@ angular.module('baabtra').controller('NotificationCtrl',['$rootScope','$scope','
  	$state.go(link.state,link.params);
  };
 // fkLoginId
-
+$scope.loadMore = function () {
+	var len=$scope.data.userNotification.notifications.length;
+	var id = $scope.data.userNotification.notifications[len-1]._id.$oid;
+	var loadedMore = notification.fnLoadUserNotificationFull($scope.data.filter,id);
+		loadedMore.then(function (response) {
+			$scope.data.userNotification.notifications=$scope.data.userNotification.notifications.concat(angular.fromJson(JSON.parse(response.data)).notifications);
+		});
+};
 
 }]);
