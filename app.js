@@ -61,6 +61,7 @@
         'chart.js',
         'datePicker',
         'ui-rangeSlider',
+        'btford.socket-io',
         function(){  return 'custom-form';}()
         
       ])

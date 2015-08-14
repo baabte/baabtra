@@ -16,6 +16,13 @@
 	        </div>
 		</div>
 
+		<div ng-if="data.userNotification.notifications&&data.userNotification.notifications.length" class="btn col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-h-sm shadow-z-1  pull-left baab-list-item" ng-class="{'btn-material-blue-grey-50':notification.read,'bg-white':!notification.read}" style="cursor: pointer;" ng-click="loadMore()">
+			<div class="p-xs text-center">
+				<!-- ui-sref="{{notification.link.state}}({{notification.link.params}})" -->
+		        <div>See More</div>
+	        </div>
+		</div>
+
 
 	</div>
 </div>
