@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','$rootScope','$state','courseAllocateService','viewUsers', 'addCourseService','$modal','statusChangeSrvc',function($scope,commonService,$rootScope,$state, courseAllocateService, viewUsers, addCourseService,$modal,statusChangeSrvc){
+angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','$rootScope','$state','courseAllocateService','viewUsers', 'addCourseService','$modal','statusChangeSrvc', 'branchSrv',function($scope,commonService,$rootScope,$state, courseAllocateService, viewUsers, addCourseService,$modal,statusChangeSrvc, branchSrv){
 
 	/*login detils start*/
 	if(!$rootScope.userinfo){
@@ -57,6 +57,12 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 	FetchCourseListCallBack.then(function(response){
 		$scope.data.courseList = angular.fromJson(JSON.parse(response.data));
 	});
+
+	var branchLoaderObj = {companyId:companyId};
+	var branchLoaderResponse = branchSrv.fnLoadAllBranchesUnderCompany(branchLoaderObj);
+	branchLoaderResponse.then(function(response){
+		 $scope.data.branchList = angular.fromJson(JSON.parse(response.data));
+	})
 
 	var searchTimeOut;
 	$scope.$watch('data.searchKey', function(){
@@ -149,6 +155,21 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 				}
 			}
 		}
+	};
+
+	$scope.branchSelectionChanged = function(branch){
+		var branchId = branch._id.$oid;
+		if(!$scope.data.searchKey.branchSelected){
+			$scope.data.searchKey.branchSelected = [];
+		}
+
+		if(angular.equals($scope.data.searchKey.branchSelected.indexOf(branchId), -1)){
+			$scope.data.searchKey.branchSelected.push(branchId);
+		}
+		else{
+			$scope.data.searchKey.branchSelected.splice($scope.data.searchKey.branchSelected.indexOf(branchId), 1);
+		}
+
 	};
 
     var searchTimeout;

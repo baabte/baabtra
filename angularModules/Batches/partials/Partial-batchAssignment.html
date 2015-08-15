@@ -1,4 +1,4 @@
-<div class="col-xs-12 bg-light" ng-if="batchObj.batchDetails">
+<div class="col-xs-12 bg-light">
 
 	<div class="row bg-white baab-shadow fixed-tab">
 		<div class="col-xs-2 p-v " ng-if="batchObj.batchDetails.status">
@@ -38,8 +38,12 @@
 							 <material-preview ng-class="{'btn-material-green-A400':element.ticked}" ng-click="clickedOnElement(element)"  data="element.courseElement"></material-preview> 
 						</div>
 					</div>
-					<div  class="col-xs-12 bg-warning font-bold p b shadow-z-1" ng-if="!batchObj.unAssignedList.length">
+					<div  class="col-xs-12 bg-warning font-bold p b shadow-z-1" ng-if="!batchObj.unAssignedList.length && batchObj.batchDetails">
 					No materials to assign
+					</div>
+
+					<div  class="col-xs-12 font-bold" ng-if="!batchObj.batchDetails">
+					Loading materials to assign.....<i class="fa fa-spinner fa-spin"></i>
 					</div>
 
 
@@ -58,8 +62,11 @@
 							<!-- class="btn-material-green-A400" -->
 					<material-preview   data="element.courseElement"></material-preview> 
 				</div>
-				<div  class="col-xs-12 bg-warning font-bold p b shadow-z-1" ng-if="!batchObj.assignedList.length">
+				<div  class="col-xs-12 bg-warning font-bold p b shadow-z-1" ng-if="!batchObj.assignedList.length && batchObj.batchDetails">
 					No materials assigned
+				</div>
+				<div  class="col-xs-12 font-bold" ng-if="!batchObj.batchDetails">
+					Loading materials assigned.....<i class="fa fa-spinner fa-spin"></i>
 				</div>
 				<!-- <div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-7 m-t-sm">
@@ -73,7 +80,7 @@
 					<div class="col-xs-12 bg-white p-v-sm">
 						<batch-mentee-list ng-if="batchObj.userList" user-list="batchObj.userList" ng-model="batchObj.selectedList"> </batch-mentee-list>
 						<div class="text-center" ng-if="!batchObj.userList">
-							<i class="fa fa-spinner fa-spin"></i>
+							<!-- <i class="fa fa-spinner fa-spin"></i> -->
 						</div>
 					</div>
 				</div>
