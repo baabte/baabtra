@@ -137,6 +137,24 @@
                   }
                 }
               })
+              .state('home.main.inbox', {
+                url: '/inbox',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/communications/inbox/partials/Partial-inbox.html',
+                    controller:'InboxCtrl'
+                  }
+                }
+              })
+              .state('home.main.send', {
+                url: '/send',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/communications/sendMessages/partials/Partial-sendMessage.html',
+                    controller:'SendmessageCtrl'
+                  }
+                }
+              })
               .state('home.main.addCandidate', {
                 url: '/addCandidate',
                 views:{

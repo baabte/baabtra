@@ -45,7 +45,7 @@ this.socket = function () {
    };
 
   this.newNotification = function (notificationObject) {
-    var mandatoryData = ['companyId','fkLoginId','message','link','crmId'];
+    var mandatoryData = ['companyId','fkLoginIds','message','link','crmId'];
     var missingData = [];
     var keys = Object.keys(notificationObject);
     for(key in mandatoryData){
@@ -55,7 +55,7 @@ this.socket = function () {
     }
 
 
-var format={"companyId" : "<id here>","fkLoginId" : "<id here>","message" : "message to be shown","link" : {"state" : "home.main.sample","params" : {}},"crmId" :"",};
+var format={"companyId" : "<id here>","fkLoginIds" : ["<id(s) here>"],"message" : "message to be shown","link" : {"state" : "home.main.sample","params" : {}},"crmId" :"",};
 
 
     if(missingData.length){
@@ -78,8 +78,8 @@ var format={"companyId" : "<id here>","fkLoginId" : "<id here>","message" : "mes
     });
 
      promise.then(function(response) {
-       var dataObject=angular.fromJson(JSON.parse(response.data));
-       socketio.emit('new_notification',{loginId:dataObject.fkLoginId,data:dataObject});
+       var ids=angular.fromJson(JSON.parse(response.data));
+       socketio.emit('new_notification',{loginIds:notificationObject.fkLoginIds,data:notificationObject,ids:ids});
      });
 
 
