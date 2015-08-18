@@ -45,7 +45,6 @@
     "angular-multi-select": "~2.0.2",
     "ngImgCrop": "~0.3.2",
     "angular-qrcode": "monospaced/angular-qrcode#~5.1.0",
-    "angular-datepicker": "~1.0.4",
     "angular-rangeslider": "~0.0.13",
     "StreamLine": "~1.0",
     "ngHierarchicalSelector": "~1.0",
