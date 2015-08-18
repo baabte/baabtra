@@ -1,66 +1,78 @@
-angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatches','$rootScope','$stateParams','$alert', '$filter', function($scope,viewBatches,$rootScope,$stateParams,$alert,$filter){
+angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatches','$rootScope','$stateParams','$alert', '$filter','commonService', function($scope,viewBatches,$rootScope,$stateParams,$alert,$filter,commonService){
+
+
+	/*login detils start*/
+	if(!$rootScope.userinfo){
+		commonService.GetUserCredentials($scope);
+		$rootScope.hide_when_root_empty=false;
+	}
+
+	if(angular.equals($rootScope.loggedIn,false)){
+		$state.go('login');
+	}
+
+	var rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+	var roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
+	var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+	/*login detils ends*/
 
 	$scope.batchObj={};
 	$scope.batchObj.assignedButton = false;
-	$rootScope.$watch('userinfo',function(){
-		$scope.loggedusercrmid = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
-		$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-		loadBatchDetails=viewBatches.loadBatchMentees($scope,$stateParams.batchMappingId);
-		$scope.batchMappingId=$stateParams.batchMappingId;
-		loadBatchDetails.then(function(response){ //promise for batch load
-			$scope.batchObj.selectedList = [];
-			$scope.batchObj.selectedCourseList = [];
-			$scope.batchObj.batchDetails=angular.fromJson(JSON.parse(response.data)).batchList;
-			$scope.batchObj.course=angular.fromJson(JSON.parse(response.data)).course;
-			
+	$scope.loggedusercrmid = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+	$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+	$scope.batchMappingId=$stateParams.batchMappingId;
 
-			//$scope.batchObj.courseTimeline=angular.fromJson(JSON.parse(response.data)).courseObj;
-			$scope.batchObj.userArray=angular.fromJson(JSON.parse(response.data)).userList;
-			$scope.batchObj.userList=angular.fromJson(JSON.parse(response.data)).userDetails;
+	loadBatchDetails=viewBatches.loadBatchMentees($scope,$stateParams.batchMappingId);
+	loadBatchDetails.then(function(response){ //promise for batch load
+		$scope.batchObj.selectedList = [];
+		$scope.batchObj.selectedCourseList = [];
+		$scope.batchObj.batchDetails=angular.fromJson(JSON.parse(response.data)).batchList;
+		$scope.batchObj.course=angular.fromJson(JSON.parse(response.data)).course;
+		
+		$scope.batchObj.userArray=angular.fromJson(JSON.parse(response.data)).userList;
+		$scope.batchObj.userList=angular.fromJson(JSON.parse(response.data)).userDetails;
 			
-			$scope.batchObj.assignedList = [];
-			$scope.batchObj.unAssignedList = [];
+		$scope.batchObj.assignedList = [];
+		$scope.batchObj.unAssignedList = [];
 
-
-			var elementOrderLength = Object.keys($scope.batchObj.course.elementOrder).length;
-			
-			for (var elemCount = 0; elemCount < elementOrderLength; elemCount++) {
+		var elementOrderLength = Object.keys($scope.batchObj.course.elementOrder).length;
+		
+		for (var elemCount = 0; elemCount < elementOrderLength; elemCount++){
+			if($scope.batchObj.course.elementOrder[elemCount]){
+				
+				var elementArray = $scope.batchObj.course.elementOrder[elemCount].split(".");
+				var element = $scope.batchObj.batchDetails.courseTimeline;
+				
+				for(var elemOrder in elementArray){
+					if(!angular.equals(element, undefined)){
+						element = element[elementArray[elemOrder]];
+					}
+				}
 
 				
-				if($scope.batchObj.course.elementOrder[elemCount])
-				{
-					var elementArray = $scope.batchObj.course.elementOrder[elemCount].split(".");
-					var element = $scope.batchObj.batchDetails.courseTimeline;
+
+				if(!angular.equals(element, undefined) &&  !angular.equals(element, '')){
+					if(!angular.equals(element.code, undefined)){
+						$scope.batchObj.assignedList.push({courseElement:element});
+					}
+				}
+				else{
+
+					var unAssignedElement = $scope.batchObj.course.courseTimeline;
+
 					for(var elemOrder in elementArray){
-						if(!angular.equals(element, undefined)){
-							element = element[elementArray[elemOrder]];
+						
+						if(!angular.equals(unAssignedElement[elementArray[elemOrder]], undefined)){
+							unAssignedElement = unAssignedElement[elementArray[elemOrder]];
 						}
 					}
 
-
-					if(!angular.equals(element, undefined) &&  !angular.equals(element, '')){
-						if(!angular.equals(element.code, undefined)){
-							$scope.batchObj.assignedList.push({courseElement:element});
-						}
-					}
-					else{
-						var unAssignedElement = $scope.batchObj.course.courseTimeline;
-
-						for(var elemOrder in elementArray){
-							
-							if(!angular.equals(unAssignedElement[elementArray[elemOrder]], undefined)){
-								unAssignedElement = unAssignedElement[elementArray[elemOrder]];
-							}
-							
-						}
-						if(!angular.equals(unAssignedElement.code, undefined)){
-							
-							$scope.batchObj.unAssignedList.push({Name:unAssignedElement.elements[0].value,elementOrder:$scope.batchObj.course.elementOrder[elemCount],userCourseElementType:unAssignedElement.Name,innerIndex:unAssignedElement.index,tlpoint:unAssignedElement.tlPointInMinute,courseElement:unAssignedElement});
-						}
+					if(!angular.equals(unAssignedElement.code, undefined)){
+						$scope.batchObj.unAssignedList.push({Name:unAssignedElement.elements[0].value,elementOrder:$scope.batchObj.course.elementOrder[elemCount],userCourseElementType:unAssignedElement.Name,innerIndex:unAssignedElement.index,tlpoint:unAssignedElement.tlPointInMinute,courseElement:unAssignedElement});
 					}
 				}
 			}
-		});
+		}
 	});
 
 
@@ -101,7 +113,7 @@ angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatche
 					}
 
 					// var indexOfAssignedElement = $scope.batchObj.unAssignedList.indexOf(selectedCourseList[assignedElement]);
-					// console.log(indexOfAssignedElement);
+					
 					// $scope.batchObj.unAssignedList.splice(indexOfAssignedElement,1);
 					$scope.batchObj.selectedCourseList = [];
 					$scope.batchObj.assignedButton = false;
