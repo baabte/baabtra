@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('MultiregistrationCtrl',['$scope','commonService','$rootScope','$state','companyRegistrationService','$modal','bbConfig','$alert',function($scope,commonService,$rootScope,$state, companyRegistrationService,$modal,bbConfig,$alert){
+angular.module('baabtra').controller('MultiregistrationCtrl',['$scope','commonService','commonSrv','$rootScope','$state','companyRegistrationService','$modal','bbConfig','$alert','multiRegistrationSrvc',function($scope,commonService,commonSrv,$rootScope,$state, companyRegistrationService,$modal,bbConfig,$alert,multiRegistrationSrvc){
 
 
 /*login detils start*/
@@ -11,19 +11,23 @@ angular.module('baabtra').controller('MultiregistrationCtrl',['$scope','commonSe
 		$state.go('login');
 	}
 
-	var rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
-	var parentCompanyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-	/*login details ends*/
 
-	console.log($state.params.key);
+	$rootScope.$watch('userinfo',function(){
+		if(!angular.equals($rootScope.userinfo,undefined)){
+	    $scope.rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+		$scope.parentCompanyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+	   }
+	});
 
-	var FuntionalityArray=[{title:'Company',code:'CM',steps:[{name:'User Info'},{name:'Contact'},{name:'Social'}]},{title:'Talent Supplier',steps:[{name:'User Info'},{name:'Contact'},{name:'Social'}]},{title:'Distributer',steps:[{name:'User Info'},{name:'Contact'},{name:'Social'}],code:'DS'}];
+	
+	var FuntionalityArray=[{title:'Company',code:'CM',steps:[{name:'User Info'},{name:'Contact'},{name:'Other'}]},{title:'Talent Supplier',steps:[{name:'User Info'},{name:'Contact'},{name:'Other'}]},{title:'Distributer',steps:[{name:'User Info'},{name:'Contact'},{name:'Other'}],code:'DS'}];
 
 	$scope.currentDetails=FuntionalityArray[$state.params.key];
-	console.log($scope.currentDetails);
 
 	$scope.status={};
 	$scope.formData={};
+	$scope.formData.contactPersons=[{}];
+	$scope.formData.departments=[{}];
 	$scope.status.selected=1;
 
 	$scope.emailMsg='Not a valid email';          //error message for invalid email validation
@@ -34,6 +38,53 @@ angular.module('baabtra').controller('MultiregistrationCtrl',['$scope','commonSe
 	$scope.domainEMsg='This Domain Name Already taken'; //error message for domain already exists validation 
 	$scope.existingDomain='';   
 
+
+//to gobal values service
+var globalValuesResponse = commonSrv.FnLoadGlobalValues("");
+globalValuesResponse.then(function(data){
+  var globalValues=angular.fromJson(JSON.parse(data.data));
+  console.log(globalValues);
+  $scope.globalValues = {};
+  angular.forEach(globalValues,function(value){
+    $scope.globalValues[value._id] = value.values.approved;
+  });
+});
+
+
+
+$scope.loadTechnologies = function(Query){
+
+    return $scope.globalValues.technologies;
+};
+
+$scope.loadCourses = function(Query){
+
+    return $scope.globalValues.courses;
+};
+
+$scope.addContact= function(){
+
+$scope.formData.contactPersons.push({});
+
+};
+
+$scope.removeContact= function(index){
+
+$scope.formData.contactPersons.splice(index,1);
+
+};
+
+$scope.addDepartment= function(){
+
+$scope.formData.departments.push({});
+
+};
+
+$scope.removeDepartment= function(index){
+
+$scope.formData.departments.splice(index,1);
+
+};
 
 
 	// function for next button
@@ -46,16 +97,17 @@ angular.module('baabtra').controller('MultiregistrationCtrl',['$scope','commonSe
 		$scope.status.selected--;
 	};
 
-	// function for registration
-	$scope.fnRegister =function(){
-		if((angular.equals($scope.currentDetails.title,'Company'))||(angular.equals($scope.currentDetails.title,'Distributer'))){
-			$scope.formData.companyType=$scope.currentDetails.code;
-		};
-		$scope.formData.parentCompanyId=parentCompanyId;
-		$scope.formData.rm_id=rm_id;
 
-		console.log($scope.formData);
+	var loader=$modal({scope: $scope,backdrop:'static', template: 'angularModules/markSheet/designMarkSheet/popup/Popup-loadCourseData.html', show: false,placement:'center'});
+
+	$scope.startLoader =function(){
+	loader.$promise.then(loader.show);
 	};
+
+	$scope.stopLoader =function(){
+	loader.hide();
+	};   
+	
 
 	//funtion for email validation 
 	$scope.emailPattern = (function() {
@@ -89,7 +141,7 @@ angular.module('baabtra').controller('MultiregistrationCtrl',['$scope','commonSe
 		  }
 	    searchTimeOut=setTimeout(function(){
 		    try{		
-					var userValObj={"eMail":$scope.formData.eMail,"companyId":parentCompanyId};//object to fetch the user details
+					var userValObj={"eMail":$scope.formData.eMail,"companyId":$scope.parentCompanyId};//object to fetch the user details
 					userValObj.fetch='';//to fetch related details of the user pass '' to just user check
 					var fnUserNameValidCallBack= companyRegistrationService.fnUserNameValid(userValObj);
 					fnUserNameValidCallBack.then(function(data){
@@ -102,7 +154,7 @@ angular.module('baabtra').controller('MultiregistrationCtrl',['$scope','commonSe
 					      
 					     }
 
-					})
+					});
 				}
 		    catch(e){
 		        $scope.notifications('Invalid','Invalid Enail','warning');
@@ -129,7 +181,7 @@ angular.module('baabtra').controller('MultiregistrationCtrl',['$scope','commonSe
                 $scope.existingDomain=$scope.formData.domainName; //setting the existing email id to scope variable for validation.
 
               }
-             })
+             });
         }
       }
       catch(e){
@@ -137,6 +189,33 @@ angular.module('baabtra').controller('MultiregistrationCtrl',['$scope','commonSe
       }
     },500);
   };
+
+
+  // function for registration
+	$scope.fnRegister =function(){
+		$scope.startLoader();
+		if((angular.equals($scope.currentDetails.title,'Company'))||(angular.equals($scope.currentDetails.title,'Distributer'))){
+			$scope.formData.companyType=$scope.currentDetails.code;
+		}
+		if(angular.equals($scope.currentDetails.title,'Company')){
+
+		}
+		$scope.formData.parentCompanyId=$scope.parentCompanyId;
+		$scope.formData.rm_id=$scope.rm_id;
+
+		// console.log($scope.formData);
+		var FnMultiRegisterCallBack=multiRegistrationSrvc.FnMultiRegister($scope.formData);
+
+		FnMultiRegisterCallBack.then(function(data){
+		  var result=angular.fromJson(JSON.parse(data.data));
+		  // console.log(result);
+		$scope.stopLoader();
+
+		$scope.notifications('Yaay..!','Registered Successfully','success');   
+		      $state.go('home.main');
+
+		});
+	};
  
 
 //notification 

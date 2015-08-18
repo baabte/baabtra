@@ -19,6 +19,16 @@ angular.module('baabtra').service('branchSrv',['$http','bbConfig','$rootScope',f
         });
         return promise;
       };
+
+      this.fnLoadAllBranchesUnderCompany=function(dataObject){
+        var promise = $http({
+          method: 'post',
+          url: bbConfig.BWS+'loadAllBranchesUnderCompany/',
+          data:{"dataObject":dataObject},
+          contentType:'application/json; charset=UTF-8',
+        });
+        return promise;
+      };
 }]);
 
 
