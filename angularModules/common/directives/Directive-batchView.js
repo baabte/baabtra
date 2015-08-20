@@ -30,6 +30,7 @@ angular.module('baabtra').directive('batchView',['$filter','$state','$modal','vi
 				"click": "fnEvaluate()"
 
 				},
+				{"text":""},
 				{
 				"text": "<i class=\"fa fa-bolt\"></i>&nbsp;View Results",
 				"click": "fnViewREsults()"

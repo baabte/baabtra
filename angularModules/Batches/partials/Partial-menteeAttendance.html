@@ -1,108 +1,102 @@
+<div class="col-xs-12 bg-light">
+  <div class="row bg-white shadow-z-1 p-v-sm fixed-tab">
+    <div class="col-xs-12 p-v-sm font-bold" ng-if="menteeAttendanceObj.menteeLoginId">
+      <get-user-name login-id="menteeAttendanceObj.menteeLoginId"></get-user-name >
+    </div>
+  </div>
+  <div class="row" style="margin-top:56px;">
+    <div class="col-xs-12">
+      <div class="row p-v bg-white">
 
-<div class="col-xs-12">
-
-<div class="row"><div class="tab-container col-md-12">
-	 <div class="panel b-t b-00C853 bg-light dk"><div class="panel-heading font-bold text-white  p baab-shadow" translate="{{'Evaluate mentee'|translate}}" set-sub-heading-and-background-color></div>
-		
-		<div class="panel-body col-xs-12 bg-white b-b-danger no-padding-v b-b-3x" >
-<!-- 		<form name="bulkEnrollmentForm" class="form-validation ng-pristine ng-invalid ng-invalid-required" role="form" xt-form="" novalidate=""> -->
-
-			
-			<div class="row">
-			<div class="col-xs-12 shadow-z-2 h-full">
-				<div class="col-xs-12 m-t  col-sm-4 col-md-4">
-					<button type="button" class="btn btn-info" ng-model="selectedCourse" data-html="1" ng-options="course._id.$oid as course.Name for course in menteeObj.courseList" bs-select selected>
-  					Action <span class="caret"></span>
-					</button>
-
-				</div>
-				<div class="col-xs-12 m-t col-sm-4 col-md-4">
-					<div class="formgen-dropdown m-xs" >
-						<div multi-selectable selection-mode="single"  ng-show="menteeObj.userCourseElementlist.length" input-model="menteeObj.userCourseElementlist" output-model="menteeObj.selectedCourseMaterial" button-label="Name" item-label="Name"  tick-property="ticked" helper-elements="all none reset filter" default-label="Please select a course material">	
-						</div>  <!-- on-item-click="onItemClick(data)" -->
-						<div ng-if="menteeObj.userCourseElementlist.length==0" class="animated fadeIn">
-							<!-- <i class="fa fa-spiner fa-spin text-lg text-info"></i> -->
-					        <div class="alert ng-scope am-fade alert-button bg-danger lt text-white no-margin" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
-					        
-					          <strong class="ng-binding" translate="{{'Not Found!'|translate}}"></strong>&nbsp;
-					          <span translate="{{'Not found any course material under this course'|translate}}"></span>
-					        </div>
-
-						</div>
-						<div ng-if="status==false" class="animated fadeIn">
-							<!-- <i class="fa fa-spiner fa-spin text-lg text-info"></i> -->
-					        <div class="alert ng-scope am-fade alert-button bg-danger lt text-white no-margin" ng-class="[type ? 'alert-' + type : null]" style="display: block;"><!-- ngIf: dismissable -->
-					        
-					          <strong class="ng-binding" translate="{{'Not Found!'|translate}}"></strong>&nbsp;
-					          <span translate="{{'There are no any course materials added for this mentee.'|translate}}"></span>
-					        </div>
-
-						</div>
-					</div>
-				</div>
-				
-
-				<div class="col-xs-12 col-sm-4 col-md-4 m-t">
-						
-						           
-            <div class="col-xs-12 p-sm">
-
-				<div class="b fl-parent-height" style="cursor: pointer;">
-<!-- ng-if="timeLineObj.courseElement.excludeList.indexOf(user.fkUserRoleMappingId.$oid)==-1" -->
-					<div class="row">
-						<div class="col-xs-12">
-							<div set-parent-height  parent-cl-name="'fl-parent-height'" class="col-xs-3 random-background-color text-center h-full" style="display:table-cell;">
-								 <i class="mdi-action-perm-contact-cal text-3x"></i><br/>
-							</div>
-							<div class="col-xs-9" style="display:table-cell;">
-								<div class="row">
-										<div class="b-1x b-light text-1x col-xs-12 checkbox" ng-if="menteeObj.selectedCourseMaterial.length">
-							  				<label><input ng-model="menteeObj.selectedCourseMaterial[0].courseElement.attendence" ng-change="fnMarkAttendence(menteeObj.selectedCourseMaterial[0])" type="checkbox"></label><small translate="{{'Mark attendance'|translate}}"></small>
-							  			<!-- 	<label>
-	            					  			<input ng-model="user.attendance" ng-change="fnMarkAttendence(user)" type="checkbox">
-	        					  			</label> -->
-							  			</div>
-				        				<div class="b-4x b-light col-xs-12">
-				                        <small>
-				                        <div class="pull-left font-bold text-ellipsis">{{menteeObj.profile.profile.profile.firstName}} {{menteeObj.profile.profile.profile.lastName}}</div><br/>
-				                        <div ><i>{{menteeObj.profile.username.userName}}</i> 
-				                        <i class="fa pull-right text-xl text-success b-2x"></i></div>
-				  						<div ng-if="menteeObj.selectedCourseMaterial.length" class="m-t">
-											<i class="fa fa-calendar text-1x"></i> Day {{changeminutes2day(menteeObj.selectedCourseMaterial[0].tlpoint)}}
-										<br>
-							  			<div ng-if="menteeObj.selectedCourseMaterial.length" class="font-bold">
-							  				<em>{{menteeObj.selectedCourseMaterial[0].userCourseElementType}}</em>
-							  			</div>
-							  			
-										</div>
-										</small>
-				                        </div>
-				                       
-				                        
-								</div>
-							</div>
-						</div>
-					</div>       
-				</div>
+        <div class="col-xs-12 col-md-3">
+          <div ng-repeat="batch in menteeAttendanceObj.menteesBatchDetails" class="panel b-light link" ng-class="{'btn-material-green-400':menteeAttendanceObj.selectedBatchId == batch._id.$oid}" ng-click="loadAttendanceDetails(batch)">
+            <div class="panel-body p-sm">
+              <div class="clear">
+                <div class="text-lg font-bold">{{batch.batchName}}</div>
+                <span ng-if="batch.status" class="label label-primary text-name">{{batch.status}}</span>
+              </div>
             </div>
-						
-				</div>
-				</div>
-			</div>
-			<!-- course element details -->
-			 <div class="col-xs-12">
-				<div  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
-									
-        		<div masonry-tile class="tile m-t-lg col-xs-12 col-sm-6 col-md-4" data-ng-repeat="course in menteeObj.selectedCourseMaterial">
-          			<!-- <course-element-preview  preview-data="course.courseElement"></course-element-preview> -->
-          			<material-preview data="course.courseElement"></material-preview>
-        		</div>
-        	
-        		</div>
-			</div> 
-         <!--    </form> -->
-		</div>
-	</div>
-</div>
-</div>
+          </div>
+        </div>
+
+        <div class="col-xs-11 col-md-8 b-l p-v bg-warning" ng-if="!menteeAttendanceObj.candidateAttendance">
+          Please select a batch to load attendance details
+        </div>
+
+        <div class="col-xs-11 col-md-8 b-l p-v bg-warning" ng-if="menteeAttendanceObj.candidateAttendance && !menteeAttendanceObj.candidateAttendance.attendance.length">
+         Attendance not taken 
+        </div>
+
+        <div class="col-xs-12 col-md-9 b-l" ng-if="menteeAttendanceObj.candidateAttendance.attendance.length">
+          <div class="row" >
+            <div class="col-xs-12 p-v text-bold text-lg b-b">
+              <i class="fa fa-clock-o font-bold"></i>
+              Attendance
+            </div>
+          </div>
+          <div class="row p-v">
+            <div class="col-xs-12 col-md-5" >
+              <div google-chart chart="menteeAttendanceObj.chartObject" style="{{cssStyle}}"></div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+              <div class="panel b-light">
+                <div class="panel-heading bg-white b-b">
+                  Total working days&nbsp;:&nbsp;{{menteeAttendanceObj.totalWorkingDays}}
+                </div>
+                <div class="progress progress-xxxs no-margin no-radius bg-white">
+                  <div class="progress-bar bg-light" style="width:{{menteeAttendanceObj.percentage}}%"></div>
+                </div>
+                <div class="panel-body no-padding">
+                  <div class="clear">
+                    <div class="list-group no-margin">
+                      <div class="p-v-sm p-h link" >
+                        <span class="pull-right">{{menteeAttendanceObj.totalPresent}}</span>
+                        <i class="fa fa-fw fa-circle text-info"></i>
+                        Total Present Days
+                      </div>
+                      <div class="p-v-sm p-h link" bs-tooltip data-title="Click here to know more" data-placement="left" ng-click="loadLeaveDetails('totalLeave')">
+                        <span class="pull-right" >{{menteeAttendanceObj.totalLeave.count}}</span>
+                        <i class="fa fa-fw fa-circle text-danger"></i>
+                        Total Leave Days
+                      </div>
+                      <div class="p-v-sm p-h link" bs-tooltip data-title="Click here to know more" data-placement="left" ng-click="loadLeaveDetails('totalAbsent')">
+                        <span class="pull-right">{{menteeAttendanceObj.totalAbsent.count}}</span>
+                        <i class="fa fa-fw fa-circle text-warning"></i>
+                        Total Absent Days
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row" ng-if="menteeAttendanceObj.tableType">
+            <div class="col-xs-12 col-md-4">
+              <div class="table-responsive">
+                <table class="table table-bordered bg-white">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="date in menteeAttendanceObj[menteeAttendanceObj.tableType].dates">
+                      <td>{{$index+1}}</td>
+                      <td>{{date |date:'dd-MMM-yyyy'}}</td>
+                      <td>{{(menteeAttendanceObj.tableType == 'totalLeave')?'Leave':'Absent'}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+             </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+  </div>
 </div>

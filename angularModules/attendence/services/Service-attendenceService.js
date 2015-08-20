@@ -17,5 +17,23 @@ this.markAttendence = function(userCourseMappingId,tlpoint,userCourseElementType
 	 });
 	return promise;
 };
+
+this.loadMenteesBatchDetails = function(data){
+	var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'loadMenteesBatchDetails/',
+	    data:{data:data}
+	 });
+	return promise;
+};
+
+this.loadMenteeMarkedAttendanceFromBatch = function(data){
+	var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'loadMenteeMarkedAttendanceFromBatch/',
+	    data:{data:data}
+	 });
+	return promise;
+};
 	
 }]);
