@@ -1,21 +1,39 @@
-<div  class="modal modal-full-width" tabindex="-1" role="dialog">
+<!-- <div class="modal modal-full-width">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        Payment details.
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12" ng-repeat="Payment in data.candidateDetails">
+            <div class="text-2x font-bold">{{Payment.courseName}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+<div  class="modal modal-full-width" >
     <div class="modal-dialog-full-width  modal-full-width">
       <div class="modal-content">
         <div class="p bg-info font-bold baab-shadow">
-          Payment details.
+          Payment details
         </div>
-        <div class="modal-body">
-          <!-- <pre>{{elementsOfSelectedNode}}</pre> -->
-          <div class="col-xs-12">
-          	<div class="col-xs-12 p shadow-z-1 bg-danger" ng-if="data.candidateDetails.length==0">
+        <div class="modal-body"> 
+          <div class="row">
+            <div class="col-xs-12 p shadow-z-1 bg-danger" ng-if="data.candidateDetails.length==0">
               There is no payment history for this candidate..!
             </div>
-          	<div ng-repeat="Payment in data.candidateDetails" class="col-xs-12 p shadow-z-1 bg-white">
+            <div ng-repeat="Payment in data.candidateDetails" class="col-xs-12 p shadow-z-1 bg-white">
               <span class="col-xs-12 font-bold">
-              Course:&nbsp;{{Payment.courseName}}
+              Course&nbsp;:&nbsp;{{Payment.courseName}}
               </span>
               <span class="col-xs-12">
-              	<span>Fee:&nbsp;{{Payment.coursePrice}} {{Payment.currency}}</span>
+                <span class="text-name">Fee&nbsp;:&nbsp;{{Payment.coursePrice}} <span ng-if="Payment.coursePrice != 'free'">{{Payment.currency}}</span></span>
               </span>
             </div>
           </div>
@@ -23,3 +41,17 @@
       </div>
     </div>
 </div>
+
+<!-- <div class="col-xs-12">
+            <div class="col-xs-12 p shadow-z-1 bg-danger" ng-if="data.candidateDetails.length==0">
+              There is no payment history for this candidate..!
+            </div>
+            <div ng-repeat="Payment in data.candidateDetails" class="col-xs-12 p shadow-z-1 bg-white">
+              <span class="col-xs-12 font-bold">
+              Course:&nbsp;{{Payment.courseName}}
+              </span>
+              <span class="col-xs-12">
+                <span>Fee:&nbsp;{{Payment.coursePrice}} {{Payment.currency}}</span>
+              </span>
+            </div>
+          </div> -->
