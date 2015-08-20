@@ -8,14 +8,20 @@
 		</div>
 		<div class="col-xs-12 col-sm-10 p">
 
-			<div ng-repeat="message in data.messages" class="bg-white col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-h-sm shadow-z-1  pull-left baab-list-item" style="cursor: pointer;" >
+			<div ng-repeat="message in data.messages" class="bg-white col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-h-sm shadow-z-1  pull-left baab-list-item" style="cursor: pointer;" ng-click="openMessage(message)" >
 				<div class="p-xs">
-			        <div class="p-xs" ng-click="notificationLink(notification,$root.data.userNotification)">
+			        <div class="p-xs" >
 				        <div>{{message.subject}}</div>
 				        <i class="text-muted mdi-editor-insert-comment"></i>
 				        <span class="text-muted text-xs">{{message.createdDate.$date |  date:"MM/dd/yyyy 'at' h:mma"}}</span>
 			        </div>
 		        </div>
+			</div>
+			<div ng-if="data.messages.length==12" class="p bg-white col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-h-sm shadow-z-1  pull-left text-center link" ng-click="loadMore()">
+				See more.
+			</div>
+			<div ng-if="data.messages.length==0" class="p bg-danger col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-h-sm shadow-z-1  pull-left" >
+				There have no messages for you.
 			</div>
 
 

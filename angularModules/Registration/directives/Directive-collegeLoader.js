@@ -5,9 +5,11 @@ angular.module('baabtra').directive('collegeLoader',['collegeServices','$rootSco
 		scope: {
 			outModel:"="
 		},
-		templateUrl: 'angularModules/college/collegeLoader/directives/Directive-collegeLoader.html',
+		templateUrl: 'angularModules/Registration/directives/Directive-collegeLoader.html',
 		link: function(scope, element, attrs, fn) {
 			console.log(scope.outModel);
+
+			console.log($rootScope)
 
 
 
