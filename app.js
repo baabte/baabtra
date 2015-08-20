@@ -59,7 +59,7 @@
         'angular-flipclock',
         'angularTreeview',
         'chart.js',
-        'datePicker',
+        // 'datePicker',
         'ui-rangeSlider',
         'btford.socket-io',
         function(){  return 'custom-form';}()

@@ -43,7 +43,7 @@ angular.module('baabtra').controller('MultiregistrationCtrl',['$scope','commonSe
 var globalValuesResponse = commonSrv.FnLoadGlobalValues("");
 globalValuesResponse.then(function(data){
   var globalValues=angular.fromJson(JSON.parse(data.data));
-  console.log(globalValues);
+  // console.log(globalValues);
   $scope.globalValues = {};
   angular.forEach(globalValues,function(value){
     $scope.globalValues[value._id] = value.values.approved;
