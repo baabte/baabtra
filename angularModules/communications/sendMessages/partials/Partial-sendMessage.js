@@ -102,7 +102,9 @@ $scope.sendMessage = function (hide) {
     		gotParents.then(function (parents) {
     			$scope.data.parents = angular.fromJson(JSON.parse(parents.data));
     		});
-    		
+
+		$modal({scope: $scope,backdrop:true, template: 'angularModules/communications/sendMessages/popup/popup-parents.html', show: true,placement:'center'});
+
     };
 	
 	var fetchFormFeildsResp = viewUsers.fnFetchFormFeildsForSearch("User test registration", companyId);
