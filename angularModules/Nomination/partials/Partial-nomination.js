@@ -13,6 +13,13 @@ angular.module('baabtra').controller('NominationCtrl',['$scope','bbConfig','glob
 	var rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 	var roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
 	var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+	var childCompanyId='';
+	if($rootScope.userinfo){
+		if($rootScope.userinfo.ActiveUserData.roleMappingObj.childCompanyId){
+		 childCompanyId=	$rootScope.userinfo.ActiveUserData.roleMappingObj.childCompanyId.$oid;
+		console.log(childCompanyId);
+		}
+	};
 	/*login detils ends*/
 	
 
@@ -255,6 +262,9 @@ $scope.fnUserRegister =function (draftFlag,fnCallback) {
 			hashids = new Hashids("this is a order form id");
 			$scope.data.orderForm.orderFormId = 'OF-' + hashids.encode(time);
 			$scope.data.orderForm.companyId = companyId;
+			if(!angular.equals(childCompanyId,'')){
+			$scope.data.orderForm.childCompanyId = childCompanyId;
+			};
 			$scope.data.orderForm.orderDetails = [];
 		}
 
@@ -363,7 +373,6 @@ function saveOrderForm(draftFlag, fnCallback){
 					//changing the selected tab
 					$scope.status.selected=1;
 
-					console.log(fnCallback);
 					if(!angular.equals(fnCallback,undefined)){
 						fnCallback();
 					}
