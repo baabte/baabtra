@@ -8,8 +8,16 @@ if(!$rootScope.userinfo){
 	var rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 	var roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
 	var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+	var loginId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkUserLoginId.$oid;
 
 	$scope.data = {};
+
+var gotMsgs = communications.loadInbox({filter:{from:loginId}});
+	
+	gotMsgs.then(function (response) {
+		var msgs = angular.fromJson(JSON.parse(response.data));
+		$scope.data.messages=msgs;
+	});
 	$scope.data.mailingList = [];
 	$scope.data.mailingListIds = [];
 
@@ -87,8 +95,15 @@ $scope.sendMessage = function (hide) {
     	
     	$modal({scope: $scope,backdrop:true, template: 'angularModules/communications/sendMessages/popup/popup-newMessage.html', show: true,placement:'center'});
     };
-// {"text" : "<i class=\"fa fa-fw fa-rotate-left\"></i>&nbsp;Refund Request","click" : "refundRequest(user.fkUserLoginId)"}
 
+    $scope.loadParent = function (candidateId) {
+    	$scope.data.parents = [];
+    	var gotParents = communications.fnLoadParent(candidateId);
+    		gotParents.then(function (parents) {
+    			$scope.data.parents = angular.fromJson(JSON.parse(parents.data));
+    		});
+    		
+    };
 	
 	var fetchFormFeildsResp = viewUsers.fnFetchFormFeildsForSearch("User test registration", companyId);
 	fetchFormFeildsResp.then(function(response){

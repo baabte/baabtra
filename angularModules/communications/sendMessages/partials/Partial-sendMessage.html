@@ -24,12 +24,12 @@
 		</div>
 		<div class="col-xs-12 col-sm-10 p">
 
-			<div ng-repeat="a in [1,2,3]" class="bg-white col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-h-sm shadow-z-1  pull-left baab-list-item" style="cursor: pointer;" >
+			<div ng-repeat="message in data.messages" class="bg-white col-md-push-2 col-md-8 col-xs-12 col-sm-12 p-h-sm shadow-z-1  pull-left baab-list-item" style="cursor: pointer;" >
 				<div class="p-xs">
-			        <div class="p-xs" ng-click="notificationLink(notification,$root.data.userNotification)">
-				        <div>Subject will be here</div>
+			        <div class="p-xs">
+				        <div>{{message.subject}}</div>
 				        <i class="text-muted mdi-editor-insert-comment"></i>
-				        <span class="text-muted text-xs">date here{{notification.createdDate.$date |  date:"MM/dd/yyyy 'at' h:mma"}}</span>
+				        <span class="text-muted text-xs">{{message.createdDate.$date |  date:"MM/dd/yyyy 'at' h:mma"}}</span>
 			        </div>
 		        </div>
 			</div>
