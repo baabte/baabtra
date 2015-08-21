@@ -68,7 +68,7 @@ angular.module('baabtra').controller('MarkbatchattendanceCtrl',['$scope','$rootS
                     parentsLoginIds.push(result[parent].fkUserLoginId.$oid);
                 }
                 if(parentsLoginIds.length){
-                    notification.newNotification({companyId:companyId,fkLoginIds:['55d435f465f384694144b808'], message:message,link:{state:'home.main.menteeAttendance',params:{userId:cndLoginId, batchId:$state.params.batchMappingId}},crmId:rm_id});
+                    notification.newNotification({companyId:companyId,fkLoginIds:parentsLoginIds, message:message,link:{state:'home.main.menteeAttendance',params:{userId:cndLoginId, batchId:$state.params.batchMappingId}},crmId:rm_id});
                 } 
             });
         }
