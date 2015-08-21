@@ -7,9 +7,9 @@ angular.module('baabtra').directive('collegeLoader',['collegeServices','$rootSco
 		},
 		templateUrl: 'angularModules/Registration/directives/Directive-collegeLoader.html',
 		link: function(scope, element, attrs, fn) {
-			console.log(scope.outModel);
 
-			console.log($rootScope)
+
+			// console.log($rootScope)
 
 
 

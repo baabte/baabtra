@@ -173,8 +173,8 @@ $scope.formData.departments.splice(index,1);
     searchTimeOut=setTimeout(function(){
       try{
          if($scope.formData.domainName.length){
-           var checkDomainExitsResponse = companyRegistrationService.fnCheckDomainExits($scope.formData.domainName);
-           checkDomainExitsResponse.then(function(response){
+           var checkRegDomainExitsResponse = companyRegistrationService.fnCheckRegDomainExits($scope.formData.domainName);
+           checkRegDomainExitsResponse.then(function(response){
               var result = angular.fromJson(JSON.parse(response.data));
               if(angular.equals(result.result,'Exits')){
                 $scope.notifications('Already in use','This Domain name is already in use','warning');
