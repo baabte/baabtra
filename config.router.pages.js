@@ -822,7 +822,7 @@
                 
               })
               .state('home.main.menteeAttendance', {
-                url: '/menteeAttendance/:userId',
+                url: '/menteeAttendance/:userId/:batchId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-menteeAttendance.html',

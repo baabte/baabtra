@@ -175,7 +175,7 @@
 
 </div>
 </div>
-    <div class="col-xs-push-1 col-md-push-2 col-md-8 col-xs-10 p shadow-z-1 bg-white m-t">
+    <div ng-if="userinfo.ActiveUserData.roleMappingObj.fkRoleId == 2" class="col-xs-push-1 col-md-push-2 col-md-8 col-xs-10 p shadow-z-1 bg-white m-t">
     <a href="" style="white-space: normal;" class="btn btn-material-purple-A400 col-xs-4 p-v text-center no-margin" ng-click="fullPrint()" >Export as PDF (With Contact) BP Summery</a>
     
     <a href="" style="white-space: normal;" class="btn btn-material-deep-purple-A400 col-xs-4 p-v text-center no-margin" ng-click="showId()">Export as PDF (without Contact)BP Summary</a>

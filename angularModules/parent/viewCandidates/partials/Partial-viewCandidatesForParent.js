@@ -29,18 +29,24 @@ $scope.buildActions = function (index) {
 	// console.log($scope.data.usersObject.userList[index],ofId);
 	return [
 				{
-				"text": "<i class=\"fa fa-hand-o-up\"></i>&nbsp;View Payment Details",
+				"text": "<i class=\"mdi-action-payment\"></i>&nbsp;View Payment Details",
 				 "click": "loadPaymentPopup('"+loginId+"')"
+				},
+				{
+				"text": "<i class=\"fa fa-calendar\"></i>&nbsp;View Attendance Details",
+				 "click": "$state.go(\"home.main.menteeAttendance\",{userId:'"+loginId+"'})"
+				},
+				{
+				"text": "<i class=\"fa fa-calendar\"></i>&nbsp;View BP",
+				 "click": "$state.go(\"home.main.baabtraProfile\",{type:'detailed', userLoginId:'"+loginId+"'})"
 				}
 			];
 };
-
 $scope.loadPaymentPopup = function (loginId) {
 	$scope.data.candidateDetails = [];
 	var gotDetails = parentModule.getCandidateDetails(loginId);
 		gotDetails.then(function (response) {
 			var respData = angular.fromJson(JSON.parse(response.data));
-			console.log(respData);
 			$scope.data.candidateDetails = respData;
 			$modal({scope: $scope, template: 'angularModules/parent/popup/popup-payments.html', show: true,placement:'center'});
 
