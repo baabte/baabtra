@@ -258,6 +258,9 @@ angular.module('baabtra').controller('AllocatecandidateCtrl',['$scope', '$rootSc
 					
 			  		$scope.orderFormsData[key].selectedUser.loggedusercrmid=$scope.crmId;
 			  		$scope.orderFormsData[key].selectedUser.companyId=$scope.companyId;
+			  		if(!angular.equals(childCompanyId,'')){
+					$scope.orderFormsData[key].selectedUser.childCompanyId = childCompanyId;
+					};
 			  		$scope.orderFormsData[key].selectedUser.role={};
 			  		$scope.orderFormsData[key].selectedUser.role.roleId=3; //initialising the role id as mentee
 				}
