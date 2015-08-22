@@ -2,20 +2,11 @@
   overflow-y: auto;">
   <li ng-repeat="notification in $root.data.userNotification.notifications">
     <div ng-class="{'bg-light':!notification.read}" class="b-b">
-      <div class="baab-list-item p-xs" ng-click="notificationLink(notification,$root.data.userNotification)">
-        <!-- ui-sref="{{notification.link.state}}({{notification.link.params}})" -->
-      <!-- <a href="" class="pull-left w-thumb m-r"></a> -->
-        <div>{{notification.message}}</div>
+      <div class="baab-list-item p-xs " ng-click="notificationLink(notification,$root.data.userNotification)">
+        <div class="text-black">{{notification.message}}</div>
         <i class="text-muted mdi-editor-insert-comment"></i>
         <span class="text-muted text-xs">{{notification.createdDate.$date |  date:"MM/dd/yyyy 'at' h:mma"}}</span>
       </div>
-      <!-- <div class="">
-        <a href="" class="pull-left w-thumb m-r"><img src="images/CompanyLogs/company.png" class="img-responsive"></a>
-      </div>
-      <div>
-        <div>{{notification.type}} on {{notification.message}}</div>
-        <div class="text-muted text-xs text-right">{{notification.date.$date |  date:"MM/dd/yyyy 'at' h:mma"}}</div>
-      </div> -->
     </div>
   </li>
   <li>
