@@ -398,7 +398,7 @@ $rootScope.notificationLink = function (notificationObj,mainObj) {
         }
       });  
   }
-  //notification.newNotification({companyId:'54d836934ed3269b80684843',fkLoginId:'559393aa65f384694144b65b',message:'testing notification',link:{state:'home.main',params:{}},crmId:'559393aa65f384694144b65a'});
+  notification.newNotification({companyId:'54d836934ed3269b80684843',message:'testing notification',link:{state:'home.main',params:{}},crmId:'559393aa65f384694144b65a'});
   $state.go(link.state,link.params);
 };
 
