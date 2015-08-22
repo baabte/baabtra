@@ -39,13 +39,13 @@ angular.module('baabtra').controller('BranchesCtrl',['$scope','$rootScope','comm
     console.log(node);
     $scope.branchObj.parentBranch = node;
     $scope.branchObj.currentTopBranch = {parent:node._id.$oid, children:[]};
-    $scope.branchObj.message = "Create A New Branch Under ";
+    $scope.branchObj.message = "Create A New Branch";
     $scope.branchObj.btnName = "Add";
     var myOtherAside = $aside({scope: $scope,placement:'right',animation:'am-fade-and-slide-right', template: 'angularModules/Branches/aside/aside-newBranch.html'});
   };
 
   $scope.editChild = function(node) {
-    $scope.branchObj.message = "Update Details Of ";
+    $scope.branchObj.message = "Update Branch Details";
     $scope.branchObj.btnName = "Update";
     $scope.branchObj.currentTopBranch = node;
     var myOtherAside = $aside({scope: $scope,placement:'right',animation:'am-fade-and-slide-right', template: 'angularModules/Branches/aside/aside-newBranch.html'});

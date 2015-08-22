@@ -4,6 +4,7 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 	if(!$rootScope.userinfo){
 		commonService.GetUserCredentials($scope);
 		$rootScope.hide_when_root_empty=false;
+		return;
 	}
 
 	if(angular.equals($rootScope.loggedIn,false)){
@@ -74,8 +75,6 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 			    var fetchUsersToCourseAllocateCallback = viewUsers.fnFetchUsersByDynamicSearch(companyId,'','','initial',$scope.data.searchKey); 
 			    fetchUsersToCourseAllocateCallback.then(function(data){
 			        $scope.data.result = angular.fromJson(JSON.parse(data.data));
-
-			        console.log($scope.data.result);
 
 			        $scope.data.usersCountFrom = 1;
 			        $scope.data.usersCountTo = (($scope.data.result.usersCount <= 12)?$scope.data.result.usersCount:12); 
@@ -293,7 +292,7 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 		var fetchUsersToCourseAllocateCallback = viewUsers.fnFetchUsersReportBasedOnDynamicSearch(companyId,'','','initial',$scope.data.searchKey); 
 		fetchUsersToCourseAllocateCallback.then(function(response){
 			var result= angular.fromJson(JSON.parse(response.data));
-			console.log(result);
+			
 		});
 
 	};
