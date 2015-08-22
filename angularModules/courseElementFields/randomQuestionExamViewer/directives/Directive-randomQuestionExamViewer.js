@@ -14,7 +14,7 @@ angular.module('baabtra').directive('randomQuestionExamViewer',['$rootScope','$m
 			var userLoginId;
 			var courseMappingId;
 			var innerIndex=scope.index;
-			var outerIndex=scope.courseElement.index;
+			var outerIndex = scope.courseElement.index;
 			var tlPointInmins=scope.courseElement.tlPointInMinute;
 			var keyName=scope.courseElement.Name;
 			var evStatus=0;
@@ -22,7 +22,7 @@ angular.module('baabtra').directive('randomQuestionExamViewer',['$rootScope','$m
 			scope.isMentee=false;
 			scope.start=0;
 			scope.questionAnswer=[];
-			scope.totalMark=scope.courseElement.elements[outerIndex].value.mark;
+			scope.totalMark=scope.courseElement.elements[innerIndex].value.mark;
 			scope.examFinished=false;
 			scope.timeObj={};
 			scope.startSubmit=false;
