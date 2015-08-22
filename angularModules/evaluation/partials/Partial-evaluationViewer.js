@@ -9,7 +9,9 @@ if($rootScope.loggedIn===false){
  $state.go('login');
 }
 
-console.log($rootScope.userinfo.ActiveUserData.roleMappingId.$oid);
+// evaluationService.evaluationFetch();
+
+$scope.EvaluationList=[{},{},{},{},{},{},{},{},{},{},{},{}];
 
 
 
