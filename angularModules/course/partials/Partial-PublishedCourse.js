@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('PublishedcourseCtrl',['$scope','$rootScope','commonService','$state','PublishedCourse','$alert','draftedCourses','$aside','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','commonSrv',function($scope,$rootScope,commonService,$state,PublishedCourse,$alert,draftedCourses,$aside,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,commonSrv){
+angular.module('baabtra').controller('PublishedcourseCtrl',['$scope','$rootScope','commonService','$state','PublishedCourse','$alert','draftedCourses','$aside','$modal','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','commonSrv','$state',function($scope,$rootScope,commonService,$state,PublishedCourse,$alert,draftedCourses,$aside,$modal,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,commonSrv,$state){
 
 if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       $rootScope.hide_when_root_empty=true;
@@ -19,9 +19,21 @@ $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 //$scope.showCourseFilter = false;
 var courseDomainResponse = addCourseDomainSrv.FnLoadDomain();
 courseDomainResponse.then(function(response){
-  $scope.domainDetails=angular.fromJson(JSON.parse(response.data));//Converting the result to json object
+  $scope.domainDetails=angular.fromJson(JSON.parse(response.data));//Converting the result to jangular.fromJson(JSON.parse(response.data))son object
+  
   $scope.domainTree=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);//to get the course tree
+ 
 });
+
+var domain;
+var getDomain = addCourseDomainSrv.getDomain();
+getDomain.then(function(response){
+ domain=angular.fromJson(JSON.parse(response.data));
+});
+
+
+
+
 
 var globalValuesResponse = commonSrv.FnLoadGlobalValues("");
 globalValuesResponse.then(function(data){
@@ -121,7 +133,7 @@ $scope.deleteCourseDetails = function(courseId, courseName){
   var duplicateCourse = PublishedCourse.fnDuplicateCourse(courseId,$scope.rm_id,$scope.companyId);
   duplicateCourse.then(function (data) {
      var duplicateCourse= angular.fromJson(JSON.parse(data.data));
-     console.log(duplicateCourse);
+     
      console.log($scope.publishedCourses.courses.length);
      $scope.publishedCourses.courses.splice(index,0,duplicateCourse);
      $scope.publishedCourses.courseLength=$scope.publishedCourses.courses.length;
@@ -131,10 +143,13 @@ $scope.deleteCourseDetails = function(courseId, courseName){
 
     });
   };
-
 $scope.data.courseDropdown = [
+  { 
+    "text": "<i   class=\"fa fa-link\">&nbsp Get test link</i>",
+    "click": "showCopyLinkPopup(course._id.$oid);"
+  },
   {
-    "text": "<i class=\"fa fa-fw mdi-action-toc\"></i>&nbsp;View course",
+    "text": "<i class=\"fa fa-fw mdi-action-toc\"  data-title='copy to clipboard'></i>&nbsp;View course",
     "click": "this.viewCourseDetails(course._id.$oid);"
   },
   {
@@ -175,5 +190,44 @@ $scope.prevOne=function(){//event  for showing previous 12 items
 $scope.viewCourseDetails = function(courseId){
 	$state.go("home.main.course",{courseId:courseId});
 };
+$scope.copydiv=true;
+
+
+
+
+// Pre-fetch an external template populated with a custom scope
+var copyLinkPopup = $modal({scope:$scope,placement:'right',animation:'am-slide-top', template: 'angularModules/course/partials/copylink-popup.html', show: false});//call aside for add new department
+// Show when some event occurs (use $promise property to ensure the template has been loaded)
+
+
+
+$scope.showCopyLinkPopup =function(courseId){
+copyLinkPopup.$promise.then(copyLinkPopup.show);
+var path="courseUserRegistration/";
+ $scope.link=domain+"/#/"+path+courseId;
+};
+
+$scope.hideCopyLinkPopup =function(){
+copyLinkPopup.hide();
+};    
+
+$scope.status="copy to clipboard";
+ 
+
+
+$scope.copy=function(courseId){
+
+$scope.status="copied";
+    $scope.countDown = 10;    
+    var timer = setInterval(function(){
+        $scope.countDown--;
+        $scope.$apply();
+        if ($scope.countDown==5) {
+          $scope.status="copy to clipboard";
+        };
+    }, 1000); 
+}
+
+
 
 }]);

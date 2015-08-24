@@ -18,6 +18,10 @@ angular.module('baabtra').controller('TestCtrl',['$scope', '$rootScope', 'common
 	$scope.data = {};
 	$scope.schemaObj = {};
 	$scope.fields=[];
+	$scope.copy=function(){
+	$scope.copy1="www.baabtra.com";
+}
 
 }]);																																																																								 																			
 
+ 

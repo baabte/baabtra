@@ -42,7 +42,7 @@ angular.module('baabtra').controller('viewCandidateCourseCtrl',
 		    gotCurrentElement.then(function (data) {
 		    	
 		    	var dataElement=angular.fromJson(JSON.parse(data.data));
-		    	// console.log(dataElement);
+	
 		    	if(dataElement=="error"){
 					$state.go('home.main.CandidateCourseView');
 		    	}
@@ -132,7 +132,7 @@ loader.hide();
 
 		if((!angular.equals($scope.selectedElement.element.order,undefined))&&(!angular.equals($scope.selectedElement.element.ElementOrder,undefined))){
 
-		// console.log($scope.selectedElement)
+	
 
 		$scope.startLoader();			
 
@@ -140,7 +140,7 @@ loader.hide();
 		    gotElement4CandidateView.then(function (data) {		
 
 		    	var dataElement=angular.fromJson(JSON.parse(data.data));
-		    	// console.log(dataElement);
+
 		    	if(dataElement=="error"){
 					$state.go('home.main.CandidateCourseView');
 		    	}

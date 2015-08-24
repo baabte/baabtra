@@ -61,6 +61,7 @@
         'chart.js',
         'datePicker',
         'ui-rangeSlider',
+        'ngClipboard',
         function(){  return 'custom-form';}()
         
       ])

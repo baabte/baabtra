@@ -19,7 +19,14 @@
 				</div>
 			</div>
 
-			<div class="col-xs-3 p-h">
+			<div class="col-xs-3 p-h visible-xs" style="margin-left: 1px;">
+				<div class="m-t">
+					<a href="" ng-if="!specificOption" html="true" data-placement="left" bs-dropdown="actions" class="pull-right no-margin"><i class="mdi-action-list text-xl"></i><div class="ripple-wrapper"></div></a>
+
+					<a ng-if="specificOption" class="btn btn-success baab-btn " ng-click="executeFunction(actions[specificOption-1].click)" ng-bind-html="actions[specificOption-1].text"></a>
+				</div>
+			</div>
+			<div class="col-xs-3 p-h hidden-xs">
 				<div class="m-t">
 					<a href="" ng-if="!specificOption" html="true" data-placement="left" bs-dropdown="actions" class="pull-right no-margin"><i class="mdi-action-list text-xl"></i><div class="ripple-wrapper"></div></a>
 

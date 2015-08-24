@@ -2,6 +2,11 @@
   <div class="col-xs-12">
     <div class="col-xs-12 bg-light p-v">
   	 	<college-loader out-model="data"></college-loader>
+  	 	 <a href="" clip-copy="getTextToCopy()" clip-click="doSomething()">Copy</a>
+        <input type="text" class="form-control" placeholder="Enter text to copy" ng-model="copy1" ng-hide="true">
+      </div>
+       <a href="" ng-click="copy()" clip-copy="copy1" >Copy</a>
     </div>
+    <input type="text">
   </div>
 </div>

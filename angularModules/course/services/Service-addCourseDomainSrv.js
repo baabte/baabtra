@@ -32,5 +32,14 @@ angular.module('baabtra').service('addCourseDomainSrv',['$http','bbConfig',funct
         });
         return promise;
       };
+      this.getDomain=function($scope)//To Load The Existing Company Details
+      {
+        var promise = $http({
+          method: 'post',
+          url: bbConfig.BWS+'getDomain/',
+          contentType:'application/json; charset=UTF-8',
+        });
+        return promise;
+      };
 
 }]);

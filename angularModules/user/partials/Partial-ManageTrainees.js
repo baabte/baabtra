@@ -23,11 +23,13 @@ angular.module('baabtra').controller('ManagetraineesCtrl',['$scope', '$rootScope
 		$scope.batchObj.mtype='initial';
 		$scope.batchObj.mlastId='';
 		$scope.batchObj.mfirstId='';
+		
 		/*Checking for first load. ie by checking its length or the list is undefind */
 		if(angular.equals($scope.batchObj.menteeList,undefined)||angular.equals($scope.batchObj.menteeList.length,0)){
 			var loadMenteePromise=viewBatches.viewMenteesForManage($scope,$scope.batchObj.mfirstId,'initial',$scope.batchObj.mlastId,'');
 			loadMenteePromise.then(function(response){ //promise for mentee load
 				var result = angular.fromJson(JSON.parse(response.data));
+				
 				$scope.batchObj.menteeList = result.userList;
 				$scope.batchObj.mfirstId = result.firstId.$oid;
 				$scope.batchObj.mlastId = result.lastId.$oid;

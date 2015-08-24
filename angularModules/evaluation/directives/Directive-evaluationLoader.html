@@ -1,4 +1,4 @@
-<div ng-if="element.evaluable"  class="col-xs-12 shadow-z-1 p bg-white" style="margin-bottom: 30px;">
+<div   class="col-xs-12 shadow-z-1 p bg-white" style="margin-bottom: 30px;">
 	<form  name="evaluationForm" class="form-validation">
 	
 	<div class="row" >
@@ -6,11 +6,12 @@
 			<i class="fa {{element.Icon}} ui-icon"></i>
 		</div>
 		<div class="col-xs-8 font-bold text-md " >
-			{{element.elements[0].value}}
+			{{element.elements.value}}
 		</div>
 		<div class="col-xs-3 col-md-3 text-right">
-			<span class="label label-warning" ng-if="!element.evalStatus">Pending submission</span>
-			<span class="label label-info" ng-if="element.evalStatus">{{element.evalStatus}}</span>
+			<span style="    padding-right: 0px;
+    margin-left: -64%;" class="label label-warning" ng-if="!element.evalStatus">Pending submission</span>
+			<span style=" padding-right: 0px; margin-left: -64%;"  class="label label-info" ng-if="element.evalStatus">{{element.evalStatus}}</span>
 		</div>
 	</div>
 	<div class="row">
@@ -29,9 +30,9 @@
 	<div class="row" >
 		<div class="col-xs-12 text-right p-v">
 			<!-- <a ng-if="element.evalStatus =='Pending Evaluation' && showResubmitButton" class="btn btn-warning baab-btn no-margin" ng-click="askResubmit(outElement)" style="line-height: 13px;" translate="{{'Ask Resubmit'|translate}}"></a> -->
-			<a ng-if="((element.evalStatus =='Pending Evaluation') || checkViewOfElement(element.Name)) && element.evalStatus != 'Evaluated'" class="btn btn-info baab-btn no-margin" ng-click="evaluated(element, elementTotalMarks ,outElement, elementOrder, courseMappingId, evaluatorId)" style="line-height: 13px;"  ng-disabled="evaluationForm.$invalid" disabled="disabled" translate="{{'Save Evaluation'|translate}}"></a>
+			<a ng-if="((element.evalStatus =='Pending Evaluation') || checkViewOfElement(element.Name)) && element.evalStatus != 'Evaluated'" class="btn btn-info baab-btn no-margin" ng-click="evaluated(element, elementTotalMarks ,outElement, courseMappingId, evaluatorId)" style="line-height: 13px;"  ng-disabled="evaluationForm.$invalid" disabled="disabled" translate="{{'Save Evaluation'|translate}}"></a>
 
-			<a ng-if="element.evalStatus == 'Evaluated'" class="btn btn-info baab-btn no-margin" ng-click="evaluated(element, elementTotalMarks, outElement , elementOrder, courseMappingId, evaluatorId)" style="line-height: 13px;" ng-disabled="evaluationForm.$invalid" disabled="disabled" translate="{{'Update Evaluation'|translate}}"></a>
+			<a ng-if="element.evalStatus == 'Evaluated'" class="btn btn-info baab-btn no-margin" ng-click="evaluated(element, elementTotalMarks, outElement , courseMappingId, evaluatorId)" style="line-height: 13px;" ng-disabled="evaluationForm.$invalid" disabled="disabled" translate="{{'Update Evaluation'|translate}}"></a>
 
 		</div>
 	</div>
