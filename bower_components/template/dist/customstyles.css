@@ -246,9 +246,9 @@ body                            { padding-top:20px; }
 pre                             { margin-bottom:20px; }
 
 /* form styling */
-#form-container                { background:#2f2f2f; margin-bottom:20px;
+#form-container                { background:#FFFFFF; margin-bottom:20px;
     border-radius:5px; }
-#form-container .page-header   { background:#151515; margin:0; padding:30px; 
+#form-container .page-header   { background:#ADADAD; margin:0; padding:30px; 
     border-top-left-radius:5px; border-top-right-radius:5px; }
 
 /* numbered buttons */
@@ -921,7 +921,7 @@ body {
 
 
 
-.hide-dropdown + .dropdown-menu{
+.hide-dropdown.dropdown-menu{
   display: none!important;
 }
   
@@ -978,4 +978,41 @@ ul.rating {
 
 .iframe-width iframe{
   width: 100% !important;
+}
+
+  .fa-baabtra{
+    background-image: url("../images/fa-icon/fa-baabtra.png");
+    height: 40px;
+    width: 40px;
+    background-size: cover;
+  }
+
+
+.datepicker.dropdown-menu {
+  width: 275px;
+  height: 375px;
+}
+.datepicker.dropdown-menu button {
+  outline: none;
+  border: 0px;
+}
+.datepicker.dropdown-menu tbody {
+  height: 180px;
+}
+.datepicker.dropdown-menu tbody button {
+  padding: 6px;
+}
+.datepicker.dropdown-menu.datepicker-mode-1 tbody button,
+.datepicker.dropdown-menu.datepicker-mode-2 tbody button {
+  height: 65px; 
+}
+.timepicker.dropdown-menu {
+  padding: 0 4px;
+}
+.timepicker.dropdown-menu button {
+  outline: none;
+  border: 0px;
+}
+.timepicker.dropdown-menu tbody button {
+  padding: 6px;
 }

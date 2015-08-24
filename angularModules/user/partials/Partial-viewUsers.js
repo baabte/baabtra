@@ -1,9 +1,10 @@
-angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','$rootScope','$state','courseAllocateService','viewUsers', 'addCourseService','$modal','statusChangeSrvc',function($scope,commonService,$rootScope,$state, courseAllocateService, viewUsers, addCourseService,$modal,statusChangeSrvc){
+angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','$rootScope','$state','courseAllocateService','viewUsers', 'addCourseService','$modal','statusChangeSrvc', 'branchSrv',function($scope,commonService,$rootScope,$state, courseAllocateService, viewUsers, addCourseService,$modal,statusChangeSrvc, branchSrv){
 
 	/*login detils start*/
 	if(!$rootScope.userinfo){
 		commonService.GetUserCredentials($scope);
 		$rootScope.hide_when_root_empty=false;
+		return;
 	}
 
 	if(angular.equals($rootScope.loggedIn,false)){
@@ -31,11 +32,13 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 	$scope.data.searchKey.profile.gender = "";
 	$scope.value = "State";
 
-	$scope.data.userDropdown = [{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View Profile Summary",
+	$scope.data.userDropdown = [{"text" : "<i class=\"mdi-action-account-box\"></i>&nbsp;View Profile",
+    							"click":"$state.go(\"home.main.userProfile\",{userId:user.fkUserLoginId.$oid})"},
+    							{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View BP Summary",
     							"click":"viewProfile(user.fkUserLoginId.$oid, 'summary')"},
-    							{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View Detailed Profile",
+    							{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View Detailed BP",
     							"click":"viewProfile(user.fkUserLoginId.$oid, 'detailed')"},
-    							{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View Profile By Course",
+    							{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View BP By Course",
     							"click":"viewProfile(user.fkUserLoginId.$oid, 'byCourse')"},
     							{"text" : "<i class=\"mdi-av-repeat\"></i>&nbsp;Change User Status",
     							"click":"changeStatus(user.fkUserLoginId.$oid)"}];
@@ -56,6 +59,12 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 		$scope.data.courseList = angular.fromJson(JSON.parse(response.data));
 	});
 
+	var branchLoaderObj = {companyId:companyId};
+	var branchLoaderResponse = branchSrv.fnLoadAllBranchesUnderCompany(branchLoaderObj);
+	branchLoaderResponse.then(function(response){
+		 $scope.data.branchList = angular.fromJson(JSON.parse(response.data));
+	})
+
 	var searchTimeOut;
 	$scope.$watch('data.searchKey', function(){
 		if(!angular.equals($scope.data.searchKey.profile,undefined)){
@@ -66,8 +75,6 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 			    var fetchUsersToCourseAllocateCallback = viewUsers.fnFetchUsersByDynamicSearch(companyId,'','','initial',$scope.data.searchKey); 
 			    fetchUsersToCourseAllocateCallback.then(function(data){
 			        $scope.data.result = angular.fromJson(JSON.parse(data.data));
-
-			        console.log($scope.data.result);
 
 			        $scope.data.usersCountFrom = 1;
 			        $scope.data.usersCountTo = (($scope.data.result.usersCount <= 12)?$scope.data.result.usersCount:12); 
@@ -147,6 +154,21 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 				}
 			}
 		}
+	};
+
+	$scope.branchSelectionChanged = function(branch){
+		var branchId = branch._id.$oid;
+		if(!$scope.data.searchKey.branchSelected){
+			$scope.data.searchKey.branchSelected = [];
+		}
+
+		if(angular.equals($scope.data.searchKey.branchSelected.indexOf(branchId), -1)){
+			$scope.data.searchKey.branchSelected.push(branchId);
+		}
+		else{
+			$scope.data.searchKey.branchSelected.splice($scope.data.searchKey.branchSelected.indexOf(branchId), 1);
+		}
+
 	};
 
     var searchTimeout;
@@ -270,7 +292,7 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 		var fetchUsersToCourseAllocateCallback = viewUsers.fnFetchUsersReportBasedOnDynamicSearch(companyId,'','','initial',$scope.data.searchKey); 
 		fetchUsersToCourseAllocateCallback.then(function(response){
 			var result= angular.fromJson(JSON.parse(response.data));
-			console.log(result);
+			
 		});
 
 	};

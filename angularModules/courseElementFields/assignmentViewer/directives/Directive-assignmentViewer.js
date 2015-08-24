@@ -255,7 +255,7 @@ var fnBlockSubmission = function(){
  if(angular.equals(scope.$parent.previewData.status, 'submitted')){
     	scope.blockSubmission = true;
 
-    	scope.penaltyMessage = "Submitted on " + scope.convertDate(scope.$parent.previewData.submittedOn.$date).day + ', ' + scope.convertDate(scope.$parent.previewData.submittedOn.$date).time;
+    	scope.penaltyMessage = "Submitted on " + scope.convertDate(scope.$parent.previewData.submittedOn).day + ', ' + scope.convertDate(scope.$parent.previewData.submittedOn).time;
     }
 
    

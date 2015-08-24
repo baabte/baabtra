@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('TestCtrl',['$scope', '$rootScope', 'commonService',function ($scope, $rootScope, commonService){
+angular.module('baabtra').controller('TestCtrl',['$scope','$state', '$rootScope', 'commonService',function ($scope,$state,$rootScope, commonService){
 
 	/*login detils start*/
 	if(!$rootScope.userinfo){
@@ -21,6 +21,8 @@ angular.module('baabtra').controller('TestCtrl',['$scope', '$rootScope', 'common
 	$scope.copy=function(){
 	$scope.copy1="www.baabtra.com";
 }
+
+	console.log($rootScope.userinfo);
 
 }]);																																																																								 																			
 

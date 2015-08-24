@@ -137,6 +137,24 @@
                   }
                 }
               })
+              .state('home.main.inbox', {
+                url: '/inbox',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/communications/inbox/partials/Partial-inbox.html',
+                    controller:'InboxCtrl'
+                  }
+                }
+              })
+              .state('home.main.send', {
+                url: '/send',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/communications/sendMessages/partials/Partial-sendMessage.html',
+                    controller:'SendmessageCtrl'
+                  }
+                }
+              })
               .state('home.main.addCandidate', {
                 url: '/addCandidate',
                 views:{
@@ -651,6 +669,16 @@
                     controller: 'NotificationconfigurationCtrl'
                   }
                 }
+              })
+
+              .state('home.main.notifications', {
+                url: '/notifications',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Notification/partials/Partial-notification.html',
+                    controller: 'NotificationCtrl'
+                  }
+                }
                 
               })
 
@@ -794,7 +822,7 @@
                 
               })
               .state('home.main.menteeAttendance', {
-                url: '/menteeAttendance/:userId',
+                url: '/menteeAttendance/:userId/:batchId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/Batches/partials/Partial-menteeAttendance.html',
@@ -1051,6 +1079,15 @@
                 }
               })
 
+               .state('home.main.Registration', {
+                url: '/Registration/:key',
+                 views:{
+                  'innercontent':{
+                templateUrl: 'angularModules/Registration/partials/Partial-multiRegistration.html',
+                controller:'MultiregistrationCtrl'
+                  }
+                }
+              })
 
               .state('page.document', {
                 url: '/document',
