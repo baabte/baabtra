@@ -141,7 +141,7 @@ $scope.formData.departments.splice(index,1);
 		  }
 	    searchTimeOut=setTimeout(function(){
 		    try{		
-					var userValObj={"eMail":$scope.formData.eMail,"companyId":$scope.parentCompanyId};//object to fetch the user details
+					var userValObj={"eMail":$scope.formData.eMail};//object to fetch the user details
 					userValObj.fetch='';//to fetch related details of the user pass '' to just user check
 					var fnUserNameValidCallBack= companyRegistrationService.fnUserNameValid(userValObj);
 					fnUserNameValidCallBack.then(function(data){
