@@ -12,6 +12,7 @@ $scope.showNavMenu=false;
 $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 //if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId==2){
 	$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+  console.log($rootScope.userinfo.ActiveUserData.roleMappingObj);
 	PublishedCourse.loadPublishedCourses($scope,'','','','',$state.params.key);
 //}
 
@@ -20,16 +21,10 @@ $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 var courseDomainResponse = addCourseDomainSrv.FnLoadDomain();
 courseDomainResponse.then(function(response){
   $scope.domainDetails=angular.fromJson(JSON.parse(response.data));//Converting the result to jangular.fromJson(JSON.parse(response.data))son object
-  
   $scope.domainTree=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.domainDetails,null),null);//to get the course tree
- 
+
 });
 
-var domain;
-var getDomain = addCourseDomainSrv.getDomain();
-getDomain.then(function(response){
- domain=angular.fromJson(JSON.parse(response.data));
-});
 
 
 
@@ -199,6 +194,12 @@ $scope.copydiv=true;
 var copyLinkPopup = $modal({scope:$scope,placement:'right',animation:'am-slide-top', template: 'angularModules/course/partials/copylink-popup.html', show: false});//call aside for add new department
 // Show when some event occurs (use $promise property to ensure the template has been loaded)
 
+var domain;
+var getDomain = addCourseDomainSrv.getDomain();
+getDomain.then(function(response){
+ domain=angular.fromJson(JSON.parse(response.data));
+});
+
 
 
 $scope.showCopyLinkPopup =function(courseId){
@@ -224,9 +225,9 @@ $scope.status="copied";
         $scope.$apply();
         if ($scope.countDown==5) {
           $scope.status="copy to clipboard";
-        };
+        }
     }, 1000); 
-}
+};
 
 
 
