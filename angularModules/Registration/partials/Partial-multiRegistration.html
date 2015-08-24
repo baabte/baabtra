@@ -104,7 +104,7 @@
 				<form name="multiRegistraion3" ng-show="status.selected=='3'" xt-form editable-form novalidate>	
 					<div class="form-group row">
 						<div class=" m-t-lg" >
-                              <tags-input class="bootstrap" ng-model="formData.technologies" placeholder="Technologies Used" replace-spaces-with-dashes="false" min-length="1" name="Courses" required xt-validate >
+                              <tags-input class="bootstrap" ng-model="formData.technologies" placeholder="Technologies Used" replace-spaces-with-dashes="false" min-length="1" name="Technologies" required xt-validate >
                                   <auto-complete source="loadTechnologies($query) | filter:$query" min-length="0" debounce-delay="0" max-results="15"></auto-complete>
                               </tags-input>
                         <em class="text-muted text-E91E63" translate="{{'* Technologies Used'|translate}}"></em>                
@@ -211,7 +211,7 @@
 					<div ng-if="formData.companyType=='CO'">
 					<div class="form-group row">
 						<div class=" m-t-lg" >
-                              <tags-input class="bootstrap" ng-model="college.mandatoryData.Courses" placeholder="Courses Offered" replace-spaces-with-dashes="false" min-length="1" name="Courses" required xt-validate >
+                              <tags-input class="bootstrap" ng-model="formData.Courses" placeholder="Courses Offered" replace-spaces-with-dashes="false" min-length="1" name="Courses" required xt-validate >
                                   <auto-complete source="loadCourses($query) | filter:$query" min-length="0" debounce-delay="0" max-results="15"></auto-complete>
                               </tags-input>
                         	<em class="text-muted text-E91E63" translate="{{'*Courses must be selected from the List '|translate}}"></em>            
