@@ -25,10 +25,13 @@ if(!angular.equals($state.params.courseId,"")){
   var promise = addCourseService.fnLoadCourseDetails($scope, $scope.courseId);
   promise.then(function(course){
     $scope.course = angular.fromJson(JSON.parse(course.data)).courseDetails;
+    if(!$scope.course.Branches){
+      $scope.course.Branches = [];
+    }
     //checking this course have syllabus
     if(angular.equals($scope.course.syllabus,undefined)){
       // if undefined create a default syllabus
-      $scope.course.syllabus = [{ name: $scope.course.Name, children: [], mark:{type:"mark",minMark:5,maxMark:10}, activeFlag:1, parent:"root"}];
+      $scope.course.syllabus = [{ name: $scope.course.Name, children: [], activeFlag:1, parent:"root"}];
     }
 
     if(!angular.equals($scope.course.evaluator,undefined)){
@@ -69,7 +72,7 @@ $scope.technologies={};//object to store selected technologies
 $scope.technologies.values = [];//object to store selected technologies
 
 $scope.ExitPoints={"exitPointList":{}}; // initializing exit point obj
-			
+      
 $scope.totalCourseDuration=0; // course duration in minutes
 
 
@@ -81,18 +84,18 @@ $scope.totalCourseDuration=0; // course duration in minutes
 //watch funtion to analyse change in courseDuration object
     $scope.$watch('courseDuration', function(newVal, oldVal){
         
-        if(($scope.courseDuration.days!==0)||($scope.courseDuration.months!==0)||($scope.courseDuration.years!==0)){		
+        if(($scope.courseDuration.days!==0)||($scope.courseDuration.months!==0)||($scope.courseDuration.years!==0)){    
                             $scope.totalCourseDuration=(($scope.courseDuration.days*1)*24*60)+(($scope.courseDuration.months*30)*24*60)+(($scope.courseDuration.years*365)*24*60);
                      }
-    	else{
-    		$scope.totalCourseDuration=0;
+      else{
+        $scope.totalCourseDuration=0;
 
-    	}                 
+      }                 
     }, true);
 
 
-	$scope.tlPopOver={};//obj for bulding context menu of timeline point
-	$scope.tlPopOver.step4={colorClass:'03A9F4'};
+  $scope.tlPopOver={};//obj for bulding context menu of timeline point
+  $scope.tlPopOver.step4={colorClass:'03A9F4'};
   var weHaveGotCrsElementsStep4=addCourseElementService.FnGetCourseElements("");//calling course element function
       weHaveGotCrsElementsStep4.then(function(data){
         $scope.tlPopOver.step4.courseElementlist=angular.fromJson(JSON.parse(data.data));
@@ -117,14 +120,6 @@ $scope.onDomainSelectionChanged = function(items) {
     }
   };
 
-$scope.onBranchSelectionChanged = function(items) {
-    $scope.selectedBranches=[];
-    if (items) {
-      for (var i = 0; i < items.length; i++) {
-        $scope.selectedBranches.push(items[i].name);
-      }
-    }
-  };
 
 $scope.onRoleSelectionChanged = function(items) {
     $scope.selectedRole=[];
@@ -177,7 +172,6 @@ RoleMenuMappingSrv.FnGetRoles($scope, $scope.cmp_id, "", "");
   $scope.domains = [];
   $scope.branchDetails =[];
   $scope.rolesDetails = [];
-  $scope.selectedBranches =[];
   $scope.selectedRole = [];
 
 // Global Declaration Of variables end  
@@ -197,13 +191,6 @@ RoleMenuMappingSrv.FnGetRoles($scope, $scope.cmp_id, "", "");
 
 
 
-$scope.$watch('branches', function(newVal, oldVal){
-    if (!angular.equals($scope.branches,undefined)) {
-        $scope.data1=manageTreeStructureSrv.buildTree(manageTreeStructureSrv.findRoots($scope.branches,null),null);
-        $scope.branchDetails = angular.copy($scope.data1);
-        convertObjectName($scope.branchDetails, null);
-    }
-});
 
 
 $scope.$watch('roles', function(newVal, oldVal){
@@ -295,7 +282,6 @@ $scope.completeStep1 = function(course){//created for build step1 object
     $scope.course.crmId = $scope.rm_id;
     $scope.course.companyId =  $scope.cmp_id;
     $scope.course.urmId = $scope.rm_id;
-    $scope.course.Branches = $scope.selectedBranches;
 
     
     $scope.course.Tags = Tags;
@@ -306,7 +292,7 @@ $scope.completeStep1 = function(course){//created for build step1 object
       $scope.course.draftFlag = 0;
       $scope.course.activeFlag = 1;
       $scope.course.createdDate = Date();
-      $scope.course.syllabus = [{ name: $scope.course.Name, children: [], mark:{type:"mark",minMark:5,maxMark:10}, activeFlag:1, parent:"root"}];
+      $scope.course.syllabus = [{ name: $scope.course.Name, children: [], activeFlag:1, parent:"root"}];
     }
     var courseToBeSave = angular.copy($scope.course);
     if (!angular.equals(courseToBeSave.Name, undefined)) {
