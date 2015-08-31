@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('TestCtrl',['$scope','$state', '$rootScope', 'commonService',function ($scope,$state,$rootScope, commonService){
+angular.module('baabtra').controller('TestCtrl',['$scope','$state', '$rootScope', 'commonService','collegeServices',function ($scope,$state,$rootScope, commonService,collegeServices){
 
 	/*login detils start*/
 	if(!$rootScope.userinfo){
@@ -12,17 +12,10 @@ angular.module('baabtra').controller('TestCtrl',['$scope','$state', '$rootScope'
 
 	var rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 	var roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
-	var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+	var companyid = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 	/*login detils ends*/
+	$scope.data={};
 
-	$scope.data = {};
-	$scope.schemaObj = {};
-	$scope.fields=[];
-	$scope.copy=function(){
-	$scope.copy1="www.baabtra.com";
-}
-
-	console.log($rootScope.userinfo);
 
 }]);																																																																								 																			
 

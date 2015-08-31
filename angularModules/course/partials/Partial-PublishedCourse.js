@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('PublishedcourseCtrl',['$scope','$rootScope','commonService','$state','PublishedCourse','$alert','draftedCourses','$aside','$modal','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','commonSrv','$state',function($scope,$rootScope,commonService,$state,PublishedCourse,$alert,draftedCourses,$aside,$modal,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,commonSrv,$state){
+angular.module('baabtra').controller('PublishedcourseCtrl',['$scope','$rootScope','commonService','$state','PublishedCourse','$alert','draftedCourses','$aside','$modal','addCourseDomainSrv','manageTreeStructureSrv','branchSrv','commonSrv',function($scope,$rootScope,commonService,$state,PublishedCourse,$alert,draftedCourses,$aside,$modal,addCourseDomainSrv,manageTreeStructureSrv,branchSrv,commonSrv){
 
 if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
       $rootScope.hide_when_root_empty=true;
@@ -12,7 +12,8 @@ $scope.showNavMenu=false;
 $scope.rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 //if($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId==2){
 	$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-  console.log($rootScope.userinfo.ActiveUserData.roleMappingObj);
+  
+
 	PublishedCourse.loadPublishedCourses($scope,'','','','',$state.params.key);
 //}
 
@@ -205,7 +206,14 @@ getDomain.then(function(response){
 $scope.showCopyLinkPopup =function(courseId){
 copyLinkPopup.$promise.then(copyLinkPopup.show);
 var path="courseUserRegistration/";
- $scope.link=domain+"/#/"+path+courseId;
+if (!$rootScope.userinfo.ActiveUserData.roleMappingObj.childCompanyId) {
+ $scope.link=domain+"/#/"+path+courseId+"/";
+}
+else{
+    var childCompanyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.childCompanyId.$oid;
+
+  $scope.link=domain+"/#/"+path+courseId+"/"+childCompanyId;
+}
 };
 
 $scope.hideCopyLinkPopup =function(){
