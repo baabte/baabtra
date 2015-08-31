@@ -1,0 +1,18 @@
+{
+  "name": "baabtra-epub",
+  "version": "0.0.1",
+  "homepage": "https://github.com/baabte/baabtra",
+  "authors": [
+    "jihin <jihin@baabte.com>"
+  ],
+  "description": "epub file reader",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "epub",
+    "docviewer",
+    "reader"
+  ],
+  "license": "MIT"
+}
