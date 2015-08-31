@@ -11,22 +11,34 @@ angular.module('baabtra').directive('scoreCard',['$compile', function($compile) 
 			var getMarkInAllLevel = function(syllabus,index){
 				if(!angular.equals(syllabus[index].mark, undefined)){
 					if(syllabus[index].children.length){
+						var totalMaxMark = 0;
+						var totalScoredMark = 0;
 						for (var i = 0; i < syllabus[index].children.length; i++) {
+							
 							var mark = getMarkInAllLevel(syllabus[index].children, i);
 							var length = syllabus[index].children.length;
+
 							if(!syllabus[index].mark.markScored){
 								syllabus[index].mark.markScored = 0;
 							}
 							if(mark.markScored){
-								syllabus[index].mark.markScored = syllabus[index].mark.markScored + (mark.markScored/mark.maxMark);
-								if(angular.equals(length, (i+1))){
-									syllabus[index].mark.markScored = parseFloat(((syllabus[index].mark.markScored/length)*syllabus[index].mark.maxMark).toFixed(2));
-								}
+
+								totalMaxMark = totalMaxMark + mark.maxMark;
+								totalScoredMark = totalScoredMark + mark.markScored;
+								//syllabus[index].mark.markScored = syllabus[index].mark.markScored + (mark.markScored/mark.maxMark);
+								console.log(length, totalMaxMark);
+								//if(angular.equals(length, (i+1))){
+
+								syllabus[index].mark.markScored = (totalScoredMark/totalMaxMark) * syllabus[index].mark.maxMark;
+									
+									//syllabus[index].mark.markScored = parseFloat(((syllabus[index].mark.markScored/length)*syllabus[index].mark.maxMark).toFixed(2));
+								//}
 							}
 						}
 					}
 
 				    if(syllabus[index].mark){
+				    	
 				    	if(syllabus[index].mark.markScored){
 				    		syllabus[index].mark.markScored = parseFloat(syllabus[index].mark.markScored.toFixed(2));
 				    	}
