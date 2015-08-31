@@ -40,7 +40,7 @@
 					</div>
 
 					<div class="col-xs-3 text-right">
-						<a href="" class="btn btn-info" ng-click="evaluateTrainee(course)">Evaluate</a>
+						<a href="" class="btn btn-info" ng-click="evaluateTrainee(course,id)">Evaluate</a>
 					<div>
 				</div>
 			</div>
@@ -48,10 +48,13 @@
 	</div>
 </div>
 <div class="row p-v"  ng-if="batchObj.selectedCourse" style="padding-top: 80px;padding-bottom: 15px;">
-			<div class="col-md-push-2 col-xs-push-0 col-md-8 col-xs-12 col-sm-12 col-xs-12">
-				<div  ng-repeat="element in batchObj.elementOrderArray" >
-					<evaluation-loader course-timeline="batchObj.selectedCourse.courseTimeline" element-order="batchObj.selectedCourse.elementOrder[element]" evaluator-id="rm_id" course-mapping-id="batchObj.selectedCourse._id.$oid" evaluable-element="batchObj.evaluableElement"></evaluation-loader>
-			</div>
+  <div class="well col-xs-4" data-angular-treeview="true" data-tree-id="syllabusTree" data-tree-model="candidateCourse.syllabus" data-node-output="selectedElement.element" data-tree-mode="add" data-node-edit="false" data-status="true" data-node-id="nodeId" data-node-label="name" data-node-children="children"  style="    overflow-y: scroll;
+    height: 447px;
+    margin-bottom: -33px;"></div>	
+			<div class=" col-xs-push-0 col-md-8 col-xs-12 col-sm-12 col-xs-12">
+				
+					<evaluation-loader ng-if="course.order" course-element="course"  evaluator-id="rm_id" course-mapping-id="courseMappingId" ></evaluation-loader>
+			
 			<div ng-if="!batchObj.evaluableElement" class="col-xs-12 shadow-z-1 p bg-warning font-bold">
 				There are no evaluable element found .!
 			</div>

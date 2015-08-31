@@ -1,0 +1,17 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="panel">
+      <div class="p-h p-v-sm bg-info font-bold">
+        Get link
+      </div>
+      <div class="input-group col-sm-12">
+             <input type="text" ng-model="link" class="form-control col-sm-6  m-l-lg" disabled style="cursor: default !important;border-style: groove">
+             <div class="input-group-addon"> <i class=" fa fa-copy col-sm-2  text-2x" bs-tooltip data-placement="left" data-title="{{status}}" clip-copy="link" ng-click="copy()" ></i></div>
+      </div>
+      <div class="modal-footer no-padding">
+        <button type="button" class="btn btn-warning baab-btn" ng-click="$hide()" style="margin-right: 14px;">Cancel</button>
+        
+      </div>
+    </div>
+  </div>
+</div>

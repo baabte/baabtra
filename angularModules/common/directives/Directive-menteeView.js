@@ -76,7 +76,7 @@ angular.module('baabtra').directive('menteeView',['$state', function($state) {
 
 			//function to evaluate course materials
 			scope.fnEvaluate=function(){
-				$state.go("home.main.menteeEvaluation",{courseId:scope.menteeObj.fkCourseId.$oid, userId:scope.menteeObj.fkUserRoleMappingId.$oid});
+				$state.go("home.main.menteeEvaluation",{courseId:scope.menteeObj._id.$oid, userId:scope.menteeObj.fkUserLoginId.$oid});
 			};
 
 			scope.fnviewMarkSheet = function(){
