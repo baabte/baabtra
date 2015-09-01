@@ -11,7 +11,13 @@
 							<button ng-click="fnSearchBatchMentee(searchText)" class="btn btn-info baab-btn  no-margin" ng-disabled="!searchText.length">Search</button>
 						</div>
 					</div>
-					<div class="col-xs-6 col-md-9 text-right">
+					<div class="col-xs-6 col-md-9 text-right visible-xs">
+						<div class="btn-group " style="width: 32px;">
+							<button type="button" ng-disabled="prevButtonDesabled"  class="btn btn-info" ng-click="pagination('prev')" style="margin-left: -38px;"><i class="fa fa-fw fa-angle-left"></i></button>
+							<button type="button" ng-disabled="nextButtonDesabled" class="btn btn-info" ng-click="pagination('next')"style="margin-left: -38px;"><i class="fa fa-fw fa-angle-right"></i></button>
+						</div>
+					</div>
+					<div class="col-xs-6 col-md-9 text-right hidden-xs">
 						<div class="btn-group ">
 							<button type="button" ng-disabled="prevButtonDesabled"  class="btn btn-info" ng-click="pagination('prev')"><i class="fa fa-fw fa-angle-left"></i></button>
 							<button type="button" ng-disabled="nextButtonDesabled" class="btn btn-info" ng-click="pagination('next')"><i class="fa fa-fw fa-angle-right"></i></button>

@@ -3,44 +3,61 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 		restrict: 'E',
 		replace: true,
 		scope: {
-			 courseTimeline:'=',
-			 elementOrder:'=',
+			 courseElement:'=',
 			 evaluatorId:'=',
 			 courseMappingId:'=',
-			 evaluableElement:'='
 		},
 		templateUrl: 'angularModules/evaluation/directives/Directive-evaluationLoader.html',
 		link: function(scope, element, attrs, fn) {
 
-				scope.evalLoader = {};
-				
-				scope.outElement = [];
+var loader=$modal({scope: scope,backdrop:'static', template: 'angularModules/markSheet/designMarkSheet/popup/Popup-loadCourseData.html', show: false,placement:'center'});
+
+scope.startLoader =function(){
+loader.$promise.then(loader.show);
+};
+
+scope.stopLoader =function(){
+loader.hide();
+};   
 
 				
+				name=scope.courseElement["Name"];
+				tlPointInMinute=scope.courseElement["tlPointInMinute"];
+				index=scope.courseElement["index"];
+                 elementOrder=tlPointInMinute+"."+name+"."+index;
+                 
+				// scope.outElement = [];
+                
+				scope.$watch('courseElement',function(){
+				
 
-				var keyArray = scope.elementOrder.split('.');
+				// var keyArray = scope.courseElement.split('.');
 
-				var obj = scope.courseTimeline;
+				// var obj = scope.courseTimeline;
 
-				var index = 0;
-				for(var key in keyArray){
-					if(!angular.equals(obj[keyArray[key]],undefined)){
-						obj = obj[keyArray[key]];
-						index++;
-						if(angular.equals(keyArray.length, index)){
-							scope.element = obj;
-							if(scope.element.evaluable){
-								scope.evaluableElement = true;	
-							}
-						}
-					}
-					else{
-						break;
-					}
-				}
-
-				scope.evaluated = function(element, elementTotalMarks, outElement, elementOrder, courseMappingId, evaluatorId){
-
+				// var index = 0;
+				// for(var key in keyArray){
+				// 	if(!angular.equals(obj[keyArray[key]],undefined)){
+				// 		obj = obj[keyArray[key]];
+				// 		index++;
+				// 		if(angular.equals(keyArray.length, index)){
+				// 			scope.element = obj;
+				// 			if(scope.element.evaluable){
+				// 				scope.evaluableElement = t)rue;	
+				// 			}
+				// 		}
+				// 	}
+				// 	else{
+				// 		break;
+				// 	}
+				// }
+                scope.element=scope.courseElement;
+                if(scope.element.evaluable){
+						scope.evaluableElement = true;	
+				   }
+				});
+				scope.evaluated = function(element, elementTotalMarks, outElement,  courseMappingId, evaluatorId){
+					       scope.startLoader();
 					element.evalDetails = {};
 					var result = angular.copy(outElement);
 
@@ -79,10 +96,16 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
 								}
 								else{
 									$alert({title: 'Wrong!', content: 'Operation faild', placement: 'bottom-right', type: 'danger', duration:2, show: true});
+
 								}
+								scope.stopLoader();
+
 							});	
 						}
+
 					}
+
+					
 				};//fn_evaluated
 
 				scope.askResubmit = function(outElement){
@@ -103,7 +126,7 @@ angular.module('baabtra').directive('evaluationLoader',['evaluationService', '$a
             	};//fn askResubmit
 
 				//this function trigers when click resubmit button
-				scope.fnResubmit = function(element, outElement, elementOrder, courseMappingId, evaluatorId){
+				scope.fnResubmit = function(element, outElement, courseElement, courseMappingId, evaluatorId){
 					
 
 					var result = angular.copy(outElement);
