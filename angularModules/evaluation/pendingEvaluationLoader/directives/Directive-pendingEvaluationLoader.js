@@ -17,6 +17,7 @@ angular.module('baabtra').directive('pendingEvaluationLoader',['evaluationServic
 				
 				scope.outElement = [];
 
+				console.log(scope.courseElement,scope.elementOrder,scope.evaluatorId,scope.courseMappingId,scope.evaluationId,scope.removeFunction);
 
 				var keyArray = scope.elementOrder.split('.');
 

@@ -24,7 +24,7 @@
             <div class="row" >
               <div class="col-xs-12  p-v">
                   <div class="col-xs-12 bg-white shadow-z-1 ">
-                    <div class="row">
+                    <div class="row" ng-if="selectedElement.element">
                       <pending-evaluation-loader  course-element="selectedElement.element" element-order="selectedElement.elementAddress" evaluator-id="rm_id" course-mapping-id="selectedElement.fkUserCourseMappingId.$oid" evaluation-id="selectedElement._id.$oid" remove-function="removeEvaluated"> </pending-evaluation-loader>
 
                     </div>
