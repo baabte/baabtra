@@ -197,7 +197,7 @@
                 }
               })
               .state('home.main.department', {
-                url: '/department/:branchId',
+                url: '/department',
                  views:{
                   'innercontent':{
                 templateUrl: 'angularModules/Department/partials/Partial-department.html',
@@ -1015,7 +1015,7 @@
                 controller:'CompanycourselistCtrl'
               })
                .state('courseUserRegistration', {
-                url: '/courseUserRegistration/:courseId',
+                url: '/courseUserRegistration/:courseId/:childCompanyId',
                 templateUrl: 'angularModules/common/formLoader/partials/Partial-formLoader.html',
                 controller:'FormloaderCtrl'
               })

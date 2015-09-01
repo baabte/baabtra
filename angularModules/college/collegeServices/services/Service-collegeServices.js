@@ -26,6 +26,18 @@ this.FnRegisterCollege=function(college){
    });
   return promise;
  }
+  this.fngetCollageList=function(companyid){
+  var promise = $http({
+    method: 'POST',
+      url: bbConfig.BWS+'fngetCollageList/',
+      data:{"companyid":companyid},
+      method: 'POST',
+      withCredentials: false,
+      contentType:'application/json',
+      dataType:'json'
+   });
+  return promise;
+ }
 
 
 }]);

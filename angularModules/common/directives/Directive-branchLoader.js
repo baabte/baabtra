@@ -3,7 +3,7 @@ Purpose : Directive for load branch under company
 Created By : Jihin
 Created On : 25/08/2015
 */
-angular.module('baabtra').directive('branchLoader',['branchSrv','manageTreeStructureSrv','$rootScope',function(branchSrv,manageTreeStructureSrv,$rootScope) {
+angular.module('baabtra').directive('branchLoader',['branchSrv','manageTreeStructureSrv','$rootScope', 'commonService',function(branchSrv,manageTreeStructureSrv,$rootScope, commonService) {
   return {
     restrict: 'E',
     require:["ng-model"],
@@ -16,10 +16,21 @@ angular.module('baabtra').directive('branchLoader',['branchSrv','manageTreeStruc
     templateUrl: 'angularModules/common/directives/Directive-branchLoader.html',
 
     link: function($scope, element, attrs, ctrls) {
-      
-      var rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
-      var roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
-      var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+      /*login detils start*/
+      if(!$rootScope.userinfo){
+        commonService.GetUserCredentials($scope);
+        $rootScope.hide_when_root_empty=false;
+        return;
+      }
+
+      if(angular.equals($rootScope.loggedIn,false)){
+        $state.go('login');
+      }
+
+      var rm_id=$rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+      var roleId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
+      var companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+      /*login detils ends*/
 
       var branchCondition = {companyId:companyId};
       $scope.branchObj = {};

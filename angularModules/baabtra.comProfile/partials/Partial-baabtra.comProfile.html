@@ -103,7 +103,7 @@
               <tr ng-if="course.type == 'test'" ng-repeat="course in baabtraProfile.tests">
                 <td>{{$index+1}}</td>
                 <td>{{course.Name}}</td>
-                <td>{{course.markScored}}&nbsp;/&nbsp;{{course.totalMark}}</td>
+                <td>{{course.syllabus[0].mark.markScored}}/{{course.syllabus[0].mark.maxMark}}</td>
                 <td>{{course.status?course.status:'NA'}}</td>
                 <td>{{convertDate(course.createdDate) | date:'dd/MMM/yyyy'}}</td>
               </tr>
@@ -131,7 +131,7 @@
               <tr ng-if="course.type == 'course'" ng-repeat="course in baabtraProfile.courses">
                 <td>{{$index+1}}</td>
                 <td>{{course.Name}}</td>
-                <td>{{course.markScored}}&nbsp;/&nbsp;{{course.totalMark}}</td>
+                <td>{{course.syllabus[0].mark.markScored}}/{{course.syllabus[0].mark.maxMark}}</td>
                 <td>{{getCourseDuration(course.Duration.DurationDetails)}}</td>
                 <td>{{course.status?course.status:'NA'}}</td>
                 <td>NA</td>

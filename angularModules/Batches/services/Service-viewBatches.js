@@ -68,7 +68,24 @@ angular.module('baabtra').service('viewBatches',['bbConfig','$http',function(bbC
 	return promise;
 	};
 
-	this.LoadUserCourseDetails = function(usersList, courseId){
+	this.LoadUserDetails = function(courseMappingId){
+		var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'LoadUserDetails/',
+	    data:{"courseMappingId":courseMappingId}
+	 });
+	return promise;
+	};
+	this.LoadUserCourseevaluation = function(courseMappingId,orders){
+		var promise = $http({
+	 	method: 'POST',
+	    url: bbConfig.BWS+'LoadUserCourseevaluation/',
+	    data:{"courseMappingId":courseMappingId,"orders":orders}
+	 });
+	return promise;
+	};
+    
+    	this.LoadUserCourseDetails = function(usersList, courseId){
 		var promise = $http({
 	 	method: 'POST',
 	    url: bbConfig.BWS+'LoadUserCourseDetails/',
@@ -85,5 +102,13 @@ angular.module('baabtra').service('viewBatches',['bbConfig','$http',function(bbC
 	 });
 	return promise;
 	};
-
+	this.getcourseMappingId=function(usersId,course) {
+		 var promise = $http({
+			          method: 'post',
+			          url: bbConfig.BWS+'getcourseMappingId/',
+			          data:{"usersId":usersId,"course":course},
+			          contentType:'application/json; charset=UTF-8',
+			        });
+        return promise;
+	};	
 }]);

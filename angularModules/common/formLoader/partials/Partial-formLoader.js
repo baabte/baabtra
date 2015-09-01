@@ -19,7 +19,7 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 				}
 			});	
 	}
-
+   console.log($state.params);
 	var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $state.params.courseId);
 		courseLoadResponse.then(function(course){
 	    	
@@ -36,6 +36,15 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 			$scope.data.orderForm.companyId = $scope.data.course.companyId.$oid;
 			$scope.data.orderForm.registrationType = "API";
 			
+
+             if ($state.params.childCompanyId) {
+             	$scope.data.orderForm.childCompanyId = $state.params.childCompanyId;
+             	console.log($scope.data.orderForm.childCompanyId);
+             	console.log( $state.params.childCompanyId);
+             };
+
+
+
 			loadFormDetails($scope.data.orderForm.companyId);
 
 	    	courseDetails.courseId = $scope.data.course._id.$oid;
@@ -94,6 +103,8 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 		userDetails.coursetype = "instructorLead";
 		userDetails.materialAssignment = "automatic";
 		userDetails.doj = new Date();
+        
+       
 
 		var output = {};
 		for(var step in $scope.data.formOut){	
@@ -127,7 +138,7 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 		$scope.data.orderForm.orderDetails.push(courseDetails);
 		$scope.data.orderForm.requesteeDetails = output;
 		$scope.data.orderForm.requesteeDetails.type = 'individual'
-
+        console.log($scope.data.orderForm);
 			var nomintaionResponse = formLoader.CustomFormUserRegistration($scope.data.orderForm, "5562fe9394214e36a96600e5");
 			nomintaionResponse.then(function(response){
 					$scope.data.registerButtonClicked = false;
