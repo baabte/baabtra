@@ -83,8 +83,8 @@ angular.module('angular-custom-form',[]) /*Config constant for angular custom fo
 .constant('bbConfig',{ //used for storing enviornment variables
 
 
-     "BWS": "http://127.0.0.1:8000/",//local
-     // "BWS": "http://services.baabtra.com/",//server - production
+     //"BWS": "http://127.0.0.1:8000/",//local
+     "BWS": "http://services.baabtra.com/",//server - production
 
      "SARID":1, // SuperAdminRoleID
      "CURID":2, // CompanyUser
