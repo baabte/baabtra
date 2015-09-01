@@ -1,5 +1,6 @@
 {
   "name": "baabtra-epub",
+  "main":["book.css","portrait.css","js/inflate.js", "js/sax.js", "js/zip.js", "js/epub.js", "js/base64.js", "js/imageSize.js", "js/paginator.js", "js/section.js", "js/pageHandler.js", "js/Hyphenator.js", "js/patterns/en.js","js/swipe.js", "js/pageRenderer.js"],
   "version": "0.0.1",
   "homepage": "https://github.com/baabte/baabtra",
   "authors": [
