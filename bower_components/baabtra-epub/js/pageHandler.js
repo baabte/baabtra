@@ -283,8 +283,11 @@ var naccum = 0;
   this.display = function () {
 
     var l = book.contents.length;
+
     function loadSection (n) {
+
       if (n < l) {
+        console.log(sections);
 var startTime = new Date();
         // Load section n, and schedule the next section to load in 100ms.
         sections[n].loadCallback( function (loaded) {
