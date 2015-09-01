@@ -241,11 +241,11 @@ $scope.$watch('selectedElement',function(){
 },true);
 
 $scope.removeEvaluated=function(){
-	console.log($scope.selectedElementIndex);	
-	console.log($scope.data.EvaluationList[$scope.selectedElementIndex])
+	// console.log($scope.selectedElementIndex);	
+	// console.log($scope.data.EvaluationList[$scope.selectedElementIndex])
 	$scope.data.EvaluationList.splice($scope.selectedElementIndex,1);
-	console.log($scope.data.EvaluationList[$scope.selectedElementIndex])
-	
+	// console.log($scope.data.EvaluationList[$scope.selectedElementIndex])
+
 };
 
 $scope.selectElement=function(element,index){
@@ -253,7 +253,7 @@ $scope.selectedElement=element;
 $scope.selectedElementIndex=index;
 if($scope.selectedElement.element){
 		$scope.showEvaluationModal();
-};
+}
 
 };
 
