@@ -33,7 +33,7 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 	$scope.value = "State";
 
 	$scope.data.userDropdown = [{"text" : "<i class=\"mdi-action-account-box\"></i>&nbsp;View Profile",
-    							"click":"$state.go(\"home.main.userProfile\",{userId:user.fkUserLoginId.$oid})"},
+    							"click":"goToUserProfile(user.fkUserLoginId.$oid)"},
     							{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View BP Summary",
     							"click":"viewProfile(user.fkUserLoginId.$oid, 'summary')"},
     							{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View Detailed BP",
@@ -189,10 +189,19 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 
 
 
-    $scope.viewProfile = function(userId, type){
-		$state.go("home.main.baabtraProfile",{type:type, userLoginId:userId});
+   	$scope.goToUserProfile = function(userId){
+		// $state.go("home.main.baabtraProfile",{type:type, userLoginId:userId});
+		var url = $state.href('home.main.userProfile',{userId:userId});
+		window.open(url,'_blank');
 	};
 
+
+
+    $scope.viewProfile = function(userId, type){
+		// $state.go("home.main.baabtraProfile",{type:type, userLoginId:userId});
+		var url = $state.href('home.main.baabtraProfile',{type:type, userLoginId:userId});
+		window.open(url,'_blank');
+	};
 
 	// Pre-fetch an external template populated with a custom scope
 	var statusChangeModal = $modal({scope:$scope,placement:'top', template: 'angularModules/user/partials/modal-changeStatus.html', show: false});//call aside for add new department
@@ -255,8 +264,8 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 			 fnFetchCurrentStatusCallback=statusChangeSrvc.fnFetchCurrentStatus(tab,$scope.selectedUserId,companyId);
 			fnFetchCurrentStatusCallback.then(function(data){
 				var result= angular.fromJson(JSON.parse(data.data));
-				$scope.status[tab]=result.status[tab];
-				// console.log(result);
+				// $scope.status[tab]=result.status[tab];
+				console.log(result);
 			});
 
 		}

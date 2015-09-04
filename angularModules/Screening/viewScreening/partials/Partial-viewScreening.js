@@ -17,7 +17,7 @@ if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.childCompany
 	$scope.childCompanyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.childCompanyId.$oid;
 }
 
-
+console.log($rootScope.userinfo.ActiveUserData.roleMappingObj);
 
 
 //====================================
@@ -58,7 +58,7 @@ loader.hide();
 	$scope.data.searchKey.profile.gender = "";
 	$scope.value = "State";
 
-	var screeningArray=[{key:'Baabtra',value:'Under Screening'},{key:'Baabtra',value:'Ok To Supply'}]
+	var screeningArray=[{key:'Baabtra',value:'Under Screening'},{key:'Baabtra',value:'Ok To Supply'}];
 
 	if($state.params){
 		$scope.screeningObj=screeningArray[$state.params.key];
@@ -71,7 +71,7 @@ loader.hide();
 
 
 	$scope.data.userDropdown = [{"text" : "<i class=\"mdi-action-account-box\"></i>&nbsp;View Profile",
-    							"click":"$state.go(\"home.main.userProfile\",{userId:user.fkUserLoginId.$oid})"},
+    							"click":"goToUserProfile(user.fkUserLoginId.$oid)"},
     							{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View BP Summary",
     							"click":"viewProfile(user.fkUserLoginId.$oid, 'summary')"},
     							{"text" : "<i class=\"fa fa-fw fa-user\"></i>&nbsp;View Detailed BP",
@@ -226,12 +226,18 @@ loader.hide();
 	};
 
 
-
+	$scope.goToUserProfile = function(userId){
+		// $state.go("home.main.baabtraProfile",{type:type, userLoginId:userId});
+		var url = $state.href('home.main.userProfile',{userId:userId});
+		window.open(url,'_blank');
+	};
 
 
 
     $scope.viewProfile = function(userId, type){
-		$state.go("home.main.baabtraProfile",{type:type, userLoginId:userId});
+		// $state.go("home.main.baabtraProfile",{type:type, userLoginId:userId});
+		var url = $state.href('home.main.baabtraProfile',{type:type, userLoginId:userId});
+		window.open(url,'_blank');
 	};
 
 
@@ -305,7 +311,8 @@ loader.hide();
 			fnFetchCurrentStatusCallback.then(function(data){
 				var result= angular.fromJson(JSON.parse(data.data));
 				// $scope.status[tab]=result.status[tab];
-				// console.log(result);
+				$scope.companyStatusList=result;
+				console.log(result);
 			});
 
 		}
@@ -370,7 +377,7 @@ loader.hide();
 				var result= angular.fromJson(JSON.parse(data.data));
 				// console.log(result);
 			$scope.notifications('','Status Updated Successfully','success');   
-				
+
 			});
 
 		}
