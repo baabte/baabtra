@@ -253,7 +253,13 @@ var fnBlockSubmission = function(){
 
 // block the submission if the assignment is already submitted
  if(angular.equals(scope.$parent.previewData.status, 'submitted')){
-    	scope.blockSubmission = true;
+ 		scope.blockSubmission = true;
+ 		for(var index in scope.$parent.previewData.elements){
+ 			var element=scope.$parent.previewData.elements[index];
+ 			if((!angular.equals(element.value.resultStatus,undefined))&&(angular.equals(element.value.resultStatus,'to be resubmitted'))){
+ 				scope.blockSubmission = false;
+ 			} 			
+ 		}
 
     	scope.penaltyMessage = "Submitted on " + scope.convertDate(scope.$parent.previewData.submittedOn).day + ', ' + scope.convertDate(scope.$parent.previewData.submittedOn).time;
     }

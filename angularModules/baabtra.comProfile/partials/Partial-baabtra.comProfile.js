@@ -94,9 +94,7 @@ $scope.loadCourseDetailsById = function(userId, courseId){
 
 $scope.calculateAge = function calculateAge(birthday) { // birthday is a date
 	birthday = new Date(birthday);
-    var ageDifMs = Date.now() - birthday.getTime();
-    var ageDate = new Date(ageDifMs); // miliseconds from epoch
-    return Math.abs(ageDate.getUTCFullYear() - new Date().getUTCFullYear());
+    return Math.abs(new Date().getUTCFullYear()-birthday.getUTCFullYear());
 };
 
 
