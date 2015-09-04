@@ -10,6 +10,8 @@
              <li class="active btn no-padding"><a class='font-bold' ng-click="fnChangeTab('Account')" data-toggle="tab">Account</a></li>
              <li class="btn no-padding"><a class='font-bold' ng-click="fnChangeTab('Course')" data-toggle="tab">Course</a></li>
              <li class="btn no-padding"><a class='font-bold'  ng-click="fnChangeTab('Job')" data-toggle="tab">Job</a></li>
+             <li class="btn no-padding"><a class='font-bold'  ng-click="fnChangeTab('Baabtra')" data-toggle="tab">Baabtra</a></li>
+            <!--  <li class="btn no-padding"><a class='font-bold'  ng-click="fnChangeTab('Company')" data-toggle="tab">Company</a></li> -->
 
           </ul>
 <div class="tab-content b-t m-t-xs">
@@ -81,6 +83,74 @@
                     </select>
                 </div>
         </div>
+        <br>
+    </div>    
+    <div class="tab-pane  active in font-bold"  ng-if="tab=='Baabtra'">
+        <p>Baabtra</p>
+        <div class="m-b-lg">
+                <label for="select" class="col-xs-4 control-label font-bold">Baabtra Status</label>
+                <div class="col-md-5 col-xs-8">
+                    <select class="form-control" ng-model="status.Baabtra" id="select">
+                        <option value="">Select Status</option>                        
+                        <option value="Under Screening">Under Screening</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Ok To Supply">Ok To Supply</option>
+                        <option value="Applied for Re-Screening">Applied for Re-Screening</option>
+                    </select>
+                </div>
+        </div>
+        <br>
+    </div>    
+    <div class="tab-pane  active in font-bold"  ng-if="tab=='Company'">
+        <p>Company</p>
+        <div class="col-xs-12 p-h-sm shadow-z-1  pull-left bg-white p-v" ng-repeat="companyStatus in companyStatusList" style="cursor: pointer;">
+          <div class="col-xs-8" class="m-b-lg">
+                <label class="col-xs-12 font-bold pull-left">{{companyStatus.Name}}</label>
+                <div class="col-xs-12 ">
+                    <label for="select" class="col-xs-4 control-label font-bold pull-left">Status</label>
+                    <div class="col-md-5 col-xs-8">
+                      <select class="form-control" ng-model="status.Company" id="select">
+                          <option value="">Select Status</option>                        
+                          <option value="Interview Scheduled">Interview Scheduled</option>
+                          <option value="Didn't Attend">Didn't Attend</option>
+                          <option value="Short Listed">Short Listed</option>
+                          <option value="Confirmed">Confirmed</option>
+                          <option value="Rejected">Rejected</option>
+                          <option value="Offer Letter Provided">Offer Letter Provided</option>
+                          <option value="Offer Accepted">Offer Accepted</option>
+                          <option value="Offer Rejected">Offer Rejected</option>
+                      </select>
+                  </div>
+                </div>
+
+          </div>
+          <div class="col-xs-4" class="m-b-lg">
+                <button ng-disabled="!status.Course[courseStatus._id.$oid].status" ng-click="fnChangeStatus(tab,courseStatus._id.$oid)" type="button" class="btn btn-primary baab-btn"><i class="mdi-content-save"></i>&nbsp;Save</button>
+
+          </div>
+          
+
+
+
+        </div>
+
+        <!-- <div ng-if="!childCompanyId" class="m-b-lg">
+                <label for="select" class="col-xs-4 control-label font-bold">Company Status</label>
+                <div class="col-md-5 col-xs-8">
+                    <select class="form-control" ng-model="status.Company" id="select">
+                        <option value="">Select Status</option>                        
+                        <option value="Interview Scheduled">Interview Scheduled</option>
+                        <option value="Didn't Attend">Didn't Attend</option>
+                        <option value="Short Listed">Short Listed</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Offer Letter Provided">Offer Letter Provided</option>
+                        <option value="Offer Accepted">Offer Accepted</option>
+                        <option value="Offer Rejected">Offer Rejected</option>
+                    </select>
+                </div>
+        </div> -->
+
         <br>
     </div>    
 </div>

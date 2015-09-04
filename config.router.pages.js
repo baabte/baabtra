@@ -1089,6 +1089,16 @@
                 }
               })
 
+               .state('home.main.Screening', {
+                url: '/Screening/:key',
+                 views:{
+                  'innercontent':{
+                templateUrl: 'angularModules/Screening/viewScreening/partials/Partial-viewScreening.html',
+                controller:'ViewscreeningCtrl'
+                  }
+                }
+              })
+
               .state('page.document', {
                 url: '/document',
                 templateUrl: 'views/pages/document.html'

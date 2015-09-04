@@ -11,7 +11,9 @@ $scope.emailicon=false;
 $scope.toggle=true;
 $scope.pwdicon=false;
 $scope.lange=false;
+$scope.gender=false;
 $scope.availlangualges=[{"language":"English","langCode":"en"},{"language":"Arabic","langCode":"ar"}];
+$scope.genderArray=['Male','Female'];
 $scope.languageActiveOrNot=true;
 userLoginId="";
 if(!$rootScope.userinfo){ //checking for the login credentilas is present or not
@@ -32,7 +34,9 @@ else{
 	userLoginId=$scope.userinfo.userLoginId;
 }
 profile.then(function (data) {
+
 	$scope.profileData = angular.fromJson(JSON.parse(data.data));
+	console.log($scope.profileData);
 	$scope.profileObj = {};
 			
 			if(!$scope.profileData.profile.Preferedlanguage){
@@ -128,6 +132,10 @@ $scope.editAboutOpt=function(variable){
 	else if(variable=='lange'){
 		$scope.lange=$scope.lange===false?true:false;
 	}
+	else if(variable=='gender'){
+		$scope.gender=$scope.gender===false?true:false;
+	}
+
 
 };
 

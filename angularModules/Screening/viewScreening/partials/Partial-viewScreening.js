@@ -1,22 +1,48 @@
-angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','$rootScope','$state','courseAllocateService','viewUsers', 'addCourseService','$modal','statusChangeSrvc', 'branchSrv','$alert',function($scope,commonService,$rootScope,$state, courseAllocateService, viewUsers, addCourseService,$modal,statusChangeSrvc, branchSrv,$alert){
+angular.module('baabtra').controller('ViewscreeningCtrl',['$scope','$rootScope','$state','commonService','viewUsers','addCourseService','courseAllocateService','statusChangeSrvc','branchSrv','multiRegistrationSrvc','$modal','$alert', function($scope,$rootScope,$state,commonService,viewUsers,addCourseService,courseAllocateService,statusChangeSrvc,branchSrv,multiRegistrationSrvc,$modal,$alert){
 
-	/*login detils start*/
-	if(!$rootScope.userinfo){
-		commonService.GetUserCredentials($scope);
-		$rootScope.hide_when_root_empty=false;
-		return;
-	}
+if(!$rootScope.userinfo){
+   commonService.GetUserCredentials($scope);
+   $rootScope.hide_when_root_empty=false;
+}
 
-	if(angular.equals($rootScope.loggedIn,false)){
-		$state.go('login');
-	}
+if($rootScope.loggedIn===false){
+ $state.go('login');
+}
 
-	var rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
-	var roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
-	var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
-	/*login detils ends*/
 
-	//primary initialization for status 
+var rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
+var companyId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+
+if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.childCompanyId,'')){
+	$scope.childCompanyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.childCompanyId.$oid;
+}
+
+console.log($rootScope.userinfo.ActiveUserData.roleMappingObj);
+
+
+//====================================
+//this is to manage the progress popup
+	$scope.loaderProgressTab=0;
+	$scope.progressStart=function () {
+	$scope.loaderProgressTab=$scope.loaderProgressTab==4?1:$scope.loaderProgressTab*1+1;
+	};
+	var interval=setInterval(function() {
+	$scope.progressStart();
+	},700);
+//=======================================
+
+var loader=$modal({scope: $scope,backdrop:'static', template: 'angularModules/markSheet/designMarkSheet/popup/Popup-loadCourseData.html', show: false,placement:'center'});
+
+$scope.startLoader =function(){
+loader.$promise.then(loader.show);
+};
+
+$scope.stopLoader =function(){
+loader.hide();
+};   
+
+
+//primary initialization for status 
 	$scope.tab='Account';
 	$scope.status={};
 
@@ -31,6 +57,18 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 	$scope.data.searchKey.profile = {};
 	$scope.data.searchKey.profile.gender = "";
 	$scope.value = "State";
+
+	var screeningArray=[{key:'Baabtra',value:'Under Screening'},{key:'Baabtra',value:'Ok To Supply'}];
+
+	if($state.params){
+		$scope.screeningObj=screeningArray[$state.params.key];
+
+		if(!angular.equals($scope.screeningObj,undefined)){
+			$scope.data.searchKey.status[$scope.screeningObj.key]=$scope.screeningObj.value;
+		}
+	}
+	// console.log($state.params);
+
 
 	$scope.data.userDropdown = [{"text" : "<i class=\"mdi-action-account-box\"></i>&nbsp;View Profile",
     							"click":"goToUserProfile(user.fkUserLoginId.$oid)"},
@@ -72,6 +110,8 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 					clearTimeout(searchTimeOut);
 				}
 				searchTimeOut=setTimeout(function(){
+					$scope.startLoader();
+					console.log($scope.data.searchKey);
 			    var fetchUsersToCourseAllocateCallback = viewUsers.fnFetchUsersByDynamicSearch(companyId,'','','initial',$scope.data.searchKey); 
 			    fetchUsersToCourseAllocateCallback.then(function(data){
 			        $scope.data.result = angular.fromJson(JSON.parse(data.data));
@@ -83,6 +123,7 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 			        $scope.data.firstUserId = $scope.data.result.firstUserId;
 			        $scope.data.lastUserId = $scope.data.result.lastUserId;
 			        $scope.data.prevButtondisabled = true;
+			        $scope.stopLoader();
 			    });
 			    },500);
 			}
@@ -185,11 +226,7 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 	};
 
 
-
-
-
-
-   	$scope.goToUserProfile = function(userId){
+	$scope.goToUserProfile = function(userId){
 		// $state.go("home.main.baabtraProfile",{type:type, userLoginId:userId});
 		var url = $state.href('home.main.userProfile',{userId:userId});
 		window.open(url,'_blank');
@@ -202,6 +239,7 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 		var url = $state.href('home.main.baabtraProfile',{type:type, userLoginId:userId});
 		window.open(url,'_blank');
 	};
+
 
 	// Pre-fetch an external template populated with a custom scope
 	var statusChangeModal = $modal({scope:$scope,placement:'top', template: 'angularModules/user/partials/modal-changeStatus.html', show: false});//call aside for add new department
@@ -216,6 +254,13 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 		statusChangeModal.hide();
 	};    
 
+	 // FetchCompaniesCallback=multiRegistrationSrvc.FetchCompanies(companyId,"CM");
+		// 	FetchCompaniesCallback.then(function(data){
+		// 		var result= angular.fromJson(JSON.parse(data.data));
+		// 		console.log(result);
+		// 	});
+
+
 	$scope.fnChangeTab = function(tab){
 		$scope.tab=tab;
 		// $scope.status={};
@@ -227,6 +272,7 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 				var result= angular.fromJson(JSON.parse(data.data));
 				$scope.status[tab]=result.status[tab];
 				// console.log($scope.status[tab]);
+
 			});
 
 		}else if(angular.equals(tab,'Course')){
@@ -265,6 +311,7 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 			fnFetchCurrentStatusCallback.then(function(data){
 				var result= angular.fromJson(JSON.parse(data.data));
 				// $scope.status[tab]=result.status[tab];
+				$scope.companyStatusList=result;
 				console.log(result);
 			});
 
@@ -355,7 +402,6 @@ angular.module('baabtra').controller('ViewusersCtrl',['$scope','commonService','
 		});
 
 	};
-
 
 	//notification 
 $scope.notifications=function(title,message,type){

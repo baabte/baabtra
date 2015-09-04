@@ -262,6 +262,33 @@
                        </div>
           </div>
            <!-- end  edit email-->
+           <!-- div for Gender settings -->
+                     <div  class="m-b-xs ng-scope " ng-mouseenter="editAboutOpt('gender')" ng-mouseleave="editAboutOpt('gender')">
+                       <div ng-click="genderSetup=true" class="panel-body p-sm bg-light lt " bs-collapse-toggle="" data-toggle="collapse" >
+                            <div  class="col-xs-3" >Gender</div>
+                            <div ng-show="profileData.profile.gender" class="col-xs-6" ></div>
+                            <div  class="col-xs-6 font-bold" >{{profileData.profile.gender}}</div>
+                            <div  class="col-xs-2 text-right" ><i class="ti-pencil" ng-show="gender"></i></div>
+                            <div class="col-xs-1 "><a class="p-h-xs" href="">Edit</a></div>
+                       </div> 
+                       <div   ng-show="genderSetup" class="panel-body p-sm in b p-sm " bs-collapse-target="" >
+                       <div class="col-xs-5">
+                        <div class="col-xs-6 p-xs no-padding-h">
+                          <label >Change Gender:</label>
+                        </div>
+                         <form name="lanForm" ng-submit="updateUserProfileDatas();genderSetup==true?genderSetup=false:genderSetup=true">
+                          <div class="col-xs-6" >
+                            <button type="button" style="margin-top:2px" class="btn btn-default" ng-model="profileData.profile.gender"  ng-options="gender as gender for gender in genderArray" bs-select >
+                            </button>
+                        </div>
+                         <div class="col-xs-12 text-center">
+                          <button type="submit" class="btn btn-info" >{{saveButton}}</button>
+                         <button type="button"  class="btn" ng-click="genderSetup==true?genderSetup=false:genderSetup=true">cancel</button>
+                        </form>
+                        </div>
+                  </div>
+                </div>
+
           <!-- div to edit password of the user -->
 
                <div class="m-b-xs ng-scope " ng-mouseenter="editAboutOpt('pwdicon')" ng-mouseleave="editAboutOpt('pwdicon')">
