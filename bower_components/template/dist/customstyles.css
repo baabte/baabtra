@@ -192,7 +192,7 @@ z-index: 1001;
 /*padding for the main content to adjust the height of the fixed elements at the top and bottom*/
 .app-content
 {
-  padding-top: 55px;
+  padding-top: 34px;
   padding-bottom: 60px;
 }
 
@@ -215,8 +215,6 @@ z-index: 1001;
 .breadCrumb li{
   display:inline-block !important;
   padding: 14.5px;
-  margin-top: -10px;
-  margin-left: -10px;
 }
 
 .breadCrumb li:hover{
