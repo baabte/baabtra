@@ -103,7 +103,7 @@ angular.module('baabtra').controller('viewCandidateCourseCtrl',
 
 
 // Pre-fetch an external template populated with a custom scope
-var courseSyllabusAside = $aside({scope:$scope,placement:'right',animation:'am-slide-right', template: 'angularModules/candidateCourseRelated/candidateCourseView/partials/aside-studentSyllabus.html', show: false});//call aside for add new department
+var courseSyllabusAside = $aside({scope:$scope,placement:'left',animation:'am-slide-left', template: 'angularModules/candidateCourseRelated/candidateCourseView/partials/aside-studentSyllabus.html', show: false});//call aside for add new department
 // Show when some event occurs (use $promise property to ensure the template has been loaded)
 
 

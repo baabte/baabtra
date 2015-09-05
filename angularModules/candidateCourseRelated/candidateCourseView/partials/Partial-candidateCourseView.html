@@ -1,40 +1,58 @@
 <div class="co-xs-12">
   
   <!-- header -->
-  <div class="row no-margin ">
+ <!--  <div class="row no-margin ">
     <div class="col-xs-12  bg-white b-b fixed-tab">
 
       <div class="row">
 
-        <!--  commented by arun to change the sudent view -->
         <div class="col-xs-6">
-          <!-- View course timeline btn -->
+         
           <a class="btn btn-info  hidden-xs" ng-disabled="!courseId.$oid" ng-click="navigateToTimeline(courseId)">View course timeline</a>
 
-          <!-- View course summary btn -->
+        
           <a class="btn btn-success  hidden-xs" ng-click="navigateToSummary(courseId)">View course summary</a>
         </div>
-       <!--  <div class="col-xs-12 col-sm-6">
-
-          <percent-indicator value-suffix="Your score is " show-percentage="true" total-value="totalMark" obtain-value="markScored"></percent-indicator>
-        </div> -->
-        <!--  commented by arun to change the sudent view ends-->
-
-        <!-- change made in student view by arun -->
         <div class="col-xs-12 col-sm-6 text-right">
         <i class="btn no-padding mdi-action-view-list text-2x" ng-click="showSyllabus()"></i>
         </div>
-        <!-- change made in student view by arun ends -->
+       
 
       </div>
     </div>
   </div>
-
+ -->
   <!-- assignment view -->
 
-  <div class="row" style="margin-top: 56px;">
+  <div class="row" style="margin-top: 20px;">
     <div class="col-xs-12 p bg-light">
-      <div ng-show="!lastElement&&courseId.$oid" class="col-xs-push-1 col-md-push-2 col-md-8 col-xs-10 p shadow-z-1 btn-material-green-A200">
+      <div class="row">
+        <div class="col-xs-2 ">          
+           <!-- <a  class="hidden-xs btn btn-info mdi-content-link " title="View course timeline" ng-click="navigateToTimeline(courseId)" bs-tooltip placement="right">
+            <span>View course timeline</span>
+          </a> -->
+          <div class="col-xs-12">
+           <i class="col-xs-12 btn no-padding mdi-content-link text-2x" title="View course timeline" ng-click="navigateToTimeline(courseId)" bs-tooltip placement="right"></i>
+          </div>
+
+          <!--  <a  class="hidden-xs btn btn-info fa fa-newspaper-o " title="View course summary" ng-click="navigateToSummary(courseId)" bs-tooltip placement="right">
+            <span>View course summary</span>
+          </a> -->
+           <div class="col-xs-12">
+           <i class="col-xs-12 btn no-padding fa fa-newspaper-o text-2x" title="View course summary" ng-click="navigateToSummary(courseId)" bs-tooltip placement="right"></i>
+          </div>
+
+           <!-- <a  class="hidden-xs btn btn-info mdi-action-view-list " title="View Course Syllabus" ng-click="showSyllabus()" bs-tooltip placement="right">
+            <span>View Course Syllabus</span>
+          </a> -->
+           <div class="col-xs-12">
+           <i class="col-xs-12 btn no-padding mdi-action-view-list text-2x" title="View Course Syllabus" ng-click="showSyllabus()" bs-tooltip placement="right"></i>
+           </div>
+           
+        </div>
+        <div class="col-xs-10">
+
+      <div ng-show="!lastElement&&courseId.$oid" class="col-xs-12 p shadow-z-1 btn-material-green-A200">
         <span class="font-bold" ng-if="PrevObj.elements[0].value">{{PrevObj.elements[0].value}}</span>
         <span class="label label-warning pull-right" ng-if="(!PrevObj.evalStatus)&&PrevObj.evaluable">Pending submission</span>
         
@@ -42,7 +60,7 @@
       
       </div>
 
-      <div  class="col-xs-push-1 col-md-push-2 col-md-8 col-xs-10 p shadow-z-1 bg-white ">
+      <div  class="col-xs-12 p shadow-z-1 bg-white ">
           
            
           <course-element-full-view course-id="courseId.$oid" preview-data="PrevObj"></course-element-full-view>
@@ -59,6 +77,8 @@
                 </div>
               </div>
       </div>
+    </div>
+    </div>
     </div>
   </div>
 
