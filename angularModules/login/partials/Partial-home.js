@@ -350,7 +350,7 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
       $('.nav-container-scroll li').each(function(){
         bcWidth+=$(this).width();
       });
-      $scope.showScrollbarBreadcrumb=bcWidth>containerWidth;
+      $rootScope.showScrollbarBreadcrumb=bcWidth>containerWidth;
     });
 
 
