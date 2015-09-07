@@ -24,33 +24,33 @@
  -->
   <!-- assignment view -->
 
-  <div class="row" style="margin-top: 20px;">
-    <div class="col-xs-12 p bg-light">
+  <div class="row" >
+    <div class="col-xs-12 bg-light">
       <div class="row">
-        <div class="col-xs-2 ">          
+        <div class="col-md-1 col-xs-2 ">          
            <!-- <a  class="hidden-xs btn btn-info mdi-content-link " title="View course timeline" ng-click="navigateToTimeline(courseId)" bs-tooltip placement="right">
             <span>View course timeline</span>
           </a> -->
-          <div class="col-xs-12">
-           <i class="col-xs-12 btn no-padding mdi-content-link text-2x" title="View course timeline" ng-click="navigateToTimeline(courseId)" bs-tooltip placement="right"></i>
+          <div class="col-xs-12 text-centre ">
+           <i class=" btn no-padding mdi-content-link text-2x" title="View course timeline" ng-click="navigateToTimeline(courseId)" bs-tooltip placement="right"></i>
           </div>
 
           <!--  <a  class="hidden-xs btn btn-info fa fa-newspaper-o " title="View course summary" ng-click="navigateToSummary(courseId)" bs-tooltip placement="right">
             <span>View course summary</span>
           </a> -->
-           <div class="col-xs-12">
-           <i class="col-xs-12 btn no-padding fa fa-newspaper-o text-2x" title="View course summary" ng-click="navigateToSummary(courseId)" bs-tooltip placement="right"></i>
+           <div class="col-xs-12 text-centre ">
+           <i class=" btn no-padding fa fa-newspaper-o text-2x" title="View course summary" ng-click="navigateToSummary(courseId)" bs-tooltip placement="right"></i>
           </div>
 
            <!-- <a  class="hidden-xs btn btn-info mdi-action-view-list " title="View Course Syllabus" ng-click="showSyllabus()" bs-tooltip placement="right">
             <span>View Course Syllabus</span>
           </a> -->
-           <div class="col-xs-12">
-           <i class="col-xs-12 btn no-padding mdi-action-view-list text-2x" title="View Course Syllabus" ng-click="showSyllabus()" bs-tooltip placement="right"></i>
+           <div class="col-xs-12 text-centre">
+           <i class=" btn no-padding mdi-action-view-list text-2x" title="View Course Syllabus" ng-click="showSyllabus()" bs-tooltip placement="right"></i>
            </div>
-           
+
         </div>
-        <div class="col-xs-10">
+        <div class="col-md-11 col-xs-10">
 
       <div ng-show="!lastElement&&courseId.$oid" class="col-xs-12 p shadow-z-1 btn-material-green-A200">
         <span class="font-bold" ng-if="PrevObj.elements[0].value">{{PrevObj.elements[0].value}}</span>

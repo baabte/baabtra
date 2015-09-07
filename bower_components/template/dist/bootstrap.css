@@ -2292,7 +2292,7 @@ table th[class*="col-"] {
   }
 }
 fieldset {
-  min-width: 0;
+  /*min-width: 0;*/ /*commented to prevent form error*/
   padding: 0;
   margin: 0;
   border: 0;
