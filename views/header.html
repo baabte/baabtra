@@ -36,7 +36,7 @@
       </div>
 
       <!-- navbar collapse -->
-      <div class="navbar-collapse pull-right col-md-2" ng-class="{'show animated fadeIn' : app.navbarCollapse}">
+      <div class="navbar-collapse pull-right col-md-1" style="" ng-class="{'show animated fadeIn' : app.navbarCollapse}">
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right m-r-n hidden-xs">
           <li>
@@ -75,11 +75,11 @@
           </li>
         </ul>
 
-         <a style="padding: 10px;" bs-aside="aside" data-template="angularModules/login/partials/Partial-sm_User_Menu.html" data-placement="right" data-animation="am-slide-right aside-open-inner modal-open" data-container="body" class="pull-right visible-xs">
+         <a style="padding: 5px;" bs-aside="aside" data-template="angularModules/login/partials/Partial-sm_User_Menu.html" data-placement="right" data-animation="am-slide-right aside-open-inner modal-open" data-container="body" class="pull-right visible-xs">
               <qrcode ng-if="!userinfo.ActiveUserData.roleMappingObj.avatar.length" version="2" size="30" color="#4A148C" ng-click="$hide()" class="navbar-img  pull-right m-l-xs m-r-xs" data="{{userinfo.ActiveUserData.username}}" ></qrcode>
               <img  ng-if="userinfo.ActiveUserData.roleMappingObj.avatar.length" ng-src="{{userinfo.ActiveUserData.roleMappingObj.avatar}}" alt="..." class="navbar-img img-circle pull-right m-r-xs m-l-xs">
             </a>
-        <a class="pull-right visible-xs" style="padding: 10px;" data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
+        <a class="pull-right visible-xs" style="padding: 5px;" data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
 
               <i class="glyphicon glyphicon-bell text-md "></i>
               <b class="badge bg-danger up" ng-if="$root.data.userNotification.unreadCount > 0">{{$root.data.userNotification.unreadCount}}</b>
