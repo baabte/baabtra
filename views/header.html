@@ -18,38 +18,29 @@
       <!-- / navbar header -->
 
       <!-- navbar collapse -->
-      <div class="navbar-collapse hidden-xs" ng-class="{'show animated fadeIn' : app.navbarCollapse}">
+      <div class="navbar-collapse " ng-class="{'show animated fadeIn' : app.navbarCollapse}">
         <!-- nav -->
-        <!-- <ul class="nav navbar-nav navbar-left">
-          <li>
-            <a ui-sref="app.dashboard">
-              <i class="fa fa-fw fa-pie-chart"></i>
-              <span translate="header.navbar.DASHBOARD">Dashboard</span>
-            </a>
+        <div  ui-nav ng-class="{'ng-hide':!navBar}" class="breadCrumb">
+        <ul ng-class="{'hideScrollBar':!showScrollbarBreadcrumb}" class="nav navbar-nav navbar-left nav-container-scroll">
+          <li ng-click="goHome()" class="lt" ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}" ui-sref-active="active" >
+            <div>
+             <i class="icon glyphicon glyphicon-list text-lg"></i>
+            </div>
           </li>
-          <li>
-            <a ui-sref="mail.inbox">
-              <i class="fa fa-fw fa-envelope"></i>
-              <span translate="header.navbar.EMAIL">Email</span>
-            </a>
-          </li>
-          <li>
-            <a ui-sref="ui.component.arrow">
-              <i class="fa fa-fw fa-suitcase"></i>
-              <span translate="header.navbar.UIKITS">UI Kits</span>
-            </a>
-          </li>
-          <li>
-            <a ui-sref="page.profile">
-              <i class="fa fa-fw fa-file"></i>
-              <span translate="header.navbar.PAGES">Pages</span>
-            </a>
-          </li>
-        </ul> -->
-        <!-- / nav -->
 
+          <li ng-click="goMenu(path,$index)" ng-repeat="path in linkPath track by $index">
+            <div class="animated fadeInDown">
+             <i class="text-md" text-to-translate="{{path.MenuName}}" translate>{{path.MenuName}}</i>
+             <i class="fa fa-chevron-right text-xs m-l-xs" ng-if="linkPath.length > $index+1"></i>
+            </div>
+          </li>        
+        </ul>
+        </div>
+      
+
+        <!-- / nav -->
         <!-- nabar right -->
-        <ul class="nav navbar-nav navbar-right m-r-n">
+        <ul class="nav navbar-nav navbar-right m-r-n hidden-xs">
           <li>
             <button type="button"  class="btn {{$root.userinfo.ActiveUserData.appSettings.headerColor}} baab-btn no-margin" ng-model="selectedlanguage"  ng-options="obj as obj.language for obj in availlangualges" ng-change="changeLanguage(selectedlanguage)" bs-select>
              
@@ -88,7 +79,7 @@
         <!-- / navbar right -->
 
         <!-- search form -->
-        <form class="navbar-form navbar-form-sm navbar-right visible-xs" role="search">
+       <!--  <form class="navbar-form navbar-form-sm navbar-right visible-xs" role="search">
           <div class="form-group">
             <div class="input-group">
               <span class="input-group-btn">
@@ -97,7 +88,7 @@
               <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control input-sm no-bg no-border" placeholder="Search...">              
             </div>
           </div>
-        </form>
+        </form> -->
         <!-- / search form -->
       </div>
       <!-- / navbar collapse -->

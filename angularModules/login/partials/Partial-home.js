@@ -133,7 +133,7 @@ $scope.$watch('userMenusOrigin',function(){
    
 
     $localStorage.linkPath=[];
-    $scope.linkPath = $localStorage.linkPath;
+    $rootScope.linkPath = $localStorage.linkPath;
     $rootScope.menuExist=false;
     
 
@@ -153,11 +153,11 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
     $rootScope.menuExist=false;
          if(angular.equals(toState.name,'home.main')){
           if(($localStorage.linkPath.length-1)){
-            $scope.linkPath = $localStorage.linkPath.splice($localStorage.linkPath.length-1, 1);
+            $rootScope.linkPath = $localStorage.linkPath.splice($localStorage.linkPath.length-1, 1);
             }
             else if(!($localStorage.linkPath.length-1)){
-             // $scope.linkPath = $localStorage.linkPath.splice($localStorage.linkPath.length-1, 1);
-             //$scope.linkPath = $localStorage.linkPath = [];
+             // $rootScope.linkPath = $localStorage.linkPath.splice($localStorage.linkPath.length-1, 1);
+             //$rootScope.linkPath = $localStorage.linkPath = [];
             }
           }
           if($scope.userMenusOrigin){
@@ -180,12 +180,12 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
       $localStorage.currentMenuName=menu.MenuName;
       $localStorage.currentMenuLink=menu.MenuLink;
 
-      $scope.navBar=true;
+      $rootScope.navBar=true;
       if (angular.equals($localStorage.linkPath,undefined)) {
         $localStorage.linkPath=[];
       }
       $localStorage.linkPath.push(menu);
-      $scope.linkPath=$localStorage.linkPath;
+      $rootScope.linkPath=$localStorage.linkPath;
 
       if (menu.childMenuStructure.length) {
         $scope.userMenus=menu.childMenuStructure;
@@ -199,10 +199,10 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
 
     };
 
-    $scope.goHome = function(){//when click home button this function triggers
+   $rootScope.goHome = function(){//when click home button this function triggers
       $localStorage.linkPath=[];//link path set to null
-      $scope.linkPath=$localStorage.linkPath;
-      $scope.navBar=false;
+      $rootScope.linkPath=$localStorage.linkPath;
+      $rootScope.navBar=false;
       $scope.userMenus=$scope.userMenusOrigin;
       $state.go('home.main');
     };
@@ -255,7 +255,7 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
     };
 
  
-    $scope.goMenu = function(menu,index){//for go to a particular menu when click the menu path
+    $rootScope.goMenu = function(menu,index){//for go to a particular menu when click the menu path
       
       
 
@@ -275,7 +275,7 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
       }
       else {
         
-        $scope.linkPath = $localStorage.linkPath;
+        $rootScope.linkPath = $localStorage.linkPath;
         $scope.userMenus = menu.childMenuStructure;
         $state.go('home.main');
       }
@@ -318,9 +318,9 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
             if (angular.equals(menu[sub].actions[action].stateName,(state+stateParams))&&(angular.equals(menu[sub].MenuName,$localStorage.currentMenuName))) {
               $rootScope.menuExist = true;
               path_obj.push(menu[sub]);
-              $scope.navBar=true;
+              $rootScope.navBar=true;
               $localStorage.linkPath=path_obj;
-              $scope.linkPath=$localStorage.linkPath;
+              $rootScope.linkPath=$localStorage.linkPath;
               fnCallback();
               break;
 
@@ -329,9 +329,9 @@ $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState
             else if(angular.equals(menu[sub].actions[action].stateName,(state+stateParams))&&(!angular.equals($localStorage.currentMenuLink,$scope.linkSeprate(state)))){
               $rootScope.menuExist=true;
               path_obj.push(menu[sub]);
-              $scope.navBar=true;
+              $rootScope.navBar=true;
               $localStorage.linkPath=path_obj;
-              $scope.linkPath=$localStorage.linkPath;
+              $rootScope.linkPath=$localStorage.linkPath;
               fnCallback();
               break;
             }

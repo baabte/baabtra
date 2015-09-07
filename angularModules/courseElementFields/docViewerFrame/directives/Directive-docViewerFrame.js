@@ -14,6 +14,7 @@ angular.module('baabtra').directive('docViewerFrame', ['$sce',function($sce) {
 
 			scope.$watch('data',function () {
 				scope.newData=angular.fromJson(JSON.parse(scope.data));
+				
 			},true);
 			
 

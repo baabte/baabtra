@@ -111,6 +111,7 @@ var evaluationFetchObj={};
 				var evaluationFetchResponse=evaluationService.evaluationFetch(evaluationFetchObj);
 				evaluationFetchResponse.then(function(data){
 				var result=angular.fromJson(JSON.parse(data.data));
+				console.log(result);
 				$scope.stopLoader();
 
 	        if(!angular.equals($scope.data.firstId,result.firstId)){

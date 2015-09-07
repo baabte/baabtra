@@ -192,10 +192,12 @@ z-index: 1001;
 /*padding for the main content to adjust the height of the fixed elements at the top and bottom*/
 .app-content
 {
-  padding-top: 34px;
+  /*padding-top: 34px;*/ /* revomed when bread crum revmoved*/
   padding-bottom: 60px;
 }
-
+.app-header-fixed{
+  padding-top: 25px !important;
+}
 /* style for scrollable element */
 .customScrollbar{
   white-space: pre-line;
@@ -206,7 +208,7 @@ z-index: 1001;
 
 .nav-container-scroll{
     padding:10px;
-    width:100%;
+    /*width:100%;*/
     white-space:nowrap;  
 }
 
@@ -214,7 +216,7 @@ z-index: 1001;
 
 .breadCrumb li{
   display:inline-block !important;
-  padding: 14.5px;
+  padding: 5.5px;
 }
 
 .breadCrumb li:hover{

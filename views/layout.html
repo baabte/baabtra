@@ -1,5 +1,6 @@
   <!-- header -->
-  <header style="z-index:1050" id="header" ng-include=" 'views/header.html' " ng-controller="header" class="shadow app-header navbar {{$root.userinfo.ActiveUserData.appSettings.headerColor}} p-v-xs" role="menu" ng-class="{'btn-material-grey-200':$root.userinfo.ActiveUserData.appSettings.headerColor == undefined}">
+  <header style="z-index: 1050;border: 0;border-bottom: 1px solid #5D6067;
+    box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .52);" id="header" ng-include=" 'views/header.html' " ng-controller="header" class="app-header navbar {{$root.userinfo.ActiveUserData.appSettings.headerColor}} p-v-xs" role="menu" ng-class="{'btn-material-grey-200':$root.userinfo.ActiveUserData.appSettings.headerColor == undefined}">
   </header>
 
   
