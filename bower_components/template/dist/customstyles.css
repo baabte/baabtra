@@ -196,7 +196,7 @@ z-index: 1001;
   padding-bottom: 60px;
 }
 .app-header-fixed{
-  padding-top: 25px !important;
+  padding-top: 15px !important;
 }
 /* style for scrollable element */
 .customScrollbar{
@@ -207,16 +207,19 @@ z-index: 1001;
 }
 
 .nav-container-scroll{
-    padding:10px;
+    /*padding:10px;*/
     /*width:100%;*/
     white-space:nowrap;  
+}
+.navbar-collapse{
+  border-color: rgba(0, 0, 0, 0) !important; 
 }
 
 /*styles for the inside elements in the breadcrumb*/
 
 .breadCrumb li{
   display:inline-block !important;
-  padding: 5.5px;
+  padding: 3.5px;
 }
 
 .breadCrumb li:hover{
