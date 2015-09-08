@@ -581,6 +581,16 @@
                 }
                 
               })
+               .state('home.main.academicYear', {
+                url: '/academicYear',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/globalSettings/partials/Partial-academicYear.html',
+                    controller: 'AcademicyearCtrl'
+                  }
+                }
+                
+              })
                .state('home.main.themeConfiguration', {
                 url: '/themeConfiguration',
                 views:{
