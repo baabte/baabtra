@@ -30,11 +30,14 @@ angular.module('baabtra').controller('header',['$scope','$rootScope','$state','l
 					}
 					else{
 						// if(logoutObject.msg=="success"){
+							$rootScope={};
+							$rootScope.navBar=false;
 							localStorageService.clearAll();
 							// localStorageService.set('logDatas','{}');//resetting the userinfo before logout 
 			   				$rootScope.loggedIn=false;
 			   				$rootScope.userinfo=undefined;
 							$state.go('login');//redirecting path into login
+							console.log($rootScope)
 						// }
 					}
    				
