@@ -83,7 +83,7 @@ loader.hide();
 		    	 $scope.candidateCourse=res;
 		    	 $scope.courseName=$scope.candidateCourse.syllabus[0]["name"];
 		    	 $scope.rolemappingid= res.fkUserRoleMappingId.$oid;
-con
+
 		    	 
 		});
 
