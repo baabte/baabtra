@@ -3,39 +3,47 @@ angular.module('baabtra').directive('collegeLoader',['collegeServices','$rootSco
 		restrict: 'E',
 		replace: true,
 		scope: {
-			outModel:"="
+			ngModel:"=",
+			companyId:"="
 		},
 		templateUrl: 'angularModules/Registration/directives/Directive-collegeLoader.html',
 		link: function(scope, element, attrs, fn) {
+		console.log(scope.ngModel);
+		console.log(scope.companyId);
 
-		var companyid = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+		var companyid = scope.companyId;
 
         var fngetCollageList = collegeServices.fngetCollageList(companyid);
         fngetCollageList.then(function(response){
 		scope.lists = angular.fromJson(JSON.parse(response.data));        
-		console.log(scope.lists);
 		});//service call for college fetch
 
         scope.selectCollege=function(College){
-
-        	if((!angular.equals(College,null))||(!angular.equals(College,'Other'))){
+        	if(!angular.equals(College,null)){
         		scope.Course='';
 		        scope.courses=College.Courses;
-		        scope.outModel={};
-		        scope.outModel={collegeId:College._id.$oid,"CollegeName":scope.College.companyName};
-
-        	}else if(angular.equals(College,'Other')){
-
+		        scope.ngModel.collegeId=College._id.$oid;
+		        scope.ngModel.CollegeName=scope.College.companyName;
         	}else{
-        		scope.outModel={};
+        		delete scope.ngModel.collegeId;
+		        delete scope.ngModel.CollegeName;
+		        delete scope.ngModel.course;
         		scope.Course='';
-
+        		scope.courses={};
         	}
+		
         
 		}; //selectCollege end
 
 		scope.selectCourse=function(Course){
-		 scope.outModel.course=scope.Course.text;
+			if(!angular.equals(Course,null)){
+		 		scope.ngModel.course=Course.text;
+			}else{
+				delete scope.ngModel.course;
+        		scope.Course='';
+        	}
+		
+
 		};//selectCourse funtion end
 
 	}//link end
