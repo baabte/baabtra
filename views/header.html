@@ -40,9 +40,9 @@
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right m-r-n hidden-xs">
           <li>
-            <button type="button"  class="btn {{$root.userinfo.ActiveUserData.appSettings.headerColor}} baab-btn no-margin" ng-model="selectedlanguage"  ng-options="obj as obj.language for obj in availlangualges" ng-change="changeLanguage(selectedlanguage)" bs-select>
-             
-             </button>
+            <a style="padding: 10px;" data-animation="am-fade" data-template="angularModules/login/partials/language-Popover.html" data-placement="bottom-right" bs-dropdown="dropdown">
+              <i class="mdi-action-language text-md"></i>
+            </a>
           </li>
           <li>
             <a style="padding: 10px;" data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
