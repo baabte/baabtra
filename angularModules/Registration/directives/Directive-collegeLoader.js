@@ -13,18 +13,30 @@ angular.module('baabtra').directive('collegeLoader',['collegeServices','$rootSco
         var fngetCollageList = collegeServices.fngetCollageList(companyid);
         fngetCollageList.then(function(response){
 		scope.lists = angular.fromJson(JSON.parse(response.data));        
+		console.log(scope.lists);
 		});//service call for college fetch
 
-        scope.selectcourse=function(College){
-        scope.Course='';
-        scope.courses=College.Courses;
-        scope.outModel={};
-        scope.outModel={collegeId:College._id.$oid,"CollegeName":scope.College.companyName};
-		}; //select course end
+        scope.selectCollege=function(College){
 
-		scope.select=function(Course){
+        	if((!angular.equals(College,null))||(!angular.equals(College,'Other'))){
+        		scope.Course='';
+		        scope.courses=College.Courses;
+		        scope.outModel={};
+		        scope.outModel={collegeId:College._id.$oid,"CollegeName":scope.College.companyName};
+
+        	}else if(angular.equals(College,'Other')){
+
+        	}else{
+        		scope.outModel={};
+        		scope.Course='';
+
+        	}
+        
+		}; //selectCollege end
+
+		scope.selectCourse=function(Course){
 		 scope.outModel.course=scope.Course.text;
-		};//select funtion end
+		};//selectCourse funtion end
 
 	}//link end
 }; //return end

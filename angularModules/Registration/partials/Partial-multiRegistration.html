@@ -72,14 +72,14 @@
 					<div class="form-group">
 						<div class="font-bold">Contact Person</div>
 			            <div ng-repeat="contactPerson in formData.contactPersons track by $index">
-			                <div class="col-xs-12 shadow-z-2 m-t-sm   ">
+			                <div class="col-xs-12 shadow-z-2 m-t-sm  p ">
 			                    <div class="col-md-5 col-xs-12   ">
 			                        <input type="text"   ng-model="contactPerson.Name" class="form-control " placeholder="Name" required xt-validate name="contactPersonName">
 			                    </div>
 			                    <div class="col-md-5 col-xs-8   ">
 			                        <input type="number"   ng-model="contactPerson.Phone" class="form-control" placeholder="Phone" required xt-validate name="contactPersonPhone">              
 			                    </div>
-			                    <div class="col-md-2 col-xs-4 row m-t-lg    pull-right"> 
+			                    <div class="col-md-2 col-xs-4 row  pull-right"> 
 			                        <i ng-click="removeContact($index)" class="btn no-padding fa fa-minus-square text-2x " ng-if="formData.contactPersons.length>1"></i>                
 			                        <i ng-click="addContact()" class="btn no-padding fa fa-plus-square text-2x " ng-if="$index+1==formData.contactPersons.length"></i>
 			                    </div>
@@ -185,7 +185,7 @@
 			                    <div class="col-md-5 col-xs-8   ">
 			                        <input type="number"   ng-model="contactPerson.Phone" class="form-control" placeholder="Phone" required xt-validate name="contactPersonPhone">              
 			                    </div>
-			                    <div class="col-md-2 col-xs-4 row m-t-lg    pull-right"> 
+			                    <div class="col-md-2 col-xs-4 row pull-right"> 
 			                        <i ng-click="removeContact($index)" class="btn no-padding fa fa-minus-square text-2x " ng-if="formData.contactPersons.length>1"></i>                
 			                        <i ng-click="addContact()" class="btn no-padding fa fa-plus-square text-2x " ng-if="$index+1==formData.contactPersons.length"></i>
 			                    </div>
@@ -217,35 +217,31 @@
                         	<em class="text-muted text-E91E63" translate="{{'*Courses must be selected from the List '|translate}}"></em>            
                       	</div>    
 					</div>
-					<div class="form-group" >
+					<div class="form-group row" >
 						<div class="font-bold">Departments</div>
 						<div  ng-repeat="department in formData.departments track by $index">
-                      <div class="col-xs-12 shadow-z-2 m-t-sm ">
-                        <div class="col-xs-10 pull-left">
-                            <div class="col-xs-12">
-                                    <input type="text"   ng-model="department.Name" class="form-control " placeholder="Department"  required xt-validate name="departmentName">
-                            </div>
-                            <div class="col-xs-12">
-                                    <input type="text"   ng-model="department.Hod" class="form-control " placeholder="Name of Hod" required xt-validate name="departmentHod" >
-                            </div>
-                            <div class="col-xs-6">
-                                    <input type="text"  ng-model="department.eMail" class="form-control" placeholder="Email ID"  required ng-pattern="emailPattern" msg-pattern='{{emailMsg}}' xt-validate name="departmentHodEmail" >
-                            </div>
-                            <div class="col-xs-6">
-                                    <input type="number"   ng-model="department.phone" class="form-control" placeholder="Phone" required xt-validate name="departmentHodPhone"  >
-                            </div>
-                        </div>
-                        <div class="col-xs-2 row text-right">
-                            <!-- {{$index}} -->
-                            <i ng-click="removeDepartment($index)" class="btn no-padding fa fa-minus-square text-2x" ng-if="formData.departments.length>1"></i>                
-                            <i ng-click="addDepartment()" class="btn no-padding fa fa-plus-square text-2x" ng-if="$index+1==formData.departments.length"></i>
-                        </div>
-                       
-
-
-	                    </div>            
-	                  </div>   
-						
+	                      <div class="col-xs-12 shadow-z-2 m-t-sm ">
+	                        <div class="col-xs-10 pull-left">
+	                            <div class="col-xs-12">
+	                                    <input type="text"   ng-model="department.Name" class="form-control " placeholder="Department"  required xt-validate name="departmentName">
+	                            </div>
+	                            <div class="col-xs-12">
+	                                    <input type="text"   ng-model="department.Hod" class="form-control " placeholder="Name of Hod" required xt-validate name="departmentHod" >
+	                            </div>
+	                            <div class="col-xs-6">
+	                                    <input type="text"  ng-model="department.eMail" class="form-control" placeholder="Email ID"  required ng-pattern="emailPattern" msg-pattern='{{emailMsg}}' xt-validate name="departmentHodEmail" >
+	                            </div>
+	                            <div class="col-xs-6">
+	                                    <input type="number"   ng-model="department.phone" class="form-control" placeholder="Phone" required xt-validate name="departmentHodPhone"  >
+	                            </div>
+	                        </div>
+	                        <div class="col-xs-2 row text-right">
+	                            <!-- {{$index}} -->
+	                            <i ng-click="removeDepartment($index)" class="btn no-padding fa fa-minus-square text-2x" ng-if="formData.departments.length>1"></i>                
+	                            <i ng-click="addDepartment()" class="btn no-padding fa fa-plus-square text-2x" ng-if="$index+1==formData.departments.length"></i>
+	                        </div>	                   
+		                  </div>            
+		                </div>   						
 					</div>
 
 					</div>
@@ -332,7 +328,7 @@
 			                    <div class="col-md-5 col-xs-8   ">
 			                        <input type="number"   ng-model="contactPerson.Phone" class="form-control" placeholder="Phone" required xt-validate name="contactPersonPhone">              
 			                    </div>
-			                    <div class="col-md-2 col-xs-4 row m-t-lg    pull-right"> 
+			                    <div class="col-md-2 col-xs-4 row   pull-right"> 
 			                        <i ng-click="removeContact($index)" class="btn no-padding fa fa-minus-square text-2x " ng-if="formData.contactPersons.length>1"></i>                
 			                        <i ng-click="addContact()" class="btn no-padding fa fa-plus-square text-2x " ng-if="$index+1==formData.contactPersons.length"></i>
 			                    </div>
