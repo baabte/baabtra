@@ -9,14 +9,22 @@ angular.module('baabtra').directive('collegeLoader',['collegeServices','$rootSco
 		templateUrl: 'angularModules/Registration/directives/Directive-collegeLoader.html',
 		link: function(scope, element, attrs, fn) {
 		console.log(scope.ngModel);
-		console.log(scope.companyId);
+		console.log(scope.companyId+' outside watch');
 
-		var companyid = scope.companyId;
+		scope.$watch('companyId',function(){
+		console.log(scope.companyId+' inside watch');
 
-        var fngetCollageList = collegeServices.fngetCollageList(companyid);
-        fngetCollageList.then(function(response){
-		scope.lists = angular.fromJson(JSON.parse(response.data));        
-		});//service call for college fetch
+					if(!angular.equals(scope.companyId,undefined)){					
+
+				        var fngetCollageList = collegeServices.fngetCollageList(scope.companyId);
+				        fngetCollageList.then(function(response){
+						scope.lists = angular.fromJson(JSON.parse(response.data));        
+						});//service call for college fetch
+
+					}
+		}); //watch end
+
+		
 
         scope.selectCollege=function(College){
         	if(!angular.equals(College,null)){
