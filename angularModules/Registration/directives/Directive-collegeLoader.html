@@ -1,15 +1,13 @@
-<div class="col-xs-12">
-<div class="form-group">
-  <div class="col-xs-12">
+<div >
+	<div class="form-group">
     <select class="form-control" ng-model="College"  ng-change="selectCollege(College)" ng-options="list.companyName for list in lists">
       <option value="" >Select College</option>
-      <option value="other">Other</option>
+    </select>   
+    </div>
 
-    </select>    
-    <select ng-if="College!='other'" class="form-control" ng-model="Course" ng-change="selectCourse(Course)"  ng-options="course.text for course in courses">
+    <div class="form-group">
+    <select  class="form-control" ng-model="Course" ng-change="selectCourse(Course)"  ng-options="course.text for course in courses">
        <option value="">Select Course</option>
     </select>   
-
-  </div>
-</div>        
+  	</div>
 </div>

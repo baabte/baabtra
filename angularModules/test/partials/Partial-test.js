@@ -13,6 +13,7 @@ angular.module('baabtra').controller('TestCtrl',['$scope','$state', '$rootScope'
 	var rm_id = $rootScope.userinfo.ActiveUserData.roleMappingId.$oid;
 	var roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
 	var companyid = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+	$scope.companyId=$rootScope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
 	/*login detils ends*/
 	$scope.data={};
 

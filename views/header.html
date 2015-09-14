@@ -18,10 +18,10 @@
       <div class="navbar-collapse col-md-6 col-xs-4 " ng-class="{'show animated fadeIn' : app.navbarCollapse}">
         <!-- nav -->
         <div  ui-nav ng-class="{'ng-hide':!navBar}" class="breadCrumb ">
-        <ul  suppress-scroll-y="true" ng-class="{'hideScrollBar':!showScrollbarBreadcrumb}" class="perfect-scrollbar nav navbar-nav navbar-left nav-container-scroll">
+        <ul  suppress-scroll-y="true" ng-class="{'hideScrollBar':!showScrollbarBreadcrumb}" class="perfect-scrollbar nav navbar-nav navbar-left nav-container-scroll m-t-xs">
           <li ng-click="goHome()" class="lt" ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}" ui-sref-active="active" >
             <div>
-             <i class="icon glyphicon glyphicon-list text-lg"></i>
+             <i class="icon glyphicon glyphicon-th-large text-md"></i>
             </div>
           </li>
 
@@ -39,29 +39,29 @@
       <div class="navbar-collapse pull-right col-md-1" style="" ng-class="{'show animated fadeIn' : app.navbarCollapse}">
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right m-r-n hidden-xs">
-          <li>
-            <a style="padding: 10px;" data-animation="am-fade" data-template="angularModules/login/partials/language-Popover.html" data-placement="bottom-right" bs-dropdown="dropdown">
-              <i class="mdi-action-language text-md"></i>
+          <li bs-tooltip data-title="Language" data-placement="left">
+            <a style="padding: 10px;"   data-animation="am-fade" data-template="angularModules/login/partials/language-Popover.html" data-placement="bottom-right" bs-dropdown="dropdown">
+              <i class="mdi-action-language fa-lg"></i>
             </a>
           </li>
-          <li>
-            <a style="padding: 10px;" data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
+          <li bs-tooltip data-title="Notifications" data-placement="left">
+            <a style="padding: 10px;"    data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
 
-              <i class="glyphicon glyphicon-bell text-md"></i>
+              <i class="mdi-social-notifications fa-lg"></i>
               <b class="badge bg-danger up" ng-if="$root.data.userNotification.unreadCount > 0">{{$root.data.userNotification.unreadCount}}</b>
               <span class="visible-xs-inline">Notifications</span>
             </a>
           </li>
           <li ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" ng-click="redirectTothemeConfiguration()">
             <a style="padding: 10px;"   bs-tooltip data-title="Customize theme"  data-placement="left">
-              <i class="mdi-image-color-lens text-md"></i>
+              <i class="mdi-image-color-lens fa-lg"></i>
               <span class="visible-xs-inline" translate="{{'Settings'|translate}}"></span>
             </a>
           </li>
           <li ng-if="roleId == $root.userinfo.ActiveUserData.roleMappingObj.fkRoleId" ng-click="redirectToGlobalSettings()">
              
             <a style="padding: 10px;" bs-tooltip data-title="Settings"  data-placement="left">
-              <i class="mdi-action-settings text-md"  ></i>
+              <i class="mdi-action-settings fa-lg"  ></i>
             </a>
           </li>
           <li>            
@@ -81,7 +81,7 @@
             </a>
         <a class="pull-right visible-xs" style="padding: 5px;" data-animation="am-fade" data-template="angularModules/Notification/partials/Popover-notifictionPopover.html" data-placement="bottom-right" bs-dropdown="dropdown">
 
-              <i class="glyphicon glyphicon-bell text-md "></i>
+              <i class="mdi-social-notifications fa-lg"></i>
               <b class="badge bg-danger up" ng-if="$root.data.userNotification.unreadCount > 0">{{$root.data.userNotification.unreadCount}}</b>
             </a>
         <!-- / navbar right -->
