@@ -1,0 +1,113 @@
+<div class="bg-light">
+	<div class="container">
+
+		<div class="row p-v" ng-if="subjectObj.mode != 'view'">
+			<div class="col-md-12">
+				<div class="panel bg-white">
+					<form name="form" class="form-validation">
+				    	<div class="p-sm b-b">
+				    		<h4>Create Subject</h4>
+						</div>
+						<div class="panel-body no-padding-v">
+							<div class="form-group">
+				            	<div class="row">
+				            		
+				                	<div class="col-sm-4">
+				                		<label>Subject Name</label>
+				                		<input type="text" class="form-control" ng-model="subjectObj.newSubject.subjectName" placeholder="Enter Subject Name" required >
+				                	</div>
+
+				                	<div class="col-sm-4">
+				                		<label>Subject Code</label>
+				                		<input type="text" class="form-control" ng-model="subjectObj.newSubject.subjectCode" placeholder="Enter Subject Code" required >
+				                	</div>
+
+				                	<div class="col-sm-4">
+				                		<label>Subject Alias</label>
+				                		<input type="text" class="form-control" ng-model="subjectObj.newSubject.subjectAlias" placeholder="Enter Subject Alias" required>
+				                	</div>
+				              </div>
+			            	</div>
+
+			            	<div class="form-group">
+				            	<div class="row">
+				            		<div class="col-xs-4">
+					            		<div class="checkbox">
+								    		<label>
+								    			<input ng-model="subjectObj.newSubject.optional" value="1" type="checkbox"> Elective
+								    		</label>
+						    			</div>
+					    			</div>
+
+				            		<div class="col-xs-4">
+					            		<div class="checkbox">
+								    		<label>
+								    			<input ng-model="subjectObj.newSubject.status" value="1" type="checkbox"> Active
+								    		</label>
+						    			</div>
+					    			</div>
+				            	</div>
+				            </div>
+						</div>
+
+						<div class="p-sm b-t text-right">
+				    		<a ng-if="!subjectObj.newSubject._id" class="btn btn-info baab-btn no-margin"  ng-disabled="form.$invalid" disabled="disabled" ng-click="saveSubject(subjectObj.newSubject)">Create</a>
+
+		    				<a ng-if="subjectObj.newSubject._id" class="btn btn-info baab-btn no-margin" ng-disabled="form.$invalid" ng-click="saveSubject(subjectObj.newSubject)" disabled="disabled">Update</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="row p-v" ng-if="subjectObj.mode == 'view'">
+			<div class="col-md-12">
+				<div class="panel bg-white">
+					<div class="panel-body ">
+
+						<div class="bg-warning col-xs-12 p" ng-if="!subjectObj.subjectList.length">
+							Subjects Not Found
+							<a class="font-bold pull-right" ui-sref="home.main.subject({ key: 'create'})">
+								Create Subject
+							</a>
+						</div>
+						<div class="table-responsive" ng-if="subjectObj.subjectList.length">
+						    <table class="table table-bordered bg-white no-margin">
+						      <thead>
+						        <tr>
+						          <th>#</th>
+						          <th>Subject Name</th>
+						          <th>Batch Alias</th>
+						          <th>Subject Code</th>
+						          <th>Type</th>
+						          <th>Status</th>
+						          <th></th>
+						        </tr>
+						      </thead>
+						      <tbody>
+						        <tr ng-repeat="subject in subjectObj.subjectList">
+						          <td>{{$index+1}}</td>
+						          <td>{{subject.subjectName}}</td>
+						          <td>{{subject.subjectAlias}}</td>
+						          <td><span ng-if="!subject.optional">Normal</span><span ng-if="subject.optional">Elective</span></td>
+						          <td>{{subject.subjectCode}}</td>
+						          <td>
+						          	<span class="" ng-if="!subject.status"><i class="glyphicon glyphicon-remove-circle fa-lg text-danger"></i>&nbsp;Inactive</span>
+						          	<span class="" ng-if="subject.status"><i class="glyphicon glyphicon-ok-circle fa-lg text-success"></i>&nbsp;Active</span>
+						          </td>
+						          <td>
+						          	<a title="Update" ui-sref="home.main.subject({ key: 'update', _id:subject._id.$oid })"><span class="glyphicon glyphicon-pencil"></span></a>
+						          	&nbsp;
+						          	<a title="Delete" ng-click="deleteSubject(subject, $index)"><span class="glyphicon glyphicon-trash"></span></a>
+						          </td>
+						        </tr>
+						      </tbody>
+						    </table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

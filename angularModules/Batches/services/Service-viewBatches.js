@@ -102,6 +102,7 @@ angular.module('baabtra').service('viewBatches',['bbConfig','$http',function(bbC
 	 });
 	return promise;
 	};
+
 	this.getcourseMappingId=function(usersId,course) {
 		 var promise = $http({
 			          method: 'post',
@@ -110,5 +111,26 @@ angular.module('baabtra').service('viewBatches',['bbConfig','$http',function(bbC
 			          contentType:'application/json; charset=UTF-8',
 			        });
         return promise;
-	};	
+	};
+
+	this.saveBatch = function(batch) {
+		 var promise = $http({
+			          method: 'post',
+			          url: bbConfig.BWS + 'saveBatch/',
+			          data:batch,
+			          contentType:'application/json; charset=UTF-8',
+			        });
+        return promise;
+	};
+
+	this.loadClassRoomBatch = function(batchCondition) {
+		 var promise = $http({
+			          method: 'post',
+			          url: bbConfig.BWS + 'loadClassRoomBatch/',
+			          data:batchCondition,
+			          contentType:'application/json; charset=UTF-8',
+			        });
+        return promise;
+	};
+
 }]);

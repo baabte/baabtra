@@ -328,12 +328,45 @@
                 }
               })
 
-              .state('home.main.course', {
+              .state('home.main.courseDetails', {
                 url: '/course/:courseId',
                 views:{
                   'innercontent':{
                     templateUrl: 'angularModules/course/partials/Partial-courseDetails.html',
                     controller:'CoursedetailsCtrl'
+                  }
+                }
+                
+              })
+
+              .state('home.main.course', {
+                url: '/courses/:key?_id',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-course.html',
+                    controller:'CourseCtrl'
+                  }
+                }
+                
+              })
+
+              .state('home.main.batch', {
+                url: '/batch/:key?_id',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-batch.html',
+                    controller:'BatchCtrl'
+                  }
+                }
+                
+              })
+
+              .state('home.main.subject', {
+                url: '/subject/:key?_id',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-subject.html',
+                    controller:'SubjectCtrl'
                   }
                 }
                 
@@ -587,6 +620,16 @@
                   'innercontent':{
                     templateUrl: 'angularModules/globalSettings/partials/Partial-academicYear.html',
                     controller: 'AcademicyearCtrl'
+                  }
+                }
+                
+              })
+               .state('home.main.financialYear', {
+                url: '/financialYear',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/globalSettings/partials/Partial-financialYear.html',
+                    controller: 'FinancialyearCtrl'
                   }
                 }
                 

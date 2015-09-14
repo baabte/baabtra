@@ -52,6 +52,7 @@
         <div class="col-sm-4">
           <div class="panel b-light">
             <div class="panel-heading bg-white b-b p-v-xs p-h-sm link" ui-sref="home.main.academicYear">
+              <span title="New" class="pull-right"><i class="fa fa-plus"></i></span>
               Academic Year
             </div>
             <div class="panel-body p-sm">
@@ -60,8 +61,27 @@
               </div>
               
               <div class="clear">
-                <div class="text-2x font-bold">0</div>
-                <small class="text-muted">Current : 2015-16</small>
+                <div class="text-2x font-bold">{{globalSettingsObj.academicYear.count?globalSettingsObj.academicYear.count:"-"}}</div>
+                <small ng-if="globalSettingsObj.academicYear.academicYear.academicYearName" class="text-muted">Current : {{globalSettingsObj.academicYear.academicYear.academicYearName}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="panel b-light">
+            <div class="panel-heading bg-white b-b p-v-xs p-h-sm link" ui-sref="home.main.financialYear">
+              <span title="New" class="pull-right"><i class="fa fa-plus"></i></span>
+              Financial year
+            </div>
+            <div class="panel-body p-sm">
+              <div class="pull-left pull-none-sm p-h text-center">
+                <span class="text-3x"><i class="fa fa-bank"></i></span>
+              </div>
+              
+              <div class="clear">
+                <div class="text-2x font-bold">{{globalSettingsObj.financialYear.count?globalSettingsObj.financialYear.count:"-"}}</div>
+                <small ng-if="globalSettingsObj.financialYear.financialYear.FinancialYearName" class="text-muted">Current : {{globalSettingsObj.financialYear.financialYear.FinancialYearName}}</small>
               </div>
             </div>
           </div>

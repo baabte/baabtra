@@ -1,0 +1,104 @@
+<div class="bg-light">
+<div class="container">
+	<div class="row p-v">
+	  <div class="col-md-12">
+	    <div class="panel">
+
+	    	<form name="financialYearForm" class="form-validation">
+		    	<div class="panel-heading bg-white ">
+		    		<h4>Create Financial Year</h4>
+				</div>
+
+		    	<div class="panel-body no-padding-v">
+
+		    		<div class="row row-sm">
+
+		    			<!-- Financial Year Name -->
+		    			<div class="col-xs-12 col-md-4">
+						    <div class="form-group">
+						       	<input type="text" class="form-control" placeholder="Enter Financial Year Name" ng-model="financialYearObj.newFinancialYear.FinancialYearName" required>
+					    	</div>
+					    </div>
+
+					    <!-- Start Date -->
+					    <div class="col-xs-12 col-md-3">
+					    	<div class="form-group">
+					    		<input type="text" class="form-control" placeholder="Select Start Date" autocomplete="off"  data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true" bs-datepicker ng-model="financialYearObj.newFinancialYear.startDate" required>
+					    	</div>
+					    </div>
+
+					    <!-- End Date -->
+					    <div class="col-xs-12 col-md-3">
+					    	<div class="form-group">
+					    		<input type="text" class="form-control" placeholder="Select End Date" autocomplete="off"  data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true"  bs-datepicker ng-model="financialYearObj.newFinancialYear.endDate" required>
+					    	</div>
+					    </div>
+
+					    <!-- active Financial Year -->
+					    <div class="col-xs-12 col-md-2">
+					    	<div class="form-group">
+					    		<div class="checkbox">
+					    			<label>
+					    				<input ng-model="financialYearObj.newFinancialYear.activeFinancialYear" value="1" type="checkbox"> Active
+					    			</label>
+					    		</div>
+					    	</div>
+					    </div>
+
+					</div>
+				</div>
+
+		    	<div class="panel-footer no-padding-v bg-white">
+		    		<a ng-if="!financialYearObj.newFinancialYear._id" class="btn btn-info baab-btn" ng-click="saveFinancialYear(financialYearObj.newFinancialYear)" ng-disabled="financialYearForm.$invalid" disabled="disabled">Create</a>
+		    		
+		    		<a ng-if="financialYearObj.newFinancialYear._id" class="btn btn-info baab-btn" ng-click="saveFinancialYear(financialYearObj.newFinancialYear)" ng-disabled="financialYearForm.$invalid" disabled="disabled">Update</a>
+		    	</div>
+	    	</form>
+	    </div>
+
+
+
+	    <div class="panel" ng-if="financialYearObj.financialYearList.length">
+	    	<div class="panel-heading bg-white ">
+		    	<h4>List of Financial Year</h4>
+		    </div>
+	    	<div class="panel-body">
+	    		<!-- <pre>{{financialYearObj.FinancialYearList}}</pre> -->
+	    		<div class="table-responsive">
+				    <table class="table table-bordered bg-white">
+				      <thead>
+				        <tr>
+				          <th>#</th>
+				          <th>Financial Year Name</th>
+				          <th>Start Date</th>
+				          <th>End Date</th>
+				          <th>Status</th>
+				          <th></th>
+				        </tr>
+				      </thead>
+				      <tbody>
+				        <tr ng-repeat="financialYear in financialYearObj.financialYearList">
+				          <td>{{$index+1}}</td>
+				          <td>{{financialYear.FinancialYearName}}</td>
+				          <td>{{financialYear.startDate | date:'dd-MMM-yyyy'}}</td>
+				          <td>{{financialYear.endDate | date:'dd-MMM-yyyy'}}</td>
+				          <td>
+				          	<span class="" ng-if="!financialYear.activeFinancialYear"><i class="glyphicon glyphicon-remove-circle fa-lg text-danger"></i>&nbsp;Inactive</span>
+				          	<span class="" ng-if="financialYear.activeFinancialYear"><i class="glyphicon glyphicon-ok-circle fa-lg text-success"></i>&nbsp;Active</span>
+				          </td>
+				          <td>
+				          	<a title="Update" ng-click="financialYearObj.newFinancialYear = financialYear"><span class="glyphicon glyphicon-pencil"></span></a>
+				          	&nbsp;
+				          	<a title="Delete" ng-click="deleteFinancialYear(financialYear, $index)"><span class="glyphicon glyphicon-trash"></span></a>
+				          </td>
+				        </tr>
+				      </tbody>
+				    </table>
+				</div>
+	    	</div>
+	    </div>
+
+	  </div>
+	</div>
+</div>
+</div>

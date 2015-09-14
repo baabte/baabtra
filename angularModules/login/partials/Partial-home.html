@@ -39,7 +39,7 @@ Created On:12/11/2014 -->
       </nav>
 </div>
 </div>
-<div class="p-sm"  >
+<div class="p-sm "  >
 	<div ng-style="($root.userinfo.ActiveUserData.modernView != 'modern') && {'margin-top':'46px'}"  class="row p-v-xs" name="innercontent" ui-view>
     <div ng-if="$root.userinfo.ActiveUserData.modernView == 'modern' " class="col-xs-12"  masonry='{ "transitionDuration" : "0.8s" , "itemSelector" : ".tile"}'>
       <div ng-if="(menu.canView || (menu.canView == undefined)) && userMenus.length" masonry-tile  ng-repeat="menu in userMenus" class="text-center p-sm pull-left tile masonry-brick" style="width:140px; margin-bottom:0px;" >

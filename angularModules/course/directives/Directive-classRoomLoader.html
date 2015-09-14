@@ -1,0 +1,10 @@
+<div class="col-xs-12">
+
+	<select class="form-control" ng-model="ngModel" ng-change="courseChanged(ngModel)">
+		<option value="" disabled="disabled" selected="selected">Please select a course</option>
+		<option title="{{classRoom.courseName}}" value="{{classRoom._id.$oid}}" ng-repeat="classRoom in classRoomLoaderObj.classRoomList">{{classRoom.courseName}}</option>
+	</select>
+	<!-- <div ng-if="!classRoomLoaderObj.classRoomList.length" class="p-v-sm">
+		No Course found
+	</div> -->
+</div>

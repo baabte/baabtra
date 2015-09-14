@@ -1,39 +1,101 @@
-<div class="col-xs-12 bg-white">
-	<div class="row">
-		<div class="col-xs-12">
-			<form name="academicYearForm" class="form-validation">
-				<div class="panel panel-default" style="box-shadow: none;">
-			        <div class="panel-heading bg-white  no-padding-v">
-			          <h4>Create Academic Year</h4>
-			        </div>
-			        <div class="panel-body no-padding-v" >
-			        	<div class="row row-sm">
-				            <div class="col-xs-12 col-md-4">
-				            	<div class="form-group">
-				            		<input type="text" class="form-control floating-label" placeholder="Enter Academic Year Name" ng-model="academicYearObj.newAcademicYear.academicYearName" required>
-				            	</div>
-				            </div>
-				            <div class="col-xs-12 col-md-4">
-				            	<div class="form-group">
-				            		<input type="text" class="form-control" placeholder="Select Start Date" autocomplete="off"  data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true"   bs-datepicker ng-model="academicYearObj.newAcademicYear.startDate" required>
-				            	</div>
-				            </div>
-				            <div class="col-xs-12 col-md-4">
-				          		<div class="form-group">
-				          			<input type="text" class="form-control" placeholder="Select End Date" autocomplete="off"  data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true"  bs-datepicker ng-model="academicYearObj.newAcademicYear.endDate" required>
-				          		</div>
-				          	</div>
-				        </div>
-			        </div>
-			        <div class="panel-footer no-padding-v bg-white">
-			        	<a class="btn btn-info baab-btn" ng-click="createNewAcademicYear(academicYearObj.newAcademicYear)" ng-disabled="academicYearForm.$invalid" disabled="disabled">Create</a>
-			        	<a class="btn btn-default baab-btn" ng-click="academicYearObj.newAcademicYear = ''">Reset</a>
-			        </div>
-		      	</div>
-	      	</form>
-		</div>
-		<div class="col-xs-12">
-			<pre>{{academicYearObj}}</pre>
-		</div>
+<div class="bg-light">
+<div class="container">
+	<div class="row p-v">
+	  <div class="col-md-12">
+	    <div class="panel">
+
+	    	<form name="academicYearForm" class="form-validation">
+		    	<div class="panel-heading bg-white ">
+		    		<h4>Create Academic Year</h4>
+				</div>
+
+		    	<div class="panel-body no-padding-v">
+		    		<div class="row row-sm">
+
+		    			<!-- Academic Year Name -->
+		    			<div class="col-xs-12 col-md-4">
+						    <div class="form-group">
+						       	<input type="text" class="form-control" placeholder="Enter Academic Year Name" ng-model="academicYearObj.newAcademicYear.academicYearName" required>
+					    	</div>
+					    </div>
+
+					    <!-- Start Date -->
+					    <div class="col-xs-12 col-md-3">
+					    	<div class="form-group">
+					    		<input type="text" class="form-control" placeholder="Select Start Date" autocomplete="off"  data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true" bs-datepicker ng-model="academicYearObj.newAcademicYear.startDate" required>
+					    	</div>
+					    </div>
+
+					    <!-- End Date -->
+					    <div class="col-xs-12 col-md-3">
+					    	<div class="form-group">
+					    		<input type="text" class="form-control" placeholder="Select End Date" autocomplete="off"  data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true"  bs-datepicker ng-model="academicYearObj.newAcademicYear.endDate" required>
+					    	</div>
+					    </div>
+
+					    <!-- active Academic Year -->
+					    <div class="col-xs-12 col-md-2">
+					    	<div class="form-group">
+					    		<div class="checkbox">
+					    			<label>
+					    				<input ng-model="academicYearObj.newAcademicYear.activeAcademicYear" value="1" type="checkbox"> Active
+					    			</label>
+					    		</div>
+					    	</div>
+					    </div>
+
+					</div>
+				</div>
+
+		    	<div class="panel-footer no-padding-v bg-white">
+		    		<a ng-if="!academicYearObj.newAcademicYear._id" class="btn btn-info baab-btn" ng-click="saveAcademicYear(academicYearObj.newAcademicYear)" ng-disabled="academicYearForm.$invalid" disabled="disabled">Create</a>
+
+		    		<a ng-if="academicYearObj.newAcademicYear._id" class="btn btn-info baab-btn" ng-click="saveAcademicYear(academicYearObj.newAcademicYear)" ng-disabled="academicYearForm.$invalid" disabled="disabled">Update</a>
+		    	</div>
+	    	</form>
+	    </div>
+
+	    <div class="panel" ng-if="academicYearObj.AcademicYearList.length">
+	    	<div class="panel-heading bg-white ">
+		    	<h4>List of Academic Year</h4>
+		    </div>
+	    	<div class="panel-body">
+	    		<!-- <pre>{{academicYearObj.AcademicYearList}}</pre> -->
+	    		<div class="table-responsive">
+				    <table class="table table-bordered bg-white">
+				      <thead>
+				        <tr>
+				          <th>#</th>
+				          <th>Academic Name</th>
+				          <th>Start Date</th>
+				          <th>End Date</th>
+				          <th>Status</th>
+				          <th></th>
+				        </tr>
+				      </thead>
+				      <tbody>
+				        <tr ng-repeat="academicYear in academicYearObj.AcademicYearList">
+				          <td>{{$index+1}}</td>
+				          <td>{{academicYear.academicYearName}}</td>
+				          <td>{{academicYear.startDate | date:'dd-MMM-yyyy'}}</td>
+				          <td>{{academicYear.endDate | date:'dd-MMM-yyyy'}}</td>
+				          <td>
+				          	<span class="" ng-if="!academicYear.activeAcademicYear"><i class="glyphicon glyphicon-remove-circle fa-lg text-danger"></i>&nbsp;Inactive</span>
+				          	<span class="" ng-if="academicYear.activeAcademicYear"><i class="glyphicon glyphicon-ok-circle fa-lg text-success"></i>&nbsp;Active</span>
+				          </td>
+				          <td>
+				          	<a title="Update" ng-click="academicYearObj.newAcademicYear = academicYear"><span class="glyphicon glyphicon-pencil"></span></a>
+				          	&nbsp;
+				          	<a title="Delete" ng-click="deleteAcademicYear(academicYear, $index)"><span class="glyphicon glyphicon-trash"></span></a>
+				          </td>
+				        </tr>
+				      </tbody>
+				    </table>
+				</div>
+	    	</div>
+	    </div>
+
+	  </div>
 	</div>
+</div>
 </div>
