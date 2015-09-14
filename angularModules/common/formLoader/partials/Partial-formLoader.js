@@ -15,7 +15,8 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 					$scope.data.currentStepIndex = 0;
 					$scope.data.currentStep = $scope.data.formSteps[$scope.data.currentStepIndex];
 					$scope.data.width = 100/$scope.data.formSteps.length;
-					$scope.data.formOut = {};
+					$scope.data.formOut = {};					
+					$scope.$digest();
 				}
 			});	
 	}

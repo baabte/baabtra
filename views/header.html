@@ -21,13 +21,13 @@
         <ul  suppress-scroll-y="true" ng-class="{'hideScrollBar':!showScrollbarBreadcrumb}" class="perfect-scrollbar nav navbar-nav navbar-left nav-container-scroll m-t-xs">
           <li ng-click="goHome()" class="lt" ng-class="{'animated fadeInDown':navBar,'ng-hide':!navBar}" ui-sref-active="active" >
             <div>
-             <i class="icon glyphicon glyphicon-th-large text-md"></i>
+             <i class="icon glyphicon glyphicon-th-large fa-lg"></i>
             </div>
           </li>
 
           <li ng-click="goMenu(path,$index)" ng-repeat="path in linkPath track by $index">
             <div class="animated fadeInDown">
-             <i class="text-md" text-to-translate="{{path.MenuName}}" translate>{{path.MenuName}}</i>
+             <i class="text-sm" text-to-translate="{{path.MenuName}}" translate>{{path.MenuName}}</i>
              <i class="fa fa-chevron-right text-xs m-l-xs" ng-if="linkPath.length > $index+1"></i>
             </div>
           </li>        
