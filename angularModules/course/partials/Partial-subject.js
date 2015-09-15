@@ -21,6 +21,7 @@ angular.module('baabtra').controller('SubjectCtrl',['$scope', '$rootScope', '$st
 	$scope.subjectObj.newSubject.status = true;
 	$scope.subjectObj.newSubject.activeFlag = 1;
 	$scope.subjectObj.mode = $state.params.key;
+	$scope.subjectObj.exists = false;
 
 	if(angular.equals($scope.subjectObj.mode, 'view')){
 		var subjectCondition = {companyId:companyId, activeFlag:1};
@@ -70,6 +71,28 @@ angular.module('baabtra').controller('SubjectCtrl',['$scope', '$rootScope', '$st
 			$scope.subjectObj.subjectList.splice(index, 1);
 			$alert({title: "Deleted!", content: "Subject Deleted Successfully", placement: 'top-right',duration:2, type: "success"});
 		});
+	};
+
+	var searchTimeOut;
+	$scope.checkExists = function(label, key, value, form){
+		if(searchTimeOut) {
+					clearTimeout(searchTimeOut);
+				}
+				searchTimeOut=setTimeout(function(){
+		var data = {collectionName:'clnSubjects'};
+		data.condition = {companyId:companyId, activeFlag:1};
+		data.condition[key] = value;
+
+		var valueExists = commonService.valueExists(data);
+		valueExists.then(function(response){
+			var result = angular.fromJson(JSON.parse(response.data));
+			if(result){
+				console.log(form);
+				$scope.subjectObj.subjectName = value;
+				$alert({title: "Exists!", content: label+" "+value+" has already been taken.", placement: 'top-right',duration:2, type: "warning"});
+			}
+		});
+	},500);
 	};
 
 

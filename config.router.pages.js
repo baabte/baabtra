@@ -328,7 +328,7 @@
                 }
               })
 
-              .state('home.main.courseDetails', {
+              .state('home.main.course', {
                 url: '/course/:courseId',
                 views:{
                   'innercontent':{
@@ -339,7 +339,7 @@
                 
               })
 
-              .state('home.main.course', {
+              .state('home.main.courses', {
                 url: '/courses/:key?_id',
                 views:{
                   'innercontent':{

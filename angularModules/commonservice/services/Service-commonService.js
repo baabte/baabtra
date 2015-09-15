@@ -188,6 +188,15 @@ this.loadUserData = function () {
 		return promise;
 };
 
+this.valueExists = function (data) {
+	var promise = $http({//call to the webservice
+		method: 'POST',
+		url: bbConfig.BWS+'valueExists/',
+		data:data,
+	})
+	return promise;
+};
+
 	
 }]);
 
