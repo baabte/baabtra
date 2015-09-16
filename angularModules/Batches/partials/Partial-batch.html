@@ -26,7 +26,7 @@
 
 				                	<div class="col-sm-4">
 				                		<label>Batch Name</label>
-				                		<input type="text" class="form-control" ng-model="batchObj.newBatch.batchName" placeholder="Enter Batch Name" required>
+				                		<input type="text" class="form-control" ng-model="batchObj.newBatch.batchName" placeholder="Enter Batch Name" ng-blur="checkExists('Batch Name', 'batchName', batchObj.newBatch.batchName)" required>
 				                	</div>
 				              </div>
 			            	</div>
@@ -69,6 +69,12 @@
 
 				                	
 				              </div>
+
+				            <div class="form-group" ng-if="batchObj.errorMsg.length">
+				            	<div class="row text-right has-error">
+				            		<div ng-repeat="msg in batchObj.errorMsg"  class="col-xs-12 help-block no-margin">{{msg}}</div>
+				            	</div>
+				            </div>
 			            	</div>
 
 						</div>

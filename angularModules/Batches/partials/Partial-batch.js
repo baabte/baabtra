@@ -22,6 +22,7 @@ angular.module('baabtra').controller('BatchCtrl', ['$scope', '$rootScope', '$sta
 	$scope.batchObj.newBatch.batchCourseName = '';
 	$scope.batchObj.newBatch.activeFlag = 1;
 	$scope.batchObj.mode = $state.params.key;
+	$scope.batchObj.errorMsg = [];
 	
 	if(angular.equals($scope.batchObj.mode, 'view')){
 		var batchCondition = {companyId:companyId, activeFlag:1};
@@ -79,5 +80,41 @@ angular.module('baabtra').controller('BatchCtrl', ['$scope', '$rootScope', '$sta
 			$alert({title: "Deleted!", content: "Batch Deleted Successfully", placement: 'top-right',duration:2, type: "success"});
 		});
 	};//deleteBatch - end
+
+	$scope.checkExists = function(label, key, value){
+
+		var data = {collectionName:'clnClassRoomBatch'};
+			data.condition = {companyId:companyId, activeFlag:1, academicYear:$scope.batchObj.newBatch.academicYear, batchCourse:$scope.batchObj.newBatch.batchCourse};
+			data.condition[key] = value;
+			data.objectIds = ['companyId', 'academicYear', 'batchCourse'];
+		if(value && $scope.batchObj.newBatch.academicYear && $scope.batchObj.newBatch.batchCourse){
+			var valueExists = commonService.valueExists(data);
+				valueExists.then(function(response){
+					var result = angular.fromJson(JSON.parse(response.data));
+					var msg = label+ " Already Exists";
+					if(!angular.equals(result.data, null)){
+						console.log(result, $scope.batchObj.newBatch);
+						if(!angular.equals(result.data._id.$oid, ($scope.batchObj.newBatch._id?$scope.batchObj.newBatch._id.$oid:""))){
+							if(angular.equals($scope.batchObj.errorMsg.indexOf(msg), -1)){
+
+								$scope.batchObj.errorMsg.push(msg);
+							}
+						}
+						else{
+							if(!angular.equals($scope.batchObj.errorMsg.indexOf(msg), -1)){
+								var indexOfMsg = $scope.batchObj.errorMsg.indexOf(msg);
+								$scope.batchObj.errorMsg.splice(indexOfMsg, 1);
+							}
+						}	
+					}
+					else{
+						if(!angular.equals($scope.batchObj.errorMsg.indexOf(msg), -1)){
+							var indexOfMsg = $scope.batchObj.errorMsg.indexOf(msg);
+							$scope.batchObj.errorMsg.splice(indexOfMsg, 1);
+						}
+					}
+				});
+		}
+	};
 
 }]);

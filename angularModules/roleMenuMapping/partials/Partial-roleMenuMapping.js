@@ -2,9 +2,10 @@
 angular.module('baabtra').
 	controller('RoleMenuMappingCtrl',['$location','commonService','$scope','$modal','$rootScope','RoleMenuMappingSrv','$alert','localStorageService','$state',function ($location,commonService,$scope,$modal,$rootScope,RoleMenuMappingSrv,$alert,localStorageService,$state) {
 
-    if(!$rootScope.userinfo){
+if(!$rootScope.userinfo){
    commonService.GetUserCredentials($scope);
    $rootScope.hide_when_root_empty=false;
+   return;
 }
 
 if(angular.equals($rootScope.loggedIn,false)){
@@ -177,7 +178,7 @@ else if(angular.equals($scope.roleId,2))
       }
      };
      $scope.checkNewMenu=function(new_menu_id)
-     {
+     {  console.log($scope.tree1);
             for (var menu_count = 0; menu_count < $scope.tree1.length; menu_count++) {
               if(angular.equals($scope.tree1[menu_count].fkMenuId,new_menu_id))//checking, new menu exists in current root menu
                 {

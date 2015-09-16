@@ -1,4 +1,4 @@
-angular.module('baabtra').directive('courseElementBubble',['$dropdown','$rootScope', function($dropdown,$rootScope) {
+angular.module('baabtra').directive('courseElementBubble',['$dropdown','$rootScope', 'bbConfig', function($dropdown,$rootScope, bbConfig) {
 	return {
 		restrict: 'E',
 		templateUrl: 'angularModules/courseElements/directives/Directive-courseElementBubble.html',
@@ -7,6 +7,8 @@ angular.module('baabtra').directive('courseElementBubble',['$dropdown','$rootSco
 			if(!angular.equals(attrs['tlPoint'],undefined)){
 				scope.thisPoint=attrs['tlPoint'];				
 			}
+
+			var roleId = $rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId;
 			// console.log(scope.elementOrderNewFormat);
 			// console.log(scope.timeLineView);
 			
@@ -18,7 +20,8 @@ angular.module('baabtra').directive('courseElementBubble',['$dropdown','$rootSco
 					scope.status = true;
 				}
 			}
-			if(angular.equals($rootScope.userinfo.ActiveUserData.roleMappingObj.fkRoleId,2)){
+			var cantAccess = [bbConfig.MURID, bbConfig.PUSRID];
+			if(angular.equals(cantAccess.indexOf(roleId),- 1)){
 				scope.dropdown = [{text:'<i class=\"fa fa-fw fa-edit\"></i>&nbsp;Edit', click:"editCourseElement()"},
 								  {text:'<i class=\"fa fa-fw fa-trash\"></i>&nbsp;Remove', click:"removeCourseElement($event)"}];
 				//{text:'<i class=\"fa fa-fw fa-sort\"></i>&nbsp;Move', click:"moveCourseElement(element)"}

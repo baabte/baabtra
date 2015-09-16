@@ -23,6 +23,7 @@ angular.module('baabtra').controller('CourseCtrl',['$rootScope', '$scope', '$sta
 	$scope.courseObj.newBatch = {};
 	$scope.courseObj.initialBatch = false;
 	$scope.courseObj.mode = $state.params.key;
+	$scope.courseObj.errorMsg = [];
 
 	if(angular.equals($scope.courseObj.mode, 'view')){
 		var courseCondition = {companyId:companyId, activeFlag:1};
@@ -73,6 +74,42 @@ angular.module('baabtra').controller('CourseCtrl',['$rootScope', '$scope', '$sta
 			$scope.courseObj.courseList.splice(index, 1);
 			$alert({title: "Deleted!", content: "Course Deleted Successfully", placement: 'top-right',duration:2, type: "success"});
 		});
+	};
+
+	$scope.checkExists = function(label, key, value){
+			var data = {collectionName:'clnClassRoom'};
+			data.condition = {companyId:companyId, activeFlag:1};
+			data.condition[key] = value;
+			data.objectIds = ['companyId'];
+			
+			if(value){
+				var valueExists = commonService.valueExists(data);
+				valueExists.then(function(response){
+					var result = angular.fromJson(JSON.parse(response.data));
+					var msg = label+ " Already Exists";
+
+					if(!angular.equals(result.data, null)){
+						if(!angular.equals(result.data._id.$oid, ($scope.courseObj.newCourse._id?$scope.courseObj.newCourse._id.$oid:""))){
+
+							if(angular.equals($scope.courseObj.errorMsg.indexOf(msg), -1)){
+								$scope.courseObj.errorMsg.push(msg);
+							}
+						}
+						else{
+							if(!angular.equals($scope.courseObj.errorMsg.indexOf(msg), -1)){
+								var index = $scope.courseObj.errorMsg.indexOf(msg);
+								$scope.courseObj.errorMsg.splice(index, 1);
+							}
+						}	
+					}
+					else{
+						if(!angular.equals($scope.courseObj.errorMsg.indexOf(msg), -1)){
+							var index = $scope.courseObj.errorMsg.indexOf(msg);
+							$scope.courseObj.errorMsg.splice(index, 1);
+						}
+					}
+				});
+			}
 	};
 
 }]);
