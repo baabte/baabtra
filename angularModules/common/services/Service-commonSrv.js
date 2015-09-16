@@ -154,7 +154,27 @@ this.FnLoadGlobalValues=function(key)
         data:{userId:userId}
      });
     return promise;
-  }; 
+  };
+
+  this.saveFinancialYear = function(financialYearDetails){
+    var promise = $http({
+      method: 'post',
+      url: bbConfig.BWS + 'saveFinancialYear/',
+      data:financialYearDetails,
+      contentType:'application/json; charset=UTF-8',
+    });
+    return promise;
+  };
+
+  this.loadFinancialYear = function(financialYearDetails){
+    var promise = $http({
+      method: 'post',
+      url: bbConfig.BWS + 'loadFinancialYear/',
+      data:financialYearDetails,
+      contentType:'application/json; charset=UTF-8',
+    });
+    return promise;
+  };
 
 
 }]);

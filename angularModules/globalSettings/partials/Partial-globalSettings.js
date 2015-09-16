@@ -1,4 +1,4 @@
-angular.module('baabtra').controller('GlobalsettingsCtrl',['$scope','commonService','$stateParams','$rootScope','manageCompanyRoleService','globalSettings','$alert','UnigueCodeGenerator','localStorageService','$modal',function($scope,commonService,$stateParams,$rootScope,manageCompanyRoleService,globalSettings,$alert,UnigueCodeGenerator,localStorageService,$modal){
+angular.module('baabtra').controller('GlobalsettingsCtrl',['$scope','commonService','$stateParams','$rootScope','manageCompanyRoleService','globalSettings','$alert','UnigueCodeGenerator','localStorageService','$modal', 'academicYear', 'commonSrv',function($scope,commonService,$stateParams,$rootScope,manageCompanyRoleService,globalSettings,$alert,UnigueCodeGenerator,localStorageService,$modal, academicYear, commonSrv){
 
 
 if(localStorageService.get('latestGlobalConfigState')){
@@ -22,7 +22,7 @@ var companyId;
 $scope.entities=[];
 $scope.incrementTypes=[{"Name":"<i class='fa fa-sort-numeric-asc p-xs'></i>Number","value":"Number"},{"Name":"<i class='ti-uppercase p-xs'></i>Alphabetics(In Capital Letter)","value":"Alphabetics(C)"},{"Name":"<i class='ti-smallcap p-xs'></i>Alphabetics(In Small Letter)","value":"Alphabetics(s)"}];
 $scope.enableaddEvaluator=true;
-
+$scope.globalSettingsObj = {};
 // watch function for retireve userinfo # commented by lijin for avoiding watch on 20-5-2015
 // $scope.$watch(function() {
 //   return $rootScope.userinfo;
@@ -30,6 +30,18 @@ $scope.enableaddEvaluator=true;
   $scope.userinfo = $rootScope.userinfo;
   // console.log($scope.userinfo.ActiveUserData.roleMappingObj);
   companyId=$scope.userinfo.ActiveUserData.roleMappingObj.fkCompanyId.$oid;
+  var loadAcademicYear = academicYear.loadAcademicYear({companyId:companyId});
+	loadAcademicYear.then(function(response){
+		var result = angular.fromJson(JSON.parse(response.data));
+		$scope.globalSettingsObj.academicYear = result;
+	});
+
+	var loadFinancialYear = commonSrv.loadFinancialYear({companyId:companyId});
+	loadFinancialYear.then(function(response){
+		var result = angular.fromJson(JSON.parse(response.data));
+		$scope.globalSettingsObj.financialYear = result;
+	});
+
   var existingConf= globalSettings.retrieveExistingConf(companyId);
 	existingConf.then(function  (data) {
 	  existingConfCallBack=angular.fromJson(JSON.parse(data.data));

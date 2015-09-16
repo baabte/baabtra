@@ -339,6 +339,39 @@
                 
               })
 
+              .state('home.main.courses', {
+                url: '/courses/:key?_id',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-course.html',
+                    controller:'CourseCtrl'
+                  }
+                }
+                
+              })
+
+              .state('home.main.batch', {
+                url: '/batch/:key?_id',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/Batches/partials/Partial-batch.html',
+                    controller:'BatchCtrl'
+                  }
+                }
+                
+              })
+
+              .state('home.main.subject', {
+                url: '/subject/:key?_id',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-subject.html',
+                    controller:'SubjectCtrl'
+                  }
+                }
+                
+              })
+
               .state('home.main.addCourse.step1', {
                 url: '/step1/:key/:courseId',
                 views:{
@@ -577,6 +610,26 @@
                   'innercontent':{
                     templateUrl: 'angularModules/globalSettings/partials/Partial-globalSettings.html',
                     controller: 'GlobalsettingsCtrl'
+                  }
+                }
+                
+              })
+               .state('home.main.academicYear', {
+                url: '/academicYear',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/globalSettings/partials/Partial-academicYear.html',
+                    controller: 'AcademicyearCtrl'
+                  }
+                }
+                
+              })
+               .state('home.main.financialYear', {
+                url: '/financialYear',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/globalSettings/partials/Partial-financialYear.html',
+                    controller: 'FinancialyearCtrl'
                   }
                 }
                 

@@ -1,0 +1,7 @@
+<div class="col-xs-12">
+
+	<select class="form-control" ng-options="academicYear._id.$oid as academicYear.academicYearName for academicYear in academicYearLoaderObj.AcademicYearList" ng-change="academicYearChanged(ngModel)"  ng-model="ngModel">
+		<option value="" disabled="disabled" selected="selected">Please select a year</option>
+		<!-- <option ng-change="academicYearChanged(academicYear)" value="{{academicYear._id.$oid}}" ng-model="academicYear.option" ng-repeat="academicYear in academicYearLoaderObj.AcademicYearList">{{academicYear.academicYearName}}</option> -->
+	</select>
+</div>

@@ -2,8 +2,8 @@
 <div class="p-h-md p-v bg-white box-shadow b-b ng-scope">
   <h3 class="no-margin" translate="{{'Global Settings'|translate}}"></h3>
 </div> 
-<div class="box ng-scope bg-white" >
-  <div class="col-md-3">
+<div class="box ng-scope " >
+  <div class="col-md-3 bg-white">
     <div style="background:url({{userinfo.ActiveUserData.roleMappingObj.avatar}}) center center; background-size:cover">
       <div class="p-lg bg-white-opacity text-center">
         <a href="" class="w-sm inline m-t-md">
@@ -17,7 +17,12 @@
         </p>
       </div>
     </div>
-    <ul class="nav nav-list b-t bg-white font-bold" ui-nav="">
+    <ul class="nav nav-list b-t  font-bold" ui-nav="">
+      
+      <li ng-class="{'b-b b-yellow b-2x':selectedTab=='generalConfiguration '}" ng-click="selectedTab='generalConfiguration';setState('generalConfiguration')">
+        <a href="">General Configuration</a>
+      </li>
+
       <li role="presentation" ng-class="{'b-b b-yellow b-2x':selectedTab=='SetEvaluator '}" ng-click="selectedTab='SetEvaluator';setState('SetEvaluator')">
 
         <a href="">Set an Evaluator </a>
@@ -40,8 +45,50 @@
       </li>
     </ul>
   </div>
-  <div class="col-md-9 b-l bg-white" >
-    <div class="p-md bg-light b-b font-bold">Global Settings Configuration</div>
+  <div class="col-md-9 b-l bg-light" >
+    <div class="p-md  b-b font-bold">Global Settings Configuration</div>
+    <div class="form-group  p-h-sm" ng-show="selectedTab=='generalConfiguration'">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="panel b-light">
+            <div class="panel-heading bg-white b-b p-v-xs p-h-sm link" ui-sref="home.main.academicYear">
+              <span title="New" class="pull-right"><i class="fa fa-plus"></i></span>
+              Academic Year
+            </div>
+            <div class="panel-body p-sm">
+              <div class="pull-left pull-none-sm p-h text-center">
+                <span class="text-3x"><i class="fa fa-flag-checkered"></i></span>
+              </div>
+              
+              <div class="clear">
+                <div class="text-2x font-bold">{{globalSettingsObj.academicYear.count?globalSettingsObj.academicYear.count:"-"}}</div>
+                <small ng-if="globalSettingsObj.academicYear.academicYear.academicYearName" class="text-muted">Current : {{globalSettingsObj.academicYear.academicYear.academicYearName}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="panel b-light">
+            <div class="panel-heading bg-white b-b p-v-xs p-h-sm link" ui-sref="home.main.financialYear">
+              <span title="New" class="pull-right"><i class="fa fa-plus"></i></span>
+              Financial year
+            </div>
+            <div class="panel-body p-sm">
+              <div class="pull-left pull-none-sm p-h text-center">
+                <span class="text-3x"><i class="fa fa-bank"></i></span>
+              </div>
+              
+              <div class="clear">
+                <div class="text-2x font-bold">{{globalSettingsObj.financialYear.count?globalSettingsObj.financialYear.count:"-"}}</div>
+                <small ng-if="globalSettingsObj.financialYear.financialYear.FinancialYearName" class="text-muted">Current : {{globalSettingsObj.financialYear.financialYear.FinancialYearName}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>    
+    </div> 
+
   
 <div class="form-group bg-light m-sm p-sm" ng-show="selectedTab=='SetEvaluator'">
         

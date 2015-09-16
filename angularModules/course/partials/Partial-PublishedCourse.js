@@ -184,7 +184,7 @@ $scope.prevOne=function(){//event  for showing previous 12 items
 };
 
 $scope.viewCourseDetails = function(courseId){
-	$state.go("home.main.course",{courseId:courseId});
+	$state.go("home.main.courseDetails",{courseId:courseId});
 };
 $scope.copydiv=true;
 

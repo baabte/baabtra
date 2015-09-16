@@ -1,0 +1,159 @@
+<div class="bg-light">
+	<div class="container">
+		<div class="row p-v" ng-if="courseObj.mode != 'view'">
+			<div class="col-md-12">
+		  		<form name="form" class="form-validation ng-pristine ng-invalid ng-invalid-required ng-valid-pattern ng-valid-email ng-valid-validator">
+			        <div class="panel panel-default ">
+			        	<!-- set-sub-heading-and-background-color -->
+			          <div class="p-v-sm p bg-white b-b" >
+			            <h4 >Class / Course Details</h4>
+			          </div>
+			          <div class="panel-body no-padding-v">
+
+			            <div class="form-group">
+			            	<div class="row">
+			            		
+
+			                	<div class="col-sm-6">
+			                		<label>Course Name</label>
+			                		<input type="text" class="form-control" ng-model="courseObj.newCourse.courseName" placeholder="Enter Course Name" required>
+			                	</div>
+
+			                	<div class="col-sm-6">
+			                		<label>Description</label>
+			                		 <textarea class="form-control" rows="3" ng-model="courseObj.newCourse.courseDescription"></textarea>
+			                	</div>
+			              </div>
+			            </div>
+
+			            <div class="form-group">
+			            	<div class="row">
+			              <div class="col-sm-6">
+			                <label>Course Code</label>
+			                <input type="text" class="form-control" ng-model="courseObj.newCourse.courseCode" placeholder="Enter Course Code">   
+			              </div>
+			              <div class="col-sm-6">
+			                <label>Course Alias</label>
+			                <input type="text" class="form-control" ng-model="courseObj.newCourse.courseAlias" placeholder="Enter Course Alias" required>
+			              </div>
+			              </div>
+			            </div>
+
+			            <div class="form-group">
+			            	<div class="row">
+			            		<div class="col-sm-12 col-md-6">
+			            			<div class="checkbox">
+				            		<label >
+				            			<input ng-model="courseObj.newCourse.status" type="checkbox"> Active
+				            		</label>
+				            	</div>
+			            		</div>
+			            	</div>
+			            </div>
+			            
+			            <div ng-if="courseObj.mode == 'create'" class="row">
+				            <div class="col-xs-12 b-b b-t p-v-xs">
+				            	<div class="checkbox">
+				            		<label class="text-lg">
+				            			<input ng-model="courseObj.initialBatch" type="checkbox"> Initial Batch / Division
+				            		</label>
+				            	</div>
+				            </div>
+			            </div>
+
+			            <fieldset ng-if="courseObj.mode == 'create'" ng-disabled="!courseObj.initialBatch">
+				            <div class="form-group">
+				            	<div class="row">
+					              <div class="col-sm-6">
+					                <label>Batch Name</label>
+					                <input type="text" class="form-control" ng-model="courseObj.newBatch.batchName" placeholder="Enter Batch Name" ng-required="courseObj.initialBatch">   
+					              </div>
+					              <div class="col-sm-6">
+					                <label>Batch Alias</label>
+					                <input type="text" class="form-control" ng-model="courseObj.newBatch.batchAlias" placeholder="Enter Batch Alias" ng-required="courseObj.initialBatch">
+					              </div>
+					            </div>
+					        </div>
+
+					        <div class="form-group">
+				            	<div class="row">
+					              <div class="col-sm-6">
+					                <label>Start Date</label>
+					                <input type="text" class="form-control" ng-model="courseObj.newBatch.batchStartDate" placeholder="Select Start Date" ng-required="courseObj.initialBatch" autocomplete="off"  data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true"  bs-datepicker>   
+					              </div>
+					              <div class="col-sm-6">
+					                <label>End Date</label>
+					                <input type="text" class="form-control" ng-model="courseObj.newBatch.batchEndDate" placeholder="Select End Date" ng-required="courseObj.initialBatch" autocomplete="off"  data-date-format="dd-MM-yyyy" data-date-type="date" data-autoclose="true"  bs-datepicker>
+					              </div>
+					            </div>
+					        </div>
+
+					        <div class="form-group">
+				            	<div class="row">
+					              <div class="col-sm-6">
+					                <label>Academic year</label>
+					                <academic-year-loader ng-required="courseObj.initialBatch" ng-model="courseObj.newBatch.academicYear" class="no-padding-h"></academic-year-loader>   
+					              </div>
+					            </div>
+					        </div>
+				        </fieldset>
+
+			          </div>
+			          <div class="p-sm bg-white b-t text-right">
+
+			             <button type="submit" ng-if="courseObj.mode == 'create'" class="btn btn-info baab-btn no-margin" ng-disabled="form.$invalid" ng-click="saveCourse(courseObj.newCourse)">Create</button>
+
+			             <button type="submit" ng-if="courseObj.mode == 'update'" class="btn btn-info baab-btn no-margin" ng-disabled="form.$invalid" ng-click="saveCourse(courseObj.newCourse)">Update</button>
+
+			          </div>
+			        </div>
+      			</form>
+		    </div>
+		</div>
+		<div class="row p-v" ng-if="courseObj.mode == 'view' && courseObj.courseList">
+			<div class="col-xs-12">
+				<div class="panel panel-default ">
+					<div class="panel-body">
+						<div class="bg-warning col-xs-12 p" ng-if="!courseObj.courseList.length">
+							Courses Not Found
+							<a class="font-bold pull-right" ui-sref="home.main.course({ key: 'create'})">
+								Create Course
+							</a>
+						</div>
+						<div class="table-responsive" ng-if="courseObj.courseList.length">
+						    <table class="table table-bordered bg-white  no-margin">
+						      <thead>
+						        <tr>
+						          <th>#</th>
+						          <th>Course Name</th>
+						          <th>Course Code</th>
+						          <th>Course Alias</th>
+						          <th>Status</th>
+						          <th></th>
+						        </tr>
+						      </thead>
+						      <tbody>
+						        <tr ng-repeat="course in courseObj.courseList">
+						          <td>{{$index+1}}</td>
+						          <td>{{course.courseName}}</td>
+						          <td>{{course.courseCode}}</td>
+						          <td>{{course.courseAlias}}</td>
+						          <td>
+						          	<span class="" ng-if="!course.status"><i class="glyphicon glyphicon-remove-circle fa-lg text-danger"></i>&nbsp;Inactive</span>
+						          	<span class="" ng-if="course.status"><i class="glyphicon glyphicon-ok-circle fa-lg text-success"></i>&nbsp;Active</span>
+						          </td>
+						          <td>
+						          	<a title="Update" ui-sref="home.main.course({ key: 'update', _id:course._id.$oid })"><span class="glyphicon glyphicon-pencil"></span></a>
+						          	&nbsp;
+						          	<a title="Delete" ng-click="deleteCourse(course, $index)"><span class="glyphicon glyphicon-trash"></span></a>
+						          </td>
+						        </tr>
+						      </tbody>
+						    </table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
