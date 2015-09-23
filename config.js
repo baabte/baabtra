@@ -64,9 +64,9 @@ angular.module('baabtra')
   .constant('bbConfig',{ //used for storing enviornment variables
 
 
-    // "BWS": "http://127.0.0.1:8000/",//local
+    "BWS": "http://127.0.0.1:8000/",//local
       // "BWS": "http://services.baabtra.com/",//server - production
-      "BWS": "http://testServices.baabtra.com/",//test server - cloud
+      // "BWS": "http://testservices.baabtra.com/",//test server - cloud
 
     // "BWS": "http://server.baabtra.in/",//server-test
       //"socketServer":'http://104.215.190.103:1555',//production
@@ -85,9 +85,9 @@ angular.module('angular-custom-form',[]) /*Config constant for angular custom fo
 .constant('bbConfig',{ //used for storing enviornment variables
 
 
-     // "BWS": "http://127.0.0.1:8000/",//local
+     "BWS": "http://127.0.0.1:8000/",//local
      // "BWS": "http://services.baabtra.com/",//server - production
-      "BWS": "http://testServices.baabtra.com/",//test server - cloud
+      // "BWS": "http://testservices.baabtra.com/",//test server - cloud
 
      "SARID":1, // SuperAdminRoleID
      "CURID":2, // CompanyUser

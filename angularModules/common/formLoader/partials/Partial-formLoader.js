@@ -1,31 +1,41 @@
 angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'formLoader', 'userRegistrationService', 'addCourseService', 'nomination', '$alert', 'courseAllocateService', 'LoginService', 'localStorageService','$rootScope', function ($scope, $state ,formLoader, userRegistrationService, addCourseService, nomination, $alert, courseAllocateService, LoginService, localStorageService, $rootScope){
 
-	$scope.data = {};
+	
+
+	
+	// function loadFormDetails(companyId){
+	// 	var LoadCustomForm = formLoader.LoadCustomFormforRegistration(companyId, 'User test registration');
+	// 	LoadCustomForm.then(function(response){
+	// 			var result = angular.fromJson(JSON.parse(response.data));
+	// 			if(Object.keys(result).length){
+	// 				$scope.data.companyId = result.companyId.$oid;
+	// 				$scope.data.form = result.form;
+	// 				$scope.data.formSteps = Object.keys($scope.data.form);
+	// 				$scope.currentStepIndex = 0;
+	// 				$scope.data.currentStep = $scope.data.formSteps[$scope.currentStepIndex];
+	// 				$scope.data.width = 100/$scope.data.formSteps.length;
+	// 				$scope.data.formOut = {};					
+	// 			}
+	// 		});	
+	// }
+   // console.log($state.params);
+   	$scope.data = {};
 	$scope.data.registerButtonClicked = false;
 	var courseDetails = {};
-	
-	function loadFormDetails(companyId){
-		var LoadCustomForm = formLoader.LoadCustomFormforRegistration(companyId, 'User test registration');
-		LoadCustomForm.then(function(response){
-				var result = angular.fromJson(JSON.parse(response.data));
-				if(Object.keys(result).length){
-					$scope.data.companyId = result.companyId.$oid;
-					$scope.data.form = result.form;
-					$scope.data.formSteps = Object.keys($scope.data.form);
-					$scope.data.currentStepIndex = 0;
-					$scope.data.currentStep = $scope.data.formSteps[$scope.data.currentStepIndex];
-					$scope.data.width = 100/$scope.data.formSteps.length;
-					$scope.data.formOut = {};					
-					$scope.$digest();
-				}
-			});	
-	}
-   console.log($state.params);
+	$scope.steps=[{name:'STEP 1',stepNo:1},{name:'STEP 2',stepNo:2}];
+	$scope.currentStepIndex = 0;
+	$scope.currentStep=$scope.steps[$scope.currentStepIndex];
+	$scope.totalSteps=$scope.steps.length;
+	$scope.data.width = 100/$scope.steps.length;
+	$scope.data.formOut = {};
+
+   
 	var courseLoadResponse = addCourseService.fnLoadCourseDetails($scope, $state.params.courseId);
 		courseLoadResponse.then(function(course){
 	    	
 	    	$scope.data.course = angular.fromJson(JSON.parse(course.data)).courseDetails;
 	    	$scope.data.orderForm = {};
+	    	$scope.data.companyId =$scope.data.course.companyId.$oid;
 			var time = (new Date()).valueOf();
 			hashids = new Hashids("this is a order form id");
 			var orderFormId = 'OF-' + hashids.encode(time);
@@ -40,13 +50,13 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 
              if ($state.params.childCompanyId) {
              	$scope.data.orderForm.childCompanyId = $state.params.childCompanyId;
-             	console.log($scope.data.orderForm.childCompanyId);
-             	console.log( $state.params.childCompanyId);
-             };
+             	// console.log($scope.data.orderForm.childCompanyId);
+             	// console.log( $state.params.childCompanyId);
+             }
 
 
 
-			loadFormDetails($scope.data.orderForm.companyId);
+			// loadFormDetails($scope.data.orderForm.companyId);
 
 	    	courseDetails.courseId = $scope.data.course._id.$oid;
 
@@ -71,16 +81,17 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 	    	courseDetails.userCount = 1;
 
 	    	courseDetails.userInfo = [];
-	    })
+	    });
 
 	$scope.nextStep = function(){
-		$scope.data.currentStepIndex = $scope.data.formSteps.indexOf($scope.data.currentStep) + 1;
-		$scope.data.currentStep = $scope.data.formSteps[$scope.data.currentStepIndex];
+		$scope.currentStepIndex++;
+		$scope.currentStep=$scope.steps[$scope.currentStepIndex];
 	};
 
 	$scope.previousStep = function(){
-		$scope.data.currentStepIndex = $scope.data.formSteps.indexOf($scope.data.currentStep) - 1;
-		$scope.data.currentStep = $scope.data.formSteps[$scope.data.currentStepIndex];
+		$scope.currentStepIndex--;
+		$scope.currentStep=$scope.steps[$scope.currentStepIndex];
+
 	};
 
 	function jsonConcat(o1, o2) {
@@ -107,14 +118,17 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
         
        
 
-		var output = {};
-		for(var step in $scope.data.formOut){	
-			output = jsonConcat(output, $scope.data.formOut[step]);
-		}
+		// var output = {};
+		// for(var step in $scope.data.formOut){	
+		// 	output = jsonConcat(output, $scope.data.formOut[step]);
+		// }
+
+		output = $scope.data.formOut;
 
 		
-		output.satus = "Enrolled"
-		output.statusHistory = [{
+		output.status = "Enrolled";
+		output.statusHistory = [
+							{
                             "statusChangedOn" : Date(),
                             "previousStatus" : "Pending Approval",
                             "statusChangedby" : "54978cc57525614f6e3e7109",
@@ -138,8 +152,8 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 
 		$scope.data.orderForm.orderDetails.push(courseDetails);
 		$scope.data.orderForm.requesteeDetails = output;
-		$scope.data.orderForm.requesteeDetails.type = 'individual'
-        console.log($scope.data.orderForm);
+		$scope.data.orderForm.requesteeDetails.type = 'individual';
+        // console.log($scope.data.orderForm);
 			var nomintaionResponse = formLoader.CustomFormUserRegistration($scope.data.orderForm, "5562fe9394214e36a96600e5");
 			nomintaionResponse.then(function(response){
 					$scope.data.registerButtonClicked = false;
@@ -152,17 +166,8 @@ angular.module('baabtra').controller('FormloaderCtrl',['$scope', '$state', 'form
 					LoginService.fnloginService($scope);
 					$alert({title: 'Done..!', content: 'You Have Registered Successfully :-)', placement: 'top-right',duration:3 ,animation:'am-slide-bottom', type: 'success', show: true});
 					$state.go('login');	
-			})
+			});
 
-		// var fnRegisterUserCallBack = userRegistrationService.FnRegisterUser(userDetails);
-		//
-		// fnRegisterUserCallBack.then(function(data){
-			
-		// 	var result = angular.fromJson(JSON.parse(data.data));
-			
-			
-
-		// })
 	};
 
 	$scope.loginSuccessCallback=function(data){

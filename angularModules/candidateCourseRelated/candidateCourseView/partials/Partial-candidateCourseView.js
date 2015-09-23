@@ -96,6 +96,8 @@ angular.module('baabtra').controller('viewCandidateCourseCtrl',
 		    gotCourseSyllabus4CandidateView.then(function (data) {		    	
       
 		    	 $scope.candidateCourse=angular.fromJson(JSON.parse(data.data));
+
+		    	 console.log($scope.candidateCourse);
 		    });	
 
 		 

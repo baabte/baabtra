@@ -1,13 +1,17 @@
 <div >
-	<div class="form-group">
-    <select class="form-control" ng-model="College"  ng-change="selectCollege(College)" ng-options="list.companyName for list in lists">
+	  <div class="form-group">
+      <select class="form-control m-b-lg" ng-model="College"  ng-change="selectCollege(College)" ng-options="list.companyName for list in lists">
       <option value="" >Select College</option>
-    </select>   
+      </select>   
+    </div>
+
+     <div ng-if="College.companyName=='Other'" class="form-group" ng-init="ngModel.CollegeName=''">
+             <input type="text" ng-model="ngModel.CollegeName" class="form-control m-b-lg" xt-validate placeholder="College Name" name="CollegeName" data-title="College Name" bs-tooltip required>
     </div>
 
     <div class="form-group">
-    <select  class="form-control" ng-model="Course" ng-change="selectCourse(Course)"  ng-options="course.text for course in courses">
-       <option value="">Select Course</option>
-    </select>   
+      <select  class="form-control m-b-lg" ng-model="Course" ng-change="selectCourse(Course)"  ng-options="course.text for course in courses">
+      <option value="">Select Course</option>
+      </select>   
   	</div>
 </div>

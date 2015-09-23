@@ -30,6 +30,7 @@ angular.module('baabtra').controller('BatchassignmentCtrl',['$scope','viewBatche
 		$scope.batchObj.course=angular.fromJson(JSON.parse(response.data)).course;
 		
 		$scope.batchObj.userArray=angular.fromJson(JSON.parse(response.data)).userList;
+
 		$scope.batchObj.userList=angular.fromJson(JSON.parse(response.data)).userDetails;
 			
 		$scope.batchObj.assignedList = [];

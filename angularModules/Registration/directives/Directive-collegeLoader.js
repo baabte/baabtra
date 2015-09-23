@@ -7,22 +7,15 @@ angular.module('baabtra').directive('collegeLoader',['collegeServices','$rootSco
 			companyId:"="
 		},
 		templateUrl: 'angularModules/Registration/directives/Directive-collegeLoader.html',
-		link: function(scope, element, attrs, fn) {
-		console.log(scope.ngModel);
-		console.log(scope.companyId+' outside watch');
+		link: function(scope, element, attrs, fn) {											
 
-		scope.$watch('companyId',function(){
-		console.log(scope.companyId+' inside watch');
+		var fngetCollageList = collegeServices.fngetCollageList(scope.companyId);
+			fngetCollageList.then(function(response){
+			scope.lists = angular.fromJson(JSON.parse(response.data));        
+		});//service call for college fetch
 
-					if(!angular.equals(scope.companyId,undefined)){					
+					
 
-				        var fngetCollageList = collegeServices.fngetCollageList(scope.companyId);
-				        fngetCollageList.then(function(response){
-						scope.lists = angular.fromJson(JSON.parse(response.data));        
-						});//service call for college fetch
-
-					}
-		}); //watch end
 
 		
 

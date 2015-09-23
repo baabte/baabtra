@@ -1,21 +1,103 @@
-<div class="col-xs-12" style="margin-top: -62px;" ng-show="data.formSteps.length">
+<div class="col-xs-12" style="margin-top: -62px;" >
 	<div class="row ">
-		<form id="msform" name="msform" >
+		<div id="msform" name="msform">
 
 		<!-- progressbar -->
 			<ul id="progressbar">
-				<li ng-class="{'active':$index <= data.currentStepIndex}" style="width: {{data.width}}%;" ng-repeat="step in data.formSteps">{{step}}</li>
+				<li ng-class="{'active':$index <= currentStepIndex}" style="width: {{data.width}}%;" ng-repeat="step in steps">{{step.name}}</li>
 			</ul>
 			<!-- fieldsets -->
 			<fieldset>
-				<h2 class="fs-title">{{data.formSteps[data.currentStepIndex]}}</h2>
+				<h2 class="fs-title">{{currentStep.name}}</h2>
 				<!-- <h3 class="fs-subtitle">{{msform.$invalid}}</h3> -->
-				<div  class="am-fade-and-slide-right" acf-form input-model="data.form[data.currentStep]" output-model="data.formOut[data.currentStepIndex]"></div>
+				<!-- <div  class="am-fade-and-slide-right" acf-form input-model="data.form[data.currentStep]" output-model="data.formOut[currentStepIndex]"></div> -->
+				<div  class="am-fade-and-slide-right" >
+				<div class="col-xs-12">
+				<form name="testRegFrom1" ng-show="currentStep.name=='STEP 1'" xt-form novalidate>
+					<div class="form-group">
+						 <input type="email" ng-model="data.formOut.eMail" class="form-control m-b-lg" xt-validate placeholder="Email ID" name="eMail" data-title="Email ID" bs-tooltip required>
+					</div>
 
-				<a class="btn btn-success baab-btn" style="line-height: 14px;" ng-if="data.currentStepIndex > 0" ng-click="previousStep()">Previous</a>
-				<a class="btn btn-success baab-btn" style="line-height: 14px;" ng-if="data.currentStepIndex != data.formSteps.length-1" ng-disabled="msform.$invalid" disabled="disabled" ng-click="nextStep()">Next</a>
-				<a class="btn btn-success baab-btn" ng-if="data.currentStepIndex == data.formSteps.length-1" style="line-height: 14px;" ng-disabled="msform.$invalid || data.registerButtonClicked" disabled="disabled" ng-click="submitUserDetails()">Submit</a>
+					<div class="form-group">
+						 <input type="text" ng-model="data.formOut.firstName" class="form-control m-b-lg" xt-validate placeholder="First Name" data-title="First Name" bs-tooltip name="firstName" required>
+					</div>
+
+					<div class="form-group">
+						 <input type="text" ng-model="data.formOut.lastName" class="form-control m-b-lg" xt-validate placeholder="Last Name"  data-title="Last Name" bs-tooltip name="lastName" required>
+					</div>
+
+					<div class="form-group">
+						 <input type="text" ng-model="data.formOut.dob" class="form-control m-b-lg" xt-validate placeholder="Date of birth (dd-mm-yyyy)" data-date-format="dd-MM-yyyy" data-date-type="date" placement="right" name="dob"  data-title="Date of birth" bs-tooltip  required bs-datepicker>
+					</div>
+
+					<div class="form-group"> 
+						 <input type="password" ng-model="data.formOut.password" class="form-control m-b-lg" xt-validate placeholder="Password (Minimum 5 characters)" data-title="Password" bs-tooltip ng-minlength="5" name="password" required>
+					</div>
+					
+					<div class="form-group"> 					
+						<a class="btn btn-success baab-btn" style="line-height: 14px;" ng-if="currentStepIndex != totalSteps-1" ng-disabled="testRegFrom1.$invalid" disabled="disabled" ng-click="nextStep()">Next</a>				
+					</div>
+
+					
+				</form>
+				<form name="testRegFrom2" ng-show="currentStep.name=='STEP 2'" xt-form novalidate>
+					<div class="form-group">
+						 <input type="text" ng-model="data.formOut.mobile" class="form-control m-b-lg" xt-validate placeholder="Mobile No" name="mobile" data-title="Mobile No" bs-tooltip required>
+					</div>
+
+					<!-- <div class="form-group">
+						 <input type="text" ng-model="data.formOut.CollegeName" class="form-control m-b-lg" xt-validate placeholder="College Name" name="CollegeName" data-title="College Name" bs-tooltip required>
+					</div>
+
+					<div class="form-group">
+						 <input type="text" ng-model="data.formOut.mobile" class="form-control m-b-lg" xt-validate placeholder="Mobile No" name="mobile" data-title="Mobile No" bs-tooltip required>
+					</div> -->
+					<college-loader ng-if="data.formOut&&data.companyId" ng-model="data.formOut" company-id="data.companyId"></college-loader>
+
+					<div class="form-group">
+						 <input type="number" ng-model="data.formOut.YearOfPassing" class="form-control m-b-lg" ng-minlength="4" xt-validate placeholder="Year of Passing" name="YearOfPassing" data-title="Year of Passing" bs-tooltip required>
+					</div>
+
+					<div class="form-group">
+						 <input type="text" ng-model="data.formOut.Country" class="form-control m-b-lg" xt-validate placeholder="Country" name="Country" data-title="Country" bs-tooltip >
+					</div>
+
+					<div class="form-group">
+						 <input type="text" ng-model="data.formOut.State" class="form-control m-b-lg" xt-validate placeholder="State" name="State" data-title="State" bs-tooltip >
+					</div>
+
+					<div class="form-group">
+						 <input type="text" ng-model="data.formOut.District" class="form-control m-b-lg" xt-validate placeholder="District" name="District" data-title="District" bs-tooltip >
+					</div>
+
+					<div class="form-group">
+						 <input type="text" ng-model="data.formOut.Location" class="form-control m-b-lg" xt-validate placeholder="Location" name="Location" data-title="Location" bs-tooltip >
+					</div>
+
+					<div class="form-group">
+						 <input type="text" ng-model="data.formOut.PreferredWorkingLocations" class="form-control m-b-lg" xt-validate placeholder="Preferred Working Locations" name="Preferred Working Locations" data-title="Preferred Working Locations" bs-tooltip >
+					</div>
+					
+				<div class="row"> 
+					<a class="btn btn-success baab-btn" style="line-height: 14px;" ng-if="currentStepIndex > 0" ng-click="previousStep()">Previous</a>					
+					<a class="btn btn-success baab-btn" ng-if="currentStepIndex == totalSteps-1" style="line-height: 14px;" ng-disabled="testRegFrom1.$invalid||testRegFrom2.$invalid || data.registerButtonClicked" disabled="disabled" ng-click="submitUserDetails()">Submit</a>
+				</div>
+				</form>				
+				</div>
+					
+				</div>
+<!-- 
+				<a class="btn btn-success baab-btn" style="line-height: 14px;" ng-if="currentStepIndex > 0" ng-click="previousStep()">Previous</a>
+					<a class="btn btn-success baab-btn" style="line-height: 14px;" ng-if="currentStepIndex != totalSteps-1" ng-disabled="msform.$invalid" disabled="disabled" ng-click="nextStep()">Next</a>
+					<a class="btn btn-success baab-btn" ng-if="currentStepIndex == totalSteps-1" style="line-height: 14px;" ng-disabled="msform.$invalid || data.registerButtonClicked" disabled="disabled" ng-click="submitUserDetails()">Submit</a>
+ -->
+				
 			</fieldset>
-		</form>
+
+			
+		</div>
+
+				<!-- {{data.formOut}} -->
+
 	</div>
 </div>

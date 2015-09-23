@@ -41,6 +41,7 @@ $scope.pageNavigation=function(type){//event  for showing next/prev 12 items
 	    	$scope.gotPublishedCourses(response);
 	    });
 };
+
 var searchKeyTimeout;
 $scope.searchKeyChanged = function () {
 	if(searchKeyTimeout){
@@ -158,9 +159,10 @@ $scope.$watch('data.selectedNode',function () {
 		return;
 	}
 	//console.log($scope.data.selectedNode.mark.type);
+
 	$scope.elementsOfSelectedNode=[];
 	if(!angular.equals($scope.data.selectedNode.element,undefined)){
-
+		console.log("selected elements",$scope.data.selectedNode.element);
 		for(var key in $scope.data.selectedNode.element){
 			var elemNameArray=$scope.data.selectedNode.element[key].split('.');
 			var elem=$scope.data.selectedCourse.courseTimeline;
@@ -170,9 +172,14 @@ $scope.$watch('data.selectedNode',function () {
 			
 			if(angular.equals($scope.data.selectedNode.mark.type,'mark')){
 				$scope.data.markType='mark';
-				console.log(elemNameArray);
+				// console.log(elemNameArray);
+				console.log("inside mark");
+
 				if(!angular.equals(elem.totalMark,undefined)){
 					$scope.elementsOfSelectedNode.push({element:elem,key:$scope.data.selectedNode.element[key]});
+				}else{
+				console.log("totalMark undefined");
+					
 				}
 			}
 			else if(angular.equals($scope.data.selectedNode.mark.type,'pass/fail')){
