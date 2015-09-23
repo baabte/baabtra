@@ -22,13 +22,13 @@ angular.module('baabtra').controller('SubjectCtrl',['$scope', '$rootScope', '$st
 	$scope.subjectObj.newSubject.activeFlag = 1;
 	$scope.subjectObj.mode = $state.params.key;
 	$scope.subjectObj.exists = false;
+	$scope.subjectObj.errorMsg = [];
 
 	if(angular.equals($scope.subjectObj.mode, 'view')){
 		var subjectCondition = {companyId:companyId, activeFlag:1};
 		var loadSubject = viewCourse.loadSubject(subjectCondition);
 		loadSubject.then(function(response){
 			var result = angular.fromJson(JSON.parse(response.data));
-			console.log(result);
 			$scope.subjectObj.subjectList = result;
 		});
 	}
@@ -38,34 +38,35 @@ angular.module('baabtra').controller('SubjectCtrl',['$scope', '$rootScope', '$st
 		var loadSubject = viewCourse.loadSubject(subjectCondition);
 		loadSubject.then(function(response){
 			var result = angular.fromJson(JSON.parse(response.data));
-			console.log(result);
 			$scope.subjectObj.newSubject = result;
 		});
 	}
 
 	$scope.saveSubject = function(subject, callback){
-		subject.companyId = companyId;
-		subject.crmId = subject.crmId?subject.crmId.$oid:rm_id;
-		subject.urmId = subject.urmId?subject.urmId.$oid:rm_id;
-		if(subject._id){
-			subject._id = subject._id.$oid;
-		}
-		var saveSubject = viewCourse.saveSubject(subject);
-		saveSubject.then(function(response){
-			var result = angular.fromJson(JSON.parse(response.data));
+		if($scope.subjectObj.errorMsg.length){
+			subject.companyId = companyId;
+			subject.crmId = subject.crmId?subject.crmId.$oid:rm_id;
+			subject.urmId = subject.urmId?subject.urmId.$oid:rm_id;
+			if(subject._id){
+				subject._id = subject._id.$oid;
+			}
+			var saveSubject = viewCourse.saveSubject(subject);
+			saveSubject.then(function(response){
+				var result = angular.fromJson(JSON.parse(response.data));
 
-			if(callback){
-				callback();
-			}
-			else{
-				$scope.subjectObj.newSubject = result.subject;
-				$alert({title: result.type+"!", content: "Subject "+result.type+" Successfully", placement: 'top-right',duration:2, type: "success"});
-			}
-		});
+				if(callback){
+					callback();
+				}
+				else{
+					$scope.subjectObj.newSubject = result.subject;
+					$alert({title: result.type+"!", content: "Subject "+result.type+" Successfully", placement: 'top-right',duration:2, type: "success"});
+				}
+			});
+		}	
 	};
 
 	$scope.deleteSubject = function(subject, index){
-		console.log(subject);
+		
 		subject.activeFlag = 0;
 		$scope.saveSubject(subject,function(){
 			$scope.subjectObj.subjectList.splice(index, 1);
@@ -73,26 +74,40 @@ angular.module('baabtra').controller('SubjectCtrl',['$scope', '$rootScope', '$st
 		});
 	};
 
-	var searchTimeOut;
-	$scope.checkExists = function(label, key, value, form){
-		if(searchTimeOut) {
-					clearTimeout(searchTimeOut);
-				}
-				searchTimeOut=setTimeout(function(){
-		var data = {collectionName:'clnSubjects'};
-		data.condition = {companyId:companyId, activeFlag:1};
-		data.condition[key] = value;
 
-		var valueExists = commonService.valueExists(data);
-		valueExists.then(function(response){
-			var result = angular.fromJson(JSON.parse(response.data));
-			if(result){
-				console.log(form);
-				$scope.subjectObj.subjectName = value;
-				$alert({title: "Exists!", content: label+" "+value+" has already been taken.", placement: 'top-right',duration:2, type: "warning"});
-			}
-		});
-	},500);
+	$scope.checkExists = function(label, key, value){
+
+		var data = {collectionName:'clnSubjects'};
+			data.condition = {companyId:companyId, activeFlag:1};
+			data.condition[key] = value;
+			data.objectIds = ['companyId'];
+
+		if(value){
+			var valueExists = commonService.valueExists(data);
+				valueExists.then(function(response){
+					var result = angular.fromJson(JSON.parse(response.data));
+					var msg = label+ " Already Exists";
+					if(!angular.equals(result.data, null)){
+						if(!angular.equals(result.data._id.$oid, ($scope.subjectObj.newSubject._id?$scope.subjectObj.newSubject._id.$oid:""))){
+							if(angular.equals($scope.subjectObj.errorMsg.indexOf(msg), -1)){
+								$scope.subjectObj.errorMsg.push(msg);
+							}
+						}
+						else{
+							if(!angular.equals($scope.subjectObj.errorMsg.indexOf(msg), -1)){
+								var index = $scope.subjectObj.errorMsg.indexOf(msg);
+								$scope.subjectObj.errorMsg.splice(index, 1);
+							}
+						}	
+					}
+					else{
+						if(!angular.equals($scope.subjectObj.errorMsg.indexOf(msg), -1)){
+							var index = $scope.subjectObj.errorMsg.indexOf(msg);
+							$scope.subjectObj.errorMsg.splice(index, 1);
+						}
+					}
+				});
+		}
 	};
 
 

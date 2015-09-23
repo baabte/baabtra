@@ -4,7 +4,8 @@ angular.module('baabtra').directive('classRoomLoader',['$rootScope', 'commonServ
 		replace: true,
 		scope: {
 			ngModel: '=',
-			courseName:'=?'
+			courseName:'=?',
+			onChange:'&'
 		},
 		templateUrl: 'angularModules/course/directives/Directive-classRoomLoader.html',
 		link: function(scope, element, attrs, fn) {
@@ -34,7 +35,11 @@ angular.module('baabtra').directive('classRoomLoader',['$rootScope', 'commonServ
 			});
 
 			scope.courseChanged = function(courseId){
-				
+				console.log(scope);
+				// if((typeof scope.onChange) == "function"){
+				// 	scope.onChange()(courseId);
+				// }
+
 				if(!angular.equals(scope.courseName, undefined)){
 					for(var classRoom in scope.classRoomLoaderObj.classRoomList){
 						if(angular.equals(scope.classRoomLoaderObj.classRoomList[classRoom]._id.$oid, courseId)){

@@ -350,6 +350,17 @@
                 
               })
 
+              .state('home.main.courseSubjectAllot', {
+                url: '/course-subject-allot',
+                views:{
+                  'innercontent':{
+                    templateUrl: 'angularModules/course/partials/Partial-courseSubjectImportation.html',
+                    controller:'CoursesubjectimportationCtrl'
+                  }
+                }
+                
+              })
+
               .state('home.main.batch', {
                 url: '/batch/:key?_id',
                 views:{

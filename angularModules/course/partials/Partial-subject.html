@@ -14,17 +14,18 @@
 				            		
 				                	<div class="col-sm-4">
 				                		<label>Subject Name {{subjectObj.subjectName}}</label>
-				                		<input type="text" class="form-control" ng-model="subjectObj.newSubject.subjectName" placeholder="Enter Subject Name" ng-change="checkExists('Subject Name', 'subjectName', subjectObj.newSubject.subjectName, form)" ui-validate=" '$value != subjectObj.subjectName'"  required >
+				                		<input type="text" class="form-control" ng-model="subjectObj.newSubject.subjectName" placeholder="Enter Subject Name" ng-blur="checkExists('Subject Name', 'subjectName', subjectObj.newSubject.subjectName)" required >
+
 				                	</div>
 
 				                	<div class="col-sm-4">
 				                		<label>Subject Code</label>
-				                		<input type="text" class="form-control" ng-model="subjectObj.newSubject.subjectCode" placeholder="Enter Subject Code" required >
+				                		<input type="text" class="form-control" ng-model="subjectObj.newSubject.subjectCode" placeholder="Enter Subject Code" ng-blur="checkExists('Subject Code', 'subjectCode', subjectObj.newSubject.subjectCode)" required >
 				                	</div>
 
 				                	<div class="col-sm-4">
 				                		<label>Subject Alias</label>
-				                		<input type="text" class="form-control" ng-model="subjectObj.newSubject.subjectAlias" placeholder="Enter Subject Alias" required>
+				                		<input type="text" class="form-control" ng-model="subjectObj.newSubject.subjectAlias" placeholder="Enter Subject Alias" ng-blur="checkExists('Subject Alias', 'subjectAlias', subjectObj.newSubject.subjectAlias)" required>
 				                	</div>
 				              </div>
 			            	</div>
@@ -41,12 +42,19 @@
 					    			</div>
 				            	</div>
 				            </div>
+				            <div class="form-group" ng-if="subjectObj.errorMsg.length">
+				            	<div class="row text-right has-error">
+				            		<div ng-repeat="msg in subjectObj.errorMsg"  class="col-xs-12 help-block no-margin">{{msg}}</div>
+				            	</div>
+				            </div>
 						</div>
 
 						<div class="p-sm b-t text-right">
-				    		<a ng-if="!subjectObj.newSubject._id" class="btn btn-info baab-btn no-margin"  ng-disabled="form.$invalid && !subjectObj.exists" disabled="disabled" ng-click="saveSubject(subjectObj.newSubject)"  data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tooltip on bottom">Create</a>
+							
+							
+				    		<a ng-if="!subjectObj.newSubject._id" class="btn btn-info baab-btn no-margin"  ng-disabled="form.$invalid || subjectObj.errorMsg.length" disabled="disabled" ng-click="saveSubject(subjectObj.newSubject)">Create</a>
 
-		    				<a ng-if="subjectObj.newSubject._id" class="btn btn-info baab-btn no-margin" ng-disabled="form.$invalid" ng-click="saveSubject(subjectObj.newSubject)" disabled="disabled">Update</a>
+		    				<a ng-if="subjectObj.newSubject._id" class="btn btn-info baab-btn no-margin" ng-disabled="form.$invalid || subjectObj.errorMsg.length" ng-click="saveSubject(subjectObj.newSubject)" disabled="disabled">Update</a>
 						</div>
 					</form>
 				</div>

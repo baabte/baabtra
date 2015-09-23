@@ -16,7 +16,7 @@
 
 			                	<div class="col-sm-6">
 			                		<label>Course Name</label>
-			                		<input type="text" class="form-control" ng-model="courseObj.newCourse.courseName" placeholder="Enter Course Name" required>
+			                		<input type="text" class="form-control" ng-model="courseObj.newCourse.courseName" placeholder="Enter Course Name" ng-blur="checkExists('Course Name', 'courseName', courseObj.newCourse.courseName)" required>
 			                	</div>
 
 			                	<div class="col-sm-6">
@@ -30,11 +30,11 @@
 			            	<div class="row">
 			              <div class="col-sm-6">
 			                <label>Course Code</label>
-			                <input type="text" class="form-control" ng-model="courseObj.newCourse.courseCode" placeholder="Enter Course Code">   
+			                <input type="text" class="form-control" ng-model="courseObj.newCourse.courseCode" placeholder="Enter Course Code" ng-blur="checkExists('Course Code', 'courseCode', courseObj.newCourse.courseCode)" required>   
 			              </div>
 			              <div class="col-sm-6">
 			                <label>Course Alias</label>
-			                <input type="text" class="form-control" ng-model="courseObj.newCourse.courseAlias" placeholder="Enter Course Alias" required>
+			                <input type="text" class="form-control" ng-model="courseObj.newCourse.courseAlias" placeholder="Enter Course Alias" ng-blur="checkExists('Course Alias', 'courseAlias', courseObj.newCourse.courseAlias)" required>
 			              </div>
 			              </div>
 			            </div>
@@ -50,8 +50,15 @@
 			            		</div>
 			            	</div>
 			            </div>
+
+
+				        <div class="form-group" ng-if="courseObj.errorMsg.length">
+				          	<div class="row text-right has-error">
+				           		<div ng-repeat="msg in courseObj.errorMsg"  class="col-xs-12 help-block no-margin">{{msg}}</div>
+				           	</div>
+				        </div>
 			            
-			            <div ng-if="courseObj.mode == 'create'" class="row">
+			            <!-- <div ng-if="courseObj.mode == 'create'" class="row">
 				            <div class="col-xs-12 b-b b-t p-v-xs">
 				            	<div class="checkbox">
 				            		<label class="text-lg">
@@ -59,9 +66,9 @@
 				            		</label>
 				            	</div>
 				            </div>
-			            </div>
+			            </div> -->
 
-			            <fieldset ng-if="courseObj.mode == 'create'" ng-disabled="!courseObj.initialBatch">
+			            <!-- <fieldset ng-if="courseObj.mode == 'create'" ng-disabled="!courseObj.initialBatch">
 				            <div class="form-group">
 				            	<div class="row">
 					              <div class="col-sm-6">
@@ -96,14 +103,14 @@
 					              </div>
 					            </div>
 					        </div>
-				        </fieldset>
+				        </fieldset> -->
 
 			          </div>
 			          <div class="p-sm bg-white b-t text-right">
 
-			             <button type="submit" ng-if="courseObj.mode == 'create'" class="btn btn-info baab-btn no-margin" ng-disabled="form.$invalid" ng-click="saveCourse(courseObj.newCourse)">Create</button>
+			             <button type="submit" ng-if="courseObj.mode == 'create'" class="btn btn-info baab-btn no-margin" ng-disabled="form.$invalid || courseObj.errorMsg.length" ng-click="saveCourse(courseObj.newCourse)">Create</button>
 
-			             <button type="submit" ng-if="courseObj.mode == 'update'" class="btn btn-info baab-btn no-margin" ng-disabled="form.$invalid" ng-click="saveCourse(courseObj.newCourse)">Update</button>
+			             <button type="submit" ng-if="courseObj.mode == 'update'" class="btn btn-info baab-btn no-margin" ng-disabled="form.$invalid || courseObj.errorMsg.length" ng-click="saveCourse(courseObj.newCourse)">Update</button>
 
 			          </div>
 			        </div>
@@ -143,7 +150,7 @@
 						          	<span class="" ng-if="course.status"><i class="glyphicon glyphicon-ok-circle fa-lg text-success"></i>&nbsp;Active</span>
 						          </td>
 						          <td>
-						          	<a title="Update" ui-sref="home.main.course({ key: 'update', _id:course._id.$oid })"><span class="glyphicon glyphicon-pencil"></span></a>
+						          	<a title="Update" ui-sref="home.main.courses({ key: 'update', _id:course._id.$oid })"><span class="glyphicon glyphicon-pencil"></span></a>
 						          	&nbsp;
 						          	<a title="Delete" ng-click="deleteCourse(course, $index)"><span class="glyphicon glyphicon-trash"></span></a>
 						          </td>
